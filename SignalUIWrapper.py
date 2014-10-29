@@ -6,7 +6,7 @@ Created on Fri Oct 24 18:27:15 2014
 """
 
 from FigureWrapper import FigureWrapper
-#from FigureManager import FigureManager
+from FigureManager import FigureManager
 
 class SignalUIWrapper():
     def __init__(self, signal, ui_parent, name):
@@ -49,7 +49,11 @@ class SignalUIWrapper():
         elif oldsig is not None:
             oldsig.close()
         
-        
+    def claim_new_figures(self):
+        fm = FigureManager.Instance()
+        new = fm.proc_new_figs()
+        for f in new:
+            self.add_figure(f)
         
     def add_figure(self, fig):
         self.figures.append(fig)

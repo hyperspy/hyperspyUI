@@ -37,7 +37,7 @@ class BindingList(list):
             def qlp(index):
                 if index < 0:
                     index = t.count() - index
-                target.removeItemWidget(target.item(index))
+                target.takeItem(index)
             cb = {'ap': target.addItem, 'in': target.insertItem, 
                   'ex': target.addItems, 're': qlr, 
                   'po': qlp}
