@@ -20,9 +20,7 @@ class FigureWrapper(QDockWidget):
         
         self.signal = None
         
-        self.frame = QWidget(self)
         self._set_fig(fig)
-        self.setWidget(self.frame)
         
         self.setWindowTitle(self.title)
         self.fig.tight_layout()
@@ -37,6 +35,7 @@ class FigureWrapper(QDockWidget):
         self.canvas.draw()
         
     def _set_fig(self, fig):
+        frame = QWidget(self)
         self.fig = fig
         if fig.canvas is None:
             self.canvas = FigureCanvas(self.fig)
@@ -45,15 +44,13 @@ class FigureWrapper(QDockWidget):
         self.title = lstrip(self.canvas.get_window_title(), "Figure ")
         self.fig.axes[0].set_title("")
 #        self.canvas.set_window_title("")
-        self.canvas.setParent(self.frame)
+        self.canvas.setParent(frame)
         vbox = QVBoxLayout()
         vbox.addWidget(self.canvas)
-        self.frame.setLayout(vbox)
+        frame.setLayout(vbox)
+        self.setWidget(frame)
         
     def change_fig(self, newfig):
-        oldfig = self.fig
-        print self.title, oldfig, newfig
-        oldfig.close()
         self._set_fig(newfig)
         self.setWindowTitle(self.title)
         self.fig.tight_layout()
