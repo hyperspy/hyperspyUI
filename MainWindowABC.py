@@ -43,6 +43,7 @@ class MainWindowABC(QMainWindow):
         self.widgets = []   # Widgets in widget bar
         self.actions = {}
         self.toolbars = {}
+        self.menus = {}
         self.signals = BindingList()
         
         self.create_ui()
@@ -54,12 +55,12 @@ class MainWindowABC(QMainWindow):
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
 #        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
 
-        self.create_default_actions()
+        self.create_default_actions()   # Goes before menu/toolbar/widgetbar
         
-        self.create_menu()
+        self.create_console()   # Needs to go before menu
+        self.create_menu()  # This needs to happen before the widgetbar and console
         self.create_toolbars()
         self.create_widgetbar()
-        self.create_console()
         
         self.create_figure_manager()
         
@@ -73,7 +74,7 @@ class MainWindowABC(QMainWindow):
     
     def create_menu(self):
          # TODO: Do we need a menu manager class?
-        pass
+        raise NotImplementedError()
     
     def create_figure_manager(self):
         self.fig_mgr = FigureManager.Instance()
@@ -109,13 +110,13 @@ class MainWindowABC(QMainWindow):
         if shortcut is not None:
             ac.setShortcuts(shortcut)
         if tip is not None:
-            ac.setStatusTip(tr("Open an existing file"))
+            ac.setStatusTip(tr(tip))
         if userdata is None:
             self.connect(ac, SIGNAL('triggered()'), callback)
         else:
-            def udwrap():
+            def callback_udwrap():
                 callback(userdata)
-            self.connect(ac, SIGNAL('triggered()'), udwrap)
+            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
         self.actions[key] = ac
     
     def add_toolbar_button(self, category, action):
@@ -135,22 +136,26 @@ class MainWindowABC(QMainWindow):
         pass
     
     def add_widget(self, widget):
-        d = QDockWidget()
+        d = QDockWidget(self)
         d.setWidget(widget)
-#        d.setAllowedAreas(Qt.RightDockWidgetArea) 
+        d.setWindowTitle(widget.windowTitle())
+        d.setAllowedAreas(Qt.RightDockWidgetArea | Qt.LeftDockWidgetArea) 
         self.addDockWidget(Qt.RightDockWidgetArea, d)
         d.setFloating(self.default_widget_floating)
         return d
+        
+    def add_figure(self, figure):
+        figure.setAllowedAreas(Qt.TopDockWidgetArea) 
+        self.addDockWidget(Qt.TopDockWidgetArea, figure)
+        figure.setFloating(self.default_fig_floating)
+        figure.draw()
+        self.fig_mgr.add(figure)
+        
     
     def add_signal_figures(self, signal, sig_name=None):
         sig = SignalUIWrapper(signal, self, sig_name)
         for f in sig.figures:
-            f.setAllowedAreas(Qt.TopDockWidgetArea) 
-            self.addDockWidget(Qt.TopDockWidgetArea, f)
-            f.setFloating(self.default_fig_floating)
-            f.draw()
-            self.fig_mgr.add(f)
-            
+            self.add_figure(f)
         self.signals.append(sig)
             
     
@@ -169,7 +174,7 @@ class MainWindowABC(QMainWindow):
         
         # This is where we push variables to the console
         kernel.shell.ex('from hyperspy.hspy import *')
-        kernel.shell.push({'ui': self})
+        kernel.shell.push({'ui': self, 'signals': self.signals})
     
         def stop():
             kernel_client.stop_channels()
@@ -193,13 +198,11 @@ class MainWindowABC(QMainWindow):
         control.kernel_client = kernel_client
         control.exit_requested.connect(stop)
         self.console = control
-    #    control.show()
-         
-#        return control
-        dock = QDockWidget()
-        dock.setWidget(control)
-        
-        self.addDockWidget(Qt.BottomDockWidgetArea, dock)
+
+        self._console_dock = QDockWidget()
+        self._console_dock.setWidget(control)
+        self._console_dock.setWindowTitle("Console")
+        self.addDockWidget(Qt.BottomDockWidgetArea, self._console_dock)
         
         
     def load(self, filenames=None):

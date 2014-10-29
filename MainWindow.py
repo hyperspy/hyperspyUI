@@ -37,18 +37,39 @@ class MainWindow(MainWindowABC):
         
         self.add_action("mirror", "Mirror", self.mirror_navi,
                         tip="Mirror navigation axes")
-                        
+    
+    def create_menu(self):
+        mb = self.menuBar()
+        filemenu = mb.addMenu(tr("&File"))
+        filemenu.addAction(self.actions['open'])
+        
+        # Window menu is filled in add_widget and add_figure
+        self.windowmenu = mb.addMenu(tr("&Windows"))
+        self.windowmenu.addAction(self._console_dock.toggleViewAction())
+        self.windowmenu_sep = self.windowmenu.addSeparator()
                         
     def create_toolbars(self):
-        self.add_toolbar_button("Files", self.actions["open"])
-        self.add_toolbar_button("Navigation", self.actions["mirror"])
+        self.add_toolbar_button("Files", self.actions['open'])
+        self.add_toolbar_button("Navigation", self.actions['mirror'])
         
     def create_widgetbar(self):
         # TODO: Default widgets? Brightness/contrast? YES
         s = SignalList()
+        s.setWindowTitle(tr("Signal Select"))
         s.bind(self.signals)
         self.sign_list = self.add_widget(s)
-        pass
+        
+    def add_widget(self, widget):
+        d = super(MainWindow, self).add_widget(widget)
+        # Insert widgets before separator (figures are after)
+        self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())
+        return d
+        
+    def add_figure(self, figure):
+        ret = super(MainWindow, self).add_figure(figure)
+        self.windowmenu.addAction(figure.toggleViewAction())
+        return ret  # No know ret object now, but doesn\t hurt to have it
+        
         
     # ---------
     # Slots
