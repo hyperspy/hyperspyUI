@@ -54,6 +54,7 @@ class SignalUIWrapper():
         new = fm.proc_new_figs()
         for f in new:
             self.add_figure(f)
+        return new
         
     def add_figure(self, fig):
         self.figures.append(fig)
@@ -65,7 +66,13 @@ class SignalUIWrapper():
     def sig_closed(self):
         if self.navigator_plot is not None:
             self.navigator_plot.close()
+            self.navigator_plot = None
     
     def close(self):
         if self.signal_plot is not None:
             self.signal_plot.close()
+            self.signal_plot = None
+            
+        if self.navigator_plot is not None:
+            self.navigator_plot.close()
+            self.navigator_plot = None

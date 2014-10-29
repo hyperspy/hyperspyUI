@@ -23,7 +23,6 @@ from MainWindowABC import MainWindowABC
 from SignalList import SignalList
 
 class MainWindow(MainWindowABC):
-    
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
@@ -31,17 +30,21 @@ class MainWindow(MainWindowABC):
         
         
     def create_default_actions(self):
-        self.add_action("open", "&Open", self.load,
+        self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open, 
                         tip="Open an existing file")
+        self.add_action('close', "&Close", self.close_signal,
+                        shortcut=QKeySequence.Close, 
+                        tip="Close the selected signal")
         
-        self.add_action("mirror", "Mirror", self.mirror_navi,
+        self.add_action('mirror', "Mirror", self.mirror_navi,
                         tip="Mirror navigation axes")
     
     def create_menu(self):
         mb = self.menuBar()
         filemenu = mb.addMenu(tr("&File"))
         filemenu.addAction(self.actions['open'])
+        filemenu.addAction(self.actions['close'])
         
         # Window menu is filled in add_widget and add_figure
         self.windowmenu = mb.addMenu(tr("&Windows"))
@@ -50,6 +53,7 @@ class MainWindow(MainWindowABC):
                         
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
+        self.add_toolbar_button("Files", self.actions['close'])
         self.add_toolbar_button("Navigation", self.actions['mirror'])
         
     def create_widgetbar(self):
@@ -83,6 +87,18 @@ class MainWindow(MainWindowABC):
             hyperspy.utils.plot.plot_signals(signals)
             for s in uisignals:
                 s.update_figures()
+        else:
+            mb = QMessageBox(QMessageBox.Information, tr("Select two or more"), 
+                             tr("You need to select two or more signals" + 
+                             " to mirror"), QMessageBox.Ok)
+            mb.exec_()
+            
+    def close_signal(self):
+        uisignals = self.sign_list.widget().get_selected()
+        for s in uisignals:
+            s.close()
+            self.signals.remove(s)
+            
     
 def main():
     app = QApplication(sys.argv)
