@@ -33,7 +33,7 @@ class BindingList(list):
 #                  'po': qp}
         elif isinstance(target, QListWidget):
             def qlr(value):
-                target.removeItemWidget(target.item(self.index(value)))
+                target.takeItem(self.index(value))
             def qlp(index):
                 if index < 0:
                     index = t.count() - index
