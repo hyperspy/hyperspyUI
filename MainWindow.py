@@ -14,7 +14,8 @@ def tr(text):
     return QCoreApplication.translate("MainWindow", text)
     
 import matplotlib
-matplotlib.use('Qt4Agg')
+matplotlib.use('module://hyperspy_mpl_backend')
+matplotlib.interactive(True)
 
 #import hyperspy.hspy
 import hyperspy.utils.plot
@@ -50,6 +51,12 @@ class MainWindow(MainWindowABC):
         self.windowmenu = mb.addMenu(tr("&Windows"))
         self.windowmenu.addAction(self._console_dock.toggleViewAction())
         self.windowmenu_sep = self.windowmenu.addSeparator()
+        # TODO: Use BindingList binding to add/remove menu items
+        def rem_s(value):
+            for f in value.figures:
+                self.windowmenu.removeAction(f.activateAction())
+        self.signals.add_custom(self.windowmenu, None, None, None, 
+                                rem_s, lambda i: rem_s(self.signals[i]))
                         
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
@@ -69,11 +76,15 @@ class MainWindow(MainWindowABC):
         self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())
         return d
         
-    def add_figure(self, figure):
-        ret = super(MainWindow, self).add_figure(figure)
-        self.windowmenu.addAction(figure.toggleViewAction())
-        return ret  # No know ret object now, but doesn\t hurt to have it
         
+    # --------- Events --------
+    def on_new_figure(self, figure, userdata=None):
+        super(MainWindow, self).on_new_figure(figure, userdata)
+        self.windowmenu.addAction(figure.activateAction())
+        
+    def on_destroy_figure(self, figure, userdata=None):
+        super(MainWindow, self).on_destroy_figure(figure, userdata)
+        self.windowmenu.removeAction(figure.activateAction())
         
     # ---------
     # Slots
@@ -97,13 +108,12 @@ class MainWindow(MainWindowABC):
         uisignals = self.sign_list.widget().get_selected()
         for s in uisignals:
             s.close()
-            self.signals.remove(s)
             
     
 def main():
     app = QApplication(sys.argv)
     form = MainWindow()
-    form.show()
+    form.showMaximized()
     app.exec_()
     
 if __name__ == "__main__":

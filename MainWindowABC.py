@@ -21,14 +21,20 @@ from IPython.qt.inprocess import QtInProcessKernelManager
 from IPython.lib import guisupport
 
 
-from FigureManager import FigureManager
 from SignalUIWrapper import SignalUIWrapper
 from BindingList import BindingList
+import hyperspy_mpl_backend
 
 import hyperspy.hspy
 
 
 class MainWindowABC(QMainWindow):
+    """
+    Base layer in application stack. Should handle the connection to our custom
+    matplotlib backend, manage the Figures, and handle file IO. As such, the 
+    only hyperspy functions this class should know about are the file IO ones.
+    Also sets up basic UI, and relevant abstract functions.
+    """
     def __init__(self, parent=None):
         super(MainWindowABC, self).__init__(parent)
         
@@ -41,15 +47,21 @@ class MainWindowABC(QMainWindow):
         
         # Collections
         self.widgets = []   # Widgets in widget bar
+        self.figures = []   # Matplotlib figures
         self.actions = {}
         self.toolbars = {}
         self.menus = {}
         self.signals = BindingList()
         
+        # MPL backend bindings
+        hyperspy_mpl_backend.connect_on_new_figure(self.on_new_figure)
+        hyperspy_mpl_backend.connect_on_destroy(self.on_destroy_figure)
+        
+        # Create UI
         self.create_ui()
         
     def create_ui(self):
-        self.main_frame = QWidget()
+        self.main_frame = QMdiArea()
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
@@ -62,8 +74,6 @@ class MainWindowABC(QMainWindow):
         self.create_toolbars()
         self.create_widgetbar()
         
-        self.create_figure_manager()
-        
 #        self.main_frame.setLayout()
         self.setCentralWidget(self.main_frame)
         self.setWindowTitle("HyperSpy")
@@ -75,11 +85,6 @@ class MainWindowABC(QMainWindow):
     def create_menu(self):
          # TODO: Do we need a menu manager class?
         raise NotImplementedError()
-    
-    def create_figure_manager(self):
-        self.fig_mgr = FigureManager.Instance()
-
-        # TODO: Individual control, or all/none? DM says all float, Adobe All/None (in windows), ImageJ All float
 
     
     def create_toolbars(self):
@@ -99,6 +104,20 @@ class MainWindowABC(QMainWindow):
     def save_preferences(self):
         pass
     
+    # -------- Events ---------
+    def on_new_figure(self, figure, userdata=None): 
+        self.main_frame.addSubWindow(figure)
+#        # Dock figure window
+#        figure.setAllowedAreas(Qt.TopDockWidgetArea)
+#        self.addDockWidget(Qt.TopDockWidgetArea, figure)
+#
+#        # TODO: Individual control, or all/none? DM says all float, Adobe All/None (in windows), ImageJ All float
+#        figure.setFloating(self.default_fig_floating)
+        self.figures.append(figure)
+    
+    def on_destroy_figure(self, figure, userdata=None):
+        if figure in self.figures:
+            self.figures.remove(figure)
     
     def add_action(self, key, label, callback, tip=None, icon=None, shortcut=None, userdata=None):
         if icon is None:
@@ -136,26 +155,20 @@ class MainWindowABC(QMainWindow):
         pass
     
     def add_widget(self, widget):
-        d = QDockWidget(self)
-        d.setWidget(widget)
-        d.setWindowTitle(widget.windowTitle())
+        if isinstance(widget, QDockWidget):
+            d = widget
+        else:
+            d = QDockWidget(self)
+            d.setWidget(widget)
+            d.setWindowTitle(widget.windowTitle())
         d.setAllowedAreas(Qt.RightDockWidgetArea | Qt.LeftDockWidgetArea) 
         self.addDockWidget(Qt.RightDockWidgetArea, d)
         d.setFloating(self.default_widget_floating)
         return d
-        
-    def add_figure(self, figure):
-        figure.setAllowedAreas(Qt.TopDockWidgetArea) 
-        self.addDockWidget(Qt.TopDockWidgetArea, figure)
-        figure.setFloating(self.default_fig_floating)
-        figure.draw()
-        self.fig_mgr.add(figure)
-        
+  
     
     def add_signal_figures(self, signal, sig_name=None):
         sig = SignalUIWrapper(signal, self, sig_name)
-        for f in sig.figures:
-            self.add_figure(f)
         self.signals.append(sig)
             
     
