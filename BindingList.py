@@ -19,6 +19,10 @@ class BindingList(list):
         self.targets = {}
         self.add_target(target)
         
+    def add_custom(self, target, append, insert, extend, remove, pop):
+        cb = {'ap': append, 'in': insert, 'ex': extend, 're': remove, 'po':pop}
+        self.targets[target] = cb
+        
     def add_target(self, target):
         if target is None:
             return
@@ -26,21 +30,15 @@ class BindingList(list):
             cb = {'ap': target.append, 'in': target.insert, 
                   'ex': target.extend, 're': target.remove, 'po': target.pop}
 #        elif isinstance(target, QList):
-#            def qp(index):
-#                return BindingList.ql_pop(target, index)
 #            cb = {'ap': target.append, 'in': target.insert, 
 #                  'ex': target.append, 're': target.removeOne, 
-#                  'po': qp}
+#                  'po': target.removeAt}
         elif isinstance(target, QListWidget):
             def qlr(value):
                 target.takeItem(self.index(value))
-            def qlp(index):
-                if index < 0:
-                    index = t.count() - index
-                target.takeItem(index)
             cb = {'ap': target.addItem, 'in': target.insertItem, 
                   'ex': target.addItems, 're': qlr, 
-                  'po': qlp}
+                  'po': target.takeItem}
         self.targets[target] = cb
         
     def remove_target(self, target):
@@ -50,30 +48,31 @@ class BindingList(list):
     def append(self, object):
         super(BindingList, self).append(object)
         for t in self.targets.values():
-            t['ap'](object)
+            if t['ap'] is not None:
+                t['ap'](object)
         
     def insert(self, index, object):
         super(BindingList, self).insert(index, object)
         for t in self.targets.values():
-            t['in'](index, object)
+            if t['in'] is not None:
+                t['in'](index, object)
         
     def extend(self, iterable):
         super(BindingList, self).extend(iterable)
         for t in self.targets.values():
-            t['ex'](iterable)
+            if t['ex'] is not None:
+                t['ex'](iterable)
         
     def remove(self, value):
         for t in self.targets.values():
-            t['re'](value)
+            if t['re'] is not None:
+                t['re'](value)
         super(BindingList, self).remove(value)
         
     def pop(self, index=-1):
-        it = super(BindingList, self).pop(index)
-        for t in self.targets.values():
-            t['po'](index)
-        return it
-        
-    def ql_pop(t, index):
         if index < 0:
-            index = t.count() - index
-        t.removeAt(index)
+            index = len(self) + index
+        for t in self.targets.values():
+            if t['po'] is not None:
+                t['po'](index)
+        return super(BindingList, self).pop(index)
