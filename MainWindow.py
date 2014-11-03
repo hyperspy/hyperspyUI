@@ -16,6 +16,8 @@ def tr(text):
 import matplotlib
 matplotlib.use('module://hyperspy_mpl_backend')
 matplotlib.interactive(True)
+from traits.etsconfig.api import ETSConfig
+ETSConfig.toolkit = 'qt4'
 
 #import hyperspy.hspy
 import hyperspy.utils.plot
@@ -23,7 +25,18 @@ import hyperspy.utils.plot
 from MainWindowABC import MainWindowABC
 from SignalList import SignalList
 
+
+# TODO: Add Model UI wrapper
+# TODO: Can we keep console as well as Signal List? Revert back to Close = Hide?
+
 class MainWindow(MainWindowABC):
+    """
+    Main window of the application. Second layer in application stack. Is 
+    responsible for adding default actions, and filling the right menus and 
+    toolbars. Also creates the default widgets. Any button-actions should also
+    be accessible as a slot, such that other things can connect into it, and so
+    that it is accessible from the console.
+    """
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
@@ -43,6 +56,8 @@ class MainWindow(MainWindowABC):
     
     def create_menu(self):
         mb = self.menuBar()
+        
+        # File menu (I/O)
         filemenu = mb.addMenu(tr("&File"))
         filemenu.addAction(self.actions['open'])
         filemenu.addAction(self.actions['close'])
@@ -51,7 +66,9 @@ class MainWindow(MainWindowABC):
         self.windowmenu = mb.addMenu(tr("&Windows"))
         self.windowmenu.addAction(self._console_dock.toggleViewAction())
         self.windowmenu_sep = self.windowmenu.addSeparator()
-        # TODO: Use BindingList binding to add/remove menu items
+        
+        # Add custom action to signals' BindingList, so menu items are removed
+        # if signal is removed from the list
         def rem_s(value):
             for f in value.figures:
                 self.windowmenu.removeAction(f.activateAction())
