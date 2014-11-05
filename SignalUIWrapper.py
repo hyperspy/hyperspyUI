@@ -6,10 +6,18 @@ Created on Fri Oct 24 18:27:15 2014
 """
 
 from util import fig2win
+from python_qt_binding import QtCore
 
-class SignalUIWrapper():
+from ModelWrapper import ModelWrapper
+import hyperspy.hspy
+
+class SignalUIWrapper(QtCore.QObject):
+    
+    model_added = QtCore.Signal(object)
+    model_removed = QtCore.Signal(object)
+    
     def __init__(self, signal, ui_parent, name):
-#        super(SignalUIWrapper, self).__init__(parent)
+        super(SignalUIWrapper, self).__init__()
         self.signal = signal
         self.name = name
         self.figures = []
@@ -24,6 +32,8 @@ class SignalUIWrapper():
         self._nav_geom = None
         self._sig_geom = None
         
+        self._model_id = 1
+        
         self.plot()
 
     @property
@@ -33,7 +43,7 @@ class SignalUIWrapper():
     @keep_on_close.setter
     def keep_on_close(self, value):
         self._keep_on_close = value
-    
+
     def plot(self):
         self.signal.plot()
         self.update_figures()
@@ -68,6 +78,23 @@ class SignalUIWrapper():
     def remove_figure(self, fig):
         if fig in self.figures:
             self.figures.remove(fig)
+            
+    def make_model(self, *args, **kwargs):   
+        m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)
+#        modelname = self.signal.metadata.General.title
+        modelname = "Model%d" % self._model_id
+        self._model_id += 1
+        mw = ModelWrapper(m, self, modelname)
+        self.add_model(mw)
+        return mw
+        
+    def add_model(self, model):
+        self.models.append(model)
+        self.model_added.emit(model)
+        
+    def remove_model(self, model):
+        self.models.remove(model)
+        self.model_removed.emit(model)
         
     def nav_closing(self):
         self._nav_geom = self.navigator_plot.saveGeometry()
