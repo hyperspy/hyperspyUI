@@ -69,12 +69,20 @@ class MainWindowLayer2(MainWindowLayer1):
         sig = SignalUIWrapper(signal, self, sig_name)
         self.signals.append(sig)
         
-    def add_model(self, signal, *args, **kwargs):
-        m = hyperspy.hspy.create_model(signal, *args, **kwargs)
-        uis = [s for s in self.signals if s.signal == signal]
-        mw = ModelWrapper(m, uis[0])
-        uis[0].add_model(mw)
-        return m
+    def make_model(self, signal=None, *args, **kwargs):
+        if not isinstance(signal, SignalUIWrapper):
+            signal = [s for s in self.signals if s.signal == signal]
+            if len(signal) < 1:
+                #TODO: MessageBox
+                pass
+            signal = signal[0]
+        mw = signal.make_model(*args, **kwargs)
+        return mw.model
+        
+        
+    def get_selected_signals(self):
+        # TODO: Use more sources? Sync list selection with active window?
+        return self.sign_list.widget().get_selected()
         
         
     # --------- File I/O ----------
@@ -128,7 +136,7 @@ class MainWindowLayer2(MainWindowLayer1):
     def _get_console_exports(self):
         push = super(MainWindowLayer2, self)._get_console_exports()
         push['signals'] = self.signals
-        push['create_model'] = self.add_model    # Override hyperspy.hspy.create_model
+        push['create_model'] = self.make_model    # Override hyperspy.hspy.create_model
         return push
         
     def _get_console_config(self):
