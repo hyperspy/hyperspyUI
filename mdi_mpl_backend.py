@@ -37,6 +37,9 @@ def disconnect_on_new_figure(callback):
         _new_fig_cbs.pop(callback)
 
 def _on_new_figure(figure):
+    """
+    figure parameter is of the type FigureWindow defined below
+    """
     global _new_fig_cbs
     for callback, userdata in _new_fig_cbs.iteritems():
         try:
@@ -76,11 +79,19 @@ def new_figure_manager_given_figure(num, figure):
     Create a new figure manager instance for the given figure.
     """
     canvas = matplotlib.backends.backend_qt4agg.FigureCanvas(figure)
-    manager = FigureManagerHyperspy(canvas, num)
+    manager = FigureManagerMdi(canvas, num)
     return manager
 
 
 class FigureWindow(QtWidgets.QMdiSubWindow):
+    """
+    A basic MDI sub-window, but with a closing signal, and an activate QAction,
+    which allows for switching between all FigureWindows (e.g. by a 
+    Windows-menu). An exclusive, static action group makes sure only one 
+    window can be active at the time. If you want to split the windows into
+    different groups that can be treated separately, you will need to create
+    your own QActionGroups.
+    """
     closing = QtCore.Signal()
     
     activeFigureActionGroup = QtGui.QActionGroup(None)
@@ -97,6 +108,11 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
         super(FigureWindow, self).closeEvent(event)
         
     def activateAction(self):
+        """
+        Returns a QAction that will activate the window with setActiveSubWindow
+        as long as it has an mdiArea set. If not, it will use activateWindow to
+        try to make it the active window.
+        """
         if self._activate_action is not None:
             return self._activate_action
         self._activate_action = QtGui.QAction(self.windowTitle(), self)
@@ -129,7 +145,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
             self._activate_action.setChecked(True)  
         
 
-class FigureManagerHyperspy(FigureManagerBase):
+class FigureManagerMdi(FigureManagerBase):
     """
     Public attributes
 
@@ -240,4 +256,4 @@ class FigureManagerHyperspy(FigureManagerBase):
 
 
 FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
-FigureManager = FigureManagerHyperspy
+FigureManager = FigureManagerMdi

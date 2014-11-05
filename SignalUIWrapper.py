@@ -14,45 +14,75 @@ class SignalUIWrapper():
         self.name = name
         self.figures = []
         self.parent = ui_parent
+        self.models = []
+        
+        self._keep_on_close = False
         
         self.navigator_plot = None
         self.signal_plot = None
         
-        signal = self.signal
-        signal.plot()
-        if signal._plot.navigator_plot:
-            navi = signal._plot.navigator_plot.figure
+        self._nav_geom = None
+        self._sig_geom = None
+        
+        self.plot()
+
+    @property
+    def keep_on_close(self):
+        return self._keep_on_close
+    
+    @keep_on_close.setter
+    def keep_on_close(self, value):
+        self._keep_on_close = value
+    
+    def plot(self):
+        self.signal.plot()
+        self.update_figures()
+            
+    def update_figures(self):  
+        self.remove_figure(self.navigator_plot)
+        self.remove_figure(self.signal_plot)
+        self.navigator_plot = None
+        self.signal_plot = None
+        
+        if self.signal._plot.navigator_plot:
+            navi = self.signal._plot.navigator_plot.figure
             navi.axes[0].set_title("")
-            self.navigator_plot = fig2win(navi, ui_parent.figures)
-            self.navigator_plot.closing.connect(self.nav_closed)
+            self.navigator_plot = fig2win(navi, self.parent.figures)
+            self.navigator_plot.closing.connect(self.nav_closing)
             self.add_figure(self.navigator_plot)
+            if self._nav_geom is not None:
+                self.navigator_plot.restoreGeometry(self._nav_geom)
             
-        if signal._plot.signal_plot is not None:
-            sigp = signal._plot.signal_plot.figure
+        if self.signal._plot.signal_plot is not None:
+            sigp = self.signal._plot.signal_plot.figure
             sigp.axes[0].set_title("")
-            self.signal_plot = fig2win(sigp, ui_parent.figures)
-            self.signal_plot.closing.connect(self.sig_closed)
+            self.signal_plot = fig2win(sigp, self.parent.figures)
+            self.signal_plot.closing.connect(self.sig_closing)
             self.add_figure(self.signal_plot)
-            
-    def update_figures(self):
-        self.navigator_plot = self.signal._plot.navigator_plot
-        self.signal_plot = self.signal._plot.signal_plot
+            if self._sig_geom is not None:
+                self.signal_plot.restoreGeometry(self._sig_geom)
         
     def add_figure(self, fig):
         self.figures.append(fig)
-#        fig.signal = self
         
-    def nav_closed(self):
+    def remove_figure(self, fig):
+        if fig in self.figures:
+            self.figures.remove(fig)
+        
+    def nav_closing(self):
+        self._nav_geom = self.navigator_plot.saveGeometry()
         if self.signal_plot is None:
             self._closed()
     
-    def sig_closed(self):
+    def sig_closing(self):
+        self._sig_geom = self.signal_plot.saveGeometry()
         if self.navigator_plot is not None:
             self.navigator_plot.close()
             self.navigator_plot = None
         self._closed()
     
     def close(self):
+        
         if self.signal_plot is not None:
             self.signal_plot.close()
             self.signal_plot = None
@@ -63,6 +93,6 @@ class SignalUIWrapper():
         self._closed()
             
     def _closed(self):
-        # TODO: Should probably be done by events for concistency
-        if self in self.parent.signals:
+        # TODO: Should probably be with by events for concistency
+        if self in self.parent.signals and not self.keep_on_close:
             self.parent.signals.remove(self)

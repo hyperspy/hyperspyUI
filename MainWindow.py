@@ -6,44 +6,41 @@ Created on Fri Oct 24 16:46:35 2014
 """
 
 import sys
+    
+from MainWindowLayer2 import MainWindowLayer2   # Should go before any MPL imports
+
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
 def tr(text):
     return QCoreApplication.translate("MainWindow", text)
-    
-import matplotlib
-matplotlib.use('module://hyperspy_mpl_backend')
-matplotlib.interactive(True)
-from traits.etsconfig.api import ETSConfig
-ETSConfig.toolkit = 'qt4'
 
 #import hyperspy.hspy
 import hyperspy.utils.plot
-
-from MainWindowABC import MainWindowABC
-from SignalList import SignalList
 
 
 # TODO: Add Model UI wrapper
 # TODO: Can we keep console as well as Signal List? Revert back to Close = Hide?
 
-class MainWindow(MainWindowABC):
+class MainWindow(MainWindowLayer2):
     """
-    Main window of the application. Second layer in application stack. Is 
-    responsible for adding default actions, and filling the right menus and 
-    toolbars. Also creates the default widgets. Any button-actions should also
-    be accessible as a slot, such that other things can connect into it, and so
-    that it is accessible from the console.
+    Main window of the application. Top layer in application stack. Is 
+    responsible for adding default actions, and filling the menus and toolbars.
+    Also creates the default widgets. Any button-actions should also be 
+    accessible as a slot, such that other things can connect into it, and so
+    that it is accessible from the console's 'ui' variable.
     """
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
+        # TODO: Set from preferences?, default to working dir (can be 
+        # customized by modifying launcher)
         self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
+          
         
+    def create_default_actions(self):       
+        super(MainWindow, self).create_default_actions()
         
-        
-    def create_default_actions(self):
         self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open, 
                         tip="Open an existing file")
@@ -58,71 +55,54 @@ class MainWindow(MainWindowABC):
         mb = self.menuBar()
         
         # File menu (I/O)
-        filemenu = mb.addMenu(tr("&File"))
-        filemenu.addAction(self.actions['open'])
-        filemenu.addAction(self.actions['close'])
+        self.filemenu = mb.addMenu(tr("&File"))
+        self.filemenu.addAction(self.actions['open'])
+        self.filemenu.addAction(self.actions['close'])
         
-        # Window menu is filled in add_widget and add_figure
-        self.windowmenu = mb.addMenu(tr("&Windows"))
-        self.windowmenu.addAction(self._console_dock.toggleViewAction())
-        self.windowmenu_sep = self.windowmenu.addSeparator()
-        
-        # Add custom action to signals' BindingList, so menu items are removed
-        # if signal is removed from the list
-        def rem_s(value):
-            for f in value.figures:
-                self.windowmenu.removeAction(f.activateAction())
-        self.signals.add_custom(self.windowmenu, None, None, None, 
-                                rem_s, lambda i: rem_s(self.signals[i]))
+        super(MainWindow, self).create_menu()
                         
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
         self.add_toolbar_button("Navigation", self.actions['mirror'])
         
+        super(MainWindow, self).create_toolbars()
+        
     def create_widgetbar(self):
-        # TODO: Default widgets? Brightness/contrast? YES
-        s = SignalList()
-        s.setWindowTitle(tr("Signal Select"))
-        s.bind(self.signals)
-        self.sign_list = self.add_widget(s)
+        super(MainWindow, self).create_widgetbar()
         
-    def add_widget(self, widget):
-        d = super(MainWindow, self).add_widget(widget)
-        # Insert widgets before separator (figures are after)
-        self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())
-        return d
-        
-        
-    # --------- Events --------
-    def on_new_figure(self, figure, userdata=None):
-        super(MainWindow, self).on_new_figure(figure, userdata)
-        self.windowmenu.addAction(figure.activateAction())
-        
-    def on_destroy_figure(self, figure, userdata=None):
-        super(MainWindow, self).on_destroy_figure(figure, userdata)
-        self.windowmenu.removeAction(figure.activateAction())
         
     # ---------
     # Slots
     # ---------
             
-    def mirror_navi(self):
+    def mirror_navi(self, uisignals=None):
         # Select signals
-        uisignals = self.sign_list.widget().get_selected()
+        if uisignals is None:
+            uisignals = self.sign_list.widget().get_selected()
         if len(uisignals) > 1:
             signals = [s.signal for s in uisignals]
+            
+            # hyperspy closes, and then recreates figures when mirroring 
+            # the navigators. To keep UI from flickering, we suspend updates
+            # and SignalUIWrapper saves and then restores window geometry
+            self.setUpdatesEnabled(False)
+            for s in uisignals:
+                s.keep_on_close = True
             hyperspy.utils.plot.plot_signals(signals)
             for s in uisignals:
                 s.update_figures()
+                s.keep_on_close = False
+            self.setUpdatesEnabled(True)    # Continue updating UI
         else:
             mb = QMessageBox(QMessageBox.Information, tr("Select two or more"), 
                              tr("You need to select two or more signals" + 
                              " to mirror"), QMessageBox.Ok)
             mb.exec_()
             
-    def close_signal(self):
-        uisignals = self.sign_list.widget().get_selected()
+    def close_signal(self, uisignals=None):
+        if uisignals is None:
+            uisignals = self.sign_list.widget().get_selected()
         for s in uisignals:
             s.close()
             
