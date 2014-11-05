@@ -16,7 +16,7 @@ from QtGui import *
 def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
-#import hyperspy.hspy
+import hyperspy.components
 import hyperspy.utils.plot
 
 
@@ -49,7 +49,25 @@ class MainWindow(MainWindowLayer2):
                         tip="Close the selected signal")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
-                        tip="Mirror navigation axes")
+                        tip="Mirror navigation axes of selected signals")
+        
+        self.add_action('add_model', "Create Model", self.make_model,
+                        tip="Create a model for the selected signal")
+        
+        compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw', 
+                     'Erf', 'Exponential', 'Gaussian', 'Logistic',
+                     'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 
+                     'Vignetting', 'Voigt', 'Polynomial', 'PESCoreLineShape', 
+                     'VolumePlasmonDrude']     
+        self.comp_actions = []
+        for name in compnames:
+            t = getattr(hyperspy.components, name)
+            ac_name = 'add_component_' + name
+            def f():
+                self.make_component(t)
+            self.add_action(ac_name, name, f, 
+                            tip="Add a component of type " + name)
+            self.comp_actions.append(ac_name)
     
     def create_menu(self):
         mb = self.menuBar()
@@ -59,12 +77,27 @@ class MainWindow(MainWindowLayer2):
         self.filemenu.addAction(self.actions['open'])
         self.filemenu.addAction(self.actions['close'])
         
+        # Signal menu
+        self.signalmenu = mb.addMenu(tr("&Signal"))
+        self.signalmenu.addAction(self.actions['mirror'])
+        
+        # Model menu
+        self.modelmenu = mb.addMenu(tr("&Model"))
+        self.modelmenu.addAction(self.actions['add_model'])
+        self.modelmenu_sep1 = self.modelmenu.addSeparator()
+        
+        self.componentmenu = self.modelmenu.addMenu(tr("&Add Component"))
+        for acname in self.comp_actions:
+            self.componentmenu.addAction(self.actions[acname])
+
+        # Create Windows menu        
         super(MainWindow, self).create_menu()
+        
                         
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
-        self.add_toolbar_button("Navigation", self.actions['mirror'])
+        self.add_toolbar_button("Signal", self.actions['mirror'])
         
         super(MainWindow, self).create_toolbars()
         
@@ -79,7 +112,7 @@ class MainWindow(MainWindowLayer2):
     def mirror_navi(self, uisignals=None):
         # Select signals
         if uisignals is None:
-            uisignals = self.sign_list.widget().get_selected()
+            uisignals = self.get_selected_signals()
         if len(uisignals) > 1:
             signals = [s.signal for s in uisignals]
             
@@ -105,6 +138,12 @@ class MainWindow(MainWindowLayer2):
             uisignals = self.sign_list.widget().get_selected()
         for s in uisignals:
             s.close()
+            
+    def make_component(self, comp_type):
+        # TODO: Get model
+        m
+        
+        m.add_component(comp_type)
             
     
 def main():
