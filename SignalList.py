@@ -11,20 +11,38 @@ from QtCore import *
 from QtGui import *
 
 from BindingList import BindingList
+from functools import partial
 #from SignalUIWrapper import SignalUIWrapper
 
 class SignalList(QListWidget):
-    def __init__(self, items=None, parent=None):
+    def __init__(self, items=None, parent=None, multiselect=True):
         super(SignalList, self).__init__(parent)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.multiselect = multiselect
 
         if items is not None:
             self.addItems(items)
             if isinstance(items, BindingList):
                 self.bind(items)
+                
+    @property
+    def multiselect(self):
+        return self._multiselect
+        
+    @multiselect.setter
+    def multiselect(self, value):
+        self._multiselect = value
+        if value:
+            self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        else:
+            self.setSelectionMode(QAbstractItemView.SingleSelection )
+        
             
     def bind(self, blist):
         blist.add_target(self)
+        # TODO: Keep blist ref to unbind on destroyed
+        
+    def unbind(self, blist):
+        blist.remove_target(self)
         
     def addItem(self, object):
         item = QListWidgetItem(object.name, self)
@@ -32,12 +50,8 @@ class SignalList(QListWidget):
         super(SignalList, self).addItem(item)
             
     def addItems(self, items):
-        it = []
         for i in items:
-            item = QListWidgetItem(object.name, self)
-            item.setData(Qt.UserRole, object)
-            it.append(item)
-        super(SignalList, self).addItems(it)
+            self.addItem(i)
             
     def insertItem(self, index, object):
         item = QListWidgetItem(object.name, self)
@@ -53,7 +67,10 @@ class SignalList(QListWidget):
     def get_selected(self):
         selections = self.selectedItems()
         sigs = [self.signal(i) for i in selections]
-        return sigs
+        if self.multiselect:
+            return sigs
+        else:
+            return sigs[0]
         
     def __getitem__(self, key):
         if isinstance(key, QListWidgetItem):
