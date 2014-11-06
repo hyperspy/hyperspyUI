@@ -6,13 +6,13 @@ Created on Tue Nov 04 16:25:54 2014
 """
 
 
-from python_qt_binding import QtCore
-#from hyperspy.model import Model
+from python_qt_binding import QtCore, QtGui
+from hyperspy.model import Model
 
 
 class ModelWrapper(QtCore.QObject):
-    added = QtCore.Signal(object, object)
-    removed = QtCore.Signal(object, object)
+    added = QtCore.Signal((object, object), (object,))
+    removed = QtCore.Signal((object, object), (object,))
 #    changed = QtCore.Signal()
     
     def __init__(self, model, signal_wrapper, name):
@@ -21,26 +21,48 @@ class ModelWrapper(QtCore.QObject):
         self.signal = signal_wrapper
         self.name = name
         if self.signal.signal is not self.model.spectrum:
-            print self.signal, self.signal.signal, self.model.spectrum
             raise ValueError("signal_wrapper doesn't match model.signal")
         self.components = {}
         self.update_components()
             
     def plot(self):
+        self.signal.keep_on_close = True
         self.model.plot()
+        self.signal.keep_on_close = False
+        self.signal.update_figures()
         
     def update_plot(self):
         self.model.update_plot()
         
     def fit(self):
+        self.signal.keep_on_close = True
         self.model.fit()
+        self.signal.keep_on_close = False
+        self.signal.update_figures()
             
     def multifit(self):
+        self.signal.keep_on_close = True
         self.model.multifit()
+        self.signal.keep_on_close = False
+        self.signal.update_figures()
             
     def fit_component(self, component):
+        # This is a non-blocking call. To make sure we keep our figures,
+        # we make sure we have the correct plot first
+        if not self.model._plot.is_active():
+            self.plot()
         self.model.fit_component(component)
         
+        # Claim the window
+        tlw = QtGui.QApplication.topLevelWidgets()
+        fitw = None
+        for w in tlw:
+            if w.windowTitle() == 'Fit single component':
+                # TODO: Make sure we don't have several
+                fitw = w
+                break
+        fitw.setParent(self.signal.parent, QtCore.Qt.Tool)
+        fitw.show()
 
     def update_components(self):
         """ 
@@ -78,9 +100,25 @@ class ModelWrapper(QtCore.QObject):
             added = True
         if added:
             self.component_added(component)
+            
+    def remove_component(self, component):
+        removed = False
+        if component in self.model:
+            self.model.remove(component)
+            removed = True
+        if self.components.has_key(component.name):
+            self.components.pop(component.name)
+            removed = True
+        if removed:
+            self.component_removed(component)
+            
         
     def component_added(self, component):
-        self.added.emit(component, self)
+        self.update_plot()
+        self.added[object, object].emit(component, self)
+        self.added[object].emit(component)
     
     def component_removed(self, component):
-        self.removed.emit(component, self)
+        self.update_plot()
+        self.removed[object, object].emit(component, self)
+        self.removed[object].emit(component)
