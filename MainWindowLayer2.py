@@ -19,7 +19,7 @@ from QtGui import *
 
 from SignalUIWrapper import SignalUIWrapper
 from BindingList import BindingList
-from SignalList import SignalList
+from DataViewWidget import DataViewWidget
 from ModelWrapper import ModelWrapper
 
 import hyperspy.hspy
@@ -47,10 +47,11 @@ class MainWindowLayer2(MainWindowLayer1):
         super(MainWindowLayer2, self).create_widgetbar() 
         
         # TODO: Default widgets? Brightness/contrast? YES
-        s = SignalList()
-        s.setWindowTitle(tr("Signal Select"))
-        s.bind(self.signals)
-        self.sign_list = self.add_widget(s)
+        self.tree = DataViewWidget(self)
+        self.tree.setWindowTitle(tr("Data View"))
+        self.signals.add_custom(self.tree, self.tree.add_signal, None,
+                                None, self.tree.remove, None)
+        self.add_widget(self.tree)
         
         
     def create_menu(self):
@@ -69,20 +70,42 @@ class MainWindowLayer2(MainWindowLayer1):
         sig = SignalUIWrapper(signal, self, sig_name)
         self.signals.append(sig)
         
-    def make_model(self, signal=None, *args, **kwargs):
-        if not isinstance(signal, SignalUIWrapper):
+    def add_model(self, signal, *args, **kwargs):
+        if signal is None:
+            signal = self.get_selected_signal()
+        elif not isinstance(signal, SignalUIWrapper):
             signal = [s for s in self.signals if s.signal == signal]
-            if len(signal) < 1:
-                #TODO: MessageBox
-                pass
             signal = signal[0]
         mw = signal.make_model(*args, **kwargs)
-        return mw.model
+        return mw
         
+    def make_model(self, signal=None, *args, **kwargs):
+        mw = self.add_model(signal, *args, **kwargs)
+        return mw.model
+            
+    def make_component(self, comp_type):
+        m = self.get_selected_model()       
+        m.add_component(comp_type)
+        
+    def get_selected_signal(self, error_on_multiple=False):
+        signals = self.get_selected_signals()
+        if len(signals) < 1:
+            #TODO: MessageBox
+            return None
+        elif error_on_multiple and len(signals) > 1:
+            #TODO: MessageBox
+            pass
+        return signals[0]
         
     def get_selected_signals(self):
-        # TODO: Use more sources? Sync list selection with active window?
-        return self.sign_list.widget().get_selected()
+        # TODO: Sync list selection with active window?
+        return self.tree.get_selected_signals()
+        
+    def get_selected_model(self):
+        return self.tree.get_selected_model()
+        
+    def get_selected_component(self):
+        return self.tree.get_selected_component()
         
         
     # --------- File I/O ----------
@@ -95,10 +118,8 @@ class MainWindowLayer2(MainWindowLayer1):
                     file_choices)
             if not filenames:
                 return
-#            print filenames
 #            self.cur_dir = os.path.dirname(filenames)
             self.cur_dir = filenames[0]
-#        print "hpy"
         for filename in filenames:    
             self.set_status("Loading \"" + filename + "\"...")
             self.setUpdatesEnabled(False)   # Prevent flickering during load
@@ -121,7 +142,6 @@ class MainWindowLayer2(MainWindowLayer1):
             s.keep_on_close = True
         
     def on_console_executed(self, response):
-#        print response
         super(MainWindowLayer2, self).on_console_executed(response)
         for s in self.signals:
             s.update_figures()

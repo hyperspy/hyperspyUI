@@ -6,7 +6,7 @@ Created on Fri Oct 24 18:27:15 2014
 """
 
 from util import fig2win
-from python_qt_binding import QtCore
+from python_qt_binding import QtCore, QtGui
 
 from ModelWrapper import ModelWrapper
 import hyperspy.hspy
@@ -24,7 +24,7 @@ class SignalUIWrapper(QtCore.QObject):
         self.parent = ui_parent
         self.models = []
         
-        self._keep_on_close = False
+        self._keep_on_close = 0
         
         self.navigator_plot = None
         self.signal_plot = None
@@ -38,14 +38,20 @@ class SignalUIWrapper(QtCore.QObject):
 
     @property
     def keep_on_close(self):
-        return self._keep_on_close
+        return self._keep_on_close > 0
     
     @keep_on_close.setter
     def keep_on_close(self, value):
-        self._keep_on_close = value
+        if value:
+            self._keep_on_close += 1
+        else:
+            if self._keep_on_close > 0:
+                self._keep_on_close -= 1
 
     def plot(self):
+        self.keep_on_close = True
         self.signal.plot()
+        self.keep_on_close = False
         self.update_figures()
             
     def update_figures(self):  
@@ -78,14 +84,31 @@ class SignalUIWrapper(QtCore.QObject):
     def remove_figure(self, fig):
         if fig in self.figures:
             self.figures.remove(fig)
+               
+    def run_nonblock(self, function, windowtitle):
+        self.keep_on_close = True
+        function()
+        tlw = QtGui.QApplication.topLevelWidgets()
+        nbw = None
+        for w in tlw:
+            if w.windowTitle() == windowtitle:
+                nbw = w
+                break
+        nbw.setParent(self.parent, QtCore.Qt.Tool)
+        def on_close():
+            self.keep_on_close = False
+            self.update_figures()
+        nbw.destroyed.connect(on_close)
+        nbw.show()
             
     def make_model(self, *args, **kwargs):   
         m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)
 #        modelname = self.signal.metadata.General.title
-        modelname = "Model%d" % self._model_id
+        modelname = "Model %d" % self._model_id
         self._model_id += 1
         mw = ModelWrapper(m, self, modelname)
         self.add_model(mw)
+        mw.plot()
         return mw
         
     def add_model(self, model):
@@ -95,6 +118,7 @@ class SignalUIWrapper(QtCore.QObject):
     def remove_model(self, model):
         self.models.remove(model)
         self.model_removed.emit(model)
+        self.plot()
         
     def nav_closing(self):
         self._nav_geom = self.navigator_plot.saveGeometry()

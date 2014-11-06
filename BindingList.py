@@ -56,12 +56,17 @@ class BindingList(list):
         for t in self.targets.values():
             if t['in'] is not None:
                 t['in'](index, object)
+            elif t['ap'] is not None:
+                t['ap'](object)
         
     def extend(self, iterable):
         super(BindingList, self).extend(iterable)
         for t in self.targets.values():
             if t['ex'] is not None:
                 t['ex'](iterable)
+            if t['ap'] is not None:
+                for v in iterable:
+                    t['ap'](v)
         
     def remove(self, value):
         for t in self.targets.values():
@@ -75,4 +80,7 @@ class BindingList(list):
         for t in self.targets.values():
             if t['po'] is not None:
                 t['po'](index)
+            elif t['re'] is not None:
+                v = self[index]
+                t['re'](v)
         return super(BindingList, self).pop(index)
