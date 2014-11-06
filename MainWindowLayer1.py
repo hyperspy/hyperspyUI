@@ -163,6 +163,28 @@ class MainWindowLayer1(QMainWindow):
         # Insert widgets in Windows menu before separator (figures are after)
         self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())
         return d
+        
+    def show_okcancel_dialog(self, title, widget, modal=True):
+        diag = QDialog(self)
+        diag.setWindowTitle(title)
+        diag.setWindowFlags(Qt.Tool)
+        
+        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
+                                Qt.Horizontal, diag)                        
+        btns.accepted.connect(diag.accept)
+        btns.rejected.connect(diag.reject)
+        
+        box = QVBoxLayout(diag)
+        box.addWidget(widget)
+        box.addWidget(btns)
+        diag.setLayout(box)
+        
+        if modal:
+            diag.exec_()
+        else:
+            diag.show()
+        # Return the dialog for result checking, and to keep widget in scope for caller
+        return diag
   
   
     # --------- Console functions ---------

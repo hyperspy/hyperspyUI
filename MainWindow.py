@@ -6,8 +6,12 @@ Created on Fri Oct 24 16:46:35 2014
 """
 
 import sys
+#from functools import partial
     
 from MainWindowLayer2 import MainWindowLayer2   # Should go before any MPL imports
+from util import create_add_component_actions
+from SignalList import SignalList
+from SignalUIWrapper import SignalUIWrapper
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -16,12 +20,9 @@ from QtGui import *
 def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
-import hyperspy.components
 import hyperspy.utils.plot
 
 
-# TODO: Add Model UI wrapper
-# TODO: Can we keep console as well as Signal List? Revert back to Close = Hide?
 
 class MainWindow(MainWindowLayer2):
     """
@@ -33,8 +34,10 @@ class MainWindow(MainWindowLayer2):
     """
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
+        self.setWindowIcon(QIcon('images/hyperspy_logo.png'))
         # TODO: Set from preferences?, default to working dir (can be 
         # customized by modifying launcher)
+#        self.cur_dir = "D:/NetSync/TEM/20140304 - NWG130/SI-001/Spectrum Imaging-005"
         self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
           
         
@@ -53,20 +56,22 @@ class MainWindow(MainWindowLayer2):
         
         self.add_action('add_model', "Create Model", self.make_model,
                         tip="Create a model for the selected signal")
+                        
+        self.add_action('fourier_ratio', "Foruier Ratio Deconvoloution",
+                        self.fourier_ratio, tip="Use the Fourier Ratio method" +
+                        " to deconvolve one signal from another")
+                        
+        self.add_action('remove_background', "Remove Background",
+                        self.remove_background, 
+                        tip="Interactively define the background, and remove it")
+                        
+        self.add_action('pca', "PCA", self.pca,
+                        tip="Run Principal Component Analysis")
         
-        compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw', 
-                     'Erf', 'Exponential', 'Gaussian', 'Logistic',
-                     'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 
-                     'Vignetting', 'Voigt', 'Polynomial', 'PESCoreLineShape', 
-                     'VolumePlasmonDrude']     
+        comp_actions = create_add_component_actions(self, self.make_component)
         self.comp_actions = []
-        for name in compnames:
-            t = getattr(hyperspy.components, name)
-            ac_name = 'add_component_' + name
-            def f():
-                self.make_component(t)
-            self.add_action(ac_name, name, f, 
-                            tip="Add a component of type " + name)
+        for ac_name, ac in comp_actions.iteritems():
+            self.actions[ac_name] = ac
             self.comp_actions.append(ac_name)
     
     def create_menu(self):
@@ -80,6 +85,8 @@ class MainWindow(MainWindowLayer2):
         # Signal menu
         self.signalmenu = mb.addMenu(tr("&Signal"))
         self.signalmenu.addAction(self.actions['mirror'])
+        self.signalmenu.addAction(self.actions['remove_background'])
+        self.signalmenu.addAction(self.actions['pca'])
         
         # Model menu
         self.modelmenu = mb.addMenu(tr("&Model"))
@@ -98,12 +105,14 @@ class MainWindow(MainWindowLayer2):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
         self.add_toolbar_button("Signal", self.actions['mirror'])
+        self.add_toolbar_button("Signal", self.actions['remove_background'])
+        self.add_toolbar_button("Signal", self.actions['fourier_ratio'])
+        self.add_toolbar_button("Signal", self.actions['pca'])
         
         super(MainWindow, self).create_toolbars()
         
     def create_widgetbar(self):
         super(MainWindow, self).create_widgetbar()
-        
         
     # ---------
     # Slots
@@ -117,8 +126,8 @@ class MainWindow(MainWindowLayer2):
             signals = [s.signal for s in uisignals]
             
             # hyperspy closes, and then recreates figures when mirroring 
-            # the navigators. To keep UI from flickering, we suspend updates
-            # and SignalUIWrapper saves and then restores window geometry
+            # the navigators. To keep UI from flickering, we suspend updates.
+            # SignalUIWrapper also saves and then restores window geometry
             self.setUpdatesEnabled(False)
             for s in uisignals:
                 s.keep_on_close = True
@@ -134,16 +143,56 @@ class MainWindow(MainWindowLayer2):
             mb.exec_()
             
     def close_signal(self, uisignals=None):
-        if uisignals is None:
-            uisignals = self.sign_list.widget().get_selected()
+        uisignals = self.get_selected_signals()
         for s in uisignals:
             s.close()
             
-    def make_component(self, comp_type):
-        # TODO: Get model
-        m
+    def fourier_ratio(self):
+        wrap = QWidget(self)
+        pickerCL = SignalList(self.signals, wrap, False)
+        pickerLL = SignalList(self.signals, wrap, False)
+        grid = QGridLayout(wrap)
+        grid.addWidget(QLabel(tr("Core loss")), 1, 1)
+        grid.addWidget(QLabel(tr("Low loss")), 1, 2)
+        grid.addWidget(pickerCL, 2, 1)
+        grid.addWidget(pickerLL, 2, 2)
+        wrap.setLayout(grid)
         
-        m.add_component(comp_type)
+        diag = self.show_okcancel_dialog("Select signals", wrap, True)
+        
+        if diag.result() == QDialog.Accepted:
+            s_core = pickerCL.get_selected()
+            s_lowloss = pickerLL.get_selected()
+            
+#            s_core.signal.remove_background()
+            s_core.signal.fourier_ratio_deconvolution(s_lowloss.signal)
+            s_core.plot()
+        pickerCL.unbind(self.signals)
+        pickerLL.unbind(self.signals)
+        
+    def remove_background(self, signal=None):
+        if signal is None:
+            signal = self.get_selected_signal()
+        signal.run_nonblock(signal.signal.remove_background, "Background removal tool")
+
+
+    def pca(self, signal=None):
+        if signal is None:
+            signal = self.get_selected_signal()
+        signal.signal.decomposition()
+        ax = signal.signal.plot_explained_variance_ratio()
+        ax.set_title("")
+        spree = ax.get_figure().canvas
+        spree.draw()
+        spree.setWindowTitle("Pick number of components")
+        def clicked(event):
+            components = round(event.xdata)
+            sc = signal.signal.get_decomposition_model(components)
+            scw = SignalUIWrapper(sc, self, signal.name + "[PCA]")
+            self.signals.append(scw)
+            spree.close()
+        spree.mpl_connect('button_press_event', clicked)
+        # TODO: Auto, or ask for n components, or use picker
             
     
 def main():
