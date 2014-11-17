@@ -11,16 +11,15 @@ import os
 from traits.etsconfig.api import ETSConfig
 ETSConfig.toolkit = 'qt4'
 
-from MainWindowLayer1 import MainWindowLayer1, tr
+from mainwindowlayer1 import MainWindowLayer1, tr
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from SignalUIWrapper import SignalUIWrapper
-from BindingList import BindingList
-from DataViewWidget import DataViewWidget
-from ModelWrapper import ModelWrapper
+from signalwrapper import SignalWrapper
+from bindinglist import BindingList
+from dataviewwidget import DataViewWidget
 
 import hyperspy.hspy
 
@@ -49,6 +48,7 @@ class MainWindowLayer2(MainWindowLayer1):
         # TODO: Default widgets? Brightness/contrast? YES
         self.tree = DataViewWidget(self)
         self.tree.setWindowTitle(tr("Data View"))
+        # Sync tree with signals list
         self.signals.add_custom(self.tree, self.tree.add_signal, None,
                                 None, self.tree.remove, None)
         self.add_widget(self.tree)
@@ -67,13 +67,13 @@ class MainWindowLayer2(MainWindowLayer1):
                                 rem_s, lambda i: rem_s(self.signals[i]))
     
     def add_signal_figures(self, signal, sig_name=None):
-        sig = SignalUIWrapper(signal, self, sig_name)
+        sig = SignalWrapper(signal, self, sig_name)
         self.signals.append(sig)
         
     def add_model(self, signal, *args, **kwargs):
         if signal is None:
             signal = self.get_selected_signal()
-        elif not isinstance(signal, SignalUIWrapper):
+        elif not isinstance(signal, SignalWrapper):
             signal = [s for s in self.signals if s.signal == signal]
             signal = signal[0]
         mw = signal.make_model(*args, **kwargs)

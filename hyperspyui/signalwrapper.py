@@ -8,16 +8,16 @@ Created on Fri Oct 24 18:27:15 2014
 from util import fig2win
 from python_qt_binding import QtCore, QtGui
 
-from ModelWrapper import ModelWrapper
+from modelwrapper import ModelWrapper
 import hyperspy.hspy
 
-class SignalUIWrapper(QtCore.QObject):
+class SignalWrapper(QtCore.QObject):
     
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
     
     def __init__(self, signal, ui_parent, name):
-        super(SignalUIWrapper, self).__init__()
+        super(SignalWrapper, self).__init__()
         self.signal = signal
         self.name = name
         self.figures = []

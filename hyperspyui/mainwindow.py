@@ -8,10 +8,10 @@ Created on Fri Oct 24 16:46:35 2014
 import sys
 #from functools import partial
     
-from MainWindowLayer2 import MainWindowLayer2   # Should go before any MPL imports
+from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
+
 from util import create_add_component_actions
-from SignalList import SignalList
-from SignalUIWrapper import SignalUIWrapper
+from signalwrapper import SignalWrapper
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -127,7 +127,7 @@ class MainWindow(MainWindowLayer2):
             
             # hyperspy closes, and then recreates figures when mirroring 
             # the navigators. To keep UI from flickering, we suspend updates.
-            # SignalUIWrapper also saves and then restores window geometry
+            # SignalWrapper also saves and then restores window geometry
             self.setUpdatesEnabled(False)
             for s in uisignals:
                 s.keep_on_close = True
@@ -188,7 +188,7 @@ class MainWindow(MainWindowLayer2):
         def clicked(event):
             components = round(event.xdata)
             sc = signal.signal.get_decomposition_model(components)
-            scw = SignalUIWrapper(sc, self, signal.name + "[PCA]")
+            scw = SignalWrapper(sc, self, signal.name + "[PCA]")
             self.signals.append(scw)
             spree.close()
         spree.mpl_connect('button_press_event', clicked)

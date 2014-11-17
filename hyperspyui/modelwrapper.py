@@ -7,13 +7,14 @@ Created on Tue Nov 04 16:25:54 2014
 
 
 from python_qt_binding import QtCore, QtGui
-from hyperspy.model import Model
+#from hyperspy.model import Model
+from actionable import Actionable
+from functools import partial
 
 
-class ModelWrapper(QtCore.QObject):
+class ModelWrapper(Actionable):
     added = QtCore.Signal((object, object), (object,))
     removed = QtCore.Signal((object, object), (object,))
-#    changed = QtCore.Signal()
     
     def __init__(self, model, signal_wrapper, name):
         super(ModelWrapper, self).__init__()
@@ -24,6 +25,14 @@ class ModelWrapper(QtCore.QObject):
             raise ValueError("signal_wrapper doesn't match model.signal")
         self.components = {}
         self.update_components()
+        
+        # Default actions
+        self.add_action('plot', "&Plot", self.plot)
+        self.add_action('fit', "&Fit", self.fit)
+        self.add_action('multifit', "&Multifit", self.multifit)
+        f = partial(self.signal.remove_model, self)
+        self.add_action('delete', "&Delete", f)
+        
             
     def plot(self):
         self.signal.keep_on_close = True

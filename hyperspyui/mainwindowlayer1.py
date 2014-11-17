@@ -17,7 +17,7 @@ from QtGui import *
 def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
-from ConsoleWidget import ConsoleWidget
+from consolewidget import ConsoleWidget
 
 import mdi_mpl_backend
 
@@ -114,6 +114,8 @@ class MainWindowLayer1(QMainWindow):
     # --------- UI utility finctions ---------
   
     def add_action(self, key, label, callback, tip=None, icon=None, shortcut=None, userdata=None):
+        #TODO: Add callbacks that are triggered on window activation / signal selection,
+        # this can change the action (e.g. target), or enable/disable the action
         if icon is None:
             ac = QAction(tr(label), self)
         else:
@@ -205,7 +207,9 @@ class MainWindowLayer1(QMainWindow):
         pass
     
     def create_console(self):
-            
+        # TODO: Reroute STDOUT/STDERR to console. Maybe only for actions?
+        # We could inherit QAction, and have it reroute when it triggers,
+        # and then drop route when it finishes
         c = self._get_console_config()
         control = ConsoleWidget(config=c)
         control.executing.connect(self.on_console_executing)

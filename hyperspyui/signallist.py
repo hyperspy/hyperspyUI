@@ -10,9 +10,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from BindingList import BindingList
-from functools import partial
-#from SignalUIWrapper import SignalUIWrapper
+from bindinglist import BindingList
 
 class SignalList(QListWidget):
     def __init__(self, items=None, parent=None, multiselect=True):
@@ -75,13 +73,4 @@ class SignalList(QListWidget):
     def __getitem__(self, key):
         if isinstance(key, QListWidgetItem):
             return key.data(Qt.UserRole)
-            
-#    def removeItemWidget(object):
-#        super(SignalList, self).removeItemWidget(object)
-#        if isinstance(object, (QListWidgetItem, QString, str)):
-#            super(SingalList, self).insertItem(index, object)
-#        elif isinstance(object, SignalUIWrapper):
-#            super(SingalList, self).insertItem(index, object.name)
-#        else:
-#            super(SingalList, self).insertItem(index, str(object))
         
