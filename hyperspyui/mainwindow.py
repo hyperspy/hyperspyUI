@@ -13,6 +13,7 @@ from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL impor
 from util import create_add_component_actions
 from signalwrapper import SignalWrapper
 from signallist import SignalList
+from threaded import ProgressThread
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -24,6 +25,7 @@ def tr(text):
 import hyperspy.utils.plot
 
 
+class Namespace: pass
 
 class MainWindow(MainWindowLayer2):
     """
@@ -172,9 +174,21 @@ class MainWindow(MainWindowLayer2):
             s_core = pickerCL.get_selected()
             s_lowloss = pickerLL.get_selected()
             
+            # Variable to store return value in
+            ns = Namespace()
+            ns.s_return = None
+            
 #            s_core.signal.remove_background()
-            s_core.signal.fourier_ratio_deconvolution(s_lowloss.signal)
-            s_core.plot()
+            def run_fr():
+                ns.s_return = s_core.signal.fourier_ratio_deconvolution(
+                                                            s_lowloss.signal)
+            def fr_complete():
+                title = s_core.name + "[Fourier-ratio]" 
+                self.add_signal_figures(ns.s_return, title)
+                
+            t = ProgressThread(self, run_fr, fr_complete, 
+                               "Performing Fourier-ratio deconvolution")
+            t.run()
         pickerCL.unbind(self.signals)
         pickerLL.unbind(self.signals)
         
@@ -198,7 +212,7 @@ class MainWindow(MainWindowLayer2):
             sc = signal.signal.get_decomposition_model(components)
             scw = SignalWrapper(sc, self, signal.name + "[PCA]")
             self.signals.append(scw)
-            spree.close()
+            spree.window().close()
         spree.mpl_connect('button_press_event', clicked)
         # TODO: Auto, or ask for n components, or use picker
             
