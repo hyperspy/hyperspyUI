@@ -25,4 +25,5 @@ setup(name='hyperspyUI',
             'images/*.png',
              'images/attribtutions.txt'],
      },
+     url="https://github.com/vidartf/hyperspyUI",
      )
