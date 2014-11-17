@@ -10,7 +10,7 @@ import sys
     
 from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
 
-from util import create_add_component_actions
+from util import create_add_component_actions, fig2win
 from signalwrapper import SignalWrapper
 from signallist import SignalList
 from threaded import ProgressThread
@@ -212,9 +212,9 @@ class MainWindow(MainWindowLayer2):
             sc = signal.signal.get_decomposition_model(components)
             scw = SignalWrapper(sc, self, signal.name + "[PCA]")
             self.signals.append(scw)
-            spree.window().close()
+            w = fig2win(spree.figure, self.figures)
+            w.close()
         spree.mpl_connect('button_press_event', clicked)
-        # TODO: Auto, or ask for n components, or use picker
             
     
 def main():
