@@ -9,9 +9,10 @@ from util import fig2win
 from python_qt_binding import QtCore, QtGui
 
 from modelwrapper import ModelWrapper
+from actionable import Actionable
 import hyperspy.hspy
 
-class SignalWrapper(QtCore.QObject):
+class SignalWrapper(Actionable):
     
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
@@ -33,6 +34,10 @@ class SignalWrapper(QtCore.QObject):
         self._sig_geom = None
         
         self._model_id = 1
+        
+        self.add_action('plot', "&Plot", self.plot)
+        self.add_action('add_model', "Add &model", self.make_model)
+        self.add_action('close', "&Close", self.close)
         
         self.plot()
 

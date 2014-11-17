@@ -14,5 +14,5 @@ class Actionable(QtCore.QObject):
     
     def add_action(self, key, title, on_trig):
         ac = QtGui.QAction(title, self) # TODO: tr()
-        self.conenct(ac, QtCore.SIGNAL('triggered()'), on_trig)
+        self.connect(ac, QtCore.SIGNAL('triggered()'), on_trig)
         self.actions[key] = ac

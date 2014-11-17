@@ -55,45 +55,16 @@ class DataViewWidget(QTreeWidget):
         if item.type() == self.SignalType:
             sig = item.data(0, Qt.UserRole)
             
-            # Plot action
-            ac = QAction("&Plot", self)   # TODO: tr()
-            self.connect(ac, SIGNAL('triggered()'), sig.plot)
-            cm.addAction(ac)
-            
-            # Add model
-            ac = QAction("Add &model", self)   # TODO: tr()
-            self.connect(ac, SIGNAL('triggered()'), sig.make_model)
-            cm.addAction(ac)
-            
-            # Close action
+            cm.addAction(sig.actions['plot'])
+            cm.addAction(sig.actions['add_model'])
             cm.addSeparator()
-            ac = QAction("&Close", self)   # TODO: tr()
-            self.connect(ac, SIGNAL('triggered()'), sig.close)
-            cm.addAction(ac)
+            cm.addAction(sig.actions['close'])
+            
         elif item.type() == self.ModelType:
             model = item.data(0, Qt.UserRole)
-            signal = model.signal
             
-            # Plot action
-            ac = QAction("&Plot", self)   # TODO: tr()
-            self.connect(ac, SIGNAL('triggered()'), model.plot)
-            cm.addAction(ac)
-            
-            # Fit action
-            ac = QAction("&Fit", self)   # TODO: tr()
-            self.connect(ac, SIGNAL('triggered()'), model.fit)
-            cm.addAction(ac)
-            
-            # Multifit action
-            ac = QAction("&Multifit", self)   # TODO: tr()
-            self.connect(ac, SIGNAL('triggered()'), model.multifit)
-            cm.addAction(ac)
-            
-            # Remove action
-            ac = QAction("&Delete", self)   # TODO: tr()
-            f = partial(signal.remove_model, model)
-            self.connect(ac, SIGNAL('triggered()'), f)
-            cm.addAction(ac)
+            for ac in model.actions.values():
+                cm.addAction(ac)
             
             cm.addSeparator()
             

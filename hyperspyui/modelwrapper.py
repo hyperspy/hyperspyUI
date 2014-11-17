@@ -62,7 +62,8 @@ class ModelWrapper(Actionable):
             self.plot()
         self.model.fit_component(component)
         
-        # Claim the window
+        # Claim the dialog window
+        # TODO: Can we do this by custom traitsUI backend?
         tlw = QtGui.QApplication.topLevelWidgets()
         fitw = None
         for w in tlw:
@@ -75,8 +76,8 @@ class ModelWrapper(Actionable):
 
     def update_components(self):
         """ 
-        Updates internal list to match model's list (called e.g. after 
-        console execute and in constructor)
+        Updates internal compoenent list to match model's list (called e.g. 
+        after console execute and in constructor)
         """
         
         # Add missing
