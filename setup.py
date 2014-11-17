@@ -18,4 +18,11 @@ setup(name='hyperspyUI',
       requires=['hyperspy', 
                 'matplotlib (>= 1.4)', 
                 'python_qt_binding'],
+      package_data=
+      {
+          'hyperspyui':
+            ['images/*.svg',
+            'images/*.png',
+             'images/attribtutions.txt'],
+     },
      )

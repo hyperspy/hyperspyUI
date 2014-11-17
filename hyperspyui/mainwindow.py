@@ -12,6 +12,7 @@ from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL impor
 
 from util import create_add_component_actions
 from signalwrapper import SignalWrapper
+from signallist import SignalList
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -34,7 +35,7 @@ class MainWindow(MainWindowLayer2):
     """
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        self.setWindowIcon(QIcon('images/hyperspy_logo.png'))
+        self.setWindowIcon(QIcon('../images/hyperspy_logo.png'))
         # TODO: Set from preferences?, default to working dir (can be 
         # customized by modifying launcher)
 #        self.cur_dir = "D:/NetSync/TEM/20140304 - NWG130/SI-001/Spectrum Imaging-005"
@@ -46,26 +47,33 @@ class MainWindow(MainWindowLayer2):
         
         self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open, 
+                        icon='../images/open.svg',
                         tip="Open an existing file")
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close, 
+                        icon='../images/close.svg',
                         tip="Close the selected signal")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
+                        icon='../images/mirror.svg',
                         tip="Mirror navigation axes of selected signals")
         
         self.add_action('add_model', "Create Model", self.make_model,
                         tip="Create a model for the selected signal")
                         
         self.add_action('fourier_ratio', "Foruier Ratio Deconvoloution",
-                        self.fourier_ratio, tip="Use the Fourier Ratio method" +
+                        self.fourier_ratio, 
+                        icon='../images/fourier_ratio.svg',
+                        tip="Use the Fourier-Ratio method" +
                         " to deconvolve one signal from another")
                         
         self.add_action('remove_background', "Remove Background",
                         self.remove_background, 
+                        icon='../images/power_law.svg',
                         tip="Interactively define the background, and remove it")
                         
         self.add_action('pca', "PCA", self.pca,
+                        icon='../images/pca.svg',
                         tip="Run Principal Component Analysis")
         
         comp_actions = create_add_component_actions(self, self.make_component)
