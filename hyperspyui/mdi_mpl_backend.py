@@ -33,7 +33,7 @@ def connect_on_new_figure(callback, userdata=None):
 
 def disconnect_on_new_figure(callback):
     global _new_fig_cbs
-    if _new_fig_cbs.has_key(callback):
+    if callback in _new_fig_cbs:
         _new_fig_cbs.pop(callback)
 
 def _on_new_figure(figure):
@@ -54,7 +54,7 @@ def connect_on_destroy(callback, userdata=None):
 
 def disconnect_on_destroy(callback):
     global _destroy_cbs
-    if _destroy_cbs.has_key(callback):
+    if callback in _destroy_cbs:
         _destroy_cbs.pop(callback)
 
 def _on_destroy(figure):
