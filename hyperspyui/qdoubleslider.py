@@ -12,10 +12,13 @@ from QtGui import QSlider
 
 class QDoubleSlider(QSlider):
 
-    valueChanged = pyqtSignal(double)    
+    valueChanged = QtCore.Signal(float)    
     
-    def __init__(self, parent=None):
-        super(QDoubleSlider, self).__init__(parent)
+    def __init__(self, parent=None, orientation=None):
+        if orientation is None:
+            super(QDoubleSlider, self).__init__(parent)
+        else:
+            super(QDoubleSlider, self).__init__(orientation, parent)
         self.steps = 1000
         self._range = (0.0, 1.0)
         self.connect(self, SIGNAL('valueChanged(int)'), self._on_change)

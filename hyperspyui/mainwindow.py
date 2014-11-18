@@ -14,6 +14,7 @@ from util import create_add_component_actions, fig2win
 from signalwrapper import SignalWrapper
 from signallist import SignalList
 from threaded import ProgressThread
+from contrastwidget import ContrastWidget
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -124,6 +125,10 @@ class MainWindow(MainWindowLayer2):
     def create_widgetbar(self):
         super(MainWindow, self).create_widgetbar()
         
+        cbw = ContrastWidget(self)
+        self.main_frame.subWindowActivated.connect(cbw.on_figure_change)
+        self.add_widget(cbw)
+        
     # ---------
     # Slots
     # ---------
@@ -219,8 +224,20 @@ class MainWindow(MainWindowLayer2):
     
 def main():
     app = QApplication(sys.argv)
+
+    
+    # Create and display the splash screen
+#    splash_pix = QPixmap('splash_loading.png')
+#    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+#    splash.setMask(splash_pix.mask())
+#    splash.show()
+#    app.processEvents()    
+    
     form = MainWindow()
     form.showMaximized()
+    
+#    splash.finish(form)
+    
     app.exec_()
     
 if __name__ == "__main__":

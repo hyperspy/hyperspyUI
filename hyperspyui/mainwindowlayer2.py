@@ -69,6 +69,8 @@ class MainWindowLayer2(MainWindowLayer1):
     def add_signal_figures(self, signal, sig_name=None):
         sig = SignalWrapper(signal, self, sig_name)
         self.signals.append(sig)
+        # Little hack to activate after creation
+        self.main_frame.subWindowActivated.emit(self.main_frame.activeSubWindow())
         
     def add_model(self, signal, *args, **kwargs):
         if signal is None:
