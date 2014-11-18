@@ -80,13 +80,25 @@ class MainWindowLayer1(QMainWindow):
         self.windowmenu_sep = self.windowmenu.addSeparator()
     
     def create_toolbars(self):
+        """
+        Override to create toolbars and toolbar buttons on UI construction.
+        It is called after create_default_action(), so add_toolbar_button()
+        can be used to add previously defined acctions.
+        """
         pass
     
     def set_status(self, msg):
+        """
+        Display 'msg' in window's statusbar.
+        """
         # TODO: What info is needed? Add simple label first, create utility to add more?
         self.statusBar().showMessage(msg)
     
     def create_widgetbar(self):
+        """
+        The widget bar itself is created and managed implicitly by Qt. Override
+        this function to add widgets on UI construction.
+        """
         pass
     
     def load_preferences(self):
@@ -98,12 +110,18 @@ class MainWindowLayer1(QMainWindow):
     
     # --------- MPL Events ---------
     
-    def on_new_figure(self, figure, userdata=None): 
+    def on_new_figure(self, figure, userdata=None):
+        """
+        Callback for MPL backend.
+        """
         self.main_frame.addSubWindow(figure)
         self.figures.append(figure)
         self.windowmenu.addAction(figure.activateAction())
     
     def on_destroy_figure(self, figure, userdata=None):
+        """
+        Callback for MPL backend.
+        """
         if figure in self.figures:
             self.figures.remove(figure)  
         self.windowmenu.removeAction(figure.activateAction()) 
@@ -114,6 +132,15 @@ class MainWindowLayer1(QMainWindow):
     # --------- UI utility finctions ---------
   
     def add_action(self, key, label, callback, tip=None, icon=None, shortcut=None, userdata=None):
+        """
+        Create and add a QAction to self.actions[key]. 'label' is used as the
+        short description of the action, and 'tip' as the long description.
+        The tip is typically shown in the statusbar. The callback is called 
+        when the action is triggered(), and is called with the 'userdata' as
+        a parameter if a non-None value was supplied. The optional 'icon' 
+        should either be a QIcon, or a path to an icon file, and is used to
+        depict the action on toolbar buttons and in menus.
+        """
         #TODO: Add callbacks that are triggered on window activation / signal selection,
         # this can change the action (e.g. target), or enable/disable the action
         if icon is None:
@@ -135,6 +162,11 @@ class MainWindowLayer1(QMainWindow):
         self.actions[key] = ac
     
     def add_toolbar_button(self, category, action):
+        """
+        Add the supplied 'action' as a toolbar button. If the toolbar defined
+        by 'cateogry' does not exist, it will be created in 
+        self.toolbars[category].
+        """
         if self.toolbars.has_key(category):
             tb = self.toolbars[category]
         else:
@@ -152,6 +184,12 @@ class MainWindowLayer1(QMainWindow):
         pass
     
     def add_widget(self, widget):
+        """
+        Add the passed 'widget' to the main window. If the widget is not a
+        QDockWidget, it will be wrapped in one. The QDockWidget is returned.
+        The widget is also added to the window menu self.windowmenu, so that
+        it's visibility can be toggled.
+        """
         if isinstance(widget, QDockWidget):
             d = widget
         else:
@@ -201,15 +239,23 @@ class MainWindowLayer1(QMainWindow):
         return None
         
     def on_console_executing(self, source):
+        """
+        Override when inherited to perform actions before exectuing 'source'.
+        """
         pass
     
     def on_console_executed(self, response):
+        """
+        Override when inherited to perform actions after executing, given the
+        'response' returned.
+        """
         pass
     
     def create_console(self):
         # TODO: Reroute STDOUT/STDERR to console. Maybe only for actions?
         # We could inherit QAction, and have it reroute when it triggers,
-        # and then drop route when it finishes
+        # and then drop route when it finishes, however this will not catch
+        # interactive dialogs and such.
         c = self._get_console_config()
         control = ConsoleWidget(config=c)
         control.executing.connect(self.on_console_executing)

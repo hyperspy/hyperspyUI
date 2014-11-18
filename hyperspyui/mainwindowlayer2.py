@@ -111,6 +111,11 @@ class MainWindowLayer2(MainWindowLayer1):
     # --------- File I/O ----------
         
     def load(self, filenames=None):
+        """
+        Load 'filenames', or if 'filenames' is None, open a dialog to let the
+        user interactively browse for files. It then load these files using
+        hyperspy.hspy.load and wraps them and adds them to self.signals.
+        """
         if filenames is None:
             file_choices = "DM (*.dm3;*.dm4)"
             filenames = QFileDialog.getOpenFileNames(self,
