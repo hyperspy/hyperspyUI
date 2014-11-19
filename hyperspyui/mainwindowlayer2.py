@@ -168,14 +168,13 @@ class MainWindowLayer2(MainWindowLayer1):
         
     def _get_console_config(self):
         # ===== THIS ======
-#        from IPython.config.loader import PyFileConfigLoader
-#        from hyperspy import __file__ as hf
-#        ipcp = os.path.dirname(hf) + os.path.sep + "ipython_profile" + os.path.sep
-#        c = PyFileConfigLoader(ipcp + "ipython_embedded_config.py").load_config()
+        from IPython.config.loader import PyFileConfigLoader
+        ipcp = os.path.sep.join(("ipython_profile", "ipython_embedded_config.py"))
+        c = PyFileConfigLoader(ipcp).load_config()
         # ===== OR THIS =====
-        import hyperspy.Release        
-        from IPython.config import Config
-        c = Config()
-        c.FrontendWidget.banner = hyperspy.Release.info
+#        import hyperspy.Release        
+#        from IPython.config import Config
+#        c = Config()
+#        c.FrontendWidget.banner = hyperspy.Release.info
         # ===== END =====
         return c
