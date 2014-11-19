@@ -18,6 +18,9 @@ setup(name='hyperspyUI',
       requires=['hyperspy', 
                 'matplotlib (>= 1.4)', 
                 'python_qt_binding'],
+      install_requires=['hyperspy',     #TODO: Find lowest allowed version of hyperspy
+                'matplotlib >= 1.4', 
+                'python_qt_binding'],
       package_data=
       {
           'hyperspyui':

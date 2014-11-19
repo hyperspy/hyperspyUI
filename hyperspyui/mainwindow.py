@@ -51,11 +51,11 @@ class MainWindow(MainWindowLayer2):
         self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open, 
                         icon='../images/open.svg',
-                        tip="Open an existing file")
+                        tip="Open existing file(s)")
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close, 
-                        icon='../images/close.svg',
-                        tip="Close the selected signal")
+                        icon='../images/close_window.svg',
+                        tip="Close the selected signal(s)")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
                         icon='../images/mirror.svg',
