@@ -60,26 +60,36 @@ class SignalWrapper(Actionable):
         self.update_figures()
             
     def update_figures(self):  
-        self.remove_figure(self.navigator_plot)
-        self.remove_figure(self.signal_plot)
+        old_nav = self.navigator_plot
+        old_sig = self.signal_plot
+        self.remove_figure(old_nav)
+        self.remove_figure(old_sig)
         self.navigator_plot = None
         self.signal_plot = None
         
-        if self.signal._plot.navigator_plot:
+        if self.signal._plot and self.signal._plot.navigator_plot:
             navi = self.signal._plot.navigator_plot.figure
             navi.axes[0].set_title("")
             self.navigator_plot = fig2win(navi, self.parent.figures)
             self.navigator_plot.closing.connect(self.nav_closing)
             self.add_figure(self.navigator_plot)
+            if old_nav is not self.navigator_plot and old_nav is not None:
+                self._nav_geom = old_nav.saveGeometry()
+                old_nav.closing.disconnect(self.nav_closing)
+                old_nav.close()
             if self._nav_geom is not None:
                 self.navigator_plot.restoreGeometry(self._nav_geom)
             
-        if self.signal._plot.signal_plot is not None:
+        if self.signal._plot and self.signal._plot.signal_plot is not None:
             sigp = self.signal._plot.signal_plot.figure
             sigp.axes[0].set_title("")
             self.signal_plot = fig2win(sigp, self.parent.figures)
             self.signal_plot.closing.connect(self.sig_closing)
             self.add_figure(self.signal_plot)
+            if old_sig is not self.signal_plot and old_sig is not None:
+                old_sig.closing.disconnect(self.sig_closing)
+                self._sig_geom = old_sig.saveGeometry()
+                old_sig.close()
             if self._sig_geom is not None:
                 self.signal_plot.restoreGeometry(self._sig_geom)
         
@@ -89,6 +99,20 @@ class SignalWrapper(Actionable):
     def remove_figure(self, fig):
         if fig in self.figures:
             self.figures.remove(fig)
+            
+    def as_image(self, axis=(0,1)):
+        self.close()  # Store geomtery and close
+        tmp = self._sig_geom
+        self._sig_geom = self._nav_geom
+        self._nav_geom = tmp
+        self.signal = self.signal.as_image(axis)
+        
+    def as_spectrum(self, axis=0):
+        self.close()  # Store geomtery and close
+        tmp = self._sig_geom
+        self._sig_geom = self._nav_geom
+        self._nav_geom = tmp
+        self.signal = self.signal.as_spectrum(axis)
                
     def run_nonblock(self, function, windowtitle):
         self.keep_on_close = True

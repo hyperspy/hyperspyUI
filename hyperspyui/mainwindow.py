@@ -6,11 +6,12 @@ Created on Fri Oct 24 16:46:35 2014
 """
 
 import sys
-#from functools import partial
+from collections import OrderedDict
+from functools import partial
     
 from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
 
-from util import create_add_component_actions, fig2win, win2sig
+from util import create_add_component_actions, fig2win, win2sig, dict_rlu
 from signalwrapper import SignalWrapper
 from signallist import SignalList
 from threaded import ProgressThread
@@ -24,6 +25,7 @@ def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
 import hyperspy.utils.plot
+import hyperspy.signals
 
 
 class Namespace: pass
@@ -35,9 +37,22 @@ class MainWindow(MainWindowLayer2):
     Also creates the default widgets. Any button-actions should also be 
     accessible as a slot, such that other things can connect into it, and so
     that it is accessible from the console's 'ui' variable.
-    """
+    """    
+    
     def __init__(self, parent=None):
+        self.signal_types = OrderedDict([('Signal', hyperspy.signals.Signal),
+                             ('Spectrum', hyperspy.signals.Spectrum),
+                             ('Spectrum simulation', hyperspy.signals.SpectrumSimulation),
+                             ('EELS', hyperspy.signals.EELSSpectrum),
+                             ('EELS simulation', hyperspy.signals.EELSSpectrumSimulation),
+                             ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
+                             ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
+                             ('Image', hyperspy.signals.Image),
+                             ('Image simulation', hyperspy.signals.ImageSimulation)])
+        self.signal_type_ag = None
+        
         super(MainWindow, self).__init__(parent)
+        
         self.setWindowIcon(QIcon('../images/hyperspy_logo.png'))
         # TODO: Set from preferences?, default to working dir (can be 
         # customized by modifying launcher)
@@ -74,7 +89,8 @@ class MainWindow(MainWindowLayer2):
                         self.remove_background, 
                         icon='../images/power_law.svg',
                         tip="Interactively define the background, and remove it")
-                        
+                  
+        # --- Add PCA action ---
         def pca_selection_rules(win, action):
             s = win2sig(win, self.signals)
             if s is None or s.signal.axes_manager.navigation_dimension < 1:
@@ -82,15 +98,25 @@ class MainWindow(MainWindowLayer2):
             else:
                 action.setEnabled(True)
                 
-        self.add_action('pca', "PCA", self.pca,
+        pca_ac = self.add_action('pca', "PCA", self.pca,
                         icon='../images/pca.svg',
                         tip="Run Principal Component Analysis",
                         selection_callback=pca_selection_rules)
-        self.actions['pca'].setEnabled(False)   # Need valid signal to be enabled
+        pca_ac.setEnabled(False)   # Need valid signal to be enabled
+        
+        # --- Add signal type selection actions ---
+        signal_type_ag = QActionGroup(self)
+        signal_type_ag.setExclusive(True)
+        for st in self.signal_types.iterkeys():
+            f = partial(self.set_signal_type, st)
+            st_ac = self.add_action('signal_type_' + st, st, f)
+            st_ac.setCheckable(True)
+            signal_type_ag.addAction(st_ac)
+        self.signal_type_ag = signal_type_ag
                         
-        # TODO: Set signal type action (EDS TEM etc.)
         # TODO: Set signal datatype
         
+        # --- Add "add component" actions ---
         comp_actions = create_add_component_actions(self, self.make_component)
         self.comp_actions = []
         for ac_name, ac in comp_actions.iteritems():
@@ -107,6 +133,9 @@ class MainWindow(MainWindowLayer2):
         
         # Signal menu
         self.signalmenu = mb.addMenu(tr("&Signal"))
+        stm = self.signalmenu.addMenu(tr("Signal type"))
+        for ac in self.signal_type_ag.actions():
+            stm.addAction(ac)
         self.signalmenu.addAction(self.actions['mirror'])
         self.signalmenu.addAction(self.actions['remove_background'])
         self.signalmenu.addAction(self.actions['pca'])
@@ -141,9 +170,25 @@ class MainWindow(MainWindowLayer2):
         self.main_frame.subWindowActivated.connect(cbw.on_figure_change)
         self.add_widget(cbw)
         
-    # ---------
+        
+    # ---------------------------------------
+    # Events
+    # ---------------------------------------
+        
+    def on_subwin_activated(self, mdi_figure):
+        super(MainWindow, self).on_subwin_activated(mdi_figure)
+        s = win2sig(mdi_figure, self.signals)
+        if s is None:
+            for ac in self.signal_type_ag.actions():
+                ac.setChecked(False)
+        else:
+            t = type(s.signal)
+            key = 'signal_type_' + dict_rlu(self.signal_types, t)
+            self.actions[key].setChecked(True)
+        
+    # ---------------------------------------
     # Slots
-    # ---------
+    # ---------------------------------------
             
     def mirror_navi(self, uisignals=None):
         # Select signals
@@ -234,6 +279,45 @@ class MainWindow(MainWindowLayer2):
             w = fig2win(spree.figure, self.figures)
             w.close()
         spree.mpl_connect('button_press_event', clicked)
+        
+    def set_signal_type(self, signal_type, signal=None):
+        if signal is None:
+            signal = self.get_selected_signal()
+            
+        # Sanity check
+        if signal_type not in self.signal_types.keys():
+            raise ValueError()
+        
+        signal.keep_on_close = True
+        self.setUpdatesEnabled(False)
+        try:
+            if signal_type in ['Image', 'Image simulation']:
+                if not isinstance(signal.signal, (hyperspy.signals.Image,
+                                              hyperspy.signals.ImageSimulation)):
+                    signal.as_image()
+            elif signal_type in['Spectrum', 'Spectrum simulation', 'EELS', 
+                                'EELS simulation', 'EDS SEM', 'EDS TEM']:
+                if isinstance(signal.signal, (hyperspy.signals.Image,
+                                              hyperspy.signals.ImageSimulation)):
+                    signal.as_spectrum()
+            
+            if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:
+                underscored = signal_type.replace(" ", "_")
+                signal.signal.set_signal_type(underscored)
+            elif signal_type == 'EELS simulation':
+                signal.signal.set_signal_type('EELS')
+            
+            if signal_type in ['Spectrum simulation', 'Image simulation', 
+                               'EELS simulation']:
+                signal.signal.set_signal_origin('simulation')
+            else:
+                signal.signal.set_signal_origin('') # Undetermined
+        finally:
+            signal.plot()
+            self.setUpdatesEnabled(True)
+            signal.keep_on_close = False
+        
+                
             
     
 def main():

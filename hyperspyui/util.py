@@ -30,6 +30,15 @@ def win2sig(window, signals):
         if window in (s.navigator_plot, s.signal_plot):
             return s
     return None
+    
+def dict_rlu(dictionary, value):
+    """
+    Reverse dictionary lookup.
+    """
+    for k,v in dictionary.iteritems():
+        if v == value or v is value:
+            return k
+    raise KeyError()
 
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}

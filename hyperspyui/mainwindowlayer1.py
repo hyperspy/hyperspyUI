@@ -153,13 +153,12 @@ class MainWindowLayer1(QMainWindow):
         Create and add a QAction to self.actions[key]. 'label' is used as the
         short description of the action, and 'tip' as the long description.
         The tip is typically shown in the statusbar. The callback is called 
-        when the action is triggered(). The 'userdata' is stpred in the 
+        when the action is triggered(). The 'userdata' is stored in the 
         QAction's data() attribute. The optional 'icon' should either be a 
         QIcon, or a path to an icon file, and is used to depict the action on 
         toolbar buttons and in menus.
-        """
-        #TODO: Add callbacks that are triggered on window activation / signal selection,
-        # this can change the action (e.g. target), or enable/disable the action
+        """ 
+        #TODO: Update doc to reflect final decision on userdata
         if icon is None:
             ac = QAction(tr(label), self)
         else:
@@ -172,10 +171,16 @@ class MainWindowLayer1(QMainWindow):
             ac.setStatusTip(tr(tip))
         if userdata is not None:
             ac.setData(userdata)
-        self.connect(ac, SIGNAL('triggered()'), callback)
+        if userdata is None:
+            self.connect(ac, SIGNAL('triggered()'), callback)
+        else:
+            def callback_udwrap():
+                callback(userdata)
+            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
         self.actions[key] = ac
         if selection_callback is not None:
             self._action_selection_cbs[key] = selection_callback
+        return ac
     
     def add_toolbar_button(self, category, action):
         """
