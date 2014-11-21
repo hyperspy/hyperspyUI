@@ -10,7 +10,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from qdoubleslider import QDoubleSlider
+from extendedqwidgets import QDoubleSlider, QClickLabel
 from hyperspy.drawing.mpl_he import MPL_HyperExplorer
 from hyperspy.drawing.image import ImagePlot
 from util import win2fig
@@ -131,9 +131,9 @@ class ContrastWidget(QDockWidget):
     
     def create_controls(self):
         self.sl_level = QDoubleSlider(self, Qt.Horizontal)
-        self.lbl_level = QLabel(self.LevelLabel + ": 0.0")
+        self.lbl_level = QClickLabel(self.LevelLabel + ": 0.0")
         self.sl_window = QDoubleSlider(self, Qt.Horizontal)
-        self.lbl_window = QLabel(self.WindowLabel + ": 0.0")
+        self.lbl_window = QClickLabel(self.WindowLabel + ": 0.0")
         
         for sl in [self.sl_level, self.sl_window]:
             sl.setRange(0.0, 1.0)
@@ -141,8 +141,8 @@ class ContrastWidget(QDockWidget):
             
         self.chk_auto = QCheckBox("Auto", self)
             
-        self.connect(self.lbl_level, SIGNAL('clicked()'), self.reset_level)
-        self.connect(self.lbl_window, SIGNAL('clicked()'), self.reset_window)
+        self.lbl_level.clicked.connect(self.reset_level)
+        self.lbl_window.clicked.connect(self.reset_window)
         self.sl_level.valueChanged[float].connect(self.level_changed)
         self.sl_window.valueChanged[float].connect(self.window_changed)
         self.connect(self.chk_auto, SIGNAL('toggled(bool)'), self.auto)

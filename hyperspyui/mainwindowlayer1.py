@@ -205,13 +205,15 @@ class MainWindowLayer1(QMainWindow):
         #TODO: Implement, and figure out parameters
         pass
     
-    def add_widget(self, widget):
+    def add_widget(self, widget, floating=None):
         """
         Add the passed 'widget' to the main window. If the widget is not a
         QDockWidget, it will be wrapped in one. The QDockWidget is returned.
         The widget is also added to the window menu self.windowmenu, so that
         it's visibility can be toggled.
         """
+        if floating is None:
+            floating = self.default_widget_floating
         if isinstance(widget, QDockWidget):
             d = widget
         else:
@@ -220,7 +222,9 @@ class MainWindowLayer1(QMainWindow):
             d.setWindowTitle(widget.windowTitle())
         d.setAllowedAreas(Qt.RightDockWidgetArea | Qt.LeftDockWidgetArea) 
         self.addDockWidget(Qt.RightDockWidgetArea, d)
-        d.setFloating(self.default_widget_floating)
+        d.setFloating(floating)
+        
+        self.widgets.append(widget)
         
         # Insert widgets in Windows menu before separator (figures are after)
         self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())

@@ -1,17 +1,31 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Oct 29 18:08:16 2014
+Created on Fri Nov 21 22:11:04 2014
 
 @author: vidarton
 """
 
-# Qt
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
-from QtGui import QSlider
+from QtGui import *
+
+
+class QToolWindow(QDialog):
+    def __init__(self, parent=None):
+        super(QToolWindow, self).__init__(parent)
+        self.setWindowFlags(Qt.Tool)
+
+class QClickLabel(QLabel):
+    clicked = Signal()
+    
+    def _init__(self, *args, **kwargs):
+      super(QClickLabel, self).__init__(*args, **kwargs)
+
+    def mousePressEvent(self, event):
+          self.clicked.emit()
+
 
 class QDoubleSlider(QSlider):
-
     valueChanged = QtCore.Signal(float)    
     
     def __init__(self, parent=None, orientation=None):

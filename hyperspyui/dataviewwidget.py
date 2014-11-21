@@ -24,6 +24,9 @@ class DataViewWidget(QTreeWidget):
         self.lut = {}
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.editor = QWidget()
+        sp = self.sizePolicy()
+        sp.setVerticalPolicy(QSizePolicy.Expanding)
+        self.setSizePolicy(sp)
 #        self.setColumnCount(1)
 #        self.setRootIsDecorated(True)
 #        self.setIndentation(20)
