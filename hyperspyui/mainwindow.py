@@ -16,6 +16,7 @@ from signalwrapper import SignalWrapper
 from signallist import SignalList
 from threaded import ProgressThread
 from contrastwidget import ContrastWidget
+from elementpicker import ElementPickerWidget
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -102,6 +103,14 @@ class MainWindow(MainWindowLayer2):
                         " to deconvolve one signal from another",
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.signals))
+                            
+        self.add_action('pick_elements', "Pick elements", self.pick_elements,
+                        #icon='../images/perdiodic_table.svg',
+                        tip="Pick the elements for the spectrum",
+                        selection_callback=SignalTypeFilter(
+                            (hyperspy.signals.EELSSpectrum,
+                             hyperspy.signals.EDSSEMSpectrum,
+                             hyperspy.signals.EDSTEMSpectrum), self.signals))
                   
         # --- Add PCA action ---
         def pca_selection_rules(win, action):
@@ -151,6 +160,7 @@ class MainWindow(MainWindowLayer2):
         self.signalmenu.addAction(self.actions['mirror'])
         self.signalmenu.addAction(self.actions['remove_background'])
         self.signalmenu.addAction(self.actions['pca'])
+        self.signalmenu.addAction(self.actions['pick_elements'])
         
         # Model menu
         self.modelmenu = mb.addMenu(tr("&Model"))
@@ -172,6 +182,7 @@ class MainWindow(MainWindowLayer2):
         self.add_toolbar_button("Signal", self.actions['mirror'])
         self.add_toolbar_button("Signal", self.actions['remove_background'])
         self.add_toolbar_button("Signal", self.actions['pca'])
+        self.add_toolbar_button("Signal", self.actions['pick_elements'])
         
         self.add_toolbar_button("EELS", self.actions['fourier_ratio'])
         
@@ -274,6 +285,14 @@ class MainWindow(MainWindowLayer2):
         if signal is None:
             signal = self.get_selected_signal()
         signal.run_nonblock(signal.signal.remove_background, "Background removal tool")
+        
+        
+    def pick_elements(self, signal=None):
+        if signal is None:
+            signal = self.get_selected_signal()
+                
+        ptw = ElementPickerWidget(signal, self)
+        ptw.show()
 
 
     def pca(self, signal=None):

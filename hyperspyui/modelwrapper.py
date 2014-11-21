@@ -11,7 +11,7 @@ from python_qt_binding import QtCore, QtGui
 from actionable import Actionable
 from functools import partial
 
-
+# TODO: Add smartfit for EELSModel
 class ModelWrapper(Actionable):
     added = QtCore.Signal((object, object), (object,))
     removed = QtCore.Signal((object, object), (object,))
