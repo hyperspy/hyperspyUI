@@ -5,6 +5,10 @@ Created on Mon Oct 27 18:47:05 2014
 @author: vidarton
 """
 
+    
+import hyperspy.components
+from functools import partial
+from python_qt_binding import QtGui, QtCore
 
 
 def lstrip(string, prefix):
@@ -21,10 +25,11 @@ def win2fig(window):
     # Each figure has FigureCanvas as widget, canvas has figure property
     return window.widget().figure
     
-    
-import hyperspy.components
-from functools import partial
-from python_qt_binding import QtGui, QtCore
+def win2sig(window, signals):
+    for s in signals:
+        if window in (s.navigator_plot, s.signal_plot):
+            return s
+    return None
 
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}

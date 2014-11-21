@@ -140,8 +140,8 @@ class MainWindowLayer1(QMainWindow):
     
     def on_subwin_activated(self, mdi_figure):
         self.active_mdi = mdi_figure
-        for cb in self._action_selection_cbs:
-            cb(mdi_figure)
+        for key, cb in self._action_selection_cbs.iteritems():
+            cb(mdi_figure, self.actions[key])
         
     # --------- End figure management ---------
   

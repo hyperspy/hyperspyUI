@@ -10,7 +10,7 @@ import sys
     
 from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
 
-from util import create_add_component_actions, fig2win
+from util import create_add_component_actions, fig2win, win2sig
 from signalwrapper import SignalWrapper
 from signallist import SignalList
 from threaded import ProgressThread
@@ -75,13 +75,21 @@ class MainWindow(MainWindowLayer2):
                         icon='../images/power_law.svg',
                         tip="Interactively define the background, and remove it")
                         
+        def pca_selection_rules(win, action):
+            s = win2sig(win, self.signals)
+            if s is None or s.signal.axes_manager.navigation_dimension < 1:
+                action.setEnabled(False)
+            else:
+                action.setEnabled(True)
+                
         self.add_action('pca', "PCA", self.pca,
                         icon='../images/pca.svg',
-                        tip="Run Principal Component Analysis")
+                        tip="Run Principal Component Analysis",
+                        selection_callback=pca_selection_rules)
+        self.actions['pca'].setEnabled(False)   # Need valid signal to be enabled
                         
         # TODO: Set signal type action (EDS TEM etc.)
         # TODO: Set signal datatype
-        # TODO: Add specific action / group specificity and enable/disable on focus
         
         comp_actions = create_add_component_actions(self, self.make_component)
         self.comp_actions = []
