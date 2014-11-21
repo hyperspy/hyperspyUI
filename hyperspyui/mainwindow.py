@@ -156,10 +156,12 @@ class MainWindow(MainWindowLayer2):
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
+        
         self.add_toolbar_button("Signal", self.actions['mirror'])
         self.add_toolbar_button("Signal", self.actions['remove_background'])
-        self.add_toolbar_button("Signal", self.actions['fourier_ratio'])
         self.add_toolbar_button("Signal", self.actions['pca'])
+        
+        self.add_toolbar_button("EELS", self.actions['fourier_ratio'])
         
         super(MainWindow, self).create_toolbars()
         
@@ -265,20 +267,33 @@ class MainWindow(MainWindowLayer2):
     def pca(self, signal=None):
         if signal is None:
             signal = self.get_selected_signal()
-        signal.signal.decomposition()
-        ax = signal.signal.plot_explained_variance_ratio()
+        s = signal.signal
+        try:
+            s.decomposition()
+            ax = s.plot_explained_variance_ratio()  # Make scree plot
+        # decomp.. warns if wrong type, but plot_expl.. raises exception
+        except AttributeError:
+            print "Making signal copy of float type in background for PCA"
+            s = s.deepcopy()
+            s.change_dtype(float)
+            s.decomposition()
+            ax = s.plot_explained_variance_ratio()
+            
+        # Clean up plot and present, allow user to select components by picker
         ax.set_title("")
-        spree = ax.get_figure().canvas
-        spree.draw()
-        spree.setWindowTitle("Pick number of components")
+        scree = ax.get_figure().canvas
+        scree.draw()
+        scree.setWindowTitle("Pick number of components")
         def clicked(event):
             components = round(event.xdata)
-            sc = signal.signal.get_decomposition_model(components)
+            # Num comp. picked, perform PCA, wrap new signal and plot
+            sc = s.get_decomposition_model(components)
             scw = SignalWrapper(sc, self, signal.name + "[PCA]")
             self.signals.append(scw)
-            w = fig2win(spree.figure, self.figures)
+            # Close scree plot
+            w = fig2win(scree.figure, self.figures)
             w.close()
-        spree.mpl_connect('button_press_event', clicked)
+        scree.mpl_connect('button_press_event', clicked)
         
     def set_signal_type(self, signal_type, signal=None):
         if signal is None:
