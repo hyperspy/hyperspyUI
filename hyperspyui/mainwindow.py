@@ -78,6 +78,10 @@ class MainWindow(MainWindowLayer2):
         self.add_action('pca', "PCA", self.pca,
                         icon='../images/pca.svg',
                         tip="Run Principal Component Analysis")
+                        
+        # TODO: Set signal type action (EDS TEM etc.)
+        # TODO: Set signal datatype
+        # TODO: Add specific action / group specificity and enable/disable on focus
         
         comp_actions = create_add_component_actions(self, self.make_component)
         self.comp_actions = []
@@ -144,13 +148,15 @@ class MainWindow(MainWindowLayer2):
             # the navigators. To keep UI from flickering, we suspend updates.
             # SignalWrapper also saves and then restores window geometry
             self.setUpdatesEnabled(False)
-            for s in uisignals:
-                s.keep_on_close = True
-            hyperspy.utils.plot.plot_signals(signals)
-            for s in uisignals:
-                s.update_figures()
-                s.keep_on_close = False
-            self.setUpdatesEnabled(True)    # Continue updating UI
+            try:
+                for s in uisignals:
+                    s.keep_on_close = True
+                hyperspy.utils.plot.plot_signals(signals)
+                for s in uisignals:
+                    s.update_figures()
+                    s.keep_on_close = False
+            finally:
+                self.setUpdatesEnabled(True)    # Continue updating UI
         else:
             mb = QMessageBox(QMessageBox.Information, tr("Select two or more"), 
                              tr("You need to select two or more signals" + 
