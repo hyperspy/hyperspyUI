@@ -51,6 +51,7 @@ class MainWindowLayer2(MainWindowLayer1):
         # Sync tree with signals list
         self.signals.add_custom(self.tree, self.tree.add_signal, None,
                                 None, self.tree.remove, None)
+        self.main_frame.subWindowActivated.connect(self.tree.on_mdiwin_activated)
         self.add_widget(self.tree)
         
         
@@ -88,6 +89,9 @@ class MainWindowLayer2(MainWindowLayer1):
     def make_component(self, comp_type):
         m = self.get_selected_model()       
         m.add_component(comp_type)
+        
+    
+    # -------- Selection management -------
         
     def get_selected_signal(self, error_on_multiple=False):
         signals = self.get_selected_signals()

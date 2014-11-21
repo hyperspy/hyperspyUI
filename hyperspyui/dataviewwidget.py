@@ -128,6 +128,20 @@ class DataViewWidget(QTreeWidget):
     def remove(self, object):
         self._remove(object)
         
+    def on_mdiwin_activated(self, mdi_figure):
+        found = None
+        for i in xrange(self.topLevelItemCount()):
+            item = self.topLevelItem(i)
+            s = item.data(0, Qt.UserRole)
+            try:    # In case topLevelItems are not all SignalWrappers in future
+                if mdi_figure in (s.navigator_plot, s.signal_plot):
+                    found = item
+                    break
+            except AttributeError:
+                pass
+        if found is not None:
+            self.setCurrentItem(found)
+        
     def get_selected_signals(self):
         items = self.selectedItems()
         signals = []
@@ -176,6 +190,4 @@ class DataViewWidget(QTreeWidget):
     def get_selected_component(self):
         raise NotImplementedError()
         
-        # TODO: Make TreeView with signals in root, then Models (others?),
-        # and under Models, Components. Components can be edited by traisui.
         # TODO: Make TraitsUI widget, and display one underneath the TreeView

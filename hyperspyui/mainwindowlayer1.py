@@ -38,10 +38,14 @@ class MainWindowLayer1(QMainWindow):
         self.default_fig_floating = False
         self.default_widget_floating = False
         
+        # State varaibles
+        self.active_mdi = None
+        
         # Collections
         self.widgets = []   # Widgets in widget bar
         self.figures = []   # Matplotlib figures
         self.actions = {}
+        self._action_selection_cbs = {}
         self.toolbars = {}
         self.menus = {}
         
@@ -51,6 +55,9 @@ class MainWindowLayer1(QMainWindow):
         
         # Create UI
         self.create_ui()
+        
+        # Connect figure management functions
+        self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
         
     def create_ui(self):
         self.main_frame = QMdiArea()
@@ -108,6 +115,8 @@ class MainWindowLayer1(QMainWindow):
     def save_preferences(self):
         pass
     
+    # --------- Figure management ---------
+    
     # --------- MPL Events ---------
     
     def on_new_figure(self, figure, userdata=None):
@@ -127,19 +136,27 @@ class MainWindowLayer1(QMainWindow):
         self.windowmenu.removeAction(figure.activateAction()) 
             
     # --------- End MPL Events ---------
-  
+            
+    
+    def on_subwin_activated(self, mdi_figure):
+        self.active_mdi = mdi_figure
+        for cb in self._action_selection_cbs:
+            cb(mdi_figure)
+        
+    # --------- End figure management ---------
   
     # --------- UI utility finctions ---------
   
-    def add_action(self, key, label, callback, tip=None, icon=None, shortcut=None, userdata=None):
+    def add_action(self, key, label, callback, tip=None, icon=None, 
+                   shortcut=None, userdata=None, selection_callback=None):
         """
         Create and add a QAction to self.actions[key]. 'label' is used as the
         short description of the action, and 'tip' as the long description.
         The tip is typically shown in the statusbar. The callback is called 
-        when the action is triggered(), and is called with the 'userdata' as
-        a parameter if a non-None value was supplied. The optional 'icon' 
-        should either be a QIcon, or a path to an icon file, and is used to
-        depict the action on toolbar buttons and in menus.
+        when the action is triggered(). The 'userdata' is stpred in the 
+        QAction's data() attribute. The optional 'icon' should either be a 
+        QIcon, or a path to an icon file, and is used to depict the action on 
+        toolbar buttons and in menus.
         """
         #TODO: Add callbacks that are triggered on window activation / signal selection,
         # this can change the action (e.g. target), or enable/disable the action
@@ -153,13 +170,12 @@ class MainWindowLayer1(QMainWindow):
             ac.setShortcuts(shortcut)
         if tip is not None:
             ac.setStatusTip(tr(tip))
-        if userdata is None:
-            self.connect(ac, SIGNAL('triggered()'), callback)
-        else:
-            def callback_udwrap():
-                callback(userdata)
-            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
+        if userdata is not None:
+            ac.setData(userdata)
+        self.connect(ac, SIGNAL('triggered()'), callback)
         self.actions[key] = ac
+        if selection_callback is not None:
+            self._action_selection_cbs[key] = selection_callback
     
     def add_toolbar_button(self, category, action):
         """
