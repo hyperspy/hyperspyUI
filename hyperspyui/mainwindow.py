@@ -29,6 +29,16 @@ import hyperspy.signals
 
 
 class Namespace: pass
+                 
+class SignalTypeFilter(object):
+    def __init__(self, signal_type, signal_list ):
+        self.signal_type = signal_type
+        self.signal_list = signal_list
+        
+    def __call__(self, win, action):
+        sig = win2sig(win, self.signal_list)
+        valid = sig is None or isinstance(sig.signal, self.signal_type)
+        action.setEnabled( valid )
 
 class MainWindow(MainWindowLayer2):
     """
@@ -39,16 +49,17 @@ class MainWindow(MainWindowLayer2):
     that it is accessible from the console's 'ui' variable.
     """    
     
+    signal_types = OrderedDict([('Signal', hyperspy.signals.Signal),
+                 ('Spectrum', hyperspy.signals.Spectrum),
+                 ('Spectrum simulation', hyperspy.signals.SpectrumSimulation),
+                 ('EELS', hyperspy.signals.EELSSpectrum),
+                 ('EELS simulation', hyperspy.signals.EELSSpectrumSimulation),
+                 ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
+                 ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
+                 ('Image', hyperspy.signals.Image),
+                 ('Image simulation', hyperspy.signals.ImageSimulation)])
+                 
     def __init__(self, parent=None):
-        self.signal_types = OrderedDict([('Signal', hyperspy.signals.Signal),
-                             ('Spectrum', hyperspy.signals.Spectrum),
-                             ('Spectrum simulation', hyperspy.signals.SpectrumSimulation),
-                             ('EELS', hyperspy.signals.EELSSpectrum),
-                             ('EELS simulation', hyperspy.signals.EELSSpectrumSimulation),
-                             ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
-                             ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
-                             ('Image', hyperspy.signals.Image),
-                             ('Image simulation', hyperspy.signals.ImageSimulation)])
         self.signal_type_ag = None
         
         super(MainWindow, self).__init__(parent)
@@ -79,16 +90,18 @@ class MainWindow(MainWindowLayer2):
         self.add_action('add_model', "Create Model", self.make_model,
                         tip="Create a model for the selected signal")
                         
-        self.add_action('fourier_ratio', "Foruier Ratio Deconvoloution",
-                        self.fourier_ratio, 
-                        icon='../images/fourier_ratio.svg',
-                        tip="Use the Fourier-Ratio method" +
-                        " to deconvolve one signal from another")
-                        
         self.add_action('remove_background', "Remove Background",
                         self.remove_background, 
                         icon='../images/power_law.svg',
                         tip="Interactively define the background, and remove it")
+                        
+        self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
+                        self.fourier_ratio, 
+                        icon='../images/fourier_ratio.svg',
+                        tip="Use the Fourier-Ratio method" +
+                        " to deconvolve one signal from another",
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.EELSSpectrum, self.signals))
                   
         # --- Add PCA action ---
         def pca_selection_rules(win, action):
@@ -98,11 +111,10 @@ class MainWindow(MainWindowLayer2):
             else:
                 action.setEnabled(True)
                 
-        pca_ac = self.add_action('pca', "PCA", self.pca,
+        self.add_action('pca', "PCA", self.pca,
                         icon='../images/pca.svg',
                         tip="Run Principal Component Analysis",
                         selection_callback=pca_selection_rules)
-        pca_ac.setEnabled(False)   # Need valid signal to be enabled
         
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)

@@ -180,6 +180,7 @@ class MainWindowLayer1(QMainWindow):
         self.actions[key] = ac
         if selection_callback is not None:
             self._action_selection_cbs[key] = selection_callback
+            ac.setEnabled(False)
         return ac
     
     def add_toolbar_button(self, category, action):
