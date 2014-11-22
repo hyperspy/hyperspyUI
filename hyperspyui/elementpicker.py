@@ -15,6 +15,10 @@ from extendedqwidgets import QToolWindow
 from periodictable import PeriodicTableWidget
 
 class ElementPickerWidget(QToolWindow):
+    """
+    Tool window for picking elements of an interactive periodic table.
+    Takes a signal in the constructor, and 
+    """
     element_toggled = Signal(str)
     
     def __init__(self, signal, parent):
@@ -23,17 +27,24 @@ class ElementPickerWidget(QToolWindow):
         self.setWindowTitle("Select elements for " + signal.name)  #TODO: tr
         self.create_controls()
         
+        # Make sure we have the Sample node, and Sample.elements
         if not hasattr(signal.signal.metadata, 'Sample'):
             signal.signal.metadata.add_node('Sample')
             signal.signal.metadata.Sample.elements = []
+
+        self.table.element_toggled.connect(self._toggle_element)
+        self._set_elements(signal.signal.metadata.Sample.elements)
         
-        if isinstance(signal.signal, hyperspy.signals.EELSSpectrum):
-            f = self._toggle_element_eels
+    def _toggle_element(self, element):
+        """
+        Makes sure the element is toggled correctly for both EDS and EELS.
+        Dependent on hyperspy implementation, as there are currently no
+        remove_element functions.
+        """
+        if isinstance(self.signal.signal, hyperspy.signals.EELSSpectrum):
+            self._toggle_element_eels(element)
         else:
-            f = self._toggle_element_eds
-            
-        self.table.element_toggled.connect(f)
-        self.set_elements(signal.signal.metadata.Sample.elements)
+            self._toggle_element_eds(element)
             
     def _toggle_element_eds(self, element):
         if element in self.signal.signal.metadata.Sample.elements:
@@ -49,18 +60,28 @@ class ElementPickerWidget(QToolWindow):
         else:
             self.signal.signal.add_elements((element,))
         
-    def set_elements(self, elements):
+    def _set_elements(self, elements):
+        """
+        Sets the table elements. Does not set elements in signal!
+        """
         self.table.set_elements(elements)
         
     def make_map(self):
+        """
+        Make integrated intensity maps for the defines elements. Currently
+        only implemented for EDS signals.
+        """
         if isinstance(self.signal.signal, hyperspy.signals.EELSSpectrum):
             pass
         else:
             imgs = self.signal.signal.get_lines_intensity()
             for im in imgs:
-                self.parent().add_signal_figures(im, im.metadata.General.title)
+                self.parent().add_signal_figure(im, im.metadata.General.title)
     
     def create_controls(self):
+        """
+        Create UI controls.
+        """
         self.table = PeriodicTableWidget(self)
         self.table.element_toggled.connect(self.element_toggled)    # Forward
         

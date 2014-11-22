@@ -273,7 +273,7 @@ class MainWindow(MainWindowLayer2):
                                                             s_lowloss.signal)
             def fr_complete():
                 title = s_core.name + "[Fourier-ratio]" 
-                self.add_signal_figures(ns.s_return, title)
+                self.add_signal_figure(ns.s_return, title)
                 
             t = ProgressThread(self, run_fr, fr_complete, 
                                "Performing Fourier-ratio deconvolution")

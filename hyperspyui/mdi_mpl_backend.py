@@ -28,17 +28,27 @@ from matplotlib.backends.backend_qt5 import (SPECIAL_KEYS, SUPER, ALT, CTRL,
 _new_fig_cbs = {}
 _destroy_cbs = {}
 def connect_on_new_figure(callback, userdata=None):
+    """
+    Call to subscribe to new MPL figure events. 'callback' is called on the
+    event, with the figure as it's first parameter, and 'userdata' as it's
+    second parameter if it is not None. If it's None, only one parameter is 
+    passed.
+    """
     global _new_fig_cbs
     _new_fig_cbs[callback] = userdata
 
 def disconnect_on_new_figure(callback):
+    """
+    Disconnect callback from subscription.
+    """
     global _new_fig_cbs
     if callback in _new_fig_cbs:
         _new_fig_cbs.pop(callback)
 
 def _on_new_figure(figure):
     """
-    figure parameter is of the type FigureWindow defined below
+    New MPL figure event, calls subscribers.
+    'figure' parameter is of the type FigureWindow defined below
     """
     global _new_fig_cbs
     for callback, userdata in _new_fig_cbs.iteritems():
@@ -49,15 +59,28 @@ def _on_new_figure(figure):
         
 
 def connect_on_destroy(callback, userdata=None):
+    """
+    Call to subscribe to destroying MPL figure events. 'callback' is called on 
+    the event, with the figure as it's first parameter, and 'userdata' as it's
+    second parameter if it is not None. If it's None, only one parameter is 
+    passed.
+    """
     global _destroy_cbs
     _destroy_cbs[callback] = userdata
 
 def disconnect_on_destroy(callback):
+    """
+    Disconnect callback from subscription.
+    """
     global _destroy_cbs
     if callback in _destroy_cbs:
         _destroy_cbs.pop(callback)
 
 def _on_destroy(figure):
+    """
+    Destroying MPL figure event, calls subscribers.
+    'figure' parameter is of the type FigureWindow defined below
+    """
     global _destroy_cbs
     for callback, userdata in _destroy_cbs.iteritems():
         try:
@@ -67,7 +90,7 @@ def _on_destroy(figure):
 
 def new_figure_manager(num, *args, **kwargs):
     """
-    Create a new figure manager instance
+    Create a new figure manager instance. MPL backend function.
     """
     FigureClass = kwargs.pop('FigureClass', matplotlib.backends.backend_qt4agg.Figure)
     thisFig = FigureClass(*args, **kwargs)
@@ -76,7 +99,8 @@ def new_figure_manager(num, *args, **kwargs):
 
 def new_figure_manager_given_figure(num, figure):
     """
-    Create a new figure manager instance for the given figure.
+    Create a new figure manager instance for the given figure. MPL backend 
+    function.
     """
     canvas = matplotlib.backends.backend_qt4agg.FigureCanvas(figure)
     manager = FigureManagerMdi(canvas, num)
@@ -117,26 +141,29 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
             return self._activate_action
         self._activate_action = QtGui.QAction(self.windowTitle(), self)
         self._activate_action.setCheckable(True)
-        self._activate_action.triggered.connect(self._triggered)
+        self._activate_action.triggered.connect(self._activate_triggered)
         self.activeFigureActionGroup.addAction(self._activate_action)
         return self._activate_action
         
     def setWindowTitle(self, title):
+        # Overridden to keep action text updated
         super(FigureWindow, self).setWindowTitle(title)
         if self._activate_action is not None:
             self._activate_action.setText(title)
 
     def _windowStateChanged(self, oldState, newState):
+        # Event for tracking if we're active or not
         isactive = newState & QtCore.Qt.WindowActive
         if isactive == oldState & QtCore.Qt.WindowActive:
             return  # Another window state changed, e.g. activation
         self._activate_action.setChecked(isactive)
         
-    def _triggered(self, checked):
+    def _activate_triggered(self, checked):
+        # Activate action triggered, make window active
         if self.mdiArea():
             self.mdiArea().setActiveSubWindow(self)
         else:
-            self.activateWindow()
+            self.activateWindow()   # If not subwindow
         
         if self.isMinimized():
             self.showNormal()   # Restore minimized window
@@ -153,6 +180,9 @@ class FigureManagerMdi(FigureManagerBase):
     num         : The Figure number
     toolbar     : The qt.QToolBar
     window      : The FigureWindow
+    
+    Our MPL figure manager class. Much of the code is copied from MPL Qt4
+    backend, but adapted for our needs.
     """
 
     def __init__(self, canvas, num):
@@ -254,6 +284,6 @@ class FigureManagerMdi(FigureManagerBase):
     def set_window_title(self, title):
         self.window.setWindowTitle(title)
 
-
+# Definition for MPL backend:
 FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
 FigureManager = FigureManagerMdi

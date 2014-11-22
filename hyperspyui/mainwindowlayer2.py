@@ -47,10 +47,9 @@ class MainWindowLayer2(MainWindowLayer1):
     def create_widgetbar(self):  
         super(MainWindowLayer2, self).create_widgetbar() 
         
-        # TODO: Default widgets? Brightness/contrast? YES
         self.tree = DataViewWidget(self)
         self.tree.setWindowTitle(tr("Data View"))
-        # Sync tree with signals list
+        # Sync tree with signals list:
         self.signals.add_custom(self.tree, self.tree.add_signal, None,
                                 None, self.tree.remove, None)
         self.main_frame.subWindowActivated.connect(self.tree.on_mdiwin_activated)
@@ -69,13 +68,17 @@ class MainWindowLayer2(MainWindowLayer1):
         self.signals.add_custom(self.windowmenu, None, None, None, 
                                 rem_s, lambda i: rem_s(self.signals[i]))
     
-    def add_signal_figures(self, signal, sig_name=None):
+    def add_signal_figure(self, signal, sig_name=None):
         sig = SignalWrapper(signal, self, sig_name)
         self.signals.append(sig)
         # Little hack to activate after creation
         self.main_frame.subWindowActivated.emit(self.main_frame.activeSubWindow())
         
     def add_model(self, signal, *args, **kwargs):
+        """
+        Add a default model for the given/selected signal. Returns the 
+        newly created ModelWrapper.
+        """
         if signal is None:
             signal = self.get_selected_signal()
         elif not isinstance(signal, SignalWrapper):
@@ -85,6 +88,10 @@ class MainWindowLayer2(MainWindowLayer1):
         return mw
         
     def make_model(self, signal=None, *args, **kwargs):
+        """
+        Same as add_model(), but returns the hyperspy.Model instead of the 
+        wrapper.
+        """
         mw = self.add_model(signal, *args, **kwargs)
         return mw.model
             
@@ -98,15 +105,16 @@ class MainWindowLayer2(MainWindowLayer1):
     def get_selected_signal(self, error_on_multiple=False):
         signals = self.get_selected_signals()
         if len(signals) < 1:
-            #TODO: MessageBox
             return None
         elif error_on_multiple and len(signals) > 1:
-            #TODO: MessageBox
-            pass
+            mb = QMessageBox(QMessageBox.Information, tr("Select one signal only"), 
+                             tr("You can only select one signal at the time" + 
+                             " for this function. Currently, several are selected"),
+                             QMessageBox.Ok)
+            mb.exec_()
         return signals[0]
         
     def get_selected_signals(self):
-        # TODO: Sync list selection with active window?
         return self.tree.get_selected_signals()
         
     def get_selected_model(self):
@@ -138,7 +146,7 @@ class MainWindowLayer2(MainWindowLayer1):
             self.setUpdatesEnabled(False)   # Prevent flickering during load
             sig = hyperspy.hspy.load(filename)
             base = os.path.splitext( os.path.basename(filename) )[0]
-            self.add_signal_figures(sig, base)
+            self.add_signal_figure(sig, base)
             self.setUpdatesEnabled(True)
         if len(filenames) == 1:
             self.set_status("Loaded \"" + filenames[0] + "\"")
