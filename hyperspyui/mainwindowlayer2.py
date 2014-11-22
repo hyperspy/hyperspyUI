@@ -6,6 +6,7 @@ Created on Tue Nov 04 13:37:08 2014
 """
 
 import os
+from functools import partial
 
 # Hyperspy uses traitsui, set proper backend
 from traits.etsconfig.api import ETSConfig
@@ -38,6 +39,7 @@ class MainWindowLayer2(MainWindowLayer1):
         super(MainWindowLayer2, self).__init__(parent)
             
         self.cur_dir = ""
+        self.progressbars = {}
         
         self.setWindowTitle("HyperSpy")
         self.set_status("Ready")
@@ -142,6 +144,37 @@ class MainWindowLayer2(MainWindowLayer1):
             self.set_status("Loaded \"" + filenames[0] + "\"")
         elif len(filenames) > 1:
             self.set_status("Loaded %d files" % len(filenames))
+            
+            
+    # --------- Progress bars ----------
+            
+    def on_progressbar_wanted(self, pid, maxval, label):
+        progressbar = QProgressDialog(self)
+        progressbar.setMinimumDuration(2000)
+        progressbar.setMinimum(0)
+        progressbar.setMaximum(maxval)
+        progressbar.setWindowTitle("Processing")
+        progressbar.setLabelText(label)
+#        progressbar.setCancelButtonText(None)
+        def cancel():
+            self.cancel_progressbar.emit(pid)
+        progressbar.canceled.connect(cancel)
+        progressbar.setWindowModality(Qt.WindowModal)
+        
+        self.progressbars[pid] = progressbar
+        
+    def on_progressbar_update(self, pid, value, txt=None):
+        if pid not in self.progressbars:
+            return
+        self.progressbars[pid].setValue(value)
+        if txt is not None:
+            self.progressbars[pid].setLabelText(txt) 
+        
+    def on_progressbar_finished(self, pid):
+        progressbar = self.progressbars.pop(pid)
+        progressbar.close()
+        
+    cancel_progressbar = Signal(int)
         
 
     # --------- Console functions ----------    
