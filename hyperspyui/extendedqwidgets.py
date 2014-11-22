@@ -11,11 +11,17 @@ from QtGui import *
 
 
 class QToolWindow(QDialog):
+    """
+    QDialog with Qt.Tool window flags.
+    """
     def __init__(self, parent=None):
         super(QToolWindow, self).__init__(parent)
         self.setWindowFlags(Qt.Tool)
 
 class QClickLabel(QLabel):
+    """
+    QLabel with 'clicked()' signal.
+    """
     clicked = Signal()
     
     def _init__(self, *args, **kwargs):
@@ -26,6 +32,9 @@ class QClickLabel(QLabel):
 
 
 class QDoubleSlider(QSlider):
+    """
+    QSlider with double values instead of int values.
+    """
     valueChanged = QtCore.Signal(float)    
     
     def __init__(self, parent=None, orientation=None):

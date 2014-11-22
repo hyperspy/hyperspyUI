@@ -11,6 +11,15 @@ from QtCore import *
 from QtGui import *
 
 class BindingList(list):
+    """
+    A list that has been extended to sync other lists or collections to changes
+    in its contents. By custom targets, it can also be used to trigger events
+    on addition/removal. Only append and remove actions are required, as
+    extend, insert and pop can be inferred (insert loses order however), but
+    for reasons of speed, it is recommended to supply all if they are 
+    available. Supported targets for add_target are types 'list' and 
+    'QListWidget'.
+    """
     def __init__(self, target=None, *args, **kwargs):
         super(BindingList, self).__init__(*args, **kwargs)
         self.set_target(target)

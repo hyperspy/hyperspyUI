@@ -8,6 +8,10 @@ Created on Mon Nov 17 11:35:52 2014
 from python_qt_binding import QtCore, QtGui
 
 class Actionable(QtCore.QObject):
+    """
+    Base class for simple action management utilities. Manages actions dict,
+    and adds actions through add_action().
+    """
     def __init__(self):
         super(Actionable, self).__init__()
         self.actions = {}

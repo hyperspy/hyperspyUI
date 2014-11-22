@@ -14,6 +14,14 @@ from functools import partial
 from util import create_add_component_actions
 
 class DataViewWidget(QTreeWidget):
+    """
+    A custom QTreeWidget, that handles the Signal-Model-Component hierarchy.
+    The relationships are displayed in a tree structure, and helps keep track
+    of the relationships between them. Also makes handeling several Models per
+    Signal easier.
+    """
+    
+    # Enums
     SignalType = QTreeWidgetItem.UserType
     ModelType = QTreeWidgetItem.UserType + 1
     ComponentType = QTreeWidgetItem.UserType + 2
@@ -37,6 +45,10 @@ class DataViewWidget(QTreeWidget):
                      self.onCustomContextMenu)
 
     def _add(self, text, item, itemtype, parent=None):
+        """
+        Make a QTreeWidgetItem for data item, and insert it below parent.
+        The parent can be either an data item, or a QTreeWidgetItem.
+        """
         if parent is None:
             parent = self
         elif not isinstance(parent, QTreeWidgetItem):
@@ -53,6 +65,9 @@ class DataViewWidget(QTreeWidget):
         return twi
         
     def onCustomContextMenu(self, point):
+        """
+        Displays the context menu for whatever is under the supplied point.
+        """
         item = self.itemAt(point)
         cm = QMenu(self)
         if item.type() == self.SignalType:
@@ -132,6 +147,10 @@ class DataViewWidget(QTreeWidget):
         self._remove(object)
         
     def on_mdiwin_activated(self, mdi_figure):
+        """
+        Can be connected to an MdiArea's subWindowActivated signal to sync
+        the selected signal.
+        """
         found = None
         for i in xrange(self.topLevelItemCount()):
             item = self.topLevelItem(i)
@@ -142,10 +161,14 @@ class DataViewWidget(QTreeWidget):
                     break
             except AttributeError:
                 pass
-        if found is not None:
+        if found is not None and found is not self.get_selected_signal():
             self.setCurrentItem(found)
         
     def get_selected_signals(self):
+        """
+        Returns a list of all selected signals. Any selected Models or 
+        Components will select their Signal parent.
+        """
         items = self.selectedItems()
         signals = []
         for i in items:    
@@ -163,6 +186,10 @@ class DataViewWidget(QTreeWidget):
         
         
     def get_selected_signal(self):
+        """
+        Returns the first selected Signal. Any selected Models or Components 
+        will select their Signal parent.
+        """
         items = self.selectedItems()
         if len(items) < 1:
             return None
@@ -176,6 +203,10 @@ class DataViewWidget(QTreeWidget):
         return item.data(0, Qt.UserRole)
         
     def get_selected_model(self):
+        """
+        Returns the first selected Model. Any selected Signals/Components 
+        will select their Model child/parent.
+        """
         items = self.selectedItems()
         if len(items) < 1:
             return None
