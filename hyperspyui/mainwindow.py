@@ -65,7 +65,7 @@ class MainWindow(MainWindowLayer2):
         
         super(MainWindow, self).__init__(parent)
         
-        self.setWindowIcon(QIcon('../images/hyperspy_logo.png'))
+        self.setWindowIcon(QIcon('../images/HyperSpy.svg'))
         # TODO: Set from preferences?, default to working dir (can be 
         # customized by modifying launcher)
 #        self.cur_dir = "D:/NetSync/TEM/20140304 - NWG130/SI-001/Spectrum Imaging-005"
