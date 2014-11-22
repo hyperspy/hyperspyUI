@@ -71,7 +71,7 @@ elements = [[
 ], [
 {'Z': 55, 'name': "caesium", 'id': "Cs", 'phase': "Solid", 'category': "Alkali metal", 'occurrence': "Primordial"},
 {'Z': 56, 'name': "barium", 'id': "Ba", 'phase': "Solid", 'category': "Alkaline earth metal", 'occurrence': "Primordial"},
-{'id': "*", 'name': "*"},
+(1, "*"),
 {'Z': 71, 'name': "lutetium", 'id': "Lu", 'phase': "Solid", 'category': "Lanthanide", 'occurrence': "Primordial"},
 {'Z': 72, 'name': "hafnium", 'id': "Hf", 'phase': "Solid", 'category': "Transition metal", 'occurrence': "Primordial"},
 {'Z': 73, 'name': "tantalum", 'id': "Ta", 'phase': "Solid", 'category': "Transition metal", 'occurrence': "Primordial"},
@@ -92,7 +92,7 @@ elements = [[
 ], [
 {'Z': 87, 'name': "francium", 'id': "Fr", 'phase': "Solid", 'category': "Alkali metal", 'occurrence': "From decay"},
 {'Z': 88, 'name': "radium", 'id': "Ra", 'phase': "Solid", 'category': "Alkaline earth metal", 'occurrence': "From decay"},
-{'id': "**", 'name': "**"},
+(1, "**"),
 {'Z': 103, 'name': "lawrencium", 'id': "Lr", 'phase': "Unknown phase", 'category': "Actinide", 'occurrence': "Synthetic"},
 {'Z': 104, 'name': "rutherfordium", 'id': "Rf", 'phase': "Unknown phase", 'category': "Transition metal", 'occurrence': "Synthetic"},
 {'Z': 105, 'name': "dubnium", 'id': "Db", 'phase': "Unknown phase", 'category': "Transition metal", 'occurrence': "Synthetic"},
