@@ -69,7 +69,7 @@ class MainWindow(MainWindowLayer2):
         # TODO: Set from preferences?, default to working dir (can be 
         # customized by modifying launcher)
 #        self.cur_dir = "D:/NetSync/TEM/20140304 - NWG130/SI-001/Spectrum Imaging-005"
-        self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
+#        self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
           
         
     def create_default_actions(self):       
@@ -105,7 +105,7 @@ class MainWindow(MainWindowLayer2):
                             hyperspy.signals.EELSSpectrum, self.signals))
                             
         self.add_action('pick_elements', "Pick elements", self.pick_elements,
-                        #icon='../images/perdiodic_table.svg',
+                        icon='../images/periodic_table.svg',
                         tip="Pick the elements for the spectrum",
                         selection_callback=SignalTypeFilter(
                             (hyperspy.signals.EELSSpectrum,
