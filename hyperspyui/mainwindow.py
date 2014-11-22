@@ -83,6 +83,10 @@ class MainWindow(MainWindowLayer2):
                         shortcut=QKeySequence.Close, 
                         icon='../images/close_window.svg',
                         tip="Close the selected signal(s)")
+        self.add_action('save', "&Save", self.save,
+                        shortcut=QKeySequence.Save, 
+#                        icon='../images/save.svg',
+                        tip="Save the selected signal(s)")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
                         icon='../images/mirror.svg',
@@ -151,6 +155,7 @@ class MainWindow(MainWindowLayer2):
         self.filemenu = mb.addMenu(tr("&File"))
         self.filemenu.addAction(self.actions['open'])
         self.filemenu.addAction(self.actions['close'])
+        self.filemenu.addAction(self.actions['save'])
         
         # Signal menu
         self.signalmenu = mb.addMenu(tr("&Signal"))
@@ -178,6 +183,7 @@ class MainWindow(MainWindowLayer2):
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
+        self.add_toolbar_button("Files", self.actions['save'])
         
         self.add_toolbar_button("Signal", self.actions['mirror'])
         self.add_toolbar_button("Signal", self.actions['remove_background'])
@@ -358,10 +364,11 @@ class MainWindow(MainWindowLayer2):
                 signal.signal.set_signal_origin('simulation')
             else:
                 signal.signal.set_signal_origin('') # Undetermined
-        finally:
+                
             signal.plot()
-            self.setUpdatesEnabled(True)
             signal.keep_on_close = False
+        finally:
+            self.setUpdatesEnabled(True)
         
                 
             

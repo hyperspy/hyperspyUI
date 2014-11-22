@@ -6,7 +6,7 @@ Created on Tue Nov 04 13:37:08 2014
 """
 
 import os
-from functools import partial
+import re
 
 # Hyperspy uses traitsui, set proper backend
 from traits.etsconfig.api import ETSConfig
@@ -23,7 +23,10 @@ from bindinglist import BindingList
 from dataviewwidget import DataViewWidget
 
 import hyperspy.hspy
+import hyperspy.defaults_parser
+from hyperspy.io_plugins import io_plugins
 
+glob_escape = re.compile(r'([\[\]])')
 
 
 class MainWindowLayer2(MainWindowLayer1):
@@ -132,11 +135,15 @@ class MainWindowLayer2(MainWindowLayer1):
         user interactively browse for files. It then load these files using
         hyperspy.hspy.load and wraps them and adds them to self.signals.
         """
+        extensions = set([ extensions.lower() for plugin in io_plugins 
+                        for extensions in plugin.file_extensions])
+        type_choices = ';;'.join(["*." + e for e in extensions])
+        type_choices = ';;'.join(("All types (*.*)", type_choices))
+                            
         if filenames is None:
-            file_choices = "DM (*.dm3;*.dm4)"
             filenames = QFileDialog.getOpenFileNames(self,
                     tr('Load file'), self.cur_dir,
-                    file_choices)
+                    type_choices)
             if not filenames:
                 return
 #            self.cur_dir = os.path.dirname(filenames)
@@ -144,15 +151,57 @@ class MainWindowLayer2(MainWindowLayer1):
         for filename in filenames:    
             self.set_status("Loading \"" + filename + "\"...")
             self.setUpdatesEnabled(False)   # Prevent flickering during load
-            sig = hyperspy.hspy.load(filename)
-            base = os.path.splitext( os.path.basename(filename) )[0]
-            self.add_signal_figure(sig, base)
-            self.setUpdatesEnabled(True)
+            try:
+                escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
+                sig = hyperspy.hspy.load(escaped)
+                base = os.path.splitext( os.path.basename(filename) )[0]
+                self.add_signal_figure(sig, base)
+            finally:
+                self.setUpdatesEnabled(True)
         if len(filenames) == 1:
             self.set_status("Loaded \"" + filenames[0] + "\"")
         elif len(filenames) > 1:
             self.set_status("Loaded %d files" % len(filenames))
+    
+    def save(self, signals=None, filenames=None):
+        if signals is None:
+            signals = self.get_selected_signals()
             
+        extensions = set([ extensions.lower() for plugin in io_plugins 
+                        for extensions in plugin.file_extensions])
+        type_choices = ';;'.join(["*." + e for e in extensions])
+        type_choices = ';;'.join(("All types (*.*)", type_choices))
+        deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
+            
+        i = 0
+        overwrite = None
+        for s in signals:
+            if filenames is None or len(filenames) <= i or filenames[i] is None:
+                if s.signal.metadata.has_item('General.original_filename'):
+                    f = s.signal.metadata.General.original_filename
+                else:
+                    f = self.cur_dir
+                base, tail = os.path.split(f)
+                fn, ext = os.path.splitext(tail)
+                if base is None or base == "":
+                    base = os.path.dirname(self.cur_dir)
+                if ext not in extensions:
+                    ext = deault_ext
+                fn = s.name
+                path_suggestion = os.path.sep.join((base, fn))
+                path_suggestion = os.path.extsep.join((path_suggestion, ext))
+                filename = QFileDialog.getSaveFileName(self, tr("Save file"), 
+                                            path_suggestion, type_choices,
+                                            "All types (*.*)")[0]
+                overwrite = True
+                if not filename:
+                    return
+            else:
+                filename = filenames[i]
+                overwrite = None
+            i += 1
+            s.signal.save(filename, overwrite)
+                
             
     # --------- Progress bars ----------
             
