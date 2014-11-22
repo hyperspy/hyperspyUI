@@ -38,6 +38,7 @@ class MainWindowLayer1(QMainWindow):
         self.default_fig_floating = False
         self.default_widget_floating = False
         
+        
         # State varaibles
         self.active_mdi = None
         
@@ -60,6 +61,7 @@ class MainWindowLayer1(QMainWindow):
         self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
         
     def create_ui(self):
+        self.setIconSize(QSize(self.toolbar_button_unit, self.toolbar_button_unit))
         self.main_frame = QMdiArea()
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
