@@ -20,7 +20,9 @@ def tr(text):
 from consolewidget import ConsoleWidget
 
 import mdi_mpl_backend
+import hooktraitsui
 
+hooktraitsui.hook_traitsui()
 
 class MainWindowLayer1(QMainWindow):
     """
@@ -37,7 +39,7 @@ class MainWindowLayer1(QMainWindow):
         self.toolbar_button_unit = 32   #TODO: Make a property
         self.default_fig_floating = False
         self.default_widget_floating = False
-        
+        self.make_trait_dialogs_widgets = True
         
         # State varaibles
         self.active_mdi = None
@@ -45,6 +47,7 @@ class MainWindowLayer1(QMainWindow):
         # Collections
         self.widgets = []   # Widgets in widget bar
         self.figures = []   # Matplotlib figures
+        self.traits_dialogs = []
         self.actions = {}
         self._action_selection_cbs = {}
         self.toolbars = {}
@@ -53,6 +56,10 @@ class MainWindowLayer1(QMainWindow):
         # MPL backend bindings
         mdi_mpl_backend.connect_on_new_figure(self.on_new_figure)
         mdi_mpl_backend.connect_on_destroy(self.on_destroy_figure)
+        
+        # traitsui backend bindings
+        hooktraitsui.connect_created(self.on_traits_dialog)
+        hooktraitsui.connect_destroyed(self.on_traits_destroyed)
         
         # Create UI
         self.create_ui()
@@ -139,6 +146,20 @@ class MainWindowLayer1(QMainWindow):
             
     # --------- End MPL Events ---------
             
+    # --------- traitsui Events ---------
+            
+    def on_traits_dialog(self, dialog, ui, parent):
+        self.traits_dialogs.append(dialog)
+        if parent is None:
+            dialog.setParent(self, QtCore.Qt.Tool)
+            dialog.show()
+            dialog.activateWindow()
+    
+    def on_traits_destroyed(self, dialog):
+        if dialog in self.traits_dialogs:
+            self.traits_dialogs.remove(dialog)
+    
+    # --------- End traitsui Events ---------       
     
     def on_subwin_activated(self, mdi_figure):
         self.active_mdi = mdi_figure
@@ -194,7 +215,7 @@ class MainWindowLayer1(QMainWindow):
         if self.toolbars.has_key(category):
             tb = self.toolbars[category]
         else:
-            tb = QToolBar(tr(category), self)
+            tb = QToolBar(tr(category) + tr(" toolbar"), self)
             self.addToolBar(Qt.LeftToolBarArea, tb)
             self.toolbars[category] = tb
         

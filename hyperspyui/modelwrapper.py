@@ -56,23 +56,12 @@ class ModelWrapper(Actionable):
         self.signal.update_figures()
             
     def fit_component(self, component):
-        # This is a non-blocking call. To make sure we keep our figures,
-        # we make sure we have the correct plot first
+        # This is a non-blocking call, which means the normal keep_on_close +
+        # update_figures won't work. To make sure we keep our figures,
+        # we force a plot first if it is not active already.
         if not self.model._plot.is_active():
             self.plot()
         self.model.fit_component(component)
-        
-        # Claim the dialog window
-        # TODO: Can we do this by custom traitsUI backend?
-        tlw = QtGui.QApplication.topLevelWidgets()
-        fitw = None
-        for w in tlw:
-            if w.windowTitle() == 'Fit single component':
-                # TODO: Make sure we don't have several
-                fitw = w
-                break
-        fitw.setParent(self.signal.parent, QtCore.Qt.Tool)
-        fitw.show()
 
     def update_components(self):
         """ 
