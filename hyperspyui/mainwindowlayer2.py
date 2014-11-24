@@ -144,6 +144,8 @@ class MainWindowLayer2(MainWindowLayer1):
             filenames = QFileDialog.getOpenFileNames(self,
                     tr('Load file'), self.cur_dir,
                     type_choices)
+            if isinstance(filenames, tuple):    # Pyside/PyQt are different
+                filenames = filenames[0]
             if not filenames:
                 return
 #            self.cur_dir = os.path.dirname(filenames)

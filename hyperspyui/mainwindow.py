@@ -374,7 +374,10 @@ class MainWindow(MainWindowLayer2):
             
     
 def main():
-    app = QApplication(sys.argv)
+    try:
+        app = QApplication(sys.argv)
+    except RuntimeError:
+        app = QApplication.instance()
 
     
     # Create and display the splash screen

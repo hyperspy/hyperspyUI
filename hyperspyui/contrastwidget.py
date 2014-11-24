@@ -44,7 +44,7 @@ class ContrastWidget(QDockWidget):
     def on_figure_change(self, figure):
         if isinstance(figure, QMdiSubWindow):
             figure = win2fig(figure)
-            
+        
         self.cur_figure = figure
         signals = self.parent().signals
         p = fig2plot(self.cur_figure, signals)
