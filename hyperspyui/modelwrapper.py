@@ -27,9 +27,12 @@ class ModelWrapper(Actionable):
         self.update_components()
         
         # Default actions
+        #TODO: tr()
         self.add_action('plot', "&Plot", self.plot)
         self.add_action('fit', "&Fit", self.fit)
         self.add_action('multifit', "&Multifit", self.multifit)
+        self.add_action('set_signal_range', "Set signal &range",
+                        self.set_signal_range)
         f = partial(self.signal.remove_model, self)
         self.add_action('delete', "&Delete", f)
         
@@ -62,6 +65,13 @@ class ModelWrapper(Actionable):
         if not self.model._plot.is_active():
             self.plot()
         self.model.fit_component(component)
+        
+    def set_signal_range(self, *args, **kwargs):
+        self.signal.keep_on_close = True
+        self.model.set_signal_range(*args, **kwargs)
+        self.signal.keep_on_close = False
+        self.signal.update_figures()
+        
 
     def update_components(self):
         """ 

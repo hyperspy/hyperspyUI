@@ -17,7 +17,7 @@ class HookedDialog(orig_type):
         
     def closeEvent(self, e):
         _on_closing(self, e)
-        super(HookedDialog, self).close(e)
+        super(HookedDialog, self).closeEvent(e)
         if e.isAccepted():
             _on_closed(self)
             

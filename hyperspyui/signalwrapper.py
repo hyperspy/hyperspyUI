@@ -37,6 +37,7 @@ class SignalWrapper(Actionable):
         
         self.add_action('plot', "&Plot", self.plot)
         self.add_action('add_model', "Add &model", self.make_model)
+        self.add_separator()
         self.add_action('close', "&Close", self.close)
         
         self.plot()
@@ -150,13 +151,15 @@ class SignalWrapper(Actionable):
         self.plot()
         
     def nav_closing(self):
-        self._nav_geom = self.navigator_plot.saveGeometry()
+        if self.navigator_plot:
+            self._nav_geom = self.navigator_plot.saveGeometry()
+            self.navigator_plot = None
         if self.signal_plot is None:
             self._closed()
-        self.navigator_plot = None
     
     def sig_closing(self):
-        self._sig_geom = self.signal_plot.saveGeometry()
+        if self.signal_plot:
+            self._sig_geom = self.signal_plot.saveGeometry()
         if self.navigator_plot is not None:
             self.navigator_plot.close()
             self.navigator_plot = None
@@ -164,7 +167,6 @@ class SignalWrapper(Actionable):
         self._closed()
     
     def close(self):
-        
         if self.signal_plot is not None:
             self.signal_plot.close()
             self.signal_plot = None

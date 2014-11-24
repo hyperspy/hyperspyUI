@@ -69,24 +69,25 @@ class DataViewWidget(QTreeWidget):
         Displays the context menu for whatever is under the supplied point.
         """
         item = self.itemAt(point)
+        if not item:
+            return
         cm = QMenu(self)
         if item.type() == self.SignalType:
             sig = item.data(0, Qt.UserRole)
             
-            cm.addAction(sig.actions['plot'])
-            cm.addAction(sig.actions['add_model'])
-            cm.addSeparator()
-            cm.addAction(sig.actions['close'])
+            # Add all actions defined on object
+            for ac in sig.actions.values():
+                cm.addAction(ac)
             
         elif item.type() == self.ModelType:
             model = item.data(0, Qt.UserRole)
             
+            # Add all actions defined on object
             for ac in model.actions.values():
                 cm.addAction(ac)
             
+            # Add "add component" actions
             cm.addSeparator()
-            
-            # Add component
             comp_actions = create_add_component_actions(self, 
                                                         model.add_component,
                                                         prefix="Add ")
