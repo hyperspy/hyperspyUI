@@ -10,6 +10,7 @@ from QtCore import *
 from QtGui import *
 
 from functools import partial
+import traitsui.api as tu
 
 from util import create_add_component_actions
 
@@ -101,6 +102,22 @@ class DataViewWidget(QTreeWidget):
             ac = QAction("&Fit component", self)    # TODO: tr()
             f = partial(model.fit_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
+            cm.addAction(ac)
+            
+            # Configure action
+            ac = QAction("&Configure", self)
+            def configure_traits():
+                items = []
+                for p in comp.parameters:
+                    name = '.'.join(('object', p.name))
+                    items.extend((tu.Item(name + '.value', label=p.name),
+                                          tu.Item(name + '.free')))
+                view = tu.View(*items, 
+                            buttons=tu.OKCancelButtons,
+                            default_button=tu.OKButton,
+                            kind='live')
+                comp.edit_traits(view=view)
+            ac.triggered.connect(configure_traits)
             cm.addAction(ac)
             
             cm.addSeparator()
