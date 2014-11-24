@@ -10,6 +10,7 @@ import matplotlib
 matplotlib.use('module://mdi_mpl_backend')
 matplotlib.interactive(True)
 
+import os
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
@@ -163,6 +164,8 @@ class MainWindowLayer1(QMainWindow):
     
     def on_subwin_activated(self, mdi_figure):
         self.active_mdi = mdi_figure
+        if mdi_figure and os.environ['QT_API'] == 'pyside':
+            mdi_figure.activateAction().setChecked(True)
         for key, cb in self._action_selection_cbs.iteritems():
             cb(mdi_figure, self.actions[key])
         

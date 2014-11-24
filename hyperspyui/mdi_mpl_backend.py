@@ -124,7 +124,8 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
     def __init__(self, *args, **kwargs):
         super(FigureWindow, self).__init__(*args, **kwargs)
         self._activate_action = None
-        self.windowStateChanged.connect(self._windowStateChanged)
+        if os.environ['QT_API'] != 'pyside':
+            self.windowStateChanged.connect(self._windowStateChanged)
         
 
     def closeEvent(self, event):
@@ -158,7 +159,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
             return  # Another window state changed, e.g. activation
         self._activate_action.setChecked(isactive)
         
-    def _activate_triggered(self, checked):
+    def _activate_triggered(self, checked=True):
         # Activate action triggered, make window active
         if self.mdiArea():
             self.mdiArea().setActiveSubWindow(self)

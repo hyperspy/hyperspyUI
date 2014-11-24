@@ -85,7 +85,7 @@ class MainWindow(MainWindowLayer2):
                         tip="Close the selected signal(s)")
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save, 
-#                        icon='../images/save.svg',
+                        icon='../images/save.svg',
                         tip="Save the selected signal(s)")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
@@ -374,7 +374,10 @@ class MainWindow(MainWindowLayer2):
             
     
 def main():
-    app = QApplication(sys.argv)
+    try:
+        app = QApplication(sys.argv)
+    except RuntimeError:
+        app = QApplication.instance()
 
     
     # Create and display the splash screen
