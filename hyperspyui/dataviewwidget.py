@@ -107,11 +107,11 @@ class DataViewWidget(QTreeWidget):
             # Configure action
             ac = QAction("&Configure", self)
             def configure_traits():
-                items = []
+                items = [tu.Item('name'), tu.Item('active')]
                 for p in comp.parameters:
                     name = '.'.join(('object', p.name))
                     items.extend((tu.Item(name + '.value', label=p.name),
-                                          tu.Item(name + '.free')))
+                                  tu.Item(name + '.free')))
                 view = tu.View(*items, 
                             buttons=tu.OKCancelButtons,
                             default_button=tu.OKButton,
