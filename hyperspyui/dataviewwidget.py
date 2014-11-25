@@ -105,7 +105,8 @@ class DataViewWidget(QWidget):
         items = [tu.Item('name'), tu.Item('active')]
         for p in comp.parameters:
             name = '.'.join(('object', p.name))
-            vi = tu.Item(name + '.value', label=p.name, 
+            p_label = p.name.replace('_', ' ').capitalize()
+            vi = tu.Item(name + '.value', label=p_label, 
                          editor=tu.RangeEditor(low_name=name+'.bmin',
                                             high_name=name+'.bmax'))
             items.extend((vi, tu.Item(name + '.free')))
