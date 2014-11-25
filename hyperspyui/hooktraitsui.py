@@ -2,7 +2,7 @@
 """
 Created on Sun Nov 23 17:10:41 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 import traitsui.qt4.ui_base as ui_base

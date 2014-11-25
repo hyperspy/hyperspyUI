@@ -2,7 +2,7 @@
 """
 Created on Mon Oct 27 21:17:42 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
 # Set proper backend for matplotlib

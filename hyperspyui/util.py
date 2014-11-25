@@ -2,7 +2,7 @@
 """
 Created on Mon Oct 27 18:47:05 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
     

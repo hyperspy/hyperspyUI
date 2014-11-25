@@ -2,7 +2,7 @@
 """
 Created on Tue Nov 04 16:04:17 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
 from IPython.qt.console.rich_ipython_widget import RichIPythonWidget

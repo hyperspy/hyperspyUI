@@ -4,7 +4,7 @@
 """
 Created on Mon Nov 17 11:58:16 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
 from distutils.core import setup
