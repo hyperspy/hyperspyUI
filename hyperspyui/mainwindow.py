@@ -2,10 +2,9 @@
 """
 Created on Fri Oct 24 16:46:35 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
-import sys
 from collections import OrderedDict
 from functools import partial
     
@@ -369,30 +368,3 @@ class MainWindow(MainWindowLayer2):
             signal.keep_on_close = False
         finally:
             self.setUpdatesEnabled(True)
-        
-                
-            
-    
-def main():
-    try:
-        app = QApplication(sys.argv)
-    except RuntimeError:
-        app = QApplication.instance()
-
-    
-    # Create and display the splash screen
-#    splash_pix = QPixmap('splash_loading.png')
-#    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-#    splash.setMask(splash_pix.mask())
-#    splash.show()
-#    app.processEvents()    
-    
-    form = MainWindow()
-    form.showMaximized()
-    
-#    splash.finish(form)
-    
-    app.exec_()
-    
-if __name__ == "__main__":
-    main()
