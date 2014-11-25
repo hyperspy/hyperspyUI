@@ -90,6 +90,8 @@ class ElementPickerWidget(QToolWindow):
         
         vbox = QVBoxLayout(self)
         vbox.addWidget(self.table)
-        vbox.addWidget(self.map_btn)
+        
+        if not isinstance(self.signal.signal, hyperspy.signals.EELSSpectrum):
+            vbox.addWidget(self.map_btn)
         
         self.setLayout(vbox)
