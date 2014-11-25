@@ -8,6 +8,7 @@ Created on Tue Nov 04 16:25:54 2014
 
 from python_qt_binding import QtCore, QtGui
 #from hyperspy.model import Model
+import hyperspy.models
 from actionable import Actionable
 from functools import partial
 
@@ -26,6 +27,8 @@ class ModelWrapper(Actionable):
         self.components = {}
         self.update_components()
         
+        self.fine_structure_enabled = False
+        
         # Default actions
         #TODO: tr()
         self.add_action('plot', "&Plot", self.plot)
@@ -34,6 +37,9 @@ class ModelWrapper(Actionable):
         self.add_action('set_signal_range', "Set signal &range",
                         self.set_signal_range)
         f = partial(self.signal.remove_model, self)
+        if isinstance(self.model , hyperspy.models.eelsmodel.EELSModel):
+            self.add_action('fine_structure', "Enable fine &structure",
+                            self.toggle_fine_structure)
         self.add_action('delete', "&Delete", f)
         
             
@@ -71,6 +77,17 @@ class ModelWrapper(Actionable):
         self.model.set_signal_range(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
+        
+    def toggle_fine_structure(self):
+        if not isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
+            raise TypeError("Model is not EELS model. Can not toggle fine structure")   #TODO: tr
+        if self.fine_structure_enabled:
+            self.model.disable_fine_structure()
+            self.actions['fine_structure'].setText("Enable fine &structure")
+        else:
+            self.model.enable_fine_structure()
+            self.actions['fine_structure'].setText("Disable fine &structure")
+        self.fine_structure_enabled = not self.fine_structure_enabled
         
 
     def update_components(self):
