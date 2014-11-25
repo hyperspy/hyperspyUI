@@ -2,7 +2,7 @@
 """
 Created on Fri Nov 21 19:31:50 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
 from python_qt_binding import QtGui, QtCore

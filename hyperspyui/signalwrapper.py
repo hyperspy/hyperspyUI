@@ -2,7 +2,7 @@
 """
 Created on Fri Oct 24 18:27:15 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
 from util import fig2win

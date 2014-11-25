@@ -2,7 +2,7 @@
 """
 Created on Tue Nov 04 13:37:08 2014
 
-@author: vidarton
+@author: Vidar Tonaas Fauske
 """
 
 import os
