@@ -44,6 +44,7 @@ class MainWindowLayer1(QMainWindow):
         
         # State varaibles
         self.active_mdi = None
+        self.should_capture_traits = None
         
         # Collections
         self.widgets = []   # Widgets in widget bar
@@ -149,12 +150,19 @@ class MainWindowLayer1(QMainWindow):
             
     # --------- traitsui Events ---------
             
+    def capture_traits_dialog(self, callback):
+        self.should_capture_traits = callback
+            
     def on_traits_dialog(self, dialog, ui, parent):
         self.traits_dialogs.append(dialog)
         if parent is None:
-            dialog.setParent(self, QtCore.Qt.Tool)
-            dialog.show()
-            dialog.activateWindow()
+            if self.should_capture_traits:
+                self.should_capture_traits(dialog)
+                self.should_capture_traits = None
+            else:
+                dialog.setParent(self, QtCore.Qt.Tool)
+                dialog.show()
+                dialog.activateWindow()
     
     def on_traits_destroyed(self, dialog):
         if dialog in self.traits_dialogs:

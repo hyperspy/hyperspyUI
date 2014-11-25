@@ -50,7 +50,7 @@ class MainWindowLayer2(MainWindowLayer1):
     def create_widgetbar(self):  
         super(MainWindowLayer2, self).create_widgetbar() 
         
-        self.tree = DataViewWidget(self)
+        self.tree = DataViewWidget(self, self)
         self.tree.setWindowTitle(tr("Data View"))
         # Sync tree with signals list:
         self.signals.add_custom(self.tree, self.tree.add_signal, None,
