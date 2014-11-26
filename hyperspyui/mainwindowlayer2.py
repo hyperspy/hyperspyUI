@@ -26,6 +26,9 @@ import hyperspy.hspy
 import hyperspy.defaults_parser
 from hyperspy.io_plugins import io_plugins
 
+import uiprogressbar
+uiprogressbar.takeover_progressbar()    # Enable hooks
+
 glob_escape = re.compile(r'([\[\]])')
 
 
@@ -36,13 +39,24 @@ class MainWindowLayer2(MainWindowLayer1):
     etc.
     """
     
-    def __init__(self, parent=None):        
+    def __init__(self, parent=None):     
         self.signals = BindingList()
         
         super(MainWindowLayer2, self).__init__(parent)
             
         self.cur_dir = ""
         self.progressbars = {}
+        
+        s = uiprogressbar.signaler
+        s.connect(s, SIGNAL('created(int, int, QString)'),
+                              self.on_progressbar_wanted)
+        s.connect(s, SIGNAL('progress(int, int)'),
+                              self.on_progressbar_update)
+        s.connect(s, SIGNAL('progress(int, int, QString)'),
+                              self.on_progressbar_update)
+        s.connect(s, SIGNAL('finished_sig(int)'),
+                              self.on_progressbar_finished)
+        self.cancel_progressbar.connect(s.cancel)
         
         self.setWindowTitle("HyperSpy")
         self.set_status("Ready")
@@ -205,7 +219,9 @@ class MainWindowLayer2(MainWindowLayer1):
             s.signal.save(filename, overwrite)
                 
             
-    # --------- Progress bars ----------
+    # --------- Hyperspy progress bars ----------
+        
+    cancel_progressbar = Signal(int)
             
     def on_progressbar_wanted(self, pid, maxval, label):
         progressbar = QProgressDialog(self)
@@ -214,7 +230,7 @@ class MainWindowLayer2(MainWindowLayer1):
         progressbar.setMaximum(maxval)
         progressbar.setWindowTitle("Processing")
         progressbar.setLabelText(label)
-#        progressbar.setCancelButtonText(None)
+        
         def cancel():
             self.cancel_progressbar.emit(pid)
         progressbar.canceled.connect(cancel)
@@ -232,9 +248,8 @@ class MainWindowLayer2(MainWindowLayer1):
     def on_progressbar_finished(self, pid):
         progressbar = self.progressbars.pop(pid)
         progressbar.close()
-        
-    cancel_progressbar = Signal(int)
-        
+    
+    # --------- End hyperspy progress bars ----------
 
     # --------- Console functions ----------    
 

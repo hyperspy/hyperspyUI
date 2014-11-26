@@ -13,7 +13,7 @@ from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL impor
 from util import create_add_component_actions, fig2win, win2sig, dict_rlu
 from signalwrapper import SignalWrapper
 from signallist import SignalList
-from threaded import ProgressThread
+from threaded import Threaded
 from contrastwidget import ContrastWidget
 from elementpicker import ElementPickerWidget
 
@@ -294,7 +294,7 @@ class MainWindow(MainWindowLayer2):
                 title = s_core.name + "[Fourier-ratio]" 
                 self.add_signal_figure(ns.s_return, title)
                 
-            t = ProgressThread(self, run_fr, fr_complete, 
+            t = Threaded(self, run_fr, fr_complete, 
                                "Performing Fourier-ratio deconvolution")
             t.run()
         pickerCL.unbind(self.signals)
