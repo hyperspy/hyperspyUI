@@ -78,6 +78,9 @@ class BindingList(list):
                     t['ap'](v)
         
     def remove(self, value):
+        if value not in self:
+            return
+            
         for t in self.targets.values():
             if t['re'] is not None:
                 t['re'](value)
