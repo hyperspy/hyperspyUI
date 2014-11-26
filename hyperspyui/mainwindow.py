@@ -82,6 +82,13 @@ class MainWindow(MainWindowLayer2):
                         shortcut=QKeySequence.Close, 
                         icon='../images/close_window.svg',
                         tip="Close the selected signal(s)")
+                        
+        close_all_key= QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F4, 
+                                    Qt.CTRL + Qt.SHIFT + Qt.Key_W)
+        self.add_action('close_all', "&Close All", self.close_all_signals,
+                        shortcut=close_all_key, 
+#                        icon='../images/close_all_window.svg',
+                        tip="Close all signals")
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save, 
                         icon='../images/save.svg',
@@ -155,6 +162,8 @@ class MainWindow(MainWindowLayer2):
         self.filemenu.addAction(self.actions['open'])
         self.filemenu.addAction(self.actions['close'])
         self.filemenu.addAction(self.actions['save'])
+        self.filemenu.addSeparator()
+        self.filemenu.addAction(self.actions['close_all'])
         
         # Signal menu
         self.signalmenu = mb.addMenu(tr("&Signal"))
@@ -251,6 +260,11 @@ class MainWindow(MainWindowLayer2):
         for s in uisignals:
             s.close()
             
+    def close_all_signals(self):
+        for s in self.signals:
+            s.close()
+            self.signals.remove(s)  # Maybe superfluous, but just to make sure
+            
     def fourier_ratio(self):
         wrap = QWidget(self)
         pickerCL = SignalList(self.signals, wrap, False)
@@ -332,6 +346,15 @@ class MainWindow(MainWindowLayer2):
         scree.mpl_connect('button_press_event', clicked)
         
     def set_signal_type(self, signal_type, signal=None):
+        """
+        Changes the signal type using a combination of hyperspy.Signal.:
+         * set_signal_type()
+         * set_signal_origin()
+         * and by converting with as_image() and as_spectrum()
+        """
+        # The list of signal types is maintained as a list here and in 
+        # self.signal_types, as the names can be adapted, and since they need 
+        # to be diferentiated based on behavior either way.
         if signal is None:
             signal = self.get_selected_signal()
             
