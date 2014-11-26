@@ -112,7 +112,7 @@ class ModelWrapper(Actionable):
     def add_component(self, component):
         if isinstance(component, type):
             nec = ['EELSCLEdge', 'Spline', 'ScalableFixedPattern']
-            if component.name in nec:
+            if component.__name__ in nec:
                 raise TypeError("Component of type %s currently not supported"
                                 % component)
             component = component()
