@@ -21,6 +21,10 @@ signaler.created = Signal(object)
 signaler.progress = Signal((object, int), (object, int, str))
 signaler.finished = Signal(object)
 signaler.cancel = Signal(int)
+# This is necessary as it bugs out if not (it's a daisy chained event)
+def _on_cancel(pid):
+    signaler.emit(SIGNAL('cancel(int)'), pid)
+signaler.on_cancel = _on_cancel
 
 # Hook function
 def _wrap(*args, **kwargs):

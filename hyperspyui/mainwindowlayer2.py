@@ -68,7 +68,7 @@ class MainWindowLayer2(MainWindowLayer1):
                               self.on_progressbar_update)
         s.connect(s, SIGNAL('finished_sig(int)'),
                               self.on_progressbar_finished)
-        self.cancel_progressbar.connect(s.cancel)
+        self.cancel_progressbar.connect(s.on_cancel)
         
         # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
@@ -294,6 +294,7 @@ class MainWindowLayer2(MainWindowLayer1):
         
         def cancel():
             self.cancel_progressbar.emit(pid)
+            
         progressbar.canceled.connect(cancel)
         progressbar.setWindowModality(Qt.WindowModal)
         
