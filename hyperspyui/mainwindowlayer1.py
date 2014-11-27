@@ -38,9 +38,7 @@ class MainWindowLayer1(QMainWindow):
         
         # Properties
         self.toolbar_button_unit = 32   #TODO: Make a property
-        self.default_fig_floating = False
         self.default_widget_floating = False
-        self.make_trait_dialogs_widgets = True
         self.cur_dir = ""
         
         # Read settings
@@ -167,12 +165,9 @@ class MainWindowLayer1(QMainWindow):
                 self.should_capture_traits(dialog)
                 self.should_capture_traits = None
             else:
-                if self.make_trait_dialogs_widgets:
-                    self.add_widget(dialog)
-                else:
-                    dialog.setParent(self, QtCore.Qt.Tool)
-                    dialog.show()
-                    dialog.activateWindow()
+                dialog.setParent(self, QtCore.Qt.Tool)
+                dialog.show()
+                dialog.activateWindow()
     
     def on_traits_destroyed(self, dialog):
         if dialog in self.traits_dialogs:
@@ -351,9 +346,7 @@ class MainWindowLayer1(QMainWindow):
         s = QSettings(self)
         s.beginGroup("mainwindow")
         s.setValue('toolbar_button_unit', self.toolbar_button_unit)
-        s.setValue('default_fig_floating', self.default_fig_floating)
         s.setValue('default_widget_floating', self.default_widget_floating)
-        s.setValue('make_trait_dialogs_widgets', self.make_trait_dialogs_widgets)
         s.endGroup()
         s.setValue('cd', self.cur_dir)
         
@@ -362,12 +355,8 @@ class MainWindowLayer1(QMainWindow):
         s.beginGroup("mainwindow")
         self.toolbar_button_unit = s.value("toolbar_button_unit", 
                                            self.toolbar_button_unit, int)
-        self.default_fig_floating = s.value("default_fig_floating",
-                                            self.default_fig_floating, bool)
         self.default_widget_floating = s.value("default_widget_floating",
                                             self.default_widget_floating, bool)
-        self.make_trait_dialogs_widgets = s.value("make_trait_dialogs_widgets",
-                                            self.make_trait_dialogs_widgets, bool)
         s.endGroup()
         cd = s.value('cd', None)
         if cd is not None and len(str(cd)) > 0:
