@@ -16,6 +16,7 @@ def main():
     app = get_app('hyperspyui')     # Make sure we only have a single instance
     
     QtCore.QCoreApplication.setApplicationName("HyperSpyUI");
+    QtCore.QCoreApplication.setOrganizationName("Hyperspy")
     QtCore.QCoreApplication.setApplicationVersion(info.version);
     
     # Create and display the splash screen

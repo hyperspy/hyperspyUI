@@ -42,6 +42,9 @@ class MainWindowLayer1(QMainWindow):
         self.default_widget_floating = False
         self.make_trait_dialogs_widgets = True
         
+        # Read settings
+        self.read_settings()
+        
         # State varaibles
         self.active_mdi = None
         self.should_capture_traits = None
@@ -125,13 +128,10 @@ class MainWindowLayer1(QMainWindow):
         this function to add widgets on UI construction.
         """
         pass
+
+    def closeEvent(self, event):
+        self.write_settings()
     
-    def load_preferences(self):
-        # TODO: Figure out standard location for python apps to store prefs
-        pass
-    
-    def save_preferences(self):
-        pass
     
     # --------- Figure management ---------
     
@@ -167,9 +167,12 @@ class MainWindowLayer1(QMainWindow):
                 self.should_capture_traits(dialog)
                 self.should_capture_traits = None
             else:
-                dialog.setParent(self, QtCore.Qt.Tool)
-                dialog.show()
-                dialog.activateWindow()
+                if self.make_trait_dialogs_widgets:
+                    self.add_widget(dialog)
+                else:
+                    dialog.setParent(self, QtCore.Qt.Tool)
+                    dialog.show()
+                    dialog.activateWindow()
     
     def on_traits_destroyed(self, dialog):
         if dialog in self.traits_dialogs:
@@ -293,6 +296,31 @@ class MainWindowLayer1(QMainWindow):
         # Return the dialog for result checking, and to keep widget in scope for caller
         return diag
   
+  
+    # --------- Settings ---------
+  
+    def write_settings(self):
+        s = QSettings(self)
+        s.beginGroup("mainwindow")
+        s.setValue('toolbar_button_unit', self.toolbar_button_unit)
+        s.setValue('default_fig_floating', self.default_fig_floating)
+        s.setValue('default_widget_floating', self.default_widget_floating)
+        s.setValue('make_trait_dialogs_widgets', self.make_trait_dialogs_widgets)
+        s.endGroup()
+        
+    def read_settings(self):
+        s = QSettings(self)
+        s.beginGroup("mainwindow")
+        self.toolbar_button_unit = s.value("toolbar_button_unit", 
+                                           self.toolbar_button_unit, int)
+        self.default_fig_floating = s.value("default_fig_floating",
+                                            self.default_fig_floating, bool)
+        self.default_widget_floating = s.value("default_widget_floating",
+                                            self.default_widget_floating, bool)
+        self.make_trait_dialogs_widgets = s.value("make_trait_dialogs_widgets",
+                                            self.make_trait_dialogs_widgets, bool)
+        s.endGroup()
+                                            
   
     # --------- Console functions ---------
   

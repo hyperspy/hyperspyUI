@@ -48,16 +48,16 @@ class MainWindowLayer2(MainWindowLayer1):
     def __init__(self, parent=None):        
         # Setup signals list. This is a BindingList, and all components of the
         # code that needs to keep track of the signals loaded bind into this.
-        self.signals = BindingList()    
+        self.signals = BindingList()   
+        
+        # Setup variables
+        self.cur_dir = ""
+        self.progressbars = {} 
         
         super(MainWindowLayer2, self).__init__(parent)
         
         # Enable drag and drop
         self.setAcceptDrops(True)
-        
-        # Setup variables
-        self.cur_dir = ""
-        self.progressbars = {}
         
         # Connect UIProgressBar for graphical hyperspy progress
         s = uiprogressbar.signaler
@@ -293,6 +293,21 @@ class MainWindowLayer2(MainWindowLayer1):
         progressbar.close()
     
     # --------- End hyperspy progress bars ----------
+    
+    # --------- Settings ---------
+    
+    def write_settings(self):
+        super(MainWindowLayer2, self).write_settings()
+        s = QSettings(self)
+        s.setValue('cd', self.cur_dir)
+        
+    def read_settings(self):
+        super(MainWindowLayer2, self).read_settings()
+        s = QSettings(self)
+        cd = s.value('cd', None)
+        if cd is not None and len(str(cd)) > 0:
+            if self.cur_dir == "":
+                self.cur_dir = str(cd)
 
     # --------- Console functions ----------    
 

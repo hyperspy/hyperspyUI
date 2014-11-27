@@ -61,28 +61,35 @@ class MainWindow(MainWindowLayer2):
                  ('Image simulation', hyperspy.signals.ImageSimulation)])
                  
     def __init__(self, parent=None):
+        # State variables
         self.signal_type_ag = None
         
         super(MainWindow, self).__init__(parent)
         
+        # Set window icon
         self.setWindowIcon(QIcon(os.path.dirname(__file__) + 
                                                     '/../images/HyperSpy.svg'))
-        # TODO: Set from preferences?, default to working dir (can be 
-        # customized by modifying launcher)
-#        self.cur_dir = "D:/NetSync/TEM/20140304 - NWG130/SI-001/Spectrum Imaging-005"
-#        self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
 
-
+        # Parse any command line options
         self.parse_args()
 
+        # All good!
         self.set_status("Ready")
         
     def handleSecondInstance(self, argv):
+        """
+        A second instance was launched and suppressed. Process the arguments
+        that were passed to the new instance.
+        """
         super(MainWindow, self).handleSecondInstance(argv)
         argv = pickle.loads(argv)
         self.parse_args(argv)
         
     def parse_args(self, argv=None):
+        """
+        Parse comman line arguments, either from sys.argv, or from parameter
+        'argv'.
+        """
         parser = argparse.ArgumentParser(
                             description=QCoreApplication.applicationName() +
                             " " + QCoreApplication.applicationVersion())
@@ -418,3 +425,12 @@ class MainWindow(MainWindowLayer2):
             signal.keep_on_close = False
         finally:
             self.setUpdatesEnabled(True)
+
+
+    # --------- Settings ---------
+  
+    def write_settings(self):
+        super(MainWindow, self).write_settings()
+        
+    def read_settings(self):
+        super(MainWindow, self).read_settings()
