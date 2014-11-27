@@ -7,6 +7,7 @@ Created on Fri Oct 24 16:46:35 2014
 
 from collections import OrderedDict
 from functools import partial
+import argparse, os, pickle
     
 from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
 
@@ -64,11 +65,38 @@ class MainWindow(MainWindowLayer2):
         
         super(MainWindow, self).__init__(parent)
         
-        self.setWindowIcon(QIcon('../images/HyperSpy.svg'))
+        self.setWindowIcon(QIcon(os.path.dirname(__file__) + 
+                                                    '/../images/HyperSpy.svg'))
         # TODO: Set from preferences?, default to working dir (can be 
         # customized by modifying launcher)
 #        self.cur_dir = "D:/NetSync/TEM/20140304 - NWG130/SI-001/Spectrum Imaging-005"
 #        self.cur_dir = "D:/NetSync/TEM/20140214 - NWG130 refibbed/EELS_02_Map/Spectrum Imaging-001/"
+
+
+        self.parse_args()
+
+        self.set_status("Ready")
+        
+    def handleSecondInstance(self, argv):
+        super(MainWindow, self).handleSecondInstance(argv)
+        argv = pickle.loads(argv)
+        self.parse_args(argv)
+        
+    def parse_args(self, argv=None):
+        parser = argparse.ArgumentParser(
+                            description=QCoreApplication.applicationName() +
+                            " " + QCoreApplication.applicationVersion())
+        parser.add_argument('files', metavar='file', type=str, nargs='*',
+                   help='data file to open.')
+        if argv:
+            args = parser.parse_args(argv)
+        else:
+            args = parser.parse_args()
+        files = args.files
+        
+        if len(files) > 0:
+            self.load(files)
+            
           
         
     def create_default_actions(self):       
@@ -76,26 +104,26 @@ class MainWindow(MainWindowLayer2):
         
         self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open, 
-                        icon='../images/open.svg',
+                        icon=os.path.dirname(__file__) + '/../images/open.svg',
                         tip="Open existing file(s)")
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close, 
-                        icon='../images/close_window.svg',
+                        icon=os.path.dirname(__file__) + '/../images/close_window.svg',
                         tip="Close the selected signal(s)")
                         
         close_all_key= QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F4, 
                                     Qt.CTRL + Qt.SHIFT + Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key, 
-#                        icon='../images/close_all_window.svg',
+#                        icon=os.path.dirname(__file__) + '/../images/close_all_window.svg',
                         tip="Close all signals")
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save, 
-                        icon='../images/save.svg',
+                        icon=os.path.dirname(__file__) + '/../images/save.svg',
                         tip="Save the selected signal(s)")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
-                        icon='../images/mirror.svg',
+                        icon=os.path.dirname(__file__) + '/../images/mirror.svg',
                         tip="Mirror navigation axes of selected signals")
         
         self.add_action('add_model', "Create Model", self.make_model,
@@ -103,19 +131,19 @@ class MainWindow(MainWindowLayer2):
                         
         self.add_action('remove_background', "Remove Background",
                         self.remove_background, 
-                        icon='../images/power_law.svg',
+                        icon=os.path.dirname(__file__) + '/../images/power_law.svg',
                         tip="Interactively define the background, and remove it")
                         
         self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
                         self.fourier_ratio, 
-                        icon='../images/fourier_ratio.svg',
+                        icon=os.path.dirname(__file__) + '/../images/fourier_ratio.svg',
                         tip="Use the Fourier-Ratio method" +
                         " to deconvolve one signal from another",
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.signals))
                             
         self.add_action('pick_elements', "Pick elements", self.pick_elements,
-                        icon='../images/periodic_table.svg',
+                        icon=os.path.dirname(__file__) + '/../images/periodic_table.svg',
                         tip="Pick the elements for the spectrum",
                         selection_callback=SignalTypeFilter(
                             (hyperspy.signals.EELSSpectrum,
@@ -131,7 +159,7 @@ class MainWindow(MainWindowLayer2):
                 action.setEnabled(True)
                 
         self.add_action('pca', "PCA", self.pca,
-                        icon='../images/pca.svg',
+                        icon=os.path.dirname(__file__) + '/../images/pca.svg',
                         tip="Run Principal Component Analysis",
                         selection_callback=pca_selection_rules)
         
@@ -323,7 +351,6 @@ class MainWindow(MainWindowLayer2):
             ax = s.plot_explained_variance_ratio()  # Make scree plot
         # decomp.. warns if wrong type, but plot_expl.. raises exception
         except AttributeError:
-            print "Making signal copy of float type in background for PCA"
             s = s.deepcopy()
             s.change_dtype(float)
             s.decomposition()

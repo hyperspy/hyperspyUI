@@ -5,19 +5,21 @@ Created on Tue Nov 25 02:10:29 2014
 @author: Vidar Tonaas Fauske
 """
 
-import sys
+import os
         
 from python_qt_binding import QtGui, QtCore
-    
-def main():
-    try:
-        app = QtGui.QApplication(sys.argv)
-    except RuntimeError:
-        app = QtGui.QApplication.instance()
+import info
+from singleapplication import get_app
 
+def main():
+    #TODO: Make single/multi a setting
+    app = get_app('hyperspyui')     # Make sure we only have a single instance
+    
+    QtCore.QCoreApplication.setApplicationName("HyperSpyUI");
+    QtCore.QCoreApplication.setApplicationVersion(info.version);
     
     # Create and display the splash screen
-    splash_pix = QtGui.QPixmap('../images/splash.png')
+    splash_pix = QtGui.QPixmap(os.path.dirname(__file__) + '/../images/splash.png')
     splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
     splash.show()
@@ -26,6 +28,7 @@ def main():
     from mainwindow import MainWindow    
     
     form = MainWindow()
+    app.messageAvailable.connect(form.handleSecondInstance)
     form.showMaximized()
     
     splash.finish(form)

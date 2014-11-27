@@ -69,6 +69,13 @@ class MainWindowLayer1(QMainWindow):
         # Connect figure management functions
         self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
         
+    def handleSecondInstance(self, argv):
+        # overload if needed
+        self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | 
+                                                        QtCore.Qt.WindowActive)
+        self.activateWindow()
+        
+        
     def create_ui(self):
         self.setIconSize(QSize(self.toolbar_button_unit, self.toolbar_button_unit))
         self.main_frame = QMdiArea()

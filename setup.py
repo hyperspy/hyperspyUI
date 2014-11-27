@@ -9,8 +9,10 @@ Created on Mon Nov 17 11:58:16 2014
 
 from distutils.core import setup
 
+import hyperspyui.info
+
 setup(name='hyperspyUI',
-      version='1.0a',
+      version=hyperspyui.info.version,
       description='Hyperspy Graphical Interface',
       author='Vidar Tonaas Fauske',
       author_email='vidartf+hyperspyui@gmail.com',

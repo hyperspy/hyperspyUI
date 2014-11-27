@@ -5,7 +5,7 @@ Created on Tue Nov 04 13:37:08 2014
 @author: Vidar Tonaas Fauske
 """
 
-import os
+import os, sys
 import re
 
 # Hyperspy uses traitsui, set proper backend
@@ -32,6 +32,12 @@ uiprogressbar.takeover_progressbar()    # Enable hooks
 glob_escape = re.compile(r'([\[\]])')
 
 
+def get_accepted_extensions():
+    extensions = set([ extensions.lower() for plugin in io_plugins 
+                    for extensions in plugin.file_extensions])
+    return extensions
+
+
 class MainWindowLayer2(MainWindowLayer1):
     """
     Second layer in the application stack. Should integrate hyperspy basics,
@@ -39,14 +45,21 @@ class MainWindowLayer2(MainWindowLayer1):
     etc.
     """
     
-    def __init__(self, parent=None):     
-        self.signals = BindingList()
+    def __init__(self, parent=None):        
+        # Setup signals list. This is a BindingList, and all components of the
+        # code that needs to keep track of the signals loaded bind into this.
+        self.signals = BindingList()    
         
         super(MainWindowLayer2, self).__init__(parent)
-            
+        
+        # Enable drag and drop
+        self.setAcceptDrops(True)
+        
+        # Setup variables
         self.cur_dir = ""
         self.progressbars = {}
         
+        # Connect UIProgressBar for graphical hyperspy progress
         s = uiprogressbar.signaler
         s.connect(s, SIGNAL('created(int, int, QString)'),
                               self.on_progressbar_wanted)
@@ -58,8 +71,8 @@ class MainWindowLayer2(MainWindowLayer1):
                               self.on_progressbar_finished)
         self.cancel_progressbar.connect(s.cancel)
         
+        # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
-        self.set_status("Ready")
         
     def create_widgetbar(self):  
         super(MainWindowLayer2, self).create_widgetbar() 
@@ -149,11 +162,10 @@ class MainWindowLayer2(MainWindowLayer1):
         user interactively browse for files. It then load these files using
         hyperspy.hspy.load and wraps them and adds them to self.signals.
         """
-        extensions = set([ extensions.lower() for plugin in io_plugins 
-                        for extensions in plugin.file_extensions])
+        extensions = get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
-                            
+                       
         if filenames is None:
             filenames = QFileDialog.getOpenFileNames(self,
                     tr('Load file'), self.cur_dir,
@@ -161,9 +173,11 @@ class MainWindowLayer2(MainWindowLayer1):
             if isinstance(filenames, tuple):    # Pyside/PyQt are different
                 filenames = filenames[0]
             if not filenames:
-                return
+                return False
 #            self.cur_dir = os.path.dirname(filenames)
             self.cur_dir = filenames[0]
+            
+        files_loaded = []
         for filename in filenames:    
             self.set_status("Loading \"" + filename + "\"...")
             self.setUpdatesEnabled(False)   # Prevent flickering during load
@@ -172,19 +186,23 @@ class MainWindowLayer2(MainWindowLayer1):
                 sig = hyperspy.hspy.load(escaped)
                 base = os.path.splitext( os.path.basename(filename) )[0]
                 self.add_signal_figure(sig, base)
+                files_loaded.append(filename)
+            except (IOError, ValueError):
+                self.set_status("Failed to load \"" + filename + "\"")
             finally:
                 self.setUpdatesEnabled(True)
-        if len(filenames) == 1:
-            self.set_status("Loaded \"" + filenames[0] + "\"")
-        elif len(filenames) > 1:
-            self.set_status("Loaded %d files" % len(filenames))
+                
+        if len(files_loaded) == 1:
+            self.set_status("Loaded \"" + files_loaded[0] + "\"")
+        elif len(files_loaded) > 1:
+            self.set_status("Loaded %d files" % len(files_loaded))
+        return len(files_loaded) > 1
     
     def save(self, signals=None, filenames=None):
         if signals is None:
             signals = self.get_selected_signals()
             
-        extensions = set([ extensions.lower() for plugin in io_plugins 
-                        for extensions in plugin.file_extensions])
+        extensions = get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
         deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
@@ -217,7 +235,32 @@ class MainWindowLayer2(MainWindowLayer1):
                 overwrite = None
             i += 1
             s.signal.save(filename, overwrite)
-                
+    
+    # ---------- Drag and drop overloads ----------
+    
+    def dragEnterEvent(self, event):
+        # Check file name extensions to see if we should accept
+        extensions = set(get_accepted_extensions())
+        mimeData = event.mimeData() 
+        if mimeData.hasUrls():
+            pathList = [url.toLocalFile() for url in mimeData.urls()]
+            data_ext = set([os.path.splitext(p)[1][1:] for p in pathList])
+            # Accept as long as we can read some of the files being dropped
+            if 0 < len(data_ext.intersection(extensions)):
+                event.acceptProposedAction()
+    
+#    def dragMoveEvent(event):
+#        pass
+#    
+#    def dragLeaveEvent(event):
+#        pass
+    
+    def dropEvent(self, event):
+        mimeData = event.mimeData()      
+        if mimeData.hasUrls():
+            pathList = [url.toLocalFile() for url in mimeData.urls()]
+            if self.load(pathList):
+                event.acceptProposedAction()
             
     # --------- Hyperspy progress bars ----------
         
@@ -280,7 +323,8 @@ class MainWindowLayer2(MainWindowLayer1):
     def _get_console_config(self):
         # ===== THIS ======
         from IPython.config.loader import PyFileConfigLoader
-        ipcp = os.path.sep.join(("ipython_profile", "ipython_embedded_config.py"))
+        ipcp = os.path.sep.join((os.path.dirname(__file__), "ipython_profile", 
+                                 "ipython_embedded_config.py"))
         c = PyFileConfigLoader(ipcp).load_config()
         # ===== OR THIS =====
 #        import hyperspy.Release        
