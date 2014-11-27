@@ -18,11 +18,15 @@ setup(name='hyperspyUI',
       author_email='vidartf+hyperspyui@gmail.com',
       packages=['hyperspyui'],
       requires=['hyperspy', 
-                'matplotlib (>= 1.4)', 
-                'python_qt_binding'],
+                'matplotlib (>= 1.3)', 
+                'python_qt_binding',
+                'traits',
+                'traitsui'],
       install_requires=['hyperspy',     #TODO: Find lowest allowed version of hyperspy
-                'matplotlib >= 1.4', 
-                'python_qt_binding'],
+                'matplotlib >= 1.3', 
+                'python_qt_binding',
+                'traits',
+                'traitsui'],
       package_data=
       {
           'hyperspyui':

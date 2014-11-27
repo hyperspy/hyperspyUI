@@ -10,16 +10,36 @@ import os
 import matplotlib.backends.backend_qt4agg
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_bases import FigureManagerBase
+from matplotlib import __version__ as mplversionstring
 
-from matplotlib.backends.qt_compat import QtCore, QtGui, QtWidgets, _getSaveFileName, __version__
-#from python_qt_binding import QtGui, QtCore
+mpl13 = mplversionstring.startswith('1.3')
+mpl14 = mplversionstring.startswith('1.4')
 
-from matplotlib.backends.backend_qt5 import (SPECIAL_KEYS, SUPER, ALT, CTRL,
-                        SHIFT, MODIFIER_KEYS, fn_name, cursord,
-                        draw_if_interactive, _create_qApp, show, TimerQT,
-                        FigureManagerQT, 
-                        SubplotToolQt, error_msg_qt, exception_handler)
-                 
+if mpl13:
+    from matplotlib.backends.qt4_compat import QtCore, QtGui, _getSaveFileName, __version__
+elif mpl14:
+    from matplotlib.backends.qt_compat import QtCore, QtGui, _getSaveFileName, __version__
+else:
+    from python_qt_binding import QtGui, QtCore
+
+if mpl13:
+    from matplotlib.backends.backend_qt4 import (QtCore, QtGui, FigureManagerQT, FigureCanvasQT,
+                            show, draw_if_interactive, backend_version, 
+                            NavigationToolbar2QT)
+elif mpl14:
+    from matplotlib.backends.backend_qt5 import (SPECIAL_KEYS, SUPER, ALT, CTRL,
+                            SHIFT, MODIFIER_KEYS, fn_name, cursord,
+                            draw_if_interactive, _create_qApp, show, TimerQT,
+                            FigureManagerQT, 
+                            SubplotToolQt, error_msg_qt, exception_handler)
+else:
+    pass
+    
+# FigureCanvas definition
+if mpl13:
+    FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg           
+elif mpl14:
+    FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
                  
 # =================     
 # Event managers
@@ -102,12 +122,12 @@ def new_figure_manager_given_figure(num, figure):
     Create a new figure manager instance for the given figure. MPL backend 
     function.
     """
-    canvas = matplotlib.backends.backend_qt4agg.FigureCanvas(figure)
+    canvas = FigureCanvas(figure)
     manager = FigureManagerMdi(canvas, num)
     return manager
 
 
-class FigureWindow(QtWidgets.QMdiSubWindow):
+class FigureWindow(QtGui.QMdiSubWindow):
     """
     A basic MDI sub-window, but with a closing signal, and an activate QAction,
     which allows for switching between all FigureWindows (e.g. by a 
@@ -268,7 +288,7 @@ class FigureManagerMdi(FigureManagerBase):
     def destroy(self, *args):
         _on_destroy(self.window)
         # check for qApp first, as PySide deletes it in its atexit handler
-        if QtWidgets.QApplication.instance() is None:
+        if QtGui.QApplication.instance() is None:
             return
         if self.window._destroying:
             return
@@ -286,5 +306,4 @@ class FigureManagerMdi(FigureManagerBase):
         self.window.setWindowTitle(title)
 
 # Definition for MPL backend:
-FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
 FigureManager = FigureManagerMdi
