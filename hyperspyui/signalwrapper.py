@@ -17,12 +17,12 @@ class SignalWrapper(Actionable):
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
     
-    def __init__(self, signal, ui_parent, name):
+    def __init__(self, signal, mainwindow, name):
         super(SignalWrapper, self).__init__()
         self.signal = signal
         self.name = name
         self.figures = []
-        self.parent = ui_parent
+        self.mainwindow = mainwindow
         self.models = []
         
         self._keep_on_close = 0
@@ -71,7 +71,7 @@ class SignalWrapper(Actionable):
         if self.signal._plot and self.signal._plot.navigator_plot:
             navi = self.signal._plot.navigator_plot.figure
             navi.axes[0].set_title("")
-            self.navigator_plot = fig2win(navi, self.parent.figures)
+            self.navigator_plot = fig2win(navi, self.mainwindow.figures)
             self.navigator_plot.closing.connect(self.nav_closing)
             self.add_figure(self.navigator_plot)
             if old_nav is not self.navigator_plot and old_nav is not None:
@@ -84,7 +84,7 @@ class SignalWrapper(Actionable):
         if self.signal._plot and self.signal._plot.signal_plot is not None:
             sigp = self.signal._plot.signal_plot.figure
             sigp.axes[0].set_title("")
-            self.signal_plot = fig2win(sigp, self.parent.figures)
+            self.signal_plot = fig2win(sigp, self.mainwindow.figures)
             self.signal_plot.closing.connect(self.sig_closing)
             self.add_figure(self.signal_plot)
             if old_sig is not self.signal_plot and old_sig is not None:
@@ -117,19 +117,22 @@ class SignalWrapper(Actionable):
                
     def run_nonblock(self, function, windowtitle):
         self.keep_on_close = True
-        function()
-        tlw = QtGui.QApplication.topLevelWidgets()
-        nbw = None
-        for w in tlw:
-            if w.windowTitle() == windowtitle:
-                nbw = w
-                break
-        nbw.setParent(self.parent, QtCore.Qt.Tool)
+
         def on_close():
             self.keep_on_close = False
             self.update_figures()
-        nbw.destroyed.connect(on_close)
-        nbw.show()
+            
+        def on_capture(dialog):
+            dialog.destroyed.connect(on_close)
+            dialog.setParent(self.mainwindow, QtCore.Qt.Tool)
+            dialog.show()
+            dialog.activateWindow()
+        
+        # Setup capture
+        self.mainwindow.capture_traits_dialog(on_capture)
+        
+        # Call actual function that triggers dialog
+        function()
             
     def make_model(self, *args, **kwargs):   
         m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)
@@ -178,5 +181,5 @@ class SignalWrapper(Actionable):
             
     def _closed(self):
         # TODO: Should probably be with by events for concistency
-        if self in self.parent.signals and not self.keep_on_close:
-            self.parent.signals.remove(self)
+        if self in self.mainwindow.signals and not self.keep_on_close:
+            self.mainwindow.signals.remove(self)

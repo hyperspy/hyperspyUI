@@ -118,8 +118,8 @@ class MainWindow(MainWindowLayer2):
                         icon=os.path.dirname(__file__) + '/../images/close_window.svg',
                         tip="Close the selected signal(s)")
                         
-        close_all_key= QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F4, 
-                                    Qt.CTRL + Qt.SHIFT + Qt.Key_W)
+        close_all_key= QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4, 
+                                    Qt.CTRL + Qt.ALT + Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key, 
 #                        icon=os.path.dirname(__file__) + '/../images/close_all_window.svg',
@@ -333,8 +333,7 @@ class MainWindow(MainWindowLayer2):
                 title = s_core.name + "[Fourier-ratio]" 
                 self.add_signal_figure(ns.s_return, title)
                 
-            t = Threaded(self, run_fr, fr_complete, 
-                               "Performing Fourier-ratio deconvolution")
+            t = Threaded(self, run_fr, fr_complete)
             t.run()
         pickerCL.unbind(self.signals)
         pickerLL.unbind(self.signals)
