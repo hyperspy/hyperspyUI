@@ -41,12 +41,12 @@ class MainWindowLayer1(QMainWindow):
         self.default_fig_floating = False
         self.default_widget_floating = False
         self.make_trait_dialogs_widgets = True
+        self.cur_dir = ""
         
         # Read settings
         self.read_settings()
         
         # State varaibles
-        self.active_mdi = None
         self.should_capture_traits = None
         
         # Collections
@@ -181,7 +181,6 @@ class MainWindowLayer1(QMainWindow):
     # --------- End traitsui Events ---------       
     
     def on_subwin_activated(self, mdi_figure):
-        self.active_mdi = mdi_figure
         if mdi_figure and os.environ['QT_API'] == 'pyside':
             mdi_figure.activateAction().setChecked(True)
         for key, cb in self._action_selection_cbs.iteritems():
@@ -295,7 +294,56 @@ class MainWindowLayer1(QMainWindow):
             diag.show()
         # Return the dialog for result checking, and to keep widget in scope for caller
         return diag
-  
+        
+    def get_figure_filepath_suggestion(self, figure, deault_ext=None):
+        canvas = figure.widget()
+        if deault_ext is None:
+            deault_ext = canvas.get_default_filetype()
+        
+        f = canvas.get_default_filename()
+        if not f:
+            f = self.cur_dir
+        
+        # Analyze suggested filename
+        base, tail = os.path.split(f)
+        fn, ext = os.path.splitext(tail)
+        
+        # If no directory in filename, use self.cur_dir's dirname
+        if base is None or base == "":
+            base = os.path.dirname(self.cur_dir)
+        # If extension is not valid, use the defualt
+        if ext not in canvas.get_supported_filetypes():
+            ext = deault_ext
+        
+        # Build suggestion and return
+        path_suggestion = os.path.sep.join((base, fn))
+        path_suggestion = os.path.extsep.join((path_suggestion, ext))
+        return path_suggestion
+        
+    def save_figure(self,figure=None):
+        if figure is None:
+            figure = self.main_frame.activeSubWindow()
+            if figure is None:
+                return
+        path_suggestion = self.get_figure_filepath_suggestion(figure)
+        canvas = figure.widget()
+        
+        # Build type selection string
+        def_type = os.path.extsep + canvas.get_default_filetype()
+        extensions = canvas.get_supported_filetypes_grouped()   
+        type_choices = u"All types (*.*)"  
+        for group, exts in extensions.iteritems():
+            fmt = group + ' (' + '; '.join([os.path.extsep + sube for sube in exts]) + ')'
+            type_choices = ';;'.join((type_choices, fmt))
+            if def_type[1:] in exts:
+                def_type = fmt
+            
+        # Present filename prompt
+        filename = QFileDialog.getSaveFileName(self, tr("Save file"), 
+                                    path_suggestion, type_choices,
+                                    def_type)[0]
+        if filename:
+            canvas.figure.savefig(filename)
   
     # --------- Settings ---------
   
@@ -307,6 +355,7 @@ class MainWindowLayer1(QMainWindow):
         s.setValue('default_widget_floating', self.default_widget_floating)
         s.setValue('make_trait_dialogs_widgets', self.make_trait_dialogs_widgets)
         s.endGroup()
+        s.setValue('cd', self.cur_dir)
         
     def read_settings(self):
         s = QSettings(self)
@@ -320,6 +369,10 @@ class MainWindowLayer1(QMainWindow):
         self.make_trait_dialogs_widgets = s.value("make_trait_dialogs_widgets",
                                             self.make_trait_dialogs_widgets, bool)
         s.endGroup()
+        cd = s.value('cd', None)
+        if cd is not None and len(str(cd)) > 0:
+            if self.cur_dir == "":
+                self.cur_dir = str(cd)
                                             
   
     # --------- Console functions ---------

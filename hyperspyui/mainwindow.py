@@ -128,6 +128,9 @@ class MainWindow(MainWindowLayer2):
                         shortcut=QKeySequence.Save, 
                         icon=os.path.dirname(__file__) + '/../images/save.svg',
                         tip="Save the selected signal(s)")
+        self.add_action('save_fig', "Save &figure", self.save_figure,
+#                        icon=os.path.dirname(__file__) + '/../images/save.svg',
+                        tip="Save the active figure")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
                         icon=os.path.dirname(__file__) + '/../images/mirror.svg',
@@ -197,6 +200,7 @@ class MainWindow(MainWindowLayer2):
         self.filemenu.addAction(self.actions['open'])
         self.filemenu.addAction(self.actions['close'])
         self.filemenu.addAction(self.actions['save'])
+        self.filemenu.addAction(self.actions['save_fig'])
         self.filemenu.addSeparator()
         self.filemenu.addAction(self.actions['close_all'])
         

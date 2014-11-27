@@ -51,7 +51,6 @@ class MainWindowLayer2(MainWindowLayer1):
         self.signals = BindingList()   
         
         # Setup variables
-        self.cur_dir = ""
         self.progressbars = {} 
         
         super(MainWindowLayer2, self).__init__(parent)
@@ -170,11 +169,10 @@ class MainWindowLayer2(MainWindowLayer1):
             filenames = QFileDialog.getOpenFileNames(self,
                     tr('Load file'), self.cur_dir,
                     type_choices)
-            if isinstance(filenames, tuple):    # Pyside/PyQt are different
+            if isinstance(filenames, tuple):    # Pyside returns tuple, PyQt not
                 filenames = filenames[0]
             if not filenames:
                 return False
-#            self.cur_dir = os.path.dirname(filenames)
             self.cur_dir = filenames[0]
             
         files_loaded = []
@@ -190,7 +188,7 @@ class MainWindowLayer2(MainWindowLayer1):
             except (IOError, ValueError):
                 self.set_status("Failed to load \"" + filename + "\"")
             finally:
-                self.setUpdatesEnabled(True)
+                self.setUpdatesEnabled(True)    # Always resume updates!
                 
         if len(files_loaded) == 1:
             self.set_status("Loaded \"" + files_loaded[0] + "\"")
@@ -205,36 +203,55 @@ class MainWindowLayer2(MainWindowLayer1):
         extensions = get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
-        deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
             
         i = 0
         overwrite = None
         for s in signals:
+            # Match signal to filename. If filenames has not been specified,
+            # or there are no valid filename for curren signal index i, we
+            # have to prompt the user.
             if filenames is None or len(filenames) <= i or filenames[i] is None:
-                if s.signal.metadata.has_item('General.original_filename'):
-                    f = s.signal.metadata.General.original_filename
-                else:
-                    f = self.cur_dir
-                base, tail = os.path.split(f)
-                fn, ext = os.path.splitext(tail)
-                if base is None or base == "":
-                    base = os.path.dirname(self.cur_dir)
-                if ext not in extensions:
-                    ext = deault_ext
-                fn = s.name
-                path_suggestion = os.path.sep.join((base, fn))
-                path_suggestion = os.path.extsep.join((path_suggestion, ext))
+                path_suggestion = self.get_signal_filepath_suggestion(s)
                 filename = QFileDialog.getSaveFileName(self, tr("Save file"), 
                                             path_suggestion, type_choices,
                                             "All types (*.*)")[0]
+                # Dialog should have prompted about overwrite
                 overwrite = True
                 if not filename:
-                    return
+                    continue
             else:
                 filename = filenames[i]
-                overwrite = None
+                overwrite = None    # We need to confirm overwrites
             i += 1
             s.signal.save(filename, overwrite)
+            
+    def get_signal_filepath_suggestion(self, signal, deault_ext=None):
+        if deault_ext is None:
+            deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
+         # Get initial suggestion for save dialog.  Use 
+        # original_filename metadata if present, or self.cur_dir if not
+        if signal.signal.metadata.has_item('General.original_filename'):
+            f = signal.signal.metadata.General.original_filename
+        else:
+            f = self.cur_dir
+        
+        # Analyze suggested filename
+        base, tail = os.path.split(f)
+        fn, ext = os.path.splitext(tail)
+        
+        # If no directory in filename, use self.cur_dir's dirname
+        if base is None or base == "":
+            base = os.path.dirname(self.cur_dir)
+        # If extension is not valid, use the defualt
+        extensions = get_accepted_extensions()
+        if ext not in extensions:
+            ext = deault_ext
+        # Filename itself is signal's name
+        fn = signal.name
+        # Build suggestion and return
+        path_suggestion = os.path.sep.join((base, fn))
+        path_suggestion = os.path.extsep.join((path_suggestion, ext))
+        return path_suggestion
     
     # ---------- Drag and drop overloads ----------
     
@@ -256,6 +273,7 @@ class MainWindowLayer2(MainWindowLayer1):
 #        pass
     
     def dropEvent(self, event):
+        # Something has been dropped. Try to load all file urls
         mimeData = event.mimeData()      
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]
@@ -298,16 +316,9 @@ class MainWindowLayer2(MainWindowLayer1):
     
     def write_settings(self):
         super(MainWindowLayer2, self).write_settings()
-        s = QSettings(self)
-        s.setValue('cd', self.cur_dir)
         
     def read_settings(self):
         super(MainWindowLayer2, self).read_settings()
-        s = QSettings(self)
-        cd = s.value('cd', None)
-        if cd is not None and len(str(cd)) > 0:
-            if self.cur_dir == "":
-                self.cur_dir = str(cd)
 
     # --------- Console functions ----------    
 
