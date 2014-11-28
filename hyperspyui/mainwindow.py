@@ -300,9 +300,9 @@ class MainWindow(MainWindowLayer2):
             s.close()
             
     def close_all_signals(self):
-        for s in self.signals:
+        while len(self.signals) > 0:
+            s = self.signals.pop()
             s.close()
-            self.signals.remove(s)  # Maybe superfluous, but just to make sure
             
     def fourier_ratio(self):
         wrap = QWidget(self)
