@@ -122,7 +122,7 @@ class MainWindow(MainWindowLayer2):
                                     Qt.CTRL + Qt.ALT + Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key, 
-#                        icon=os.path.dirname(__file__) + '/../images/close_all_window.svg',
+                        icon=os.path.dirname(__file__) + '/../images/close_windows.svg',
                         tip="Close all signals")
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save, 
