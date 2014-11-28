@@ -170,6 +170,19 @@ class DataViewWidget(QWidget):
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)
         cm.exec_(self.tree.mapToGlobal(point))
+        
+    def keyPressEvent(self, event):
+        citem = self.tree.currentItem()
+        if event.key() == Qt.Key_Delete:
+            data = citem.data(0, Qt.UserRole)
+            # Do nothing if SignalType
+            if citem.type() == self.ModelType:
+                data.actions['delete'].trigger()
+            elif citem.type() == self.ComponentType:
+                model = citem.parent().data(0, Qt.UserRole)
+                model.remove_component(data)
+        else:
+            super(DataViewWidget, self).keyPressEvent(event)
     
     def _remove(self, key):
         if self.lut.has_key(key):
