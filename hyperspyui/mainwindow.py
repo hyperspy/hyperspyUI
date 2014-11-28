@@ -68,7 +68,7 @@ class MainWindow(MainWindowLayer2):
         
         # Set window icon
         self.setWindowIcon(QIcon(os.path.dirname(__file__) + 
-                                                    '/../images/HyperSpy.svg'))
+                                                    '/../images/hyperspy.svg'))
 
         # Parse any command line options
         self.parse_args()
