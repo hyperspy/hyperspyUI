@@ -36,10 +36,10 @@ class ModelWrapper(Actionable):
         self.add_action('multifit', "&Multifit", self.multifit)
         self.add_action('set_signal_range', "Set signal &range",
                         self.set_signal_range)
-        f = partial(self.signal.remove_model, self)
         if isinstance(self.model , hyperspy.models.eelsmodel.EELSModel):
             self.add_action('fine_structure', "Enable fine &structure",
                             self.toggle_fine_structure)
+        f = partial(self.signal.remove_model, self)
         self.add_action('delete', "&Delete", f)
         
             

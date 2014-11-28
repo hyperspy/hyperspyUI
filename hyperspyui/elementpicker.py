@@ -11,10 +11,10 @@ from QtGui import *
 
 import hyperspy.signals
 
-from extendedqwidgets import QToolWindow
+from extendedqwidgets import ExToolWindow
 from periodictable import PeriodicTableWidget
 
-class ElementPickerWidget(QToolWindow):
+class ElementPickerWidget(ExToolWindow):
     """
     Tool window for picking elements of an interactive periodic table.
     Takes a signal in the constructor, and 

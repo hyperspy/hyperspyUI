@@ -11,7 +11,7 @@ from QtGui import *
 
 from functools import partial
 from _elements import elements
-from extendedqwidgets import QClickLabel
+from extendedqwidgets import ExClickLabel
         
 class PeriodicTableWidget(QWidget):
     element_toggled = Signal(str)
@@ -34,7 +34,7 @@ class PeriodicTableWidget(QWidget):
                     grid.addWidget(w, i, j, 1, e[0], Qt.AlignRight)
                     j += e[0]
                 elif isinstance(e, dict):
-                    w = QClickLabel(e['id'], self)
+                    w = ExClickLabel(e['id'], self)
                     w.setToolTip(e['name'])
                     w.setAlignment(Qt.AlignCenter)
                     w.setMinimumSize(10, 10)

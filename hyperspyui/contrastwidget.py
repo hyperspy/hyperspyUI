@@ -10,7 +10,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from extendedqwidgets import QDoubleSlider, QClickLabel
+from extendedqwidgets import ExDoubleSlider, ExClickLabel
 from hyperspy.drawing.mpl_he import MPL_HyperExplorer
 from hyperspy.drawing.image import ImagePlot
 from util import win2fig
@@ -130,10 +130,10 @@ class ContrastWidget(QDockWidget):
         self.sl_window.setValue(imax - imin)   # Will trigger events
     
     def create_controls(self):
-        self.sl_level = QDoubleSlider(self, Qt.Horizontal)
-        self.lbl_level = QClickLabel(self.LevelLabel + ": 0.0")
-        self.sl_window = QDoubleSlider(self, Qt.Horizontal)
-        self.lbl_window = QClickLabel(self.WindowLabel + ": 0.0")
+        self.sl_level = ExDoubleSlider(self, Qt.Horizontal)
+        self.lbl_level = ExClickLabel(self.LevelLabel + ": 0.0")
+        self.sl_window = ExDoubleSlider(self, Qt.Horizontal)
+        self.lbl_window = ExClickLabel(self.WindowLabel + ": 0.0")
         
         for sl in [self.sl_level, self.sl_window]:
             sl.setRange(0.0, 1.0)
