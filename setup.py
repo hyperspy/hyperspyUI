@@ -9,18 +9,24 @@ Created on Mon Nov 17 11:58:16 2014
 
 from distutils.core import setup
 
+import hyperspyui.info
+
 setup(name='hyperspyUI',
-      version='1.0a',
+      version=hyperspyui.info.version,
       description='Hyperspy Graphical Interface',
       author='Vidar Tonaas Fauske',
       author_email='vidartf+hyperspyui@gmail.com',
       packages=['hyperspyui'],
       requires=['hyperspy', 
-                'matplotlib (>= 1.4)', 
-                'python_qt_binding'],
+                'matplotlib (>= 1.3)', 
+                'python_qt_binding',
+                'traits',
+                'traitsui'],
       install_requires=['hyperspy',     #TODO: Find lowest allowed version of hyperspy
-                'matplotlib >= 1.4', 
-                'python_qt_binding'],
+                'matplotlib >= 1.3', 
+                'python_qt_binding',
+                'traits',
+                'traitsui'],
       package_data=
       {
           'hyperspyui':

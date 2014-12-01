@@ -5,7 +5,7 @@ Created on Tue Nov 04 13:37:08 2014
 @author: Vidar Tonaas Fauske
 """
 
-import os
+import os, sys
 import re
 
 # Hyperspy uses traitsui, set proper backend
@@ -26,7 +26,16 @@ import hyperspy.hspy
 import hyperspy.defaults_parser
 from hyperspy.io_plugins import io_plugins
 
+import uiprogressbar
+uiprogressbar.takeover_progressbar()    # Enable hooks
+
 glob_escape = re.compile(r'([\[\]])')
+
+
+def get_accepted_extensions():
+    extensions = set([ extensions.lower() for plugin in io_plugins 
+                    for extensions in plugin.file_extensions])
+    return extensions
 
 
 class MainWindowLayer2(MainWindowLayer1):
@@ -37,20 +46,37 @@ class MainWindowLayer2(MainWindowLayer1):
     """
     
     def __init__(self, parent=None):        
-        self.signals = BindingList()
+        # Setup signals list. This is a BindingList, and all components of the
+        # code that needs to keep track of the signals loaded bind into this.
+        self.signals = BindingList()   
+        
+        # Setup variables
+        self.progressbars = {} 
         
         super(MainWindowLayer2, self).__init__(parent)
-            
-        self.cur_dir = ""
-        self.progressbars = {}
         
+        # Enable drag and drop
+        self.setAcceptDrops(True)
+        
+        # Connect UIProgressBar for graphical hyperspy progress
+        s = uiprogressbar.signaler
+        s.connect(s, SIGNAL('created(int, int, QString)'),
+                              self.on_progressbar_wanted)
+        s.connect(s, SIGNAL('progress(int, int)'),
+                              self.on_progressbar_update)
+        s.connect(s, SIGNAL('progress(int, int, QString)'),
+                              self.on_progressbar_update)
+        s.connect(s, SIGNAL('finished_sig(int)'),
+                              self.on_progressbar_finished)
+        self.cancel_progressbar.connect(s.on_cancel)
+        
+        # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
-        self.set_status("Ready")
         
     def create_widgetbar(self):  
         super(MainWindowLayer2, self).create_widgetbar() 
         
-        self.tree = DataViewWidget(self)
+        self.tree = DataViewWidget(self, self)
         self.tree.setWindowTitle(tr("Data View"))
         # Sync tree with signals list:
         self.signals.add_custom(self.tree, self.tree.add_signal, None,
@@ -135,21 +161,21 @@ class MainWindowLayer2(MainWindowLayer1):
         user interactively browse for files. It then load these files using
         hyperspy.hspy.load and wraps them and adds them to self.signals.
         """
-        extensions = set([ extensions.lower() for plugin in io_plugins 
-                        for extensions in plugin.file_extensions])
+        extensions = get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
-                            
+                       
         if filenames is None:
             filenames = QFileDialog.getOpenFileNames(self,
                     tr('Load file'), self.cur_dir,
                     type_choices)
-            if isinstance(filenames, tuple):    # Pyside/PyQt are different
+            if isinstance(filenames, tuple):    # Pyside returns tuple, PyQt not
                 filenames = filenames[0]
             if not filenames:
-                return
-#            self.cur_dir = os.path.dirname(filenames)
+                return False
             self.cur_dir = filenames[0]
+            
+        files_loaded = []
         for filename in filenames:    
             self.set_status("Loading \"" + filename + "\"...")
             self.setUpdatesEnabled(False)   # Prevent flickering during load
@@ -158,54 +184,105 @@ class MainWindowLayer2(MainWindowLayer1):
                 sig = hyperspy.hspy.load(escaped)
                 base = os.path.splitext( os.path.basename(filename) )[0]
                 self.add_signal_figure(sig, base)
+                files_loaded.append(filename)
+            except (IOError, ValueError):
+                self.set_status("Failed to load \"" + filename + "\"")
             finally:
-                self.setUpdatesEnabled(True)
-        if len(filenames) == 1:
-            self.set_status("Loaded \"" + filenames[0] + "\"")
-        elif len(filenames) > 1:
-            self.set_status("Loaded %d files" % len(filenames))
+                self.setUpdatesEnabled(True)    # Always resume updates!
+                
+        if len(files_loaded) == 1:
+            self.set_status("Loaded \"" + files_loaded[0] + "\"")
+        elif len(files_loaded) > 1:
+            self.set_status("Loaded %d files" % len(files_loaded))
+        return len(files_loaded) > 1
     
     def save(self, signals=None, filenames=None):
         if signals is None:
             signals = self.get_selected_signals()
             
-        extensions = set([ extensions.lower() for plugin in io_plugins 
-                        for extensions in plugin.file_extensions])
+        extensions = get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
-        deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
             
         i = 0
         overwrite = None
         for s in signals:
+            # Match signal to filename. If filenames has not been specified,
+            # or there are no valid filename for curren signal index i, we
+            # have to prompt the user.
             if filenames is None or len(filenames) <= i or filenames[i] is None:
-                if s.signal.metadata.has_item('General.original_filename'):
-                    f = s.signal.metadata.General.original_filename
-                else:
-                    f = self.cur_dir
-                base, tail = os.path.split(f)
-                fn, ext = os.path.splitext(tail)
-                if base is None or base == "":
-                    base = os.path.dirname(self.cur_dir)
-                if ext not in extensions:
-                    ext = deault_ext
-                fn = s.name
-                path_suggestion = os.path.sep.join((base, fn))
-                path_suggestion = os.path.extsep.join((path_suggestion, ext))
+                path_suggestion = self.get_signal_filepath_suggestion(s)
                 filename = QFileDialog.getSaveFileName(self, tr("Save file"), 
                                             path_suggestion, type_choices,
                                             "All types (*.*)")[0]
+                # Dialog should have prompted about overwrite
                 overwrite = True
                 if not filename:
-                    return
+                    continue
             else:
                 filename = filenames[i]
-                overwrite = None
+                overwrite = None    # We need to confirm overwrites
             i += 1
             s.signal.save(filename, overwrite)
-                
             
-    # --------- Progress bars ----------
+    def get_signal_filepath_suggestion(self, signal, deault_ext=None):
+        if deault_ext is None:
+            deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
+         # Get initial suggestion for save dialog.  Use 
+        # original_filename metadata if present, or self.cur_dir if not
+        if signal.signal.metadata.has_item('General.original_filename'):
+            f = signal.signal.metadata.General.original_filename
+        else:
+            f = self.cur_dir
+        
+        # Analyze suggested filename
+        base, tail = os.path.split(f)
+        fn, ext = os.path.splitext(tail)
+        
+        # If no directory in filename, use self.cur_dir's dirname
+        if base is None or base == "":
+            base = os.path.dirname(self.cur_dir)
+        # If extension is not valid, use the defualt
+        extensions = get_accepted_extensions()
+        if ext not in extensions:
+            ext = deault_ext
+        # Filename itself is signal's name
+        fn = signal.name
+        # Build suggestion and return
+        path_suggestion = os.path.sep.join((base, fn))
+        path_suggestion = os.path.extsep.join((path_suggestion, ext))
+        return path_suggestion
+    
+    # ---------- Drag and drop overloads ----------
+    
+    def dragEnterEvent(self, event):
+        # Check file name extensions to see if we should accept
+        extensions = set(get_accepted_extensions())
+        mimeData = event.mimeData() 
+        if mimeData.hasUrls():
+            pathList = [url.toLocalFile() for url in mimeData.urls()]
+            data_ext = set([os.path.splitext(p)[1][1:] for p in pathList])
+            # Accept as long as we can read some of the files being dropped
+            if 0 < len(data_ext.intersection(extensions)):
+                event.acceptProposedAction()
+    
+#    def dragMoveEvent(event):
+#        pass
+#    
+#    def dragLeaveEvent(event):
+#        pass
+    
+    def dropEvent(self, event):
+        # Something has been dropped. Try to load all file urls
+        mimeData = event.mimeData()      
+        if mimeData.hasUrls():
+            pathList = [url.toLocalFile() for url in mimeData.urls()]
+            if self.load(pathList):
+                event.acceptProposedAction()
+            
+    # --------- Hyperspy progress bars ----------
+        
+    cancel_progressbar = Signal(int)
             
     def on_progressbar_wanted(self, pid, maxval, label):
         progressbar = QProgressDialog(self)
@@ -214,9 +291,10 @@ class MainWindowLayer2(MainWindowLayer1):
         progressbar.setMaximum(maxval)
         progressbar.setWindowTitle("Processing")
         progressbar.setLabelText(label)
-#        progressbar.setCancelButtonText(None)
+        
         def cancel():
             self.cancel_progressbar.emit(pid)
+            
         progressbar.canceled.connect(cancel)
         progressbar.setWindowModality(Qt.WindowModal)
         
@@ -232,9 +310,16 @@ class MainWindowLayer2(MainWindowLayer1):
     def on_progressbar_finished(self, pid):
         progressbar = self.progressbars.pop(pid)
         progressbar.close()
+    
+    # --------- End hyperspy progress bars ----------
+    
+    # --------- Settings ---------
+    
+    def write_settings(self):
+        super(MainWindowLayer2, self).write_settings()
         
-    cancel_progressbar = Signal(int)
-        
+    def read_settings(self):
+        super(MainWindowLayer2, self).read_settings()
 
     # --------- Console functions ----------    
 
@@ -265,7 +350,8 @@ class MainWindowLayer2(MainWindowLayer1):
     def _get_console_config(self):
         # ===== THIS ======
         from IPython.config.loader import PyFileConfigLoader
-        ipcp = os.path.sep.join(("ipython_profile", "ipython_embedded_config.py"))
+        ipcp = os.path.sep.join((os.path.dirname(__file__), "ipython_profile", 
+                                 "ipython_embedded_config.py"))
         c = PyFileConfigLoader(ipcp).load_config()
         # ===== OR THIS =====
 #        import hyperspy.Release        
