@@ -22,6 +22,7 @@ class PeriodicTableWidget(QWidget):
         self.toggled = {}
         self.style_off = "* { background-color: rgba(0,0,0,20); padding: 0px}"
         self.style_on = "* { background-color: rgba(128,180,255,255); padding: 0px}"
+        self.style_disabled = "* { background-color: rgba(100,0,0,40); padding: 0px}"
         self.create_controls()
     
     def parse_elements(self, grid):
@@ -59,6 +60,29 @@ class PeriodicTableWidget(QWidget):
         self.toggled[element] = value
         btn = self.elements[element]
         if value:
+            style = self.style_on
+        else:
+            style = self.style_off
+        btn.setStyleSheet(style)
+        
+    def disable_elements(self, elements):
+        for e in elements:
+            self.disable_element(e)
+
+    def disable_element(self, element):
+        btn = self.elements[element]
+        btn.setEnabled(False)
+        btn.setStyleSheet(self.style_disabled)
+        
+    def enable_elements(self, elements):
+        for e in elements:
+            self.enable_element(e)
+    
+    def enable_element(self, element):
+        btn = self.elements[element]
+        btn.setEnabled(True)
+        btn.setStyleSheet(self.style_disabled)
+        if self.toggled[element]:
             style = self.style_on
         else:
             style = self.style_off
