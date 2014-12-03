@@ -10,6 +10,7 @@ from QtCore import *
 from QtGui import *
 
 from functools import partial
+import traits.api as t
 import traitsui.api as tu
 
 from util import create_add_component_actions
@@ -102,20 +103,23 @@ class DataViewWidget(QWidget):
                 self.clear_editor()
                 
     def configure_traits(self, comp, buttons=True):
-        items = [tu.Item('name'), tu.Item('active')]
-        for p in comp.parameters:
-            name = '.'.join(('object', p.name))
-            p_label = p.name.replace('_', ' ').capitalize()
-            vi = tu.Item(name + '.value', label=p_label, 
-                         editor=tu.RangeEditor(low_name=name+'.bmin',
-                                            high_name=name+'.bmax'))
-            items.extend((vi, tu.Item(name + '.free')))
-        view = tu.View(*items, 
-                    buttons=tu.OKCancelButtons if buttons else [],
-                    default_button=tu.OKButton,
-                    kind='live',
-                    resizable=True)
-        comp.edit_traits(view=view)           
+        try:
+            items = [tu.Item('name'), tu.Item('active')]
+            for p in comp.parameters:
+                name = '.'.join(('object', p.name))
+                p_label = p.name.replace('_', ' ').capitalize()
+                vi = tu.Item(name + '.value', label=p_label, 
+                             editor=tu.RangeEditor(low_name=name+'.bmin',
+                                                high_name=name+'.bmax'))
+                items.extend((vi, tu.Item(name + '.free')))
+            view = tu.View(*items, 
+                        buttons=tu.OKCancelButtons if buttons else [],
+                        default_button=tu.OKButton,
+                        kind='live',
+                        resizable=True)
+            comp.edit_traits(view=view)
+        except AttributeError:
+            pass
         
     def onCustomContextMenu(self, point):
         """
@@ -211,7 +215,12 @@ class DataViewWidget(QWidget):
             self.add_component(c, model)
         
     def add_component(self, component, model):
-        self._add(component.name, component, self.ComponentType, parent=model)
+        ci = self._add(component.name, component, self.ComponentType, 
+                       parent=model)
+        if isinstance(component, t.HasTraits):
+            def update_name(new_name):
+                ci.setText(0, new_name)
+            component.on_trait_change(update_name, 'name')
         
     def add(self, object, type, parent=None):
         self._add(object.name, object, type, parent)
