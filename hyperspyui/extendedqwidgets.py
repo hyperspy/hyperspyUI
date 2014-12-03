@@ -27,8 +27,10 @@ class ExClickLabel(QLabel):
     def _init__(self, *args, **kwargs):
       super(ExClickLabel, self).__init__(*args, **kwargs)
 
-    def mousePressEvent(self, event):
-          self.clicked.emit()
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.clicked.emit()
+        super(ExClickLabel, self).mouseReleaseEvent(event)
 
 
 class ExDoubleSlider(QSlider):

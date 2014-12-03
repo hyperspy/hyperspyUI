@@ -80,6 +80,7 @@ class SignalWrapper(Actionable):
                 old_nav.close()
             if self._nav_geom is not None:
                 self.navigator_plot.restoreGeometry(self._nav_geom)
+                self._nav_geom = None
             
         if self.signal._plot and self.signal._plot.signal_plot is not None:
             sigp = self.signal._plot.signal_plot.figure
@@ -93,6 +94,7 @@ class SignalWrapper(Actionable):
                 old_sig.close()
             if self._sig_geom is not None:
                 self.signal_plot.restoreGeometry(self._sig_geom)
+                self._sig_geom = None
         
     def add_figure(self, fig):
         self.figures.append(fig)
