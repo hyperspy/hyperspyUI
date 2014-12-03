@@ -50,6 +50,9 @@ class PeriodicTableWidget(QWidget):
                     grid.addWidget(w, i, j)
                     j += 1
                     
+    def toggle_element(self, element):
+        self.set_element(element, not self.toggled[element])
+                    
     def set_elements(self, elements):
         for e in elements:
             self.set_element(e, True)

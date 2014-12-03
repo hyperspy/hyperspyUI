@@ -110,22 +110,23 @@ class ElementPickerWidget(ExToolWindow):
         
         # Figure out wether element should be toggled
         active, _ = self._get_element_subshells(element)
-        if ss in active:
+        if checked:
+            any_left = True
+        elif ss in active:
             active.remove(ss)
-        any_left = len(active) > 0
+            any_left = len(active) > 0
         
         # If any(subshells toggled) != element toggled, we should toggle element
         if self.table.toggled[element] != any_left:
             # Update table toggle
-            self.table.set_element(element, any_left)
+            self.table.toggle_element(element)
             # Update signal state
             if not any_left:
                 # Remove element
                 self._toggle_element(element)
             
         if checked:
-            if 'Sample.xray_lines' not in s.metadata:
-                active, _ = self._get_element_subshells(element)
+            if 'Sample.xray_lines' not in s.metadata and len(active) > 0:
                 lines = [subshell, element+'_'+active[0]]
                 s.add_lines(lines)
             else: 
@@ -133,7 +134,8 @@ class ElementPickerWidget(ExToolWindow):
         else:
             # Sanity check
             if 'Sample.xray_lines' in s.metadata:
-                s.metadata.Sample.xray_lines.remove(subshell)
+                if subshell in s.metadata.Sample.xray_lines:
+                    s.metadata.Sample.xray_lines.remove(subshell)
                 # If all lines are disabled, fall back to element defined
                 # (Not strictly needed)
                 if len(s.metadata.Sample.xray_lines) < 1:
@@ -186,7 +188,8 @@ class ElementPickerWidget(ExToolWindow):
                     c_element, subshell = line.split("_")
                     if c_element == element:
                         subshells.append(subshell)
-            elif 'Sample.elements' in s.metadata:
+            elif ('Sample.elements' in s.metadata and 
+                                        element in s.metadata.Sample.elements):
                 xray_lines = s._get_lines_from_elements([element], only_one=True)
                 for line in xray_lines:
                     _, subshell = line.split("_")
