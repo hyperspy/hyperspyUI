@@ -10,6 +10,7 @@ from QtCore import *
 from QtGui import *
 
 from functools import partial
+import traits.api as t
 import traitsui.api as tu
 
 from util import create_add_component_actions
@@ -83,13 +84,42 @@ class DataViewWidget(QWidget):
                 w.close()
             item = self.editor.takeAt(0)
         
+    def set_traits_editor(self, traits_dialog):
+        self.clear_editor()
+        sp = traits_dialog.sizePolicy()
+        sp.setVerticalPolicy(QSizePolicy.Fixed)
+        traits_dialog.setSizePolicy(sp)
+        self.editor.addWidget(traits_dialog)
+        self.editor.addSpacing(self.editor_bottom_padding)
+        traits_dialog.show()
+        
     def currentItemChanged(self, current, previous):
         if self.editor_visible:
             if current and current.type() == self.ComponentType:
                 comp = current.data(0, Qt.UserRole)
-                #TODO: Make compoenent editor
+                self.main_window.capture_traits_dialog(self.set_traits_editor)
+                self.configure_traits(comp, False)
             else:
-                self.clear_editor()       
+                self.clear_editor()
+                
+    def configure_traits(self, comp, buttons=True):
+        try:
+            items = [tu.Item('name'), tu.Item('active')]
+            for p in comp.parameters:
+                name = '.'.join(('object', p.name))
+                p_label = p.name.replace('_', ' ').capitalize()
+                vi = tu.Item(name + '.value', label=p_label, 
+                             editor=tu.RangeEditor(low_name=name+'.bmin',
+                                                high_name=name+'.bmax'))
+                items.extend((vi, tu.Item(name + '.free')))
+            view = tu.View(*items, 
+                        buttons=tu.OKCancelButtons if buttons else [],
+                        default_button=tu.OKButton,
+                        kind='live',
+                        resizable=True)
+            comp.edit_traits(view=view)
+        except AttributeError:
+            pass
         
     def onCustomContextMenu(self, point):
         """
@@ -128,6 +158,12 @@ class DataViewWidget(QWidget):
             ac = QAction("&Fit component", self.tree)    # TODO: tr()
             f = partial(model.fit_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
+            cm.addAction(ac)
+            
+            # Configure action
+            ac = QAction("&Configure", self.tree)
+            f = partial(self.configure_traits, comp)
+            ac.triggered.connect(f)
             cm.addAction(ac)
             
             cm.addSeparator()
@@ -179,7 +215,12 @@ class DataViewWidget(QWidget):
             self.add_component(c, model)
         
     def add_component(self, component, model):
-        self._add(component.name, component, self.ComponentType, parent=model)
+        ci = self._add(component.name, component, self.ComponentType, 
+                       parent=model)
+        if isinstance(component, t.HasTraits):
+            def update_name(new_name):
+                ci.setText(0, new_name)
+            component.on_trait_change(update_name, 'name')
         
     def add(self, object, type, parent=None):
         self._add(object.name, object, type, parent)

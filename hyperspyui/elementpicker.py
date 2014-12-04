@@ -238,6 +238,7 @@ class ElementPickerWidget(ExToolWindow):
         vbox = QVBoxLayout(self)
         vbox.addWidget(self.table)
         
-        vbox.addWidget(self.map_btn)
+        if self.isEDS():
+            vbox.addWidget(self.map_btn)
         
         self.setLayout(vbox)
