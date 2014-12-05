@@ -97,8 +97,9 @@ class DataViewWidget(QWidget):
         if self.editor_visible:
             if current and current.type() == self.ComponentType:
                 comp = current.data(0, Qt.UserRole)
-                self.main_window.capture_traits_dialog(self.set_traits_editor)
-                self.configure_traits(comp, False)
+                if isinstance(comp, t.HasTraits):
+                    self.main_window.capture_traits_dialog(self.set_traits_editor)
+                    self.configure_traits(comp, False)
             else:
                 self.clear_editor()
                 
