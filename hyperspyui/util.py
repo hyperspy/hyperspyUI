@@ -43,11 +43,15 @@ def dict_rlu(dictionary, value):
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}
     compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw', 
-                 'Erf', 'Exponential', 'Gaussian', 'Logistic', 'Lorentzian', 
-                 'Offset', 'PowerLaw', 'SEE', 'RC', 'Vignetting', 'Voigt', 
-                 'Polynomial', 'PESCoreLineShape', 'VolumePlasmonDrude']
+                 'Erf', 'Exponential', 'Gaussian', 'Gaussian2', 'Logistic', 
+                 'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 'Vignetting',
+                 'Voigt', 'Polynomial', 'PESCoreLineShape', 
+                 'VolumePlasmonDrude']
     for name in compnames:
-        t = getattr(hyperspy.components, name)
+        try:
+            t = getattr(hyperspy.components, name)
+        except AttributeError:
+            continue
         ac_name = 'add_component_' + name
         f = partial(callback, t)
         ac = QtGui.QAction(prefix + name + postfix, parent)
