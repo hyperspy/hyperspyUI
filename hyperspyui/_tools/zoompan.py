@@ -16,8 +16,9 @@ class ZoomPanTool(FigureTool):
         super(ZoomPanTool, self).__init__(windows)
         self.panning = False
         self.pan_data = None
+        self.base_scale = 1.5     # Mouse wheel zoom factor
         self.cursor = load_cursor(os.path.dirname(__file__) + \
-                                  '/../../images/panzoom2.svg', 16, 16)
+                                  '/../../images/panzoom2.svg', 8, 8)
         
     def get_name(self):
         return "Pan/Zoom tool"
@@ -84,9 +85,7 @@ class ZoomPanTool(FigureTool):
         for w in windows:
             canvases.add(w.widget())
         for c in canvases:
-            print c.widgetlock._owner
             c.widgetlock(self)
-            print c.widgetlock._owner
             
     def disconnect(self, windows):
         super(ZoomPanTool, self).disconnect(windows)
@@ -98,12 +97,43 @@ class ZoomPanTool(FigureTool):
         for w in windows:
             canvases.add(w.widget())
         for c in canvases:
-            print c.widgetlock._owner
             c.widgetlock.release(self)
-            print c.widgetlock._owner
             
     def on_scroll(self, event):
-        pass
+        if event.inaxes is None:
+            return
+        ax = event.inaxes
+        # get the current x and y limits
+        cxlim = ax.get_xlim()
+        cylim = ax.get_ylim()
+        cx = (cxlim[1] - cxlim[0])*.5
+        cy = (cylim[1] - cylim[0])*.5
+        x = event.xdata # get event x location
+        y = event.ydata # get event y location
+        center = ((cxlim[1] + cxlim[0])*.5, (cylim[1] + cylim[0])*.5)
+        zoom_vector = ((x - center[0])/self.base_scale, (y - center[1])/self.base_scale)
+        if event.button == 'up':
+            # deal with zoom in
+            scale = 1.0/self.base_scale
+            new_centre = (center[0] + zoom_vector[0], center[1] + zoom_vector[1])
+            new_xlim = [new_centre[0] - cx*scale, 
+                        new_centre[0] + cx*scale]
+            new_ylim = [new_centre[1] - cy*scale, 
+                        new_centre[1] + cy*scale]
+        elif event.button == 'down':
+            # deal with zoom out
+            scale = self.base_scale
+            new_centre = (center[0] - zoom_vector[0], center[1] - zoom_vector[1])
+            new_xlim = [new_centre[0] - cx*scale, 
+                        new_centre[0] + cx*scale]
+            new_ylim = [new_centre[1] - cy*scale, 
+                        new_centre[1] + cy*scale]
+        else:
+            return
+        # set new limits
+        ax.set_xlim(new_xlim)
+        ax.set_ylim(new_ylim)
+        ax.figure.canvas.draw_idle()
             
     def get_cursor(self):
         return self.cursor
