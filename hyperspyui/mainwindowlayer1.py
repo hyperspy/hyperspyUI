@@ -114,6 +114,8 @@ class MainWindowLayer1(QMainWindow):
         self.windowmenu_sep = self.windowmenu.addSeparator()
         
     def create_tools(self):
+        self.selectable_tools = QActionGroup(self)
+        self.selectable_tools.setExclusive(True)
         for tool_type in tools.default_tools:
             t = tool_type(self.figures)
             self.tools.append(t)
@@ -126,6 +128,8 @@ class MainWindowLayer1(QMainWindow):
                 f = partial(self.select_tool, t)
                 self.add_action(key, t.get_name(), f, icon=t.get_icon(), 
                                 tip=t.get_description())
+                self.selectable_tools.addAction(self.actions[key])
+                self.actions[key].setCheckable(True)
                 self.add_toolbar_button(t.get_category(), self.actions[key])
     
     def create_toolbars(self):
