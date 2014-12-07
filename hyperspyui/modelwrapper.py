@@ -48,6 +48,7 @@ class ModelWrapper(Actionable):
         self.model.plot()
         self.signal.keep_on_close = False
         self.signal.update_figures()
+        self.signal.signal_plot.setProperty('hyperspyUI.ModelWrapper', self)
         
     def update_plot(self):
         self.model.update_plot()

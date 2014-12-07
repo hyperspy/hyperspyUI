@@ -73,6 +73,7 @@ class SignalWrapper(Actionable):
             navi.axes[0].set_title("")
             self.navigator_plot = fig2win(navi, self.mainwindow.figures)
             self.navigator_plot.closing.connect(self.nav_closing)
+            self.navigator_plot.setProperty('hyperspyUI.SignalWrapper', self)
             self.add_figure(self.navigator_plot)
             if old_nav is not self.navigator_plot and old_nav is not None:
                 self._nav_geom = old_nav.saveGeometry()
@@ -87,6 +88,7 @@ class SignalWrapper(Actionable):
             sigp.axes[0].set_title("")
             self.signal_plot = fig2win(sigp, self.mainwindow.figures)
             self.signal_plot.closing.connect(self.sig_closing)
+            self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
             self.add_figure(self.signal_plot)
             if old_sig is not self.signal_plot and old_sig is not None:
                 old_sig.closing.disconnect(self.sig_closing)
