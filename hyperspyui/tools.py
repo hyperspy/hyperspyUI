@@ -11,5 +11,6 @@ from _tools.figuretool import FigureTool
 from _tools.pointertool import PointerTool
 from _tools.hometool import HomeTool
 from _tools.zoompan import ZoomPanTool
+from _tools.gaussiantool import GaussianTool
 
-default_tools = [PointerTool, HomeTool, ZoomPanTool]
+default_tools = [PointerTool, HomeTool, ZoomPanTool, GaussianTool]
