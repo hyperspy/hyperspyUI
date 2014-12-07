@@ -8,7 +8,7 @@ Created on Mon Oct 27 18:47:05 2014
     
 import hyperspy.components
 from functools import partial
-from python_qt_binding import QtGui, QtCore
+from python_qt_binding import QtGui, QtCore, QtSvg
 
 
 def lstrip(string, prefix):
@@ -39,6 +39,15 @@ def dict_rlu(dictionary, value):
         if v == value or v is value:
             return k
     raise KeyError()
+    
+def load_cursor(filename, hotX=-1, hotY=-1):
+    renderer = QtSvg.QSvgRenderer(filename)
+    pm = QtGui.QPixmap(16, 16)
+    pm.fill(QtCore.Qt.transparent)
+    painter = QtGui.QPainter(pm)
+    renderer.render(painter)
+    del painter, renderer
+    return QtGui.QCursor(pm, hotX, hotY)
 
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}

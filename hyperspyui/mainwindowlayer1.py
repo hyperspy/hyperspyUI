@@ -11,6 +11,8 @@ matplotlib.use('module://mdi_mpl_backend')
 matplotlib.interactive(True)
 
 import os
+from functools import partial
+
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
@@ -19,7 +21,7 @@ def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
 from consolewidget import ConsoleWidget
-
+import tools
 import mdi_mpl_backend
 import hooktraitsui
 
@@ -46,6 +48,7 @@ class MainWindowLayer1(QMainWindow):
         
         # State varaibles
         self.should_capture_traits = None
+        self.active_tool = None
         
         # Collections
         self.widgets = []   # Widgets in widget bar
@@ -55,6 +58,7 @@ class MainWindowLayer1(QMainWindow):
         self._action_selection_cbs = {}
         self.toolbars = {}
         self.menus = {}
+        self.tools = []
         
         # MPL backend bindings
         mdi_mpl_backend.connect_on_new_figure(self.on_new_figure)
@@ -94,6 +98,10 @@ class MainWindowLayer1(QMainWindow):
         self.setCentralWidget(self.main_frame)
         
     def create_default_actions(self):
+        """
+        Create default actions that can be used for e.g. toolbars and menus,
+        or triggered manually.
+        """
         pass
     
     def create_menu(self):
@@ -104,6 +112,21 @@ class MainWindowLayer1(QMainWindow):
         # Figure windows go below this separator. Other windows can be added
         # above it with insertAction(self.windowmenu_sep, QAction)
         self.windowmenu_sep = self.windowmenu.addSeparator()
+        
+    def create_tools(self):
+        for tool_type in tools.default_tools:
+            t = tool_type(self.figures)
+            self.tools.append(t)
+            key = tool_type.__name__
+            if t.single_action() is not None:
+                self.add_action(key, t.get_name(), t.single_action(),
+                                icon=t.get_icon(), tip=t.get_description())
+                self.add_toolbar_button(t.get_category(), self.actions[key])
+            elif t.is_selectable():
+                f = partial(self.select_tool, t)
+                self.add_action(key, t.get_name(), f, icon=t.get_icon(), 
+                                tip=t.get_description())
+                self.add_toolbar_button(t.get_category(), self.actions[key])
     
     def create_toolbars(self):
         """
@@ -111,7 +134,7 @@ class MainWindowLayer1(QMainWindow):
         It is called after create_default_action(), so add_toolbar_button()
         can be used to add previously defined acctions.
         """
-        pass
+        self.create_tools()
     
     def set_status(self, msg):
         """
@@ -126,6 +149,13 @@ class MainWindowLayer1(QMainWindow):
         this function to add widgets on UI construction.
         """
         pass
+    
+    def select_tool(self, tool):
+        if self.active_tool is not None:
+            self.active_tool.disconnect(self.figures)
+        self.active_tool = tool
+        tool.connect(self.figures)
+
 
     def closeEvent(self, event):
         self.write_settings()
@@ -142,6 +172,11 @@ class MainWindowLayer1(QMainWindow):
         self.main_frame.addSubWindow(figure)
         self.figures.append(figure)
         self.windowmenu.addAction(figure.activateAction())
+        for tool in self.tools:
+            if tool.single_action() is not None:
+                tool.connect(figure)
+        if self.active_tool is not None:
+            self.active_tool.connect(figure)
     
     def on_destroy_figure(self, figure, userdata=None):
         """
@@ -150,6 +185,11 @@ class MainWindowLayer1(QMainWindow):
         if figure in self.figures:
             self.figures.remove(figure)  
         self.windowmenu.removeAction(figure.activateAction()) 
+        for tool in self.tools:
+            if tool.single_action() is not None:
+                tool.disconnect(figure)
+        if self.active_tool is not None:
+            self.active_tool.disconnect(figure)
             
     # --------- End MPL Events ---------
             
