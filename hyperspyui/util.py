@@ -29,7 +29,8 @@ def win2sig(window, signals):
     for s in signals:
         if window in (s.navigator_plot, s.signal_plot):
             return s
-    return None
+    # Returns None if no such property
+    return window.property('hyperspyUI.SignalWrapper')
     
 def dict_rlu(dictionary, value):
     """

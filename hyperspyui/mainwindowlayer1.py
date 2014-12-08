@@ -222,8 +222,14 @@ class MainWindowLayer1(QMainWindow):
     def on_subwin_activated(self, mdi_figure):
         if mdi_figure and os.environ['QT_API'] == 'pyside':
             mdi_figure.activateAction().setChecked(True)
+        self.check_action_selections(mdi_figure)
+            
+    def check_action_selections(self, mdi_figure=None):
+        if mdi_figure is None:
+            mdi_figure = self.main_frame.activeSubWindow()
         for key, cb in self._action_selection_cbs.iteritems():
             cb(mdi_figure, self.actions[key])
+        
         
     # --------- End figure management ---------
   
