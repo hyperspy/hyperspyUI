@@ -79,7 +79,7 @@ class SignalWrapper(Actionable):
                 self._nav_geom = old_nav.saveGeometry()
                 old_nav.closing.disconnect(self.nav_closing)
                 old_nav.close()
-            if self._nav_geom is not None:
+            if self._nav_geom is not None and self.navigator_plot is not None:
                 self.navigator_plot.restoreGeometry(self._nav_geom)
                 self._nav_geom = None
             
@@ -94,7 +94,7 @@ class SignalWrapper(Actionable):
                 old_sig.closing.disconnect(self.sig_closing)
                 self._sig_geom = old_sig.saveGeometry()
                 old_sig.close()
-            if self._sig_geom is not None:
+            if self._sig_geom is not None and self.signal_plot is not None:
                 self.signal_plot.restoreGeometry(self._sig_geom)
                 self._sig_geom = None
         
