@@ -14,6 +14,16 @@ import traits.api as t
 import traitsui.api as tu
 
 from util import create_add_component_actions
+                
+class ComponentEditorHandler(tu.Handler):
+    def setattr(self, info, object, name, value):    
+        tu.Handler.setattr(self, info, object, name, value) # Set the value etc.
+        if name in ('value', 'std'):
+            try:
+                # Make sure the value is actually stored in array
+                object.store_current_value_in_array()
+            except AttributeError:
+                pass
 
 class DataViewWidget(QWidget):
     """
@@ -114,6 +124,7 @@ class DataViewWidget(QWidget):
                                                 high_name=name+'.bmax'))
                 items.extend((vi, tu.Item(name + '.free')))
             view = tu.View(*items, 
+                        handler = ComponentEditorHandler(),
                         buttons=tu.OKCancelButtons if buttons else [],
                         default_button=tu.OKButton,
                         kind='live',
