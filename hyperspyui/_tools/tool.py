@@ -2,7 +2,7 @@
 """
 Created on Sun Dec 07 03:48:36 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 class Tool(object):

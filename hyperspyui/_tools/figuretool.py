@@ -2,7 +2,7 @@
 """
 Created on Sun Dec 07 01:48:00 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 import collections
@@ -16,9 +16,22 @@ class FigureTool(Tool):
         self.cids = {}
         if self.single_action() is not None:
             self.connect(windows)
+        self.cursor = self.make_cursor()
             
-    def get_cursor(self):
+    def make_cursor(self):
+        """
+        Initialize the cursor for this instance. Is called in constructor.
+        """
         return QtCore.Qt.ArrowCursor
+        
+    def get_cursor(self, widget=None):
+        """
+        Get the cursor for the supplied widget. Is applied when a widget is
+        connected to the Tool.
+        """
+        # This default implementation does not use the widget information for
+        # anything, but descendants might.
+        return self.cursor
         
     def get_window(self, event):
         """
@@ -46,15 +59,19 @@ class FigureTool(Tool):
             self.cids[local_key][canvas] = canvas.mpl_connect(
                 mpl_key, getattr(self, local_key))
     
-    def connect(self, windows):
+    @staticmethod
+    def _iter_windows(windows):
         if windows is None:
-            return
+            return ()
         if not isinstance(windows, collections.Iterable):
             windows = (windows,)
-        
+        return windows
+    
+    def connect(self, windows):
+        windows = self._iter_windows(windows)
         for w in windows:
             canvas = w.widget()
-            canvas.setCursor(self.get_cursor())
+            canvas.setCursor(self.get_cursor(canvas))
             self._wire(canvas, 'on_mousemove', 'motion_notify_event')
             self._wire(canvas, 'on_mousedown', 'button_press_event')
             self._wire(canvas, 'on_mouseup', 'button_release_event')
@@ -70,10 +87,7 @@ class FigureTool(Tool):
             self._wire(canvas, 'on_axes_leave', 'axes_leave_event')
     
     def disconnect(self, windows):
-        if windows is None:
-            return
-        if not isinstance(windows, collections.Iterable):
-            windows = (windows,)
+        windows = self._iter_windows(windows)
         for w in windows:
             canvas = w.widget()
             for cid_iter in self.cids.itervalues():

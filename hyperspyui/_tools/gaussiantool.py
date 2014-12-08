@@ -2,19 +2,18 @@
 """
 Created on Sun Dec 07 10:30:08 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 # -*- coding: utf-8 -*-
 """
 Created on Sun Dec 07 02:03:23 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 import os
 import numpy as np
-import collections
 from matplotlib.widgets import SpanSelector
 
 from hyperspy.components import Gaussian, Gaussian2
@@ -28,8 +27,6 @@ class GaussianTool(FigureTool):
         self.dragging = False
         self.drag_data = None
         self.span = None
-        self.cursor = load_cursor(os.path.dirname(__file__) + \
-                                  '/../../images/picker.svg', 8, 8)
         self._old_plot_comp = {}
         
     def get_name(self):
@@ -43,6 +40,10 @@ class GaussianTool(FigureTool):
         
     def is_selectable(self):
         return True
+            
+    def make_cursor(self):
+        return load_cursor(os.path.dirname(__file__) + \
+                                  '/../../images/picker.svg', 8, 8)
         
     def _wire_wrapper(self, wrapper):
         if wrapper is None:
@@ -84,20 +85,14 @@ class GaussianTool(FigureTool):
                 
     def connect(self, windows):
         super(GaussianTool, self).connect(windows)
-        if windows is None:
-            return
-        if not isinstance(windows, collections.Iterable):
-            windows = (windows,)
+        windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')
             self._wire_wrapper(mw)
                 
     def disconnect(self, windows):
         super(GaussianTool, self).disconnect(windows)
-        if windows is None:
-            return
-        if not isinstance(windows, collections.Iterable):
-            windows = (windows,)
+        windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')
             self._unwire_wrapper(mw)
@@ -182,6 +177,3 @@ class GaussianTool(FigureTool):
             event2 = self.drag_data[4]
             self.span.press(event2)
             self.span.onmove(event)
-            
-    def get_cursor(self):
-        return self.cursor

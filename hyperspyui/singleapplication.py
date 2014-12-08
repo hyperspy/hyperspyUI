@@ -2,7 +2,7 @@
 """
 Created on Thu Nov 27 03:01:19 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 import sys, pickle

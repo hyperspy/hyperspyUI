@@ -2,11 +2,10 @@
 """
 Created on Sun Dec 07 02:03:23 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 import os
-import collections
 
 from figuretool import FigureTool
 from util import load_cursor
@@ -17,8 +16,6 @@ class ZoomPanTool(FigureTool):
         self.panning = False
         self.pan_data = None
         self.base_scale = 1.5     # Mouse wheel zoom factor
-        self.cursor = load_cursor(os.path.dirname(__file__) + \
-                                  '/../../images/panzoom2.svg', 8, 8)
         
     def get_name(self):
         return "Pan/Zoom tool"
@@ -31,6 +28,10 @@ class ZoomPanTool(FigureTool):
         
     def is_selectable(self):
         return True
+            
+    def make_cursor(self):
+        return load_cursor(os.path.dirname(__file__) + \
+                                  '/../../images/panzoom2.svg', 8, 8)
         
     def on_mousedown(self, event):
         if event.inaxes is None:
@@ -77,10 +78,7 @@ class ZoomPanTool(FigureTool):
             
     def connect(self, windows):
         super(ZoomPanTool, self).connect(windows)
-        if windows is None:
-            return
-        if not isinstance(windows, collections.Iterable):
-            windows = (windows,)
+        windows = self._iter_windows(windows)
         canvases = set()
         for w in windows:
             canvases.add(w.widget())
@@ -89,10 +87,7 @@ class ZoomPanTool(FigureTool):
             
     def disconnect(self, windows):
         super(ZoomPanTool, self).disconnect(windows)
-        if windows is None:
-            return
-        if not isinstance(windows, collections.Iterable):
-            windows = (windows,)
+        windows = self._iter_windows(windows)
         canvases = set()
         for w in windows:
             canvases.add(w.widget())
@@ -134,6 +129,3 @@ class ZoomPanTool(FigureTool):
         ax.set_xlim(new_xlim)
         ax.set_ylim(new_ylim)
         ax.figure.canvas.draw_idle()
-            
-    def get_cursor(self):
-        return self.cursor

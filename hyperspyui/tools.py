@@ -2,7 +2,7 @@
 """
 Created on Sun Dec 07 03:06:55 2014
 
-@author: vroot
+@author: Vidar Tonaas Fauske
 """
 
 
