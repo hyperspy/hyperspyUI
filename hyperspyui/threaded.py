@@ -13,6 +13,7 @@ from QtGui import *
 
 import types
 
+from hyperspyui.exceptions import ProcessCanceled
 
 class Worker(QObject):
     progress = QtCore.Signal(int)
@@ -88,32 +89,56 @@ class Threaded(QObject):
         self.thread.start()
         
 class ProgressThreaded(Threaded):
-    def __init__(self, parent, run, finished=None, label=None, 
-                 title="Processing", modal=True):
-                     
-        super(ProgressThreaded, self).__init__(parent, run, finished, label, title)
+    
+    def __init__(self, parent, run, finished=None, label=None, cancellable=False,
+                 title="Processing", modal=True, generator_N=None):
         self.modal = modal
+        self.generator_N = generator_N
         
         # Create progress bar.
         progressbar = QProgressDialog(parent)
         if isinstance(run, types.GeneratorType):
             progressbar.setMinimum(0)
-            progressbar.setMaximum(100)
+            if generator_N is None:
+                generator_N = 100
+            elif generator_N <= 1:
+                progressbar.setMaximum(0)
+            else:
+                progressbar.setMaximum(generator_N)
         else:
             progressbar.setMinimum(0)
             progressbar.setMaximum(0)
+            
 #        progressbar.hide()
         progressbar.setWindowTitle(title)
         progressbar.setLabelText(label)
-        progressbar.setCancelButtonText(None)
+        if not cancellable:
+            progressbar.setCancelButtonText(None)
+                     
+
+        if isinstance(run, types.GeneratorType):
+            def run_gen():
+                for p in run:
+                    self.worker.progress[int].emit(p)
+                    if self.progressbar.wasCanceled():
+                        raise ProcessCanceled("User cancelled operation")
+                        
+            super(ProgressThreaded, self).__init__(parent, run_gen, finished)
+        else:
+            super(ProgressThreaded, self).__init__(parent, run, finished)
         
         self.connect(self.thread, SIGNAL('started()'), self.display)
-        self.connect(worker, SIGNAL('finished()'), progressbar.close)
-        self.connect(worker, SIGNAL('progress(int)'), progressbar.setValue)
+        self.connect(self.worker, SIGNAL('finished()'), self.close)
+        self.connect(self.worker, SIGNAL('progress(int)'), progressbar.setValue)
         self.progressbar = progressbar
         
     def display(self):
-        if self.modal:
-            self.progressbar.exec_()
-        else:
-            self.progressbar.show()
+        if not self.thread.isFinished():
+            if self.modal:
+                self.progressbar.exec_()
+            else:
+                self.progressbar.show()
+                
+    def close(self):
+        self.progressbar.close()
+        self.progressbar.deleteLater()
