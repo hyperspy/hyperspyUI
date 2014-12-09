@@ -26,6 +26,8 @@ def win2fig(window):
     return window.widget().figure
     
 def win2sig(window, signals):
+    if window is None:
+        return None
     for s in signals:
         if window in (s.navigator_plot, s.signal_plot):
             return s
