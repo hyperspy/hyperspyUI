@@ -9,6 +9,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+import numpy as np
 
 class ExToolWindow(QDialog):
     """
@@ -50,15 +51,22 @@ class ExDoubleSlider(QSlider):
         
 
     def setRange(self, vmin, vmax):
+        if isinstance(vmin, (np.complex64, np.complex128)):
+            vmin = np.abs(vmin)
+        if isinstance(vmax, (np.complex64, np.complex128)):
+            vmax = np.abs(vmax)
         self._range = (vmin, vmax)
         return super(ExDoubleSlider, self).setRange(0, self.steps)
         
     def setValue(self, value):
         vmin, vmax = self._range
+        if isinstance(value, (np.complex64, np.complex128)):
+            value = np.abs(value)
         try:
             v = int((value - vmin) * self.steps / (vmax - vmin))
-        except ZeroDivisionError:
+        except (ZeroDivisionError, OverflowError, ValueError):
             v = 0
+            self.setEnabled(False)
         return super(ExDoubleSlider, self).setValue(v)
         
     def value(self):
