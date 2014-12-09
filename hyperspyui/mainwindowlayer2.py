@@ -183,7 +183,11 @@ class MainWindowLayer2(MainWindowLayer1):
                 escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
                 sig = hyperspy.hspy.load(escaped)
                 base = os.path.splitext( os.path.basename(filename) )[0]
-                self.add_signal_figure(sig, base)
+                if isinstance(sig, list):
+                    for s in sig:
+                        self.add_signal_figure(s, base)
+                else:
+                    self.add_signal_figure(sig, base)
                 files_loaded.append(filename)
             except (IOError, ValueError):
                 self.set_status("Failed to load \"" + filename + "\"")
