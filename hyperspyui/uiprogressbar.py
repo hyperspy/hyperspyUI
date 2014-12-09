@@ -12,8 +12,7 @@ from QtGui import *
 import hyperspy.misc.progressbar
 import time
 
-class ProcessCanceled(Exception):
-    pass
+from hyperspyui.exceptions import ProcessCanceled
 
 # Create signal object which will handle all events
 signaler = QObject()

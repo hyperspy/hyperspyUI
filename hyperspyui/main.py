@@ -29,7 +29,7 @@ def main():
     splash.show()
     app.processEvents()    
 
-    from mainwindow import MainWindow    
+    from mainwindow import MainWindow
     
     form = MainWindow()
     app.messageAvailable.connect(form.handleSecondInstance)
@@ -40,4 +40,5 @@ def main():
     app.exec_()
     
 if __name__ == "__main__":
+    sys.path.append(os.path.dirname(__file__) + '/../')
     main()
