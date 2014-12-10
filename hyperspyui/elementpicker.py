@@ -29,7 +29,8 @@ class ElementPickerWidget(ExToolWindow):
     element_toggled = Signal(str)
     
     def __init__(self, signal, parent):
-        super(ElementPickerWidget, self).__init__(parent)
+        super(ElementPickerWidget, self).__init__(parent) 
+        self.signal = signal
         self.create_controls()
         self.table.element_toggled.connect(self._toggle_element)
         self.set_signal(signal)
