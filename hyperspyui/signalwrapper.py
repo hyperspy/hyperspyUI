@@ -13,7 +13,7 @@ from actionable import Actionable
 import hyperspy.hspy
 
 class SignalWrapper(Actionable):
-    
+    closing = QtCore.Signal()
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
     
@@ -32,10 +32,11 @@ class SignalWrapper(Actionable):
         
         self._nav_geom = None
         self._sig_geom = None
+        self._replotargs = ((), {})
         
         self._model_id = 1
         
-        self.add_action('plot', "&Plot", self.plot)
+        self.add_action('plot', "&Plot", self.replot)
         self.add_action('add_model', "Add &model", self.make_model)
         self.add_separator()
         self.add_action('close', "&Close", self.close)
@@ -54,11 +55,21 @@ class SignalWrapper(Actionable):
             if self._keep_on_close > 0:
                 self._keep_on_close -= 1
 
-    def plot(self):
+    def plot(self, *args, **kwargs):
         self.keep_on_close = True
-        self.signal.plot()
+        self.signal.plot(*args, **kwargs)
         self.keep_on_close = False
         self.update_figures()
+        self._replotargs = (args, kwargs)
+        
+    def replot(self):
+        self.plot(*self._replotargs[0], **self._replotargs[1])
+        
+    def update(self):
+        if self.navigator_plot is not None:
+            self.navigator_plot.update()
+        if self.signal_plot is not None:
+            self.signal_plot.update()
             
     def update_figures(self):  
         old_nav = self.navigator_plot
@@ -72,35 +83,37 @@ class SignalWrapper(Actionable):
         
         if self.signal._plot and self.signal._plot.navigator_plot:
             navi = self.signal._plot.navigator_plot.figure
-            navi.axes[0].set_title("")
             self.navigator_plot = fig2win(navi, self.mainwindow.figures)
-            self.navigator_plot.closing.connect(self.nav_closing)
-            self.navigator_plot.setProperty('hyperspyUI.SignalWrapper', self)
-            self.add_figure(self.navigator_plot)
-            if old_nav is not self.navigator_plot and old_nav is not None:
-                self._nav_geom = old_nav.saveGeometry()
-                old_nav.closing.disconnect(self.nav_closing)
-                old_nav.close()
-                atleast_one_changed = True
-            if self._nav_geom is not None and self.navigator_plot is not None:
-                self.navigator_plot.restoreGeometry(self._nav_geom)
+            if old_nav is not self.navigator_plot:
+                navi.axes[0].set_title("")
+                self.navigator_plot.closing.connect(self.nav_closing)
+                self.navigator_plot.setProperty('hyperspyUI.SignalWrapper', self)
+                self.add_figure(self.navigator_plot)
+                if old_nav is not None:
+                    self._nav_geom = old_nav.saveGeometry()
+                    old_nav.closing.disconnect(self.nav_closing)
+                    old_nav.close()
+                    atleast_one_changed = True
+                if self._nav_geom is not None and self.navigator_plot is not None:
+                    self.navigator_plot.restoreGeometry(self._nav_geom)
                 self._nav_geom = None
             
         if self.signal._plot and self.signal._plot.signal_plot is not None:
             sigp = self.signal._plot.signal_plot.figure
-            sigp.axes[0].set_title("")
             self.signal_plot = fig2win(sigp, self.mainwindow.figures)
-            self.signal_plot.closing.connect(self.sig_closing)
-            self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
-            self.add_figure(self.signal_plot)
-            if old_sig is not self.signal_plot and old_sig is not None:
-                old_sig.closing.disconnect(self.sig_closing)
-                self._sig_geom = old_sig.saveGeometry()
-                old_sig.close()
-                atleast_one_changed = True
-            if self._sig_geom is not None and self.signal_plot is not None:
-                self.signal_plot.restoreGeometry(self._sig_geom)
-                self._sig_geom = None
+            if old_sig is not self.signal_plot:
+                sigp.axes[0].set_title("")
+                self.signal_plot.closing.connect(self.sig_closing)
+                self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
+                self.add_figure(self.signal_plot)
+                if old_sig is not None:
+                    old_sig.closing.disconnect(self.sig_closing)
+                    self._sig_geom = old_sig.saveGeometry()
+                    old_sig.close()
+                    atleast_one_changed = True
+                if self._sig_geom is not None and self.signal_plot is not None:
+                    self.signal_plot.restoreGeometry(self._sig_geom)
+                    self._sig_geom = None
                 
         if atleast_one_changed:
             self.mainwindow.check_action_selections()
@@ -191,6 +204,8 @@ class SignalWrapper(Actionable):
         self._closed()
             
     def _closed(self):
+        if not self.keep_on_close:
+            self.closing.emit()
         # TODO: Should probably be with by events for concistency
         if self in self.mainwindow.signals and not self.keep_on_close:
             self.mainwindow.signals.remove(self)

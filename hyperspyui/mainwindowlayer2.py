@@ -102,6 +102,7 @@ class MainWindowLayer2(MainWindowLayer1):
         self.signals.append(sig)
         # Little hack to activate after creation
         self.main_frame.subWindowActivated.emit(self.main_frame.activeSubWindow())
+        return sig
         
     def add_model(self, signal, *args, **kwargs):
         """
