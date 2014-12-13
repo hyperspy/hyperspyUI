@@ -25,6 +25,7 @@ class FFT_Plugin(plugin.Plugin):
                         "active part of the signal")
         
         self.ui.add_action('live_fft', "Live FFT", self.live_fft,
+                        icon='live_fft.svg',
                         tip="Perform a fast fourier transform on the " + 
                         "active part of the signal, and link it to the " +
                         "navigator")
@@ -232,16 +233,14 @@ class FFT_Plugin(plugin.Plugin):
             return
             
         def setup_live(fft_wrapper):
-            print 'setting up live', setup_live.i
             s = signals[setup_live.i].signal
             setup_live.i += 1
                 
             def data_function(axes_manager=None):
-                fftdata = scipy.fftpack.fftn(s())
+                fftdata = scipy.fftpack.fftn(s(axes_manager=axes_manager))
                 fftdata = scipy.fftpack.fftshift(fftdata)
                 return fftdata
             fs = fft_wrapper.signal
-            fs._plot.axes_manager = s.axes_manager
             sigp = fs._plot.signal_plot
             if isinstance(sigp, SpectrumFigure):
                 sigp.ax_lines[0].axes_manager = s.axes_manager
@@ -251,9 +250,11 @@ class FFT_Plugin(plugin.Plugin):
             elif isinstance(sigp, ImagePlot):
                 sigp.axes_manager = s.axes_manager
                 sigp.data_function = data_function
-            s.axes_manager.connect(sigp.update)
+            def update():   # Wrapper as sigp.updatewould be passed values
+                sigp.update()
+            s.axes_manager.connect(update)
             def on_closing():
-                s.axes_manager.disconnect(sigp.update)
+                s.axes_manager.disconnect(update)
             fft_wrapper.closing.connect(on_closing)
                 
         setup_live.i = 0
