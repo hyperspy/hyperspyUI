@@ -24,6 +24,7 @@ from consolewidget import ConsoleWidget
 import tools
 import mdi_mpl_backend
 import hooktraitsui
+from pluginmanager import PluginManager
 
 hooktraitsui.hook_traitsui()
 
@@ -59,6 +60,7 @@ class MainWindowLayer1(QMainWindow):
         self.toolbars = {}
         self.menus = {}
         self.tools = []
+        self.plugin_manager = None
         
         # MPL backend bindings
         mdi_mpl_backend.connect_on_new_figure(self.on_new_figure)
@@ -87,6 +89,8 @@ class MainWindowLayer1(QMainWindow):
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        
+        self.init_plugins()
 
         self.create_default_actions()   # Goes before menu/toolbar/widgetbar
         
@@ -97,12 +101,16 @@ class MainWindowLayer1(QMainWindow):
         
         self.setCentralWidget(self.main_frame)
         
+    def init_plugins(self):
+        self.plugin_manager = PluginManager(self)
+        self.plugin_manager.init_plugins()
+        
     def create_default_actions(self):
         """
         Create default actions that can be used for e.g. toolbars and menus,
         or triggered manually.
         """
-        pass
+        self.plugin_manager.create_actions()
     
     def create_menu(self):
         mb = self.menuBar()
@@ -112,6 +120,8 @@ class MainWindowLayer1(QMainWindow):
         # Figure windows go below this separator. Other windows can be added
         # above it with insertAction(self.windowmenu_sep, QAction)
         self.windowmenu_sep = self.windowmenu.addSeparator()
+        
+        self.plugin_manager.create_menu()
         
     def create_tools(self):
         self.selectable_tools = QActionGroup(self)
@@ -139,6 +149,7 @@ class MainWindowLayer1(QMainWindow):
         can be used to add previously defined acctions.
         """
         self.create_tools()
+        self.plugin_manager.create_toolbars()
     
     def set_status(self, msg):
         """
@@ -152,7 +163,8 @@ class MainWindowLayer1(QMainWindow):
         The widget bar itself is created and managed implicitly by Qt. Override
         this function to add widgets on UI construction.
         """
-        pass
+        
+        self.plugin_manager.create_widgets()
     
     def select_tool(self, tool):
         if self.active_tool is not None:
@@ -251,6 +263,10 @@ class MainWindowLayer1(QMainWindow):
             ac = QAction(tr(label), self)
         else:
             if not isinstance(icon, QIcon):
+                if isinstance(icon, basestring) and not os.path.isfile(icon):
+                    sugg = os.path.dirname(__file__) + '/../images/' + icon
+                    if os.path.isfile(sugg):
+                        icon = sugg
                 icon = QIcon(icon)
             ac = QAction(icon, tr(label), self)
         if shortcut is not None:

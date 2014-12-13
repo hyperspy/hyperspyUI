@@ -8,15 +8,12 @@ Created on Fri Oct 24 16:46:35 2014
 from collections import OrderedDict
 from functools import partial
 import argparse, os, pickle
-import scipy.fftpack
-import numpy as np
     
 from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
 
-from util import create_add_component_actions, fig2win, win2sig, dict_rlu
-from signalwrapper import SignalWrapper
+from util import create_add_component_actions, win2sig, dict_rlu
 from signallist import SignalList
-from threaded import Threaded, ProgressThreaded
+from threaded import Threaded
 from contrastwidget import ContrastWidget
 from elementpicker import ElementPickerWidget
 
@@ -29,7 +26,6 @@ def tr(text):
 
 import hyperspy.utils.plot
 import hyperspy.signals
-from hyperspy.axes import AxesManager
 
 
 class Namespace: pass
@@ -114,29 +110,29 @@ class MainWindow(MainWindowLayer2):
         
         self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open, 
-                        icon=os.path.dirname(__file__) + '/../images/open.svg',
+                        icon='open.svg',
                         tip="Open existing file(s)")
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close, 
-                        icon=os.path.dirname(__file__) + '/../images/close_window.svg',
+                        icon='close_window.svg',
                         tip="Close the selected signal(s)")
                         
         close_all_key= QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4, 
                                     Qt.CTRL + Qt.ALT + Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key, 
-                        icon=os.path.dirname(__file__) + '/../images/close_windows.svg',
+                        icon='close_windows.svg',
                         tip="Close all signals")
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save, 
-                        icon=os.path.dirname(__file__) + '/../images/save.svg',
+                        icon='save.svg',
                         tip="Save the selected signal(s)")
         self.add_action('save_fig', "Save &figure", self.save_figure,
 #                        icon=os.path.dirname(__file__) + '/../images/save.svg',
                         tip="Save the active figure")
         
         self.add_action('mirror', "Mirror", self.mirror_navi,
-                        icon=os.path.dirname(__file__) + '/../images/mirror.svg',
+                        icon='mirror.svg',
                         tip="Mirror navigation axes of selected signals")
         
         self.add_action('add_model', "Create Model", self.make_model,
@@ -144,49 +140,27 @@ class MainWindow(MainWindowLayer2):
                         
         self.add_action('remove_background', "Remove Background",
                         self.remove_background, 
-                        icon=os.path.dirname(__file__) + '/../images/power_law.svg',
-                        tip="Interactively define the background, and remove it",
+                        icon='power_law.svg',
+                        tip="Interactively define the background, and " + \
+                            "remove it",
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.Spectrum, self.signals))
                         
         self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
                         self.fourier_ratio, 
-                        icon=os.path.dirname(__file__) + '/../images/fourier_ratio.svg',
+                        icon='fourier_ratio.svg',
                         tip="Use the Fourier-Ratio method" +
                         " to deconvolve one signal from another",
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.signals))
                             
         self.add_action('pick_elements', "Pick elements", self.pick_elements,
-                        icon=os.path.dirname(__file__) + '/../images/periodic_table.svg',
+                        icon='periodic_table.svg',
                         tip="Pick the elements for the spectrum",
                         selection_callback=SignalTypeFilter(
                             (hyperspy.signals.EELSSpectrum,
                              hyperspy.signals.EDSSEMSpectrum,
                              hyperspy.signals.EDSTEMSpectrum), self.signals))
-        
-        self.add_action('fft', "FFT", self.fft,
-                        tip="Perform a fast fourier transform on the " + 
-                        "active part of the signal")
-                        
-        self.add_action('nfft', "Signal FFT", self.nfft,
-                        tip="Perform a fast fourier transform on the entire signal")
-                        
-        self.add_action('ifft', "Inverse FFT", self.ifft,
-                        tip="Perform an inverse fast fourier transform on the signal")
-                  
-        # --- Add PCA action ---
-        def pca_selection_rules(win, action):
-            s = win2sig(win, self.signals)
-            if s is None or s.signal.axes_manager.navigation_dimension < 1:
-                action.setEnabled(False)
-            else:
-                action.setEnabled(True)
-                
-        self.add_action('pca', "PCA", self.pca,
-                        icon=os.path.dirname(__file__) + '/../images/pca.svg',
-                        tip="Run Principal Component Analysis",
-                        selection_callback=pca_selection_rules)
         
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
@@ -226,7 +200,6 @@ class MainWindow(MainWindowLayer2):
             stm.addAction(ac)
         self.signalmenu.addAction(self.actions['mirror'])
         self.signalmenu.addAction(self.actions['remove_background'])
-        self.signalmenu.addAction(self.actions['pca'])
         self.signalmenu.addAction(self.actions['pick_elements'])
         
         # Model menu
@@ -249,12 +222,7 @@ class MainWindow(MainWindowLayer2):
         
         self.add_toolbar_button("Signal", self.actions['mirror'])
         self.add_toolbar_button("Signal", self.actions['remove_background'])
-        self.add_toolbar_button("Signal", self.actions['pca'])
         self.add_toolbar_button("Signal", self.actions['pick_elements'])
-        
-        self.add_toolbar_button("Math", self.actions['fft'])
-        self.add_toolbar_button("Math", self.actions['nfft'])
-        self.add_toolbar_button("Math", self.actions['ifft'])
         
         self.add_toolbar_button("EELS", self.actions['fourier_ratio'])
         
@@ -291,27 +259,28 @@ class MainWindow(MainWindowLayer2):
         # Select signals
         if uisignals is None:
             uisignals = self.get_selected_signals()
-        if len(uisignals) > 1:
-            signals = [s.signal for s in uisignals]
-            
-            # hyperspy closes, and then recreates figures when mirroring 
-            # the navigators. To keep UI from flickering, we suspend updates.
-            # SignalWrapper also saves and then restores window geometry
-            self.setUpdatesEnabled(False)
-            try:
-                for s in uisignals:
-                    s.keep_on_close = True
-                hyperspy.utils.plot.plot_signals(signals)
-                for s in uisignals:
-                    s.update_figures()
-                    s.keep_on_close = False
-            finally:
-                self.setUpdatesEnabled(True)    # Continue updating UI
-        else:
+        if len(uisignals) < 2:
             mb = QMessageBox(QMessageBox.Information, tr("Select two or more"), 
                              tr("You need to select two or more signals" + 
                              " to mirror"), QMessageBox.Ok)
             mb.exec_()
+            return
+            
+        signals = [s.signal for s in uisignals]
+        
+        # hyperspy closes, and then recreates figures when mirroring 
+        # the navigators. To keep UI from flickering, we suspend updates.
+        # SignalWrapper also saves and then restores window geometry
+        self.setUpdatesEnabled(False)
+        try:
+            for s in uisignals:
+                s.keep_on_close = True
+            hyperspy.utils.plot.plot_signals(signals)
+            for s in uisignals:
+                s.update_figures()
+                s.keep_on_close = False
+        finally:
+            self.setUpdatesEnabled(True)    # Continue updating UI
             
     def close_signal(self, uisignals=None):
         uisignals = self.get_selected_signals()
@@ -360,7 +329,8 @@ class MainWindow(MainWindowLayer2):
     def remove_background(self, signal=None):
         if signal is None:
             signal = self.get_selected_signal()
-        signal.run_nonblock(signal.signal.remove_background, "Background removal tool")
+        signal.run_nonblock(signal.signal.remove_background, 
+                            "Background removal tool")
         
         
     def pick_elements(self, signal=None):
@@ -369,146 +339,6 @@ class MainWindow(MainWindowLayer2):
                 
         ptw = ElementPickerWidget(signal, self)
         ptw.show()
-        
-    def fft(self, signals=None):
-        if signals is None:
-            signals = self.get_selected_signals()
-        # Make sure we can iterate
-        if isinstance(signals, hyperspy.signals.Signal):
-            signals = (signals,)
-            
-        fftsignals = []
-
-        def on_ftts_complete():
-            for name, fs in fftsignals:
-                self.add_signal_figure(fs, name + '[FFT]')
-                
-        def do_ffts():
-            for i, sw in enumerate(signals):
-                s = sw.signal
-                fftdata = scipy.fftpack.fftn(s())
-                fftdata = scipy.fftpack.fftshift(fftdata)
-                ffts = s.__class__(
-                    fftdata,
-                    axes=s.axes_manager._get_signal_axes_dicts(),
-                    metadata=s.metadata.as_dictionary(),)
-                ffts.axes_manager._set_axis_attribute_values("navigate", False)
-                indstr = ' ' + str(s.axes_manager.indices) \
-                    if len(s.axes_manager.indices) > 0 else ''    
-                ffts.metadata.General.title = 'FFT of ' + \
-                    ffts.metadata.General.title + indstr
-                
-                for i in xrange(ffts.axes_manager.signal_dimension):
-                    axis = ffts.axes_manager.signal_axes[i]
-                    s_axis = s.axes_manager.signal_axes[i]
-                    axis.scale = 1/s_axis.scale
-                    shift = (axis.high_value - axis.low_value)/2
-                    axis.offset -= shift
-                    u = s_axis.units
-                    if u.endswith('-1'):
-                        u = u[:-2]
-                    else:
-                        u += '-1'
-                    axis.units = u
-                fftsignals.append((sw.name, ffts))
-                yield i+1
-                    
-        t = ProgressThreaded(self, do_ffts(), on_ftts_complete, 
-                             label='Performing FFT',
-                             generator_N=len(signals))
-        t.run()
-        
-    def nfft(self, signals=None):
-        if signals is None:
-            signals = self.get_selected_signals()
-            if signals is None:
-                return
-        # Make sure we can iterate
-        if isinstance(signals, hyperspy.signals.Signal):
-            signals = (signals,)
-            
-        if len(signals) < 1:
-            return
-            
-        fftsignals = []
-
-        def on_ftts_complete():
-            for name, fs in fftsignals:
-                self.add_signal_figure(fs, name + '[FFT]')
-                
-        def do_ffts():
-            j = 0
-            for sw in signals:
-                ffts = sw.signal.deepcopy()
-                if ffts.data.itemsize <= 4:
-                    ffts.change_dtype(np.complex64)
-                else:
-                    ffts.change_dtype(np.complex128)
-                s = sw.signal
-                
-                am = AxesManager(s.axes_manager._get_axes_dicts())
-                for idx in am:
-                    fftdata = scipy.fftpack.fftn(s.data[am._getitem_tuple])
-                    fftdata = scipy.fftpack.fftshift(fftdata)
-                    ffts.data[am._getitem_tuple] = fftdata
-                    j += 1
-                    yield j
-                    
-                for i in xrange(ffts.axes_manager.signal_dimension):
-                    axis = ffts.axes_manager.signal_axes[i]
-                    s_axis = s.axes_manager.signal_axes[i]
-                    axis.scale = 1/s_axis.scale
-                    shift = (axis.high_value - axis.low_value)/2
-                    axis.offset -= shift
-                    u = s_axis.units
-                    if u.endswith('-1'):
-                        u = u[:-2]
-                    else:
-                        u += '-1'
-                    axis.units = u
-                    fftsignals.append((sw.name, ffts))
-                    
-        n_ffts = np.product([d for s in signals for d in s.signal.axes_manager.navigation_shape])
-        t = ProgressThreaded(self, do_ffts(), on_ftts_complete, 
-                             label='Performing FFT',
-                             cancellable=True,
-                             generator_N=n_ffts)
-        t.run()
-    
-    def ifft(self, signals=None):
-        if signals is None:
-            signals = self.get_selected_signals()
-        pass
-
-    def pca(self, signal=None):
-        if signal is None:
-            signal = self.get_selected_signal()
-        s = signal.signal
-        try:
-            s.decomposition()
-            ax = s.plot_explained_variance_ratio()  # Make scree plot
-        # decomp.. warns if wrong type, but plot_expl.. raises exception
-        except AttributeError:
-            s = s.deepcopy()
-            s.change_dtype(float)
-            s.decomposition()
-            ax = s.plot_explained_variance_ratio()
-            
-        # Clean up plot and present, allow user to select components by picker
-        ax.set_title("")
-        scree = ax.get_figure().canvas
-        scree.draw()
-        scree.setWindowTitle("Pick number of components")
-        def clicked(event):
-            components = round(event.xdata)
-            # Num comp. picked, perform PCA, wrap new signal and plot
-            sc = s.get_decomposition_model(components)
-            scw = SignalWrapper(sc, self, signal.name + "[PCA]")
-            self.signals.append(scw)
-            # Close scree plot
-            w = fig2win(scree.figure, self.figures)
-            w.close()
-        scree.mpl_connect('button_press_event', clicked)
         
     def set_signal_type(self, signal_type, signal=None):
         """
@@ -532,12 +362,12 @@ class MainWindow(MainWindowLayer2):
         try:
             if signal_type in ['Image', 'Image simulation']:
                 if not isinstance(signal.signal, (hyperspy.signals.Image,
-                                              hyperspy.signals.ImageSimulation)):
+                                  hyperspy.signals.ImageSimulation)):
                     signal.as_image()
             elif signal_type in['Spectrum', 'Spectrum simulation', 'EELS', 
                                 'EELS simulation', 'EDS SEM', 'EDS TEM']:
                 if isinstance(signal.signal, (hyperspy.signals.Image,
-                                              hyperspy.signals.ImageSimulation)):
+                              hyperspy.signals.ImageSimulation)):
                     signal.as_spectrum()
             
             if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:
