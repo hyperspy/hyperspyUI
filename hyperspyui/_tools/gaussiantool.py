@@ -16,7 +16,14 @@ import os
 import numpy as np
 from matplotlib.widgets import SpanSelector
 
-from hyperspy.components import Gaussian, Gaussian2
+from hyperspy.components import Gaussian
+try:
+    from hyperspy.components import Gaussian2
+    GaussTypes = (Gaussian, Gaussian2)
+    has_gauss_v2 = True
+except ImportError:
+    GaussTypes = (Gaussian, )
+    has_gauss_v2 = False
 
 from figuretool import FigureTool
 from util import load_cursor
@@ -53,7 +60,7 @@ class GaussianTool(FigureTool):
             self._old_plot_comp[wrapper] = m._plot_components
             m.enable_plot_components()
             for c in m:
-                if isinstance(c, (Gaussian, Gaussian2)):
+                if isinstance(c, GaussTypes):
                     c._model_plot_line.line.set_picker(True)
                     
     def _unwire_wrapper(self, wrapper):
@@ -62,7 +69,7 @@ class GaussianTool(FigureTool):
         m = wrapper.model
         if wrapper in self._old_plot_comp:
             for c in m:
-                if isinstance(c, (Gaussian, Gaussian2)):
+                if isinstance(c, GaussTypes):
                     c._model_plot_line.line.set_picker(False)
             if not self._old_plot_comp[wrapper]:
                 m.disable_plot_components()
@@ -79,7 +86,7 @@ class GaussianTool(FigureTool):
                 for c in mw.model:
                     line = c._model_plot_line.line
                     if event.artist == line and \
-                            isinstance(c, (Gaussian, Gaussian2)):
+                            isinstance(c, GaussTypes):
                         mw.remove_component(c)      
                 
                 
@@ -117,13 +124,17 @@ class GaussianTool(FigureTool):
             h = m.spectrum()[i] - m()[i]
             if m.spectrum.metadata.Signal.binned:
                 h /= m.axis.scale
-            g = Gaussian2(height = h, centre = x)
-            g.height.free = False
+            if has_gauss_v2:
+                g = Gaussian2(height = h * np.sqrt(2*np.pi), centre = x)
+                g.height.free = False
+            else:
+                g = Gaussian(A = h, centre = x)
             g.centre.free = False
             mw.add_component(g)
             g._model_plot_line.line.set_picker(True)
             m.fit_component(g, signal_range=None, estimate_parameters=False)
-            g.height.free = True
+            if has_gauss_v2:
+                g.height.free = True
             g.centre.free = True
         else:
             self.dragging = True
@@ -141,7 +152,10 @@ class GaussianTool(FigureTool):
             self._wire_wrapper(mw)
         m = mw.model
         
-        g = Gaussian2()
+        if has_gauss_v2:
+            g = Gaussian2()
+        else:
+            g = Gaussian()
         mw.add_component(g)
         g._model_plot_line.line.set_picker(True)
         m.fit_component(g, signal_range=(x0, x1))
@@ -151,11 +165,15 @@ class GaussianTool(FigureTool):
         g.active = True
         if m.spectrum.metadata.Signal.binned:
             h /= m.axis.scale
-        g.height.value = h
-        g.height.free = False
+        if has_gauss_v2:
+            g.height.value = h
+            g.height.free = False
+        else:
+            g.A.value = h * np.sqrt(2*np.pi)
         g.centre.free = False
         m.fit_component(g, signal_range=(x0, x1), estimate_parameters=False)
-        g.height.free = True
+        if has_gauss_v2:
+            g.height.free = True
         g.centre.free = True
         
         if self.drag_data is None:
