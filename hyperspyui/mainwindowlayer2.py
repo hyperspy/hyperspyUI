@@ -21,6 +21,7 @@ from QtGui import *
 from signalwrapper import SignalWrapper
 from bindinglist import BindingList
 from dataviewwidget import DataViewWidget
+import util
 
 import hyperspy.hspy
 import hyperspy.defaults_parser
@@ -145,7 +146,11 @@ class MainWindowLayer2(MainWindowLayer1):
         return signals[0]
         
     def get_selected_signals(self):
-        return self.tree.get_selected_signals()
+        s = self.tree.get_selected_signals()
+        if len(s) < 1:
+            w = self.main_frame.activeSubWindow()
+            s = util.win2sig(w, self.figures)
+        return s
         
     def get_selected_model(self):
         return self.tree.get_selected_model()
