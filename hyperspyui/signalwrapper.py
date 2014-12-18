@@ -20,6 +20,8 @@ class SignalWrapper(Actionable):
     def __init__(self, signal, mainwindow, name):
         super(SignalWrapper, self).__init__()
         self.signal = signal
+        if name is None:
+            name = signal.metadata.General.title
         self.name = name
         self.figures = []
         self.mainwindow = mainwindow
@@ -40,8 +42,6 @@ class SignalWrapper(Actionable):
         self.add_action('add_model', "Add &model", self.make_model)
         self.add_separator()
         self.add_action('close', "&Close", self.close)
-        
-        self.plot()
 
     @property
     def keep_on_close(self):
@@ -61,6 +61,8 @@ class SignalWrapper(Actionable):
         self.keep_on_close = False
         self.update_figures()
         self._replotargs = (args, kwargs)
+        self.mainwindow.main_frame.subWindowActivated.emit(
+            self.mainwindow.main_frame.activeSubWindow())
         
     def replot(self):
         self.plot(*self._replotargs[0], **self._replotargs[1])
