@@ -97,11 +97,11 @@ class MainWindowLayer2(MainWindowLayer1):
         self.signals.add_custom(self.windowmenu, None, None, None, 
                                 rem_s, lambda i: rem_s(self.signals[i]))
     
-    def add_signal_figure(self, signal, sig_name=None):
-        sig = SignalWrapper(signal, self, sig_name)
+    def add_signal_figure(self, signal, name=None, plot=True):
+        sig = SignalWrapper(signal, self, name)
         self.signals.append(sig)
-        # Little hack to activate after creation
-        self.main_frame.subWindowActivated.emit(self.main_frame.activeSubWindow())
+        if plot:
+            sig.plot()
         return sig
         
     def add_model(self, signal, *args, **kwargs):
@@ -344,6 +344,7 @@ class MainWindowLayer2(MainWindowLayer1):
     def _get_console_exec(self):
         ex = super(MainWindowLayer2, self)._get_console_exec()
         ex += '\nfrom hyperspy.hspy import *'
+        ex += '\nimport numpy as np'
         return ex
         
     def _get_console_exports(self):
