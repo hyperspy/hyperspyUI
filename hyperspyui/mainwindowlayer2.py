@@ -78,8 +78,9 @@ class MainWindowLayer2(MainWindowLayer1):
         # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
         
-    def sweeper(self):
-        gc.collect()
+    def sweeper(self, removed):
+        del removed
+        QTimer.singleShot(1000, gc.collect)
         
     def create_widgetbar(self):  
         super(MainWindowLayer2, self).create_widgetbar() 

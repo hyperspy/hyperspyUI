@@ -25,6 +25,7 @@ class Worker(QObject):
         self.run_function = run
     
     def process(self):
+        self.progress.emit(0)
         if isinstance(self.run_function, types.GeneratorType):
             p = 0
             self.progress.emit(p)
