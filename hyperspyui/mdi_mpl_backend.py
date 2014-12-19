@@ -267,9 +267,10 @@ class FigureManagerMdi(FigureManagerBase):
             self.window.showFullScreen()
 
     def _widgetclosed(self):
+        if self.window is None:
+            return
         if self.window._destroying:
             return
-        self.window._destroying = True
         try:
             Gcf.destroy(self.num)
         except AttributeError:
@@ -298,6 +299,10 @@ class FigureManagerMdi(FigureManagerBase):
         if self.toolbar:
             self.toolbar.destroy()
         self.window.close()
+        self.window = None
+        self.canvas.figure = None
+        self.canvas = None
+        self.toolbar = None
 
     def get_window_title(self):
         return str(self.window.windowTitle())

@@ -206,6 +206,7 @@ class MainWindowLayer1(QMainWindow):
                 tool.disconnect(figure)
         if self.active_tool is not None:
             self.active_tool.disconnect(figure)
+        self.main_frame.removeSubWindow(figure)
             
     # --------- End MPL Events ---------
             
