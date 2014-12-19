@@ -27,8 +27,10 @@ import hyperspy.hspy
 import hyperspy.defaults_parser
 from hyperspy.io_plugins import io_plugins
 
-import uiprogressbar
+import uiprogressbar, overrides
 uiprogressbar.takeover_progressbar()    # Enable hooks
+overrides.override_hyperspy()           # Enable hyperspy overrides
+
 
 glob_escape = re.compile(r'([\[\]])')
 
@@ -49,7 +51,7 @@ class MainWindowLayer2(MainWindowLayer1):
     def __init__(self, parent=None):        
         # Setup signals list. This is a BindingList, and all components of the
         # code that needs to keep track of the signals loaded bind into this.
-        self.signals = BindingList()   
+        self.signals = BindingList()
         
         # Setup variables
         self.progressbars = {} 
@@ -354,7 +356,7 @@ class MainWindowLayer2(MainWindowLayer1):
         
     def _get_console_exports(self):
         push = super(MainWindowLayer2, self)._get_console_exports()
-        push['signals'] = self.signals
+        push['siglist'] = self.signals
         push['create_model'] = self.make_model    # Override hyperspy.hspy.create_model
         return push
         
