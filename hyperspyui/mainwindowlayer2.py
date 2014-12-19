@@ -5,7 +5,7 @@ Created on Tue Nov 04 13:37:08 2014
 @author: Vidar Tonaas Fauske
 """
 
-import os, sys
+import os, gc
 import re
 
 # Hyperspy uses traitsui, set proper backend
@@ -52,6 +52,8 @@ class MainWindowLayer2(MainWindowLayer1):
         # Setup signals list. This is a BindingList, and all components of the
         # code that needs to keep track of the signals loaded bind into this.
         self.signals = BindingList()
+        self.signals.add_custom(self.sweeper, None, None, None, self.sweeper, 
+                                None)
         
         # Setup variables
         self.progressbars = {} 
@@ -75,6 +77,9 @@ class MainWindowLayer2(MainWindowLayer1):
         
         # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
+        
+    def sweeper(self):
+        gc.collect()
         
     def create_widgetbar(self):  
         super(MainWindowLayer2, self).create_widgetbar() 
