@@ -15,11 +15,23 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+from hyperspy.drawing.spectrum import SpectrumLine
+
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded
 
 def tr(text):
     return QCoreApplication.translate("PCA", text)
+    
+def align_yaxis(ax1, v1, ax2, v2):
+    """adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1"""
+    # TODO: Keep max/min in view
+    _, y1 = ax1.transData.transform((0, v1))
+    _, y2 = ax2.transData.transform((0, v2))
+    inv = ax2.transData.inverted()
+    _, dy = inv.transform((0, 0)) - inv.transform((0, y1-y2))
+    miny, maxy = ax2.get_ylim()
+    ax2.set_ylim(miny+dy, maxy+dy)
 
 class PCA_Plugin(plugin.Plugin):
     def create_actions(self):
@@ -109,26 +121,34 @@ class PCA_Plugin(plugin.Plugin):
         def lazy_setup_complete():
             ns.sw_scree, ns.sw_residual, ns.sw_factors, ns.sw_loadings = \
                 make_compound(ns.s_scree, ns.s_residual)
-            del ns.s_scree, ns.s_residual
             
             
         def fetch_lazy(*args, **kwargs):
             slicer = ns.s_lazynav.axes_manager._getitem_tuple_nav_sliced[0]
             if isinstance(slicer, slice):
-                ns.sw_factors.signal.axes_manager[0].slice = slicer
-                ns.sw_loadings.signal.axes_manager[0].slice = slicer
+                ns.s_factors.axes_manager[0].slice = slicer
+                ns.s_loadings.axes_manager[0].slice = slicer
                 components = range(1, slicer.stop+1)[slicer]
             else:
-                ns.sw_factors.signal.axes_manager[0].index = slicer
-                ns.sw_loadings.signal.axes_manager[0].index = slicer
+                ns.s_factors.axes_manager[0].index = slicer
+                ns.s_loadings.axes_manager[0].index = slicer
                 components = slicer + 1
             s = ns.s
             ns.sw_scree.signal.data = s.get_decomposition_model(components).data
-            ns.sw_residual.signal.data = ns.sw_scree.signal.data - s.data
+            ns.s_residual.data = ns.sw_scree.signal.data - s.data
             self.ui.setUpdatesEnabled(False)
             try:
                 ns.sw_scree.replot()
-                ns.sw_residual.replot()
+                if ns.sw_residual is not None:
+                    ns.sw_residual.replot()
+                elif 'sla' in ns and 'slb' in ns:
+                    p = ns.s_scree._plot.signal_plot
+                    p.add_line(ns.sla)
+                    p.create_right_axis()
+                    p.add_line(ns.slb, ax='right')
+                    p.plot()
+                    ns.slb.plot()
+                    align_yaxis(p.ax, 0, p.right_ax, 0)
             finally:
                 self.ui.setUpdatesEnabled(True)    # Continue updating UI
             
@@ -139,8 +159,6 @@ class PCA_Plugin(plugin.Plugin):
                                            "[Component model]", plot=False)
                                            
             s_residual.metadata.General.title = signal.name + " Residual"
-            sw_residual = self.ui.add_signal_figure(s_residual, name = signal.name + 
-                                           "[Residual]", plot=False)
             if s.data.ndim == 2:
                 bk_s_navigate = \
                         s.axes_manager._get_axis_attribute_values('navigate')
@@ -151,14 +169,8 @@ class PCA_Plugin(plugin.Plugin):
                 s_factors.axes_manager.set_signal_dimension(
                     s_factors.axes_manager.signal_dimension-1)
             s_factors = s_factors.inav[:n_component]
-            sw_factors = self.ui.add_signal_figure(s_factors, 
-                                           name = signal.name + "[Factor]",
-                                           plot=False)
                 
             s_loadings = s.get_decomposition_loadings().inav[:n_component]
-            sw_loadings = self.ui.add_signal_figure(s_loadings, 
-                                            name = signal.name + "[Loading]", 
-                                            plot=False)
                                                
             if s.data.ndim == 2:
                 s.axes_manager._set_axis_attribute_values('navigate', 
@@ -197,6 +209,8 @@ class PCA_Plugin(plugin.Plugin):
                 nax.set_ylabel("Explained variance ratio")
                 nax.semilogy()
                 ns.s_lazynav = s_nav2
+                ns.s_factors = s_factors
+                ns.s_loadings = s_loadings
             
             # Plot signals with common navigator
             sw_scree.plot(navigator=s_nav)
@@ -205,11 +219,50 @@ class PCA_Plugin(plugin.Plugin):
                 nax.set_ylabel("Explained variance ratio")
                 nax.semilogy()
                 
-            #TODO: Plot scree + residual on same plot if sigdim=1 and plot
-            # factor on same plot, but on right axis.
-            
-            sw_residual.plot(navigator=None)
-            sw_factors.plot(navigator=None)
+            if s_scree.axes_manager.signal_dimension == 1:
+                p = s_scree._plot.signal_plot
+                sla = SpectrumLine()
+                sla.data_function = s_residual.__call__
+                sla.set_line_properties(color="blue", type='step')
+                sla.axes_manager = s_residual.axes_manager
+                sla.autoscale = True
+                p.add_line(sla)
+                p.create_right_axis()
+                slb = SpectrumLine()
+                slb.autoscale = True
+                slb.data_function = s_factors.__call__
+                slb.set_line_properties(color="green", type='step')
+                slb.axes_manager = s_factors.axes_manager
+                slb.autoscale = True
+                oldup = slb.update
+                def newup(force_replot=False):
+                    oldup(force_replot)
+                    align_yaxis(p.ax, 0, p.right_ax, 0)
+                    p.right_ax.hspy_fig._draw_animated()
+                slb.update = newup
+                p.add_line(slb, ax='right')
+                p.plot()
+                slb.plot()
+                align_yaxis(p.ax, 0, p.right_ax, 0)
+                sw_residual = None
+                sw_factors = None
+                if lazy:
+                    ns.sla = sla
+                    ns.slb = slb
+            else:
+                sw_residual = self.ui.add_signal_figure(s_residual, name = signal.name + 
+                                               "[Residual]", plot=False)
+                sw_factors = self.ui.add_signal_figure(s_factors, 
+                                               name = signal.name + "[Factor]",
+                                               plot=False)
+                sw_residual.plot(navigator=None)
+                sw_factors.plot(navigator=None)
+                
+            #TODO: Plot scree nav + loadings on same plot if navdim=1
+                
+            sw_loadings = self.ui.add_signal_figure(s_loadings, 
+                                            name = signal.name + "[Loading]", 
+                                            plot=False)
             sw_loadings.plot(navigator=None)
             return sw_scree, sw_residual, sw_factors, sw_loadings
         
