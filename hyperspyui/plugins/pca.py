@@ -103,7 +103,7 @@ class PCA_Plugin(plugin.Plugin):
                 
         def setup_lazy():
             ns.s = self._do_decomposition(ns.s)
-            ns.s_scree = ns.s.get_decomposition_model(0)
+            ns.s_scree = ns.s.get_decomposition_model(1)
             ns.s_residual = ns.s_scree - ns.s
             
         def lazy_setup_complete():
@@ -115,13 +115,13 @@ class PCA_Plugin(plugin.Plugin):
         def fetch_lazy(*args, **kwargs):
             slicer = ns.s_lazynav.axes_manager._getitem_tuple_nav_sliced[0]
             if isinstance(slicer, slice):
-                components = range(slicer[1])[slicer]
                 ns.sw_factors.signal.axes_manager[0].slice = slicer
                 ns.sw_loadings.signal.axes_manager[0].slice = slicer
+                components = range(1, slicer.stop+1)[slicer]
             else:
-                components = slicer
                 ns.sw_factors.signal.axes_manager[0].index = slicer
                 ns.sw_loadings.signal.axes_manager[0].index = slicer
+                components = slicer + 1
             s = ns.s
             ns.sw_scree.signal.data = s.get_decomposition_model(components).data
             ns.sw_residual.signal.data = ns.sw_scree.signal.data - s.data
@@ -147,11 +147,15 @@ class PCA_Plugin(plugin.Plugin):
                 s.axes_manager.set_signal_dimension(1)
             
             s_factors = s.get_decomposition_factors()
+            if s_factors.axes_manager.navigation_dimension < 1:
+                s_factors.axes_manager.set_signal_dimension(
+                    s_factors.axes_manager.signal_dimension-1)
+            s_factors = s_factors.inav[:n_component]
             sw_factors = self.ui.add_signal_figure(s_factors, 
                                            name = signal.name + "[Factor]",
                                            plot=False)
                 
-            s_loadings = s.get_decomposition_loadings()
+            s_loadings = s.get_decomposition_loadings().inav[:n_component]
             sw_loadings = self.ui.add_signal_figure(s_loadings, 
                                             name = signal.name + "[Loading]", 
                                             plot=False)
@@ -160,15 +164,13 @@ class PCA_Plugin(plugin.Plugin):
                 s.axes_manager._set_axis_attribute_values('navigate', 
                                                           bk_s_navigate)
             
+            for ax in s_scree.axes_manager.navigation_axes:
+                s_residual.axes_manager._axes[ax.index_in_array] = ax
             if not lazy:
                 # Set navigating axes common for all signals
                 ax = s_scree.axes_manager['Principal component index']
-                s_residual.axes_manager._axes[ax.index_in_array] = ax
                 s_factors.axes_manager._axes[0] = ax
                 s_loadings.axes_manager._axes[0] = ax
-            else:
-                for ax in s_scree.axes_manager.navigation_axes:
-                    s_residual.axes_manager._axes[ax.index_in_array] = ax
                     
             
             
@@ -178,6 +180,8 @@ class PCA_Plugin(plugin.Plugin):
                 s_nav.axes_manager[0].name = "Explained variance ratio"
                 if n_component < s_nav.axes_manager[-1].size:
                     s_nav = s_nav.isig[1:n_component]
+                else:
+                    s_nav = s_nav.isig[1:]
             else:
                 s_nav = "auto"
                 
@@ -189,6 +193,9 @@ class PCA_Plugin(plugin.Plugin):
                 self.ui.add_signal_figure(s_nav2,
                                     name = signal.name + "Component Navigator",
                                     plot=True)
+                nax = s_nav2._plot.navigator_plot.ax
+                nax.set_ylabel("Explained variance ratio")
+                nax.semilogy()
                 ns.s_lazynav = s_nav2
             
             # Plot signals with common navigator
@@ -197,6 +204,9 @@ class PCA_Plugin(plugin.Plugin):
                 nax = s_scree._plot.navigator_plot.ax
                 nax.set_ylabel("Explained variance ratio")
                 nax.semilogy()
+                
+            #TODO: Plot scree + residual on same plot if sigdim=1 and plot
+            # factor on same plot, but on right axis.
             
             sw_residual.plot(navigator=None)
             sw_factors.plot(navigator=None)
