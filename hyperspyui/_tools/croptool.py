@@ -129,7 +129,7 @@ class CropTool(FigureTool):
             self.widget.add_axes(event.inaxes)  # connects
             self.widget.set_on(True)
             self.widget.set_size(1)
-            self.pick_on_frame = 3
+            self.widget.pick_on_frame = 3
             self.widget.picked = True
         
     def on_keyup(self, event):
