@@ -76,35 +76,15 @@ class PCA_Plugin(plugin.Plugin):
         s = signal.signal
 
         if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float
-            cc = self.settings['convert_copy']
-            if cc is None:
-                mb = ExRememberPrompt(QMessageBox.Information, 
-                             tr("Convert or copy"), 
-                             tr("Signal data has the wrong data type (float " + 
-                             "needed). Would you like to convert the current" +
-                             " signal, or perform the decomposition on a " +
-                             "copy?"))
-                convert = mb.addButton(tr("Convert"), QMessageBox.AcceptRole)
-                copy = mb.addButton(tr("Copy"), QMessageBox.RejectRole)
-                mb.addButton(QMessageBox.Cancel)
-                mb.exec_()
-                btn = mb.clickedButton()
-                if btn not in (convert, copy):
-                    return
-                elif btn == copy:
-                    cc = 'copy'
-                else:
-                    cc = 'convert'
-                if mb.isChecked():
-                    self.settings['convert_copy'] = cc
+            cc = self.settings.get_or_prompt('convert_copy', 
+                     (('convert', tr("Convert")), ('copy', tr("Copy"))),
+                     title=tr("Convert or copy"),
+                     descr=tr("Signal data has the wrong data type (float " + 
+                     "needed). Would you like to convert the current" +
+                     " signal, or perform the decomposition on a " +
+                     "copy?"))
             if cc == 'copy':
-                new_s = s.deepcopy()
-                # Restore navdims
-                if s.data.ndim == 2:
-                    bk_s_navigate = self.nav_dim_backups[s]
-                    s.axes_manager._set_axis_attribute_values('navigate', 
-                                                              bk_s_navigate)
-                s = new_s
+                s = s.deepcopy()
                 self.ui.add_signal_figure(s, signal.name + "[float]")
             s.change_dtype(float)
         return s, signal

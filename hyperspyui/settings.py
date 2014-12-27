@@ -9,6 +9,8 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+from widgets.extendedqwidgets import ExRememberPrompt
+
 class Settings(object):
     def __init__(self, parent=None, group=None, sep='.'):
         self.sep = sep
@@ -39,7 +41,46 @@ class Settings(object):
         settings.setValue(key, value)
         for g in groupings:
             settings.endGroup()
-            
+    
+    def get_or_prompt(self, key, options, title="Prompt", descr=""):
+        """
+        Gets the setting specified by key. If it is not set, prompts the user
+        to select one option out of several. The prompt includes a checkbox to
+        remember the answer ("Remember this setting").
+        
+        The option parameter should be a lsit of two-tuples, specifying an
+        ordered list of option values, and labels.
+        """
+        
+        # First check if we have a remembered setting.
+        val = self[key]
+        if val is not None:
+            return val
+        
+        # Setup the dialog
+        mb = ExRememberPrompt(QMessageBox.Question, title, descr)
+        if len(options) < 5:
+            buttons = []
+            opt = options[0]    # Make first option default (accept)
+            buttons.append(mb.addButton(opt[1], QMessageBox.AcceptRole))
+            for opt in options[1:]:
+                buttons.append(mb.addButton(opt[1], QMessageBox.RejectRole))
+        else:
+            pass #TODO: Make list selection
+        mb.addButton(QMessageBox.Cancel)
+        
+        # Show the dialog
+        mb.exec_()
+        btn = mb.clickedButton()
+        if btn not in buttons:
+            # The user did not make a valid selection = cancelled
+            return None
+        sel = btn.text()
+        idx = [o[1] for o in options].index(sel)
+        ret = options[idx][0]
+        if mb.isChecked():
+            self[key] = ret
+        return ret
         
     def write(self, d, group=None, settings=None):
         if settings is None:
