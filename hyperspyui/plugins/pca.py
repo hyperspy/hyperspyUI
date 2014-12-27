@@ -71,6 +71,12 @@ class PCA_Plugin(plugin.Plugin):
     # ------------ Action implementations --------------
             
     def _get_signal(self, signal):
+        """
+        Get a valid signal. If the signal is none, it ues the currently 
+        selected one. If the signal type is not float, it either converts it,
+        or gets a copy of the correct type, depending on the 'convert_copy'
+        setting.
+        """
         if signal is None:
             signal = self.ui.get_selected_signal()
         s = signal.signal
@@ -90,6 +96,10 @@ class PCA_Plugin(plugin.Plugin):
         return s, signal
             
     def _do_decomposition(self, s, force=False):
+        """
+        Makes sure we have decomposition results. If results already are 
+        available, it will only recalculate if the `force` parameter is True.
+        """
         if s.data.ndim == 2:
             bk_s_navigate = \
                     s.axes_manager._get_axis_attribute_values('navigate')
@@ -105,6 +115,14 @@ class PCA_Plugin(plugin.Plugin):
  
             
     def explore_components(self, signal=None, lazy="auto", n_component=50):
+        """
+        Utility function for seeing the effect of compoenent selection. Plots
+        signal and residual, as well as factors and loadings. Also supports 
+        lazy loading for dynamic calculation, which is especially useful for
+        larger datasets which would otherwise cause a MemoryError. Defualt
+        behavior is "auto", which compares the dataset size and the free 
+        memory available.
+        """
         ns = Namespace()
         ns.s, signal = self._get_signal(signal)
         
@@ -314,6 +332,12 @@ class PCA_Plugin(plugin.Plugin):
         
 
     def pca(self, signal=None):
+        """
+        Performs decomposition, then plots the scree for the user to select
+        the number of components to use for a decomposition model. The
+        selection is made by clicking on the scree, which closes the scree
+        and creates the model.
+        """
         ns = Namespace()
         ns.s, signal = self._get_signal(signal)
         
