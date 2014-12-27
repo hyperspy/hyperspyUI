@@ -20,7 +20,7 @@ from QtGui import *
 def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
-from consolewidget import ConsoleWidget
+from widgets.consolewidget import ConsoleWidget
 import tools
 import mdi_mpl_backend
 import hooktraitsui

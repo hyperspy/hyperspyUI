@@ -13,7 +13,7 @@ from functools import partial
 import traits.api as t
 import traitsui.api as tu
 
-from util import create_add_component_actions
+from hyperspyui.util import create_add_component_actions
                 
 class ComponentEditorHandler(tu.Handler):
     def setattr(self, info, object, name, value):    

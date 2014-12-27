@@ -26,12 +26,48 @@ class ExClickLabel(QLabel):
     clicked = Signal()
     
     def _init__(self, *args, **kwargs):
-      super(ExClickLabel, self).__init__(*args, **kwargs)
+        super(ExClickLabel, self).__init__(*args, **kwargs)
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.clicked.emit()
         super(ExClickLabel, self).mouseReleaseEvent(event)
+        
+        
+class ExMessageBox(QMessageBox):
+    def isChecked(self):
+        cb = self.checkBox()
+        if cb is None:
+            raise AttributeError
+        return cb.checkState() == Qt.Checked
+        
+    def setCheckBox(self, cb):
+        try: 
+            self.setCheckBox(cb)
+        except AttributeError:
+            oldcb = self.checkBox()
+            if oldcb is not None:
+                self.removeButton(oldcb)
+            self._checkBox = cb
+            if cb is not None:
+                cb.blockSignals(True)
+                self.addButton(cb, QMessageBox.ResetRole)
+    
+    def checkBox(self):
+        try: 
+            return self.checkBox()
+        except AttributeError:
+            pass
+        try:
+            return self._checkBox
+        except AttributeError:
+            return None
+            
+class ExRememberPrompt(ExMessageBox):
+    def __init__(self, *args, **kwargs):
+        super(ExRememberPrompt, self).__init__(*args, **kwargs)
+        cb = QCheckBox("Remember this choice")
+        self.setCheckBox(cb)
 
 
 class ExDoubleSlider(QSlider):

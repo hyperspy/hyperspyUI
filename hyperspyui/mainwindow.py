@@ -14,8 +14,8 @@ from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL impor
 from util import create_add_component_actions, win2sig, dict_rlu
 from signallist import SignalList
 from threaded import Threaded
-from contrastwidget import ContrastWidget
-from elementpicker import ElementPickerWidget
+from widgets.contrastwidget import ContrastWidget
+from widgets.elementpicker import ElementPickerWidget
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *

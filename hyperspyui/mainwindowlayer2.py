@@ -20,7 +20,7 @@ from QtGui import *
 
 from signalwrapper import SignalWrapper
 from bindinglist import BindingList
-from dataviewwidget import DataViewWidget
+from widgets.dataviewwidget import DataViewWidget
 import util
 
 import hyperspy.hspy

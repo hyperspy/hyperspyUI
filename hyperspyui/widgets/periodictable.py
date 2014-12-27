@@ -10,7 +10,7 @@ from QtCore import *
 from QtGui import *
 
 from functools import partial
-from _elements import elements
+from hyperspyui._elements import elements
 from extendedqwidgets import ExClickLabel
         
 class PeriodicTableWidget(QWidget):

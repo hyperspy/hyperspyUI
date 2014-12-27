@@ -13,7 +13,7 @@ from QtGui import *
 from extendedqwidgets import ExDoubleSlider, ExClickLabel
 from hyperspy.drawing.mpl_he import MPL_HyperExplorer
 from hyperspy.drawing.image import ImagePlot
-from util import win2fig
+from hyperspyui.util import win2fig
 
 import numpy as np
 

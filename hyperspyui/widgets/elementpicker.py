@@ -14,9 +14,8 @@ from QtGui import *
 import hyperspy.signals
 from hyperspy.misc.elements import elements as elements_db
 
-from extendedqwidgets import ExToolWindow
+from extendedqwidgets import ExToolWindow, ExClickLabel
 from periodictable import PeriodicTableWidget
-from extendedqwidgets import ExClickLabel
 
 
 edstypes = (hyperspy.signals.EDSSEMSpectrum, hyperspy.signals.EDSTEMSpectrum)
