@@ -10,9 +10,10 @@ from QtCore import *
 from QtGui import *
 
 class Settings(object):
-    def __init__(self, group=None, sep='.'):
+    def __init__(self, parent=None, group=None, sep='.'):
         self.sep = sep
         self.group = group
+        self.parent = parent
         
     def __getitem__(self, key):
         if isinstance(key, tuple):
@@ -21,23 +22,23 @@ class Settings(object):
             t = None
         groupings = (self.group + self.sep + key).split(self.sep)
         key = groupings.pop()
-        settings = QSettings(self)
+        settings = QSettings(self.parent)
         for g in groupings:
             settings.beginGroup(g)
         ret = settings.value(key, t)
         for g in groupings:
-            settings.endGroup(g)
+            settings.endGroup()
         return ret
         
     def __setitem__(self, key, value):
         groupings = (self.group + self.sep + key).split(self.sep)
         key = groupings.pop()
-        settings = QSettings(self)
+        settings = QSettings(self.parent)
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)
         for g in groupings:
-            settings.endGroup(g)
+            settings.endGroup()
             
         
     def write(self, d, group=None, settings=None):
@@ -49,7 +50,7 @@ class Settings(object):
         for k, v in d.iteritems():
             settings.setValue(k, v)
         
-        if groups is not None:
+        if group is not None:
             settings.endGroup()
             
     def read(self, d, group=None, settings=None):
@@ -62,5 +63,5 @@ class Settings(object):
             if isinstance(v, tuple):
                 settings.value(k, v)
         
-        if groups is not None:
+        if group is not None:
             settings.endGroup()       

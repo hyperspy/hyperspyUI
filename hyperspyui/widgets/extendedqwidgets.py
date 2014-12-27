@@ -43,7 +43,7 @@ class ExMessageBox(QMessageBox):
         
     def setCheckBox(self, cb):
         try: 
-            self.setCheckBox(cb)
+            super(ExMessageBox, self).setCheckBox(cb)
         except AttributeError:
             oldcb = self.checkBox()
             if oldcb is not None:
@@ -55,7 +55,7 @@ class ExMessageBox(QMessageBox):
     
     def checkBox(self):
         try: 
-            return self.checkBox()
+            return super(ExMessageBox, self).checkBox()
         except AttributeError:
             pass
         try:

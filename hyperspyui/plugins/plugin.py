@@ -18,7 +18,7 @@ class Plugin(object):
             set_group = set_group.replace('.', '')
         else:
             set_group = 'plugins.' + self.name
-        self.settings = Settings(group=set_group)
+        self.settings = Settings(self.ui, group=set_group)
         
     def create_actions(self):
         pass
