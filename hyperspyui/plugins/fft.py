@@ -17,6 +17,7 @@ import hyperspy.signals
 from threaded import ProgressThreaded
 
 class FFT_Plugin(plugin.Plugin):
+    name = 'FFT'
     
     def create_actions(self):
         self.ui.add_action('fft', "FFT", self.fft,

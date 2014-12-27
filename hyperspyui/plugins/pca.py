@@ -19,6 +19,7 @@ from hyperspy.drawing.spectrum import SpectrumLine
 
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded
+from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 def tr(text):
     return QCoreApplication.translate("PCA", text)
@@ -34,6 +35,12 @@ def align_yaxis(ax1, v1, ax2, v2):
     ax2.set_ylim(miny+dy, maxy+dy)
 
 class PCA_Plugin(plugin.Plugin):
+    """
+    Implements PCA decomposition utilities.
+    """
+    name = 'PCA'    # Used for settings groups etc
+    
+    # ----------- Plugin interface -----------
     def create_actions(self):
         self.ui.add_action('pca', "PCA", self.pca,
                         icon='pca.svg',
@@ -50,35 +57,49 @@ class PCA_Plugin(plugin.Plugin):
     def create_toolbars(self):
         self.ui.add_toolbar_button("Signal", self.ui.actions['pca'])
                   
-    # --- Add PCA action ---
     def selection_rules(self, win, action):
+        """
+        Callback to determine if PCA is valid for the passed window.
+        """
         s = win2sig(win, self.ui.signals)
         if s is None or s.signal.data.ndim <= 1:
             action.setEnabled(False)
         else:
             action.setEnabled(True)
             
+    
+    # ------------ Action implementations --------------
             
     def _get_signal(self, signal):
         if signal is None:
             signal = self.ui.get_selected_signal()
         s = signal.signal
 
-        if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float        
-            mb = QMessageBox(QMessageBox.Information, tr("Convert or copy"), 
+        if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float
+            cc = self.settings['convert_copy']
+            if cc is None:
+                mb = ExRememberPrompt(QMessageBox.Information, 
+                             tr("Convert or copy"), 
                              tr("Signal data has the wrong data type (float " + 
                              "needed). Would you like to convert the current" +
                              " signal, or perform the decomposition on a " +
                              "copy?"))
-            convert = mb.addButton(tr("Convert"), QMessageBox.AcceptRole)
-            copy = mb.addButton(tr("Copy"), QMessageBox.RejectRole)
-            mb.addButton(QMessageBox.Cancel)
-            mb.exec_()
-            btn = mb.clickedButton()
-            if btn not in (convert, copy):
-                return
-            elif btn == copy: 
+                convert = mb.addButton(tr("Convert"), QMessageBox.AcceptRole)
+                copy = mb.addButton(tr("Copy"), QMessageBox.RejectRole)
+                mb.addButton(QMessageBox.Cancel)
+                mb.exec_()
+                btn = mb.clickedButton()
+                if btn not in (convert, copy):
+                    return
+                elif btn == copy:
+                    cc = 'copy'
+                else:
+                    cc = 'convert'
+                if mb.isChecked():
+                    self.settings['convert_copy'] = cc
+            if cc == 'copy':
                 new_s = s.deepcopy()
+                # Restore navdims
                 if s.data.ndim == 2:
                     bk_s_navigate = self.nav_dim_backups[s]
                     s.axes_manager._set_axis_attribute_values('navigate', 
@@ -218,7 +239,7 @@ class PCA_Plugin(plugin.Plugin):
                 nax = s_scree._plot.navigator_plot.ax
                 nax.set_ylabel("Explained variance ratio")
                 nax.semilogy()
-                
+            
             if s_scree.axes_manager.signal_dimension == 1:
                 p = s_scree._plot.signal_plot
                 sla = SpectrumLine()
