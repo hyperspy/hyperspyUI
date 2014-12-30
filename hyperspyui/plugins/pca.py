@@ -26,13 +26,16 @@ def tr(text):
     
 def align_yaxis(ax1, v1, ax2, v2):
     """adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1"""
-    # TODO: Keep max/min in view
     _, y1 = ax1.transData.transform((0, v1))
     _, y2 = ax2.transData.transform((0, v2))
+    if y2 > y1:
+        ratio = y1/y2
+    else:
+        ratio = y2/y1
     inv = ax2.transData.inverted()
     _, dy = inv.transform((0, 0)) - inv.transform((0, y1-y2))
-    miny, maxy = ax2.get_ylim()
-    ax2.set_ylim(miny+dy, maxy+dy)
+    miny2, maxy2 = ax2.get_ylim()
+    ax2.set_ylim((miny2+dy)/ratio, (maxy2+dy)/ratio)
 
 class PCA_Plugin(plugin.Plugin):
     """
@@ -119,7 +122,7 @@ class PCA_Plugin(plugin.Plugin):
         Utility function for seeing the effect of compoenent selection. Plots
         signal and residual, as well as factors and loadings. Also supports 
         lazy loading for dynamic calculation, which is especially useful for
-        larger datasets which would otherwise cause a MemoryError. Defualt
+        larger datasets which would otherwise cause a MemoryError. Default
         behavior is "auto", which compares the dataset size and the free 
         memory available.
         """
@@ -127,22 +130,27 @@ class PCA_Plugin(plugin.Plugin):
         ns.s, signal = self._get_signal(signal)
         
         if lazy == "auto":
+            # Figure out which mode to use
             gc.collect()
+            # res_size ~ size of resulting data
             res_size = ns.s.data.nbytes * 2*n_component
             free_mem = psutil.phymem_usage()[2]
             lazy = res_size > free_mem
                 
         def setup_lazy():
+            """ Setup lazy dataset, called threaded """
             ns.s = self._do_decomposition(ns.s)
             ns.s_scree = ns.s.get_decomposition_model(1)
             ns.s_residual = ns.s_scree - ns.s
             
         def lazy_setup_complete():
+            """ Called when setup_lazy completes, to setup ui elements """
             ns.sw_scree, ns.sw_residual, ns.sw_factors, ns.sw_loadings = \
                 make_compound(ns.s_scree, ns.s_residual)
             
             
         def fetch_lazy(*args, **kwargs):
+            """ Called when component selection changes in lazy mode """
             slicer = ns.s_lazynav.axes_manager._getitem_tuple_nav_sliced[0]
             if isinstance(slicer, slice):
                 ns.s_factors.axes_manager[0].slice = slicer
@@ -164,14 +172,17 @@ class PCA_Plugin(plugin.Plugin):
                     p = ns.s_scree._plot.signal_plot
                     p.add_line(ns.sla)
                     p.create_right_axis()
+                    p.right_zero_lock = True
                     p.add_line(ns.slb, ax='right')
                     p.plot()
                     ns.slb.plot()
-                    align_yaxis(p.ax, 0, p.right_ax, 0)
+                    p.autolim()
+#                    align_yaxis(p.ax, 0, p.right_ax, 0)
             finally:
                 self.ui.setUpdatesEnabled(True)    # Continue updating UI
             
         def make_compound(s_scree, s_residual):
+            """ Called to make UI components after completing calculations """
             s = ns.s
             s_scree.metadata.General.title = signal.name + " Component model"
             sw_scree = self.ui.add_signal_figure(s_scree, name = signal.name + 
@@ -233,7 +244,7 @@ class PCA_Plugin(plugin.Plugin):
             
             # Plot signals with common navigator
             sw_scree.plot(navigator=s_nav)
-            if s.axes_manager.navigation_dimension == 0:
+            if not lazy and s.axes_manager.navigation_dimension == 0:
                 nax = s_scree._plot.navigator_plot.ax
                 nax.set_ylabel("Explained variance ratio")
                 nax.semilogy()
@@ -247,6 +258,7 @@ class PCA_Plugin(plugin.Plugin):
                 sla.autoscale = True
                 p.add_line(sla)
                 p.create_right_axis()
+                p.right_zero_lock = True
                 slb = SpectrumLine()
                 slb.autoscale = True
                 slb.data_function = s_factors.__call__
@@ -256,13 +268,13 @@ class PCA_Plugin(plugin.Plugin):
                 oldup = slb.update
                 def newup(force_replot=False):
                     oldup(force_replot)
-                    align_yaxis(p.ax, 0, p.right_ax, 0)
+#                    align_yaxis(p.ax, 0, p.right_ax, 0)
                     p.right_ax.hspy_fig._draw_animated()
                 slb.update = newup
                 p.add_line(slb, ax='right')
                 p.plot()
                 slb.plot()
-                align_yaxis(p.ax, 0, p.right_ax, 0)
+#                align_yaxis(p.ax, 0, p.right_ax, 0)
                 sw_residual = None
                 sw_factors = None
                 if lazy:

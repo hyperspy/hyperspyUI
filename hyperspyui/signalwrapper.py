@@ -83,19 +83,31 @@ class SignalWrapper(Actionable):
         
         atleast_one_changed = False
         
+        # If we have a navigator plot
         if self.signal._plot and self.signal._plot.navigator_plot:
+            # Set internal `navigator_plot` to window containing it
             navi = self.signal._plot.navigator_plot.figure
             self.navigator_plot = fig2win(navi, self.mainwindow.figures)
+            # Did the window change?
             if old_nav is not self.navigator_plot:
-                navi.axes[0].set_title("")
+                # Process the plot
+                navi.axes[0].set_title("")  # remove title
+                # Wire closing event
                 self.navigator_plot.closing.connect(self.nav_closing)
-                self.navigator_plot.setProperty('hyperspyUI.SignalWrapper', self)
+                # Set a reference on window to self
+                self.navigator_plot.setProperty('hyperspyUI.SignalWrapper',
+                                                self)
+                # Add to figures list
                 self.add_figure(self.navigator_plot)
+                
+                # Did we have a previous window?
                 if old_nav is not None:
+                    # Save geometry of old, and make sure it is closed
                     self._nav_geom = old_nav.saveGeometry()
                     old_nav.closing.disconnect(self.nav_closing)
                     old_nav.close()
                     atleast_one_changed = True
+                # If we have stored geometry, and a valid plot, restore
                 if self._nav_geom is not None and self.navigator_plot is not None:
                     self.navigator_plot.restoreGeometry(self._nav_geom)
                 self._nav_geom = None
@@ -109,13 +121,13 @@ class SignalWrapper(Actionable):
                 self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
                 self.add_figure(self.signal_plot)
                 if old_sig is not None:
-                    old_sig.closing.disconnect(self.sig_closing)
                     self._sig_geom = old_sig.saveGeometry()
+                    old_sig.closing.disconnect(self.sig_closing)
                     old_sig.close()
                     atleast_one_changed = True
                 if self._sig_geom is not None and self.signal_plot is not None:
                     self.signal_plot.restoreGeometry(self._sig_geom)
-                    self._sig_geom = None
+                self._sig_geom = None
                 
         if atleast_one_changed:
             self.mainwindow.check_action_selections()
@@ -188,6 +200,10 @@ class SignalWrapper(Actionable):
     
     def sig_closing(self):
         if self.signal_plot:
+            p = self.signal_plot.pos()
+            # For some reason the position changes -8,-30 on closing, at least
+            # it does on windows 7, Qt4.
+            self.signal_plot.move(p.x()+8, p.y()+30)
             self._sig_geom = self.signal_plot.saveGeometry()
         if self.navigator_plot is not None:
             self.navigator_plot.close()
