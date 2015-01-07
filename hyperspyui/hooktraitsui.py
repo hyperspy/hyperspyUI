@@ -38,7 +38,7 @@ def dehook_traitsui():
     ui_base._StickyDialog = orig_type
     
 # -----------------------------------------------------------
-# The rest of this file is simply event callback handeling
+# The rest of this file is simply event callback handling
 # -----------------------------------------------------------
 
 _creating_cbs = {}

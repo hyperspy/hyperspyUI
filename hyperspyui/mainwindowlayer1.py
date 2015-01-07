@@ -316,6 +316,10 @@ class MainWindowLayer1(QMainWindow):
         QDockWidget, it will be wrapped in one. The QDockWidget is returned.
         The widget is also added to the window menu self.windowmenu, so that
         it's visibility can be toggled.
+        
+        The parameter 'floating' specifies whether the widget should be made
+        floating. If None, the value of the attribute 'default_widget_floating'
+        is used.
         """
         if floating is None:
             floating = self.default_widget_floating

@@ -15,7 +15,7 @@ from hyperspy.axes import AxesManager
 import hyperspy.signals
 
 from threaded import ProgressThreaded
-
+#TODO tr
 class FFT_Plugin(plugin.Plugin):
     name = 'FFT'
     
