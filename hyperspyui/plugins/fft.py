@@ -75,11 +75,13 @@ class FFT_Plugin(plugin.Plugin):
             for i, sw in enumerate(signals):
                 s = sw.signal
                 if inverse:
-                    fftdata = scipy.fftpack.ifftn(s())
-                    fftdata = scipy.fftpack.ifftshift(fftdata)
+                    fftdata = scipy.fftpack.ifftshift(s())
+                    fftdata = scipy.fftpack.ifftn(fftdata)
+                    fftdata = np.abs(fftdata)
                 else:
                     fftdata = scipy.fftpack.fftn(s())
                     fftdata = scipy.fftpack.fftshift(fftdata)
+                
                 ffts = s.__class__(
                     fftdata,
                     axes=s.axes_manager._get_signal_axes_dicts(),
@@ -93,9 +95,14 @@ class FFT_Plugin(plugin.Plugin):
                 for i in xrange(ffts.axes_manager.signal_dimension):
                     axis = ffts.axes_manager.signal_axes[i]
                     s_axis = s.axes_manager.signal_axes[i]
-                    axis.scale = 1/s_axis.scale
+                    if not inverse:
+                        axis.scale = 1/s_axis.scale
                     shift = (axis.high_value - axis.low_value)/2
+                    if inverse:
+                        shift = -shift
                     axis.offset -= shift
+                    if inverse:
+                        axis.scale = 1/s_axis.scale
                     u = s_axis.units
                     if u.endswith('-1'):
                         u = u[:-2]
@@ -222,6 +229,13 @@ class FFT_Plugin(plugin.Plugin):
         t.run()
         
     def live_fft(self, signals=None):
+        """
+        The live FFT produces the exact same results as the nfft, except nfft
+        calculates the FFTs over all signal dimensions and stores the result in
+        a new signal. The live FFT dynamically calculates the FFT as the user 
+        navigates. In other words, nfft is memory intensive, live is cpu 
+        intensive.
+        """
         if signals is None:
             signals = self.ui.get_selected_signals()
             if signals is None:
