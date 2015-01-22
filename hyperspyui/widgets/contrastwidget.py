@@ -16,6 +16,7 @@ from hyperspy.drawing.image import ImagePlot
 from hyperspyui.util import win2fig
 
 import numpy as np
+from matplotlib.colors import Normalize, SymLogNorm
 
 def fig2plot(fig, signals):
     for s in signals:
@@ -101,6 +102,17 @@ class ContrastWidget(QDockWidget):
         if p is not None:
             p.vmax = self.sl_level.value() + self.sl_window.value()
             p.update()
+            
+    def log_changed(self, value):
+        p = self._cur_plot
+        if p is not None and p.ax.images:
+            old = p.ax.images[0].norm
+            kw = dict(vmin=old.vmin, vmax=old.vmax, clip=old.clip)
+            if value:
+                n = SymLogNorm(1e-9, **kw)
+            else:
+                n = Normalize(**kw)
+            p.ax.imagesp[0].norm = n
     
     def enable(self, enabled=True):
         self.lbl_level.setEnabled(enabled)
@@ -139,7 +151,7 @@ class ContrastWidget(QDockWidget):
             sl.setRange(0.0, 1.0)
             sl.setValue(0.0)
             
-        self.chk_auto = QCheckBox("Auto", self)
+        self.chk_auto = QCheckBox("Auto", self) # TODO: tr
             
         self.lbl_level.clicked.connect(self.reset_level)
         self.lbl_window.clicked.connect(self.reset_window)
