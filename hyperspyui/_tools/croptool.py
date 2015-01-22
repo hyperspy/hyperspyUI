@@ -128,7 +128,7 @@ class CropTool(FigureTool):
             axes[1].value = y
             self.widget.set_axes(event.inaxes)  # connects
             self.widget.set_on(True)
-            self.widget.set_size(1)
+            self.widget.size = 1
             self.widget.pick_on_frame = 3
             self.widget.picked = True
         
@@ -172,7 +172,7 @@ class CropTool(FigureTool):
         if event is None or self.in_ax(event.inaxes):
             if self.widget.is_on():
                 self.widget.set_on(False)
-                self.widget.set_size(1) # Prevents flickering
+                self.widget.size = 1    # Prevents flickering
             if self.spanner is not None:
                 self.spanner.turn_off()
                 self.spanner = None
