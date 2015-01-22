@@ -166,6 +166,17 @@ class MainWindowLayer2(MainWindowLayer1):
     def get_selected_component(self):
         return self.tree.get_selected_component()
         
+    def get_selected_plot(self):
+        s = self.get_selected_signal()
+        w = self.main_frame.activeSubWindow()
+        if w is s.navigator_plot:
+            selected = "navigation"
+        elif w is s.signal_plot:
+            selected = "signal"
+        else:
+            selected = "other"
+        return s, selected, w
+        
         
     # --------- File I/O ----------
         
