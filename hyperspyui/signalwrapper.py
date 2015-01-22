@@ -20,6 +20,8 @@ class SignalWrapper(Actionable):
     def __init__(self, signal, mainwindow, name):
         super(SignalWrapper, self).__init__()
         self.signal = signal
+        self._old_replot = signal._replot
+        signal._replot = self._replot
         if name is None:
             name = signal.metadata.General.title
         self.name = name
@@ -63,6 +65,11 @@ class SignalWrapper(Actionable):
         self._replotargs = (args, kwargs)
         self.mainwindow.main_frame.subWindowActivated.emit(
             self.mainwindow.main_frame.activeSubWindow())
+            
+    def _replot(self):
+        if self.signal._plot is not None:
+            if self.signal._plot.is_active() is True:
+                self.replot()
         
     def replot(self):
         self.plot(*self._replotargs[0], **self._replotargs[1])
@@ -227,3 +234,4 @@ class SignalWrapper(Actionable):
         # TODO: Should probably be with by events for concistency
         if self in self.mainwindow.signals and not self.keep_on_close:
             self.mainwindow.signals.remove(self)
+            self.signal._replot = self._old_replot
