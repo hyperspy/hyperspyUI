@@ -96,13 +96,13 @@ class FFT_Plugin(plugin.Plugin):
                     axis = ffts.axes_manager.signal_axes[i]
                     s_axis = s.axes_manager.signal_axes[i]
                     if not inverse:
-                        axis.scale = 1/s_axis.scale
+                        axis.scale = 1/(s_axis.size*s_axis.scale)
                     shift = (axis.high_value - axis.low_value)/2
                     if inverse:
                         shift = -shift
                     axis.offset -= shift
                     if inverse:
-                        axis.scale = 1/s_axis.scale
+                        axis.scale = 1/(s_axis.size*s_axis.scale)
                     u = s_axis.units
                     if u.endswith('-1'):
                         u = u[:-2]
@@ -168,7 +168,7 @@ class FFT_Plugin(plugin.Plugin):
                 for i in xrange(ffts.axes_manager.signal_dimension):
                     axis = ffts.axes_manager.signal_axes[i]
                     s_axis = s.axes_manager.signal_axes[i]
-                    axis.scale = 1/s_axis.scale
+                    axis.scale = 1/(s_axis.size*s_axis.scale)
                     shift = (axis.high_value - axis.low_value)/2
                     axis.offset -= shift
                     u = s_axis.units
@@ -196,7 +196,7 @@ class FFT_Plugin(plugin.Plugin):
                     s_axis = s.axes_manager.signal_axes[i]
                     shift = (axis.high_value - axis.low_value)/2
                     axis.offset += shift
-                    axis.scale = 1/s_axis.scale
+                    axis.scale = 1/(s_axis.size*s_axis.scale)
                     u = s_axis.units
                     if u.endswith('-1'):
                         u = u[:-2]
