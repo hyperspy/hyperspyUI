@@ -267,9 +267,7 @@ class FigureManagerMdi(FigureManagerBase):
             self.window.showFullScreen()
 
     def _widgetclosed(self):
-        if self.window is None:
-            return
-        if self.window._destroying:
+        if self.window is None or self.window._destroying:
             return
         try:
             Gcf.destroy(self.num)
