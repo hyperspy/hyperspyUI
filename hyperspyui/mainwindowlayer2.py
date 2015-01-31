@@ -82,16 +82,17 @@ class MainWindowLayer2(MainWindowLayer1):
         del removed
         QTimer.singleShot(1000, gc.collect)
         
-    def create_widgetbar(self):  
-        super(MainWindowLayer2, self).create_widgetbar() 
-        
+    def create_widgetbar(self):
         self.tree = DataViewWidget(self, self)
         self.tree.setWindowTitle(tr("Data View"))
         # Sync tree with signals list:
         self.signals.add_custom(self.tree, self.tree.add_signal, None,
                                 None, self.tree.remove, None)
         self.main_frame.subWindowActivated.connect(self.tree.on_mdiwin_activated)
-        self.add_widget(self.tree)
+        self.add_widget(self.tree)  
+        
+        # Put plugin widgets at end
+        super(MainWindowLayer2, self).create_widgetbar() 
         
         
     def create_menu(self):
