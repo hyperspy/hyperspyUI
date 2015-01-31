@@ -13,10 +13,10 @@ Created on Sun Dec 07 02:03:23 2014
 """
 
 import os
-import numpy as np
 
-from hyperspy.drawing.widgets import ResizebleDraggableRectangle, \
-                                     ModifiableSpanSelector
+from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
+                                     DraggableResizableRange
+from hyperspy.roi import RectangularROI, SpanROI
 
 from figuretool import FigureTool
 from util import load_cursor
@@ -31,10 +31,10 @@ class CropTool(FigureTool):
     
     def __init__(self, windows=None):
         super(CropTool, self).__init__(windows)
-        
-        self.widget = ResizebleDraggableRectangle(None)
-        self.widget.set_on(False)
-        self.spanner = None
+        self.rect = ResizableDraggableRectangle(None)
+        self.rect.set_on(False)
+        self.spanner = DraggableResizableRange(None)
+        self.spanner.set_on(False)
         self.axes = None
         
     @property
@@ -43,18 +43,19 @@ class CropTool(FigureTool):
             return 0
         return len(self.axes)
         
-    def is_on(self):
+    @property
+    def widget(self):
         if self.ndim == 1:
-            return self.spanner is not None
+            return self.spanner
         elif self.ndim > 1:
-            return self.widget.is_on()
-        return False
+            return self.rect
+        return None
+        
+    def is_on(self):
+        return self.widget is not None and self.widget.is_on()
         
     def in_ax(self, ax):
-        if self.ndim == 1:
-            return self.spanner is not None and ax == self.spanner.ax
-        else:
-            return ax == self.widget.ax
+        return ax == self.widget.ax
         
     def get_name(self):
         return "Crop tool"
@@ -76,13 +77,10 @@ class CropTool(FigureTool):
         if event.inaxes is None:
             return
         if self.is_on():
-            if self.ndim == 1:
-                if self.spanner.rect.contains(event)[0] == True:
-                    return
-            else:
-                if self.widget.patch.contains(event)[0] == True:
-                    return
-                for r in self.widget.resizers:
+            if self.widget.patch.contains(event)[0] == True:
+                return
+            if self.ndim > 1:
+                for r in self.widget._resizer_handles:
                     if r.contains(event)[0] == True:
                         return      # Leave the event to resizer pick
             self.cancel()   # Cancel previous and start new
@@ -102,10 +100,6 @@ class CropTool(FigureTool):
             nav_ax = None
         
         am = sw.signal.axes_manager
-        ndim = len(am.signal_axes) if sig_ax == event.inaxes else \
-                                                    len(am.navigation_axes)
-        if ndim > 1:
-            am = am.deepcopy()  # Widget should have copy to not navigate
             
         if sig_ax == event.inaxes:
             axes = am.signal_axes
@@ -118,17 +112,19 @@ class CropTool(FigureTool):
             self.widget.axes_manager = am
 
         x, y = event.xdata, event.ydata
+        self.widget.axes = axes
+        self.widget.set_mpl_ax(event.inaxes)  # connects
+        self.widget.set_on(True)
         if self.ndim == 1:
-            axes[0].value = x
-            self.spanner = ModifiableSpanSelector(event.inaxes)
-            self.spanner.press(event)
-        elif self.ndim > 1:
-            self.widget.xaxis, self.widget.yaxis = axes
-            axes[0].value = x
-            axes[1].value = y
-            self.widget.add_axes(event.inaxes)  # connects
-            self.widget.set_on(True)
-            self.widget.set_size(1)
+            self.widget.coordinates = (x,)
+            self.widget.size = 1
+            self.widget.span.buttonDown = True
+            self.widget.span.on_move_cid = \
+                self.widget.span.canvas.mpl_connect('motion_notify_event',
+                                        self.widget.span.move_right)
+        else:
+            self.widget.coordinates = (x,y)
+            self.widget.size = (1,1)
             self.widget.pick_on_frame = 3
             self.widget.picked = True
         
@@ -139,7 +135,7 @@ class CropTool(FigureTool):
             self.cancel(event)
             
     def crop(self, event):
-        if self.in_ax(event.inaxes):
+        if self.is_on() and self.in_ax(event.inaxes):
             f = event.inaxes.figure
             window = f.canvas.parent()
             sw = window.property('hyperspyUI.SignalWrapper')
@@ -148,22 +144,18 @@ class CropTool(FigureTool):
             s = sw.signal
             sw.keep_on_close = True
             if self.ndim == 1:
-                axis = self.axes[0]
-                idx = axis.value2index(np.array(self.spanner.range))
-                slices = slice(*idx)
-                new_offset = self.spanner.range[0]
-                idx = s.axes_manager._axes.index(axis)
-                s.data = s.data[ (slice(None),) * idx + (slices, Ellipsis)]
-                axis.offset = new_offset
-            elif self.ndim > 1:
-                new_offsets = [ax.value for ax in self.axes]
-                slices = self.widget.axes_manager._getitem_tuple_nav_sliced
-                s.data = s.data[slices]
-                for i, ax in enumerate(self.axes):
-                    idx = self.widget.axes_manager._axes.index(ax)
-                    s.axes_manager._axes[idx].offset = new_offsets[i]
-            s.get_dimensions_from_data()
-            s.squeeze()
+                roi = SpanROI(0,0)
+                roi._on_widget_change(self.widget)
+                idx = s.axes_manager._axes.index(self.axes[0])
+                s.crop(idx, start=roi.left, end=roi.right)
+            else:
+                roi = RectangularROI(0,0,1,1)
+                roi._on_widget_change(self.widget)
+                axes = self.axes
+                idx = s.axes_manager._axes.index(axes[1])
+                s.crop(idx, start=roi.left, end=roi.right)
+                idx = s.axes_manager._axes.index(axes[0])
+                s.crop(idx, start=roi.top, end=roi.bottom)
             sw.update_figures()
             sw.keep_on_close = False
             self.cancel()   # Turn off functionality as we are finished
@@ -172,10 +164,7 @@ class CropTool(FigureTool):
         if event is None or self.in_ax(event.inaxes):
             if self.widget.is_on():
                 self.widget.set_on(False)
-                self.widget.set_size(1) # Prevents flickering
-            if self.spanner is not None:
-                self.spanner.turn_off()
-                self.spanner = None
+                self.widget.size = 1     # Prevents flickering
             self.axes = None
             
     def disconnect(self, windows):
