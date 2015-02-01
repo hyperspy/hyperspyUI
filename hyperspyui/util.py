@@ -25,14 +25,16 @@ def win2fig(window):
     # Each figure has FigureCanvas as widget, canvas has figure property
     return window.widget().figure
     
-def win2sig(window, signals):
-    if window is None:
-        return None
-    for s in signals:
-        if window in (s.navigator_plot, s.signal_plot):
-            return s
-    # Returns None if no such property
-    return window.property('hyperspyUI.SignalWrapper')
+def win2sig(window, signals=None):
+    if window is not None:
+        if signals is None:
+            # Returns None if no such property
+            return window.property('hyperspyUI.SignalWrapper')
+        else:
+            for s in signals:
+                if window in (s.navigator_plot, s.signal_plot):
+                    return s
+    return None
     
 def dict_rlu(dictionary, value):
     """
