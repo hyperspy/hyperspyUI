@@ -31,28 +31,27 @@ class CropTool(FigureTool):
     
     def __init__(self, windows=None):
         super(CropTool, self).__init__(windows)
-        self.rect = ResizableDraggableRectangle(None)
-        self.rect.set_on(False)
-        self.spanner = DraggableResizableRange(None)
-        self.spanner.set_on(False)
+        self.widget2d = ResizableDraggableRectangle(None)
+        self.widget2d.set_on(False)
+        self.widget1d = DraggableResizableRange(None)
+        self.widget1d.set_on(False)
         self.axes = None
+    
+    @property
+    def widget(self):
+        if self.ndim == 1:
+            return self.widget1d
+        else:
+            return self.widget2d
         
     @property
     def ndim(self):
         if self.axes is None:
             return 0
         return len(self.axes)
-        
-    @property
-    def widget(self):
-        if self.ndim == 1:
-            return self.spanner
-        elif self.ndim > 1:
-            return self.rect
-        return None
-        
+
     def is_on(self):
-        return self.widget is not None and self.widget.is_on()
+        return self.widget.is_on()
         
     def in_ax(self, ax):
         return ax == self.widget.ax
@@ -79,7 +78,7 @@ class CropTool(FigureTool):
         if self.is_on():
             if self.widget.patch.contains(event)[0] == True:
                 return
-            if self.ndim > 1:
+            if self.ndim > 1 and self.widget.resizers:
                 for r in self.widget._resizer_handles:
                     if r.contains(event)[0] == True:
                         return      # Leave the event to resizer pick
@@ -100,7 +99,6 @@ class CropTool(FigureTool):
             nav_ax = None
         
         am = sw.signal.axes_manager
-            
         if sig_ax == event.inaxes:
             axes = am.signal_axes
         elif nav_ax == event.inaxes:
@@ -108,6 +106,7 @@ class CropTool(FigureTool):
         else:
             return
         self.axes = axes
+        self.widget.axes = axes
         if self.ndim > 1:
             self.widget.axes_manager = am
 
@@ -118,10 +117,10 @@ class CropTool(FigureTool):
         if self.ndim == 1:
             self.widget.coordinates = (x,)
             self.widget.size = 1
-            self.widget.span.buttonDown = True
-            self.widget.span.on_move_cid = \
-                self.widget.span.canvas.mpl_connect('motion_notify_event',
-                                        self.widget.span.move_right)
+            span = self.widget.span
+            span.buttonDown = True
+            span.on_move_cid = \
+                span.canvas.mpl_connect('motion_notify_event', span.move_right)
         else:
             self.widget.coordinates = (x,y)
             self.widget.size = (1,1)
@@ -142,29 +141,26 @@ class CropTool(FigureTool):
             if sw is None:
                 return
             s = sw.signal
-            sw.keep_on_close = True
             if self.ndim == 1:
-                roi = SpanROI(0,0)
-                roi._on_widget_change(self.widget)
-                idx = s.axes_manager._axes.index(self.axes[0])
-                s.crop(idx, start=roi.left, end=roi.right)
-            else:
+                roi = SpanROI(0,1)
+            elif self.ndim > 1:
                 roi = RectangularROI(0,0,1,1)
-                roi._on_widget_change(self.widget)
-                axes = self.axes
-                idx = s.axes_manager._axes.index(axes[1])
-                s.crop(idx, start=roi.left, end=roi.right)
-                idx = s.axes_manager._axes.index(axes[0])
-                s.crop(idx, start=roi.top, end=roi.bottom)
-            sw.update_figures()
-            sw.keep_on_close = False
+            roi._on_widget_change(self.widget)
+            natax = s.axes_manager._get_axes_in_natural_order()
+            slices = roi._make_slices(natax, self.axes)
+            s.data = s.data[slices]
+            new_offsets = self.widget.get_coordinates()
+            for i, ax in enumerate(self.axes):
+                s.axes_manager[ax.name].offset = new_offsets[i]
+            s.get_dimensions_from_data()
+            s.squeeze()
             self.cancel()   # Turn off functionality as we are finished
     
     def cancel(self, event=None):
         if event is None or self.in_ax(event.inaxes):
             if self.widget.is_on():
                 self.widget.set_on(False)
-                self.widget.size = 1     # Prevents flickering
+                self.widget.size = 1    # Prevents flickering
             self.axes = None
             
     def disconnect(self, windows):
