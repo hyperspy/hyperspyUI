@@ -200,6 +200,8 @@ class SignalWrapper(Actionable):
         
     def nav_closing(self):
         if self.navigator_plot:
+            p = self.navigator_plot.pos()
+            self.navigator_plot.move(p.x()+8, p.y()+30)
             self._nav_geom = self.navigator_plot.saveGeometry()
             self.navigator_plot = None
         if self.signal_plot is None:
