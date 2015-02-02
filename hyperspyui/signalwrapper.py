@@ -72,7 +72,12 @@ class SignalWrapper(Actionable):
                 self.replot()
         
     def replot(self):
-        self.plot(*self._replotargs[0], **self._replotargs[1])
+        old = self.mainwindow.updatesEnabled()
+        self.mainwindow.setUpdatesEnabled(False)
+        try:
+            self.plot(*self._replotargs[0], **self._replotargs[1])
+        finally:
+            self.mainwindow.setUpdatesEnabled(old)
         
     def update(self):
         if self.navigator_plot is not None:
