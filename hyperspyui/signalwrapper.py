@@ -104,6 +104,7 @@ class SignalWrapper(Actionable):
             if old_nav is not self.navigator_plot:
                 # Process the plot
                 navi.axes[0].set_title("")  # remove title
+                navi.tight_layout()
                 # Wire closing event
                 self.navigator_plot.closing.connect(self.nav_closing)
                 # Set a reference on window to self
@@ -129,6 +130,7 @@ class SignalWrapper(Actionable):
             self.signal_plot = fig2win(sigp, self.mainwindow.figures)
             if old_sig is not self.signal_plot:
                 sigp.axes[0].set_title("")
+                sigp.tight_layout()
                 self.signal_plot.closing.connect(self.sig_closing)
                 self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
                 self.add_figure(self.signal_plot)
