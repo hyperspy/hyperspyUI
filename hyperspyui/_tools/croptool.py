@@ -146,10 +146,10 @@ class CropTool(FigureTool):
             elif self.ndim > 1:
                 roi = RectangularROI(0,0,1,1)
             roi._on_widget_change(self.widget)
-            natax = s.axes_manager._get_axes_in_natural_order()
-            slices = roi._make_slices(natax, self.axes)
-            s.data = s.data[slices]
+            axes = s.axes_manager._axes
+            slices = roi._make_slices(axes, self.axes)
             new_offsets = self.widget.coordinates
+            s.data = s.data[slices]
             for i, ax in enumerate(self.axes):
                 s.axes_manager[ax.name].offset = new_offsets[i]
             s.get_dimensions_from_data()
