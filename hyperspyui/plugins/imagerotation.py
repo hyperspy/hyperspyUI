@@ -27,7 +27,7 @@ class ImageRotation_Plugin(plugin.Plugin):
                         selection_callback=self.selection_rules)
     
     def create_menu(self):
-        self.ui.signalmenu.addAction(self.ui.actions['rotate'])
+        self.ui.add_menuitem('Signal', self.ui.actions['rotate'])
     
     def create_toolbars(self):
         self.ui.add_toolbar_button("Signal", self.ui.actions['rotate'])
