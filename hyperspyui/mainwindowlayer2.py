@@ -130,7 +130,7 @@ class MainWindowLayer2(MainWindowLayer1):
     def make_model(self, signal=None, *args, **kwargs):
         """
         Same as add_model(), but returns the hyperspy.Model instead of the 
-        wrapper.
+        wrapper. Useful as replacement for hyperspy code in console.
         """
         mw = self.add_model(signal, *args, **kwargs)
         return mw.model

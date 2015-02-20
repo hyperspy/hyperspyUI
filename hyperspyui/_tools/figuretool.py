@@ -53,6 +53,9 @@ class FigureTool(Tool):
                     invtrans.transform((0, 0)))
                     
     def _wire(self, canvas, local_key, mpl_key):
+        """Connect an MPL event to an instance method, if the method is defined
+        on the current instance. The local method is defined by 'local_key'.
+        """
         if hasattr(self, local_key):
             if local_key not in self.cids:
                 self.cids[local_key] = {}
@@ -68,6 +71,9 @@ class FigureTool(Tool):
         return windows
     
     def connect(self, windows):
+        """Connects the tool to the windows that are passed. This means that it
+        connects to the appropriate MPL events of each window.
+        """
         windows = self._iter_windows(windows)
         for w in windows:
             canvas = w.widget()

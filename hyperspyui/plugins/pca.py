@@ -19,7 +19,6 @@ from hyperspy.drawing.spectrum import SpectrumLine
 
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded
-from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 def tr(text):
     return QCoreApplication.translate("PCA", text)
