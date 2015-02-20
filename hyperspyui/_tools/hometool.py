@@ -43,4 +43,4 @@ class HomeTool(FigureTool):
         
     def on_keyup(self, event):
         if event.key == '5':
-            self.home(event.inaxes)
+            self.home()
