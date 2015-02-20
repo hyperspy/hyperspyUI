@@ -75,7 +75,7 @@ class RebinPlugin(plugin.Plugin):
                         tip=tr("Rebin the signal"))
     
     def create_menu(self):
-        self.ui.signalmenu.addAction(self.ui.actions['rebin'])
+        self.ui.add_menuitem('Signal', self.ui.actions['rebin'])
     
     def rebin_dialog(self, signal=None):
         if signal is None:

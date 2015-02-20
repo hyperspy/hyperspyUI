@@ -306,9 +306,26 @@ class MainWindowLayer1(QMainWindow):
         tb.addAction(action)
         
     
-    def add_menuitem(self):
-        #TODO: Implement, and figure out parameters
-        pass
+    def add_menuitem(self, category, action, label=None):
+        """
+        Add the supplied 'action' as a menu entry. If the menu defined
+        by 'cateogry' does not exist, it will be created in 
+        self.menus[category].
+        
+        If the category_label argument is not supplied, category will be used.
+        """
+        if self.menus.has_key(category):
+            m = self.menus[category]
+        else:
+            if label is None:
+                label = category
+            m = self.menuBar().addMenu(label)
+            self.menus[category] = m
+        
+        if not isinstance(action, QAction):
+            action = self.actions[action]
+        m.addAction(action)
+        
     
     def add_widget(self, widget, floating=None):
         """
