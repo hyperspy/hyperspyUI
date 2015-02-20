@@ -19,7 +19,6 @@ from hyperspy.drawing.spectrum import SpectrumLine
 
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded
-from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 def tr(text):
     return QCoreApplication.translate("PCA", text)
@@ -54,8 +53,8 @@ class PCA_Plugin(plugin.Plugin):
                            selection_callback=self.selection_rules)
     
     def create_menu(self):
-        self.ui.signalmenu.addAction(self.ui.actions['pca'])
-        self.ui.signalmenu.addAction(self.ui.actions['pca_explore_components'])
+        self.ui.add_menuitem('Signal', self.ui.actions['pca'])
+        self.ui.add_menuitem('Signal', self.ui.actions['pca_explore_components'])
     
     def create_toolbars(self):
         self.ui.add_toolbar_button("Signal", self.ui.actions['pca'])

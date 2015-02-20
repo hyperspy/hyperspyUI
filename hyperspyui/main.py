@@ -27,7 +27,7 @@ def main():
     splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
     splash.show()
-    app.processEvents()    
+    app.processEvents()
 
     from mainwindow import MainWindow
     
