@@ -136,6 +136,11 @@ class PCA_Plugin(plugin.Plugin):
             res_size = ns.s.data.nbytes * 2*n_component
             free_mem = psutil.phymem_usage()[2]
             mmap = res_size > free_mem
+        if mmap:
+            single_step = ns.s.data.nbytes * 2
+            free_mem = psutil.phymem_usage()[2]
+            mmap_step = max(1, int(0.5*free_mem / single_step))
+            print "mmap_step", mmap_step
             
         def make_compound(s_scree, s_residual):
             """ Called to make UI components after completing calculations """
@@ -149,6 +154,7 @@ class PCA_Plugin(plugin.Plugin):
                 bk_s_navigate = \
                         s.axes_manager._get_axis_attribute_values('navigate')
                 s.axes_manager.set_signal_dimension(1)
+            
             
             s_factors = s.get_decomposition_factors()
             if s_factors.axes_manager.navigation_dimension < 1:
@@ -171,20 +177,19 @@ class PCA_Plugin(plugin.Plugin):
             s_loadings.axes_manager._axes[0] = ax
                     
             
-            
             # Make navigator signal
             if s.axes_manager.navigation_dimension == 0:
-                s_nav = s.get_explained_variance_ratio()
-                s_nav.axes_manager[0].name = "Explained variance ratio"
-                if n_component < s_nav.axes_manager[-1].size:
-                    s_nav = s_nav.isig[1:n_component]
+                nav = s.get_explained_variance_ratio()
+                nav.axes_manager[0].name = "Explained variance ratio"
+                if n_component < nav.axes_manager[-1].size:
+                    nav = nav.isig[1:n_component]
                 else:
-                    s_nav = s_nav.isig[1:]
+                    nav = nav.isig[1:]
             else:
-                s_nav = "auto"
+                nav = s_loadings
             
             # Plot signals with common navigator
-            sw_scree.plot(navigator=s_nav)
+            sw_scree.plot(navigator=nav)
             if s.axes_manager.navigation_dimension == 0:
                 nax = s_scree._plot.navigator_plot.ax
                 nax.set_ylabel("Explained variance ratio")
@@ -206,18 +211,9 @@ class PCA_Plugin(plugin.Plugin):
                 slb.set_line_properties(color="green", type='step')
                 slb.axes_manager = s_factors.axes_manager
                 slb.autoscale = True
-                oldup = slb.update
-                def newup(force_replot=False):
-                    oldup(force_replot)
-#                    align_yaxis(p.ax, 0, p.right_ax, 0)
-                    p.right_ax.hspy_fig._draw_animated()
-                slb.update = newup
                 p.add_line(slb, ax='right')
                 p.plot()
                 slb.plot()
-#                align_yaxis(p.ax, 0, p.right_ax, 0)
-                sw_residual = None
-                sw_factors = None
             else:
                 sw_residual = self.ui.add_signal_figure(s_residual, name = signal.name + 
                                                "[Residual]", plot=False)
@@ -226,33 +222,66 @@ class PCA_Plugin(plugin.Plugin):
                                                plot=False)
                 sw_residual.plot(navigator=None)
                 sw_factors.plot(navigator=None)
-                
             #TODO: Plot scree nav + loadings on same plot if navdim=1
-                
-            sw_loadings = self.ui.add_signal_figure(s_loadings, 
-                                            name = signal.name + "[Loading]", 
-                                            plot=False)
-            sw_loadings.plot(navigator=None)
-            return sw_scree, sw_residual, sw_factors, sw_loadings
         
         def threaded_gen():
             ns.s = self._do_decomposition(ns.s)
             stack_shape = (n_component-1,) + ns.s.data.shape
             if mmap:
-                tempf = tempfile.NamedTemporaryFile()
-                ns.screedata = np.memmap(tempf,
+                scree_f = tempfile.NamedTemporaryFile()
+                screedata = np.memmap(scree_f,
                                          dtype=ns.s.data.dtype,
                                          mode='w+',
                                          shape=stack_shape,)
+                res_f = tempfile.NamedTemporaryFile()
+                res_data = np.memmap(res_f,
+                                     dtype=ns.s.data.dtype,
+                                     mode='w+',
+                                     shape=stack_shape,)
             else:
-                ns.screedata = np.zeros(stack_shape,
+                screedata = np.zeros(stack_shape,
                                     dtype=ns.s.data.dtype)
-            for n in xrange(1, n_component):
-                m = ns.s.get_decomposition_model(n)
-                ns.screedata[n-1,...] = m.data
-                del m.data
-                del m
-                yield n
+            old_auto_replot = ns.s.auto_replot
+            ns.s.auto_replot = False
+            final_shape = ns.s.data.shape
+            ns.s._unfolded4decomposition = ns.s.unfold_if_multidim()
+            try:
+                target = ns.s.learning_results
+                factors = target.factors
+                loadings = target.loadings.T
+                if target.mean is None:
+                    data = np.zeros_like(ns.s.data)
+                else:
+                    data = np.copy(target.mean) 
+                for n in xrange(1, n_component):
+                    a = np.dot(factors[:, n-1:n],
+                           loadings[n-1:n, :])
+                    data += a.T
+                    screedata[n-1,...] = data.reshape(final_shape)
+                    if mmap:
+                        res_data[n-1,...] = ns.s.data[n-1,...] - \
+                                            screedata[n-1,...]
+                        if n % mmap_step == 0 or n == n_component:
+                            # Flushes mmap to disk and frees mem
+                            print "Flushing"
+                            del screedata
+                            screedata = np.memmap(scree_f,
+                                                  dtype=ns.s.data.dtype,
+                                                  mode='r+',
+                                                  shape=stack_shape,)
+                            del res_data
+                            res_data = np.memmap(res_f,
+                                                 dtype=ns.s.data.dtype,
+                                                 mode='r+',
+                                                 shape=stack_shape,)
+                    yield n
+            finally:
+                if ns.s._unfolded4decomposition is True:
+                    ns.s.fold()
+                ns.s.auto_replot = old_auto_replot
+            ns.screedata = screedata
+            if mmap:
+                ns.resdata = res_data
             
         def on_threaded_complete():
             axes = []
@@ -265,19 +294,26 @@ class PCA_Plugin(plugin.Plugin):
             axes.append(new_axis)
             axes.extend(s.axes_manager._get_axes_dicts())
 
-
             s_scree = s.__class__(
                 ns.screedata,
                 axes=axes,
                 metadata=s.metadata.as_dictionary(),)
             ns.screedata = None
-            s_residual = s_scree.deepcopy()
-            s_residual.data -= s.data
+            if mmap:
+                s_residual = s_scree._deepcopy_with_new_data(ns.resdata)
+                ns.resdata = None
+            else:
+                s_residual = s_scree.deepcopy()
+                s_residual.data -= s.data
+                s_residual.data[...] = -s_residual.data[...]
                     
             make_compound(s_scree, s_residual)
         
+        label = 'Performing PCA'
+        if mmap:
+            label += '\n[Using memory map for data]'
         t = ProgressThreaded(self.ui, threaded_gen(), on_threaded_complete, 
-                             label='Performing PCA',
+                             label=label,
                              cancellable=True,
                              generator_N=n_component-1)
         t.run()
