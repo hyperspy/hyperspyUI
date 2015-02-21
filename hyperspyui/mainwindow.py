@@ -16,6 +16,7 @@ from signallist import SignalList
 from threaded import Threaded
 from widgets.contrastwidget import ContrastWidget
 from widgets.elementpicker import ElementPickerWidget
+from widgets.recorderwidget import RecorderWidget
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -234,6 +235,10 @@ class MainWindow(MainWindowLayer5):
         cbw = ContrastWidget(self)
         self.main_frame.subWindowActivated.connect(cbw.on_figure_change)
         self.add_widget(cbw)
+        
+        self.add_widget( RecorderWidget(self) )
+        
+        
         
         
     # ---------------------------------------
