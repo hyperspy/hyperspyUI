@@ -5,7 +5,7 @@ Created on Sat Feb 21 12:03:33 2015
 @author: Vidar Tonaas Fauske
 """
 
-import plugin_creator
+from plugin_creator import create_plugin_code
 
 class Recorder(object):
     def __init__(self):
@@ -33,5 +33,4 @@ class Recorder(object):
         code += r"siglist = ui.signals"
         code += self.to_code()
         
-        fn = plugin_creator.create_plugin(code, name, category, menu, toolbar)
-        return fn
+        return create_plugin_code(code, name, category, menu, toolbar)
