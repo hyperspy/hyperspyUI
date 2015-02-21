@@ -92,6 +92,13 @@ fetches a previously specified setting, or prompts the user for it. The prompt
 will then have a "Remember this choice" checkbox, which if checked will store
 the users selection in the specified setting key.
 
+When the plugin is loaded, its create functions are called in the following 
+order:
+    create_actions()
+    create_menu()
+    create_toolbars()
+    create_widgets()
+
 
 -------------------------------
 API
