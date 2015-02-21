@@ -44,8 +44,15 @@ default = """
 def indent(lines, amount, ch=' '):
     padding = amount * ch
     return padding + ('\n'+padding).join(lines.split('\n'))
+    
+def suggest_plugin_filename(name):
+    filename = name.lower() + '.py'
+    dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
+    path = dirname + os.path.sep + filename
+    return path
+    
 
-def create_plugin(code, name, category=None, menu=False, toolbar=False):
+def create_plugin_code(code, name, category=None, menu=False, toolbar=False):
     """Create a plugin with an action that will execute 'code' when triggered.
     If 'menu' and/or 'toolbar' is True, the corresponding items will be added
     for the action.
@@ -54,19 +61,32 @@ def create_plugin(code, name, category=None, menu=False, toolbar=False):
     if category is None:
         category = name
     
-    filename = name.lower() + '.py'
-    dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
-    path = dirname + os.path.sep + filename
+    plugin_code = header.format(name)
+    if menu:
+        plugin_code += menu_def.format(category, name)
+    if toolbar:
+        plugin_code += toolbar_def.format(category, name)
+        
+    # Indent code by two levels
+    code = indent(code, 2*4)
+    plugin_code += default.format(code)
+    return plugin_code
+
+def create_plugin_file(code, name, category=None, menu=False, toolbar=False,
+                       filename=None):
+    """Create a plugin with an action that will execute 'code' when triggered.
+    If 'menu' and/or 'toolbar' is True, the corresponding items will be added
+    for the action.
+    """
+    if filename is None:
+        path = suggest_plugin_filename(name)
+    elif os.path.isabs(filename):
+        path = filename
+    else:
+        dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
+        path = dirname + os.path.sep + filename
     
     with open(path, 'w') as f:
-        f.write(header.format(name))
-        if menu:
-            f.write(menu_def.format(category, name))
-        if toolbar:
-            f.write(toolbar_def.format(category, name))
-            
-        # Indent code by two levels
-        code = indent(code, 2*4)
-        f.write(default.format(code))
-    return filename
+        f.write(create_plugin_code(code, name, category, menu, toolbar))
+    return path
     
