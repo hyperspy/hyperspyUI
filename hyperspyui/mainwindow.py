@@ -9,7 +9,7 @@ from collections import OrderedDict
 from functools import partial
 import argparse, os, pickle
     
-from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
+from mainwindowlayer5 import MainWindowLayer5   # Should go before any MPL imports
 
 from util import create_add_component_actions, win2sig, dict_rlu
 from signallist import SignalList
@@ -40,7 +40,7 @@ class SignalTypeFilter(object):
         valid = sig is None or isinstance(sig.signal, self.signal_type)
         action.setEnabled( valid )
 
-class MainWindow(MainWindowLayer2):
+class MainWindow(MainWindowLayer5):
     """
     Main window of the application. Top layer in application stack. Is 
     responsible for adding default actions, and filling the menus and toolbars.
