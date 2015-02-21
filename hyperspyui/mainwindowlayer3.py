@@ -11,6 +11,8 @@ from mainwindowlayer2 import MainWindowLayer2, tr
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
+
+import os
   
 
 class MainWindowLayer3(MainWindowLayer2):
