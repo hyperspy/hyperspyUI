@@ -68,6 +68,10 @@ class MainWindowLayer1(QMainWindow):
         
         # Connect figure management functions
         self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
+    
+    @property
+    def plugins(self):
+        return self.plugin_manager.plugins
         
     def handleSecondInstance(self, argv):
         # overload if needed

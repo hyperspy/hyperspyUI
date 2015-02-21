@@ -23,10 +23,11 @@ class MainWindowLayer4(MainWindowLayer3):
 
     def add_action(self, key, label, callback, tip=None, icon=None, 
                    shortcut=None, userdata=None, selection_callback=None):
-        super(MainWindowLayer4, self).add_action(key, label, callback, 
+        ac = super(MainWindowLayer4, self).add_action(key, label, callback, 
                                                  tip, icon, shortcut, userdata,
                                                  selection_callback)
         self.monitor_action(key)
+        return ac
 
     def monitor_action(self, key):
         self.actions[key].triggered.connect(lambda: self.record_action(key))
@@ -34,8 +35,11 @@ class MainWindowLayer4(MainWindowLayer3):
     def record_action(self, key):
         for r in self.recorders:
             r.add_action(key)
+    
+    def record_code(self, code):
+        for r in self.recorders:
+            r.add_code(code)
 
     def on_console_executing(self, source):
         super(MainWindowLayer4, self).on_console_executing(source)
-        for r in self.recorders:
-            r.add_code(source)
+        self.record_code(source)

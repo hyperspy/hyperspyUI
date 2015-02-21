@@ -14,7 +14,7 @@ class PluginManager(object):
         """
         Initializates the manager, and performs discovery of plugins
         """
-        self.plugins = []
+        self.plugins = {}
         self.main_window = main_window
         
         self.discover()
@@ -45,31 +45,31 @@ class PluginManager(object):
 
 
     def init_plugins(self):
-        self.plugins = []
+        self.plugins = {}
         for plug_type in self.implementors:
             p = plug_type(self.main_window)
-            self.plugins.append(p)
+            self.plugins[p.name] = p
             
     def create_actions(self):
-        for p in self.plugins:
+        for p in self.plugins.itervalues():
             p.create_actions()
             
     def create_menu(self):
-        for p in self.plugins:
+        for p in self.plugins.itervalues():
             p.create_menu()
     
     def create_toolbars(self):
-        for p in self.plugins:
+        for p in self.plugins.itervalues():
             p.create_toolbars()
             
     def create_widgets(self):
-        for p in self.plugins:
+        for p in self.plugins.itervalues():
             p.create_widgets()
 
     def load(self, plugin_type):
         # Init
         p = plugin_type(self.main_window)
-        self.plugins.append(p)
+        self.plugins[p.name] = p
         
         # Order of execution is significant!
         p.create_actions()
@@ -89,7 +89,7 @@ class PluginManager(object):
         new_ps = []
         for plug_type in loaded:
             p = plug_type(self.main_window)
-            self.plugins.append(p)
+            self.plugins[p.name] = p
             new_ps.append(p)
         for p in new_ps:
             p.create_actions()
@@ -103,7 +103,7 @@ class PluginManager(object):
         
     def unload(self, plugin):
         plugin.unload()
-        self.plugins.remove(plugin)
+        self.plugins.pop(plugin.name)
         
     def reload(self, plugin):
         new_module = reload(sys.modules[plugin.__module__])

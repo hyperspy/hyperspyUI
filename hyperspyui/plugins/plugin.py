@@ -40,6 +40,10 @@ class Plugin(object):
     def add_widget(self, widget, *args, **kwargs):
         dock = self.ui.add_widget(widget, *args, **kwargs)
         self.widgets.add(dock)
+    
+    def record_code(self, code):
+        code = code.replace('<p>', "ui.plugin['{0}']".format(self.name))
+        self.ui.record_code(code)
         
     def create_actions(self):
         pass

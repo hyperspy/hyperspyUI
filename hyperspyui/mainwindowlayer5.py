@@ -43,7 +43,7 @@ def get_accepted_extensions():
 
 class MainWindowLayer5(MainWindowLayer4):
     """
-    Second layer in the application stack. Should integrate hyperspy basics,
+    Fifth layer in the application stack. Should integrate hyperspy basics,
     such as UI wrappings for hyperspy classes (Signal and Model), file I/O,
     etc.
     """
@@ -213,6 +213,12 @@ class MainWindowLayer5(MainWindowLayer4):
             self.set_status("Loaded \"" + files_loaded[0] + "\"")
         elif len(files_loaded) > 1:
             self.set_status("Loaded %d files" % len(files_loaded))
+        for r in self.recorders:
+            # Remove "open" action if that was the previous one.
+            if len(r.steps) > 0 and r.steps[-1] == ('action', 'open'):
+                r.steps.remove(r.steps[-1])
+            r.add_code('ui.load({0})'.format(files_loaded))
+                
         return len(files_loaded) > 1
     
     def save(self, signals=None, filenames=None):

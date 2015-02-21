@@ -9,7 +9,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-import recorder
+from hyperspyui.recorder import Recorder
 
 class RecorderWidget(QDockWidget):
     def __init__(self, main_window, parent=None):
@@ -20,13 +20,14 @@ class RecorderWidget(QDockWidget):
     
     def start_recording(self):
         self.btn_start.setEnabled(False)
-        self.btn_sttop.setEnabled(True)
-        self.recorder = recorder.Recorder()
-        self.ui.recorders.append(self.recorder)
+        self.btn_stop.setEnabled(True)
+        r = Recorder()
+        self.recorder = r
+        self.ui.recorders.append(r)
     
     def stop_recording(self):
         self.btn_start.setEnabled(True)
-        self.btn_sttop.setEnabled(False)
+        self.btn_stop.setEnabled(False)
         self.ui.recorders.remove(self.recorder)
         self.recorder = None
 
