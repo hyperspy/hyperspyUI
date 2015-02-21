@@ -10,6 +10,7 @@ from QtCore import *
 from QtGui import *
 
 from hyperspyui.recorder import Recorder
+from editorwidget import EditorWidget
 
 class RecorderWidget(QDockWidget):
     def __init__(self, main_window, parent=None):
@@ -24,12 +25,21 @@ class RecorderWidget(QDockWidget):
         r = Recorder()
         self.recorder = r
         self.ui.recorders.append(r)
+        e = EditorWidget(self.ui, self.ui)
+        self.editor = e
+        self.ui.editors.append(e)
+        r.record.connect(e.append_code)
+        self.editor.finished.connect(lambda: self.ui.editors.remove(e))
+        self.editor.finished.connect(lambda: r.record.disconnect(e.append_code))
+        e.show()
     
     def stop_recording(self):
         self.btn_start.setEnabled(True)
         self.btn_stop.setEnabled(False)
         self.ui.recorders.remove(self.recorder)
+        self.recorder.record.disconnect(self.editor.append_code)
         self.recorder = None
+        self.editor = None
 
     def create_controls(self):
         self.btn_start = QPushButton("Start") # TODO: tr

@@ -51,6 +51,7 @@ class MainWindowLayer1(QMainWindow):
         # Collections
         self.widgets = []   # Widgets in widget bar
         self.figures = []   # Matplotlib figures
+        self.editors = []   # EditorWidgets
         self.traits_dialogs = []
         self.actions = {}
         self._action_selection_cbs = {}
