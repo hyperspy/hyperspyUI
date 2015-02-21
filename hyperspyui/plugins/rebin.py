@@ -70,12 +70,12 @@ class RebinDialog(ExToolWindow):
 
 class RebinPlugin(plugin.Plugin):
     def create_actions(self):
-        self.ui.add_action('rebin', tr("Rebin"), self.rebin_dialog,
+        self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
 #                        icon='rebin.svg',
                         tip=tr("Rebin the signal"))
     
     def create_menu(self):
-        self.ui.add_menuitem('Signal', self.ui.actions['rebin'])
+        self.add_menuitem('Signal', self.ui.actions['rebin'])
     
     def rebin_dialog(self, signal=None):
         if signal is None:

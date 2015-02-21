@@ -44,20 +44,20 @@ class PCA_Plugin(plugin.Plugin):
     
     # ----------- Plugin interface -----------
     def create_actions(self):
-        self.ui.add_action('pca', "PCA", self.pca,
+        self.add_action('pca', "PCA", self.pca,
                         icon='pca.svg',
                         tip="Run Principal Component Analysis",
                         selection_callback=self.selection_rules)
-        self.ui.add_action('pca_explore_components', "Explore PCA components",
+        self.add_action('pca_explore_components', "Explore PCA components",
                            self.explore_components,
                            selection_callback=self.selection_rules)
     
     def create_menu(self):
-        self.ui.add_menuitem('Signal', self.ui.actions['pca'])
-        self.ui.add_menuitem('Signal', self.ui.actions['pca_explore_components'])
+        self.add_menuitem('Signal', self.ui.actions['pca'])
+        self.add_menuitem('Signal', self.ui.actions['pca_explore_components'])
     
     def create_toolbars(self):
-        self.ui.add_toolbar_button("Signal", self.ui.actions['pca'])
+        self.add_toolbar_button("Signal", self.ui.actions['pca'])
                   
     def selection_rules(self, win, action):
         """

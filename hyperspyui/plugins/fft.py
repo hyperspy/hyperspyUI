@@ -20,38 +20,38 @@ class FFT_Plugin(plugin.Plugin):
     name = 'FFT'
     
     def create_actions(self):
-        self.ui.add_action('fft', "FFT", self.fft,
+        self.add_action('fft', "FFT", self.fft,
                         icon='fft.svg',
                         tip="Perform a fast fourier transform on the " + 
                         "active part of the signal")
         
-        self.ui.add_action('live_fft', "Live FFT", self.live_fft,
+        self.add_action('live_fft', "Live FFT", self.live_fft,
                         icon='live_fft.svg',
                         tip="Perform a fast fourier transform on the " + 
                         "active part of the signal, and link it to the " +
                         "navigator")
                         
-        self.ui.add_action('nfft', "Signal FFT", self.nfft,
+        self.add_action('nfft', "Signal FFT", self.nfft,
                         icon='nfft.svg',
                         tip="Perform a fast fourier transform on the " + \
                             "entire signal")
                         
-        self.ui.add_action('ifft', "Inverse FFT", self.ifft,
+        self.add_action('ifft', "Inverse FFT", self.ifft,
                         icon='ifft.svg',
                         tip="Perform an inverse fast fourier transform on " + \
                             "the active part of the signal")
                         
-        self.ui.add_action('infft', "Inverse Signal FFT", self.infft,
+        self.add_action('infft', "Inverse Signal FFT", self.infft,
                         icon='infft.svg',
                         tip="Perform an inverse fast fourier transform on" + \
                         " the entire signal")
     
     def create_toolbars(self):
-        self.ui.add_toolbar_button("Math", self.ui.actions['fft'])
-        self.ui.add_toolbar_button("Math", self.ui.actions['live_fft'])
-        self.ui.add_toolbar_button("Math", self.ui.actions['nfft'])
-        self.ui.add_toolbar_button("Math", self.ui.actions['ifft'])
-        self.ui.add_toolbar_button("Math", self.ui.actions['infft'])
+        self.add_toolbar_button("Math", self.ui.actions['fft'])
+        self.add_toolbar_button("Math", self.ui.actions['live_fft'])
+        self.add_toolbar_button("Math", self.ui.actions['nfft'])
+        self.add_toolbar_button("Math", self.ui.actions['ifft'])
+        self.add_toolbar_button("Math", self.ui.actions['infft'])
         
     def fft(self, signals=None, inverse=False, on_complete=None):
         if signals is None:
