@@ -80,13 +80,17 @@ class PluginManager(object):
     def load_from_file(self, path):
         master = Plugin
         prev = self._inheritors(master)
-        name = 'hyperspyui.plugins.' + \
-                os.path.splitext(os.path.basename(path))[0]
-        imp.load_source(name, path)
+        name = os.path.splitext(os.path.basename(path))[0]
+        mod_name = 'hyperspyui.plugins.' + name
+        reload_plugins = mod_name in sys.modules
+        imp.load_source(mod_name, path)
         loaded = self._inheritors(master).difference(prev)
         
         new_ps = []
         for plug_type in loaded:
+            if reload_plugins and plug_type.name in self.plugins:
+                 # Unload any plugins with same name
+                self.unload(self.plugins[plug_type.name])
             p = plug_type(self.main_window)
             self.plugins[p.name] = p
             new_ps.append(p)
