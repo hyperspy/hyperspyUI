@@ -6,7 +6,7 @@ Created on Fri Dec 12 23:44:01 2014
 """
 
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 
 import psutil, gc
 import numpy as np
@@ -36,7 +36,7 @@ def align_yaxis(ax1, v1, ax2, v2):
     miny2, maxy2 = ax2.get_ylim()
     ax2.set_ylim((miny2+dy)/ratio, (maxy2+dy)/ratio)
 
-class PCA_Plugin(plugin.Plugin):
+class PCA_Plugin(Plugin):
     """
     Implements PCA decomposition utilities.
     """

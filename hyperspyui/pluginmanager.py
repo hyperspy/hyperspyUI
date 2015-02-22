@@ -5,6 +5,8 @@ Created on Sat Dec 13 00:41:15 2014
 @author: Vidar Tonaas Fauske
 """
 
+from hyperspyui.plugins.plugin import Plugin
+
 class PluginManager(object):
     def __init__(self, main_window):
         """
@@ -17,11 +19,12 @@ class PluginManager(object):
         self.discover()
         
     def discover(self):
-        import plugins.plugin
+        """Auto-discover all plugins defined in plugin directory.
+        """
         import plugins
         for plug in plugins.__all__:
             __import__('plugins.' + plug, globals())
-        master = plugins.plugin.Plugin
+        master = Plugin
         self.implementors = self._inheritors(master)
             
     def _inheritors(self, klass):
