@@ -14,7 +14,7 @@ from pyqode.core import modes
 from pyqode.core.widgets import TabWidget
 
 from extendedqwidgets import ExToolWindow
-import hyperspyui.plugin_creator as pc
+import hyperspyui.plugincreator as pc
 
 class NameCategoryPrompt(QWidget):
     def __init__(self, parent=None):

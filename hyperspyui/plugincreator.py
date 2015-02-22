@@ -13,27 +13,34 @@ Utility to make it easier to create plugins directly through the UI.
 import os
 import hyperspyui.plugins.plugin
 
-header = """
-import plugin
+header = """from hyperspyui.plugins.plugin import Plugin
 import numpy as np
 from hyperspy.hspy import *
 
-class {0}(plugin.Plugin):
+class {0}(Plugin):
     name = "{0}"
     
-    def create_actions(self):
+    def create_actions(self):"""
+
+action_noicon = """
         self.add_action('{0}.default', "{0}", self.default,
+                        tip="")
+"""
+
+action_icon = """
+        self.add_action('{0}.default', "{0}", self.default,
+                        icon="{1}",
                         tip="")
 """
 
 menu_def = """
     def create_menu(self):
-        self.add_menuitem({0}, self.ui.actions[{1}.default])
+        self.add_menuitem('{0}', self.ui.actions['{1}.default'])
 """
 
 toolbar_def = """
     def create_toolbars(self):
-        self.add_toolbar_button({0}, self.ui.actions[{1}.default])
+        self.add_toolbar_button('{0}', self.ui.actions['{1}.default'])
 """
 
 default = """
@@ -52,7 +59,8 @@ def suggest_plugin_filename(name):
     return path
     
 
-def create_plugin_code(code, name, category=None, menu=False, toolbar=False):
+def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
+                       icon=None):
     """Create a plugin with an action that will execute 'code' when triggered.
     If 'menu' and/or 'toolbar' is True, the corresponding items will be added
     for the action.
@@ -62,6 +70,10 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False):
         category = name
     
     plugin_code = header.format(name)
+    if icon is None:
+        plugin_code += action_noicon.format(name)
+    else:
+        plugin_code += action_icon.format(name, icon)
     if menu:
         plugin_code += menu_def.format(category, name)
     if toolbar:
