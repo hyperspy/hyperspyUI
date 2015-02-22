@@ -42,7 +42,7 @@ class Plugin(object):
         self.widgets.add(dock)
     
     def record_code(self, code):
-        code = code.replace('<p>', "ui.plugin['{0}']".format(self.name))
+        code = code.replace('<p>', "ui.plugins['{0}']".format(self.name))
         self.ui.record_code(code)
         
     def create_actions(self):
