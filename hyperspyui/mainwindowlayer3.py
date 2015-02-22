@@ -101,7 +101,11 @@ class MainWindowLayer3(MainWindowLayer2):
         else:
             if label is None:
                 label = category
-            m = self.menuBar().addMenu(label)
+            if self.windowmenu is None:
+                m = self.menuBar().addMenu(label)
+            else:
+                m = QMenu(label)
+                self.menuBar().insertMenu(self.windowmenu.menuAction(), m)
             self.menus[category] = m
         
         if not isinstance(action, QAction):

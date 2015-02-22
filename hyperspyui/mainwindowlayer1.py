@@ -36,6 +36,7 @@ class MainWindowLayer1(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindowLayer1, self).__init__(parent)
         
+        
         # Properties
         self.toolbar_button_unit = 32   #TODO: Make a property
         self.default_widget_floating = False
@@ -64,6 +65,7 @@ class MainWindowLayer1(QMainWindow):
         mdi_mpl_backend.connect_on_destroy(self.on_destroy_figure)
         
         # Create UI
+        self.windowmenu = None
         self.create_ui()
         
         # Connect figure management functions
