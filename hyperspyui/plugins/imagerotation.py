@@ -10,14 +10,14 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 from scipy.ndimage import rotate
 from hyperspyui.util import win2sig
 from hyperspyui.signalwrapper import SignalWrapper
 
 
-class ImageRotation_Plugin(plugin.Plugin):
+class ImageRotation_Plugin(Plugin):
     name = 'Image Rotation'
     
     def create_actions(self):
