@@ -5,7 +5,7 @@ Created on Wed Jan 07 23:37:51 2015
 @author: Vidar Tonaas Fauske
 """
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -68,14 +68,14 @@ class RebinDialog(ExToolWindow):
             
         self.setLayout(vbox)
 
-class RebinPlugin(plugin.Plugin):
+class RebinPlugin(Plugin):
     def create_actions(self):
-        self.ui.add_action('rebin', tr("Rebin"), self.rebin_dialog,
+        self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
 #                        icon='rebin.svg',
                         tip=tr("Rebin the signal"))
     
     def create_menu(self):
-        self.ui.signalmenu.addAction(self.ui.actions['rebin'])
+        self.add_menuitem('Signal', self.ui.actions['rebin'])
     
     def rebin_dialog(self, signal=None):
         if signal is None:
