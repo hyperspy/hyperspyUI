@@ -30,16 +30,27 @@ class RecorderWidget(QDockWidget):
         self.ui.editors.append(e)
         r.record.connect(e.append_code)
         self.editor.finished.connect(lambda: self.ui.editors.remove(e))
-        self.editor.finished.connect(lambda: r.record.disconnect(e.append_code))
+        self.editor.finished.connect(lambda: self.disconnect_editor(e))
         e.show()
     
-    def stop_recording(self):
+    def stop_recording(self, disconnect=True):
         self.btn_start.setEnabled(True)
         self.btn_stop.setEnabled(False)
         self.ui.recorders.remove(self.recorder)
-        self.recorder.record.disconnect(self.editor.append_code)
+        if disconnect:
+            self.disconnect_editor()
         self.recorder = None
         self.editor = None
+    
+    def disconnect_editor(self, editor=None):
+        if editor is None:
+            editor = self.editor
+        else:
+            if self.editor != editor:
+                return
+            self.stop_recording(disconnect=False)
+        if self.recorder is not None:
+            self.recorder.record.disconnect(editor.append_code)
 
     def create_controls(self):
         self.btn_start = QPushButton("Start") # TODO: tr
