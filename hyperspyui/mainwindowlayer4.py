@@ -26,7 +26,17 @@ class MainWindowLayer4(MainWindowLayer3):
         ac = super(MainWindowLayer4, self).add_action(key, label, callback, 
                                                  tip, icon, shortcut, userdata,
                                                  selection_callback)
-        self.monitor_action(key)
+        # Monitor events needs to trigger first!
+        e = self.actions[key].triggered
+        e.disconnect()  # Disconnect everything
+        self.monitor_action(key)    # Connect monitor
+        # Remake callback connection
+        if userdata is None:
+            self.connect(ac, SIGNAL('triggered()'), callback)
+        else:
+            def callback_udwrap():
+                callback(userdata)
+            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
         return ac
 
     def monitor_action(self, key):
