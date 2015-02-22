@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Feb 21 15:42:09 2015
+Created on Sun Feb 22 18:46:40 2015
 
 @author: Vidar Tonaas Fauske
 """
+
+from hyperspyui.plugins.plugin import Plugin
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
 from hyperspyui.recorder import Recorder
-from editorwidget import EditorWidget
+from hyperspyui.widgets.editorwidget import EditorWidget
 
 class RecorderWidget(QDockWidget):
     def __init__(self, main_window, parent=None):
@@ -70,3 +72,8 @@ class RecorderWidget(QDockWidget):
         height = hbox.sizeHint().height()
         wrap.setFixedHeight(height)
         self.setWidget(wrap)
+
+class RecorderWidgetPlugin(Plugin):
+    name = "Recorder Widget"
+    def create_widgets(self):
+        self.add_widget( RecorderWidget(self.ui, self.ui) )
