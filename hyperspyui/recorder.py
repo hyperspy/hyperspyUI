@@ -43,9 +43,10 @@ class Recorder(QtCore.QObject):
             code += self.step_to_code(step)
         return code
         
-    def to_plugin(self, name, category=None, menu=False, toolbar=False):
+    def to_plugin(self, name, category=None, menu=False, toolbar=False, 
+                  icon=None):
         code = "ui = self.ui\n"
         code += "siglist = ui.signals\n"
         code += self.to_code()
         
-        return create_plugin_code(code, name, category, menu, toolbar)
+        return create_plugin_code(code, name, category, menu, toolbar, icon)
