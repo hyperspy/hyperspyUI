@@ -9,7 +9,7 @@ from collections import OrderedDict
 from functools import partial
 import argparse, os, pickle
     
-from mainwindowlayer2 import MainWindowLayer2   # Should go before any MPL imports
+from mainwindowlayer5 import MainWindowLayer5   # Should go before any MPL imports
 
 from util import create_add_component_actions, win2sig, dict_rlu
 from signallist import SignalList
@@ -40,7 +40,7 @@ class SignalTypeFilter(object):
         valid = sig is None or isinstance(sig.signal, self.signal_type)
         action.setEnabled( valid )
 
-class MainWindow(MainWindowLayer2):
+class MainWindow(MainWindowLayer5):
     """
     Main window of the application. Top layer in application stack. Is 
     responsible for adding default actions, and filling the menus and toolbars.
@@ -185,31 +185,31 @@ class MainWindow(MainWindowLayer2):
         mb = self.menuBar()
         
         # File menu (I/O)
-        self.filemenu = mb.addMenu(tr("&File"))
-        self.filemenu.addAction(self.actions['open'])
-        self.filemenu.addAction(self.actions['close'])
-        self.filemenu.addAction(self.actions['save'])
-        self.filemenu.addAction(self.actions['save_fig'])
-        self.filemenu.addSeparator()
-        self.filemenu.addAction(self.actions['close_all'])
+        self.menus['File'] = mb.addMenu(tr("&File"))
+        self.add_menuitem('File', self.actions['open'])
+        self.add_menuitem('File', self.actions['close'])
+        self.add_menuitem('File', self.actions['save'])
+        self.add_menuitem('File', self.actions['save_fig'])
+        self.menus['File'].addSeparator()
+        self.add_menuitem('File', self.actions['close_all'])
         
         # Signal menu
-        self.signalmenu = mb.addMenu(tr("&Signal"))
-        stm = self.signalmenu.addMenu(tr("Signal type"))
+        self.menus['Signal'] = mb.addMenu(tr("&Signal"))
+        stm = self.menus['Signal'].addMenu(tr("Signal type"))
         for ac in self.signal_type_ag.actions():
             stm.addAction(ac)
-        self.signalmenu.addAction(self.actions['mirror'])
-        self.signalmenu.addAction(self.actions['remove_background'])
-        self.signalmenu.addAction(self.actions['pick_elements'])
+        self.add_menuitem('Signal', self.actions['mirror'])
+        self.add_menuitem('Signal', self.actions['remove_background'])
+        self.add_menuitem('Signal', self.actions['pick_elements'])
         
         # Model menu
-        self.modelmenu = mb.addMenu(tr("&Model"))
-        self.modelmenu.addAction(self.actions['add_model'])
-        self.modelmenu_sep1 = self.modelmenu.addSeparator()
+        self.menus['Model'] = mb.addMenu(tr("&Model"))
+        self.add_menuitem('Model', self.actions['add_model'])
+        self.modelmenu_sep1 = self.menus['Model'].addSeparator()
         
-        self.componentmenu = self.modelmenu.addMenu(tr("&Add Component"))
+        componentmenu = self.menus['Model'].addMenu(tr("&Add Component"))
         for acname in self.comp_actions:
-            self.componentmenu.addAction(self.actions[acname])
+            componentmenu.addAction(self.actions[acname])
 
         # Create Windows menu        
         super(MainWindow, self).create_menu()
