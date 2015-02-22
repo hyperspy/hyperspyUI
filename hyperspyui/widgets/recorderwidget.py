@@ -26,6 +26,7 @@ class RecorderWidget(QDockWidget):
         self.recorder = r
         self.ui.recorders.append(r)
         e = EditorWidget(self.ui, self.ui)
+        e.setWindowTitle("Recorded Code")   # TODO: tr
         self.editor = e
         self.ui.editors.append(e)
         r.record.connect(e.append_code)
