@@ -34,7 +34,14 @@ class EditorWidget(ExToolWindow):
         self.create_controls()
 
     def append_code(self, code):
-        self.editor.appendPlainText(code)
+        text = self.editor.toPlainText()
+        if len(text) > 0 and text[-1] == '\n':
+            prev_cursor = self.editor.textCursor()
+            self.editor.moveCursor(QTextCursor.End)
+            self.editor.insertPlainText(code)
+            self.editor.setTextCursor(prev_cursor)
+        else:
+            self.editor.appendPlainText(code)
     
     def make_plugin(self):
         e = EditorWidget(self.ui, self.ui)

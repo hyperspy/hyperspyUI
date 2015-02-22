@@ -18,7 +18,7 @@ class Recorder(QtCore.QObject):
         self.steps = list()
         
     def add_code(self, code):
-        step = ('code', code)
+        step = ('code', code.rstrip('\n'))
         self.steps.append(step)
         self.on_record(step)
     
@@ -35,7 +35,7 @@ class Recorder(QtCore.QObject):
         if step[0] == 'code':
             return step[1] + '\n'
         elif step[0] == 'action':
-            return "ui.actions['{0}'].trigger()".format(step[1])
+            return "ui.actions['{0}'].trigger()\n".format(step[1])
         
     def to_code(self):
         code = ""
@@ -44,8 +44,8 @@ class Recorder(QtCore.QObject):
         return code
         
     def to_plugin(self, name, category=None, menu=False, toolbar=False):
-        code = r"ui = self.ui"
-        code += r"siglist = ui.signals"
+        code = "ui = self.ui\n"
+        code += "siglist = ui.signals\n"
         code += self.to_code()
         
         return create_plugin_code(code, name, category, menu, toolbar)
