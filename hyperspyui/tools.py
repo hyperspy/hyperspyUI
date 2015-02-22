@@ -12,5 +12,6 @@ from _tools.pointertool import PointerTool
 from _tools.hometool import HomeTool
 from _tools.zoompan import ZoomPanTool
 from _tools.gaussiantool import GaussianTool
+from _tools.croptool import CropTool
 
-default_tools = [PointerTool, HomeTool, ZoomPanTool, GaussianTool]
+default_tools = [PointerTool, HomeTool, ZoomPanTool, CropTool, GaussianTool]
