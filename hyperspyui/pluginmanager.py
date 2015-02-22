@@ -8,6 +8,7 @@ Created on Sat Dec 13 00:41:15 2014
 import os
 import sys
 import imp
+from hyperspyui.plugins.plugin import Plugin
 
 class PluginManager(object):
     def __init__(self, main_window):
@@ -22,11 +23,10 @@ class PluginManager(object):
     def discover(self):
         """Auto-discover all plugins defined in plugin directory.
         """
-        import plugins.plugin
         import plugins
         for plug in plugins.__all__:
             __import__('plugins.' + plug, globals())
-        master = plugins.plugin.Plugin
+        master = Plugin
         self.implementors = self._inheritors(master)
     
     @staticmethod
@@ -78,8 +78,7 @@ class PluginManager(object):
         p.create_widgets()
         
     def load_from_file(self, path):
-        import plugins.plugin
-        master = plugins.plugin.Plugin
+        master = Plugin
         prev = self._inheritors(master)
         name = 'hyperspyui.plugins.' + \
                 os.path.splitext(os.path.basename(path))[0]
@@ -111,4 +110,3 @@ class PluginManager(object):
         if new_ptype is not None:
             self.unload(plugin)
             self.load(new_ptype)
-            

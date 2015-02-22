@@ -5,7 +5,7 @@ Created on Fri Dec 12 23:43:54 2014
 @author: Vidar Tonaas Fauske
 """
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 import scipy.fftpack
 import numpy as np
 
@@ -16,7 +16,7 @@ import hyperspy.signals
 
 from threaded import ProgressThreaded
 #TODO tr
-class FFT_Plugin(plugin.Plugin):
+class FFT_Plugin(Plugin):
     name = 'FFT'
     
     def create_actions(self):
