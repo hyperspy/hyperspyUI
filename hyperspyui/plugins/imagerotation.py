@@ -51,25 +51,76 @@ class ImageRotation_Plugin(Plugin):
         else:
             action.setEnabled(False)
     
-    @staticmethod
-    def rotate_signal(signal, angle, reshape=False, out=None, *args, **kwargs):
+    def rotate_signal(self, angle, signal=None, reshape=False, out=None, 
+                      record=True, *args, **kwargs):
+        if signal is None:
+            signal, axes, _ = self.ui.get_selected_plot()
+            if isinstance(axes, basestring):
+                axm = signal.signal.axes_manager
+                if axes.startswith("nav"):
+                    axes = (axm._axes.index(axm.navigation_axes[0]),
+                            axm._axes.index(axm.navigation_axes[1]))
+                elif axes.startswith("sig"):
+                    axes = (axm._axes.index(axm.signal_axes[0]),
+                            axm._axes.index(axm.signal_axes[1]))
+            kwargs['axes'] = axes
         if isinstance(signal, SignalWrapper):
             signal = signal.signal
-        if round(angle % 90, 2) == 0:
-            pass # TODO: Use rollaxis or similar to speed up and prevent errors.
-#            data = np.rollaxis()
+        if record:
+            self.record_code(
+                r"<p>.rotate_signal({0}, reshape={1}, {2}, {3})".format(
+                angle, reshape, args, kwargs))
+        const_mode = 'mode' not in kwargs or  kwargs['mode'] == 'constant'
+        if round(angle % 90, 2) == 0 and (reshape or const_mode):
+            angle = 90 * (angle//90)
+            axes = kwargs.pop('axes', (1,0))
+            k = angle // 90
+            if k // 2 == 1:     # Rotating 180 or 270
+                # Invert axes[0]
+                s = (slice(None),) * axes[0] + (slice(None, None, -1),) + \
+                    (Ellipsis,)
+                data = signal.data[s]
+            else:
+                data = signal.data
+            if k % 2 == 1:     # Rotating 90 or 270
+                data = np.swapaxes(data, axes[0], axes[1])
+                if not reshape:
+                    # By checking for constant mode before, padding is easy
+                    cval = kwargs.pop('cval', 0.0)
+                    bkgr = np.ones_like(signal.data) * cval
+                    fa, la = min(axes), max(axes)
+                    fd, ld = np.shape(data)[fa], np.shape(data)[la]
+                    crop = np.abs(ld-fd)//2
+                    if fd < ld: # Expand first, crop last
+                        s = (slice(None),) * fa + (slice(0, fd),) + \
+                            (slice(None),) * (la-fa-1) + (slice(crop, crop+fd),) + \
+                            (Ellipsis,)
+                        t = (slice(None),) * fa + (slice(crop, crop+fd),) + \
+                            (Ellipsis,)
+                    else:       # Crop first, expand last
+                        s = (slice(None),) * fa + (slice(crop, crop+ld),) + \
+                            (slice(None),) * (la-fa-1) + (slice(0, ld),) + \
+                            (Ellipsis,)
+                        t = (slice(None),) * la + (slice(crop, crop+ld),) + \
+                            (Ellipsis,)
+                    bkgr[t] = data[s]
+                    data = bkgr
         else:
             data = rotate(signal.data, angle, reshape=reshape, *args, **kwargs)
         if out is None:
             sig = signal._deepcopy_with_new_data(None)
         else:
             sig = out
+            old_shape = out.data.shape
         sig.data  = data
         if out is None:
             return sig
         else:
-            if reshape:
+            if sig.data.shape != old_shape:
+                old = out.auto_replot
+                out.auto_replot = False
                 out.get_dimensions_from_data()
+                out.auto_replot = old
                 out.events.axes_changed.trigger()
             out.events.data_changed.trigger()
     
@@ -77,19 +128,20 @@ class ImageRotation_Plugin(Plugin):
         signal, space, _ = self.ui.get_selected_plot()
         if space not in ("navigation", "signal"):
             return
-        self.dialog = ImageRotationDialog(signal, space, self.ui)
+        self.dialog = ImageRotationDialog(signal, space, self.ui, self)
         self.dialog.show()
         # TODO: Use self.settings to keep dialog settings
         
         
 class ImageRotationDialog(ExToolWindow):
-    def __init__(self, signal, axes, parent):
+    def __init__(self, signal, axes, parent, plugin):
         super(ImageRotationDialog, self).__init__(parent)
         self.ui = parent
         self.create_controls()
         self.accepted.connect(self.ok)
         self.rejected.connect(self.close_new)
         self.signal = signal
+        self.plugin = plugin
         self.new_out = None
         self._connected_updates = False
         if isinstance(axes, basestring):
@@ -128,7 +180,11 @@ class ImageRotationDialog(ExToolWindow):
         # Draw figure if not already done
         if not self.gbo_preview.isChecked():
             self.update()
-        
+        angle = self.num_angle.value()
+        reshape = self.chk_reshape.isChecked()
+        self.plugin.record_code(
+                r"<p>.rotate_signal({0}, reshape={1}, axes={2})".format(
+                angle, reshape, self.axes))
         # Clean up event connections
         if self.new_out is not None:
             self.connect_update_plot(self.new_out.signal, disconnect=True)
@@ -179,11 +235,10 @@ class ImageRotationDialog(ExToolWindow):
             out = self.signal.signal
         else:
             return  # Indeterminate state, do nothing
-            
-        s = ImageRotation_Plugin.rotate_signal(self.signal.signal, angle, 
-                                               reshape=reshape, 
-                                               out=out, axes=self.axes)
-            
+        
+        s = self.plugin.rotate_signal(angle, self.signal.signal, record=False, 
+                                      reshape=reshape, out=out, axes=self.axes)
+        
         if out is None:
             name = self.signal.name + "[Rotated]"
             self.new_out = self.ui.add_signal_figure(s, name)
@@ -204,6 +259,8 @@ class ImageRotationDialog(ExToolWindow):
         form = QFormLayout()
         self.num_angle = QDoubleSpinBox()
         self.num_angle.setValue(0.0)
+        self.num_angle.setMinimum(-360)
+        self.num_angle.setMaximum(360)
         #TODO: tr
         form.addRow("Angle:", self.num_angle)
         vbox.addLayout(form)
