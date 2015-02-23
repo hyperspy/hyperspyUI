@@ -13,6 +13,7 @@ from QtGui import *
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 from scipy.ndimage import rotate
+import numpy as np
 from hyperspyui.util import win2sig
 from hyperspyui.signalwrapper import SignalWrapper
 
@@ -54,7 +55,11 @@ class ImageRotation_Plugin(Plugin):
     def rotate_signal(signal, angle, reshape=False, out=None, *args, **kwargs):
         if isinstance(signal, SignalWrapper):
             signal = signal.signal
-        data = rotate(signal.data, angle, reshape=reshape, *args, **kwargs)
+        if round(angle % 90, 2) == 0:
+            pass # TODO: Use rollaxis or similar to speed up and prevent errors.
+#            data = np.rollaxis()
+        else:
+            data = rotate(signal.data, angle, reshape=reshape, *args, **kwargs)
         if out is None:
             sig = signal._deepcopy_with_new_data(None)
         else:
@@ -65,6 +70,7 @@ class ImageRotation_Plugin(Plugin):
         else:
             if reshape:
                 out.get_dimensions_from_data()
+                out.events.axes_changed.trigger()
             out.events.data_changed.trigger()
     
     def show_rotate_dialog(self):
@@ -173,16 +179,10 @@ class ImageRotationDialog(ExToolWindow):
             out = self.signal.signal
         else:
             return  # Indeterminate state, do nothing
-        
-        tmp_suppress = reshape and self._connected_updates
-        if tmp_suppress:
-            self.connect_update_plot(out, disconnect=True)
-        # Do atual rotation
+            
         s = ImageRotation_Plugin.rotate_signal(self.signal.signal, angle, 
                                                reshape=reshape, 
                                                out=out, axes=self.axes)
-        if tmp_suppress:
-            self.connect_update_plot(out)
             
         if out is None:
             name = self.signal.name + "[Rotated]"
@@ -192,7 +192,7 @@ class ImageRotationDialog(ExToolWindow):
             s = out
         
         if self.chk_grid.isChecked() is True:
-            pass
+            pass    # TODO: Draw grid
 
         
     def create_controls(self):
