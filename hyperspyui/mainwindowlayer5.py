@@ -18,7 +18,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from signalwrapper import SignalWrapper
+from hyperspyui.signalwrapper import SignalWrapper
 from bindinglist import BindingList
 from widgets.dataviewwidget import DataViewWidget
 import util
