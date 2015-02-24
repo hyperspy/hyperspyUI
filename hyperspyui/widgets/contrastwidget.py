@@ -64,6 +64,7 @@ class ContrastWidget(QDockWidget):
         if p is None:
             self.sl_level.setValue(0.0)
             self.sl_window.setValue(0.0)
+            self.chk_log.setChecked(False)
             self.disable()
         else:
             self.enable()
@@ -87,6 +88,15 @@ class ContrastWidget(QDockWidget):
             self.sl_level.setEnabled(not p.auto_contrast)
             self.sl_window.setEnabled(not p.auto_contrast)
             self.chk_auto.blockSignals(old)
+            
+            if p.ax.images:
+                old = self.chk_log.blockSignals(True)
+                self.chk_log.setEnabled(True)
+                norm = isinstance(p.ax.images[-1].norm, SymLogNorm)
+                self.chk_log.setChecked(norm)
+                self.chk_log.blockSignals(old)
+            else:
+                self.chk_log.setEnabled(False)
     
     def level_changed(self, value):
         self.lbl_level.setText(self.LevelLabel + ": %.2G" % value)
@@ -112,7 +122,8 @@ class ContrastWidget(QDockWidget):
                 n = SymLogNorm(1e-9, **kw)
             else:
                 n = Normalize(**kw)
-            p.ax.imagesp[0].norm = n
+            p.ax.images[-1].norm = n
+            p.update()
     
     def enable(self, enabled=True):
         self.lbl_level.setEnabled(enabled)
@@ -120,6 +131,7 @@ class ContrastWidget(QDockWidget):
         self.sl_level.setEnabled(enabled)
         self.sl_window.setEnabled(enabled)
         self.chk_auto.setEnabled(enabled)
+        self.chk_log.setEnabled(enabled)
     
     def disable(self):
         self.enable(False)
@@ -152,18 +164,23 @@ class ContrastWidget(QDockWidget):
             sl.setValue(0.0)
             
         self.chk_auto = QCheckBox("Auto", self) # TODO: tr
+        self.chk_log = QCheckBox("Log", self)   # TODO: tr
             
         self.lbl_level.clicked.connect(self.reset_level)
         self.lbl_window.clicked.connect(self.reset_window)
         self.sl_level.valueChanged[float].connect(self.level_changed)
         self.sl_window.valueChanged[float].connect(self.window_changed)
         self.connect(self.chk_auto, SIGNAL('toggled(bool)'), self.auto)
-        
+        self.connect(self.chk_log, SIGNAL('toggled(bool)'), self.log_changed)
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.chk_auto)    
+        hbox.addWidget(self.chk_log)
         vbox = QVBoxLayout()
         for w in [self.sl_level, self.lbl_level,
-                  self.sl_window, self.lbl_window,
-                  self.chk_auto]:
+                  self.sl_window, self.lbl_window]:
             vbox.addWidget(w)
+        vbox.addLayout(hbox)
             
         wrap = QWidget()
         wrap.setLayout(vbox)
