@@ -6,10 +6,11 @@ Created on Fri Dec 12 23:44:01 2014
 """
 
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 
 import psutil, gc
 import numpy as np
+import tempfile
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -19,7 +20,6 @@ from hyperspy.drawing.spectrum import SpectrumLine
 
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded
-from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 def tr(text):
     return QCoreApplication.translate("PCA", text)
@@ -37,7 +37,7 @@ def align_yaxis(ax1, v1, ax2, v2):
     miny2, maxy2 = ax2.get_ylim()
     ax2.set_ylim((miny2+dy)/ratio, (maxy2+dy)/ratio)
 
-class PCA_Plugin(plugin.Plugin):
+class PCA_Plugin(Plugin):
     """
     Implements PCA decomposition utilities.
     """
@@ -45,20 +45,20 @@ class PCA_Plugin(plugin.Plugin):
     
     # ----------- Plugin interface -----------
     def create_actions(self):
-        self.ui.add_action('pca', "PCA", self.pca,
+        self.add_action('pca', "PCA", self.pca,
                         icon='pca.svg',
                         tip="Run Principal Component Analysis",
                         selection_callback=self.selection_rules)
-        self.ui.add_action('pca_explore_components', "Explore PCA components",
+        self.add_action('pca_explore_components', "Explore PCA components",
                            self.explore_components,
                            selection_callback=self.selection_rules)
     
     def create_menu(self):
-        self.ui.signalmenu.addAction(self.ui.actions['pca'])
-        self.ui.signalmenu.addAction(self.ui.actions['pca_explore_components'])
+        self.add_menuitem('Signal', self.ui.actions['pca'])
+        self.add_menuitem('Signal', self.ui.actions['pca_explore_components'])
     
     def create_toolbars(self):
-        self.ui.add_toolbar_button("Signal", self.ui.actions['pca'])
+        self.add_toolbar_button("Signal", self.ui.actions['pca'])
                   
     def selection_rules(self, win, action):
         """
@@ -117,69 +117,29 @@ class PCA_Plugin(plugin.Plugin):
         return s
  
             
-    def explore_components(self, signal=None, lazy="auto", n_component=50):
+    def explore_components(self, signal=None, mmap="auto", n_component=50):
         """
         Utility function for seeing the effect of compoenent selection. Plots
         signal and residual, as well as factors and loadings. Also supports 
-        lazy loading for dynamic calculation, which is especially useful for
-        larger datasets which would otherwise cause a MemoryError. Default
-        behavior is "auto", which compares the dataset size and the free 
-        memory available.
+        memmaps loading for large data sets, which would otherwise cause a 
+        MemoryError. Default behavior is "auto", which compares the dataset 
+        size and the free memory available.
         """
         ns = Namespace()
         ns.s, signal = self._get_signal(signal)
         
-        if lazy == "auto":
+        if mmap == "auto":
             # Figure out which mode to use
             gc.collect()
             # res_size ~ size of resulting data
             res_size = ns.s.data.nbytes * 2*n_component
             free_mem = psutil.phymem_usage()[2]
-            lazy = res_size > free_mem
-                
-        def setup_lazy():
-            """ Setup lazy dataset, called threaded """
-            ns.s = self._do_decomposition(ns.s)
-            ns.s_scree = ns.s.get_decomposition_model(1)
-            ns.s_residual = ns.s_scree - ns.s
-            
-        def lazy_setup_complete():
-            """ Called when setup_lazy completes, to setup ui elements """
-            ns.sw_scree, ns.sw_residual, ns.sw_factors, ns.sw_loadings = \
-                make_compound(ns.s_scree, ns.s_residual)
-            
-            
-        def fetch_lazy(*args, **kwargs):
-            """ Called when component selection changes in lazy mode """
-            slicer = ns.s_lazynav.axes_manager._getitem_tuple_nav_sliced[0]
-            if isinstance(slicer, slice):
-                ns.s_factors.axes_manager[0].slice = slicer
-                ns.s_loadings.axes_manager[0].slice = slicer
-                components = range(1, slicer.stop+1)[slicer]
-            else:
-                ns.s_factors.axes_manager[0].index = slicer
-                ns.s_loadings.axes_manager[0].index = slicer
-                components = slicer + 1
-            s = ns.s
-            ns.sw_scree.signal.data = s.get_decomposition_model(components).data
-            ns.s_residual.data = ns.sw_scree.signal.data - s.data
-            self.ui.setUpdatesEnabled(False)
-            try:
-                ns.sw_scree.replot()
-                if ns.sw_residual is not None:
-                    ns.sw_residual.replot()
-                elif 'sla' in ns and 'slb' in ns:
-                    p = ns.s_scree._plot.signal_plot
-                    p.add_line(ns.sla)
-                    p.create_right_axis()
-                    p.right_zero_lock = True
-                    p.add_line(ns.slb, ax='right')
-                    p.plot()
-                    ns.slb.plot()
-                    p.autolim()
-#                    align_yaxis(p.ax, 0, p.right_ax, 0)
-            finally:
-                self.ui.setUpdatesEnabled(True)    # Continue updating UI
+            mmap = res_size > free_mem
+        if mmap:
+            single_step = ns.s.data.nbytes * 2
+            free_mem = psutil.phymem_usage()[2]
+            mmap_step = max(1, int(0.5*free_mem / single_step))
+            print "mmap_step", mmap_step
             
         def make_compound(s_scree, s_residual):
             """ Called to make UI components after completing calculations """
@@ -193,6 +153,7 @@ class PCA_Plugin(plugin.Plugin):
                 bk_s_navigate = \
                         s.axes_manager._get_axis_attribute_values('navigate')
                 s.axes_manager.set_signal_dimension(1)
+            
             
             s_factors = s.get_decomposition_factors()
             if s_factors.axes_manager.navigation_dimension < 1:
@@ -208,43 +169,27 @@ class PCA_Plugin(plugin.Plugin):
             
             for ax in s_scree.axes_manager.navigation_axes:
                 s_residual.axes_manager._axes[ax.index_in_array] = ax
-            if not lazy:
-                # Set navigating axes common for all signals
-                ax = s_scree.axes_manager['Principal component index']
-                s_factors.axes_manager._axes[0] = ax
-                s_loadings.axes_manager._axes[0] = ax
+
+            # Set navigating axes common for all signals
+            ax = s_scree.axes_manager['Principal component index']
+            s_factors.axes_manager._axes[0] = ax
+            s_loadings.axes_manager._axes[0] = ax
                     
             
-            
             # Make navigator signal
-            if s.axes_manager.navigation_dimension == 0 or lazy:
-                s_nav = s.get_explained_variance_ratio()
-                s_nav.axes_manager[0].name = "Explained variance ratio"
-                if n_component < s_nav.axes_manager[-1].size:
-                    s_nav = s_nav.isig[1:n_component]
+            if s.axes_manager.navigation_dimension == 0:
+                nav = s.get_explained_variance_ratio()
+                nav.axes_manager[0].name = "Explained variance ratio"
+                if n_component < nav.axes_manager[-1].size:
+                    nav = nav.isig[1:n_component]
                 else:
-                    s_nav = s_nav.isig[1:]
+                    nav = nav.isig[1:]
             else:
-                s_nav = "auto"
-                
-            if lazy:
-                s_nav2 = s_nav
-                s_nav = "auto"
-                s_nav2.axes_manager.set_signal_dimension(0)
-                s_nav2.axes_manager.connect(fetch_lazy)
-                self.ui.add_signal_figure(s_nav2,
-                                    name = signal.name + "Component Navigator",
-                                    plot=True)
-                nax = s_nav2._plot.navigator_plot.ax
-                nax.set_ylabel("Explained variance ratio")
-                nax.semilogy()
-                ns.s_lazynav = s_nav2
-                ns.s_factors = s_factors
-                ns.s_loadings = s_loadings
+                nav = s_loadings
             
             # Plot signals with common navigator
-            sw_scree.plot(navigator=s_nav)
-            if not lazy and s.axes_manager.navigation_dimension == 0:
+            sw_scree.plot(navigator=nav)
+            if s.axes_manager.navigation_dimension == 0:
                 nax = s_scree._plot.navigator_plot.ax
                 nax.set_ylabel("Explained variance ratio")
                 nax.semilogy()
@@ -265,21 +210,9 @@ class PCA_Plugin(plugin.Plugin):
                 slb.set_line_properties(color="green", type='step')
                 slb.axes_manager = s_factors.axes_manager
                 slb.autoscale = True
-                oldup = slb.update
-                def newup(force_replot=False):
-                    oldup(force_replot)
-#                    align_yaxis(p.ax, 0, p.right_ax, 0)
-                    p.right_ax.hspy_fig._draw_animated()
-                slb.update = newup
                 p.add_line(slb, ax='right')
                 p.plot()
                 slb.plot()
-#                align_yaxis(p.ax, 0, p.right_ax, 0)
-                sw_residual = None
-                sw_factors = None
-                if lazy:
-                    ns.sla = sla
-                    ns.slb = slb
             else:
                 sw_residual = self.ui.add_signal_figure(s_residual, name = signal.name + 
                                                "[Residual]", plot=False)
@@ -288,25 +221,66 @@ class PCA_Plugin(plugin.Plugin):
                                                plot=False)
                 sw_residual.plot(navigator=None)
                 sw_factors.plot(navigator=None)
-                
             #TODO: Plot scree nav + loadings on same plot if navdim=1
-                
-            sw_loadings = self.ui.add_signal_figure(s_loadings, 
-                                            name = signal.name + "[Loading]", 
-                                            plot=False)
-            sw_loadings.plot(navigator=None)
-            return sw_scree, sw_residual, sw_factors, sw_loadings
         
         def threaded_gen():
             ns.s = self._do_decomposition(ns.s)
-            ns.screedata = np.zeros((n_component-1,) + ns.s.data.shape,
+            stack_shape = (n_component-1,) + ns.s.data.shape
+            if mmap:
+                scree_f = tempfile.NamedTemporaryFile()
+                screedata = np.memmap(scree_f,
+                                         dtype=ns.s.data.dtype,
+                                         mode='w+',
+                                         shape=stack_shape,)
+                res_f = tempfile.NamedTemporaryFile()
+                res_data = np.memmap(res_f,
+                                     dtype=ns.s.data.dtype,
+                                     mode='w+',
+                                     shape=stack_shape,)
+            else:
+                screedata = np.zeros(stack_shape,
                                     dtype=ns.s.data.dtype)
-            for n in xrange(1, n_component):
-                m = ns.s.get_decomposition_model(n)
-                ns.screedata[n-1,...] = m.data
-                del m.data
-                del m
-                yield n
+            old_auto_replot = ns.s.auto_replot
+            ns.s.auto_replot = False
+            final_shape = ns.s.data.shape
+            ns.s._unfolded4decomposition = ns.s.unfold_if_multidim()
+            try:
+                target = ns.s.learning_results
+                factors = target.factors
+                loadings = target.loadings.T
+                if target.mean is None:
+                    data = np.zeros_like(ns.s.data)
+                else:
+                    data = np.copy(target.mean) 
+                for n in xrange(1, n_component):
+                    a = np.dot(factors[:, n-1:n],
+                           loadings[n-1:n, :])
+                    data += a.T
+                    screedata[n-1,...] = data.reshape(final_shape)
+                    if mmap:
+                        res_data[n-1,...] = ns.s.data[n-1,...] - \
+                                            screedata[n-1,...]
+                        if n % mmap_step == 0 or n == n_component:
+                            # Flushes mmap to disk and frees mem
+                            print "Flushing"
+                            del screedata
+                            screedata = np.memmap(scree_f,
+                                                  dtype=ns.s.data.dtype,
+                                                  mode='r+',
+                                                  shape=stack_shape,)
+                            del res_data
+                            res_data = np.memmap(res_f,
+                                                 dtype=ns.s.data.dtype,
+                                                 mode='r+',
+                                                 shape=stack_shape,)
+                    yield n
+            finally:
+                if ns.s._unfolded4decomposition is True:
+                    ns.s.fold()
+                ns.s.auto_replot = old_auto_replot
+            ns.screedata = screedata
+            if mmap:
+                ns.resdata = res_data
             
         def on_threaded_complete():
             axes = []
@@ -319,31 +293,32 @@ class PCA_Plugin(plugin.Plugin):
             axes.append(new_axis)
             axes.extend(s.axes_manager._get_axes_dicts())
 
-
             s_scree = s.__class__(
                 ns.screedata,
                 axes=axes,
                 metadata=s.metadata.as_dictionary(),)
             ns.screedata = None
-            s_residual = s_scree.deepcopy()
-            s_residual.data -= s.data
+            if mmap:
+                s_residual = s_scree._deepcopy_with_new_data(ns.resdata)
+                ns.resdata = None
+            else:
+                s_residual = s_scree.deepcopy()
+                s_residual.data -= s.data
+                s_residual.data[...] = -s_residual.data[...]
                     
             make_compound(s_scree, s_residual)
         
-        if lazy:
-            f = setup_lazy
-            c = lazy_setup_complete
-        else:
-            f = threaded_gen()
-            c = on_threaded_complete
-        t = ProgressThreaded(self.ui, f, c, 
-                             label='Performing PCA',
-                             cancellable=not lazy,
+        label = 'Performing PCA'
+        if mmap:
+            label += '\n[Using memory map for data]'
+        t = ProgressThreaded(self.ui, threaded_gen(), on_threaded_complete, 
+                             label=label,
+                             cancellable=True,
                              generator_N=n_component-1)
         t.run()
         
 
-    def pca(self, signal=None):
+    def pca(self, signal=None, n_components=None):
         """
         Performs decomposition, then plots the scree for the user to select
         the number of components to use for a decomposition model. The
@@ -351,28 +326,46 @@ class PCA_Plugin(plugin.Plugin):
         and creates the model.
         """
         ns = Namespace()
+        autosig = signal is None
         ns.s, signal = self._get_signal(signal)
         
         def do_threaded():
             ns.s = self._do_decomposition(ns.s)
             
         def on_complete():
-            ax = ns.s.plot_explained_variance_ratio()
-                
-            # Clean up plot and present, allow user to select components by picker
-            ax.set_title("")
-            scree = ax.get_figure().canvas
-            scree.draw()
-            scree.setWindowTitle("Pick number of components")
-            def clicked(event):
-                components = round(event.xdata)
-                # Num comp. picked, perform PCA, wrap new signal and plot
-                sc = ns.s.get_decomposition_model(components)
+            if n_components is None:
+                ax = ns.s.plot_explained_variance_ratio()
+                    
+                # Clean up plot and present, allow user to select components 
+                # by picker
+                ax.set_title("")
+                scree = ax.get_figure().canvas
+                scree.draw()
+                scree.setWindowTitle("Pick number of components")
+                def clicked(event):
+                    n_components = round(event.xdata)
+                    # Num comp. picked, perform PCA, wrap new signal and plot
+                    sc = ns.s.get_decomposition_model(n_components)
+                    self.ui.add_signal_figure(sc, signal.name + "[PCA]")
+                    # Close scree plot
+                    w = fig2win(scree.figure, self.ui.figures)
+                    w.close()
+                    if autosig:
+                        self.record_code(r"<p>.pca(n_components=%d)" % 
+                                         n_components)
+                    else:
+                        self.record_code(
+                            r"<p>.pca({0}, n_components={1})".format(
+                            signal, n_components))
+                scree.mpl_connect('button_press_event', clicked)
+            else:
+                sc = ns.s.get_decomposition_model(n_components)
                 self.ui.add_signal_figure(sc, signal.name + "[PCA]")
-                # Close scree plot
-                w = fig2win(scree.figure, self.ui.figures)
-                w.close()
-            scree.mpl_connect('button_press_event', clicked)
+                if autosig:
+                    self.record_code(r"<p>.pca(n_components=%d)" % n_components)
+                else:
+                    self.record_code(r"<p>.pca({0}, n_components={1})".format(
+                                        signal, n_components))
             
         t = ProgressThreaded(self.ui, do_threaded, on_complete, 
                              label="Performing PCA")
