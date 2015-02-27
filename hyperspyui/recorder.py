@@ -17,16 +17,17 @@ class Recorder(QtCore.QObject):
         
         self.steps = list()
         self.pause_recording = False
+        self.filter = {'actions': True, 'code': True}
     
     # ------ Recording API ------
     def add_code(self, code):
-        if not self.pause_recording:
+        if self.filter['code'] and not self.pause_recording:
             step = ('code', code.rstrip('\n'))
             self.steps.append(step)
             self._on_record(step)
     
     def add_action(self, action_key):
-        if not self.pause_recording:
+        if self.filter['actions'] and not self.pause_recording:
             step = ('action', action_key)
             self.steps.append(step)
             self._on_record(step)
