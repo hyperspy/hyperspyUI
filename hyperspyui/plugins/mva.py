@@ -50,12 +50,12 @@ class MVA_Plugin(Plugin):
                         tip="Run Principal Component Analysis",
                         selection_callback=self.selection_rules)
         self.add_action('bss', "BSS", self.bss,
-#                        icon='bss.svg'),
-                         tip="Run Blind Source Separation",
-                         selection_callback=self.selection_rules)
+                        icon='bss.svg',
+                        tip="Run Blind Source Separation",
+                        selection_callback=self.selection_rules)
         self.add_action('explore_decomposition', "Explore decomposition",
-                           self.explore_components,
-                           selection_callback=self.selection_rules)
+                        self.explore_components,
+                        selection_callback=self.selection_rules)
     
     def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions['pca'])
