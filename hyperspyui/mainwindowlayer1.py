@@ -21,7 +21,6 @@ def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
 from widgets.consolewidget import ConsoleWidget
-import tools
 import mdi_mpl_backend
 from pluginmanager import PluginManager
 
@@ -111,6 +110,9 @@ class MainWindowLayer1(QMainWindow):
         or triggered manually.
         """
         self.plugin_manager.create_actions()
+        
+        self.selectable_tools = QActionGroup(self)
+        self.selectable_tools.setExclusive(True)
     
     def create_menu(self):
         mb = self.menuBar()
@@ -124,23 +126,9 @@ class MainWindowLayer1(QMainWindow):
         self.plugin_manager.create_menu()
         
     def create_tools(self):
-        self.selectable_tools = QActionGroup(self)
-        self.selectable_tools.setExclusive(True)
-        for tool_type in tools.default_tools:
-            t = tool_type(self.figures)
-            self.tools.append(t)
-            key = tool_type.__name__
-            if t.single_action() is not None:
-                self.add_action(key, t.get_name(), t.single_action(),
-                                icon=t.get_icon(), tip=t.get_description())
-                self.add_toolbar_button(t.get_category(), self.actions[key])
-            elif t.is_selectable():
-                f = partial(self.select_tool, t)
-                self.add_action(key, t.get_name(), f, icon=t.get_icon(), 
-                                tip=t.get_description())
-                self.selectable_tools.addAction(self.actions[key])
-                self.actions[key].setCheckable(True)
-                self.add_toolbar_button(t.get_category(), self.actions[key])
+        """Override to create tools on UI construction.
+        """
+        self.plugin_manager.create_tools()
     
     def create_toolbars(self):
         """

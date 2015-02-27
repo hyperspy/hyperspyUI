@@ -112,6 +112,23 @@ class MainWindowLayer3(MainWindowLayer2):
             action = self.actions[action]
         m.addAction(action)
         
+        
+    def add_tool(self, tool_type):
+        t = tool_type(self.figures)
+        self.tools.append(t)
+        key = tool_type.__name__
+        if t.single_action() is not None:
+            self.add_action(key, t.get_name(), t.single_action(),
+                            icon=t.get_icon(), tip=t.get_description())
+            self.add_toolbar_button(t.get_category(), self.actions[key])
+        elif t.is_selectable():
+            f = partial(self.select_tool, t)
+            self.add_action(key, t.get_name(), f, icon=t.get_icon(), 
+                            tip=t.get_description())
+            self.selectable_tools.addAction(self.actions[key])
+            self.actions[key].setCheckable(True)
+            self.add_toolbar_button(t.get_category(), self.actions[key])
+        
     
     def add_widget(self, widget, floating=None):
         """

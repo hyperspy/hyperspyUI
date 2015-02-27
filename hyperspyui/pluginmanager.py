@@ -63,6 +63,10 @@ class PluginManager(object):
         for p in self.plugins.itervalues():
             p.create_menu()
     
+    def create_tools(self):
+        for p in self.plugins.itervalues():
+            p.create_tools()
+    
     def create_toolbars(self):
         for p in self.plugins.itervalues():
             p.create_toolbars()
