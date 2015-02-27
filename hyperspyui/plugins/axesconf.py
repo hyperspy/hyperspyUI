@@ -8,9 +8,9 @@ Created on Wed Jan 07 19:56:18 2015
 from hyperspyui.widgets.traitswidget import TraitsWidget
 from hyperspyui.util import win2sig
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 
-class AxesConf(plugin.Plugin):
+class AxesConf(Plugin):
     """
     Makes a widget that allows the configuration of the signal axes. The widget
     captures and displays the traitsui dialog shown by 
@@ -30,7 +30,7 @@ class AxesConf(plugin.Plugin):
                                    self.valid_window, self.ui)
         self.widget.setWindowTitle("Axes configuration")
         self.widget.hide()  # Initial state hidden
-        self.ui.add_widget(self.widget)
+        self.add_widget(self.widget)
         
     def valid_window(self, window):
         """

@@ -6,7 +6,7 @@ Created on Fri Dec 12 23:44:01 2014
 """
 
 
-import plugin
+from hyperspyui.plugins.plugin import Plugin
 
 import psutil, gc
 import numpy as np
@@ -19,7 +19,6 @@ from hyperspy.drawing.spectrum import SpectrumLine
 
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded
-from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 def tr(text):
     return QCoreApplication.translate("PCA", text)
@@ -37,7 +36,7 @@ def align_yaxis(ax1, v1, ax2, v2):
     miny2, maxy2 = ax2.get_ylim()
     ax2.set_ylim((miny2+dy)/ratio, (maxy2+dy)/ratio)
 
-class PCA_Plugin(plugin.Plugin):
+class PCA_Plugin(Plugin):
     """
     Implements PCA decomposition utilities.
     """
@@ -45,20 +44,20 @@ class PCA_Plugin(plugin.Plugin):
     
     # ----------- Plugin interface -----------
     def create_actions(self):
-        self.ui.add_action('pca', "PCA", self.pca,
+        self.add_action('pca', "PCA", self.pca,
                         icon='pca.svg',
                         tip="Run Principal Component Analysis",
                         selection_callback=self.selection_rules)
-        self.ui.add_action('pca_explore_components', "Explore PCA components",
+        self.add_action('pca_explore_components', "Explore PCA components",
                            self.explore_components,
                            selection_callback=self.selection_rules)
     
     def create_menu(self):
-        self.ui.signalmenu.addAction(self.ui.actions['pca'])
-        self.ui.signalmenu.addAction(self.ui.actions['pca_explore_components'])
+        self.add_menuitem('Signal', self.ui.actions['pca'])
+        self.add_menuitem('Signal', self.ui.actions['pca_explore_components'])
     
     def create_toolbars(self):
-        self.ui.add_toolbar_button("Signal", self.ui.actions['pca'])
+        self.add_toolbar_button("Signal", self.ui.actions['pca'])
                   
     def selection_rules(self, win, action):
         """
@@ -343,7 +342,7 @@ class PCA_Plugin(plugin.Plugin):
         t.run()
         
 
-    def pca(self, signal=None):
+    def pca(self, signal=None, n_components=None):
         """
         Performs decomposition, then plots the scree for the user to select
         the number of components to use for a decomposition model. The
@@ -351,28 +350,46 @@ class PCA_Plugin(plugin.Plugin):
         and creates the model.
         """
         ns = Namespace()
+        autosig = signal is None
         ns.s, signal = self._get_signal(signal)
         
         def do_threaded():
             ns.s = self._do_decomposition(ns.s)
             
         def on_complete():
-            ax = ns.s.plot_explained_variance_ratio()
-                
-            # Clean up plot and present, allow user to select components by picker
-            ax.set_title("")
-            scree = ax.get_figure().canvas
-            scree.draw()
-            scree.setWindowTitle("Pick number of components")
-            def clicked(event):
-                components = round(event.xdata)
-                # Num comp. picked, perform PCA, wrap new signal and plot
-                sc = ns.s.get_decomposition_model(components)
+            if n_components is None:
+                ax = ns.s.plot_explained_variance_ratio()
+                    
+                # Clean up plot and present, allow user to select components 
+                # by picker
+                ax.set_title("")
+                scree = ax.get_figure().canvas
+                scree.draw()
+                scree.setWindowTitle("Pick number of components")
+                def clicked(event):
+                    n_components = round(event.xdata)
+                    # Num comp. picked, perform PCA, wrap new signal and plot
+                    sc = ns.s.get_decomposition_model(n_components)
+                    self.ui.add_signal_figure(sc, signal.name + "[PCA]")
+                    # Close scree plot
+                    w = fig2win(scree.figure, self.ui.figures)
+                    w.close()
+                    if autosig:
+                        self.record_code(r"<p>.pca(n_components=%d)" % 
+                                         n_components)
+                    else:
+                        self.record_code(
+                            r"<p>.pca({0}, n_components={1})".format(
+                            signal, n_components))
+                scree.mpl_connect('button_press_event', clicked)
+            else:
+                sc = ns.s.get_decomposition_model(n_components)
                 self.ui.add_signal_figure(sc, signal.name + "[PCA]")
-                # Close scree plot
-                w = fig2win(scree.figure, self.ui.figures)
-                w.close()
-            scree.mpl_connect('button_press_event', clicked)
+                if autosig:
+                    self.record_code(r"<p>.pca(n_components=%d)" % n_components)
+                else:
+                    self.record_code(r"<p>.pca({0}, n_components={1})".format(
+                                        signal, n_components))
             
         t = ProgressThreaded(self.ui, do_threaded, on_complete, 
                              label="Performing PCA")

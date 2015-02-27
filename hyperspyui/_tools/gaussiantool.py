@@ -5,13 +5,6 @@ Created on Sun Dec 07 10:30:08 2014
 @author: Vidar Tonaas Fauske
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Dec 07 02:03:23 2014
-
-@author: Vidar Tonaas Fauske
-"""
-
 import os
 import numpy as np
 from matplotlib.widgets import SpanSelector

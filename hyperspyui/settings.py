@@ -48,7 +48,7 @@ class Settings(object):
         to select one option out of several. The prompt includes a checkbox to
         remember the answer ("Remember this setting").
         
-        The option parameter should be a lsit of two-tuples, specifying an
+        The option parameter should be a list of two-tuples, specifying an
         ordered list of option values, and labels.
         """
         
@@ -61,7 +61,7 @@ class Settings(object):
         mb = ExRememberPrompt(QMessageBox.Question, title, descr)
         if len(options) < 5:
             buttons = []
-            opt = options[0]    # Make first option default (accept)
+            opt = options[0]
             buttons.append(mb.addButton(opt[1], QMessageBox.AcceptRole))
             for opt in options[1:]:
                 buttons.append(mb.addButton(opt[1], QMessageBox.RejectRole))
