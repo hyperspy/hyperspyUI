@@ -58,6 +58,10 @@ class ElementPickerWidget(ExToolWindow):
                     self.table.disable_element(elem)
                 else:
                     self.table.enable_element(elem)
+    
+    @property
+    def markers(self):
+        return self.chk_markers.isChecked()
         
     def isEDS(self):
         return isinstance(self.signal.signal, edstypes)
@@ -91,7 +95,11 @@ class ElementPickerWidget(ExToolWindow):
                 new_lines = s._get_lines_from_elements([element], only_one=True)
                 s.add_lines(new_lines)  # Will also add element
             else:
-                s.add_elements((element,))       
+                s.add_elements((element,))
+        if self.markers:
+            # Cycle markers on/off to force update
+            self._on_toggle_markers(False)
+            self._on_toggle_markers(True)
                 
     def _toggle_element_eels(self, element):
         s = self.signal.signal
@@ -140,6 +148,10 @@ class ElementPickerWidget(ExToolWindow):
                 # (Not strictly needed)
                 if len(s.metadata.Sample.xray_lines) < 1:
                     del s.metadata.Sample.xray_lines
+        if self.markers:
+            # Cycle markers on/off to force update
+            self._on_toggle_markers(False)
+            self._on_toggle_markers(True)
         
     def _set_elements(self, elements):
         """
@@ -147,6 +159,23 @@ class ElementPickerWidget(ExToolWindow):
         in signal! That is handled by the _toggle_element* functions
         """
         self.table.set_elements(elements)
+        
+    def _on_toggle_markers(self, value):
+        """Toggles peak markers on the plot, i.e. adds/removes markers for all
+        elements added on signal.
+        """
+        s = self.signal.signal
+        if value:
+            if self.isEDS():
+                self.signal.keep_on_close = True
+                s.plot_xray_lines()
+                self.signal.update_figures()
+                self.signal.keep_on_close = False
+        else:
+            if self.isEDS():
+                for m in reversed(s._plot.signal_plot.ax_markers):
+                    s._plot.signal_plot.ax_markers.remove(m) 
+                    m.close()
         
     def make_map(self):
         """
@@ -232,13 +261,20 @@ class ElementPickerWidget(ExToolWindow):
             f = partial(self.element_context, w)
             self.connect(w, SIGNAL('customContextMenuRequested(QPoint)'), f)
         
-        self.map_btn = QPushButton("Map")
+        self.chk_markers = QCheckBox("Markers")     # TODO: tr
+        self.chk_markers.toggled[bool].connect(self._on_toggle_markers)
+        self.map_btn = QPushButton("Map")   # TODO: tr
         self.map_btn.clicked.connect(self.make_map)
         
         vbox = QVBoxLayout(self)
         vbox.addWidget(self.table)
         
         if self.isEDS():
-            vbox.addWidget(self.map_btn)
+            hbox = QHBoxLayout()
+            # TODO: TAG: Feature-check
+            if hasattr(hyperspy.signals.EDSTEMSpectrum, 'plot_xray_lines'):
+                hbox.addWidget(self.chk_markers)
+            hbox.addWidget(self.map_btn)
+            vbox.addLayout(hbox)
         
         self.setLayout(vbox)

@@ -18,7 +18,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from signalwrapper import SignalWrapper
+from hyperspyui.signalwrapper import SignalWrapper
 from bindinglist import BindingList
 from widgets.dataviewwidget import DataViewWidget
 import util
@@ -166,6 +166,17 @@ class MainWindowLayer5(MainWindowLayer4):
         
     def get_selected_component(self):
         return self.tree.get_selected_component()
+    
+    def get_selected_plot(self):
+        s = self.get_selected_signal()
+        w = self.main_frame.activeSubWindow()
+        if w is s.navigator_plot:
+            selected = "navigation"
+        elif w is s.signal_plot:
+            selected = "signal"
+        else:
+            selected = "other"
+        return s, selected, w
         
         
     # --------- File I/O ----------

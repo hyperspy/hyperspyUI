@@ -8,6 +8,7 @@ Created on Sat Dec 13 00:41:15 2014
 import os
 import sys
 import imp
+import warnings
 from hyperspyui.plugins.plugin import Plugin
 
 class PluginManager(object):
@@ -25,7 +26,11 @@ class PluginManager(object):
         """
         import plugins
         for plug in plugins.__all__:
-            __import__('plugins.' + plug, globals())
+            try:
+                __import__('plugins.' + plug, globals())
+            except Exception as e:
+                warnings.warn(("Could not import hyperspyui plugin \"{0}\"" +
+                               " error: {1}").format(plug, e.message) )
         master = Plugin
         self.implementors = self._inheritors(master)
     
@@ -57,6 +62,10 @@ class PluginManager(object):
     def create_menu(self):
         for p in self.plugins.itervalues():
             p.create_menu()
+    
+    def create_tools(self):
+        for p in self.plugins.itervalues():
+            p.create_tools()
     
     def create_toolbars(self):
         for p in self.plugins.itervalues():
