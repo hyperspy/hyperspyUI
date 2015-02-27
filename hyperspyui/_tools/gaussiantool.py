@@ -75,7 +75,6 @@ class GaussianTool(FigureTool):
             window = ax.figure.canvas.parent()
             mw = window.property('hyperspyUI.ModelWrapper')
             if mw is not None:
-                print event.artist
                 for c in mw.model:
                     line = c._model_plot_line.line
                     if event.artist == line and \

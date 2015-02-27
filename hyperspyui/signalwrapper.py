@@ -72,7 +72,12 @@ class SignalWrapper(Actionable):
                 self.replot()
         
     def replot(self):
-        self.plot(*self._replotargs[0], **self._replotargs[1])
+        old = self.mainwindow.updatesEnabled()
+        self.mainwindow.setUpdatesEnabled(False)
+        try:
+            self.plot(*self._replotargs[0], **self._replotargs[1])
+        finally:
+            self.mainwindow.setUpdatesEnabled(old)
         
     def update(self):
         if self.navigator_plot is not None:
@@ -99,6 +104,7 @@ class SignalWrapper(Actionable):
             if old_nav is not self.navigator_plot:
                 # Process the plot
                 navi.axes[0].set_title("")  # remove title
+                navi.tight_layout()
                 # Wire closing event
                 self.navigator_plot.closing.connect(self.nav_closing)
                 # Set a reference on window to self
@@ -124,6 +130,7 @@ class SignalWrapper(Actionable):
             self.signal_plot = fig2win(sigp, self.mainwindow.figures)
             if old_sig is not self.signal_plot:
                 sigp.axes[0].set_title("")
+                sigp.tight_layout()
                 self.signal_plot.closing.connect(self.sig_closing)
                 self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
                 self.add_figure(self.signal_plot)
@@ -200,6 +207,8 @@ class SignalWrapper(Actionable):
         
     def nav_closing(self):
         if self.navigator_plot:
+            p = self.navigator_plot.pos()
+            self.navigator_plot.move(p.x()+8, p.y()+30)
             self._nav_geom = self.navigator_plot.saveGeometry()
             self.navigator_plot = None
         if self.signal_plot is None:

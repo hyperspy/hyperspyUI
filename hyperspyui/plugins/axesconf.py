@@ -16,6 +16,7 @@ class AxesConf(Plugin):
     captures and displays the traitsui dialog shown by 
     signal.axes_manager.show().
     """
+    name = "Axes Configuration"
     
     def __init__(self, main_window):
         super(AxesConf, self).__init__(main_window) # Sets self.ui
