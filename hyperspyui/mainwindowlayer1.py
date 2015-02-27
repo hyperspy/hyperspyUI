@@ -11,7 +11,6 @@ matplotlib.use('module://mdi_mpl_backend')
 matplotlib.interactive(True)
 
 import os
-from functools import partial
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *

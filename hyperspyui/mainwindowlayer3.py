@@ -13,6 +13,7 @@ from QtCore import *
 from QtGui import *
 
 import os
+from functools import partial
   
 
 class MainWindowLayer3(MainWindowLayer2):

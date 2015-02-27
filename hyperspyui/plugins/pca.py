@@ -139,7 +139,6 @@ class PCA_Plugin(Plugin):
             single_step = ns.s.data.nbytes * 2
             free_mem = psutil.phymem_usage()[2]
             mmap_step = max(1, int(0.5*free_mem / single_step))
-            print "mmap_step", mmap_step
             
         def make_compound(s_scree, s_residual):
             """ Called to make UI components after completing calculations """
@@ -262,7 +261,6 @@ class PCA_Plugin(Plugin):
                                             screedata[n-1,...]
                         if n % mmap_step == 0 or n == n_component:
                             # Flushes mmap to disk and frees mem
-                            print "Flushing"
                             del screedata
                             screedata = np.memmap(scree_f,
                                                   dtype=ns.s.data.dtype,
