@@ -85,6 +85,7 @@ class ImageRotation_Plugin(Plugin):
             else:
                 data = signal.data
             if k % 2 == 1:     # Rotating 90 or 270
+                # TODO: Swap HyperSpy axes as well!
                 data = np.swapaxes(data, axes[0], axes[1])
                 if not reshape:
                     # By checking for constant mode before, padding is easy
