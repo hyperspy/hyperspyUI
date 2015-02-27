@@ -51,6 +51,9 @@ class Plugin(object):
     def create_menu(self):
         pass
     
+    def create_tools(self):
+        pass
+    
     def create_toolbars(self):
         pass
     

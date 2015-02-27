@@ -16,6 +16,7 @@ from signallist import SignalList
 from threaded import Threaded
 from widgets.contrastwidget import ContrastWidget
 from widgets.elementpicker import ElementPickerWidget
+import tools
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -213,8 +214,12 @@ class MainWindow(MainWindowLayer5):
 
         # Create Windows menu        
         super(MainWindow, self).create_menu()
-        
-                        
+    
+    def create_tools(self):
+        super(MainWindow, self).create_tools()
+        for tool_type in tools.default_tools:
+            self.add_tool(tool_type)
+    
     def create_toolbars(self):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
@@ -227,7 +232,7 @@ class MainWindow(MainWindowLayer5):
         self.add_toolbar_button("EELS", self.actions['fourier_ratio'])
         
         super(MainWindow, self).create_toolbars()
-        
+    
     def create_widgetbar(self):
         super(MainWindow, self).create_widgetbar()
         

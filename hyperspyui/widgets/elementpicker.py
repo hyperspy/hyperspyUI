@@ -167,7 +167,10 @@ class ElementPickerWidget(ExToolWindow):
         s = self.signal.signal
         if value:
             if self.isEDS():
+                self.signal.keep_on_close = True
                 s.plot_xray_lines()
+                self.signal.update_figures()
+                self.signal.keep_on_close = False
         else:
             if self.isEDS():
                 for m in reversed(s._plot.signal_plot.ax_markers):
@@ -268,7 +271,9 @@ class ElementPickerWidget(ExToolWindow):
         
         if self.isEDS():
             hbox = QHBoxLayout()
-            hbox.addWidget(self.chk_markers)
+            # TODO: TAG: Feature-check
+            if hasattr(hyperspy.signals.EDSTEMSpectrum, 'plot_xray_lines'):
+                hbox.addWidget(self.chk_markers)
             hbox.addWidget(self.map_btn)
             vbox.addLayout(hbox)
         
