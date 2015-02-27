@@ -8,7 +8,7 @@ Created on Sun Dec 07 02:03:23 2014
 import os
 import numpy as np
 
-from hyperspy.drawing.widgets import ResizebleDraggableRectangle, \
+from hyperspy.drawing.widgets import ResizableDraggableRectangle,
                                      ModifiableSpanSelector
 
 from figuretool import FigureTool
@@ -25,7 +25,7 @@ class CropTool(FigureTool):
     def __init__(self, windows=None):
         super(CropTool, self).__init__(windows)
         
-        self.widget = ResizebleDraggableRectangle(None)
+        self.widget = ResizableDraggableRectangle(None)
         self.widget.set_on(False)
         self.spanner = None
         self.axes = None
@@ -119,7 +119,7 @@ class CropTool(FigureTool):
             self.widget.xaxis, self.widget.yaxis = axes
             axes[0].value = x
             axes[1].value = y
-            self.widget.add_axes(event.inaxes)  # connects
+            self.widget.set_axes(event.inaxes)  # connects
             self.widget.set_on(True)
             self.widget.set_size(1)
             self.widget.pick_on_frame = 3
