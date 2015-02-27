@@ -271,7 +271,9 @@ class ElementPickerWidget(ExToolWindow):
         
         if self.isEDS():
             hbox = QHBoxLayout()
-            hbox.addWidget(self.chk_markers)
+            # TODO: TAG: Feature-check
+            if hasattr(hyperspy.signals.EDSTEMSpectrum, 'plot_xray_lines'):
+                hbox.addWidget(self.chk_markers)
             hbox.addWidget(self.map_btn)
             vbox.addLayout(hbox)
         
