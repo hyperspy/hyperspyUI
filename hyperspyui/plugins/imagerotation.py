@@ -70,6 +70,8 @@ class ImageRotation_Plugin(Plugin):
             self.record_code(
                 r"<p>.rotate_signal({0}, reshape={1}, {2}, {3})".format(
                 angle, reshape, args, kwargs))
+        # Reframe into 0-360 deg
+        angle %= 360
         const_mode = 'mode' not in kwargs or  kwargs['mode'] == 'constant'
         if round(angle % 90, 2) == 0 and (reshape or const_mode):
             angle = 90 * (angle//90)
