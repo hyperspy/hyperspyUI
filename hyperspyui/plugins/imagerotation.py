@@ -123,8 +123,12 @@ class ImageRotation_Plugin(Plugin):
                 out.auto_replot = False
                 out.get_dimensions_from_data()
                 out.auto_replot = old
-                out.events.axes_changed.trigger()
-            out.events.data_changed.trigger()
+                # TODO: TAG: Functionality check
+                if hasattr(out, 'events') and hasattr(out.events, 'axes_changed'):
+                    out.events.axes_changed.trigger()
+            # TODO: TAG: Functionality check
+            if hasattr(out, 'events') and hasattr(out.events, 'axes_changed'):
+                out.events.data_changed.trigger()
     
     def show_rotate_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
@@ -156,6 +160,10 @@ class ImageRotationDialog(ExToolWindow):
                         axm._axes.index(axm.signal_axes[1]))
         self.axes = axes
         self.setWindowTitle("Rotate")  #TODO: tr
+        
+        # TODO: TAG: Functionality check
+        if not hasattr(signal, 'events'):
+            self.gbo_preview.setEnabled(False)
         
         # TODO: Add dynamic rotation, e.g. one that rotates when source 
         # signal's data_changed event triggers
@@ -219,10 +227,13 @@ class ImageRotationDialog(ExToolWindow):
             f = signal._plot.navigator_plot._update
         else:
             f = signal._plot.signal_plot._update
-        if disconnect:
-            signal.events.data_changed.disconnect(f)
-        else:
-            signal.events.data_changed.connect(f)
+            
+        # TODO: TAG: Functionality check
+        if hasattr(signal, 'events') and hasattr(signal.events, 'axes_changed'):
+            if disconnect:
+                signal.events.data_changed.disconnect(f)
+            else:
+                signal.events.data_changed.connect(f)
         self._connected_updates = not disconnect
         
     def update(self):
