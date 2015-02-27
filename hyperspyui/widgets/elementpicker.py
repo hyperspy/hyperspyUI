@@ -167,7 +167,10 @@ class ElementPickerWidget(ExToolWindow):
         s = self.signal.signal
         if value:
             if self.isEDS():
+                self.signal.keep_on_close = True
                 s.plot_xray_lines()
+                self.signal.update_figures()
+                self.signal.keep_on_close = False
         else:
             if self.isEDS():
                 for m in reversed(s._plot.signal_plot.ax_markers):
