@@ -187,7 +187,7 @@ class ElementPickerWidget(ExToolWindow):
         elif self.isEDS():
             imgs = self.signal.signal.get_lines_intensity()
             for im in imgs:
-                self.parent().add_signal_figure(im, im.metadata.General.title)
+                im.plot()
                 
     def _get_element_subshells(self, element, include_pre_edges=False):
         s = self.signal.signal

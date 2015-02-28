@@ -14,10 +14,12 @@ ETSConfig.toolkit = 'qt4'
 
 from mainwindowlayer4 import MainWindowLayer4, tr
 
+import hooksignal
+hooksignal.hook_signal()
+
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
-
 from hyperspyui.signalwrapper import SignalWrapper
 from bindinglist import BindingList
 from widgets.dataviewwidget import DataViewWidget
@@ -54,6 +56,11 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals = BindingList()
         self.signals.add_custom(self.sweeper, None, None, None, self.sweeper, 
                                 None)
+        self.lut_signalwrapper = dict()
+        def lut_add(sw):
+            self.lut_signalwrapper[sw.signal] = sw
+        lut = self.lut_signalwrapper
+        self.signals.add_custom('lut', lut_add, None, None, lut.pop, None)
         
         # Setup variables
         self.progressbars = {} 
@@ -74,6 +81,10 @@ class MainWindowLayer5(MainWindowLayer4):
         s.connect(s, SIGNAL('finished_sig(int)'),
                               self.on_progressbar_finished)
         self.cancel_progressbar.connect(s.on_cancel)
+        
+        # Connect to Signal.plot events
+        hooksignal.connect_plotting(self.on_signal_plotting)
+        hooksignal.connect_plotted(self.on_signal_plotted)
         
         # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
@@ -107,12 +118,6 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals.add_custom(self.windowmenu, None, None, None, 
                                 rem_s, lambda i: rem_s(self.signals[i]))
     
-    def add_signal_figure(self, signal, name=None, plot=True):
-        sig = SignalWrapper(signal, self, name)
-        self.signals.append(sig)
-        if plot:
-            sig.plot()
-        return sig
         
     def add_model(self, signal, *args, **kwargs):
         """
@@ -138,8 +143,27 @@ class MainWindowLayer5(MainWindowLayer4):
     def make_component(self, comp_type):
         m = self.get_selected_model()       
         m.add_component(comp_type)
-        
+
+
+    # -------- Signal plotting callbacks -------
+    def on_signal_plotting(self, signal, *args, **kwargs):
+        # Check if we have a wrapper, if not we make one:
+        if signal in self.lut_signalwrapper:
+            # Replotting, make sure we keep it when closing
+            sw = self.lut_signalwrapper[signal]
+            sw.keep_on_close = True
+        else:
+            # New signal, make wrapper and add to list
+            sw = SignalWrapper(signal, self)
+            self.signals.append(sw)
     
+    def on_signal_plotted(self, signal, *args, **kwargs):
+        sw = self.lut_signalwrapper[signal]
+        sw.update_figures()
+        if sw.keep_on_close:
+            sw.keep_on_close = False
+
+
     # -------- Selection management -------
         
     def get_selected_signal(self, error_on_multiple=False):
@@ -158,7 +182,7 @@ class MainWindowLayer5(MainWindowLayer4):
         s = self.tree.get_selected_signals()
         if len(s) < 1:
             w = self.main_frame.activeSubWindow()
-            s = util.win2sig(w, self.figures)
+            s = [util.win2sig(w, self.signals)]
         return s
         
     def get_selected_model(self):
@@ -208,12 +232,11 @@ class MainWindowLayer5(MainWindowLayer4):
             try:
                 escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
                 sig = hyperspy.hspy.load(escaped)
-                base = os.path.splitext( os.path.basename(filename) )[0]
                 if isinstance(sig, list):
                     for s in sig:
-                        self.add_signal_figure(s, base)
+                        s.plot()
                 else:
-                    self.add_signal_figure(sig, base)
+                    sig.plot()
                 files_loaded.append(filename)
             except (IOError, ValueError):
                 self.set_status("Failed to load \"" + filename + "\"")

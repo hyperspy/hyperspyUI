@@ -17,9 +17,10 @@ class SignalWrapper(Actionable):
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
     
-    def __init__(self, signal, mainwindow, name):
+    def __init__(self, signal, mainwindow, name=None):
         super(SignalWrapper, self).__init__()
         self.signal = signal
+        # Override replot on Signal instance
         self._old_replot = signal._replot
         signal._replot = self._replot
         if name is None:
@@ -155,6 +156,7 @@ class SignalWrapper(Actionable):
             
     def as_image(self, axis=(0,1)):
         self.close()  # Store geomtery and close
+        # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
@@ -162,29 +164,11 @@ class SignalWrapper(Actionable):
         
     def as_spectrum(self, axis=0):
         self.close()  # Store geomtery and close
+        # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
         self.signal = self.signal.as_spectrum(axis)
-               
-    def run_nonblock(self, function, windowtitle):
-        self.keep_on_close = True
-
-        def on_close():
-            self.keep_on_close = False
-            self.update_figures()
-            
-        def on_capture(dialog):
-            dialog.destroyed.connect(on_close)
-            dialog.setParent(self.mainwindow, QtCore.Qt.Tool)
-            dialog.show()
-            dialog.activateWindow()
-        
-        # Setup capture
-        self.mainwindow.capture_traits_dialog(on_capture)
-        
-        # Call actual function that triggers dialog
-        function()
             
     def make_model(self, *args, **kwargs):   
         m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)

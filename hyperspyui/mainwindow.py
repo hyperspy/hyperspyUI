@@ -324,7 +324,8 @@ class MainWindow(MainWindowLayer5):
                                                             s_lowloss.signal)
             def fr_complete():
                 title = s_core.name + "[Fourier-ratio]" 
-                self.add_signal_figure(ns.s_return, title)
+                # TODO: Set title
+                ns.s_return.plot()
                 
             t = Threaded(self, run_fr, fr_complete)
             t.run()
@@ -334,8 +335,7 @@ class MainWindow(MainWindowLayer5):
     def remove_background(self, signal=None):
         if signal is None:
             signal = self.get_selected_signal()
-        signal.run_nonblock(signal.signal.remove_background, 
-                            "Background removal tool")
+        signal.signal.remove_background()
         
         
     def pick_elements(self, signal=None):
