@@ -41,6 +41,13 @@ class SignalTypeFilter(object):
         valid = sig is None or isinstance(sig.signal, self.signal_type)
         action.setEnabled( valid )
 
+
+#TODO: Translation lookups (tr)
+#TODO: Settings dialog
+#TODO: Batch processing dialog (browse + drop&drop target)
+#TODO: Editor threading + parallell processing (w/batch input)
+#TODO: Layout save/restore
+
 class MainWindow(MainWindowLayer5):
     """
     Main window of the application. Top layer in application stack. Is 
