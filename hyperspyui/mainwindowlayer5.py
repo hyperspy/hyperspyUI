@@ -60,10 +60,11 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals.add_custom(self.sweeper, None, None, None, self.sweeper,
                                 None)
         self.lut_signalwrapper = dict()
+
         def lut_add(sw):
             self.lut_signalwrapper[sw.signal] = sw
         lut = self.lut_signalwrapper
-        self.signals.add_custom('lut', lut_add, None, None, 
+        self.signals.add_custom('lut', lut_add, None, None,
                                 lambda s: lut.pop(s, None), None)
 
         # Setup variables
@@ -147,7 +148,6 @@ class MainWindowLayer5(MainWindowLayer4):
         m = self.get_selected_model()
         m.add_component(comp_type)
 
-
     # -------- Signal plotting callbacks -------
     def on_signal_plotting(self, signal, *args, **kwargs):
         # Check if we have a wrapper, if not we make one:
@@ -159,13 +159,12 @@ class MainWindowLayer5(MainWindowLayer4):
             # New signal, make wrapper and add to list
             sw = SignalWrapper(signal, self)
             self.signals.append(sw)
-    
+
     def on_signal_plotted(self, signal, *args, **kwargs):
         sw = self.lut_signalwrapper[signal]
         sw.update_figures()
         if sw.keep_on_close:
             sw.keep_on_close = False
-
 
     # -------- Selection management -------
 
