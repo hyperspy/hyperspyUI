@@ -12,18 +12,19 @@ from tool import Tool
 
 
 class FigureTool(Tool):
+
     def __init__(self, windows=None):
         self.cids = {}
         if self.single_action() is not None:
             self.connect(windows)
         self.cursor = self.make_cursor()
-            
+
     def make_cursor(self):
         """
         Initialize the cursor for this instance. Is called in constructor.
         """
         return QtCore.Qt.ArrowCursor
-        
+
     def get_cursor(self, widget=None):
         """
         Get the cursor for the supplied widget. Is applied when a widget is
@@ -32,7 +33,7 @@ class FigureTool(Tool):
         # This default implementation does not use the widget information for
         # anything, but descendants might.
         return self.cursor
-        
+
     def get_window(self, event):
         """
         Get the window for the event
@@ -40,18 +41,18 @@ class FigureTool(Tool):
         if event.insaxes is None:
             return None
         return event.inaxes.figure.canvas.parent()
-        
+
     def get_pixel_size(self, event):
         """
         Get the point size in data units
         """
         ax = event.inaxes
         if ax is None:
-            return (0,0)
+            return (0, 0)
         invtrans = self.ax.transData.inverted()
         return abs(invtrans.transform((1, 1)) -
-                    invtrans.transform((0, 0)))
-                    
+                   invtrans.transform((0, 0)))
+
     def _wire(self, canvas, local_key, mpl_key):
         """Connect an MPL event to an instance method, if the method is defined
         on the current instance. The local method is defined by 'local_key'.
@@ -61,7 +62,7 @@ class FigureTool(Tool):
                 self.cids[local_key] = {}
             self.cids[local_key][canvas] = canvas.mpl_connect(
                 mpl_key, getattr(self, local_key))
-    
+
     @staticmethod
     def _iter_windows(windows):
         if windows is None:
@@ -69,7 +70,7 @@ class FigureTool(Tool):
         if not isinstance(windows, collections.Iterable):
             windows = (windows,)
         return windows
-    
+
     def connect(self, windows):
         """Connects the tool to the windows that are passed. This means that it
         connects to the appropriate MPL events of each window.
@@ -91,7 +92,7 @@ class FigureTool(Tool):
             self._wire(canvas, 'on_figure_leave', 'figure_leave_event')
             self._wire(canvas, 'on_axes_enter', 'axes_enter_event')
             self._wire(canvas, 'on_axes_leave', 'axes_leave_event')
-    
+
     def disconnect(self, windows):
         windows = self._iter_windows(windows)
         for w in windows:

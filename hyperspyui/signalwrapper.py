@@ -12,11 +12,12 @@ from modelwrapper import ModelWrapper
 from actionable import Actionable
 import hyperspy.hspy
 
+
 class SignalWrapper(Actionable):
     closing = QtCore.Signal()
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
-    
+
     def __init__(self, signal, mainwindow, name=None):
         super(SignalWrapper, self).__init__()
         self.signal = signal
@@ -29,18 +30,18 @@ class SignalWrapper(Actionable):
         self.figures = []
         self.mainwindow = mainwindow
         self.models = []
-        
+
         self._keep_on_close = 0
-        
+
         self.navigator_plot = None
         self.signal_plot = None
-        
+
         self._nav_geom = None
         self._sig_geom = None
         self._replotargs = ((), {})
-        
+
         self._model_id = 1
-        
+
         self.add_action('plot', "&Plot", self.replot)
         self.add_action('add_model', "Add &model", self.make_model)
         self.add_separator()
@@ -49,7 +50,7 @@ class SignalWrapper(Actionable):
     @property
     def keep_on_close(self):
         return self._keep_on_close > 0
-    
+
     @keep_on_close.setter
     def keep_on_close(self, value):
         if value:
@@ -66,12 +67,12 @@ class SignalWrapper(Actionable):
         self._replotargs = (args, kwargs)
         self.mainwindow.main_frame.subWindowActivated.emit(
             self.mainwindow.main_frame.activeSubWindow())
-            
+
     def _replot(self):
         if self.signal._plot is not None:
             if self.signal._plot.is_active() is True:
                 self.replot()
-        
+
     def replot(self):
         old = self.mainwindow.updatesEnabled()
         self.mainwindow.setUpdatesEnabled(False)
@@ -79,23 +80,23 @@ class SignalWrapper(Actionable):
             self.plot(*self._replotargs[0], **self._replotargs[1])
         finally:
             self.mainwindow.setUpdatesEnabled(old)
-        
+
     def update(self):
         if self.navigator_plot is not None:
             self.navigator_plot.update()
         if self.signal_plot is not None:
             self.signal_plot.update()
-            
-    def update_figures(self):  
+
+    def update_figures(self):
         old_nav = self.navigator_plot
         old_sig = self.signal_plot
         self.remove_figure(old_nav)
         self.remove_figure(old_sig)
         self.navigator_plot = None
         self.signal_plot = None
-        
+
         atleast_one_changed = False
-        
+
         # If we have a navigator plot
         if self.signal._plot and self.signal._plot.navigator_plot:
             # Set internal `navigator_plot` to window containing it
@@ -113,7 +114,7 @@ class SignalWrapper(Actionable):
                                                 self)
                 # Add to figures list
                 self.add_figure(self.navigator_plot)
-                
+
                 # Did we have a previous window?
                 if old_nav is not None:
                     # Save geometry of old, and make sure it is closed
@@ -125,7 +126,7 @@ class SignalWrapper(Actionable):
                 if self._nav_geom is not None and self.navigator_plot is not None:
                     self.navigator_plot.restoreGeometry(self._nav_geom)
                 self._nav_geom = None
-            
+
         if self.signal._plot and self.signal._plot.signal_plot is not None:
             sigp = self.signal._plot.signal_plot.figure
             self.signal_plot = fig2win(sigp, self.mainwindow.figures)
@@ -143,25 +144,25 @@ class SignalWrapper(Actionable):
                 if self._sig_geom is not None and self.signal_plot is not None:
                     self.signal_plot.restoreGeometry(self._sig_geom)
                 self._sig_geom = None
-                
+
         if atleast_one_changed:
             self.mainwindow.check_action_selections()
-        
+
     def add_figure(self, fig):
         self.figures.append(fig)
-        
+
     def remove_figure(self, fig):
         if fig in self.figures:
             self.figures.remove(fig)
-            
-    def as_image(self, axis=(0,1)):
+
+    def as_image(self, axis=(0, 1)):
         self.close()  # Store geomtery and close
         # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
         self.signal = self.signal.as_image(axis)
-        
+
     def as_spectrum(self, axis=0):
         self.close()  # Store geomtery and close
         # Swap geometries
@@ -169,8 +170,8 @@ class SignalWrapper(Actionable):
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
         self.signal = self.signal.as_spectrum(axis)
-            
-    def make_model(self, *args, **kwargs):   
+
+    def make_model(self, *args, **kwargs):
         m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)
 #        modelname = self.signal.metadata.General.title
         modelname = "Model %d" % self._model_id
@@ -179,48 +180,48 @@ class SignalWrapper(Actionable):
         self.add_model(mw)
         mw.plot()
         return mw
-        
+
     def add_model(self, model):
         self.models.append(model)
         self.model_added.emit(model)
-        
+
     def remove_model(self, model):
         self.models.remove(model)
         self.model_removed.emit(model)
         self.plot()
-        
+
     def nav_closing(self):
         if self.navigator_plot:
             p = self.navigator_plot.pos()
-            self.navigator_plot.move(p.x()+8, p.y()+30)
+            self.navigator_plot.move(p.x() + 8, p.y() + 30)
             self._nav_geom = self.navigator_plot.saveGeometry()
             self.navigator_plot = None
         if self.signal_plot is None:
             self._closed()
-    
+
     def sig_closing(self):
         if self.signal_plot:
             p = self.signal_plot.pos()
             # For some reason the position changes -8,-30 on closing, at least
             # it does on windows 7, Qt4.
-            self.signal_plot.move(p.x()+8, p.y()+30)
+            self.signal_plot.move(p.x() + 8, p.y() + 30)
             self._sig_geom = self.signal_plot.saveGeometry()
         if self.navigator_plot is not None:
             self.navigator_plot.close()
             self.navigator_plot = None
         self.signal_plot = None
         self._closed()
-    
+
     def close(self):
         if self.signal_plot is not None:
             self.signal_plot.close()
             self.signal_plot = None
-            
+
         if self.navigator_plot is not None:
             self.navigator_plot.close()
             self.navigator_plot = None
         self._closed()
-            
+
     def _closed(self):
         if not self.keep_on_close:
             self.closing.emit()

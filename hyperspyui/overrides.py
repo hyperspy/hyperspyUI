@@ -10,6 +10,8 @@ from python_qt_binding import QtCore
 import hyperspy.drawing.utils
 
 orig_on_figure_window_close = hyperspy.drawing.utils.on_figure_window_close
+
+
 def _on_figure_window_close(figure, function):
     """Connects a close figure signal to a given function.
 
@@ -29,7 +31,7 @@ def _on_figure_window_close(figure, function):
     # PyQt
     # In PyQt window.connect supports multiple funtions
     window.connect(window, QtCore.SIGNAL('closing()'), function)
-    
-    
+
+
 def override_hyperspy():
     hyperspy.drawing.utils.on_figure_window_close = _on_figure_window_close

@@ -11,12 +11,14 @@ from QtGui import *
 
 from widgets.extendedqwidgets import ExRememberPrompt
 
+
 class Settings(object):
+
     def __init__(self, parent=None, group=None, sep='.'):
         self.sep = sep
         self.group = group
         self.parent = parent
-        
+
     def __getitem__(self, key):
         if isinstance(key, tuple):
             key, t = key
@@ -31,7 +33,7 @@ class Settings(object):
         for g in groupings:
             settings.endGroup()
         return ret
-        
+
     def __setitem__(self, key, value):
         groupings = (self.group + self.sep + key).split(self.sep)
         key = groupings.pop()
@@ -41,22 +43,22 @@ class Settings(object):
         settings.setValue(key, value)
         for g in groupings:
             settings.endGroup()
-    
+
     def get_or_prompt(self, key, options, title="Prompt", descr=""):
         """
         Gets the setting specified by key. If it is not set, prompts the user
         to select one option out of several. The prompt includes a checkbox to
         remember the answer ("Remember this setting").
-        
+
         The option parameter should be a list of two-tuples, specifying an
         ordered list of option values, and labels.
         """
-        
+
         # First check if we have a remembered setting.
         val = self[key]
         if val is not None:
             return val
-        
+
         # Setup the dialog
         mb = ExRememberPrompt(QMessageBox.Question, title, descr)
         if len(options) < 5:
@@ -66,9 +68,9 @@ class Settings(object):
             for opt in options[1:]:
                 buttons.append(mb.addButton(opt[1], QMessageBox.RejectRole))
         else:
-            pass #TODO: Make list selection
+            pass  # TODO: Make list selection
         mb.addButton(QMessageBox.Cancel)
-        
+
         # Show the dialog
         mb.exec_()
         btn = mb.clickedButton()
@@ -81,28 +83,28 @@ class Settings(object):
         if mb.isChecked():
             self[key] = ret
         return ret
-        
+
     def write(self, d, group=None, settings=None):
         if settings is None:
             settings = QSettings(self)
         if group is not None:
             settings.beginGroup(group)
-        
+
         for k, v in d.iteritems():
             settings.setValue(k, v)
-        
+
         if group is not None:
             settings.endGroup()
-            
+
     def read(self, d, group=None, settings=None):
         if settings is None:
             settings = QSettings(self)
         if group is not None:
             settings.beginGroup(group)
-        
+
         for k, v in d.iteritems():
             if isinstance(v, tuple):
                 settings.value(k, v)
-        
+
         if group is not None:
-            settings.endGroup()       
+            settings.endGroup()
