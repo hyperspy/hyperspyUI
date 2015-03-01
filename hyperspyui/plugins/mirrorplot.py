@@ -11,6 +11,8 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+import hyperspy.utils.plot
+
 
 def tr(text):
     return QCoreApplication.translate("MirrorPlotPlugin", text)

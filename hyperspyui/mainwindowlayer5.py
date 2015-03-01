@@ -22,9 +22,9 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 from hyperspyui.signalwrapper import SignalWrapper
-from bindinglist import BindingList
-from widgets.dataviewwidget import DataViewWidget
-import util
+from hyperspyui.bindinglist import BindingList
+from hyperspyui.widgets.dataviewwidget import DataViewWidget
+import hyperspyui.util
 
 import hyperspy.hspy
 import hyperspy.defaults_parser
@@ -173,9 +173,10 @@ class MainWindowLayer5(MainWindowLayer4):
         if signals is None or len(signals) < 1:
             return None
         elif error_on_multiple and len(signals) > 1:
-            mb = QMessageBox(QMessageBox.Information, tr("Select one signal only"),
+            mb = QMessageBox(QMessageBox.Information,
+                             tr("Select one signal only"),
                              tr("You can only select one signal at the time" +
-                                " for this function. Currently, several are selected"),
+                                 " for this function. Currently, several are selected"),
                              QMessageBox.Ok)
             mb.exec_()
         return signals[0]
@@ -184,7 +185,7 @@ class MainWindowLayer5(MainWindowLayer4):
         s = self.tree.get_selected_signals()
         if len(s) < 1:
             w = self.main_frame.activeSubWindow()
-            s = [util.win2sig(w, self.signals)]
+            s = [hyperspyui.util.win2sig(w, self.figures)]
         return s
 
     def get_selected_model(self):
@@ -208,7 +209,7 @@ class MainWindowLayer5(MainWindowLayer4):
         """Signal selection callback for actions that are only valid for
         selected Signals.
         """
-        s = util.win2sig(win, self.signals)
+        s = hyperspyui.util.win2sig(win, self.signals)
         if s is None:
             action.setEnabled(False)
         else:
