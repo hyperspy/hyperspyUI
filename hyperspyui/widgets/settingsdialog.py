@@ -15,8 +15,9 @@ from extendedqwidgets import ExToolWindow
 def tr(text):
     return QCoreApplication.translate("PluginManagerWidget", text)
 
+
 def settings_to_controls(settings):
-    
+
 
 class PluginManagerWidget(ExToolWindow):
 
@@ -29,8 +30,6 @@ class PluginManagerWidget(ExToolWindow):
 
     def create_controls(self):
         self.tabs = QTabWidget(self)
-        
+
         self.general_tab = QWidget(self)
         form = QFormLayout()
-        
-        
