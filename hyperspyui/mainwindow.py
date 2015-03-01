@@ -19,6 +19,7 @@ from hyperspyui.signallist import SignalList
 from hyperspyui.threaded import Threaded
 from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
+from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 import hyperspyui.tools
 
 from python_qt_binding import QtGui, QtCore
@@ -46,7 +47,7 @@ class SignalTypeFilter(object):
 
 
 # TODO: Settings dialog
-# TODO: Plugins list enable/diable (save to settings)
+# TODO: Move non-core functionality to plugins
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing (w/batch input)
 # TODO: Layout save/restore
@@ -76,6 +77,7 @@ class MainWindow(MainWindowLayer5):
     def __init__(self, parent=None):
         # State variables
         self.signal_type_ag = None
+        self._plugin_manager_widget = None
 
         super(MainWindow, self).__init__(parent)
 
@@ -178,6 +180,11 @@ class MainWindow(MainWindowLayer5):
                              hyperspy.signals.EDSSEMSpectrum,
                              hyperspy.signals.EDSTEMSpectrum), self.signals))
 
+        # Settings:
+        self.add_action('plugin_manager', "Plugin manager",
+                        self.show_plugin_manager,
+                        tip="Show the plugin manager")
+
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
         signal_type_ag.setExclusive(True)
@@ -230,6 +237,8 @@ class MainWindow(MainWindowLayer5):
         # Create Windows menu
         super(MainWindow, self).create_menu()
 
+        self.add_menuitem('Settings', self.actions['plugin_manager'])
+
     def create_tools(self):
         super(MainWindow, self).create_tools()
         for tool_type in hyperspyui.tools.default_tools:
@@ -273,6 +282,12 @@ class MainWindow(MainWindowLayer5):
     # ---------------------------------------
     # Slots
     # ---------------------------------------
+
+    def show_plugin_manager(self):
+        if self._plugin_manager_widget is None:
+            self._plugin_manager_widget = PluginManagerWidget(
+                self.plugin_manager, self)
+        self._plugin_manager_widget.show()
 
     def mirror_navi(self, uisignals=None):
         # Select signals
