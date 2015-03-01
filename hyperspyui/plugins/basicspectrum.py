@@ -109,7 +109,7 @@ class BasicSpectrumPlugin(Plugin):
                                                             np.isinf(ns.s_return.data)))
 
             def fr_complete():
-                self.ui.add_signal_figure(ns.s_return, 
+                self.ui.add_signal_figure(ns.s_return,
                                           s_core.name + "[Fourier-ratio]")
 
             t = Threaded(self.ui, run_fr, fr_complete)
