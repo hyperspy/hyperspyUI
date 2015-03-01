@@ -161,7 +161,7 @@ class MainWindowLayer5(MainWindowLayer4):
         s = self.tree.get_selected_signals()
         if len(s) < 1:
             w = self.main_frame.activeSubWindow()
-            s = hyperspyui.util.win2sig(w, self.figures)
+            s = [hyperspyui.util.win2sig(w, self.figures)]
         return s
 
     def get_selected_model(self):
