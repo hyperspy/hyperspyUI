@@ -15,6 +15,10 @@ import types
 from hyperspyui.exceptions import ProcessCanceled
 
 
+def tr(text):
+    return QCoreApplication.translate("Threaded", text)
+
+
 class Worker(QObject):
     progress = QtCore.Signal(int)
     finished = QtCore.Signal()
@@ -96,7 +100,7 @@ class Threaded(QObject):
 class ProgressThreaded(Threaded):
 
     def __init__(self, parent, run, finished=None, label=None, cancellable=False,
-                 title="Processing", modal=True, generator_N=None):
+                 title=tr("Processing"), modal=True, generator_N=None):
         self.modal = modal
         self.generator_N = generator_N
 
@@ -125,7 +129,7 @@ class ProgressThreaded(Threaded):
                 for p in run:
                     self.worker.progress[int].emit(p)
                     if self.progressbar.wasCanceled():
-                        raise ProcessCanceled("User cancelled operation")
+                        raise ProcessCanceled(tr("User cancelled operation"))
 
             super(ProgressThreaded, self).__init__(parent, run_gen, finished)
         else:

@@ -50,11 +50,11 @@ class PCA_Plugin(Plugin):
 
     # ----------- Plugin interface -----------
     def create_actions(self):
-        self.add_action('pca', "PCA", self.pca,
+        self.add_action('pca', tr("PCA"), self.pca,
                         icon='pca.svg',
-                        tip="Run Principal Component Analysis",
+                        tip=tr("Run Principal Component Analysis"),
                         selection_callback=self.selection_rules)
-        self.add_action('pca_explore_components', "Explore PCA components",
+        self.add_action('pca_explore_components', tr("Explore PCA components"),
                         self.explore_components,
                         selection_callback=self.selection_rules)
 
@@ -316,9 +316,9 @@ class PCA_Plugin(Plugin):
 
             make_compound(s_scree, s_residual)
 
-        label = 'Performing PCA'
+        label = tr("Performing PCA")
         if mmap:
-            label += '\n[Using memory map for data]'
+            label += tr('\n[Using memory map for data]')
         t = ProgressThreaded(self.ui, threaded_gen(), on_threaded_complete,
                              label=label,
                              cancellable=True,
@@ -348,7 +348,7 @@ class PCA_Plugin(Plugin):
                 ax.set_title("")
                 scree = ax.get_figure().canvas
                 scree.draw()
-                scree.setWindowTitle("Pick number of components")
+                scree.setWindowTitle(tr("Pick number of components"))
 
                 def clicked(event):
                     n_components = round(event.xdata)
@@ -377,5 +377,5 @@ class PCA_Plugin(Plugin):
                         signal, n_components))
 
         t = ProgressThreaded(self.ui, do_threaded, on_complete,
-                             label="Performing PCA")
+                             label=tr("Performing PCA"))
         t.run()

@@ -12,7 +12,7 @@ import os
 import pickle
 
 # Should go before any MPL imports:
-from hyperspyui.mainwindowlayer5 import MainWindowLayer5
+from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.signallist import SignalList
@@ -24,10 +24,6 @@ import hyperspyui.tools
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
-
-
-def tr(text):
-    return QCoreApplication.translate("MainWindow", text)
 
 import hyperspy.utils.plot
 import hyperspy.signals
@@ -49,8 +45,8 @@ class SignalTypeFilter(object):
         action.setEnabled(valid)
 
 
-# TODO: Translation lookups (tr)
 # TODO: Settings dialog
+# TODO: Plugins list enable/diable (save to settings)
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing (w/batch input)
 # TODO: Layout save/restore

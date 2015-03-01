@@ -11,6 +11,10 @@ from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
 
 
+def tr(text):
+    return QtCore.QCoreApplication.translate("MainWindow", text)
+
+
 def lstrip(string, prefix):
     if string is not None:
         if string.startswith(prefix):
@@ -75,7 +79,7 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
         ac_name = 'add_component_' + name
         f = partial(callback, t)
         ac = QtGui.QAction(prefix + name + postfix, parent)
-        ac.setStatusTip("Add a component of type " + name)
+        ac.setStatusTip(tr("Add a component of type ") + name)
         ac.connect(ac, QtCore.SIGNAL('triggered()'), f)
         actions[ac_name] = ac
     return actions
@@ -104,7 +108,7 @@ class Namespace(dict):
         try:
             return self[name]
         except KeyError:
-            msg = "'%s' object has no attribute '%s'"
+            msg = tr("'%s' object has no attribute '%s'")
             raise AttributeError(msg % (type(self).__name__, name))
 
     def __setattr__(self, name, value):
