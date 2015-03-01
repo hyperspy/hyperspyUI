@@ -127,6 +127,7 @@ class MainWindow(MainWindowLayer5):
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close,
                         icon='close_window.svg',
+                        selection_callback=self.select_signal,
                         tip="Close the selected signal(s)")
 
         close_all_key = QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
@@ -138,6 +139,7 @@ class MainWindow(MainWindowLayer5):
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save,
                         icon='save.svg',
+                        selection_callback=self.select_signal,
                         tip="Save the selected signal(s)")
         self.add_action('save_fig', "Save &figure", self.save_figure,
                         #                        icon=os.path.dirname(__file__) + '/../images/save.svg',
@@ -145,9 +147,11 @@ class MainWindow(MainWindowLayer5):
 
         self.add_action('mirror', "Mirror", self.mirror_navi,
                         icon='mirror.svg',
+                        selection_callback=self.select_signal,
                         tip="Mirror navigation axes of selected signals")
 
         self.add_action('add_model', "Create Model", self.make_model,
+                        selection_callback=self.select_signal,
                         tip="Create a model for the selected signal")
 
         self.add_action('remove_background', "Remove Background",

@@ -180,6 +180,16 @@ class MainWindowLayer5(MainWindowLayer4):
             selected = "other"
         return s, selected, w
 
+    def select_signal(self, win, action):
+        """Signal selection callback for actions that are only valid for
+        selected Signals.
+        """
+        s = util.win2sig(win, self.signals)
+        if s is None:
+            action.setEnabled(False)
+        else:
+            action.setEnabled(True)
+
     # --------- File I/O ----------
 
     def load(self, filenames=None):
