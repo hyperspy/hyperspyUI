@@ -13,6 +13,7 @@ from QtGui import *
 
 
 class MainWindowLayer4(MainWindowLayer3):
+
     """
     Fourth layer in the application stack. Adds recorder functionality.
     """
@@ -21,11 +22,11 @@ class MainWindowLayer4(MainWindowLayer3):
         self.recorders = []
         super(MainWindowLayer4, self).__init__(parent)
 
-    def add_action(self, key, label, callback, tip=None, icon=None, 
+    def add_action(self, key, label, callback, tip=None, icon=None,
                    shortcut=None, userdata=None, selection_callback=None):
-        ac = super(MainWindowLayer4, self).add_action(key, label, callback, 
-                                                 tip, icon, shortcut, userdata,
-                                                 selection_callback)
+        ac = super(MainWindowLayer4, self).add_action(key, label, callback,
+                                                      tip, icon, shortcut, userdata,
+                                                      selection_callback)
         # Monitor events needs to trigger first!
         e = self.actions[key].triggered
         e.disconnect()  # Disconnect everything
@@ -45,7 +46,7 @@ class MainWindowLayer4(MainWindowLayer3):
     def record_action(self, key):
         for r in self.recorders:
             r.add_action(key)
-    
+
     def record_code(self, code):
         for r in self.recorders:
             r.add_code(code)

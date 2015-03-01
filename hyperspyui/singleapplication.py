@@ -5,8 +5,10 @@ Created on Thu Nov 27 03:01:19 2014
 @author: Vidar Tonaas Fauske
 """
 
-import sys, pickle
+import sys
+import pickle
 from python_qt_binding import QtGui, QtCore, QtNetwork
+
 
 class SingleApplication(QtGui.QApplication):
     messageAvailable = QtCore.pyqtSignal(object)
@@ -25,7 +27,9 @@ class SingleApplication(QtGui.QApplication):
     def isRunning(self):
         return self._running
 
+
 class SingleApplicationWithMessaging(SingleApplication):
+
     def __init__(self, argv, key):
         SingleApplication.__init__(self, argv, key)
         self._key = key
@@ -61,6 +65,7 @@ class SingleApplicationWithMessaging(SingleApplication):
             return True
         return False
 
+
 def get_app(key):
     # send commandline args as message
     if len(sys.argv) > 1:
@@ -73,5 +78,5 @@ def get_app(key):
         app = SingleApplication(sys.argv, key)
         if app.isRunning():
             sys.exit(1)
-    
+
     return app

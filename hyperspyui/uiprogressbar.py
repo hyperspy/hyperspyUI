@@ -21,33 +21,39 @@ signaler.progress = Signal((object, int), (object, int, str))
 signaler.finished = Signal(object)
 signaler.cancel = Signal(int)
 # This is necessary as it bugs out if not (it's a daisy chained event)
+
+
 def _on_cancel(pid):
     signaler.emit(SIGNAL('cancel(int)'), pid)
 signaler.on_cancel = _on_cancel
 
 # Hook function
+
+
 def _wrap(*args, **kwargs):
     """
     Replacement function for hyperspy.misc.progressbar.progressbar().
     Causes a UIProgressBar() to be made, which the MainWindow can connect to
-    in order to create a progress indicator. It is important that the 
+    in order to create a progress indicator. It is important that the
     connection is made with QtCore.Signals, as they are thread aware, and the
     signal is processed on the GUI main event loop, i.e. the main thread. This
     is necessary as all UI operations have to happen on the main thread, and
     the hyperspy processing might be pushed to a worker thread "threaded.py".
     """
     disabled = kwargs.pop('disabled', False)
-    maxval = kwargs.pop('maxval',100)
+    maxval = kwargs.pop('maxval', 100)
     text = kwargs.pop('text', "")
     if disabled:
         return hyperspy.misc.progressbar.DummyProgressBar()
     else:
-        widgets = [text, "bar", 
+        widgets = [text, "bar",
                    hyperspy.misc.progressbar.ETA()]
         return UIProgressBar(widgets=widgets, maxval=maxval).start()
 
 # Override hyperspy prgoressbar implementation
 orig = hyperspy.misc.progressbar.progressbar
+
+
 def takeover_progressbar():
     """
     Replace hyperspy.misc.progressbar.progressbar() with uiprogressbar.wrap().
@@ -55,29 +61,33 @@ def takeover_progressbar():
     is created.
     """
     hyperspy.misc.progressbar.progressbar = _wrap
-    
+
+
 def reset_progressbar():
     hyperspy.misc.progressbar.progressbar = orig
 
+
 class UIProgressBar(hyperspy.misc.progressbar.ProgressBar):
+
     """
     Connector between hyperspy process with a progressbar, and the UI. See also
     the doc for wrap() for more details.
     """
     uid = 1
+
     def __init__(self, maxval=100, widgets=[""]):
         self.cancelled = False
         self.id = self.uid
         self.uid += 1
-        
+
         assert maxval >= 0
         self.maxval = maxval
         self.signal_set = False
-        
+
         global signaler
-        signaler.connect( signaler, SIGNAL('cancel(int)'), 
-                              self.cancel)
-        
+        signaler.connect(signaler, SIGNAL('cancel(int)'),
+                         self.cancel)
+
         self.widgets = widgets
 
         self.currval = 0
@@ -111,19 +121,19 @@ class UIProgressBar(hyperspy.misc.progressbar.ProgressBar):
                 has_eta = True
                 eta = w.update(self)
                 txt = self.widgets[0] + " " + eta
-                signaler.emit(SIGNAL('progress(int, int, QString)'), 
-                                   self.id, value, txt)
+                signaler.emit(SIGNAL('progress(int, int, QString)'),
+                              self.id, value, txt)
         if not has_eta:
             signaler.emit(SIGNAL('progress(int, int)'), self.id,
-                               value)
-        
+                          value)
+
     def start(self):
         """
         Starts the progress. Called by hyperspy side.
         """
         global signaler
         signaler.emit(SIGNAL('created(int, int, QString)'), self.id,
-                           self.maxval, self.widgets[0])
+                      self.maxval, self.widgets[0])
         ret = super(UIProgressBar, self).start()
         return ret
 

@@ -5,7 +5,7 @@ Created on Mon Oct 27 18:47:05 2014
 @author: Vidar Tonaas Fauske
 """
 
-    
+
 import hyperspy.components
 from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
@@ -15,16 +15,19 @@ def lstrip(string, prefix):
     if string is not None:
         if string.startswith(prefix):
             return string[len(prefix):]
-            
+
+
 def fig2win(fig, windows):
     # Each figure has FigureCanvas as widget, canvas has figure property
     matches = [w for w in windows if w.widget().figure == fig]
     return matches[0]
-    
+
+
 def win2fig(window):
     # Each figure has FigureCanvas as widget, canvas has figure property
     return window.widget().figure
-    
+
+
 def win2sig(window, signals=None):
     if window is not None:
         if signals is None:
@@ -35,16 +38,18 @@ def win2sig(window, signals=None):
                 if window in (s.navigator_plot, s.signal_plot):
                     return s
     return None
-    
+
+
 def dict_rlu(dictionary, value):
     """
     Reverse dictionary lookup.
     """
-    for k,v in dictionary.iteritems():
+    for k, v in dictionary.iteritems():
         if v == value or v is value:
             return k
     raise KeyError()
-    
+
+
 def load_cursor(filename, hotX=-1, hotY=-1):
     renderer = QtSvg.QSvgRenderer(filename)
     pm = QtGui.QPixmap(16, 16)
@@ -54,12 +59,13 @@ def load_cursor(filename, hotX=-1, hotY=-1):
     del painter, renderer
     return QtGui.QCursor(pm, hotX, hotY)
 
+
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}
-    compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw', 
-                 'Erf', 'Exponential', 'Gaussian', 'Gaussian2', 'Logistic', 
+    compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw',
+                 'Erf', 'Exponential', 'Gaussian', 'Gaussian2', 'Logistic',
                  'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 'Vignetting',
-                 'Voigt', 'Polynomial', 'PESCoreLineShape', 
+                 'Voigt', 'Polynomial', 'PESCoreLineShape',
                  'VolumePlasmonDrude']
     for name in compnames:
         try:
@@ -76,6 +82,7 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
 
 
 class Namespace(dict):
+
     """A dict subclass that exposes its items as attributes.
 
     Warning: Namespace instances do not have direct access to the
@@ -90,7 +97,8 @@ class Namespace(dict):
         return tuple(self)
 
     def __repr__(self):
-        return "%s(%s)" % (type(self).__name__, super(Namespace, self).__repr__())
+        return "%s(%s)" % (
+            type(self).__name__, super(Namespace, self).__repr__())
 
     def __getattribute__(self, name):
         try:
@@ -112,19 +120,19 @@ class Namespace(dict):
     def from_object(cls, obj, names=None):
         if names is None:
             names = dir(obj)
-        ns = {name:getattr(obj, name) for name in names}
+        ns = {name: getattr(obj, name) for name in names}
         return cls(ns)
 
     @classmethod
     def from_mapping(cls, ns, names=None):
         if names:
-            ns = {name:ns[name] for name in names}
+            ns = {name: ns[name] for name in names}
         return cls(ns)
 
     @classmethod
     def from_sequence(cls, seq, names=None):
         if names:
-            seq = {name:val for name, val in seq if name in names}
+            seq = {name: val for name, val in seq if name in names}
         return cls(seq)
 
     #------------------------
