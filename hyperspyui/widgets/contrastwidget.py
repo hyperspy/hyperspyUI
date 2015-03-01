@@ -19,6 +19,10 @@ import numpy as np
 from matplotlib.colors import Normalize, SymLogNorm
 
 
+def tr(text):
+    return QCoreApplication.translate("ContrastWidget", text)
+
+
 def fig2plot(fig, signals):
     for s in signals:
         p = s.signal._plot
@@ -33,12 +37,12 @@ def fig2plot(fig, signals):
 
 
 class ContrastWidget(QDockWidget):
-    LevelLabel = "Level"  # TODO: tr
-    WindowLabel = "Window"  # TODO: tr
+    LevelLabel = tr("Level")
+    WindowLabel = tr("Window")
 
     def __init__(self, parent, figure=None):
         super(ContrastWidget, self).__init__(parent)
-        self.setWindowTitle("Contrast control")
+        self.setWindowTitle(tr("Contrast control"))
         self.create_controls()
 
         self.cur_figure = None
@@ -165,8 +169,8 @@ class ContrastWidget(QDockWidget):
             sl.setRange(0.0, 1.0)
             sl.setValue(0.0)
 
-        self.chk_auto = QCheckBox("Auto", self)  # TODO: tr
-        self.chk_log = QCheckBox("Log", self)   # TODO: tr
+        self.chk_auto = QCheckBox(tr("Auto"), self)
+        self.chk_log = QCheckBox(tr("Log"), self)
 
         self.lbl_level.clicked.connect(self.reset_level)
         self.lbl_window.clicked.connect(self.reset_window)

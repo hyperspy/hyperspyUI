@@ -12,6 +12,10 @@ from QtGui import *
 import numpy as np
 
 
+def tr(text):
+    return QCoreApplication.translate("ExtendedQWidgets", text)
+
+
 class ExToolWindow(QDialog):
 
     """
@@ -74,7 +78,7 @@ class ExRememberPrompt(ExMessageBox):
 
     def __init__(self, *args, **kwargs):
         super(ExRememberPrompt, self).__init__(*args, **kwargs)
-        cb = QCheckBox("Remember this choice")
+        cb = QCheckBox(tr("Remember this choice"))
         self.setCheckBox(cb)
 
 

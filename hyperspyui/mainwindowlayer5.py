@@ -146,7 +146,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def get_selected_signal(self, error_on_multiple=False):
         signals = self.get_selected_signals()
-        if len(signals) < 1:
+        if signals is None or len(signals) < 1:
             return None
         elif error_on_multiple and len(signals) > 1:
             mb = QMessageBox(QMessageBox.Information, tr("Select one signal only"),
@@ -179,6 +179,16 @@ class MainWindowLayer5(MainWindowLayer4):
         else:
             selected = "other"
         return s, selected, w
+
+    def select_signal(self, win, action):
+        """Signal selection callback for actions that are only valid for
+        selected Signals.
+        """
+        s = util.win2sig(win, self.signals)
+        if s is None:
+            action.setEnabled(False)
+        else:
+            action.setEnabled(True)
 
     # --------- File I/O ----------
 

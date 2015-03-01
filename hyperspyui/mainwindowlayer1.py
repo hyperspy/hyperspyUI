@@ -7,7 +7,7 @@ Created on Mon Oct 27 21:17:42 2014
 
 # Set proper backend for matplotlib
 import matplotlib
-matplotlib.use('module://mdi_mpl_backend')
+matplotlib.use('module://hyperspyui.mdi_mpl_backend')
 matplotlib.interactive(True)
 
 import os
@@ -21,7 +21,7 @@ def tr(text):
     return QCoreApplication.translate("MainWindow", text)
 
 from widgets.consolewidget import ConsoleWidget
-import mdi_mpl_backend
+import hyperspyui.mdi_mpl_backend
 from pluginmanager import PluginManager
 
 
@@ -63,8 +63,8 @@ class MainWindowLayer1(QMainWindow):
         self.plugin_manager = None
 
         # MPL backend bindings
-        mdi_mpl_backend.connect_on_new_figure(self.on_new_figure)
-        mdi_mpl_backend.connect_on_destroy(self.on_destroy_figure)
+        hyperspyui.mdi_mpl_backend.connect_on_new_figure(self.on_new_figure)
+        hyperspyui.mdi_mpl_backend.connect_on_destroy(self.on_destroy_figure)
 
         # Create UI
         self.windowmenu = None
