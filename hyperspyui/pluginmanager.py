@@ -40,7 +40,7 @@ class PluginManager(object):
     def _inheritors(klass):
         """Return all defined classes that inherit from 'klass'.
         """
-        subclasses = set((klass,))
+        subclasses = set()
         work = [klass]
         while work:
             parent = work.pop()
