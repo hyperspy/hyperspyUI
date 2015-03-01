@@ -21,30 +21,32 @@ except ImportError:
 from figuretool import FigureTool
 from util import load_cursor
 
+
 class GaussianTool(FigureTool):
+
     def __init__(self, windows=None):
         super(GaussianTool, self).__init__(windows)
         self.dragging = False
         self.drag_data = None
         self.span = None
         self._old_plot_comp = {}
-        
+
     def get_name(self):
         return "Gaussian tool"
-        
+
     def get_category(self):
         return 'Components'
-        
+
     def get_icon(self):
         return os.path.dirname(__file__) + '/../../images/gaussian.svg'
-        
+
     def is_selectable(self):
         return True
-            
+
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) + \
-                                  '/../../images/picker.svg', 8, 8)
-        
+        return load_cursor(os.path.dirname(__file__) +
+                           '/../../images/picker.svg', 8, 8)
+
     def _wire_wrapper(self, wrapper):
         if wrapper is None:
             return
@@ -55,7 +57,7 @@ class GaussianTool(FigureTool):
             for c in m:
                 if isinstance(c, GaussTypes):
                     c._model_plot_line.line.set_picker(True)
-                    
+
     def _unwire_wrapper(self, wrapper):
         if wrapper is None:
             return
@@ -66,7 +68,7 @@ class GaussianTool(FigureTool):
                     c._model_plot_line.line.set_picker(False)
             if not self._old_plot_comp[wrapper]:
                 m.disable_plot_components()
-        
+
     def on_pick(self, event):
         if event.mouseevent.inaxes is None:
             return
@@ -79,30 +81,29 @@ class GaussianTool(FigureTool):
                     line = c._model_plot_line.line
                     if event.artist == line and \
                             isinstance(c, GaussTypes):
-                        mw.remove_component(c)      
-                
-                
+                        mw.remove_component(c)
+
     def connect(self, windows):
         super(GaussianTool, self).connect(windows)
         windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')
             self._wire_wrapper(mw)
-                
+
     def disconnect(self, windows):
         super(GaussianTool, self).disconnect(windows)
         windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')
             self._unwire_wrapper(mw)
-        
+
     def on_mousedown(self, event):
         if event.inaxes is None:
             return
         ax = event.inaxes
         f = ax.figure
         x, y = event.xdata, event.ydata
-        
+
         if event.button == 1 and event.dblclick:
             # Add Gaussian here!
             window = f.canvas.parent()
@@ -117,10 +118,10 @@ class GaussianTool(FigureTool):
             if m.spectrum.metadata.Signal.binned:
                 h /= m.axis.scale
             if has_gauss_v2:
-                g = Gaussian2(height = h * np.sqrt(2*np.pi), centre = x)
+                g = Gaussian2(height=h * np.sqrt(2 * np.pi), centre=x)
                 g.height.free = False
             else:
-                g = Gaussian(A = h, centre = x)
+                g = Gaussian(A=h, centre=x)
             g.centre.free = False
             mw.add_component(g)
             g._model_plot_line.line.set_picker(True)
@@ -131,7 +132,7 @@ class GaussianTool(FigureTool):
         else:
             self.dragging = True
             self.drag_data = [x, y, event.button, ax, event]
-        
+
     def on_spanselect(self, x0, x1):
         self.span.disconnect_events()
         self.span = None
@@ -143,7 +144,7 @@ class GaussianTool(FigureTool):
             mw = sw.make_model()
             self._wire_wrapper(mw)
         m = mw.model
-        
+
         if has_gauss_v2:
             g = Gaussian2()
         else:
@@ -161,27 +162,27 @@ class GaussianTool(FigureTool):
             g.height.value = h
             g.height.free = False
         else:
-            g.A.value = h * np.sqrt(2*np.pi)
+            g.A.value = h * np.sqrt(2 * np.pi)
         g.centre.free = False
         m.fit_component(g, signal_range=(x0, x1), estimate_parameters=False)
         if has_gauss_v2:
             g.height.free = True
         g.centre.free = True
-        
+
         if self.drag_data is None:
             return
         self.drag_data = None
-    
+
     def on_mousemove(self, event):
         if not self.dragging or self.drag_data is None:
             return
-        
+
         ax = self.drag_data[3]
         if self.span is None:
             self.dragging = False
             invtrans = ax.transData.inverted()
-            minspan = 3*np.abs(invtrans.transform((1,0)) - 
-                             invtrans.transform((0, 0)))[0]
+            minspan = 3 * np.abs(invtrans.transform((1, 0)) -
+                                 invtrans.transform((0, 0)))[0]
             self.span = SpanSelector(ax, self.on_spanselect, 'horizontal',
                                      minspan=minspan)
             event2 = self.drag_data[4]

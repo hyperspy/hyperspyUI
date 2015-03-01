@@ -10,29 +10,31 @@ import os
 from figuretool import FigureTool
 from util import load_cursor
 
+
 class ZoomPanTool(FigureTool):
+
     def __init__(self, windows=None):
         super(ZoomPanTool, self).__init__(windows)
         self.panning = False
         self.pan_data = None
         self.base_scale = 1.5     # Mouse wheel zoom factor
-        
+
     def get_name(self):
         return "Pan/Zoom tool"
-        
+
     def get_category(self):
         return 'Navigation'
-        
+
     def get_icon(self):
         return os.path.dirname(__file__) + '/../../images/panzoom2.svg'
-        
+
     def is_selectable(self):
         return True
-            
+
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) + \
-                                  '/../../images/panzoom2.svg', 8, 8)
-        
+        return load_cursor(os.path.dirname(__file__) +
+                           '/../../images/panzoom2.svg', 8, 8)
+
     def on_mousedown(self, event):
         if event.inaxes is None:
             return
@@ -47,7 +49,7 @@ class ZoomPanTool(FigureTool):
         if len(axes) > 0:
             self.panning = True
             self.pan_data = [x, y, event.button, axes]
-    
+
     def on_mouseup(self, event):
         if not self.panning:
             return
@@ -58,24 +60,24 @@ class ZoomPanTool(FigureTool):
             a.end_pan()
             a.figure.canvas.draw_idle()
         self.pan_data = None
-    
+
     def on_mousemove(self, event):
         if not self.panning or self.pan_data is None:
             return
-            
+
         x0, y0 = self.pan_data[0:2]
         x1, y1 = self.pan_data[0:2] = (event.x, event.y)
-        dx, dy = x1-x0, y1-y0
-        
+        dx, dy = x1 - x0, y1 - y0
+
         cs = set()
         for a in self.pan_data[3]:
-            #safer to use the recorded button at the press than current button:
-            #multiple button can get pressed during motion...
+            # safer to use the recorded button at the press than current button:
+            # multiple button can get pressed during motion...
             a.drag_pan(self.pan_data[2], event.key, event.x, event.y)
             cs.add(a.figure.canvas)
         for canvas in cs:
             canvas.draw()
-            
+
     def connect(self, windows):
         super(ZoomPanTool, self).connect(windows)
         windows = self._iter_windows(windows)
@@ -84,7 +86,7 @@ class ZoomPanTool(FigureTool):
             canvases.add(w.widget())
         for c in canvases:
             c.widgetlock(self)
-            
+
     def disconnect(self, windows):
         super(ZoomPanTool, self).disconnect(windows)
         windows = self._iter_windows(windows)
@@ -93,7 +95,7 @@ class ZoomPanTool(FigureTool):
             canvases.add(w.widget())
         for c in canvases:
             c.widgetlock.release(self)
-            
+
     def on_scroll(self, event):
         if event.inaxes is None:
             return
@@ -101,28 +103,32 @@ class ZoomPanTool(FigureTool):
         # get the current x and y limits
         cxlim = ax.get_xlim()
         cylim = ax.get_ylim()
-        cx = (cxlim[1] - cxlim[0])*.5
-        cy = (cylim[1] - cylim[0])*.5
-        x = event.xdata # get event x location
-        y = event.ydata # get event y location
-        center = ((cxlim[1] + cxlim[0])*.5, (cylim[1] + cylim[0])*.5)
-        zoom_vector = ((x - center[0])/self.base_scale, (y - center[1])/self.base_scale)
+        cx = (cxlim[1] - cxlim[0]) * .5
+        cy = (cylim[1] - cylim[0]) * .5
+        x = event.xdata  # get event x location
+        y = event.ydata  # get event y location
+        center = ((cxlim[1] + cxlim[0]) * .5, (cylim[1] + cylim[0]) * .5)
+        zoom_vector = (
+            (x - center[0]) / self.base_scale,
+            (y - center[1]) / self.base_scale)
         if event.button == 'up':
             # deal with zoom in
-            scale = 1.0/self.base_scale
-            new_centre = (center[0] + zoom_vector[0], center[1] + zoom_vector[1])
-            new_xlim = [new_centre[0] - cx*scale, 
-                        new_centre[0] + cx*scale]
-            new_ylim = [new_centre[1] - cy*scale, 
-                        new_centre[1] + cy*scale]
+            scale = 1.0 / self.base_scale
+            new_centre = (
+                center[0] + zoom_vector[0], center[1] + zoom_vector[1])
+            new_xlim = [new_centre[0] - cx * scale,
+                        new_centre[0] + cx * scale]
+            new_ylim = [new_centre[1] - cy * scale,
+                        new_centre[1] + cy * scale]
         elif event.button == 'down':
             # deal with zoom out
             scale = self.base_scale
-            new_centre = (center[0] - zoom_vector[0], center[1] - zoom_vector[1])
-            new_xlim = [new_centre[0] - cx*scale, 
-                        new_centre[0] + cx*scale]
-            new_ylim = [new_centre[1] - cy*scale, 
-                        new_centre[1] + cy*scale]
+            new_centre = (
+                center[0] - zoom_vector[0], center[1] - zoom_vector[1])
+            new_xlim = [new_centre[0] - cx * scale,
+                        new_centre[0] + cx * scale]
+            new_ylim = [new_centre[1] - cy * scale,
+                        new_centre[1] + cy * scale]
         else:
             return
         # set new limits

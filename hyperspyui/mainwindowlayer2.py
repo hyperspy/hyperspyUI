@@ -6,7 +6,6 @@ Created on Sat Feb 21 15:59:57 2015
 """
 
 
-
 from mainwindowlayer1 import MainWindowLayer1, tr
 
 from python_qt_binding import QtGui, QtCore
@@ -17,7 +16,9 @@ import hooktraitsui
 
 hooktraitsui.hook_traitsui()
 
+
 class MainWindowLayer2(MainWindowLayer1):
+
     """
     Second layer in the application stack. Adds traits capture functionality.
     """
@@ -26,9 +27,8 @@ class MainWindowLayer2(MainWindowLayer1):
         # traitsui backend bindings
         hooktraitsui.connect_created(self.on_traits_dialog)
         hooktraitsui.connect_destroyed(self.on_traits_destroyed)
-        
-        super(MainWindowLayer2, self).__init__(parent)
 
+        super(MainWindowLayer2, self).__init__(parent)
 
     # --------- traitsui Events ---------
 
@@ -50,4 +50,4 @@ class MainWindowLayer2(MainWindowLayer1):
         if dialog in self.traits_dialogs:
             self.traits_dialogs.remove(dialog)
 
-    # --------- End traitsui Events ---------      
+    # --------- End traitsui Events ---------

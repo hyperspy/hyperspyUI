@@ -7,9 +7,10 @@ Created on Fri Dec 12 23:44:26 2014
 
 from hyperspyui.settings import Settings
 
+
 class Plugin(object):
     name = None
-    
+
     def __init__(self, main_window):
         super(Plugin, self).__init__()
         self.ui = main_window
@@ -19,47 +20,47 @@ class Plugin(object):
         else:
             set_group = 'plugins.' + self.name
         self.settings = Settings(self.ui, group=set_group)
-        
+
         self.actions = {}
         self.menu_actions = {}
         self.toolbar_actions = {}
         self.widgets = set()
-        
+
     def add_action(self, key, *args, **kwargs):
         ac = self.ui.add_action(key, *args, **kwargs)
         self.actions[key] = ac
-    
+
     def add_menuitem(self, category, action, *args, **kwargs):
         self.ui.add_menuitem(category, action, *args, **kwargs)
         self.menu_actions[category] = action
-    
+
     def add_toolbar_button(self, category, action, *args, **kwargs):
         self.ui.add_toolbar_button(category, action, *args, **kwargs)
         self.toolbar_actions[category] = action
-        
+
     def add_widget(self, widget, *args, **kwargs):
         dock = self.ui.add_widget(widget, *args, **kwargs)
         self.widgets.add(dock)
-    
+
     def record_code(self, code):
         code = code.replace('<p>', "ui.plugins['{0}']".format(self.name))
         self.ui.record_code(code)
-        
+
     def create_actions(self):
         pass
-    
+
     def create_menu(self):
         pass
-    
+
     def create_tools(self):
         pass
-    
+
     def create_toolbars(self):
         pass
-    
+
     def create_widgets(self):
         pass
-    
+
     def unload(self):
         for category, action in self.menu_actions.iteritems():
             self.ui.menus[category].removeAction(action)

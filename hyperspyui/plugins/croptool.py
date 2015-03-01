@@ -11,27 +11,29 @@ import os
 import numpy as np
 
 from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
-                                     DraggableResizableRange
+    DraggableResizableRange
 from hyperspy.roi import RectangularROI, SpanROI
 
 from hyperspyui.tools import FigureTool
 from util import load_cursor
 
+
 class CropToolPlugin(Plugin):
     name = "Crop tool"
-    
+
     def create_tools(self):
         self.ui.add_tool(CropTool)
 
 
 class CropTool(FigureTool):
+
     """
     Tool to crop signal interactively. Simply click and drag in a figure to
     create an ROI, and then press enter to apply cropping operation, or ESC to
-    abort cropping. The cropping can also be aborted simply by selecting a 
+    abort cropping. The cropping can also be aborted simply by selecting a
     different tool.
     """
-    
+
     def __init__(self, windows=None):
         super(CropTool, self).__init__(windows)
         self.widget2d = ResizableDraggableRectangle(None)
@@ -39,14 +41,14 @@ class CropTool(FigureTool):
         self.widget1d = DraggableResizableRange(None)
         self.widget1d.set_on(False)
         self.axes = None
-    
+
     @property
     def widget(self):
         if self.ndim == 1:
             return self.widget1d
         else:
             return self.widget2d
-        
+
     @property
     def ndim(self):
         if self.axes is None:
@@ -55,26 +57,26 @@ class CropTool(FigureTool):
 
     def is_on(self):
         return self.widget.is_on()
-        
+
     def in_ax(self, ax):
         return ax == self.widget.ax
-        
+
     def get_name(self):
         return "Crop tool"
-        
+
     def get_category(self):
         return 'Signal'
-        
+
     def get_icon(self):
         return os.path.dirname(__file__) + '/../../images/crop.svg'
-        
+
     def is_selectable(self):
         return True
-            
+
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) + \
-                                  '/../../images/crop.svg', 8, 8)
-        
+        return load_cursor(os.path.dirname(__file__) +
+                           '/../../images/crop.svg', 8, 8)
+
     def on_mousedown(self, event):
         if event.inaxes is None:
             return
@@ -86,7 +88,7 @@ class CropTool(FigureTool):
                     if r.contains(event)[0] == True:
                         return      # Leave the event to resizer pick
             self.cancel()   # Cancel previous and start new
-        
+
         f = event.inaxes.figure
         window = f.canvas.parent()
         sw = window.property('hyperspyUI.SignalWrapper')
@@ -100,7 +102,7 @@ class CropTool(FigureTool):
             nav_ax = sw.signal._plot.navigator_plot.ax
         else:
             nav_ax = None
-        
+
         am = sw.signal.axes_manager
         if sig_ax == event.inaxes:
             axes = am.signal_axes
@@ -125,17 +127,17 @@ class CropTool(FigureTool):
             span.on_move_cid = \
                 span.canvas.mpl_connect('motion_notify_event', span.move_right)
         else:
-            self.widget.coordinates = (x,y)
-            self.widget.size = (1,1)
+            self.widget.coordinates = (x, y)
+            self.widget.size = (1, 1)
             self.widget.pick_on_frame = 3
             self.widget.picked = True
-        
+
     def on_keyup(self, event):
         if event.key == 'enter':
             self.crop(event)
         elif event.key == 'escape':
             self.cancel(event)
-            
+
     def crop(self, event):
         if self.is_on() and self.in_ax(event.inaxes):
             f = event.inaxes.figure
@@ -145,9 +147,9 @@ class CropTool(FigureTool):
                 return
             s = sw.signal
             if self.ndim == 1:
-                roi = SpanROI(0,1)
+                roi = SpanROI(0, 1)
             elif self.ndim > 1:
-                roi = RectangularROI(0,0,1,1)
+                roi = RectangularROI(0, 0, 1, 1)
             roi._on_widget_change(self.widget)
             axes = s.axes_manager._axes
             slices = roi._make_slices(axes, self.axes)
@@ -158,14 +160,14 @@ class CropTool(FigureTool):
             s.get_dimensions_from_data()
             s.squeeze()
             self.cancel()   # Turn off functionality as we are finished
-    
+
     def cancel(self, event=None):
         if event is None or self.in_ax(event.inaxes):
             if self.widget.is_on():
                 self.widget.set_on(False)
                 self.widget.size = 1    # Prevents flickering
             self.axes = None
-            
+
     def disconnect(self, windows):
         super(CropTool, self).disconnect(windows)
         self.cancel(None)
