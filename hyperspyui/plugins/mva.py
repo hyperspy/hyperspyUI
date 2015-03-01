@@ -26,6 +26,7 @@ from hyperspyui.threaded import ProgressThreaded
 def tr(text):
     return QCoreApplication.translate("MVA", text)
 
+
 def align_yaxis(ax1, v1, ax2, v2):
     """adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1"""
     _, y1 = ax1.transData.transform((0, v1))
@@ -126,15 +127,15 @@ class MVA_Plugin(Plugin):
             s.axes_manager._set_axis_attribute_values('navigate',
                                                       bk_s_navigate)
         return s
-    
+
     def _do_bss(self, s, n_components, force=False):
         """
-        Makes sure we have BSS results. If results already are available, it 
+        Makes sure we have BSS results. If results already are available, it
         will only recalculate if the `force` parameter is True.
         """
         if force or s.learning_results.bss_factors is None:
             s.blind_source_separation(n_components)
-    
+
     def get_bss_results(self, signal):
         factors = signal.get_bss_factors()
         loadings = signal.get_bss_loadings()
@@ -144,7 +145,7 @@ class MVA_Plugin(Plugin):
         if factors.axes_manager.signal_dimension > 2:
             factors.axes_manager.set_signal_dimension(factors_dim)
         return loadings, factors
-    
+
     def do_after_scree(self, model, signal=None, n_components=None):
         """
         Performs decomposition, then plots the scree for the user to select
@@ -155,10 +156,10 @@ class MVA_Plugin(Plugin):
         ns = Namespace()
         autosig = signal is None
         ns.s, signal = self._get_signal(signal)
-        
+
         def do_threaded():
             ns.s = self._do_decomposition(ns.s)
-            
+
         def on_complete():
             def _do(n_components):
                 # Num comp. picked, get model, wrap new signal and plot
@@ -168,25 +169,26 @@ class MVA_Plugin(Plugin):
                 elif model == 'bss':
                     self._do_bss(ns.s, n_components)
                     f, o = self.get_bss_results(ns.s)
-                    self.ui.add_signal_figure(f, signal.name + 
+                    self.ui.add_signal_figure(f, signal.name +
                                               "[BSS-Factors]")
-                    self.ui.add_signal_figure(o, signal.name + 
+                    self.ui.add_signal_figure(o, signal.name +
                                               "[BSS-Loadings]")
                 if autosig:
-                    self.record_code(r"<p>.%s(n_components=%d)" % 
+                    self.record_code(r"<p>.%s(n_components=%d)" %
                                      (model, n_components))
                 else:
                     self.record_code(r"<p>.{0}({1}, n_components={2})".format(
                                      model, signal, n_components))
             if n_components is None:
                 ax = ns.s.plot_explained_variance_ratio()
-                    
-                # Clean up plot and present, allow user to select components 
+
+                # Clean up plot and present, allow user to select components
                 # by picker
                 ax.set_title("")
                 scree = ax.get_figure().canvas
                 scree.draw()
                 scree.setWindowTitle("Pick number of components")
+
                 def clicked(event):
                     n_components = round(event.xdata)
                     # Close scree plot
@@ -196,11 +198,10 @@ class MVA_Plugin(Plugin):
                 scree.mpl_connect('button_press_event', clicked)
             else:
                 _do(n_components)
-            
-        t = ProgressThreaded(self.ui, do_threaded, on_complete, 
+
+        t = ProgressThreaded(self.ui, do_threaded, on_complete,
                              label="Performing %s" % model.upper())
         t.run()
-        
 
     def pca(self, signal=None, n_components=None):
         """
@@ -210,18 +211,16 @@ class MVA_Plugin(Plugin):
         and creates the model.
         """
         return self.do_after_scree('pca', signal, n_components)
-        
 
     def bss(self, signal=None, n_components=None):
         """
         Performs decomposition if neccessary, then plots the scree for the user
-        to select the number of components to use for a blind source 
-        separation. The selection is made by clicking on the scree, which 
+        to select the number of components to use for a blind source
+        separation. The selection is made by clicking on the scree, which
         closes the scree and creates the model.
         """
         return self.do_after_scree('bss', signal, n_components)
- 
-            
+
     def explore_components(self, signal=None, mmap="auto", n_component=50):
         """
         Utility function for seeing the effect of compoenent selection. Plots
