@@ -10,6 +10,33 @@ import sys
 import imp
 import warnings
 from hyperspyui.plugins.plugin import Plugin
+from hyperspyui.settings import Settings
+
+
+class ReadOnlyDict(dict):
+    _readonly = False
+
+    def __setitem__(self, key, value):
+
+        if self._readonly:
+            raise TypeError("This dictionary is read only")
+        return dict.__setitem__(self, key, value)
+
+    def __delitem__(self, key):
+
+        if self._readonly:
+            raise TypeError("This dictionary is read only")
+        return dict.__delitem__(self, key)
+
+    def pop(self, *args, **kwargs):
+        if self._readonly:
+            raise TypeError("This dictionary is read only")
+        return dict.pop(*args, **kwargs)
+
+    def update(self, *args, **kwargs):
+        if self._readonly:
+            raise TypeError("This dictionary is read only")
+        return dict.update(*args, **kwargs)
 
 
 class PluginManager(object):
@@ -19,9 +46,39 @@ class PluginManager(object):
         Initializates the manager, and performs discovery of plugins
         """
         self.plugins = {}
-        self.main_window = main_window
+        self.ui = main_window
+        self._enabled = {}
+        self.settings = Settings(self.ui, group="PluginManager.enabled")
 
         self.discover()
+
+    @property
+    def enabled(self):
+        """Returns a read-only dictionary showing the enabled/disabled state
+        of all plugins.
+        """
+        d = ReadOnlyDict()
+        for name, (enabled, _) in d.iteritems():
+            d[name] = enabled
+        d._readonly = True
+        return d
+
+    def enable_plugin(self, name, value=True):
+        """Enable/disable plugin functionality. Also loads/unloads plugin. If
+        enabling and the plugin is already loaded, this will reload the plugin.
+        """
+        self.settings[name] = value
+        ptype = self._enabled[name][1]
+        self._enabled[name] = (value, ptype)
+        if name in self.plugins:
+            self.unload(self.plugins[name])
+        if value:
+            self.load(ptype)
+
+    def disable_plugin(self, name):
+        """Disable plugin functionality. Also unloads plugin.
+        """
+        self.enable_plugin(name, False)
 
     def discover(self):
         """Auto-discover all plugins defined in plugin directory.
@@ -53,8 +110,7 @@ class PluginManager(object):
     def init_plugins(self):
         self.plugins = {}
         for plug_type in self.implementors:
-            p = plug_type(self.main_window)
-            self.plugins[p.name] = p
+            self._load_if_enabled(plug_type)
 
     def create_actions(self):
         for p in self.plugins.itervalues():
@@ -76,16 +132,31 @@ class PluginManager(object):
         for p in self.plugins.itervalues():
             p.create_widgets()
 
-    def load(self, plugin_type):
-        # Init
-        p = plugin_type(self.main_window)
-        self.plugins[p.name] = p
+    def _load_if_enabled(self, p_type):
+        if p_type is None or p_type.name is None:
+            return
+        if self.settings[p_type.name] is None:
+            # Init setting to True on first encounter
+            self.settings[p_type.name] = True
+        enabled = (self.settings[p_type.name].lower() == "true")
+        self._enabled[p_type.name] = (enabled, p_type)
+        if enabled:
+            # Init
+            p = p_type(self.ui)
+            self.plugins[p.name] = p
+            return p
+        else:
+            return None
 
-        # Order of execution is significant!
-        p.create_actions()
-        p.create_menu()
-        p.create_toolbars()
-        p.create_widgets()
+    def load(self, plugin_type):
+        p = self._load_if_enabled(plugin_type)
+
+        if p is not None:
+            # Order of execution is significant!
+            p.create_actions()
+            p.create_menu()
+            p.create_toolbars()
+            p.create_widgets()
 
     def load_from_file(self, path):
         master = Plugin
@@ -101,9 +172,9 @@ class PluginManager(object):
             if reload_plugins and plug_type.name in self.plugins:
                  # Unload any plugins with same name
                 self.unload(self.plugins[plug_type.name])
-            p = plug_type(self.main_window)
-            self.plugins[p.name] = p
-            new_ps.append(p)
+            p = self._load_if_enabled(plug_type)
+            if p is not None:
+                new_ps.append(p)
         for p in new_ps:
             p.create_actions()
         for p in new_ps:
