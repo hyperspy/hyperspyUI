@@ -18,6 +18,9 @@ from extendedqwidgets import ExToolWindow, ExClickLabel
 from periodictable import PeriodicTableWidget
 
 
+def tr(text):
+    return QCoreApplication.translate("ElementPickerWidget", text)
+
 edstypes = (hyperspy.signals.EDSSEMSpectrum, hyperspy.signals.EDSTEMSpectrum)
 
 
@@ -38,7 +41,7 @@ class ElementPickerWidget(ExToolWindow):
 
     def set_signal(self, signal):
         self.signal = signal
-        self.setWindowTitle("Select elements for " + signal.name)  # TODO: tr
+        self.setWindowTitle(tr("Select elements for ") + signal.name)
 
         # Make sure we have the Sample node, and Sample.elements
         if not hasattr(signal.signal.metadata, 'Sample'):
@@ -265,9 +268,9 @@ class ElementPickerWidget(ExToolWindow):
             f = partial(self.element_context, w)
             self.connect(w, SIGNAL('customContextMenuRequested(QPoint)'), f)
 
-        self.chk_markers = QCheckBox("Markers")     # TODO: tr
+        self.chk_markers = QCheckBox(tr("Markers"))
         self.chk_markers.toggled[bool].connect(self._on_toggle_markers)
-        self.map_btn = QPushButton("Map")   # TODO: tr
+        self.map_btn = QPushButton(tr("Map"))
         self.map_btn.clicked.connect(self.make_map)
 
         vbox = QVBoxLayout(self)

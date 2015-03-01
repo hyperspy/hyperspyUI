@@ -22,7 +22,7 @@ class CropToolPlugin(Plugin):
     name = "Crop tool"
 
     def create_tools(self):
-        self.ui.add_tool(CropTool)
+        self.ui.add_tool(CropTool, self.ui.select_signal)
 
 
 class CropTool(FigureTool):

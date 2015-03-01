@@ -16,6 +16,10 @@ import traitsui.api as tu
 from hyperspyui.util import create_add_component_actions
 
 
+def tr(text):
+    return QCoreApplication.translate("DataViewWidget", text)
+
+
 class ComponentEditorHandler(tu.Handler):
 
     def setattr(self, info, object, name, value):
@@ -173,13 +177,13 @@ class DataViewWidget(QWidget):
             model = item.parent().data(0, Qt.UserRole)
 
             # Fit action
-            ac = QAction("&Fit component", self.tree)    # TODO: tr()
+            ac = QAction(tr("&Fit component"), self.tree)
             f = partial(model.fit_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)
 
             # Configure action
-            ac = QAction("&Configure", self.tree)
+            ac = QAction(tr("&Configure"), self.tree)
             f = partial(self.configure_traits, comp)
             ac.triggered.connect(f)
             cm.addAction(ac)
@@ -187,7 +191,7 @@ class DataViewWidget(QWidget):
             cm.addSeparator()
 
             # Remove action
-            ac = QAction("&Delete", self.tree)   # TODO: tr()
+            ac = QAction(tr("&Delete"), self.tree)
             f = partial(model.remove_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)

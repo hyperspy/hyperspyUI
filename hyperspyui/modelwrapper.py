@@ -15,6 +15,10 @@ from functools import partial
 # TODO: Add smartfit for EELSModel
 
 
+def tr(text):
+    return QCoreApplication.translate("ModelWrapper", text)
+
+
 class ModelWrapper(Actionable):
     added = QtCore.Signal((object, object), (object,))
     removed = QtCore.Signal((object, object), (object,))
@@ -25,24 +29,23 @@ class ModelWrapper(Actionable):
         self.signal = signal_wrapper
         self.name = name
         if self.signal.signal is not self.model.spectrum:
-            raise ValueError("signal_wrapper doesn't match model.signal")
+            raise ValueError("SignalWrapper doesn't match model.signal")
         self.components = {}
         self.update_components()
 
         self.fine_structure_enabled = False
 
         # Default actions
-        # TODO: tr()
-        self.add_action('plot', "&Plot", self.plot)
-        self.add_action('fit', "&Fit", self.fit)
-        self.add_action('multifit', "&Multifit", self.multifit)
-        self.add_action('set_signal_range', "Set signal &range",
+        self.add_action('plot', tr("&Plot"), self.plot)
+        self.add_action('fit', tr("&Fit"), self.fit)
+        self.add_action('multifit', tr("&Multifit"), self.multifit)
+        self.add_action('set_signal_range', tr("Set signal &range"),
                         self.set_signal_range)
         if isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
-            self.add_action('fine_structure', "Enable fine &structure",
+            self.add_action('fine_structure', tr("Enable fine &structure"),
                             self.toggle_fine_structure)
         f = partial(self.signal.remove_model, self)
-        self.add_action('delete', "&Delete", f)
+        self.add_action('delete', tr("&Delete"), f)
 
     def plot(self):
         self.signal.keep_on_close = True
@@ -83,13 +86,15 @@ class ModelWrapper(Actionable):
     def toggle_fine_structure(self):
         if not isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
             raise TypeError(
-                "Model is not EELS model. Can not toggle fine structure")  # TODO: tr
+                tr("Model is not EELS model. Can not toggle fine structure"))
         if self.fine_structure_enabled:
             self.model.disable_fine_structure()
-            self.actions['fine_structure'].setText("Enable fine &structure")
+            self.actions['fine_structure'].setText(
+                tr("Enable fine &structure"))
         else:
             self.model.enable_fine_structure()
-            self.actions['fine_structure'].setText("Disable fine &structure")
+            self.actions['fine_structure'].setText(
+                tr("Disable fine &structure"))
         self.fine_structure_enabled = not self.fine_structure_enabled
 
     def update_components(self):
@@ -115,8 +120,9 @@ class ModelWrapper(Actionable):
         if isinstance(component, type):
             nec = ['EELSCLEdge', 'Spline', 'ScalableFixedPattern']
             if component.__name__ in nec:
-                raise TypeError("Component of type %s currently not supported"
-                                % component)
+                raise TypeError(
+                    tr("Component of type %s currently not supported")
+                    % component)
             component = component()
 
         added = False

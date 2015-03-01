@@ -14,6 +14,10 @@ from hyperspyui._elements import elements
 from extendedqwidgets import ExClickLabel
 
 
+def tr(text):
+    return QCoreApplication.translate("PeriodicTable", text)
+
+
 class PeriodicTableWidget(QWidget):
     element_toggled = Signal(str)
 
@@ -37,7 +41,7 @@ class PeriodicTableWidget(QWidget):
                     j += e[0]
                 elif isinstance(e, dict):
                     w = ExClickLabel(e['id'], self)
-                    w.setToolTip(e['name'].capitalize())
+                    w.setToolTip(tr(e['name'].capitalize()))
                     w.setAlignment(Qt.AlignCenter)
                     w.setMinimumSize(10, 10)
 

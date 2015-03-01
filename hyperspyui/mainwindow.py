@@ -12,22 +12,19 @@ import os
 import pickle
 
 # Should go before any MPL imports:
-from hyperspyui.mainwindowlayer5 import MainWindowLayer5
+from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.signallist import SignalList
 from hyperspyui.threaded import Threaded
 from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
+from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 import hyperspyui.tools
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
-
-
-def tr(text):
-    return QCoreApplication.translate("MainWindow", text)
 
 import hyperspy.utils.plot
 import hyperspy.signals
@@ -49,8 +46,8 @@ class SignalTypeFilter(object):
         action.setEnabled(valid)
 
 
-# TODO: Translation lookups (tr)
 # TODO: Settings dialog
+# TODO: Move non-core functionality to plugins
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing (w/batch input)
 # TODO: Layout save/restore
@@ -80,6 +77,7 @@ class MainWindow(MainWindowLayer5):
     def __init__(self, parent=None):
         # State variables
         self.signal_type_ag = None
+        self._plugin_manager_widget = None
 
         super(MainWindow, self).__init__(parent)
 
@@ -131,6 +129,7 @@ class MainWindow(MainWindowLayer5):
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close,
                         icon='close_window.svg',
+                        selection_callback=self.select_signal,
                         tip="Close the selected signal(s)")
 
         close_all_key = QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
@@ -142,6 +141,7 @@ class MainWindow(MainWindowLayer5):
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save,
                         icon='save.svg',
+                        selection_callback=self.select_signal,
                         tip="Save the selected signal(s)")
         self.add_action('save_fig', "Save &figure", self.save_figure,
                         #                        icon=os.path.dirname(__file__) + '/../images/save.svg',
@@ -149,9 +149,11 @@ class MainWindow(MainWindowLayer5):
 
         self.add_action('mirror', "Mirror", self.mirror_navi,
                         icon='mirror.svg',
+                        selection_callback=self.select_signal,
                         tip="Mirror navigation axes of selected signals")
 
         self.add_action('add_model', "Create Model", self.make_model,
+                        selection_callback=self.select_signal,
                         tip="Create a model for the selected signal")
 
         self.add_action('remove_background', "Remove Background",
@@ -177,6 +179,11 @@ class MainWindow(MainWindowLayer5):
                             (hyperspy.signals.EELSSpectrum,
                              hyperspy.signals.EDSSEMSpectrum,
                              hyperspy.signals.EDSTEMSpectrum), self.signals))
+
+        # Settings:
+        self.add_action('plugin_manager', "Plugin manager",
+                        self.show_plugin_manager,
+                        tip="Show the plugin manager")
 
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
@@ -230,6 +237,8 @@ class MainWindow(MainWindowLayer5):
         # Create Windows menu
         super(MainWindow, self).create_menu()
 
+        self.add_menuitem('Settings', self.actions['plugin_manager'])
+
     def create_tools(self):
         super(MainWindow, self).create_tools()
         for tool_type in hyperspyui.tools.default_tools:
@@ -273,6 +282,12 @@ class MainWindow(MainWindowLayer5):
     # ---------------------------------------
     # Slots
     # ---------------------------------------
+
+    def show_plugin_manager(self):
+        if self._plugin_manager_widget is None:
+            self._plugin_manager_widget = PluginManagerWidget(
+                self.plugin_manager, self)
+        self._plugin_manager_widget.show()
 
     def mirror_navi(self, uisignals=None):
         # Select signals
