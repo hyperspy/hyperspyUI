@@ -15,10 +15,7 @@ import pickle
 from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
-from hyperspyui.signallist import SignalList
-from hyperspyui.threaded import Threaded
 from hyperspyui.widgets.contrastwidget import ContrastWidget
-from hyperspyui.widgets.elementpicker import ElementPickerWidget
 from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 import hyperspyui.tools
 
@@ -30,22 +27,7 @@ import hyperspy.utils.plot
 import hyperspy.signals
 
 
-class Namespace:
-    pass
-
-
-class SignalTypeFilter(object):
-
-    def __init__(self, signal_type, signal_list):
-        self.signal_type = signal_type
-        self.signal_list = signal_list
-
-    def __call__(self, win, action):
-        sig = win2sig(win, self.signal_list)
-        valid = sig is None or isinstance(sig.signal, self.signal_type)
-        action.setEnabled(valid)
-
-
+# TODO: Select signal after first load!
 # TODO: Settings dialog
 # TODO: Move non-core functionality to plugins
 # TODO: Batch processing dialog (browse + drop&drop target)
@@ -147,38 +129,9 @@ class MainWindow(MainWindowLayer5):
                         #                        icon=os.path.dirname(__file__) + '/../images/save.svg',
                         tip="Save the active figure")
 
-        self.add_action('mirror', "Mirror", self.mirror_navi,
-                        icon='mirror.svg',
-                        selection_callback=self.select_signal,
-                        tip="Mirror navigation axes of selected signals")
-
         self.add_action('add_model', "Create Model", self.make_model,
                         selection_callback=self.select_signal,
                         tip="Create a model for the selected signal")
-
-        self.add_action('remove_background', "Remove Background",
-                        self.remove_background,
-                        icon='power_law.svg',
-                        tip="Interactively define the background, and " +
-                            "remove it",
-                        selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.signals))
-
-        self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
-                        self.fourier_ratio,
-                        icon='fourier_ratio.svg',
-                        tip="Use the Fourier-Ratio method" +
-                        " to deconvolve one signal from another",
-                        selection_callback=SignalTypeFilter(
-                            hyperspy.signals.EELSSpectrum, self.signals))
-
-        self.add_action('pick_elements', "Pick elements", self.pick_elements,
-                        icon='periodic_table.svg',
-                        tip="Pick the elements for the spectrum",
-                        selection_callback=SignalTypeFilter(
-                            (hyperspy.signals.EELSSpectrum,
-                             hyperspy.signals.EDSSEMSpectrum,
-                             hyperspy.signals.EDSTEMSpectrum), self.signals))
 
         # Settings:
         self.add_action('plugin_manager', "Plugin manager",
@@ -221,9 +174,6 @@ class MainWindow(MainWindowLayer5):
         stm = self.menus['Signal'].addMenu(tr("Signal type"))
         for ac in self.signal_type_ag.actions():
             stm.addAction(ac)
-        self.add_menuitem('Signal', self.actions['mirror'])
-        self.add_menuitem('Signal', self.actions['remove_background'])
-        self.add_menuitem('Signal', self.actions['pick_elements'])
 
         # Model menu
         self.menus['Model'] = mb.addMenu(tr("&Model"))
@@ -248,12 +198,6 @@ class MainWindow(MainWindowLayer5):
         self.add_toolbar_button("Files", self.actions['open'])
         self.add_toolbar_button("Files", self.actions['close'])
         self.add_toolbar_button("Files", self.actions['save'])
-
-        self.add_toolbar_button("Signal", self.actions['mirror'])
-        self.add_toolbar_button("Signal", self.actions['remove_background'])
-        self.add_toolbar_button("Signal", self.actions['pick_elements'])
-
-        self.add_toolbar_button("EELS", self.actions['fourier_ratio'])
 
         super(MainWindow, self).create_toolbars()
 
@@ -289,33 +233,6 @@ class MainWindow(MainWindowLayer5):
                 self.plugin_manager, self)
         self._plugin_manager_widget.show()
 
-    def mirror_navi(self, uisignals=None):
-        # Select signals
-        if uisignals is None:
-            uisignals = self.get_selected_signals()
-        if len(uisignals) < 2:
-            mb = QMessageBox(QMessageBox.Information, tr("Select two or more"),
-                             tr("You need to select two or more signals" +
-                                " to mirror"), QMessageBox.Ok)
-            mb.exec_()
-            return
-
-        signals = [s.signal for s in uisignals]
-
-        # hyperspy closes, and then recreates figures when mirroring
-        # the navigators. To keep UI from flickering, we suspend updates.
-        # SignalWrapper also saves and then restores window geometry
-        self.setUpdatesEnabled(False)
-        try:
-            for s in uisignals:
-                s.keep_on_close = True
-            hyperspy.utils.plot.plot_signals(signals)
-            for s in uisignals:
-                s.update_figures()
-                s.keep_on_close = False
-        finally:
-            self.setUpdatesEnabled(True)    # Continue updating UI
-
     def close_signal(self, uisignals=None):
         uisignals = self.get_selected_signals()
         for s in uisignals:
@@ -325,54 +242,6 @@ class MainWindow(MainWindowLayer5):
         while len(self.signals) > 0:
             s = self.signals.pop()
             s.close()
-
-    def fourier_ratio(self):
-        wrap = QWidget(self)
-        pickerCL = SignalList(self.signals, wrap, False)
-        pickerLL = SignalList(self.signals, wrap, False)
-        grid = QGridLayout(wrap)
-        grid.addWidget(QLabel(tr("Core loss")), 1, 1)
-        grid.addWidget(QLabel(tr("Low loss")), 1, 2)
-        grid.addWidget(pickerCL, 2, 1)
-        grid.addWidget(pickerLL, 2, 2)
-        wrap.setLayout(grid)
-
-        diag = self.show_okcancel_dialog("Select signals", wrap, True)
-
-        if diag.result() == QDialog.Accepted:
-            s_core = pickerCL.get_selected()
-            s_lowloss = pickerLL.get_selected()
-
-            # Variable to store return value in
-            ns = Namespace()
-            ns.s_return = None
-
-#            s_core.signal.remove_background()
-            def run_fr():
-                ns.s_return = s_core.signal.fourier_ratio_deconvolution(
-                    s_lowloss.signal)
-
-            def fr_complete():
-                title = s_core.name + "[Fourier-ratio]"
-                # TODO: Set title
-                ns.s_return.plot()
-
-            t = Threaded(self, run_fr, fr_complete)
-            t.run()
-        pickerCL.unbind(self.signals)
-        pickerLL.unbind(self.signals)
-
-    def remove_background(self, signal=None):
-        if signal is None:
-            signal = self.get_selected_signal()
-        signal.signal.remove_background()
-
-    def pick_elements(self, signal=None):
-        if signal is None:
-            signal = self.get_selected_signal()
-
-        ptw = ElementPickerWidget(signal, self)
-        ptw.show()
 
     def set_signal_type(self, signal_type, signal=None):
         """
