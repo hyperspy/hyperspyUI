@@ -24,7 +24,7 @@ class RebinDialog(ExToolWindow):
         super(RebinDialog, self).__init__(parent)
         self.signal = signal
         self.ui = ui
-        self.setWindowTitle(tr("Rebin"))
+        self.setWindowTitle(tr("Rebin ") + signal.name)
         self.create_controls()
 
     def rebin(self):
@@ -72,6 +72,7 @@ class RebinDialog(ExToolWindow):
 
 
 class RebinPlugin(Plugin):
+    name = "Rebin"
 
     def create_actions(self):
         self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
