@@ -100,7 +100,8 @@ class PCA_Plugin(Plugin):
                     "perform the decomposition on a copy?"))
             if cc == 'copy':
                 s = s.deepcopy()
-                self.ui.add_signal_figure(s, signal.name + "[float]")
+                s.metadata.General.title = signal.name + "[float]"
+                s.plot()
             s.change_dtype(float)
         return s, signal
 
@@ -149,12 +150,6 @@ class PCA_Plugin(Plugin):
             """ Called to make UI components after completing calculations """
             s = ns.s
             s_scree.metadata.General.title = signal.name + " Component model"
-            sw_scree = self.ui.add_signal_figure(
-                s_scree,
-                name=signal.name +
-                "[Component model]",
-                plot=False)
-
             s_residual.metadata.General.title = signal.name + " Residual"
             if s.data.ndim == 2:
                 bk_s_navigate = \
@@ -166,6 +161,7 @@ class PCA_Plugin(Plugin):
                 s_factors.axes_manager.set_signal_dimension(
                     s_factors.axes_manager.signal_dimension - 1)
             s_factors = s_factors.inav[:n_component]
+            s_factors.metadata.General.title = signal.name + " Factors"
 
             s_loadings = s.get_decomposition_loadings().inav[:n_component]
 
@@ -193,7 +189,7 @@ class PCA_Plugin(Plugin):
                 nav = s_loadings
 
             # Plot signals with common navigator
-            sw_scree.plot(navigator=nav)
+            s_scree.plot(navigator=nav)
             if s.axes_manager.navigation_dimension == 0:
                 nax = s_scree._plot.navigator_plot.ax
                 nax.set_ylabel("Explained variance ratio")
@@ -219,17 +215,8 @@ class PCA_Plugin(Plugin):
                 p.plot()
                 slb.plot()
             else:
-                sw_residual = self.ui.add_signal_figure(
-                    s_residual,
-                    name=signal.name +
-                    "[Residual]",
-                    plot=False)
-                sw_factors = self.ui.add_signal_figure(s_factors,
-                                                       name=signal.name +
-                                                       "[Factor]",
-                                                       plot=False)
-                sw_residual.plot(navigator=None)
-                sw_factors.plot(navigator=None)
+                s_residual.plot(navigator=None)
+                s_factors.plot(navigator=None)
             # TODO: Plot scree nav + loadings on same plot if navdim=1
 
         def threaded_gen():
@@ -354,7 +341,8 @@ class PCA_Plugin(Plugin):
                     n_components = round(event.xdata)
                     # Num comp. picked, perform PCA, wrap new signal and plot
                     sc = ns.s.get_decomposition_model(n_components)
-                    self.ui.add_signal_figure(sc, signal.name + "[PCA]")
+                    sc.metadata.General.title = signal.name + "[PCA]"
+                    sc.plot()
                     # Close scree plot
                     w = fig2win(scree.figure, self.ui.figures)
                     w.close()
@@ -368,7 +356,8 @@ class PCA_Plugin(Plugin):
                 scree.mpl_connect('button_press_event', clicked)
             else:
                 sc = ns.s.get_decomposition_model(n_components)
-                self.ui.add_signal_figure(sc, signal.name + "[PCA]")
+                sc.metadata.General.title = signal.name + "[PCA]"
+                sc.plot()
                 if autosig:
                     self.record_code(
                         r"<p>.pca(n_components=%d)" % n_components)

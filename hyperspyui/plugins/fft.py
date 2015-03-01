@@ -65,11 +65,9 @@ class FFT_Plugin(Plugin):
         fftsignals = []
 
         def on_ffts_complete():
-            for name, fs in fftsignals:
-                if inverse:
-                    sw = self.ui.add_signal_figure(fs, name + '[IFFT]')
-                else:
-                    sw = self.ui.add_signal_figure(fs, name + '[FFT]')
+            for fs in fftsignals:
+                fs.plot()
+                sw = self.ui.lut_signalwrapper[fs]
                 if on_complete is not None:
                     on_complete(sw)
 
@@ -91,7 +89,8 @@ class FFT_Plugin(Plugin):
                 ffts.axes_manager._set_axis_attribute_values("navigate", False)
                 indstr = ' ' + str(s.axes_manager.indices) \
                     if len(s.axes_manager.indices) > 0 else ''
-                ffts.metadata.General.title = 'FFT of ' + \
+                invstr = "Inverse " if inverse else ""
+                ffts.metadata.General.title = invstr + 'FFT of ' + \
                     ffts.metadata.General.title + indstr
 
                 for i in xrange(ffts.axes_manager.signal_dimension):
@@ -111,7 +110,7 @@ class FFT_Plugin(Plugin):
                     else:
                         u += '-1'
                     axis.units = u
-                fftsignals.append((sw.name, ffts))
+                fftsignals.append(ffts)
                 yield i + 1
 
         if len(signals) > 1:
@@ -143,11 +142,8 @@ class FFT_Plugin(Plugin):
         fftsignals = []
 
         def on_ftts_complete():
-            for name, fs in fftsignals:
-                if inverse:
-                    self.ui.add_signal_figure(fs, name + '[IFFT]')
-                else:
-                    self.ui.add_signal_figure(fs, name + '[FFT]')
+            for fs in fftsignals:
+                fs.plot()
 
         def do_ffts():
             j = 0
@@ -180,7 +176,11 @@ class FFT_Plugin(Plugin):
                     else:
                         u += '-1'
                     axis.units = u
-                fftsignals.append((sw.name, ffts))
+                indstr = ' ' + str(s.axes_manager.indices) \
+                    if len(s.axes_manager.indices) > 0 else ''
+                ffts.metadata.General.title = 'FFT of ' + \
+                    ffts.metadata.General.title + indstr
+                fftsignals.append(ffts)
 
         def do_iffts():
             j = 0
@@ -215,7 +215,11 @@ class FFT_Plugin(Plugin):
                     ffts.data[am._getitem_tuple] = fftdata
                     j += 1
                     yield j
-                fftsignals.append((sw.name, ffts))
+                indstr = ' ' + str(s.axes_manager.indices) \
+                    if len(s.axes_manager.indices) > 0 else ''
+                ffts.metadata.General.title = 'Inverse FFT of ' + \
+                    ffts.metadata.General.title + indstr
+                fftsignals.append(ffts)
 
         n_ffts = np.product([d for s in signals
                              for d in s.signal.axes_manager.navigation_shape])

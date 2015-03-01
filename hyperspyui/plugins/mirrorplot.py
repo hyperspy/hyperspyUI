@@ -49,11 +49,6 @@ class MirrorPlotPlugin(Plugin):
         # SignalWrapper also saves and then restores window geometry
         self.ui.setUpdatesEnabled(False)
         try:
-            for s in uisignals:
-                s.keep_on_close = True
             hyperspy.utils.plot.plot_signals(signals)
-            for s in uisignals:
-                s.update_figures()
-                s.keep_on_close = False
         finally:
             self.ui.setUpdatesEnabled(True)    # Continue updating UI
