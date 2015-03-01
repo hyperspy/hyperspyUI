@@ -14,35 +14,37 @@ from QtGui import *
 
 import os
 from functools import partial
-  
+
 
 class MainWindowLayer3(MainWindowLayer2):
+
     """
     Third layer in the application stack. Adds UI utility functions.
     """
-    
+
     def __init__(self, parent=None):
         super(MainWindowLayer3, self).__init__(parent)
-    
+
     def set_status(self, msg):
         """
         Display 'msg' in window's statusbar.
         """
-        # TODO: What info is needed? Add simple label first, create utility to add more?
+        # TODO: What info is needed? Add simple label first, create utility to
+        # add more?
         self.statusBar().showMessage(msg)
-        
-    def add_action(self, key, label, callback, tip=None, icon=None, 
+
+    def add_action(self, key, label, callback, tip=None, icon=None,
                    shortcut=None, userdata=None, selection_callback=None):
         """
         Create and add a QAction to self.actions[key]. 'label' is used as the
         short description of the action, and 'tip' as the long description.
-        The tip is typically shown in the statusbar. The callback is called 
-        when the action is triggered(). The 'userdata' is stored in the 
-        QAction's data() attribute. The optional 'icon' should either be a 
-        QIcon, or a path to an icon file, and is used to depict the action on 
+        The tip is typically shown in the statusbar. The callback is called
+        when the action is triggered(). The 'userdata' is stored in the
+        QAction's data() attribute. The optional 'icon' should either be a
+        QIcon, or a path to an icon file, and is used to depict the action on
         toolbar buttons and in menus.
-        """ 
-        #TODO: Update doc to reflect final decision on userdata
+        """
+        # TODO: Update doc to reflect final decision on userdata
         if icon is None:
             ac = QAction(tr(label), self)
         else:
@@ -70,34 +72,33 @@ class MainWindowLayer3(MainWindowLayer2):
             self._action_selection_cbs[key] = selection_callback
             ac.setEnabled(False)
         return ac
-    
+
     def add_toolbar_button(self, category, action):
         """
         Add the supplied 'action' as a toolbar button. If the toolbar defined
-        by 'cateogry' does not exist, it will be created in 
+        by 'cateogry' does not exist, it will be created in
         self.toolbars[category].
         """
-        if self.toolbars.has_key(category):
+        if category in self.toolbars:
             tb = self.toolbars[category]
         else:
             tb = QToolBar(tr(category) + tr(" toolbar"), self)
             self.addToolBar(Qt.LeftToolBarArea, tb)
             self.toolbars[category] = tb
-        
+
         if not isinstance(action, QAction):
             action = self.actions[action]
         tb.addAction(action)
-        
-    
+
     def add_menuitem(self, category, action, label=None):
         """
         Add the supplied 'action' as a menu entry. If the menu defined
-        by 'cateogry' does not exist, it will be created in 
+        by 'cateogry' does not exist, it will be created in
         self.menus[category].
-        
+
         If the category_label argument is not supplied, category will be used.
         """
-        if self.menus.has_key(category):
+        if category in self.menus:
             m = self.menus[category]
         else:
             if label is None:
@@ -108,12 +109,11 @@ class MainWindowLayer3(MainWindowLayer2):
                 m = QMenu(label)
                 self.menuBar().insertMenu(self.windowmenu.menuAction(), m)
             self.menus[category] = m
-        
+
         if not isinstance(action, QAction):
             action = self.actions[action]
         m.addAction(action)
-        
-        
+
     def add_tool(self, tool_type):
         t = tool_type(self.figures)
         self.tools.append(t)
@@ -124,20 +124,19 @@ class MainWindowLayer3(MainWindowLayer2):
             self.add_toolbar_button(t.get_category(), self.actions[key])
         elif t.is_selectable():
             f = partial(self.select_tool, t)
-            self.add_action(key, t.get_name(), f, icon=t.get_icon(), 
+            self.add_action(key, t.get_name(), f, icon=t.get_icon(),
                             tip=t.get_description())
             self.selectable_tools.addAction(self.actions[key])
             self.actions[key].setCheckable(True)
             self.add_toolbar_button(t.get_category(), self.actions[key])
-        
-    
+
     def add_widget(self, widget, floating=None):
         """
         Add the passed 'widget' to the main window. If the widget is not a
         QDockWidget, it will be wrapped in one. The QDockWidget is returned.
         The widget is also added to the window menu self.windowmenu, so that
         it's visibility can be toggled.
-        
+
         The parameter 'floating' specifies whether the widget should be made
         floating. If None, the value of the attribute 'default_widget_floating'
         is used.
@@ -150,34 +149,35 @@ class MainWindowLayer3(MainWindowLayer2):
             d = QDockWidget(self)
             d.setWidget(widget)
             d.setWindowTitle(widget.windowTitle())
-        d.setAllowedAreas(Qt.RightDockWidgetArea | Qt.LeftDockWidgetArea) 
+        d.setAllowedAreas(Qt.RightDockWidgetArea | Qt.LeftDockWidgetArea)
         self.addDockWidget(Qt.RightDockWidgetArea, d)
         d.setFloating(floating)
-        
+
         self.widgets.append(widget)
-        
+
         # Insert widgets in Windows menu before separator (figures are after)
         self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())
         return d
-        
+
     def show_okcancel_dialog(self, title, widget, modal=True):
         diag = QDialog(self)
         diag.setWindowTitle(title)
         diag.setWindowFlags(Qt.Tool)
-        
+
         btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                Qt.Horizontal, diag)                        
+                                Qt.Horizontal, diag)
         btns.accepted.connect(diag.accept)
         btns.rejected.connect(diag.reject)
-        
+
         box = QVBoxLayout(diag)
         box.addWidget(widget)
         box.addWidget(btns)
         diag.setLayout(box)
-        
+
         if modal:
             diag.exec_()
         else:
             diag.show()
-        # Return the dialog for result checking, and to keep widget in scope for caller
+        # Return the dialog for result checking, and to keep widget in scope
+        # for caller
         return diag

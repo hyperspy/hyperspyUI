@@ -17,24 +17,23 @@ setup(name='hyperspyUI',
       author='Vidar Tonaas Fauske',
       author_email='vidartf+hyperspyui@gmail.com',
       packages=['hyperspyui'],
-      requires=['hyperspy', 
-                'matplotlib (>= 1.3)', 
+      requires=['hyperspy',
+                'matplotlib (>= 1.3)',
                 'python_qt_binding',
                 'traits',
                 'traitsui'],
-      install_requires=['hyperspy',     #TODO: Find lowest allowed version of hyperspy
-                'matplotlib >= 1.3', 
-                'python_qt_binding',
-                'traits',
-                'traitsui'],
-      extras_require = {'editor':  ["pyqode.core"] },
+      install_requires=['hyperspy',  # TODO: Find lowest allowed version of hyperspy
+                        'matplotlib >= 1.3',
+                        'python_qt_binding',
+                        'traits',
+                        'traitsui'],
+      extras_require={'editor':  ["pyqode.core"]},
       # TODO: Recommends pyqode.core
-      package_data=
-      {
+      package_data={
           'hyperspyui':
-            ['images/*.svg',
-            'images/*.png',
+          ['images/*.svg',
+             'images/*.png',
              'images/attribtutions.txt'],
-     },
-     url="https://github.com/vidartf/hyperspyUI",
-     )
+      },
+      url="https://github.com/vidartf/hyperspyUI",
+      )

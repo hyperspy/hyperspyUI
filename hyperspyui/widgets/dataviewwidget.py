@@ -14,10 +14,13 @@ import traits.api as t
 import traitsui.api as tu
 
 from hyperspyui.util import create_add_component_actions
-                
+
+
 class ComponentEditorHandler(tu.Handler):
-    def setattr(self, info, object, name, value):    
-        tu.Handler.setattr(self, info, object, name, value) # Set the value etc.
+
+    def setattr(self, info, object, name, value):
+        # Set the value etc.
+        tu.Handler.setattr(self, info, object, name, value)
         if name in ('value', 'std'):
             try:
                 # Make sure the value is actually stored in array
@@ -25,19 +28,21 @@ class ComponentEditorHandler(tu.Handler):
             except AttributeError:
                 pass
 
+
 class DataViewWidget(QWidget):
+
     """
     A custom QTreeWidget, that handles the Signal-Model-Component hierarchy.
     The relationships are displayed in a tree structure, and helps keep track
     of the relationships between them. Also makes handeling several Models per
     Signal easier.
     """
-    
+
     # Enums
     SignalType = QTreeWidgetItem.UserType
     ModelType = QTreeWidgetItem.UserType + 1
     ComponentType = QTreeWidgetItem.UserType + 2
-    
+
     def __init__(self, main_window, parent=None):
         super(DataViewWidget, self).__init__(parent)
         self.main_window = main_window
@@ -48,7 +53,7 @@ class DataViewWidget(QWidget):
         self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.editor = QVBoxLayout()
         self.editor_bottom_padding = 20
-        
+
         vbox = QVBoxLayout()
         vbox.addWidget(self.tree)
         vbox.addLayout(self.editor)
@@ -60,9 +65,9 @@ class DataViewWidget(QWidget):
         sp = self.tree.sizePolicy()
         sp.setVerticalPolicy(QSizePolicy.Expanding)
         self.tree.setSizePolicy(sp)
-        
-        self.tree.setContextMenuPolicy(Qt.CustomContextMenu);
-        self.connect(self.tree, SIGNAL('customContextMenuRequested(QPoint)'), 
+
+        self.tree.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.connect(self.tree, SIGNAL('customContextMenuRequested(QPoint)'),
                      self.onCustomContextMenu)
         self.tree.currentItemChanged.connect(self.currentItemChanged)
 
@@ -85,7 +90,7 @@ class DataViewWidget(QWidget):
         else:
             parent.addChild(twi)
         return twi
-        
+
     def clear_editor(self):
         item = self.editor.takeAt(0)
         while item:
@@ -93,7 +98,7 @@ class DataViewWidget(QWidget):
             if w:
                 w.close()
             item = self.editor.takeAt(0)
-        
+
     def set_traits_editor(self, traits_dialog):
         self.clear_editor()
         sp = traits_dialog.sizePolicy()
@@ -102,37 +107,38 @@ class DataViewWidget(QWidget):
         self.editor.addWidget(traits_dialog)
         self.editor.addSpacing(self.editor_bottom_padding)
         traits_dialog.show()
-        
+
     def currentItemChanged(self, current, previous):
         if self.editor_visible:
             if current and current.type() == self.ComponentType:
                 comp = current.data(0, Qt.UserRole)
                 if isinstance(comp, t.HasTraits):
-                    self.main_window.capture_traits_dialog(self.set_traits_editor)
+                    self.main_window.capture_traits_dialog(
+                        self.set_traits_editor)
                     self.configure_traits(comp, False)
             else:
                 self.clear_editor()
-                
+
     def configure_traits(self, comp, buttons=True):
         try:
             items = [tu.Item('name'), tu.Item('active')]
             for p in comp.parameters:
                 name = '.'.join(('object', p.name))
                 p_label = p.name.replace('_', ' ').capitalize()
-                vi = tu.Item(name + '.value', label=p_label, 
-                             editor=tu.RangeEditor(low_name=name+'.bmin',
-                                                high_name=name+'.bmax'))
+                vi = tu.Item(name + '.value', label=p_label,
+                             editor=tu.RangeEditor(low_name=name + '.bmin',
+                                                   high_name=name + '.bmax'))
                 items.extend((vi, tu.Item(name + '.free')))
-            view = tu.View(*items, 
-                        handler = ComponentEditorHandler(),
-                        buttons=tu.OKCancelButtons if buttons else [],
-                        default_button=tu.OKButton,
-                        kind='live',
-                        resizable=True)
+            view = tu.View(*items,
+                           handler=ComponentEditorHandler(),
+                           buttons=tu.OKCancelButtons if buttons else [],
+                           default_button=tu.OKButton,
+                           kind='live',
+                           resizable=True)
             comp.edit_traits(view=view)
         except AttributeError:
             pass
-        
+
     def onCustomContextMenu(self, point):
         """
         Displays the context menu for whatever is under the supplied point.
@@ -143,21 +149,21 @@ class DataViewWidget(QWidget):
         cm = QMenu(self.tree)
         if item.type() == self.SignalType:
             sig = item.data(0, Qt.UserRole)
-            
+
             # Add all actions defined on object
             for ac in sig.actions.values():
                 cm.addAction(ac)
-            
+
         elif item.type() == self.ModelType:
             model = item.data(0, Qt.UserRole)
-            
+
             # Add all actions defined on object
             for ac in model.actions.values():
                 cm.addAction(ac)
-            
+
             # Add "add component" actions
             cm.addSeparator()
-            comp_actions = create_add_component_actions(self.tree, 
+            comp_actions = create_add_component_actions(self.tree,
                                                         model.add_component,
                                                         prefix="Add ")
             for ac in comp_actions.values():
@@ -165,28 +171,28 @@ class DataViewWidget(QWidget):
         elif item.type() == self.ComponentType:
             comp = item.data(0, Qt.UserRole)
             model = item.parent().data(0, Qt.UserRole)
-            
+
             # Fit action
             ac = QAction("&Fit component", self.tree)    # TODO: tr()
             f = partial(model.fit_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)
-            
+
             # Configure action
             ac = QAction("&Configure", self.tree)
             f = partial(self.configure_traits, comp)
             ac.triggered.connect(f)
             cm.addAction(ac)
-            
+
             cm.addSeparator()
-            
+
             # Remove action
             ac = QAction("&Delete", self.tree)   # TODO: tr()
             f = partial(model.remove_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)
         cm.exec_(self.tree.mapToGlobal(point))
-        
+
     def keyPressEvent(self, event):
         citem = self.tree.currentItem()
         if event.key() == Qt.Key_Delete:
@@ -199,24 +205,24 @@ class DataViewWidget(QWidget):
                 model.remove_component(data)
         else:
             super(DataViewWidget, self).keyPressEvent(event)
-    
+
     def _remove(self, key):
-        if self.lut.has_key(key):
+        if key in self.lut:
             item = self.lut[key]
             if item.parent() is None:
                 self.tree.takeTopLevelItem(self.tree.indexOfTopLevelItem(item))
             else:
                 item.parent().removeChild(item)
             self.lut.pop(key)
-        
+
     def add_signal(self, signal):
         self._add(signal.name, signal, self.SignalType)
         signal.model_added[object].connect(self.add_model)
         signal.model_removed[object].connect(self.remove)
-        
+
         for m in signal.models:
             self.add_model(m, signal)
-          
+
     def add_model(self, model, signal=None):
         if signal is None:
             signal = model.signal
@@ -225,21 +231,21 @@ class DataViewWidget(QWidget):
         model.removed[object].connect(self.remove)
         for c in model.components.values():
             self.add_component(c, model)
-        
+
     def add_component(self, component, model):
-        ci = self._add(component.name, component, self.ComponentType, 
+        ci = self._add(component.name, component, self.ComponentType,
                        parent=model)
         if isinstance(component, t.HasTraits):
             def update_name(new_name):
                 ci.setText(0, new_name)
             component.on_trait_change(update_name, 'name')
-        
+
     def add(self, object, type, parent=None):
         self._add(object.name, object, type, parent)
-        
+
     def remove(self, object):
         self._remove(object)
-        
+
     def on_mdiwin_activated(self, mdi_figure):
         """
         Can be connected to an MdiArea's subWindowActivated signal to sync
@@ -249,7 +255,8 @@ class DataViewWidget(QWidget):
         for i in xrange(self.tree.topLevelItemCount()):
             item = self.tree.topLevelItem(i)
             s = item.data(0, Qt.UserRole)
-            try:    # In case topLevelItems are not all SignalWrappers in future
+            # In case topLevelItems are not all SignalWrappers in future
+            try:
                 if mdi_figure in (s.navigator_plot, s.signal_plot):
                     found = item
                     break
@@ -257,15 +264,15 @@ class DataViewWidget(QWidget):
                 pass
         if found is not None and found is not self.get_selected_signal():
             self.tree.setCurrentItem(found)
-        
+
     def get_selected_signals(self):
         """
-        Returns a list of all selected signals. Any selected Models or 
+        Returns a list of all selected signals. Any selected Models or
         Components will select their Signal parent.
         """
         items = self.tree.selectedItems()
         signals = []
-        for i in items:    
+        for i in items:
             if i.type() == self.ComponentType:
                 i = i.parent().parent()
             elif i.type() == self.ModelType:
@@ -275,13 +282,12 @@ class DataViewWidget(QWidget):
             s = i.data(0, Qt.UserRole)
             if s not in signals:
                 signals.append(s)
-                
+
         return signals
-        
-        
+
     def get_selected_signal(self):
         """
-        Returns the first selected Signal. Any selected Models or Components 
+        Returns the first selected Signal. Any selected Models or Components
         will select their Signal parent.
         """
         items = self.tree.selectedItems()
@@ -295,10 +301,10 @@ class DataViewWidget(QWidget):
         if item.type() != self.SignalType:
             raise TypeError("Selection of wrong type")
         return item.data(0, Qt.UserRole)
-        
+
     def get_selected_model(self):
         """
-        Returns the first selected Model. Any selected Signals/Components 
+        Returns the first selected Model. Any selected Signals/Components
         will select their Model child/parent.
         """
         items = self.tree.selectedItems()
@@ -314,8 +320,8 @@ class DataViewWidget(QWidget):
         if item.type() != self.ModelType:
             raise TypeError("Selection of wrong type")
         return item.data(0, Qt.UserRole)
-        
+
     def get_selected_component(self):
         raise NotImplementedError()
-        
+
         # TODO: Make TraitsUI widget, and display one underneath the TreeView

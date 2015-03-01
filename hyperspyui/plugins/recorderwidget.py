@@ -14,13 +14,15 @@ from QtGui import *
 from hyperspyui.recorder import Recorder
 from hyperspyui.widgets.editorwidget import EditorWidget
 
+
 class RecorderWidget(QDockWidget):
+
     def __init__(self, main_window, parent=None):
         super(RecorderWidget, self).__init__(parent)
-        self.setWindowTitle("Recorder") # TODO: tr
+        self.setWindowTitle("Recorder")  # TODO: tr
         self.ui = main_window
         self.create_controls()
-    
+
     def start_recording(self):
         self.btn_start.setEnabled(False)
         self.btn_stop.setEnabled(True)
@@ -36,7 +38,7 @@ class RecorderWidget(QDockWidget):
         self.editor.finished.connect(lambda: self.ui.editors.remove(e))
         self.editor.finished.connect(lambda: self.disconnect_editor(e))
         e.show()
-    
+
     def stop_recording(self, disconnect=True):
         self.btn_start.setEnabled(True)
         self.btn_stop.setEnabled(False)
@@ -45,13 +47,13 @@ class RecorderWidget(QDockWidget):
             self.disconnect_editor()
         self.recorder = None
         self.editor = None
-    
+
     def update_filter(self):
         if self.recorder is None:
             return
         self.recorder.filter['actions'] = self.chk_actions.isChecked()
         self.recorder.filter['code'] = self.chk_code.isChecked()
-    
+
     def disconnect_editor(self, editor=None):
         if editor is None:
             editor = self.editor
@@ -63,19 +65,19 @@ class RecorderWidget(QDockWidget):
             self.recorder.record.disconnect(editor.append_code)
 
     def create_controls(self):
-        self.btn_start = QPushButton("Start") # TODO: tr
-        self.btn_stop = QPushButton("Stop") # TODO: tr
+        self.btn_start = QPushButton("Start")  # TODO: tr
+        self.btn_stop = QPushButton("Stop")  # TODO: tr
         self.btn_stop.setEnabled(False)
-        
+
         self.btn_start.clicked.connect(self.start_recording)
         self.btn_stop.clicked.connect(self.stop_recording)
-        
-        self.chk_actions = QCheckBox("Actions") # TODO: tr
+
+        self.chk_actions = QCheckBox("Actions")  # TODO: tr
         self.chk_code = QCheckBox("Code")       # TODO: tr
         for c in [self.chk_actions, self.chk_code]:
             c.setChecked(True)
             c.toggled.connect(self.update_filter)
-        
+
         hbox = QHBoxLayout()
         for w in [self.btn_start, self.btn_stop]:
             hbox.addWidget(w)
@@ -86,14 +88,16 @@ class RecorderWidget(QDockWidget):
         vbox = QVBoxLayout()
         vbox.addLayout(hbox)
         vbox.addLayout(hbox2)
-        
+
         wrap = QWidget()
         wrap.setLayout(vbox)
         height = vbox.sizeHint().height()
         wrap.setFixedHeight(height)
         self.setWidget(wrap)
 
+
 class RecorderWidgetPlugin(Plugin):
     name = "Recorder Widget"
+
     def create_widgets(self):
-        self.add_widget( RecorderWidget(self.ui, self.ui) )
+        self.add_widget(RecorderWidget(self.ui, self.ui))

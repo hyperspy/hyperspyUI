@@ -12,10 +12,11 @@ from QtGui import *
 from functools import partial
 from hyperspyui._elements import elements
 from extendedqwidgets import ExClickLabel
-        
+
+
 class PeriodicTableWidget(QWidget):
     element_toggled = Signal(str)
-    
+
     def __init__(self, parent=None):
         super(PeriodicTableWidget, self).__init__(parent)
         self.elements = {}
@@ -24,9 +25,9 @@ class PeriodicTableWidget(QWidget):
         self.style_on = "* { background-color: rgba(128,180,255,255); padding: 0px}"
         self.style_disabled = "* { background-color: rgba(100,0,0,40); padding: 0px}"
         self.create_controls()
-    
+
     def parse_elements(self, grid):
-#        btn_color = QColor(128, 128, 128)
+        #        btn_color = QColor(128, 128, 128)
         for i, row in enumerate(elements):
             j = 0
             for e in row:
@@ -39,24 +40,24 @@ class PeriodicTableWidget(QWidget):
                     w.setToolTip(e['name'].capitalize())
                     w.setAlignment(Qt.AlignCenter)
                     w.setMinimumSize(10, 10)
-                    
+
                     f = partial(self.on_element_click, e)
                     w.clicked.connect(f)
-                    
+
                     self.elements[e['id']] = w
                     self.toggled[e['id']] = False
                     w.setStyleSheet(self.style_off)
-                    
+
                     grid.addWidget(w, i, j)
                     j += 1
-                    
+
     def toggle_element(self, element):
         self.set_element(element, not self.toggled[element])
-                    
+
     def set_elements(self, elements):
         for e in elements:
             self.set_element(e, True)
-        
+
     def set_element(self, element, value):
         if self.toggled[element] == value:
             return
@@ -67,7 +68,7 @@ class PeriodicTableWidget(QWidget):
         else:
             style = self.style_off
         btn.setStyleSheet(style)
-        
+
     def disable_elements(self, elements):
         for e in elements:
             self.disable_element(e)
@@ -76,11 +77,11 @@ class PeriodicTableWidget(QWidget):
         btn = self.elements[element]
         btn.setEnabled(False)
         btn.setStyleSheet(self.style_disabled)
-        
+
     def enable_elements(self, elements):
         for e in elements:
             self.enable_element(e)
-    
+
     def enable_element(self, element):
         btn = self.elements[element]
         btn.setEnabled(True)
@@ -90,19 +91,17 @@ class PeriodicTableWidget(QWidget):
         else:
             style = self.style_off
         btn.setStyleSheet(style)
-                    
+
     def on_element_click(self, value):
         elid = value['id']
-        self.set_element(elid, not self.toggled[elid] )
+        self.set_element(elid, not self.toggled[elid])
         self.element_toggled.emit(value['id'])
-        
+
     def sizeHint(self):
         return QSize(350, 140)
-        
+
     def create_controls(self):
         grid = QGridLayout(self)
         grid.setSpacing(0)
-        grid.setContentsMargins(0,0,0,0)
+        grid.setContentsMargins(0, 0, 0, 0)
         self.parse_elements(grid)
-        
-      

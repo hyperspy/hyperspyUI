@@ -10,22 +10,24 @@ from matplotlib.pylab import gca
 
 from figuretool import FigureTool
 
+
 class HomeTool(FigureTool):
+
     def __init__(self, windows=None):
         super(HomeTool, self).__init__(windows)
-        
+
     def get_name(self):
         return "Home tool"
-        
+
     def get_category(self):
         return 'Navigation'
-        
+
     def get_icon(self):
         return os.path.dirname(__file__) + '/../../images/home.svg'
-        
+
     def single_action(self):
         return self.home
-        
+
     def home(self, axes=None):
         if axes is None:
             axes = gca()
@@ -40,7 +42,7 @@ class HomeTool(FigureTool):
         axes.figure.canvas.draw_idle()
         axes.set_xlim(auto=oldx)
         axes.set_ylim(auto=oldy)
-        
+
     def on_keyup(self, event):
         if event.key == '5':
             self.home()

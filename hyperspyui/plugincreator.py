@@ -19,7 +19,7 @@ from hyperspy.hspy import *
 
 class {0}(Plugin):
     name = "{0}"
-    
+
     def create_actions(self):"""
 
 action_noicon = """
@@ -48,16 +48,18 @@ default = """
 {0}
 """
 
+
 def indent(lines, amount, ch=' '):
     padding = amount * ch
-    return padding + ('\n'+padding).join(lines.split('\n'))
-    
+    return padding + ('\n' + padding).join(lines.split('\n'))
+
+
 def suggest_plugin_filename(name):
     filename = name.lower() + '.py'
     dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
     path = dirname + os.path.sep + filename
     return path
-    
+
 
 def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
                        icon=None):
@@ -65,10 +67,10 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
     If 'menu' and/or 'toolbar' is True, the corresponding items will be added
     for the action.
     """
-    
+
     if category is None:
         category = name
-    
+
     plugin_code = header.format(name)
     if icon is None:
         plugin_code += action_noicon.format(name)
@@ -78,11 +80,12 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
         plugin_code += menu_def.format(category, name)
     if toolbar:
         plugin_code += toolbar_def.format(category, name)
-        
+
     # Indent code by two levels
-    code = indent(code, 2*4)
+    code = indent(code, 2 * 4)
     plugin_code += default.format(code)
     return plugin_code
+
 
 def create_plugin_file(code, name, category=None, menu=False, toolbar=False,
                        filename=None):
@@ -97,8 +100,7 @@ def create_plugin_file(code, name, category=None, menu=False, toolbar=False,
     else:
         dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
         path = dirname + os.path.sep + filename
-    
+
     with open(path, 'w') as f:
         f.write(create_plugin_code(code, name, category, menu, toolbar))
     return path
-    
