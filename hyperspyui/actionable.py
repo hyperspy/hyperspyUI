@@ -22,7 +22,7 @@ class Actionable(QtCore.QObject):
         self.sep_counter = 0
 
     def add_action(self, key, title, on_trig):
-        ac = QtGui.QAction(title, self)  # TODO: tr()
+        ac = QtGui.QAction(title, self)  # TODO: tr()?
         self.connect(ac, QtCore.SIGNAL('triggered()'), on_trig)
         self.actions[key] = ac
 

@@ -15,11 +15,15 @@ from hyperspyui.recorder import Recorder
 from hyperspyui.widgets.editorwidget import EditorWidget
 
 
+def tr(text):
+    return QCoreApplication.translate("RecorderWidget", text)
+
+
 class RecorderWidget(QDockWidget):
 
     def __init__(self, main_window, parent=None):
         super(RecorderWidget, self).__init__(parent)
-        self.setWindowTitle("Recorder")  # TODO: tr
+        self.setWindowTitle(tr("Recorder"))
         self.ui = main_window
         self.create_controls()
 
@@ -31,7 +35,7 @@ class RecorderWidget(QDockWidget):
         self.update_filter()
         self.ui.recorders.append(r)
         e = EditorWidget(self.ui, self.ui)
-        e.setWindowTitle("Recorded Code")   # TODO: tr
+        e.setWindowTitle(tr("Recorded Code"))
         self.editor = e
         self.ui.editors.append(e)
         r.record.connect(e.append_code)
@@ -65,15 +69,15 @@ class RecorderWidget(QDockWidget):
             self.recorder.record.disconnect(editor.append_code)
 
     def create_controls(self):
-        self.btn_start = QPushButton("Start")  # TODO: tr
-        self.btn_stop = QPushButton("Stop")  # TODO: tr
+        self.btn_start = QPushButton(tr("Start"))
+        self.btn_stop = QPushButton(tr("Stop"))
         self.btn_stop.setEnabled(False)
 
         self.btn_start.clicked.connect(self.start_recording)
         self.btn_stop.clicked.connect(self.stop_recording)
 
-        self.chk_actions = QCheckBox("Actions")  # TODO: tr
-        self.chk_code = QCheckBox("Code")       # TODO: tr
+        self.chk_actions = QCheckBox(tr("Actions"))
+        self.chk_code = QCheckBox(tr("Code"))
         for c in [self.chk_actions, self.chk_code]:
             c.setChecked(True)
             c.toggled.connect(self.update_filter)
