@@ -23,6 +23,8 @@ def tr(text):
 from widgets.consolewidget import ConsoleWidget
 import hyperspyui.mdi_mpl_backend
 from pluginmanager import PluginManager
+from hyperspyui.settings import Settings
+from hyperspyui.widgets.settingsdialog import SettingsDialog
 
 
 class MainWindowLayer1(QMainWindow):
@@ -38,13 +40,15 @@ class MainWindowLayer1(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindowLayer1, self).__init__(parent)
 
-        # Properties
-        self.toolbar_button_unit = 32  # TODO: Make a property
-        self.default_widget_floating = False
-        self.cur_dir = ""
-
-        # Read settings
-        self.read_settings()
+        self.settings = Settings(self, 'mainwindow')
+        # Default setting values
+        if 'toolbar_button_size' not in self.settings or \
+                not isinstance(self.settings['toolbar_button_size'], int):
+            self.settings['toolbar_button_size'] = 32
+        if 'default_widget_floating' not in self.settings:
+            self.settings['default_widget_floating'] = False
+        if 'working_directory' not in self.settings:
+            self.settings['working_directory'] = ""
 
         # State varaibles
         self.should_capture_traits = None
@@ -74,6 +78,24 @@ class MainWindowLayer1(QMainWindow):
         self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
 
     @property
+    def toolbar_button_size(self):
+        return self.settings['toolbar_button_size']
+    
+    @toolbar_button_size.setter
+    def toolbar_button_size(self, value):
+        self.settings['toolbar_button_size'] = value
+        self.setIconSize(
+            QSize(self.toolbar_button_size, self.toolbar_button_size))
+    
+    @property
+    def cur_dir(self):
+        return self.settings['working_directory']
+
+    @cur_dir.setter
+    def cur_dir(self, value):
+        self.settings['working_directory'] = value
+
+    @property
     def plugins(self):
         return self.plugin_manager.plugins
 
@@ -85,7 +107,7 @@ class MainWindowLayer1(QMainWindow):
 
     def create_ui(self):
         self.setIconSize(
-            QSize(self.toolbar_button_unit, self.toolbar_button_unit))
+            QSize(self.toolbar_button_size, self.toolbar_button_size))
         self.main_frame = QMdiArea()
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
@@ -151,14 +173,18 @@ class MainWindowLayer1(QMainWindow):
 
         self.plugin_manager.create_widgets()
 
+    def edit_settings(self):
+        """
+        Shows a dialog for editing the application and plugins settings.
+        """
+        d = SettingsDialog(self, self)
+        d.exec_()
+
     def select_tool(self, tool):
         if self.active_tool is not None:
             self.active_tool.disconnect(self.figures)
         self.active_tool = tool
         tool.connect(self.figures)
-
-    def closeEvent(self, event):
-        self.write_settings()
 
     # --------- Figure management ---------
 
@@ -259,29 +285,6 @@ class MainWindowLayer1(QMainWindow):
                                                def_type)[0]
         if filename:
             canvas.figure.savefig(filename)
-
-    # --------- Settings ---------
-
-    def write_settings(self):
-        s = QSettings(self)
-        s.beginGroup("mainwindow")
-        s.setValue('toolbar_button_unit', self.toolbar_button_unit)
-        s.setValue('default_widget_floating', self.default_widget_floating)
-        s.endGroup()
-        s.setValue('cd', self.cur_dir)
-
-    def read_settings(self):
-        s = QSettings(self)
-        s.beginGroup("mainwindow")
-        self.toolbar_button_unit = s.value("toolbar_button_unit",
-                                           self.toolbar_button_unit, int)
-        self.default_widget_floating = s.value("default_widget_floating",
-                                               self.default_widget_floating, bool)
-        s.endGroup()
-        cd = s.value('cd', None)
-        if cd is not None and len(str(cd)) > 0:
-            if self.cur_dir == "":
-                self.cur_dir = str(cd)
 
     # --------- Console functions ---------
 

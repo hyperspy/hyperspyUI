@@ -18,13 +18,19 @@ class Settings(object):
         self.sep = sep
         self.group = group
         self.parent = parent
+    
+    def _get_groups(self, key):
+        if self.group is None:
+            return key.split(self.sep)
+        else:
+            return (self.group + self.sep + key).split(self.sep)
 
     def __getitem__(self, key):
         if isinstance(key, tuple):
             key, t = key
         else:
             t = None
-        groupings = (self.group + self.sep + key).split(self.sep)
+        groupings = self._get_groups(key)
         key = groupings.pop()
         settings = QSettings(self.parent)
         for g in groupings:
@@ -35,7 +41,7 @@ class Settings(object):
         return ret
 
     def __setitem__(self, key, value):
-        groupings = (self.group + self.sep + key).split(self.sep)
+        groupings = self._get_groups(key)
         key = groupings.pop()
         settings = QSettings(self.parent)
         for g in groupings:
@@ -43,6 +49,24 @@ class Settings(object):
         settings.setValue(key, value)
         for g in groupings:
             settings.endGroup()
+
+    def __contains__(self, key):
+        groupings = self._get_groups(key)
+        key = groupings.pop()
+        settings = QSettings(self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        r = settings.contains(key)
+        for g in groupings:
+            settings.endGroup()
+        return r
+    
+    def __iter__(self):
+        settings = QSettings(self.parent)
+        settings.beginGroup(self.group)
+        keys = settings.allKeys()
+        for k in keys:
+            yield k, settings.value(k)
 
     def get_or_prompt(self, key, options, title="Prompt", descr=""):
         """

@@ -140,11 +140,11 @@ class MainWindowLayer3(MainWindowLayer2):
         it's visibility can be toggled.
 
         The parameter 'floating' specifies whether the widget should be made
-        floating. If None, the value of the attribute 'default_widget_floating'
+        floating. If None, the value of the setting 'default_widget_floating'
         is used.
         """
         if floating is None:
-            floating = self.default_widget_floating
+            floating = self.settings['default_widget_floating'].lower() == 'true'
         if isinstance(widget, QDockWidget):
             d = widget
         else:

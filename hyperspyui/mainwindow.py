@@ -136,6 +136,8 @@ class MainWindow(MainWindowLayer5):
         self.add_action('plugin_manager', "Plugin manager",
                         self.show_plugin_manager,
                         tip="Show the plugin manager")
+        self.add_action('edit_settings', "Edit settings", self.edit_settings,
+                        tip="Edit the application and plugins settings")
 
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
@@ -187,6 +189,7 @@ class MainWindow(MainWindowLayer5):
         super(MainWindow, self).create_menu()
 
         self.add_menuitem('Settings', self.actions['plugin_manager'])
+        self.add_menuitem('Settings', self.actions['edit_settings'])
 
     def create_tools(self):
         super(MainWindow, self).create_tools()
@@ -288,11 +291,3 @@ class MainWindow(MainWindowLayer5):
             signal.keep_on_close = False
         finally:
             self.setUpdatesEnabled(True)
-
-    # --------- Settings ---------
-
-    def write_settings(self):
-        super(MainWindow, self).write_settings()
-
-    def read_settings(self):
-        super(MainWindow, self).read_settings()
