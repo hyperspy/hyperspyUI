@@ -166,14 +166,15 @@ class MVA_Plugin(Plugin):
                 # Num comp. picked, get model, wrap new signal and plot
                 if model == 'pca':
                     sc = ns.s.get_decomposition_model(n_components)
-                    self.ui.add_signal_figure(sc, signal.name + "[PCA]")
+                    sc.metadata.General.title = signal.name + "[PCA]"
+                    sc.plot()
                 elif model == 'bss':
                     self._do_bss(ns.s, n_components)
                     f, o = self.get_bss_results(ns.s)
-                    self.ui.add_signal_figure(f, signal.name +
-                                              "[BSS-Factors]")
-                    self.ui.add_signal_figure(o, signal.name +
-                                              "[BSS-Loadings]")
+                    f.metadata.General.title = signal.name + "[BSS-Factors]"
+                    o.metadata.General.title = signal.name + "[BSS-Loadings]"
+                    f.plot()
+                    o.plot()
                 if autosig:
                     self.record_code(r"<p>.%s(n_components=%d)" %
                                      (model, n_components))
@@ -409,61 +410,4 @@ class MVA_Plugin(Plugin):
                              label=label,
                              cancellable=True,
                              generator_N=n_component - 1)
-        t.run()
-
-    def pca(self, signal=None, n_components=None):
-        """
-        Performs decomposition, then plots the scree for the user to select
-        the number of components to use for a decomposition model. The
-        selection is made by clicking on the scree, which closes the scree
-        and creates the model.
-        """
-        ns = Namespace()
-        autosig = signal is None
-        ns.s, signal = self._get_signal(signal)
-
-        def do_threaded():
-            ns.s = self._do_decomposition(ns.s)
-
-        def on_complete():
-            if n_components is None:
-                ax = ns.s.plot_explained_variance_ratio()
-
-                # Clean up plot and present, allow user to select components
-                # by picker
-                ax.set_title("")
-                scree = ax.get_figure().canvas
-                scree.draw()
-                scree.setWindowTitle(tr("Pick number of components"))
-
-                def clicked(event):
-                    n_components = round(event.xdata)
-                    # Num comp. picked, perform PCA, wrap new signal and plot
-                    sc = ns.s.get_decomposition_model(n_components)
-                    sc.metadata.General.title = signal.name + "[PCA]"
-                    sc.plot()
-                    # Close scree plot
-                    w = fig2win(scree.figure, self.ui.figures)
-                    w.close()
-                    if autosig:
-                        self.record_code(r"<p>.pca(n_components=%d)" %
-                                         n_components)
-                    else:
-                        self.record_code(
-                            r"<p>.pca({0}, n_components={1})".format(
-                                signal, n_components))
-                scree.mpl_connect('button_press_event', clicked)
-            else:
-                sc = ns.s.get_decomposition_model(n_components)
-                sc.metadata.General.title = signal.name + "[PCA]"
-                sc.plot()
-                if autosig:
-                    self.record_code(
-                        r"<p>.pca(n_components=%d)" % n_components)
-                else:
-                    self.record_code(r"<p>.pca({0}, n_components={1})".format(
-                        signal, n_components))
-
-        t = ProgressThreaded(self.ui, do_threaded, on_complete,
-                             label=tr("Performing PCA"))
         t.run()
