@@ -29,7 +29,6 @@ import hyperspy.signals
 
 # TODO: Select signal after first load!
 # TODO: Settings dialog
-# TODO: Move non-core functionality to plugins
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing (w/batch input)
 # TODO: Layout save/restore
