@@ -18,7 +18,7 @@ class Settings(object):
         self.sep = sep
         self.group = group
         self.parent = parent
-    
+
     def _get_groups(self, key):
         if self.group is None:
             return key.split(self.sep)
@@ -60,7 +60,7 @@ class Settings(object):
         for g in groupings:
             settings.endGroup()
         return r
-    
+
     def __iter__(self):
         settings = QSettings(self.parent)
         settings.beginGroup(self.group)

@@ -80,13 +80,13 @@ class MainWindowLayer1(QMainWindow):
     @property
     def toolbar_button_size(self):
         return self.settings['toolbar_button_size']
-    
+
     @toolbar_button_size.setter
     def toolbar_button_size(self, value):
         self.settings['toolbar_button_size'] = value
         self.setIconSize(
             QSize(self.toolbar_button_size, self.toolbar_button_size))
-    
+
     @property
     def cur_dir(self):
         return self.settings['working_directory']
