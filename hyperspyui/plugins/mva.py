@@ -24,7 +24,7 @@ from hyperspyui.threaded import ProgressThreaded
 
 
 def tr(text):
-    return QCoreApplication.translate("PCA", text)
+    return QCoreApplication.translate("MVA", text)
 
 
 def align_yaxis(ax1, v1, ax2, v2):
@@ -41,12 +41,12 @@ def align_yaxis(ax1, v1, ax2, v2):
     ax2.set_ylim((miny2 + dy) / ratio, (maxy2 + dy) / ratio)
 
 
-class PCA_Plugin(Plugin):
+class MVA_Plugin(Plugin):
 
     """
-    Implements PCA decomposition utilities.
+    Implements MVA decomposition utilities.
     """
-    name = 'PCA'    # Used for settings groups etc
+    name = 'MVA'    # Used for settings groups etc
 
     # ----------- Plugin interface -----------
     def create_actions(self):
@@ -54,20 +54,26 @@ class PCA_Plugin(Plugin):
                         icon='pca.svg',
                         tip=tr("Run Principal Component Analysis"),
                         selection_callback=self.selection_rules)
-        self.add_action('pca_explore_components', tr("Explore PCA components"),
+        self.add_action('bss', tr("BSS"), self.bss,
+                        icon='bss.svg',
+                        tip=tr("Run Blind Source Separation"),
+                        selection_callback=self.selection_rules)
+        self.add_action('explore_decomposition', tr("Explore decomposition"),
                         self.explore_components,
                         selection_callback=self.selection_rules)
 
     def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions['pca'])
-        self.add_menuitem('Signal', self.ui.actions['pca_explore_components'])
+        self.add_menuitem('Signal', self.ui.actions['bss'])
+        self.add_menuitem('Signal', self.ui.actions['explore_decomposition'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Signal", self.ui.actions['pca'])
+        self.add_toolbar_button("Signal", self.ui.actions['bss'])
 
     def selection_rules(self, win, action):
         """
-        Callback to determine if PCA is valid for the passed window.
+        Callback to determine if action is valid for the passed window.
         """
         s = win2sig(win, self.ui.signals)
         if s is None or s.signal.data.ndim <= 1:
@@ -121,6 +127,99 @@ class PCA_Plugin(Plugin):
             s.axes_manager._set_axis_attribute_values('navigate',
                                                       bk_s_navigate)
         return s
+
+    def _do_bss(self, s, n_components, force=False):
+        """
+        Makes sure we have BSS results. If results already are available, it
+        will only recalculate if the `force` parameter is True.
+        """
+        if force or s.learning_results.bss_factors is None:
+            s.blind_source_separation(n_components)
+
+    def get_bss_results(self, signal):
+        factors = signal.get_bss_factors()
+        loadings = signal.get_bss_loadings()
+        factors.axes_manager._axes[0] = loadings.axes_manager._axes[0]
+        if loadings.axes_manager.signal_dimension > 2:
+            loadings.axes_manager.set_signal_dimension(loadings_dim)
+        if factors.axes_manager.signal_dimension > 2:
+            factors.axes_manager.set_signal_dimension(factors_dim)
+        return loadings, factors
+
+    def do_after_scree(self, model, signal=None, n_components=None):
+        """
+        Performs decomposition, then plots the scree for the user to select
+        the number of components to use for a decomposition model. The
+        selection is made by clicking on the scree, which closes the scree
+        and creates the model.
+        """
+        ns = Namespace()
+        autosig = signal is None
+        ns.s, signal = self._get_signal(signal)
+
+        def do_threaded():
+            ns.s = self._do_decomposition(ns.s)
+
+        def on_complete():
+            def _do(n_components):
+                # Num comp. picked, get model, wrap new signal and plot
+                if model == 'pca':
+                    sc = ns.s.get_decomposition_model(n_components)
+                    self.ui.add_signal_figure(sc, signal.name + "[PCA]")
+                elif model == 'bss':
+                    self._do_bss(ns.s, n_components)
+                    f, o = self.get_bss_results(ns.s)
+                    self.ui.add_signal_figure(f, signal.name +
+                                              "[BSS-Factors]")
+                    self.ui.add_signal_figure(o, signal.name +
+                                              "[BSS-Loadings]")
+                if autosig:
+                    self.record_code(r"<p>.%s(n_components=%d)" %
+                                     (model, n_components))
+                else:
+                    self.record_code(r"<p>.{0}({1}, n_components={2})".format(
+                                     model, signal, n_components))
+            if n_components is None:
+                ax = ns.s.plot_explained_variance_ratio()
+
+                # Clean up plot and present, allow user to select components
+                # by picker
+                ax.set_title("")
+                scree = ax.get_figure().canvas
+                scree.draw()
+                scree.setWindowTitle("Pick number of components")
+
+                def clicked(event):
+                    n_components = round(event.xdata)
+                    # Close scree plot
+                    w = fig2win(scree.figure, self.ui.figures)
+                    w.close()
+                    _do(n_components)
+                scree.mpl_connect('button_press_event', clicked)
+            else:
+                _do(n_components)
+
+        t = ProgressThreaded(self.ui, do_threaded, on_complete,
+                             label="Performing %s" % model.upper())
+        t.run()
+
+    def pca(self, signal=None, n_components=None):
+        """
+        Performs decomposition, then plots the scree for the user to select
+        the number of components to use for a decomposition model. The
+        selection is made by clicking on the scree, which closes the scree
+        and creates the model.
+        """
+        return self.do_after_scree('pca', signal, n_components)
+
+    def bss(self, signal=None, n_components=None):
+        """
+        Performs decomposition if neccessary, then plots the scree for the user
+        to select the number of components to use for a blind source
+        separation. The selection is made by clicking on the scree, which
+        closes the scree and creates the model.
+        """
+        return self.do_after_scree('bss', signal, n_components)
 
     def explore_components(self, signal=None, mmap="auto", n_component=50):
         """
