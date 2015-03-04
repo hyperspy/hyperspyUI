@@ -15,8 +15,13 @@ from hyperspy.axes import AxesManager
 import hyperspy.signals
 
 from threaded import ProgressThreaded
-# TODO tr
 
+from python_qt_binding import QtGui, QtCore
+from QtCore import *
+from QtGui import *
+
+def tr(text):
+    return QCoreApplication.translate("FFT", text)
 
 class FFT_Plugin(Plugin):
     name = 'FFT'
@@ -115,9 +120,9 @@ class FFT_Plugin(Plugin):
 
         if len(signals) > 1:
             if inverse:
-                label = 'Performing inverse FFT'
+                label = tr('Performing inverse FFT')
             else:
-                label = 'Performing FFT'
+                label = tr('Performing FFT')
             t = ProgressThreaded(self.ui, do_ffts(), on_ffts_complete,
                                  label=label,
                                  generator_N=len(signals))
@@ -224,10 +229,10 @@ class FFT_Plugin(Plugin):
         n_ffts = np.product([d for s in signals
                              for d in s.signal.axes_manager.navigation_shape])
         if inverse:
-            label = 'Performing inverse FFT'
+            label = tr('Performing inverse FFT')
             f = do_iffts()
         else:
-            label = 'Performing FFT'
+            label = tr('Performing FFT')
             f = do_ffts()
         t = ProgressThreaded(self.ui, f, on_ftts_complete,
                              label=label,
