@@ -17,21 +17,23 @@ import numpy as np
 from hyperspyui.util import win2sig
 from hyperspyui.signalwrapper import SignalWrapper
 
+def tr(text):
+    return QCoreApplication.translate("ImageRotation", text)
 
 class ImageRotation_Plugin(Plugin):
     name = 'Image Rotation'
 
     def create_actions(self):
-        self.ui.add_action('rotate', "Rotate", self.show_rotate_dialog,
-#                           icon='rotate.svg',
+        self.add_action('rotate', "Rotate", self.show_rotate_dialog,
+#                           icon='rotate.svg',  # TODO: Icon
                            tip="Rotate an image",
                            selection_callback=self.selection_rules)
 
     def create_menu(self):
-        self.ui.add_menuitem('Signal', self.ui.actions['rotate'])
+        self.add_menuitem('Signal', self.ui.actions['rotate'])
 
     def create_toolbars(self):
-        self.ui.add_toolbar_button("Signal", self.ui.actions['rotate'])
+        self.add_toolbar_button("Signal", self.ui.actions['rotate'])
 
     def selection_rules(self, win, action):
         """
@@ -162,7 +164,7 @@ class ImageRotationDialog(ExToolWindow):
                 axes = (axm._axes.index(axm.signal_axes[0]),
                         axm._axes.index(axm.signal_axes[1]))
         self.axes = axes
-        self.setWindowTitle("Rotate")  # TODO: tr
+        self.setWindowTitle(tr("Rotate"))
 
         # TODO: TAG: Functionality check
         if not hasattr(signal, 'events'):
@@ -277,15 +279,14 @@ class ImageRotationDialog(ExToolWindow):
         self.num_angle.setValue(0.0)
         self.num_angle.setMinimum(-360)
         self.num_angle.setMaximum(360)
-        # TODO: tr
-        form.addRow("Angle:", self.num_angle)
+        form.addRow(tr("Angle:"), self.num_angle)
         vbox.addLayout(form)
 
-        self.gbo_preview = QGroupBox("Preview")
+        self.gbo_preview = QGroupBox(tr("Preview"))
         self.gbo_preview.setCheckable(True)
         self.gbo_preview.setChecked(False)
         gbo_vbox = QVBoxLayout()
-        self.chk_grid = QCheckBox("Grid")
+        self.chk_grid = QCheckBox(tr("Grid"))
         self.chk_grid.setChecked(False)
         self.num_grid = QSpinBox()
         self.num_grid.setValue(4)
@@ -299,9 +300,9 @@ class ImageRotationDialog(ExToolWindow):
 
         self.gbo_preview.toggled[bool].connect(self.set_preview)
 
-        self.gbo_output = QGroupBox("Output")
-        self.opt_new = QRadioButton("New signal")
-        self.opt_replace = QRadioButton("In place")
+        self.gbo_output = QGroupBox(tr("Output"))
+        self.opt_new = QRadioButton(tr("New signal"))
+        self.opt_replace = QRadioButton(tr("In place"))
         self.opt_new.setChecked(True)
         gbo_vbox2 = QVBoxLayout()
         gbo_vbox2.addWidget(self.opt_new)
@@ -309,14 +310,14 @@ class ImageRotationDialog(ExToolWindow):
         self.gbo_output.setLayout(gbo_vbox2)
         vbox.addWidget(self.gbo_output)
 
-        self.chk_reshape = QCheckBox("Resize to fit")
+        self.chk_reshape = QCheckBox(tr("Resize to fit"))
         self.chk_reshape.setChecked(False)
         vbox.addWidget(self.chk_reshape)
 
-        self.btn_ok = QPushButton("&OK")
+        self.btn_ok = QPushButton(tr("&OK"))
         self.btn_ok.setDefault(True)
         self.btn_ok.clicked.connect(self.accept)
-        self.btn_cancel = QPushButton("&Cancel")
+        self.btn_cancel = QPushButton(tr("&Cancel"))
         self.btn_cancel.clicked.connect(self.reject)
         hbox = QHBoxLayout()
         hbox.addWidget(self.btn_ok)
