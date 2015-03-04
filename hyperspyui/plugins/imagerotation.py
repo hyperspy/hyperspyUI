@@ -17,17 +17,19 @@ import numpy as np
 from hyperspyui.util import win2sig
 from hyperspyui.signalwrapper import SignalWrapper
 
+
 def tr(text):
     return QCoreApplication.translate("ImageRotation", text)
+
 
 class ImageRotation_Plugin(Plugin):
     name = 'Image Rotation'
 
     def create_actions(self):
         self.add_action('rotate', "Rotate", self.show_rotate_dialog,
-#                           icon='rotate.svg',  # TODO: Icon
-                           tip="Rotate an image",
-                           selection_callback=self.selection_rules)
+#                        icon='rotate.svg',  # TODO: Icon
+                        tip="Rotate an image",
+                        selection_callback=self.selection_rules)
 
     def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions['rotate'])
