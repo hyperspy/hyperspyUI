@@ -109,8 +109,9 @@ class BasicSpectrumPlugin(Plugin):
                                                             np.isinf(ns.s_return.data)))
 
             def fr_complete():
-                self.ui.add_signal_figure(ns.s_return,
-                                          s_core.name + "[Fourier-ratio]")
+                ns.s_return.metadata.General.title = \
+                        s_core.name + "[Fourier-ratio]"
+                ns.s_return.plot()
 
             t = Threaded(self.ui, run_fr, fr_complete)
             t.run()
@@ -120,8 +121,7 @@ class BasicSpectrumPlugin(Plugin):
     def remove_background(self, signal=None):
         if signal is None:
             signal = self.ui.get_selected_signal()
-        signal.run_nonblock(signal.signal.remove_background,
-                            "Background removal tool")
+        signal.signal.remove_background()
 
     def pick_elements(self, signal=None):
         if signal is None:

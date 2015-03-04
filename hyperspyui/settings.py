@@ -14,17 +14,25 @@ from widgets.extendedqwidgets import ExRememberPrompt
 
 class Settings(object):
 
-    def __init__(self, parent=None, group=None, sep='.'):
-        self.sep = sep
+    def __init__(self, parent=None, group=None):
+        self._sep = '/'
         self.group = group
         self.parent = parent
+
+    def _get_groups(self, key):
+        if self.group is None:
+            return key.split(self._sep)
+        else:
+            return (self.group + self._sep + key).split(self._sep)
 
     def __getitem__(self, key):
         if isinstance(key, tuple):
             key, t = key
         else:
             t = None
-        groupings = (self.group + self.sep + key).split(self.sep)
+        groupings = self._get_groups(key)
+        if key not in self:
+            groupings.insert(0, 'defaults')
         key = groupings.pop()
         settings = QSettings(self.parent)
         for g in groupings:
@@ -35,7 +43,71 @@ class Settings(object):
         return ret
 
     def __setitem__(self, key, value):
-        groupings = (self.group + self.sep + key).split(self.sep)
+        groupings = self._get_groups(key)
+        key = groupings.pop()
+        settings = QSettings(self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        settings.setValue(key, value)
+        for g in groupings:
+            settings.endGroup()
+
+    def __contains__(self, key):
+        groupings = self._get_groups(key)
+        key = groupings.pop()
+        settings = QSettings(self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        r = settings.contains(key)
+        for g in groupings:
+            settings.endGroup()
+        return r
+
+    def __iter__(self):
+        settings = QSettings(self.parent)
+        settings.beginGroup(self.group)
+        keys = settings.allKeys()
+        for k in keys:
+            yield k, settings.value(k)
+    
+    @staticmethod
+    def clear_defaults():
+        """
+        Clear all settings in defaults group.
+        """
+        settings = QSettings()
+        settings.beginGroup('defaults')
+        settings.remove("")
+        settings.endGroup()
+    
+    @staticmethod
+    def restore_defaults():
+        """
+        Clears all settings (except "defaults" group) and restores all settings
+        from the defaults group.
+        """
+        settings = QSettings()
+        for g in settings.childGroups():
+            if g != "defaults":
+                settings.remove(g)
+        for k in settings.childKeys():
+            settings.remove(k)
+        defaults = QSettings()
+        defaults.beginGroup("defaults")
+        for k in defaults.allKeys():
+            settings.setValue(k, defaults.value(k))
+
+    def set_default(self, key, value):
+        """
+        To set default value, write into defaults group.
+        """
+        # If not in normal settings, set it:
+        if key not in self:
+            self[key] = value
+        
+        # Either way, write to defaults
+        groupings = self._get_groups(key)
+        groupings.insert(0, 'defaults')
         key = groupings.pop()
         settings = QSettings(self.parent)
         for g in groupings:

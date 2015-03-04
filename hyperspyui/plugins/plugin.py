@@ -15,10 +15,10 @@ class Plugin(object):
         super(Plugin, self).__init__()
         self.ui = main_window
         if self.name is None:
-            set_group = 'plugins.' + str.lower(self.__class__.__name__)
+            set_group = 'plugins/' + str.lower(self.__class__.__name__)
             set_group = set_group.replace('.', '')
         else:
-            set_group = 'plugins.' + self.name
+            set_group = 'plugins/' + self.name
         self.settings = Settings(self.ui, group=set_group)
 
         self.actions = {}
@@ -32,11 +32,17 @@ class Plugin(object):
 
     def add_menuitem(self, category, action, *args, **kwargs):
         self.ui.add_menuitem(category, action, *args, **kwargs)
-        self.menu_actions[category] = action
+        if category in self.menu_actions:
+            self.menu_actions[category].append(action)
+        else:
+            self.menu_actions[category] = [action]
 
     def add_toolbar_button(self, category, action, *args, **kwargs):
         self.ui.add_toolbar_button(category, action, *args, **kwargs)
-        self.toolbar_actions[category] = action
+        if category in self.toolbar_actions:
+            self.toolbar_actions[category].append(action)
+        else:
+            self.toolbar_actions[category] = [action]
 
     def add_widget(self, widget, *args, **kwargs):
         dock = self.ui.add_widget(widget, *args, **kwargs)
@@ -62,10 +68,12 @@ class Plugin(object):
         pass
 
     def unload(self):
-        for category, action in self.menu_actions.iteritems():
-            self.ui.menus[category].removeAction(action)
-        for category, action in self.toolbar_actions.iteritems():
-            self.ui.toolbars[category].removeAction(action)
+        for category, actions in self.menu_actions.iteritems():
+            for action in actions:
+                self.ui.menus[category].removeAction(action)
+        for category, actions in self.toolbar_actions.iteritems():
+            for action in actions:
+                self.ui.toolbars[category].removeAction(action)
         for key in self.actions.iterkeys():
             self.ui.actions.pop(key, None)
         for widget in self.widgets:
