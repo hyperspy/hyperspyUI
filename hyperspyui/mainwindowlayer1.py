@@ -39,7 +39,7 @@ class MainWindowLayer1(QMainWindow):
 
     def __init__(self, parent=None):
         super(MainWindowLayer1, self).__init__(parent)
-        
+
         # First, clear all default settings!
         Settings.clear_defaults()
         # Setup settings:

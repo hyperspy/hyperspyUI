@@ -20,8 +20,10 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+
 def tr(text):
     return QCoreApplication.translate("FFT", text)
+
 
 class FFT_Plugin(Plugin):
     name = 'FFT'
