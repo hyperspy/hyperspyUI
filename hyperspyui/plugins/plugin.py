@@ -15,10 +15,10 @@ class Plugin(object):
         super(Plugin, self).__init__()
         self.ui = main_window
         if self.name is None:
-            set_group = 'plugins.' + str.lower(self.__class__.__name__)
+            set_group = 'plugins/' + str.lower(self.__class__.__name__)
             set_group = set_group.replace('.', '')
         else:
-            set_group = 'plugins.' + self.name
+            set_group = 'plugins/' + self.name
         self.settings = Settings(self.ui, group=set_group)
 
         self.actions = {}
