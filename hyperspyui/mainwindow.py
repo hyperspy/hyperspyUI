@@ -28,10 +28,10 @@ import hyperspy.signals
 
 
 # TODO: Select signal after first load!
-# TODO: Settings dialog
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing (w/batch input)
-# TODO: Layout save/restore
+# TODO: Layout save/restore (ignorable settings (_settings?))
+# TODO: Fix unloading of plugins' tools
 
 class MainWindow(MainWindowLayer5):
 

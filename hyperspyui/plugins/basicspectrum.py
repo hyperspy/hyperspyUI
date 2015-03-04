@@ -110,7 +110,7 @@ class BasicSpectrumPlugin(Plugin):
 
             def fr_complete():
                 ns.s_return.metadata.General.title = \
-                        s_core.name + "[Fourier-ratio]"
+                    s_core.name + "[Fourier-ratio]"
                 ns.s_return.plot()
 
             t = Threaded(self.ui, run_fr, fr_complete)

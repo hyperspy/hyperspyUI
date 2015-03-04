@@ -69,7 +69,7 @@ class Settings(object):
         keys = settings.allKeys()
         for k in keys:
             yield k, settings.value(k)
-    
+
     @staticmethod
     def clear_defaults():
         """
@@ -79,7 +79,7 @@ class Settings(object):
         settings.beginGroup('defaults')
         settings.remove("")
         settings.endGroup()
-    
+
     @staticmethod
     def restore_defaults():
         """
@@ -104,7 +104,7 @@ class Settings(object):
         # If not in normal settings, set it:
         if key not in self:
             self[key] = value
-        
+
         # Either way, write to defaults
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')

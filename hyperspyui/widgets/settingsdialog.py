@@ -21,7 +21,7 @@ def tr(text):
 
 class SettingsDialog(ExToolWindow):
     settings_changed = Signal(dict)
-    
+
     def __init__(self, main_window, parent=None):
         """
         Create a dialog for editing the application settings, including the
@@ -35,7 +35,7 @@ class SettingsDialog(ExToolWindow):
         self._changes = {}
         self._lut = {}
         self.create_controls()
-    
+
     @property
     def apply_btn(self):
         """
@@ -70,7 +70,7 @@ class SettingsDialog(ExToolWindow):
             # If different, store in self._changes and enable apply button
             self._changes[key] = v
             self.apply_btn.setEnabled(True)
-    
+
     def apply_changes(self):
         """
         Applies changes performed since dialog creation or last apply,
@@ -92,7 +92,7 @@ class SettingsDialog(ExToolWindow):
         """
         Create a widget for a settings instance, containing label/editor pairs
         for each setting in the current level of the passed QSettings instance.
-        The key of the setting is used as the label, but its capitalized and 
+        The key of the setting is used as the label, but its capitalized and
         underscores are replaced by spaces.
         """
         wrap = QWidget(self)
@@ -136,7 +136,7 @@ class SettingsDialog(ExToolWindow):
         """
         Add all child groups in settings as a separate tab, with editor widgets
         to change the values of each setting within those groups.
-        
+
         Treats the groups 'PluginManager' and 'plugins' specially: The former
         is ignored in its entirety, the latter is called recursively so that
         each plugin gets its own tab.
@@ -157,7 +157,7 @@ class SettingsDialog(ExToolWindow):
                 self.tabs.insertTab(0, tab, tr("General"))
             else:
                 self.tabs.addTab(tab, group)
-    
+
     def _on_accept(self):
         """
         Callback when dialog is closed by OK-button.
@@ -174,7 +174,7 @@ class SettingsDialog(ExToolWindow):
         mb = QMessageBox(QMessageBox.Warning,
                          tr("Reset all settings"),
                          tr("This will reset all settings to their default " +
-                         "values. Are you sure you want to continue?"),
+                            "values. Are you sure you want to continue?"),
                          QMessageBox.Yes | QMessageBox.No)
         mb.setDefaultButton(QMessageBox.No)
         dr = mb.exec_()
@@ -182,7 +182,7 @@ class SettingsDialog(ExToolWindow):
             # This clears all settings, and recreates only those values
             # initialized with set_default this session.
             Settings.restore_defaults()
-            
+
             # Now we update controls:
             s = QSettings(self.ui)
             keys = self._initial_values.keys()  # Use copy, as we may modify
@@ -217,7 +217,7 @@ class SettingsDialog(ExToolWindow):
                         self.tabs.removeTab(self.tabs.indexOf(wrap))
             # Finally apply changes (update _initial_values, and emit signal)
             self.apply_changes()
-    
+
     def _on_click(self, button):
         """
         Route button clicks to appropriate handler.
@@ -236,10 +236,10 @@ class SettingsDialog(ExToolWindow):
         # Fill in tabs by setting groups
         s = QSettings(self.ui)
         self._add_groups(s)
-        
+
         # Add button bar at end
-        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Apply | 
-                                QDialogButtonBox.Cancel | 
+        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Apply |
+                                QDialogButtonBox.Cancel |
                                 QDialogButtonBox.Reset,
                                 Qt.Horizontal, self)
         btns.accepted.connect(self._on_accept)
@@ -247,9 +247,9 @@ class SettingsDialog(ExToolWindow):
         btns.clicked[QAbstractButton].connect(self._on_click)
         self._btns = btns
         self.apply_btn.setEnabled(False)
-        
+
         vbox = QVBoxLayout()
         vbox.addWidget(self.tabs)
         vbox.addWidget(btns)
-        
+
         self.setLayout(vbox)

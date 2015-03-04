@@ -88,7 +88,7 @@ class PluginManager(object):
         for plug in plugins.__all__:
             try:
                 __import__('plugins.' + plug, globals())
-                
+
             except Exception:
                 self.warn("import", plug)
         master = Plugin
@@ -175,7 +175,7 @@ class PluginManager(object):
     def load(self, plugin_type):
         try:
             p = self._load_if_enabled(plugin_type)
-    
+
             if p is not None:
                 # Order of execution is significant!
                 p.create_actions()
