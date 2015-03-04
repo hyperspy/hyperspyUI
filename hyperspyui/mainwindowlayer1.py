@@ -39,16 +39,19 @@ class MainWindowLayer1(QMainWindow):
 
     def __init__(self, parent=None):
         super(MainWindowLayer1, self).__init__(parent)
-
-        self.settings = Settings(self, 'mainwindow')
-        # Default setting values
+        
+        # First, clear all default settings!
+        Settings.clear_defaults()
+        # Setup settings:
+        self.settings = Settings(self, 'General')
+        # Default setting values:
+        self.settings.set_default('toolbar_button_size', 32)
+        self.settings.set_default('default_widget_floating', False)
+        self.settings.set_default('working_directory', "")
+        # Override any possible invalid stored values, which could prevent load
         if 'toolbar_button_size' not in self.settings or \
                 not isinstance(self.settings['toolbar_button_size'], int):
             self.settings['toolbar_button_size'] = 32
-        if 'default_widget_floating' not in self.settings:
-            self.settings['default_widget_floating'] = False
-        if 'working_directory' not in self.settings:
-            self.settings['working_directory'] = ""
 
         # State varaibles
         self.should_capture_traits = None
@@ -178,7 +181,16 @@ class MainWindowLayer1(QMainWindow):
         Shows a dialog for editing the application and plugins settings.
         """
         d = SettingsDialog(self, self)
+        d.settings_changed.connect(self.on_settings_changed)
         d.exec_()
+
+    def on_settings_changed(self):
+        """
+        Callback for SettingsDialog, or anything else that updates settings
+        and need to apply the change.
+        """
+        # Due to the way the property is defined, this updates the UI:
+        self.toolbar_button_size = self.toolbar_button_size
 
     def select_tool(self, tool):
         if self.active_tool is not None:

@@ -96,7 +96,7 @@ class MVA_Plugin(Plugin):
 
         if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float
             cc = self.settings.get_or_prompt(
-                'convert_copy',
+                'convert_or_copy',
                 (('convert', tr("Convert")),
                  ('copy', tr("Copy"))),
                 title=tr("Convert or copy"),

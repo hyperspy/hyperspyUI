@@ -48,7 +48,7 @@ class PluginManager(object):
         self.plugins = {}
         self.ui = main_window
         self._enabled = {}
-        self.settings = Settings(self.ui, group="PluginManager.enabled")
+        self.settings = Settings(self.ui, group="PluginManager/enabled")
 
         self.discover()
 
