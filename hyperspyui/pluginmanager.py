@@ -9,6 +9,7 @@ import os
 import sys
 import imp
 import warnings
+import traceback
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.settings import Settings
 
@@ -48,7 +49,7 @@ class PluginManager(object):
         self.plugins = {}
         self.ui = main_window
         self._enabled = {}
-        self.settings = Settings(self.ui, group="PluginManager.enabled")
+        self.settings = Settings(self.ui, group="PluginManager/enabled")
 
         self.discover()
 
@@ -87,9 +88,9 @@ class PluginManager(object):
         for plug in plugins.__all__:
             try:
                 __import__('plugins.' + plug, globals())
-            except Exception as e:
-                warnings.warn(("Could not import hyperspyui plugin \"{0}\"" +
-                               " error: {1}").format(plug, e.message))
+                
+            except Exception:
+                self.warn("import", plug)
         master = Plugin
         self.implementors = self._inheritors(master)
 
@@ -107,30 +108,54 @@ class PluginManager(object):
                     work.append(child)
         return subclasses
 
+    def warn(self, f_name, p_name, ategory=RuntimeWarning):
+        tbf = ''.join(traceback.format_exception(*sys.exc_info())[2:])
+        warnings.warn(("Exception in {0} of hyperspyui plugin " +
+                       "\"{1}\" error:\n{2}").format(f_name, p_name, tbf),
+                      RuntimeWarning, 2)
+
     def init_plugins(self):
-        self.plugins = {}
+        self.plugins.clear()
         for plug_type in self.implementors:
-            self._load_if_enabled(plug_type)
+            try:
+                self._load_if_enabled(plug_type)
+            except Exception:
+                self.warn("initialization", plug_type.name)
 
     def create_actions(self):
         for p in self.plugins.itervalues():
-            p.create_actions()
+            try:
+                p.create_actions()
+            except Exception:
+                self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_menu(self):
         for p in self.plugins.itervalues():
-            p.create_menu()
+            try:
+                p.create_menu()
+            except Exception:
+                self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_tools(self):
         for p in self.plugins.itervalues():
-            p.create_tools()
+            try:
+                p.create_tools()
+            except Exception:
+                self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_toolbars(self):
         for p in self.plugins.itervalues():
-            p.create_toolbars()
+            try:
+                p.create_toolbars()
+            except Exception:
+                self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_widgets(self):
         for p in self.plugins.itervalues():
-            p.create_widgets()
+            try:
+                p.create_widgets()
+            except Exception:
+                self.warn(sys._getframe().f_code.co_name, p.name)
 
     def _load_if_enabled(self, p_type):
         if p_type is None or p_type.name is None:
@@ -145,18 +170,20 @@ class PluginManager(object):
             p = p_type(self.ui)
             self.plugins[p.name] = p
             return p
-        else:
-            return None
+        return None
 
     def load(self, plugin_type):
-        p = self._load_if_enabled(plugin_type)
-
-        if p is not None:
-            # Order of execution is significant!
-            p.create_actions()
-            p.create_menu()
-            p.create_toolbars()
-            p.create_widgets()
+        try:
+            p = self._load_if_enabled(plugin_type)
+    
+            if p is not None:
+                # Order of execution is significant!
+                p.create_actions()
+                p.create_menu()
+                p.create_toolbars()
+                p.create_widgets()
+        except Exception:
+            self.warn(sys._getframe().f_code.co_name, p.name)
 
     def load_from_file(self, path):
         master = Plugin
@@ -164,7 +191,10 @@ class PluginManager(object):
         name = os.path.splitext(os.path.basename(path))[0]
         mod_name = 'hyperspyui.plugins.' + name
         reload_plugins = mod_name in sys.modules
-        imp.load_source(mod_name, path)
+        try:
+            imp.load_source(mod_name, path)
+        except Exception:
+            self.warn("import", name)
         loaded = self._inheritors(master).difference(prev)
 
         new_ps = []
@@ -172,17 +202,32 @@ class PluginManager(object):
             if reload_plugins and plug_type.name in self.plugins:
                  # Unload any plugins with same name
                 self.unload(self.plugins[plug_type.name])
-            p = self._load_if_enabled(plug_type)
+            try:
+                p = self._load_if_enabled(plug_type)
+            except Exception:
+                self.warn('load', plug_type.name)
             if p is not None:
                 new_ps.append(p)
         for p in new_ps:
-            p.create_actions()
+            try:
+                p.create_actions()
+            except Exception:
+                self.warn('create_actions', p.name)
         for p in new_ps:
-            p.create_menu()
+            try:
+                p.create_menu()
+            except Exception:
+                self.warn('create_menu', p.name)
         for p in new_ps:
-            p.create_toolbars()
+            try:
+                p.create_toolbars()
+            except Exception:
+                self.warn('create_toolbars', p.name)
         for p in new_ps:
-            p.create_widgets()
+            try:
+                p.create_widgets()
+            except Exception:
+                self.warn('create_widgets', p.name)
         return new_ps
 
     def unload(self, plugin):
