@@ -257,8 +257,8 @@ class ImageRotationDialog(ExToolWindow):
                                       reshape=reshape, out=out, axes=self.axes)
 
         if out is None:
-            name = self.signal.name + "[Rotated]"
-            self.new_out = self.ui.add_signal_figure(s, name)
+            s.metadata.General.title = self.signal.name + "[Rotated]"
+            s.plot()
             self.connect_update_plot(s)
         else:
             s = out
