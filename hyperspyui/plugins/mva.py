@@ -58,6 +58,11 @@ class MVA_Plugin(Plugin):
                         icon='bss.svg',
                         tip=tr("Run Blind Source Separation"),
                         selection_callback=self.selection_rules)
+        self.add_action('plot_decomposition_results',
+                        tr("Decomposition results"),
+                        self.plot_decomposition_results,
+                        tip=tr("Plot the decomposition results"),
+                        selection_callback=self.selection_rules)
         self.add_action('explore_decomposition', tr("Explore decomposition"),
                         self.explore_components,
                         selection_callback=self.selection_rules)
@@ -65,6 +70,8 @@ class MVA_Plugin(Plugin):
     def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions['pca'])
         self.add_menuitem('Signal', self.ui.actions['bss'])
+        self.add_menuitem('Signal',
+                          self.ui.actions['plot_decomposition_results'])
         self.add_menuitem('Signal', self.ui.actions['explore_decomposition'])
 
     def create_toolbars(self):
@@ -136,6 +143,15 @@ class MVA_Plugin(Plugin):
         """
         if force or s.learning_results.bss_factors is None:
             s.blind_source_separation(n_components)
+
+    def plot_decomposition_results(self, signal=None):
+        """
+        Performs decomposition if necessary, then plots the decomposition
+        results according to the hyperspy implementation.
+        """
+        s, _ = self._get_signal(signal)
+        self._do_decomposition(s)
+        s.plot_decomposition_results()
 
     def get_bss_results(self, signal):
         factors = signal.get_bss_factors()
