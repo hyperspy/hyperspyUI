@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APP="hyperspyui"
-EXT="hdf5"
+EXTENSIONS="hdf5 msa"
 COMMENT="HyperSpy document"
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
@@ -23,10 +23,13 @@ echo "<?xml version=\"1.0\"?>
 <mime-info xmlns=\"http://www.freedesktop.org/standards/shared-mime-info\">
     <mime-type type=\"application/x-$APP\">
         <comment>$COMMENT</comment>
-        <icon name=\"application-x-$APP\"/>
-        <glob pattern=\"*.$EXT\"/>
-    </mime-type>
-</mime-info>" > ~/.local/share/mime/packages/application-x-$APP.xml
+        <icon name=\"application-x-$APP\"/>" > ~/.local/share/mime/packages/application-x-$APP.xml
+for EXT in $EXTENSIONS
+do
+    echo "        <glob pattern=\"*.$EXT\"/>" >> ~/.local/share/mime/packages/application-x-$APP.xml
+done
+echo "    </mime-type>
+</mime-info>" >> ~/.local/share/mime/packages/application-x-$APP.xml
 
 # Create application desktop
 echo "[Desktop Entry]

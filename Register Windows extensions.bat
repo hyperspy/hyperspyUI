@@ -4,6 +4,7 @@ PUSHD %~dp0
 1>nul 2>nul REG ADD "HKCR\HyperSpy.Document\DefaultIcon" /t REG_SZ /f /d %~dp0images\icon\hyperspy.ico
 
 1>nul 2>nul ASSOC .hdf5=HyperSpy.Document
+1>nul 2>nul ASSOC .msa=HyperSpy.Document
 1>nul 2>nul FTYPE HyperSpy.Document="%%PYTHONPATH%%pythonw.exe" "%~dp0hyperspyui\main.py" "%%1" %%*
 
 POPD
