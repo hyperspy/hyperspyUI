@@ -16,7 +16,7 @@ from functools import partial
 
 
 def tr(text):
-    return QCoreApplication.translate("ModelWrapper", text)
+    return QtCore.QCoreApplication.translate("ModelWrapper", text)
 
 
 class ModelWrapper(Actionable):
