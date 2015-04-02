@@ -82,7 +82,7 @@ class MainWindowLayer1(QMainWindow):
 
     @property
     def toolbar_button_size(self):
-        return self.settings['toolbar_button_size']
+        return int(self.settings['toolbar_button_size'])
 
     @toolbar_button_size.setter
     def toolbar_button_size(self, value):
