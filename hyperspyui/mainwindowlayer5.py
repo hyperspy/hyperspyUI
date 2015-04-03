@@ -158,7 +158,9 @@ class MainWindowLayer5(MainWindowLayer4):
         #       wrapper
     
     def on_active_navigate(self):
-        w = self.main_frame.
+        s = self.get_selected_signal()
+        ind = s.signal.axes_manager.indices
+        vals = s.signal.axes_manager
         
 
     def set_navigator_coords_status(self, coords):
