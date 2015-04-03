@@ -69,8 +69,12 @@ class MainWindowLayer5(MainWindowLayer4):
 
         # Setup variables
         self.progressbars = {}
+        self.prev_mdi = None
 
+        # Call super init, which creates main controls etc.
         super(MainWindowLayer5, self).__init__(parent)
+
+        self.create_statusbar()
 
         # Enable drag and drop
         self.setAcceptDrops(True)
@@ -123,6 +127,55 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals.add_custom(self.windowmenu, None, None, None,
                                 rem_s, lambda i: rem_s(self.signals[i]))
 
+    def create_statusbar(self):
+        sb = self.statusBar()
+        self.nav_coords_label = QLabel("Nav: (,)")
+        sb.addPermanentWidget(self.nav_coords_label)
+        self.mouse_coords_label = QLabel("Mouse: (,) px; (,)")
+        sb.addPermanentWidget(self.mouse_coords_label)
+
+        self.main_frame.subWindowActivated.connect(
+            self.connect_figure_2_statusbar)
+
+    def connect_figure_2_statusbar(self, mdi_window):
+        """
+        """
+        if mdi_window is self.prev_mdi:
+            return
+        fig = hyperspyui.util.win2fig(mdi_window)
+        s = hyperspyui.util.win2sig(mdi_window)
+        if self.prev_mdi is not None:
+            ps = hyperspui.util.win2sig(self.prev_mdi)
+        else:
+            ps = None
+        # TODO: Disconnect previous signal if different
+        if s is not ps:
+            if ps is not None:
+                # TODO: Disconnect ps' navigate
+                pass
+            s.signal.axes_manager.connect(self.on_active_navigate)
+        # TODO: Connect MPL on_mouse_move to set_mouse_coords_status via
+        #       wrapper
+    
+    def on_active_navigate(self):
+        w = self.main_frame.
+        
+
+    def set_navigator_coords_status(self, coords):
+        """
+        Displays 'coords' as the navigator coordinates.
+        """
+        self.nav_coords_label.setText(str(coords))
+
+    def set_mouse_coords_status(self, indices, values, units):
+        """
+        Display mouse coordinates both in indices and data space values.
+
+        'units' must be the same size as 'values'
+        """
+        vu = zip(values, units)
+        self.mouse_coords_label.setText(str(indices) + " px; " + str(vu))
+
     def add_model(self, signal, *args, **kwargs):
         """
         Add a default model for the given/selected signal. Returns the
@@ -172,14 +225,24 @@ class MainWindowLayer5(MainWindowLayer4):
         signals = self.get_selected_signals()
         if signals is None or len(signals) < 1:
             return None
-        elif error_on_multiple and len(signals) > 1:
-            mb = QMessageBox(QMessageBox.Information,
-                             tr("Select one signal only"),
-                             tr("You can only select one signal at the time" +
-                                 " for this function. Currently, several are selected"),
-                             QMessageBox.Ok)
-            mb.exec_()
-        return signals[0]
+        elif len(signals) == 1:
+            return signals[0]
+        else:
+            if error_on_multiple:
+                mb = QMessageBox(QMessageBox.Information,
+                                 tr("Select one signal only"),
+                                 tr("You can only select one signal at the " +
+                                     "time for this function. Currently, " +
+                                     "several are selected"),
+                                 QMessageBox.Ok)
+                mb.exec_()
+                raise RuntimeError()
+            w = self.main_frame.activeSubWindow()
+            s = [hyperspyui.util.win2sig(w, self.figures)]
+            if s in signals:
+                return s
+            else:
+                return signals[0]
 
     def get_selected_signals(self):
         s = self.tree.get_selected_signals()
