@@ -305,7 +305,8 @@ class MainWindowLayer5(MainWindowLayer4):
 
         if filenames is None:
             filenames = QFileDialog.getOpenFileNames(self,
-                                                     tr('Load file'), self.cur_dir,
+                                                     tr('Load file'),
+                                                     self.cur_dir,
                                                      type_choices)
             # Pyside returns tuple, PyQt not
             if isinstance(filenames, tuple):
@@ -362,7 +363,8 @@ class MainWindowLayer5(MainWindowLayer4):
                     filenames) <= i or filenames[i] is None:
                 path_suggestion = self.get_signal_filepath_suggestion(s)
                 filename = QFileDialog.getSaveFileName(self, tr("Save file"),
-                                                       path_suggestion, type_choices,
+                                                       path_suggestion,
+                                                       type_choices,
                                                        "All types (*.*)")[0]
                 # Dialog should have prompted about overwrite
                 overwrite = True
@@ -374,10 +376,11 @@ class MainWindowLayer5(MainWindowLayer4):
             i += 1
             s.signal.save(filename, overwrite)
 
-    def get_signal_filepath_suggestion(self, signal, deault_ext=None):
-        if deault_ext is None:
-            deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
-         # Get initial suggestion for save dialog.  Use
+    def get_signal_filepath_suggestion(self, signal, default_ext=None):
+        if default_ext is None:
+            default_ext = hyperspy.defaults_parser.preferences.General.\
+                         default_file_format
+        # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, or self.cur_dir if not
         if signal.signal.metadata.has_item('General.original_filename'):
             f = signal.signal.metadata.General.original_filename
@@ -394,7 +397,7 @@ class MainWindowLayer5(MainWindowLayer4):
         # If extension is not valid, use the defualt
         extensions = get_accepted_extensions()
         if ext not in extensions:
-            ext = deault_ext
+            ext = default_ext
         # Filename itself is signal's name
         fn = signal.name
         # Build suggestion and return
