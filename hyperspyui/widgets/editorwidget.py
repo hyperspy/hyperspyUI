@@ -159,7 +159,10 @@ class EditorWidget(ExToolWindow):
                                          diag.chk_toolbar.isChecked(),
                                          icon)
             path = os.path.normpath(os.path.dirname(__file__) +
-                                    '/../plugins/' + name.lower() + '.py')
+                                    '/../plugins/' +
+                                    name.lower().replace(' ', '').replace(
+                                        '_', '') +
+                                    '.py')
             e = EditorWidget(self.ui, self.ui, path)
             e.append_code(code)
             self.ui.editors.append(e)   # We have to keep an instance!

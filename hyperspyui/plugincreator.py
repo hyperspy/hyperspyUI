@@ -11,6 +11,7 @@ Utility to make it easier to create plugins directly through the UI.
 """
 
 import os
+import string
 import hyperspyui.plugins.plugin
 
 header = """from hyperspyui.plugins.plugin import Plugin
@@ -18,29 +19,29 @@ import numpy as np
 from hyperspy.hspy import *
 
 class {0}(Plugin):
-    name = "{0}"
+    name = "{1}"
 
     def create_actions(self):"""
 
 action_noicon = """
-        self.add_action('{0}.default', "{0}", self.default,
+        self.add_action(self.name + '.default', self.name, self.default,
                         tip="")
 """
 
 action_icon = """
-        self.add_action('{0}.default', "{0}", self.default,
-                        icon="{1}",
+        self.add_action(self.name + '.default', self.name, self.default,
+                        icon="{0}",
                         tip="")
 """
 
 menu_def = """
     def create_menu(self):
-        self.add_menuitem('{0}', self.ui.actions['{1}.default'])
+        self.add_menuitem('{0}', self.ui.actions[self.name + '.default'])
 """
 
 toolbar_def = """
     def create_toolbars(self):
-        self.add_toolbar_button('{0}', self.ui.actions['{1}.default'])
+        self.add_toolbar_button('{0}', self.ui.actions[self.name + '.default'])
 """
 
 default = """
@@ -71,15 +72,16 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
     if category is None:
         category = name
 
-    plugin_code = header.format(name)
+    safe_name = string.capwords(name).replace(" ", "")
+    plugin_code = header.format(safe_name, name)
     if icon is None:
-        plugin_code += action_noicon.format(name)
+        plugin_code += action_noicon.format()
     else:
-        plugin_code += action_icon.format(name, icon)
+        plugin_code += action_icon.format(icon)
     if menu:
-        plugin_code += menu_def.format(category, name)
+        plugin_code += menu_def.format(category)
     if toolbar:
-        plugin_code += toolbar_def.format(category, name)
+        plugin_code += toolbar_def.format(category)
 
     # Indent code by two levels
     code = indent(code, 2 * 4)
