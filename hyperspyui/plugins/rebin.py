@@ -18,43 +18,79 @@ def tr(text):
     return QCoreApplication.translate("Rebin", text)
 
 
+class RebinPlugin(Plugin):
+    name = "Rebin"
+
+    def create_actions(self):
+        self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
+                        #                        icon='rebin.svg',
+                        selection_callback=self.ui.select_signal,
+                        tip=tr("Rebin the signal"))
+
+    def create_menu(self):
+        self.add_menuitem('Signal', self.ui.actions['rebin'])
+
+    def rebin(self, factors, signal=None):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+            print signal, signal.signal, signal.signal.data.shape
+        s = signal.signal
+        shape = []
+        mods = [tuple()] * len(s.axes_manager.shape)
+        for i in xrange(len(s.axes_manager.shape)):
+            ax = s.axes_manager[i]
+            factor = factors[i]
+            if factor > ax.size:
+                factor = ax.size
+            if ax.size % factor == 0:
+                mods[ax.index_in_array] = slice(None)
+            else:
+                mods[ax.index_in_array] = slice(None, - (ax.size % factor))
+            shape.append(ax.size / factor)
+        # Crop to multiple of factors
+        s.data = s.data[tuple(mods)]
+
+        # Update shape, but prevent auto_replot
+        old = s.auto_replot
+        s.auto_replot = False
+        s.get_dimensions_from_data()
+        s.auto_replot = old
+
+        # Do actual rebin
+        print s.data.shape, shape
+        signal.switch_signal(s.rebin(shape))
+        self.ui.setUpdatesEnabled(False)
+        try:
+            signal.replot()
+        finally:
+            self.ui.setUpdatesEnabled(True)    # Always resume updates!
+        self.record_code("<p>.rebin({0})".format(factors))
+
+    def rebin_dialog(self, signal=None):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+            if signal is None:
+                return
+        d = RebinDialog(signal, self, self.ui, self.ui)
+        d.show()
+
+
 class RebinDialog(ExToolWindow):
 
-    def __init__(self, signal, ui, parent):
+    def __init__(self, signal, plugin, ui, parent):
         super(RebinDialog, self).__init__(parent)
         self.signal = signal
         self.ui = ui
         self.setWindowTitle(tr("Rebin ") + signal.name)
         self.create_controls()
+        self.plugin = plugin
 
     def rebin(self):
-        shape = []
-        mods = []
-        s = self.signal
-        for ax in s.signal.axes_manager._get_axes_in_natural_order():
+        factors = []
+        for ax in self.signal.signal.axes_manager._get_axes_in_natural_order():
             spin = self.spins[ax.name]
-            factor = spin.value()
-            if ax.size % factor == 0:
-                mods.append(slice(None))
-            else:
-                mods.append(slice(None, - (ax.size % factor)))
-            shape.append(ax.size / factor)
-        # Crop to multiple of factors
-        s.signal.data = s.signal.data[tuple(mods)]
-
-        # Update shape, but prevent auto_replot
-        old = s.signal.auto_replot
-        s.signal.auto_replot = False
-        s.signal.get_dimensions_from_data()
-        s.signal.auto_replot = old
-
-        # Do actual rebin
-        s.signal = s.signal.rebin(shape)
-        self.ui.setUpdatesEnabled(False)
-        try:
-            s.replot()
-        finally:
-            self.ui.setUpdatesEnabled(True)    # Always resume updates!
+            factors.append(spin.value())
+        self.plugin.rebin(factors, self.signal)
 
     def validate(self):
         style = QApplication.style()
@@ -106,24 +142,3 @@ class RebinDialog(ExToolWindow):
         vbox.addWidget(self.btn_rebin)
 
         self.setLayout(vbox)
-
-
-class RebinPlugin(Plugin):
-    name = "Rebin"
-
-    def create_actions(self):
-        self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
-                        #                        icon='rebin.svg',
-                        selection_callback=self.ui.select_signal,
-                        tip=tr("Rebin the signal"))
-
-    def create_menu(self):
-        self.add_menuitem('Signal', self.ui.actions['rebin'])
-
-    def rebin_dialog(self, signal=None):
-        if signal is None:
-            signal = self.ui.get_selected_signal()
-            if signal is None:
-                return
-        d = RebinDialog(signal, self.ui, self.ui)
-        d.show()
