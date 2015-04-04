@@ -32,6 +32,7 @@ class SignalWrapper(Actionable):
         self.models = []
 
         self._keep_on_close = 0
+        self._magic_jump = (8, 30)
 
         self.navigator_plot = None
         self.signal_plot = None
@@ -204,7 +205,8 @@ class SignalWrapper(Actionable):
     def nav_closing(self):
         if self.navigator_plot:
             p = self.navigator_plot.pos()
-            self.navigator_plot.move(p.x() + 8, p.y() + 30)
+            self.navigator_plot.move(p.x() + self._magic_jump[0],
+                                     p.y() + self._magic_jump[1])
             self._nav_geom = self.navigator_plot.saveGeometry()
             self.navigator_plot = None
         if self.signal_plot is None:
@@ -215,7 +217,8 @@ class SignalWrapper(Actionable):
             p = self.signal_plot.pos()
             # For some reason the position changes -8,-30 on closing, at least
             # it does on windows 7, Qt4.
-            self.signal_plot.move(p.x() + 8, p.y() + 30)
+            self.signal_plot.move(p.x() + self._magic_jump[0],
+                                  p.y() + self._magic_jump[1])
             self._sig_geom = self.signal_plot.saveGeometry()
         if self.navigator_plot is not None:
             self.navigator_plot.close()
