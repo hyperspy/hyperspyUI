@@ -34,9 +34,6 @@ class ExClickLabel(QLabel):
     """
     clicked = Signal()
 
-    def _init__(self, *args, **kwargs):
-        super(ExClickLabel, self).__init__(*args, **kwargs)
-
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.clicked.emit()
