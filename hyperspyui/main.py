@@ -15,16 +15,13 @@ from singleapplication import get_app
 
 # TODO: Disable recording on EditorWidget's run()
 # TODO: Expose direct hyperspy signals collection.
-# TODO: On plugin creation, scroll view to top, or at least so bottoms line up
-# TODO: Pluign name --> sanitize on creation in Editor
 # TODO: DataView window management: Dblclick activates/minimize, possibly have
 #       separate management buttons up front.
-# TODO: ContrastWidget: Have B/C enabled when on auto, and turn off auto on edit.
 # TODO: Autohide toolbars w.r.t. signal type.
 # TODO: Add selection groups for signals by hierarchy in DataViewWidget
-# TODO: Navigation coords for active signal in statusbar (strip from fig)
 # TODO: Mouse coords (pixels & units) in statusbar
 # TODO: Crop + others record code
+# TODO: MPL artist editor via traitsui with custom handler
 
 
 def main():

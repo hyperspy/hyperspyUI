@@ -86,6 +86,13 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
     # Indent code by two levels
     code = indent(code, 2 * 4)
     plugin_code += default.format(code)
+    try:
+        import autopep8
+        plugin_code = autopep8.fix_code(plugin_code,
+                                        options=autopep8.parse_args(
+                                         ['--aggressive', '--aggressive', '']))
+    except ImportError:
+        pass
     return plugin_code
 
 

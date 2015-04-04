@@ -165,6 +165,8 @@ class EditorWidget(ExToolWindow):
                                     '.py')
             e = EditorWidget(self.ui, self.ui, path)
             e.append_code(code)
+            e.editor.moveCursor(QTextCursor.Start)
+            e.editor.ensureCursorVisible()
             self.ui.editors.append(e)   # We have to keep an instance!
             e.finished.connect(lambda: self.ui.editors.remove(e))
             e.is_plugin = True
@@ -199,6 +201,13 @@ class EditorWidget(ExToolWindow):
         editor.modes.append(modes.CaretLineHighlighterMode())
         editor.modes.append(modes.PygmentsSyntaxHighlighter(editor.document()))
         editor.modes.append(modes.AutoCompleteMode())
+        editor.modes.append(modes.AutoIndentMode())
+        editor.modes.append(modes.IndenterMode())
+        editor.modes.append(modes.SmartBackSpaceMode())
+        editor.modes.append(modes.OccurrencesHighlighterMode())
+        editor.modes.append(modes.SymbolMatcherMode())
+        editor.modes.append(modes.WordClickMode())
+        editor.modes.append(modes.ZoomMode())
         if path is not None:
             editor.file._path = path
         self.editor = editor
