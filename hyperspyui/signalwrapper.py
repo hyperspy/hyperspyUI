@@ -81,6 +81,17 @@ class SignalWrapper(Actionable):
         finally:
             self.mainwindow.setUpdatesEnabled(old)
 
+    def switch_signal(self, new_signal):
+        """
+        Switch the signal wrapped by this wrapper. To complete the switch, the
+        signal should also be replotted if previously plotted. For performance
+        reasons this is left as the responsibility of the caller.
+        """
+        old_signal = self.signal
+        self.signal = new_signal
+        self.mainwindow.lut_signalwrapper[new_signal] = self
+        del self.mainwindow.lut_signalwrapper[old_signal]
+
     def update(self):
         if self.navigator_plot is not None:
             self.navigator_plot.update()
