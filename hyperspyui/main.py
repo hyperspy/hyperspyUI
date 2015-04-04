@@ -19,8 +19,7 @@ from singleapplication import get_app
 #       separate management buttons up front.
 # TODO: Autohide toolbars w.r.t. signal type. (maybe?)
 # TODO: Add selection groups for signals by hierarchy in DataViewWidget
-# TODO: Mouse coords (pixels & units) in statusbar
-# TODO: Make sure everything records code
+# TODO: Make sure everything records / plays back code
 # TODO: MPL artist editor via traitsui with custom handler
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing utils (w/batch input)
