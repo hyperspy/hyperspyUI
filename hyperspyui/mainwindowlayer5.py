@@ -250,16 +250,27 @@ class MainWindowLayer5(MainWindowLayer4):
         s = self.tree.get_selected_signals()
         if len(s) < 1:
             w = self.main_frame.activeSubWindow()
-            s = [hyperspyui.util.win2sig(w, self.figures)]
+            s = [hyperspyui.util.win2sig(w, self.signals)]
         return s
 
     def get_selected_model(self):
+        """
+        Returns the selected model
+        """
         return self.tree.get_selected_model()
 
     def get_selected_component(self):
+        """
+        Returns the selected component
+        """
         return self.tree.get_selected_component()
 
     def get_selected_plot(self):
+        """
+        Returns the selected signal; a string specifying whether the active
+        window is "navtigation" plot, "signal" plot or "other"; and finally the
+        active window.
+        """
         s = self.get_selected_signal()
         w = self.main_frame.activeSubWindow()
         if w is s.navigator_plot:

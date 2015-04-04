@@ -27,9 +27,8 @@ import hyperspy.utils.plot
 import hyperspy.signals
 
 
-# TODO: Select signal after first load!
 # TODO: Batch processing dialog (browse + drop&drop target)
-# TODO: Editor threading + parallell processing (w/batch input)
+# TODO: Editor threading + parallell processing utils (w/batch input)
 # TODO: Layout save/restore (ignorable settings (_settings?))
 # TODO: Fix unloading of plugins' tools
 
