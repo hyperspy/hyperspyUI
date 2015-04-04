@@ -17,11 +17,15 @@ from singleapplication import get_app
 # TODO: Expose direct hyperspy signals collection.
 # TODO: DataView window management: Dblclick activates/minimize, possibly have
 #       separate management buttons up front.
-# TODO: Autohide toolbars w.r.t. signal type.
+# TODO: Autohide toolbars w.r.t. signal type. (maybe?)
 # TODO: Add selection groups for signals by hierarchy in DataViewWidget
 # TODO: Mouse coords (pixels & units) in statusbar
-# TODO: Crop + others record code
+# TODO: Make sure everything records code
 # TODO: MPL artist editor via traitsui with custom handler
+# TODO: Batch processing dialog (browse + drop&drop target)
+# TODO: Editor threading + parallell processing utils (w/batch input)
+# TODO: Layout save/restore (ignorable settings (_settings?))
+# TODO: Fix unloading of plugins' tools
 
 
 def main():
