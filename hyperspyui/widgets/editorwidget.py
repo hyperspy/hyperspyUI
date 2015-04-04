@@ -110,6 +110,7 @@ class EditorWidget(ExToolWindow):
         self.setWindowTitle(self.code_title)
         self.ui = main_window
         self._is_plugin = False
+        self._suppress_append = False
 
         self.create_controls(path)
 
@@ -130,6 +131,8 @@ class EditorWidget(ExToolWindow):
                 self.setWindowTitle(self.code_title)
 
     def append_code(self, code):
+        if self._suppress_append:
+            return
         text = self.editor.toPlainText()
         if len(text) > 0 and text[-1] == '\n':
             prev_cursor = self.editor.textCursor()
@@ -159,9 +162,14 @@ class EditorWidget(ExToolWindow):
                                          diag.chk_toolbar.isChecked(),
                                          icon)
             path = os.path.normpath(os.path.dirname(__file__) +
-                                    '/../plugins/' + name.lower() + '.py')
+                                    '/../plugins/' +
+                                    name.lower().replace(' ', '').replace(
+                                        '_', '') +
+                                    '.py')
             e = EditorWidget(self.ui, self.ui, path)
             e.append_code(code)
+            e.editor.moveCursor(QTextCursor.Start)
+            e.editor.ensureCursorVisible()
             self.ui.editors.append(e)   # We have to keep an instance!
             e.finished.connect(lambda: self.ui.editors.remove(e))
             e.is_plugin = True
@@ -189,13 +197,23 @@ class EditorWidget(ExToolWindow):
 
     def run(self):
         code = self.editor.toPlainText()
+        old = self._suppress_append
+        self._suppress_append = True
         self.ui.console.ex(code)
+        self._suppress_append = old
 
     def create_controls(self, path):
         editor = api.CodeEdit()
         editor.modes.append(modes.CaretLineHighlighterMode())
         editor.modes.append(modes.PygmentsSyntaxHighlighter(editor.document()))
         editor.modes.append(modes.AutoCompleteMode())
+        editor.modes.append(modes.AutoIndentMode())
+        editor.modes.append(modes.IndenterMode())
+        editor.modes.append(modes.SmartBackSpaceMode())
+        editor.modes.append(modes.OccurrencesHighlighterMode())
+        editor.modes.append(modes.SymbolMatcherMode())
+        editor.modes.append(modes.WordClickMode())
+        editor.modes.append(modes.ZoomMode())
         if path is not None:
             editor.file._path = path
         self.editor = editor

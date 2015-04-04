@@ -9,6 +9,7 @@ from collections import OrderedDict
 from functools import partial
 import argparse
 import os
+import sys
 import pickle
 
 # Should go before any MPL imports:
@@ -26,12 +27,6 @@ from QtGui import *
 import hyperspy.utils.plot
 import hyperspy.signals
 
-
-# TODO: Select signal after first load!
-# TODO: Batch processing dialog (browse + drop&drop target)
-# TODO: Editor threading + parallell processing (w/batch input)
-# TODO: Layout save/restore (ignorable settings (_settings?))
-# TODO: Fix unloading of plugins' tools
 
 class MainWindow(MainWindowLayer5):
 
@@ -71,6 +66,12 @@ class MainWindow(MainWindowLayer5):
 
         # All good!
         self.set_status("Ready")
+
+        # Redirect streams (wait until the end to not affect during load)
+        self.settings.set_default('Output to console', False)
+        if self.settings['Output to console'] is True:
+            sys.stdout = self.console.kernel.stdout
+            sys.stderr = self.console.kernel.stderr
 
     def handleSecondInstance(self, argv):
         """

@@ -30,7 +30,7 @@ class ConsoleWidget(RichIPythonWidget):
         def stop():
             kernel_client.stop_channels()
             kernel_manager.shutdown_kernel()
-            app.exit()  # TODO: Really?
+            app.exit()
 
         self.kernel_manager = kernel_manager
         self.kernel_client = kernel_client

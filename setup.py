@@ -27,7 +27,7 @@ setup(name='hyperspyUI',
                         'python_qt_binding',
                         'traits',
                         'traitsui'],
-      extras_require={'editor':  ["pyqode.core"]},
+      extras_require={'editor':  ["pyqode.core", "autopep8"]},
       # TODO: Recommends pyqode.core
       package_data={
           'hyperspyui':

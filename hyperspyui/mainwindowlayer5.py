@@ -25,6 +25,7 @@ from hyperspyui.signalwrapper import SignalWrapper
 from hyperspyui.bindinglist import BindingList
 from hyperspyui.widgets.dataviewwidget import DataViewWidget
 import hyperspyui.util
+from hyperspyui.mdi_mpl_backend import FigureCanvas
 
 import hyperspy.hspy
 import hyperspy.defaults_parser
@@ -43,6 +44,16 @@ def get_accepted_extensions():
     extensions = set([extensions.lower() for plugin in io_plugins
                       for extensions in plugin.file_extensions])
     return extensions
+
+
+class TrackEventFilter(QObject):
+    track = Signal(QPoint)
+
+    def eventFilter(self, receiver, event):
+        if(event.type() == QEvent.MouseMove):
+            self.track.emit(event.globalPos())
+        # Call Base Class Method to Continue Normal Event Processing
+        return False
 
 
 class MainWindowLayer5(MainWindowLayer4):
@@ -69,8 +80,12 @@ class MainWindowLayer5(MainWindowLayer4):
 
         # Setup variables
         self.progressbars = {}
+        self.prev_mdi = None
 
+        # Call super init, which creates main controls etc.
         super(MainWindowLayer5, self).__init__(parent)
+
+        self.create_statusbar()
 
         # Enable drag and drop
         self.setAcceptDrops(True)
@@ -123,6 +138,125 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals.add_custom(self.windowmenu, None, None, None,
                                 rem_s, lambda i: rem_s(self.signals[i]))
 
+    def create_statusbar(self):
+        """
+        Creates extra status bar controls, e.g. coordinate tracking.
+        """
+        sb = self.statusBar()
+        self.nav_coords_label = QLabel("Navigation: ()")
+        sb.addPermanentWidget(self.nav_coords_label)
+        self.mouse_coords_label = QLabel("Mouse: (,) px; (,)")
+        sb.addPermanentWidget(self.mouse_coords_label)
+
+        self.main_frame.subWindowActivated.connect(
+            self._connect_figure_2_statusbar)
+        app = QApplication.instance()
+        self.tracker = TrackEventFilter()
+        self.tracker.track.connect(self._on_track)
+        app.installEventFilter(self.tracker)
+
+    def _connect_figure_2_statusbar(self, mdi_window):
+        """
+        When a figure is activated, this callback sets the navigation status
+        bar, and connects _on_active_navigate to the signal's AxesManager.
+        """
+        if mdi_window is self.prev_mdi:
+            return
+        s = hyperspyui.util.win2sig(mdi_window)
+        if self.prev_mdi is not None:
+            ps = hyperspui.util.win2sig(self.prev_mdi)
+        else:
+            ps = None
+        if s is not ps:
+            if ps is not None:
+                if ps.signal.axes_manager is not None:
+                    ps.signal.axes_manager.disconnect(self._on_active_navigate)
+            s.signal.axes_manager.connect(self._on_active_navigate)
+            self._on_active_navigate()
+
+    def _on_active_navigate(self):
+        """
+        Callback triggered when the active signal navigates. Updates the
+        status bar with the navigation indices.
+        """
+        s = self.get_selected_signal()
+        if s is None:
+            ind = tuple()
+        else:
+            ind = s.signal.axes_manager.indices
+        self.set_navigator_coords_status(ind)
+
+    def _on_track(self, gpos):
+        """
+        Tracks the mouse position for the entire application, and if the mouse
+        is over a figure axes it updates the status bar mouse coordinates.
+        """
+        # Find which window the mouse is above
+        pos = self.mapFromGlobal(gpos)
+        canvas = self.childAt(pos)
+        # We only care about FigureCanvases
+        if isinstance(canvas, FigureCanvas):
+            win = canvas.parent()
+            s = hyperspyui.util.win2sig(win)
+            # Currently we only know how to deal with standard plots
+            if s is None:
+                return
+        else:
+            return
+        # Currently we can only handle navigator or signal plots
+        if win is s.navigator_plot:
+            p = s.signal._plot.navigator_plot
+        elif win is s.signal_plot:
+            p = s.signal._plot.signal_plot
+        else:
+            return
+        if p.ax is None:
+            return
+        # Map position to canvas frame of reference
+        cpos = canvas.mapFromGlobal(gpos)
+        # Mapping copied from MPL backend code:
+        cpos = (cpos.x(), canvas.figure.bbox.height - cpos.y())
+        # Check that we are within plot axes
+        xa, ya = p.ax.transAxes.inverted().transform(cpos)
+        if not (0 <= xa <= 1 and 0 <= ya <= 1):
+            return
+        # Find coordinate values:
+        xd, yd = p.ax.transData.inverted().transform(cpos)
+        if hasattr(p, 'axis'):                              # SpectrumFigure
+            axis = p.axes_manager.signal_axes[0]
+            vals = (xd,)
+            ind = (axis.value2index(xd),)
+            units = (axis.units,)
+            intensity = yd
+        elif hasattr(p, 'xaxis') and hasattr(p, 'yaxis'):   # ImagePlot
+            vals = (xd, yd)
+            ind = (p.xaxis.value2index(xd),
+                   p.yaxis.value2index(yd))
+            units = (p.xaxis.units, p.yaxis.units)
+            intensity = p.ax.images[0].get_array()[ind[1], ind[0]]
+
+        # Finally, display coordinates
+        self.set_mouse_coords_status(ind, vals, units, intensity)
+
+    def set_navigator_coords_status(self, coords):
+        """
+        Displays 'coords' as the navigator coordinates.
+        """
+        self.nav_coords_label.setText("Navigation: " + str(coords))
+
+    def set_mouse_coords_status(self, indices, values, units, intensity=None):
+        """
+        Display mouse coordinates both in indices and data space values.
+
+        'units' must be the same size as 'values'
+        """
+        vu = tuple([u"%.3g %s" % (v, u) for v, u in zip(values, units)])
+        vu = "(%s)" % ", ".join(vu)
+        text = "Mouse: " + str(indices) + " px; " + vu
+        if intensity is not None:
+            text += ("; Intensity: %.3g" % intensity)
+        self.mouse_coords_label.setText(text)
+
     def add_model(self, signal, *args, **kwargs):
         """
         Add a default model for the given/selected signal. Returns the
@@ -172,29 +306,50 @@ class MainWindowLayer5(MainWindowLayer4):
         signals = self.get_selected_signals()
         if signals is None or len(signals) < 1:
             return None
-        elif error_on_multiple and len(signals) > 1:
-            mb = QMessageBox(QMessageBox.Information,
-                             tr("Select one signal only"),
-                             tr("You can only select one signal at the time" +
-                                 " for this function. Currently, several are selected"),
-                             QMessageBox.Ok)
-            mb.exec_()
-        return signals[0]
+        elif len(signals) == 1:
+            return signals[0]
+        else:
+            if error_on_multiple:
+                mb = QMessageBox(QMessageBox.Information,
+                                 tr("Select one signal only"),
+                                 tr("You can only select one signal at the " +
+                                     "time for this function. Currently, " +
+                                     "several are selected"),
+                                 QMessageBox.Ok)
+                mb.exec_()
+                raise RuntimeError()
+            w = self.main_frame.activeSubWindow()
+            s = [hyperspyui.util.win2sig(w, self.figures)]
+            if s in signals:
+                return s
+            else:
+                return signals[0]
 
     def get_selected_signals(self):
         s = self.tree.get_selected_signals()
         if len(s) < 1:
             w = self.main_frame.activeSubWindow()
-            s = [hyperspyui.util.win2sig(w, self.figures)]
+            s = [hyperspyui.util.win2sig(w, self.signals)]
         return s
 
     def get_selected_model(self):
+        """
+        Returns the selected model
+        """
         return self.tree.get_selected_model()
 
     def get_selected_component(self):
+        """
+        Returns the selected component
+        """
         return self.tree.get_selected_component()
 
     def get_selected_plot(self):
+        """
+        Returns the selected signal; a string specifying whether the active
+        window is "navtigation" plot, "signal" plot or "other"; and finally the
+        active window.
+        """
         s = self.get_selected_signal()
         w = self.main_frame.activeSubWindow()
         if w is s.navigator_plot:
@@ -229,7 +384,8 @@ class MainWindowLayer5(MainWindowLayer4):
 
         if filenames is None:
             filenames = QFileDialog.getOpenFileNames(self,
-                                                     tr('Load file'), self.cur_dir,
+                                                     tr('Load file'),
+                                                     self.cur_dir,
                                                      type_choices)
             # Pyside returns tuple, PyQt not
             if isinstance(filenames, tuple):
@@ -286,7 +442,8 @@ class MainWindowLayer5(MainWindowLayer4):
                     filenames) <= i or filenames[i] is None:
                 path_suggestion = self.get_signal_filepath_suggestion(s)
                 filename = QFileDialog.getSaveFileName(self, tr("Save file"),
-                                                       path_suggestion, type_choices,
+                                                       path_suggestion,
+                                                       type_choices,
                                                        "All types (*.*)")[0]
                 # Dialog should have prompted about overwrite
                 overwrite = True
@@ -298,10 +455,11 @@ class MainWindowLayer5(MainWindowLayer4):
             i += 1
             s.signal.save(filename, overwrite)
 
-    def get_signal_filepath_suggestion(self, signal, deault_ext=None):
-        if deault_ext is None:
-            deault_ext = hyperspy.defaults_parser.preferences.General.default_file_format
-         # Get initial suggestion for save dialog.  Use
+    def get_signal_filepath_suggestion(self, signal, default_ext=None):
+        if default_ext is None:
+            default_ext = hyperspy.defaults_parser.preferences.General.\
+                         default_file_format
+        # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, or self.cur_dir if not
         if signal.signal.metadata.has_item('General.original_filename'):
             f = signal.signal.metadata.General.original_filename
@@ -318,7 +476,7 @@ class MainWindowLayer5(MainWindowLayer4):
         # If extension is not valid, use the defualt
         extensions = get_accepted_extensions()
         if ext not in extensions:
-            ext = deault_ext
+            ext = default_ext
         # Filename itself is signal's name
         fn = signal.name
         # Build suggestion and return

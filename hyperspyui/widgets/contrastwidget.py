@@ -91,8 +91,6 @@ class ContrastWidget(QDockWidget):
 
             old = self.chk_auto.blockSignals(True)
             self.chk_auto.setChecked(p.auto_contrast)
-            self.sl_level.setEnabled(not p.auto_contrast)
-            self.sl_window.setEnabled(not p.auto_contrast)
             self.chk_auto.blockSignals(old)
 
             if p.ax.images:
@@ -110,6 +108,8 @@ class ContrastWidget(QDockWidget):
         if p is not None:
             p.vmin = self.sl_level.value()
             p.vmax = self.sl_level.value() + self.sl_window.value()
+            if self.chk_auto.isChecked():
+                self.chk_auto.setChecked(False)
             p.update()
 
     def window_changed(self, value):
@@ -117,6 +117,8 @@ class ContrastWidget(QDockWidget):
         p = self._cur_plot
         if p is not None:
             p.vmax = self.sl_level.value() + self.sl_window.value()
+            if self.chk_auto.isChecked():
+                self.chk_auto.setChecked(False)
             p.update()
 
     def log_changed(self, value):
@@ -148,8 +150,6 @@ class ContrastWidget(QDockWidget):
             p.auto_contrast = checked
             p.update()
             self.update_controls_from_fig()
-            self.sl_level.setEnabled(not checked)
-            self.sl_window.setEnabled(not checked)
 
     def reset_level(self):
         imin, imax = self._plot_minmax()

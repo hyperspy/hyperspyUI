@@ -114,10 +114,17 @@ class MainWindowLayer3(MainWindowLayer2):
             action = self.actions[action]
         m.addAction(action)
 
-    def add_tool(self, tool_type, selection_callback=None):
-        t = tool_type(self.figures)
+    def add_tool(self, tool, selection_callback=None):
+        if type(tool) == type:
+            t = tool(self.figures)
+            key = tool.__name__
+        else:
+            t = tool
+            try:
+                key = t.get_name()
+            except NotImplementedError:
+                key = tool.__class__.__name__
         self.tools.append(t)
-        key = tool_type.__name__
         if t.single_action() is not None:
             self.add_action(key, t.get_name(), t.single_action(),
                             selection_callback=selection_callback,

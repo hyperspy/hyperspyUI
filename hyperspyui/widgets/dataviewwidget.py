@@ -119,11 +119,11 @@ class DataViewWidget(QWidget):
                 if isinstance(comp, t.HasTraits):
                     self.main_window.capture_traits_dialog(
                         self.set_traits_editor)
-                    self.configure_traits(comp, False)
+                    self.edit_traits(comp, False)
             else:
                 self.clear_editor()
 
-    def configure_traits(self, comp, buttons=True):
+    def edit_traits(self, comp, buttons=True):
         try:
             items = [tu.Item('name'), tu.Item('active')]
             for p in comp.parameters:
@@ -184,7 +184,7 @@ class DataViewWidget(QWidget):
 
             # Configure action
             ac = QAction(tr("&Configure"), self.tree)
-            f = partial(self.configure_traits, comp)
+            f = partial(self.edit_traits, comp)
             ac.triggered.connect(f)
             cm.addAction(ac)
 

@@ -22,7 +22,9 @@ class CropToolPlugin(Plugin):
     name = "Crop tool"
 
     def create_tools(self):
-        self.ui.add_tool(CropTool, self.ui.select_signal)
+        ct = CropTool()
+        ct.plugin = self
+        self.ui.add_tool(ct, self.ui.select_signal)
 
 
 class CropTool(FigureTool):
@@ -41,6 +43,7 @@ class CropTool(FigureTool):
         self.widget1d = DraggableResizableRange(None)
         self.widget1d.set_on(False)
         self.axes = None
+        self.plugin = None
 
     @property
     def widget(self):
@@ -150,15 +153,25 @@ class CropTool(FigureTool):
                 roi = SpanROI(0, 1)
             elif self.ndim > 1:
                 roi = RectangularROI(0, 0, 1, 1)
-            roi._on_widget_change(self.widget)
+            roi._on_widget_change(self.widget)  # ROI gets coords from widget
             axes = s.axes_manager._axes
             slices = roi._make_slices(axes, self.axes)
             new_offsets = self.widget.coordinates
             s.data = s.data[slices]
             for i, ax in enumerate(self.axes):
                 s.axes_manager[ax.name].offset = new_offsets[i]
+            orig_axes = self.axes
             s.get_dimensions_from_data()
             s.squeeze()
+            if self.plugin is not None:
+                self.plugin.record_code(
+                    "s_crop = ui.get_selected_signal().signal")
+                for ax in orig_axes:
+                    ax_sli = slices[ax.index_in_array]
+                    self.plugin.record_code(
+                        "s_crop.crop({0}, {1}, {2})".format(
+                                                    ax.index_in_axes_manager,
+                                                    ax_sli.start, ax_sli.stop))
             self.cancel()   # Turn off functionality as we are finished
 
     def cancel(self, event=None):

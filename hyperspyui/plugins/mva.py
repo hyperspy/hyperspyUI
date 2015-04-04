@@ -58,6 +58,11 @@ class MVA_Plugin(Plugin):
                         icon='bss.svg',
                         tip=tr("Run Blind Source Separation"),
                         selection_callback=self.selection_rules)
+        self.add_action('plot_decomposition_results',
+                        tr("Decomposition results"),
+                        self.plot_decomposition_results,
+                        tip=tr("Plot the decomposition results"),
+                        selection_callback=self.selection_rules)
         self.add_action('explore_decomposition', tr("Explore decomposition"),
                         self.explore_components,
                         selection_callback=self.selection_rules)
@@ -65,6 +70,8 @@ class MVA_Plugin(Plugin):
     def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions['pca'])
         self.add_menuitem('Signal', self.ui.actions['bss'])
+        self.add_menuitem('Signal',
+                          self.ui.actions['plot_decomposition_results'])
         self.add_menuitem('Signal', self.ui.actions['explore_decomposition'])
 
     def create_toolbars(self):
@@ -137,6 +144,15 @@ class MVA_Plugin(Plugin):
         if force or s.learning_results.bss_factors is None:
             s.blind_source_separation(n_components)
 
+    def plot_decomposition_results(self, signal=None):
+        """
+        Performs decomposition if necessary, then plots the decomposition
+        results according to the hyperspy implementation.
+        """
+        s, _ = self._get_signal(signal)
+        self._do_decomposition(s)
+        s.plot_decomposition_results()
+
     def get_bss_results(self, signal):
         factors = signal.get_bss_factors()
         loadings = signal.get_bss_loadings()
@@ -146,6 +162,14 @@ class MVA_Plugin(Plugin):
         if factors.axes_manager.signal_dimension > 2:
             factors.axes_manager.set_signal_dimension(factors_dim)
         return loadings, factors
+
+    def _record(self, autosig, model, signal, n_components):
+        if autosig:
+            self.record_code(r"<p>.%s(n_components=%d)" %
+                             (model, n_components))
+        else:
+            self.record_code(r"<p>.{0}({1}, n_components={2})".format(
+                             model, signal, n_components))
 
     def do_after_scree(self, model, signal=None, n_components=None):
         """
@@ -157,6 +181,11 @@ class MVA_Plugin(Plugin):
         ns = Namespace()
         autosig = signal is None
         ns.s, signal = self._get_signal(signal)
+        if n_components is not None:
+            self._record(autosig, model, signal, n_components)
+            recorded = True
+        else:
+            recorded = False
 
         def do_threaded():
             ns.s = self._do_decomposition(ns.s)
@@ -175,12 +204,8 @@ class MVA_Plugin(Plugin):
                     o.metadata.General.title = signal.name + "[BSS-Loadings]"
                     f.plot()
                     o.plot()
-                if autosig:
-                    self.record_code(r"<p>.%s(n_components=%d)" %
-                                     (model, n_components))
-                else:
-                    self.record_code(r"<p>.{0}({1}, n_components={2})".format(
-                                     model, signal, n_components))
+                if not recorded:
+                    self._record(autosig, model, signal, n_components)
             if n_components is None:
                 ax = ns.s.plot_explained_variance_ratio()
 
