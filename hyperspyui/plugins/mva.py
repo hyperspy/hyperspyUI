@@ -163,6 +163,14 @@ class MVA_Plugin(Plugin):
             factors.axes_manager.set_signal_dimension(factors_dim)
         return loadings, factors
 
+    def _record(self, autosig, model, signal, n_components):
+        if autosig:
+            self.record_code(r"<p>.%s(n_components=%d)" %
+                             (model, n_components))
+        else:
+            self.record_code(r"<p>.{0}({1}, n_components={2})".format(
+                             model, signal, n_components))
+
     def do_after_scree(self, model, signal=None, n_components=None):
         """
         Performs decomposition, then plots the scree for the user to select
@@ -173,6 +181,11 @@ class MVA_Plugin(Plugin):
         ns = Namespace()
         autosig = signal is None
         ns.s, signal = self._get_signal(signal)
+        if n_components is not None:
+            self._record(autosig, model, signal, n_components)
+            recorded = True
+        else:
+            recorded = False
 
         def do_threaded():
             ns.s = self._do_decomposition(ns.s)
@@ -191,12 +204,8 @@ class MVA_Plugin(Plugin):
                     o.metadata.General.title = signal.name + "[BSS-Loadings]"
                     f.plot()
                     o.plot()
-                if autosig:
-                    self.record_code(r"<p>.%s(n_components=%d)" %
-                                     (model, n_components))
-                else:
-                    self.record_code(r"<p>.{0}({1}, n_components={2})".format(
-                                     model, signal, n_components))
+                if not recorded:
+                    self._record(autosig, model, signal, n_components)
             if n_components is None:
                 ax = ns.s.plot_explained_variance_ratio()
 
