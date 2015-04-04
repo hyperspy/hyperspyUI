@@ -110,6 +110,7 @@ class EditorWidget(ExToolWindow):
         self.setWindowTitle(self.code_title)
         self.ui = main_window
         self._is_plugin = False
+        self._suppress_append = False
 
         self.create_controls(path)
 
@@ -130,6 +131,8 @@ class EditorWidget(ExToolWindow):
                 self.setWindowTitle(self.code_title)
 
     def append_code(self, code):
+        if self._suppress_append:
+            return
         text = self.editor.toPlainText()
         if len(text) > 0 and text[-1] == '\n':
             prev_cursor = self.editor.textCursor()
@@ -194,7 +197,10 @@ class EditorWidget(ExToolWindow):
 
     def run(self):
         code = self.editor.toPlainText()
+        old = self._suppress_append
+        self._suppress_append = True
         self.ui.console.ex(code)
+        self._suppress_append = old
 
     def create_controls(self, path):
         editor = api.CodeEdit()

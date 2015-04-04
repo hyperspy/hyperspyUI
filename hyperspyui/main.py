@@ -13,7 +13,6 @@ import info
 from singleapplication import get_app
 
 
-# TODO: Disable recording on EditorWidget's run()
 # TODO: Expose direct hyperspy signals collection.
 # TODO: DataView window management: Dblclick activates/minimize, possibly have
 #       separate management buttons up front.
