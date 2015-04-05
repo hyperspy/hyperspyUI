@@ -38,6 +38,8 @@ class ElementPickerWidget(ExToolWindow):
         self.create_controls()
         self.table.element_toggled.connect(self._toggle_element)
         self.set_signal(signal)
+        self._only_lines = ['Ka', 'La', 'Ma',
+                            'Kb', 'Lb1', 'Mb']
 
     def set_signal(self, signal):
         self.signal = signal
@@ -87,25 +89,33 @@ class ElementPickerWidget(ExToolWindow):
 
     def _toggle_element_eds(self, element):
         s = self.signal.signal
+        lines_added = []
+        lines_removed = []
         if element in s.metadata.Sample.elements:
             s.metadata.Sample.elements.remove(element)
             if 'Sample.xray_lines' in s.metadata:
                 for line in reversed(s.metadata.Sample.xray_lines):
                     if line.startswith(element):
                         s.metadata.Sample.xray_lines.remove(line)
+                        lines_removed.append(line)
                 if len(s.metadata.Sample.xray_lines) < 1:
                     del s.metadata.Sample.xray_lines
+            else:
+                lines_removed.extend(s._get_lines_from_elements(
+                                     [element], only_one=False,
+                                     only_lines=self._only_lines))
         else:
+            lines_added = s._get_lines_from_elements(
+                [element], only_one=False, only_lines=self._only_lines)
             if 'Sample.xray_lines' in s.metadata:
-                new_lines = s._get_lines_from_elements(
-                    [element], only_one=True)
-                s.add_lines(new_lines)  # Will also add element
+                s.add_lines(lines_added)  # Will also add element
             else:
                 s.add_elements((element,))
         if self.markers:
-            # Cycle markers on/off to force update
-            self._on_toggle_markers(False)
-            self._on_toggle_markers(True)
+            if lines_added:
+                s._add_xray_lines_markers(lines_added)
+            if lines_removed:
+                s._remove_xray_lines_markers(lines_removed)
 
     def _toggle_element_eels(self, element):
         s = self.signal.signal
@@ -122,7 +132,7 @@ class ElementPickerWidget(ExToolWindow):
         s = self.signal.signal
         element, ss = subshell.split('_')
 
-        # Figure out wether element should be toggled
+        # Figure out whether element should be toggled
         active, _ = self._get_element_subshells(element)
         if checked:
             any_left = True
@@ -140,25 +150,28 @@ class ElementPickerWidget(ExToolWindow):
                 # Remove element
                 self._toggle_element(element)
 
-        if checked:
-            if 'Sample.xray_lines' not in s.metadata and len(active) > 0:
-                lines = [subshell, element + '_' + active[0]]
-                s.add_lines(lines)
-            else:
-                s.add_lines([subshell])
+        if 'Sample.xray_lines' not in s.metadata and len(active) > 0:
+            lines = [element + '_' + a for a in active]
+            s.add_lines(lines)
+            if self.markers:
+                if checked:
+                    s._add_xray_lines_markers(lines)
+                else:
+                    s._remove_xray_lines_markers([subshell])
         else:
-            # Sanity check
-            if 'Sample.xray_lines' in s.metadata:
+            if checked:
+                s.add_lines([subshell])
+                if self.markers:
+                    s._add_xray_lines_markers([subshell])
+            elif 'Sample.xray_lines' in s.metadata:
                 if subshell in s.metadata.Sample.xray_lines:
                     s.metadata.Sample.xray_lines.remove(subshell)
+                    if self.markers:
+                        s._remove_xray_lines_markers([subshell])
                 # If all lines are disabled, fall back to element defined
                 # (Not strictly needed)
                 if len(s.metadata.Sample.xray_lines) < 1:
                     del s.metadata.Sample.xray_lines
-        if self.markers:
-            # Cycle markers on/off to force update
-            self._on_toggle_markers(False)
-            self._on_toggle_markers(True)
 
     def _set_elements(self, elements):
         """
@@ -175,7 +188,7 @@ class ElementPickerWidget(ExToolWindow):
         if value:
             if self.isEDS():
                 self.signal.keep_on_close = True
-                s.plot_xray_lines()
+                s.plot(xray_lines_markers=True)
                 self.signal.update_figures()
                 self.signal.keep_on_close = False
         else:
@@ -192,7 +205,7 @@ class ElementPickerWidget(ExToolWindow):
         if self.isEELS():
             pass
         elif self.isEDS():
-            imgs = self.signal.signal.get_lines_intensity()
+            imgs = self.signal.signal.get_lines_intensity(only_one=False)
             for im in imgs:
                 im.plot()
 
@@ -213,8 +226,8 @@ class ElementPickerWidget(ExToolWindow):
                     'Atomic_properties']['Binding_energies']:
                 if shell[-1] != 'a':
                     if start_energy <= \
-                            elements_db[element]['Atomic_properties']['Binding_energies'][shell][
-                                'onset_energy (eV)'] \
+                            elements_db[element]['Atomic_properties'][
+                            'Binding_energies'][shell]['onset_energy (eV)'] \
                             <= end_energy:
                         possible_subshells.add(shell)
         elif self.isEDS():
@@ -227,12 +240,13 @@ class ElementPickerWidget(ExToolWindow):
             elif ('Sample.elements' in s.metadata and
                   element in s.metadata.Sample.elements):
                 xray_lines = s._get_lines_from_elements(
-                    [element], only_one=True)
+                    [element], only_one=False, only_lines=self._only_lines)
                 for line in xray_lines:
                     _, subshell = line.split("_")
                     subshells.append(subshell)
-            possible_xray_lines = s._get_lines_from_elements([element],
-                                                             only_one=False)
+            possible_xray_lines = \
+                s._get_lines_from_elements([element], only_one=False,
+                                           only_lines=self._only_lines)
             for line in possible_xray_lines:
                 _, subshell = line.split("_")
                 possible_subshells.append(subshell)
@@ -279,7 +293,8 @@ class ElementPickerWidget(ExToolWindow):
         if self.isEDS():
             hbox = QHBoxLayout()
             # TODO: TAG: Feature-check
-            if hasattr(hyperspy.signals.EDSTEMSpectrum, 'plot_xray_lines'):
+            if hasattr(hyperspy.signals.EDSTEMSpectrum,
+                       '_add_xray_lines_markers'):
                 hbox.addWidget(self.chk_markers)
             hbox.addWidget(self.map_btn)
             vbox.addLayout(hbox)
