@@ -237,7 +237,7 @@ class MainWindow(MainWindowLayer5):
         self._plugin_manager_widget.show()
 
     def close_signal(self, uisignals=None):
-        uisignals = self.get_selected_signals()
+        uisignals = self.get_selected_wrappers()
         for s in uisignals:
             s.close()
 
@@ -257,7 +257,7 @@ class MainWindow(MainWindowLayer5):
         # self.signal_types, as the names can be adapted, and since they need
         # to be diferentiated based on behavior either way.
         if signal is None:
-            signal = self.get_selected_signal()
+            signal = self.get_selected_wrapper()
 
         # Sanity check
         if signal_type not in self.signal_types.keys():

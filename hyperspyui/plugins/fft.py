@@ -64,7 +64,7 @@ class FFT_Plugin(Plugin):
 
     def fft(self, signals=None, inverse=False, on_complete=None):
         if signals is None:
-            signals = self.ui.get_selected_signals()
+            signals = self.ui.get_selected_wrappers()
         # Make sure we can iterate
         if isinstance(signals, hyperspy.signals.Signal):
             signals = (signals,)
@@ -136,7 +136,7 @@ class FFT_Plugin(Plugin):
 
     def nfft(self, signals=None, inverse=False):
         if signals is None:
-            signals = self.ui.get_selected_signals()
+            signals = self.ui.get_selected_wrappers()
             if signals is None:
                 return
         # Make sure we can iterate
@@ -251,7 +251,7 @@ class FFT_Plugin(Plugin):
         intensive.
         """
         if signals is None:
-            signals = self.ui.get_selected_signals()
+            signals = self.ui.get_selected_wrappers()
             if signals is None:
                 return
         # Make sure we can iterate

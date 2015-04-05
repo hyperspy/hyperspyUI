@@ -32,7 +32,7 @@ class RebinPlugin(Plugin):
 
     def rebin(self, factors, signal=None):
         if signal is None:
-            signal = self.ui.get_selected_signal()
+            signal = self.ui.get_selected_wrapper()
             print signal, signal.signal, signal.signal.data.shape
         s = signal.signal
         shape = []
@@ -68,7 +68,7 @@ class RebinPlugin(Plugin):
 
     def rebin_dialog(self, signal=None):
         if signal is None:
-            signal = self.ui.get_selected_signal()
+            signal = self.ui.get_selected_wrapper()
             if signal is None:
                 return
         d = RebinDialog(signal, self, self.ui, self.ui)

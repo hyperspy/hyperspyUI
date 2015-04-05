@@ -151,7 +151,7 @@ class EditorWidget(ExToolWindow):
             else:
                 icon = None
             code = "ui = self.ui\n"
-            code += "siglist = ui.signals\n"
+            code += "siglist = ui.hspy_signals\n"
             code += self.editor.toPlainText().rstrip()
 
             name = diag.txt_name.text()
