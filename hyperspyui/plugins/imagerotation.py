@@ -121,6 +121,15 @@ class ImageRotation_Plugin(Plugin):
             old_shape = out.data.shape
         sig.data = data
         if out is None:
+            if reshape:
+                old = sig.auto_replot
+                sig.auto_replot = False
+                sig.get_dimensions_from_data()
+                sig.auto_replot = old
+                diff = np.array(sig.data.shape) - signal.data.shape
+                for i, ax in enumerate(sig.axes_manager._axes):
+                    dx = diff[i] * 0.5 * ax.scale
+                    ax.offset -= dx
             return sig
         else:
             if sig.data.shape != old_shape:
@@ -128,6 +137,10 @@ class ImageRotation_Plugin(Plugin):
                 out.auto_replot = False
                 out.get_dimensions_from_data()
                 out.auto_replot = old
+                diff = np.array(out.data.shape) - old_shape
+                for i, ax in enumerate(out.axes_manager._axes):
+                    dx = diff[i] * 0.5 * ax.scale
+                    ax.offset -= dx
                 # TODO: TAG: Functionality check
                 if hasattr(out, 'events') and hasattr(
                         out.events, 'axes_changed'):
@@ -161,11 +174,14 @@ class ImageRotation_Plugin(Plugin):
             elif v == 'replace':
                 self.dialog.opt_replace.setChecked(True)
         if 'reshape' in self.settings:
-            self.dialog.chk_reshape.setChecked(bool(self.settings['reshape']))
+            self.dialog.chk_reshape.setChecked(
+                "true" == self.settings['reshape'].lower())
         if 'preview' in self.settings:
-            self.dialog.gbo_preview.setChecked(bool(self.settings['preview']))
+            self.dialog.gbo_preview.setChecked(
+                "true" == self.settings['preview'].lower())
         if 'grid' in self.settings:
-            self.dialog.chk_grid.setChecked(bool(self.settings['grid']))
+            self.dialog.chk_grid.setChecked(
+                "true" == self.settings['grid'].lower())
         if 'grid_spacing' in self.settings:
             self.dialog.num_grid.setValue(int(self.settings['grid_spacing']))
         self.dialog.accepted.connect(self.on_dialog_accept)
@@ -196,7 +212,7 @@ class ImageRotationDialog(ExToolWindow):
         self.setWindowTitle(tr("Rotate"))
 
         # TODO: TAG: Functionality check
-        if not hasattr(signal, 'events'):
+        if not hasattr(signal.signal, 'events'):
             self.gbo_preview.setVisible(False)
 
         # TODO: Add dynamic rotation, e.g. one that rotates when source
@@ -222,7 +238,8 @@ class ImageRotationDialog(ExToolWindow):
 
     def ok(self):
         # Draw figure if not already done
-        if not hasattr(self.signal, 'events') or \
+        # TODO: TAG: Functionality check
+        if not hasattr(self.signal.signal, 'events') or \
                 not self.gbo_preview.isChecked():
             self.update()
         angle = self.num_angle.value()
@@ -241,7 +258,7 @@ class ImageRotationDialog(ExToolWindow):
             self._connected_updates = False
 
     def set_preview(self, value):
-        if not hasattr(self.signal, 'events'):
+        if not hasattr(self.signal.signal, 'events'):
             return
         if value:
             self.connect()
@@ -294,6 +311,9 @@ class ImageRotationDialog(ExToolWindow):
             s.metadata.General.title = self.signal.name + "[Rotated]"
             s.plot()
             self.connect_update_plot(s)
+            if (self.gbo_preview.isChecked() and self.opt_new.isChecked() and
+                                                         self.new_out is None):
+                self.new_out = self.ui.lut_signalwrapper[s]
         else:
             s = out
 
