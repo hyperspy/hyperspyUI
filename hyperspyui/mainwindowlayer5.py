@@ -8,6 +8,7 @@ Created on Tue Nov 04 13:37:08 2014
 import os
 import gc
 import re
+import numpy as np
 
 # Hyperspy uses traitsui, set proper backend
 from traits.etsconfig.api import ETSConfig
@@ -71,11 +72,19 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals.add_custom(self.sweeper, None, None, None, self.sweeper,
                                 None)
         self.hspy_signals = []
-        self.signals.add_custom('hspy_signals',
+
+        def rem(x):
+            # Needed since hyperspy has special equality operator...
+            for i, s in enumerate(self.hspy_signals):
+                if s is x.signal:
+                    print s, x.signal
+                    self.hspy_signals.pop(i)
+        self.signals.add_custom(
+            'hspy_signals',
             lambda x: self.hspy_signals.append(x.signal),
             lambda x, y: self.hspy_signals.insert(x, y.signal),
             None,
-            lambda x: self.hspy_signals.remove(x.signal),
+            rem,
             lambda x: self.hspy_signals.pop(x))
         self.lut_signalwrapper = dict()
 
@@ -222,23 +231,34 @@ class MainWindowLayer5(MainWindowLayer4):
         # Map position to canvas frame of reference
         cpos = canvas.mapFromGlobal(gpos)
         # Mapping copied from MPL backend code:
-        cpos = (cpos.x(), canvas.figure.bbox.height - cpos.y())
+        cpos = np.array([(cpos.x(), canvas.figure.bbox.height - cpos.y())])
         # Check that we are within plot axes
-        xa, ya = p.ax.transAxes.inverted().transform(cpos)
+        (xa, ya), = p.ax.transAxes.inverted().transform(cpos)
         if not (0 <= xa <= 1 and 0 <= ya <= 1):
             return
         # Find coordinate values:
-        xd, yd = p.ax.transData.inverted().transform(cpos)
+        (xd, yd), = p.ax.transData.inverted().transform(cpos)
+
+        def v2i(a, v):
+            if v < a.low_value:
+                return a.low_index
+            elif v > a.high_value:
+                return a.high_index
+            return a.value2index(v)
+
         if hasattr(p, 'axis'):                              # SpectrumFigure
-            axis = p.axes_manager.signal_axes[0]
+            if win is s.navigator_plot:
+                axis = p.axes_manager.navigation_axes[0]
+            elif win is s.signal_plot:
+                axis = p.axes_manager.signal_axes[0]
             vals = (xd,)
-            ind = (axis.value2index(xd),)
+            ind = (v2i(axis, xd),)
             units = (axis.units,)
             intensity = yd
         elif hasattr(p, 'xaxis') and hasattr(p, 'yaxis'):   # ImagePlot
             vals = (xd, yd)
-            ind = (p.xaxis.value2index(xd),
-                   p.yaxis.value2index(yd))
+            ind = (v2i(p.xaxis, xd),
+                   v2i(p.yaxis, yd))
             units = (p.xaxis.units, p.yaxis.units)
             intensity = p.ax.images[0].get_array()[ind[1], ind[0]]
 
