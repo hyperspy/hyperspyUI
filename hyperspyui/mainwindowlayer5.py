@@ -71,7 +71,7 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals.add_custom(self.sweeper, None, None, None, self.sweeper,
                                 None)
         self.hspy_signals = []
-        self.signals.add_custom(
+        self.signals.add_custom('hspy_signals',
             lambda x: self.hspy_signals.append(x.signal),
             lambda x, y: self.hspy_signals.insert(x, y.signal),
             None,
