@@ -33,7 +33,6 @@ class RebinPlugin(Plugin):
     def rebin(self, factors, signal=None):
         if signal is None:
             signal = self.ui.get_selected_wrapper()
-            print signal, signal.signal, signal.signal.data.shape
         s = signal.signal
         shape = []
         mods = [tuple()] * len(s.axes_manager.shape)
@@ -57,7 +56,6 @@ class RebinPlugin(Plugin):
         s.auto_replot = old
 
         # Do actual rebin
-        print s.data.shape, shape
         signal.switch_signal(s.rebin(shape))
         self.ui.setUpdatesEnabled(False)
         try:
