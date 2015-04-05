@@ -266,10 +266,10 @@ class DataViewWidget(QWidget):
                     break
             except AttributeError:
                 pass
-        if found is not None and found is not self.get_selected_signal():
+        if found is not None and found is not self.get_selected_wrapper():
             self.tree.setCurrentItem(found)
 
-    def get_selected_signals(self):
+    def get_selected_wrappers(self):
         """
         Returns a list of all selected signals. Any selected Models or
         Components will select their Signal parent.
@@ -289,7 +289,7 @@ class DataViewWidget(QWidget):
 
         return signals
 
-    def get_selected_signal(self):
+    def get_selected_wrapper(self):
         """
         Returns the first selected Signal. Any selected Models or Components
         will select their Signal parent.

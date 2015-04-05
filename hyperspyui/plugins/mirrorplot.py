@@ -36,7 +36,7 @@ class MirrorPlotPlugin(Plugin):
     def mirror_navi(self, uisignals=None):
         # Select signals
         if uisignals is None:
-            uisignals = self.ui.get_selected_signals()
+            uisignals = self.ui.get_selected_wrappers()
         if len(uisignals) < 2:
             mb = QMessageBox(QMessageBox.Information, tr("Select two or more"),
                              tr("You need to select two or more signals" +

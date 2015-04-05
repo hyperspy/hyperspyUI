@@ -98,7 +98,7 @@ class MVA_Plugin(Plugin):
         setting.
         """
         if signal is None:
-            signal = self.ui.get_selected_signal()
+            signal = self.ui.get_selected_wrapper()
         s = signal.signal
 
         if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float

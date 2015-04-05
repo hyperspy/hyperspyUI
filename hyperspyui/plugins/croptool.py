@@ -165,7 +165,7 @@ class CropTool(FigureTool):
             s.squeeze()
             if self.plugin is not None:
                 self.plugin.record_code(
-                    "s_crop = ui.get_selected_signal().signal")
+                    "s_crop = ui.get_selected_signal()")
                 for ax in orig_axes:
                     ax_sli = slices[ax.index_in_array]
                     self.plugin.record_code(

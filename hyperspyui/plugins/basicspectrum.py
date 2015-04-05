@@ -120,12 +120,12 @@ class BasicSpectrumPlugin(Plugin):
 
     def remove_background(self, signal=None):
         if signal is None:
-            signal = self.ui.get_selected_signal()
+            signal = self.ui.get_selected_wrapper()
         signal.signal.remove_background()
 
     def pick_elements(self, signal=None):
         if signal is None:
-            signal = self.ui.get_selected_signal()
+            signal = self.ui.get_selected_wrapper()
 
         ptw = ElementPickerWidget(signal, self.ui)
         ptw.show()

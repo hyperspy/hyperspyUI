@@ -13,7 +13,6 @@ import info
 from singleapplication import get_app
 
 
-# TODO: Expose direct hyperspy signals collection.
 # TODO: DataView window management: Dblclick activates/minimize, possibly have
 #       separate management buttons up front.
 # TODO: Autohide toolbars w.r.t. signal type. (maybe?)
@@ -24,6 +23,11 @@ from singleapplication import get_app
 # TODO: Editor threading + parallell processing utils (w/batch input)
 # TODO: Layout save/restore (ignorable settings (_settings?))
 # TODO: Fix unloading of plugins' tools
+# TODO: Add xray 3rd state: Element present, but not used for maps
+# TODO: Add xray background window tool for modifying those by auto
+# TODO: Add quantification button. Needs k-factor setup.
+# TODO: Add EELSDB widget plugin
+# TODO: Create contributed plugins repository with UI integrated hot-load
 
 
 def main():

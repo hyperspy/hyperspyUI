@@ -54,7 +54,7 @@ class Recorder(QtCore.QObject):
     def to_plugin(self, name, category=None, menu=False, toolbar=False,
                   icon=None):
         code = "ui = self.ui\n"
-        code += "siglist = ui.signals\n"
+        code += "siglist = ui.hspy_signals\n"
         code += self.to_code()
 
         return create_plugin_code(code, name, category, menu, toolbar, icon)

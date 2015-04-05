@@ -38,17 +38,18 @@ class MainWindow(MainWindowLayer5):
     that it is accessible from the console's 'ui' variable.
     """
 
-    signal_types = OrderedDict([('Signal', hyperspy.signals.Signal),
-                                ('Spectrum', hyperspy.signals.Spectrum),
-                                ('Spectrum simulation',
-                                 hyperspy.signals.SpectrumSimulation),
-                                ('EELS', hyperspy.signals.EELSSpectrum),
-                                ('EELS simulation',
-                                 hyperspy.signals.EELSSpectrumSimulation),
-                                ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
-                                ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
-                                ('Image', hyperspy.signals.Image),
-                                ('Image simulation', hyperspy.signals.ImageSimulation)])
+    signal_types = OrderedDict(
+        [('Signal', hyperspy.signals.Signal),
+         ('Spectrum', hyperspy.signals.Spectrum),
+         ('Spectrum simulation',
+          hyperspy.signals.SpectrumSimulation),
+         ('EELS', hyperspy.signals.EELSSpectrum),
+         ('EELS simulation',
+          hyperspy.signals.EELSSpectrumSimulation),
+         ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
+         ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
+         ('Image', hyperspy.signals.Image),
+         ('Image simulation', hyperspy.signals.ImageSimulation)])
 
     def __init__(self, parent=None):
         # State variables
@@ -126,7 +127,7 @@ class MainWindow(MainWindowLayer5):
                         selection_callback=self.select_signal,
                         tip="Save the selected signal(s)")
         self.add_action('save_fig', "Save &figure", self.save_figure,
-                        #                        icon=os.path.dirname(__file__) + '/../images/save.svg',
+#                       icon=os.path.dirname(__file__) + '/../images/save.svg',
                         tip="Save the active figure")
 
         self.add_action('add_model', "Create Model", self.make_model,
@@ -237,7 +238,7 @@ class MainWindow(MainWindowLayer5):
         self._plugin_manager_widget.show()
 
     def close_signal(self, uisignals=None):
-        uisignals = self.get_selected_signals()
+        uisignals = self.get_selected_wrappers()
         for s in uisignals:
             s.close()
 
@@ -257,7 +258,7 @@ class MainWindow(MainWindowLayer5):
         # self.signal_types, as the names can be adapted, and since they need
         # to be diferentiated based on behavior either way.
         if signal is None:
-            signal = self.get_selected_signal()
+            signal = self.get_selected_wrapper()
 
         # Sanity check
         if signal_type not in self.signal_types.keys():
@@ -267,13 +268,15 @@ class MainWindow(MainWindowLayer5):
         self.setUpdatesEnabled(False)
         try:
             if signal_type in ['Image', 'Image simulation']:
-                if not isinstance(signal.signal, (hyperspy.signals.Image,
-                                                  hyperspy.signals.ImageSimulation)):
+                if not isinstance(signal.signal,
+                                  (hyperspy.signals.Image,
+                                   hyperspy.signals.ImageSimulation)):
                     signal.as_image()
             elif signal_type in['Spectrum', 'Spectrum simulation', 'EELS',
                                 'EELS simulation', 'EDS SEM', 'EDS TEM']:
-                if isinstance(signal.signal, (hyperspy.signals.Image,
-                                              hyperspy.signals.ImageSimulation)):
+                if isinstance(signal.signal,
+                              (hyperspy.signals.Image,
+                               hyperspy.signals.ImageSimulation)):
                     signal.as_spectrum()
 
             if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:

@@ -70,6 +70,13 @@ class MainWindowLayer5(MainWindowLayer4):
         self.signals = BindingList()
         self.signals.add_custom(self.sweeper, None, None, None, self.sweeper,
                                 None)
+        self.hspy_signals = []
+        self.signals.add_custom(
+            lambda x: self.hspy_signals.append(x.signal),
+            lambda x, y: self.hspy_signals.insert(x, y.signal),
+            None,
+            lambda x: self.hspy_signals.remove(x.signal),
+            lambda x: self.hspy_signals.pop(x))
         self.lut_signalwrapper = dict()
 
         def lut_add(sw):
@@ -183,7 +190,7 @@ class MainWindowLayer5(MainWindowLayer4):
         if s is None:
             ind = tuple()
         else:
-            ind = s.signal.axes_manager.indices
+            ind = s.axes_manager.indices
         self.set_navigator_coords_status(ind)
 
     def _on_track(self, gpos):
@@ -263,7 +270,7 @@ class MainWindowLayer5(MainWindowLayer4):
         newly created ModelWrapper.
         """
         if signal is None:
-            signal = self.get_selected_signal()
+            signal = self.get_selected_wrapper()
         elif not isinstance(signal, SignalWrapper):
             signal = [s for s in self.signals if s.signal == signal]
             signal = signal[0]
@@ -302,8 +309,8 @@ class MainWindowLayer5(MainWindowLayer4):
 
     # -------- Selection management -------
 
-    def get_selected_signal(self, error_on_multiple=False):
-        signals = self.get_selected_signals()
+    def get_selected_wrapper(self, error_on_multiple=False):
+        signals = self.get_selected_wrappers()
         if signals is None or len(signals) < 1:
             return None
         elif len(signals) == 1:
@@ -325,12 +332,18 @@ class MainWindowLayer5(MainWindowLayer4):
             else:
                 return signals[0]
 
-    def get_selected_signals(self):
-        s = self.tree.get_selected_signals()
+    def get_selected_wrappers(self):
+        s = self.tree.get_selected_wrappers()
         if len(s) < 1:
             w = self.main_frame.activeSubWindow()
             s = [hyperspyui.util.win2sig(w, self.signals)]
         return s
+
+    def get_selected_signals(self):
+        return [s.signal for s in self.get_selected_wrappers()]
+
+    def get_selected_signal(self):
+        return self.get_selected_wrapper().signal
 
     def get_selected_model(self):
         """
@@ -350,7 +363,7 @@ class MainWindowLayer5(MainWindowLayer4):
         window is "navtigation" plot, "signal" plot or "other"; and finally the
         active window.
         """
-        s = self.get_selected_signal()
+        s = self.get_selected_wrapper()
         w = self.main_frame.activeSubWindow()
         if w is s.navigator_plot:
             selected = "navigation"
@@ -426,7 +439,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def save(self, signals=None, filenames=None):
         if signals is None:
-            signals = self.get_selected_signals()
+            signals = self.get_selected_wrappers()
 
         extensions = get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
@@ -567,7 +580,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def _get_console_exports(self):
         push = super(MainWindowLayer5, self)._get_console_exports()
-        push['siglist'] = self.signals
+        push['siglist'] = self.hspy_signals
         # Override hyperspy.hspy.create_model
         push['create_model'] = self.make_model
         return push
