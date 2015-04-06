@@ -12,7 +12,7 @@ from QtCore import *
 from QtGui import *
 
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
-from hyperspyui.signallist import SignalList
+from hyperspyui.widgets.signallist import SignalList
 from hyperspyui.threaded import Threaded
 from hyperspyui.util import win2sig
 
