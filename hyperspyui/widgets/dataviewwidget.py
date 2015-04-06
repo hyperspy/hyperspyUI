@@ -5,7 +5,9 @@ Created on Tue Nov 04 16:32:55 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
+import os
+
+from python_qt_binding import QtGui, QtCore, QtSvg
 from QtCore import *
 from QtGui import *
 
@@ -20,6 +22,10 @@ def tr(text):
     return QCoreApplication.translate("DataViewWidget", text)
 
 
+NameCol = 1
+VisibilityCol = 0
+
+
 class ComponentEditorHandler(tu.Handler):
 
     def setattr(self, info, object, name, value):
@@ -31,6 +37,111 @@ class ComponentEditorHandler(tu.Handler):
                 object.store_current_value_in_array()
             except AttributeError:
                 pass
+
+
+class VisbilityDelegate(QStyledItemDelegate):
+
+    def __init__(self, parent=None, icons=None):
+        if icons is None or len(icons) < 1:
+            icons = []
+            path = os.path.dirname(__file__)
+            for fn in [path + "/../../images/visibility_on.svg",
+                       path + "/../../images/visibility_off.svg"]:
+                renderer = QtSvg.QSvgRenderer(fn)
+                pm = QPixmap(12, 12)
+                pm.fill(Qt.transparent)
+                painter = QPainter(pm)
+                renderer.render(painter)
+                icons.append(pm)
+            icons = tuple(icons)
+        elif len(icons) < 2:
+            icons = tuple(icons) + (QPixmap(),)
+        else:
+            icons = tuple(icons)
+        self.icons = icons
+        self.margin = 2
+        super(VisbilityDelegate, self).__init__(parent)
+
+    def iconPos(self, icon, option):
+        return QPoint(option.rect.right() - icon.width() - self.margin,
+                      option.rect.center().y() - icon.height()/2)
+
+    def sizeHint(self, option, index):
+        size = super(VisbilityDelegate, self).sizeHint(option, index)
+
+        # Make sure we have room for the icon
+        if Qt.Checked == index.data(Qt.CheckStateRole):
+            icon = self.icons[0]
+        else:
+            icon = self.icons[1]
+        size.setWidth(max(size.width(), + icon.width() + self.margin * 2))
+        size.setHeight(max(size.height(), icon.height() + self.margin * 2))
+        return size
+
+    def paint(self, painter, option, index):
+        if option.state & QStyle.State_Selected:
+            painter.fillRect(option.rect, option.palette.highlight())
+        if Qt.Checked == index.data(Qt.CheckStateRole):
+            icon = self.icons[0]
+        elif Qt.Unchecked == index.data(Qt.CheckStateRole):
+            icon = self.icons[1]
+        else:
+            return
+        painter.drawPixmap(self.iconPos(icon, option), icon)
+
+
+class HyperspyItem(QTreeWidgetItem):
+
+    def __init__(self, parent, itemtype, hspy_item):
+        super(HyperspyItem, self).__init__(parent, itemtype)
+        self.hspy_item = hspy_item
+        self.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+        self.setText(NameCol, hspy_item.name)
+
+    def data(self, column, role):
+        if column == NameCol:
+            if role == Qt.UserRole:
+                return self.hspy_item
+        elif column == VisibilityCol:
+            if role == Qt.CheckStateRole:
+                # Asking about visibility
+                # Only return valid state for SignalType
+                if self.type() == DataViewWidget.SignalType:
+                    s = self.hspy_item
+                    vis = False
+                    for w in [s.navigator_plot, s.signal_plot]:
+                        if w is not None and not w.isMinimized():
+                            vis = True
+                    if vis:
+                        return Qt.Checked
+                    else:
+                        return Qt.Unchecked
+                else:
+                    return None
+        return super(HyperspyItem, self).data(column, role)
+
+    def setData(self, column, role, value):
+        if column == VisibilityCol and role == Qt.CheckStateRole \
+                and self.type() == DataViewWidget.SignalType:
+            self._on_toggle_visibility()
+        else:
+            super(HyperspyItem, self).setData(column, role, value)
+
+    def _on_toggle_visibility(self):
+        checked = Qt.Checked == self.data(VisibilityCol, Qt.CheckStateRole)
+        s = self.hspy_item
+        figs = [p for p in (s.signal_plot, s.navigator_plot) if p is not None]
+        if len(figs) < 1:
+            return
+        for p in figs:
+            if checked:
+                p.showMinimized()
+            else:
+                if p.isMinimized():
+                    p.showNormal()
+                else:
+                    self.treeWidget().main_window.main_frame.\
+                        setActiveSubWindow(p)
 
 
 class DataViewWidget(QWidget):
@@ -55,6 +166,7 @@ class DataViewWidget(QWidget):
         self.lut = {}
         self.editor_visible = True
         self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.tree.setColumnCount(2)
         self.editor = QVBoxLayout()
         self.editor_bottom_padding = 20
 
@@ -74,8 +186,12 @@ class DataViewWidget(QWidget):
         self.connect(self.tree, SIGNAL('customContextMenuRequested(QPoint)'),
                      self.onCustomContextMenu)
         self.tree.currentItemChanged.connect(self.currentItemChanged)
+        self.tree.itemDoubleClicked.connect(self.itemDoubleClicked)
 
-    def _add(self, text, item, itemtype, parent=None):
+        self.tree.setItemDelegateForColumn(VisibilityCol,
+                                           VisbilityDelegate(self.tree))
+
+    def _add(self, item, itemtype, parent=None):
         """
         Make a QTreeWidgetItem for data item, and insert it below parent.
         The parent can be either a data item, or a QTreeWidgetItem.
@@ -84,9 +200,9 @@ class DataViewWidget(QWidget):
             parent = self.tree
         elif not isinstance(parent, QTreeWidgetItem):
             parent = self.lut[parent]
-        twi = QTreeWidgetItem(parent, itemtype)
-        twi.setText(0, text)
-        twi.setData(0, Qt.UserRole, item)
+        twi = HyperspyItem(parent, itemtype, item)
+        if itemtype == self.SignalType:
+            self.tree.resizeColumnToContents(VisibilityCol)
         twi.setExpanded(True)
         self.lut[item] = twi
         if parent is self.tree:
@@ -115,13 +231,24 @@ class DataViewWidget(QWidget):
     def currentItemChanged(self, current, previous):
         if self.editor_visible:
             if current and current.type() == self.ComponentType:
-                comp = current.data(0, Qt.UserRole)
+                comp = current.data(NameCol, Qt.UserRole)
                 if isinstance(comp, t.HasTraits):
                     self.main_window.capture_traits_dialog(
                         self.set_traits_editor)
                     self.edit_traits(comp, False)
             else:
                 self.clear_editor()
+
+    def itemDoubleClicked(self, item, column):
+        if column == VisibilityCol:
+            return      # Don't count double clicks on check
+        if item.type() == self.ComponentType:
+            item = item.parent().parent()
+        elif item.type() == self.ModelType:
+            item = item.parent()
+        val = Qt.Checked == item.data(VisibilityCol, Qt.CheckStateRole)
+        state = Qt.Checked if not val else Qt.Unchecked
+        item.setData(VisibilityCol, Qt.CheckStateRole, state)
 
     def edit_traits(self, comp, buttons=True):
         try:
@@ -152,14 +279,14 @@ class DataViewWidget(QWidget):
             return
         cm = QMenu(self.tree)
         if item.type() == self.SignalType:
-            sig = item.data(0, Qt.UserRole)
+            sig = item.data(NameCol, Qt.UserRole)
 
             # Add all actions defined on object
             for ac in sig.actions.values():
                 cm.addAction(ac)
 
         elif item.type() == self.ModelType:
-            model = item.data(0, Qt.UserRole)
+            model = item.data(NameCol, Qt.UserRole)
 
             # Add all actions defined on object
             for ac in model.actions.values():
@@ -173,8 +300,8 @@ class DataViewWidget(QWidget):
             for ac in comp_actions.values():
                 cm.addAction(ac)
         elif item.type() == self.ComponentType:
-            comp = item.data(0, Qt.UserRole)
-            model = item.parent().data(0, Qt.UserRole)
+            comp = item.data(NameCol, Qt.UserRole)
+            model = item.parent().data(NameCol, Qt.UserRole)
 
             # Fit action
             ac = QAction(tr("&Fit component"), self.tree)
@@ -200,12 +327,12 @@ class DataViewWidget(QWidget):
     def keyPressEvent(self, event):
         citem = self.tree.currentItem()
         if event.key() == Qt.Key_Delete:
-            data = citem.data(0, Qt.UserRole)
+            data = citem.data(NameCol, Qt.UserRole)
             # Do nothing if SignalType
             if citem.type() == self.ModelType:
                 data.actions['delete'].trigger()
             elif citem.type() == self.ComponentType:
-                model = citem.parent().data(0, Qt.UserRole)
+                model = citem.parent().data(NameCol, Qt.UserRole)
                 model.remove_component(data)
         else:
             super(DataViewWidget, self).keyPressEvent(event)
@@ -220,7 +347,7 @@ class DataViewWidget(QWidget):
             self.lut.pop(key)
 
     def add_signal(self, signal):
-        self._add(signal.name, signal, self.SignalType)
+        self._add(signal, self.SignalType)
         signal.model_added[object].connect(self.add_model)
         signal.model_removed[object].connect(self.remove)
 
@@ -230,22 +357,22 @@ class DataViewWidget(QWidget):
     def add_model(self, model, signal=None):
         if signal is None:
             signal = model.signal
-        self._add(model.name, model, self.ModelType, parent=signal)
+        self._add(model, self.ModelType, parent=signal)
         model.added[object, object].connect(self.add_component)
         model.removed[object].connect(self.remove)
         for c in model.components.values():
             self.add_component(c, model)
 
     def add_component(self, component, model):
-        ci = self._add(component.name, component, self.ComponentType,
+        ci = self._add(component, self.ComponentType,
                        parent=model)
         if isinstance(component, t.HasTraits):
             def update_name(new_name):
-                ci.setText(0, new_name)
+                ci.setText(NameCol, new_name)
             component.on_trait_change(update_name, 'name')
 
     def add(self, object, type, parent=None):
-        self._add(object.name, object, type, parent)
+        self._add(object, type, parent)
 
     def remove(self, object):
         self._remove(object)
@@ -258,7 +385,7 @@ class DataViewWidget(QWidget):
         found = None
         for i in xrange(self.tree.topLevelItemCount()):
             item = self.tree.topLevelItem(i)
-            s = item.data(0, Qt.UserRole)
+            s = item.data(NameCol, Qt.UserRole)
             # In case topLevelItems are not all SignalWrappers in future
             try:
                 if mdi_figure in (s.navigator_plot, s.signal_plot):
@@ -266,8 +393,10 @@ class DataViewWidget(QWidget):
                     break
             except AttributeError:
                 pass
-        if found is not None and found is not self.get_selected_wrapper():
-            self.tree.setCurrentItem(found)
+        if found is not None:
+            found
+            if found is not self.get_selected_wrapper():
+                self.tree.setCurrentItem(found)
 
     def get_selected_wrappers(self):
         """
@@ -283,7 +412,7 @@ class DataViewWidget(QWidget):
                 i = i.parent()
             if i.type() != self.SignalType:
                 raise TypeError("Selection of wrong type")
-            s = i.data(0, Qt.UserRole)
+            s = i.data(NameCol, Qt.UserRole)
             if s not in signals:
                 signals.append(s)
 
@@ -304,7 +433,7 @@ class DataViewWidget(QWidget):
             item = item.parent()
         if item.type() != self.SignalType:
             raise TypeError("Selection of wrong type")
-        return item.data(0, Qt.UserRole)
+        return item.data(NameCol, Qt.UserRole)
 
     def get_selected_model(self):
         """
@@ -323,7 +452,7 @@ class DataViewWidget(QWidget):
             item = item.child(0)
         if item.type() != self.ModelType:
             raise TypeError("Selection of wrong type")
-        return item.data(0, Qt.UserRole)
+        return item.data(NameCol, Qt.UserRole)
 
     def get_selected_component(self):
         raise NotImplementedError()

@@ -13,8 +13,6 @@ import info
 from singleapplication import get_app
 
 
-# TODO: DataView window management: Dblclick activates/minimize, possibly have
-#       separate management buttons up front.
 # TODO: Autohide toolbars w.r.t. signal type. (maybe?)
 # TODO: Add selection groups for signals by hierarchy in DataViewWidget
 # TODO: Make sure everything records / plays back code
@@ -28,6 +26,7 @@ from singleapplication import get_app
 # TODO: Add quantification button. Needs k-factor setup.
 # TODO: Add EELSDB widget plugin
 # TODO: Create contributed plugins repository with UI integrated hot-load
+# TODO: Auto-resize font in Periodic table
 
 
 def main():
