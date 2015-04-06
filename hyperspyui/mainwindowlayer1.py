@@ -143,6 +143,18 @@ class MainWindowLayer1(QMainWindow):
         self.selectable_tools = QActionGroup(self)
         self.selectable_tools.setExclusive(True)
 
+        ac_tile = QAction(tr("Tile"), self)
+        ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
+        self.connect(ac_tile, SIGNAL('triggered()'),
+                     self.main_frame.tileSubWindows)
+        self.actions['tile_windows'] = ac_tile
+        ac_cascade = QAction(tr("Cascade"), self)
+        ac_cascade.setStatusTip(
+            tr("Arranges all figures in a cascade pattern"))
+        self.connect(ac_cascade, SIGNAL('triggered()'),
+                     self.main_frame.cascadeSubWindows)
+        self.actions['cascade_windows'] = ac_cascade
+
     def create_menu(self):
         mb = self.menuBar()
         # Window menu is filled in add_widget and add_figure
@@ -151,6 +163,9 @@ class MainWindowLayer1(QMainWindow):
         # Figure windows go below this separator. Other windows can be added
         # above it with insertAction(self.windowmenu_sep, QAction)
         self.windowmenu_sep = self.windowmenu.addSeparator()
+        self.windowmenu.addAction(self.actions['tile_windows'])
+        self.windowmenu.addAction(self.actions['cascade_windows'])
+        self.windowmenu_actions_sep = self.windowmenu.addSeparator()
 
         self.plugin_manager.create_menu()
 
