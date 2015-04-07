@@ -8,7 +8,6 @@ Created on Sun Dec 07 02:03:23 2014
 from hyperspyui.plugins.plugin import Plugin
 
 import os
-import numpy as np
 
 from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
     DraggableResizableRange
