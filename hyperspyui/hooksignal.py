@@ -11,9 +11,9 @@ orig_signal = hyperspy.signal.Signal
 
 class HookedSignal(orig_signal):
 
-    def plot(self, navigator="auto", axes_manager=None):
+    def plot(self, *args, **kwargs):
         _on_plotting(self, navigator="auto", axes_manager=None)
-        r = super(HookedSignal, self).plot(navigator="auto", axes_manager=None)
+        r = super(HookedSignal, self).plot(*args, **kwargs)
         _on_plotted(self, navigator="auto", axes_manager=None)
         return r
 

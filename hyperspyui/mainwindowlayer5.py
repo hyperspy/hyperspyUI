@@ -292,7 +292,7 @@ class MainWindowLayer5(MainWindowLayer4):
         if signal is None:
             signal = self.get_selected_wrapper()
         elif not isinstance(signal, SignalWrapper):
-            signal = [s for s in self.signals if s.signal == signal]
+            signal = [s for s in self.signals if s.signal is signal]
             signal = signal[0]
         mw = signal.make_model(*args, **kwargs)
         return mw
