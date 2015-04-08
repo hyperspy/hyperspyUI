@@ -90,6 +90,7 @@ class MainWindowLayer5(MainWindowLayer4):
         # Setup variables
         self.progressbars = {}
         self.prev_mdi = None
+        self._plotting_signal = None
 
         # Call super init, which creates main controls etc.
         super(MainWindowLayer5, self).__init__(parent)
@@ -323,12 +324,14 @@ class MainWindowLayer5(MainWindowLayer4):
             # New signal, make wrapper and add to list
             sw = SignalWrapper(signal, self)
             self.signals.append(sw)
+        self._plotting_signal = sw
 
     def on_signal_plotted(self, signal, *args, **kwargs):
         sw = self.lut_signalwrapper[signal]
         sw.update_figures()
         if sw.keep_on_close:
             sw.keep_on_close = False
+        self._plotting_signal = None
 
     # -------- Selection management -------
 

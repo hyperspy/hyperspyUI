@@ -32,16 +32,19 @@ def win2fig(window):
     return window.widget().figure
 
 
-def win2sig(window, signals=None):
+def win2sig(window, signals=None, plotting_signal=None):
+    r = None
     if window is not None:
         if signals is None:
             # Returns None if no such property
-            return window.property('hyperspyUI.SignalWrapper')
+            r = window.property('hyperspyUI.SignalWrapper')
         else:
             for s in signals:
                 if window in (s.navigator_plot, s.signal_plot):
                     return s
-    return None
+    if r is None and plotting_signal is not None:
+        return plotting_signal
+    return r
 
 
 def dict_rlu(dictionary, value):

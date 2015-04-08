@@ -242,7 +242,7 @@ class MainWindow(MainWindowLayer5):
 
     def on_subwin_activated(self, mdi_figure):
         super(MainWindow, self).on_subwin_activated(mdi_figure)
-        s = win2sig(mdi_figure, self.signals)
+        s = win2sig(mdi_figure, self.signals, self._plotting_signal)
         if s is None:
             for ac in self.signal_type_ag.actions():
                 ac.setChecked(False)
