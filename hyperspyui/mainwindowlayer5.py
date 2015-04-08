@@ -25,6 +25,7 @@ from QtGui import *
 from hyperspyui.signalwrapper import SignalWrapper
 from hyperspyui.bindinglist import BindingList
 from hyperspyui.widgets.dataviewwidget import DataViewWidget
+from hyperspyui.widgets.editorwidget import EditorWidget
 import hyperspyui.util
 from hyperspyui.mdi_mpl_backend import FigureCanvas
 
@@ -425,6 +426,7 @@ class MainWindowLayer5(MainWindowLayer4):
         """
         extensions = self.get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
+        type_choices = ';;'.join(("Python code (*.py)", type_choices))
         type_choices = ';;'.join(("All types (*.*)", type_choices))
 
         if filenames is None:
@@ -442,6 +444,12 @@ class MainWindowLayer5(MainWindowLayer4):
         files_loaded = []
         for filename in filenames:
             self.set_status("Loading \"" + filename + "\"...")
+            ext = os.path.splitext(filename)[1]
+            if ext == '.py':
+                e = EditorWidget(self, self, filename)
+                self.editors.append(e)
+                e.show()
+                continue
             self.setUpdatesEnabled(False)   # Prevent flickering during load
             try:
                 escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes

@@ -20,6 +20,8 @@ setup(name='hyperspyUI',
       requires=['hyperspy',
                 'matplotlib (>= 1.3)',
                 'python_qt_binding',
+                'pycode.python',
+                'autopep8',
                 'traits',
                 'traitsui'],
       install_requires=['hyperspy',  # TODO: Find lowest allowed version of hyperspy
@@ -27,8 +29,6 @@ setup(name='hyperspyUI',
                         'python_qt_binding',
                         'traits',
                         'traitsui'],
-      extras_require={'editor':  ["pyqode.core", "autopep8"]},
-      # TODO: Recommends pyqode.core
       package_data={
           'hyperspyui':
           ['images/*.svg',

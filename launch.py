@@ -21,6 +21,7 @@ from hyperspyui.singleapplication import get_app
 # TODO: Editor threading + parallell processing utils (w/batch input)
 # TODO: Layout save/restore (ignorable settings (_settings?))
 # TODO: Fix unloading of plugins' tools
+# TODO: Add xray element find tool
 # TODO: Add xray 3rd state: Element present, but not used for maps
 # TODO: Add xray background window tool for modifying those by auto
 # TODO: Add quantification button. Needs k-factor setup.
@@ -28,8 +29,12 @@ from hyperspyui.singleapplication import get_app
 # TODO: Create contributed plugins repository with UI integrated hot-load
 # TODO: Auto-resize font in Periodic table
 # TODO: Utilities to combine signals into stack and reverse
-# TODO: "New editor" + open of .py files.
+# TODO: Make editor tabs drag&dropable + default to all in one
 # TODO: Make data type changer handle RGBX data types.
+
+
+# import logging
+# logging.basicConfig(level=logging.DEBUG)
 
 
 def main():

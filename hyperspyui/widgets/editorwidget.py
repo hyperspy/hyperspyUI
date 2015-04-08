@@ -10,10 +10,15 @@ from QtCore import *
 from QtGui import *
 
 import os
+import copy
 
 from pyqode.core import api
 from pyqode.core import modes
+from pyqode.core import panels
 from pyqode.core.widgets import TabWidget
+import _editor_server as server
+from pyqode.python import modes as pymodes
+from pyqode.python.backend.workers import run_frosted, calltips
 
 from extendedqwidgets import ExToolWindow
 import hyperspyui.plugincreator as pc
@@ -101,6 +106,38 @@ class NameCategoryPrompt(ExToolWindow):
         self.setLayout(vbox)
 
 
+class ConsoleCodeCheckerMode(modes.CheckerMode):
+    """ Runs pyflakes on you code while you're typing
+
+    This checker mode runs pyflakes on the fly to check your python syntax.
+
+    Works the same as FrostedCheckerMode, except it is aware of
+    HyperspyUI's "globals".
+    """
+
+    def run(self, request_data):
+        r = copy.copy(request_data)
+        r['code'] = server._console_mode_header + r['code']
+        return run_frosted(r)
+
+    def __init__(self):
+        super(ConsoleCodeCheckerMode, self).__init__(self.run, delay=1200)
+
+
+class ConsoleCodeCalltipsMode(pymodes.CalltipsMode):
+
+    def _request_calltip(self, source, line, col, fn, encoding):
+        if self._CalltipsMode__requestCnt == 0:
+            self._CalltipsMode__requestCnt += 1
+            _logger().debug("Calltip requested")
+            source = server._console_mode_header + source
+            line += server._header_num_lines
+            self.editor.backend.send_request(
+                calltips,
+                {'code': source, 'line': line, 'column': col, 'path': None,
+                 'encoding': encoding}, on_receive=self._on_results_available)
+
+
 class EditorWidget(ExToolWindow):
     code_title = tr("Code Editor")
     plugin_title = tr("Plugin Editor")
@@ -113,6 +150,19 @@ class EditorWidget(ExToolWindow):
         self._suppress_append = False
 
         self.create_controls(path)
+
+        self.save_action = QAction(self)
+        self.save_action.setShortcut(QKeySequence.Save)
+        self.save_action.triggered.connect(self.save)
+        self.addAction(self.save_action)
+
+        self.run_action = QAction(self)
+        self.run_action.setShortcut(Qt.Key_F5)
+        self.run_action.triggered.connect(self.run)
+        self.addAction(self.run_action)
+
+        if path is not None and os.path.isfile(path):
+            self.load(path)
 
     @property
     def is_plugin(self):
@@ -178,11 +228,11 @@ class EditorWidget(ExToolWindow):
     def register_plugin(self):
         dr = self.save()
         path = self.editor.file.path
-        if dr and os.path.exists(path):
+        if dr and os.path.isfile(path):
             self.ui.plugin_manager.load_from_file(path)
 
     def save(self):
-        if not os.path.exists(self.editor.file.path):
+        if not os.path.isfile(self.editor.file.path):
             path = QFileDialog.getSaveFileName(self,
                                                tr("Choose destination path"),
                                                self.editor.file.path)[0]
@@ -192,8 +242,9 @@ class EditorWidget(ExToolWindow):
             open(path, 'w').close()  # Touch file so save_current works
         return self.tab.save_current()
 
-    def read(self, filename=None):
-        pass
+    def load(self, filename):
+        if filename is not None and os.path.exists(filename):
+            self.editor.file.open(filename)
 
     def run(self):
         code = self.editor.toPlainText()
@@ -204,40 +255,54 @@ class EditorWidget(ExToolWindow):
 
     def create_controls(self, path):
         editor = api.CodeEdit()
+        editor.backend.start(server.__file__)
+
+#        editor.panels.append(panels.FoldingPanel())
+        editor.panels.append(panels.LineNumberPanel())
+        editor.panels.append(panels.CheckerPanel())
+
         editor.modes.append(modes.CaretLineHighlighterMode())
-        editor.modes.append(modes.PygmentsSyntaxHighlighter(editor.document()))
-        editor.modes.append(modes.AutoCompleteMode())
-        editor.modes.append(modes.AutoIndentMode())
-        editor.modes.append(modes.IndenterMode())
+        editor.modes.append(modes.CodeCompletionMode())
+        editor.modes.append(modes.ExtendedSelectionMode())
+        editor.modes.append(modes.FileWatcherMode())
+        editor.modes.append(modes.RightMarginMode())
         editor.modes.append(modes.SmartBackSpaceMode())
         editor.modes.append(modes.OccurrencesHighlighterMode())
         editor.modes.append(modes.SymbolMatcherMode())
 #        editor.modes.append(modes.WordClickMode())
         editor.modes.append(modes.ZoomMode())
+
+        editor.modes.append(pymodes.PythonSH(editor.document()))
+        editor.modes.append(pymodes.CommentsMode())
+        editor.modes.append(ConsoleCodeCalltipsMode())
+        editor.modes.append(ConsoleCodeCheckerMode())
+        editor.modes.append(pymodes.PEP8CheckerMode())
+        editor.modes.append(pymodes.PyAutoCompleteMode())
+        editor.modes.append(pymodes.PyAutoIndentMode())
+        editor.modes.append(pymodes.PyIndenterMode())
+
         if path is not None:
             editor.file._path = path
         self.editor = editor
         self.tab = TabWidget(self)
-        if path is None:
-            self.tab.add_code_edit(editor, tr("untitled") + "%d.py")
-        else:
+        if path is not None and os.path.isfile(path):
             self.tab.add_code_edit(editor)
+        else:
+            self.tab.add_code_edit(editor, tr("untitled") + "%d.py")
 
         self.btn_save = QPushButton(tr("Save"))
-        self.btn_open = QPushButton(tr("Open"))
         self.btn_run = QPushButton(tr("Run"))
         self.btn_make_plugin = QPushButton(tr("Make Plugin"))
         self.btn_reg_plugin = QPushButton(tr("Register Plugin"))
         self.btn_reg_plugin.setVisible(False)
 
         self.btn_save.clicked.connect(self.save)
-        self.btn_open.clicked.connect(self.read)
         self.btn_run.clicked.connect(self.run)
         self.btn_make_plugin.clicked.connect(self.make_plugin)
         self.btn_reg_plugin.clicked.connect(self.register_plugin)
 
         self.hbox = QHBoxLayout()
-        for w in [self.btn_save, self.btn_open, self.btn_run,
+        for w in [self.btn_save, self.btn_run,
                   self.btn_make_plugin, self.btn_reg_plugin]:
             self.hbox.addWidget(w)
 

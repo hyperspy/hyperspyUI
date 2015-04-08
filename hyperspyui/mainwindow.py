@@ -17,6 +17,7 @@ from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.widgets.contrastwidget import ContrastWidget
+from hyperspyui.widgets.editorwidget import EditorWidget
 from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 import hyperspyui.tools
 
@@ -116,6 +117,9 @@ class MainWindow(MainWindowLayer5):
                         icon='close_window.svg',
                         selection_callback=self.select_signal,
                         tip="Close the selected signal(s)")
+        self.add_action('new_editor', "&New editor", self.new_editor,
+                        shortcut=QKeySequence.New,
+                        tip="Opens a new code editor")
 
         close_all_key = QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
                                      Qt.CTRL + Qt.ALT + Qt.Key_W)
@@ -193,6 +197,7 @@ class MainWindow(MainWindowLayer5):
         self.add_menuitem('File', self.actions['close'])
         self.add_menuitem('File', self.actions['save'])
         self.add_menuitem('File', self.actions['save_fig'])
+        self.add_menuitem('File', self.actions['new_editor'])
 
         # Signal menu
         self.menus['Signal'] = mb.addMenu(tr("&Signal"))
@@ -282,6 +287,11 @@ class MainWindow(MainWindowLayer5):
         while len(self.signals) > 0:
             s = self.signals.pop()
             s.close()
+
+    def new_editor(self):
+        e = EditorWidget(self, self)
+        self.editors.append(e)
+        e.show()
 
     def set_signal_type(self, signal_type, signal=None):
         """
