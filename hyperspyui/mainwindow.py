@@ -54,6 +54,7 @@ class MainWindow(MainWindowLayer5):
     def __init__(self, parent=None):
         # State variables
         self.signal_type_ag = None
+        self.signal_datatype_ag = None
         self._plugin_manager_widget = None
 
         super(MainWindow, self).__init__(parent)
@@ -151,7 +152,25 @@ class MainWindow(MainWindowLayer5):
             signal_type_ag.addAction(st_ac)
         self.signal_type_ag = signal_type_ag
 
-        # TODO: Set signal datatype
+        # --- Add signal data type selection actions ---
+        signal_datatype_ag = QActionGroup(self)
+        signal_datatype_ag.setExclusive(True)
+        import numpy as np
+        for t in [np.bool, np.bool8, np.byte, np.complex, np.complex64,
+                  np.complex128, np.float, np.float16, np.float32, np.float64,
+                  np.int, np.int8, np.int16, np.int32, np.int64, np.long,
+                  np.uint, np.uint8, np.uint16, np.uint32, np.uint64, 'Custom'
+                  ]:
+            f = partial(self.set_signal_dtype, t)
+            if isinstance(t, basestring):
+                st = t.lower()
+            else:
+                st = t.__name__
+
+            sdt_ac = self.add_action('signal_data_type_' + st, st, f)
+            sdt_ac.setCheckable(True)
+            signal_datatype_ag.addAction(sdt_ac)
+        self.signal_datatype_ag = signal_datatype_ag
 
         # --- Add "add component" actions ---
         comp_actions = create_add_component_actions(self, self.make_component)
@@ -169,13 +188,14 @@ class MainWindow(MainWindowLayer5):
         self.add_menuitem('File', self.actions['close'])
         self.add_menuitem('File', self.actions['save'])
         self.add_menuitem('File', self.actions['save_fig'])
-        self.menus['File'].addSeparator()
-        self.add_menuitem('File', self.actions['close_all'])
 
         # Signal menu
         self.menus['Signal'] = mb.addMenu(tr("&Signal"))
         stm = self.menus['Signal'].addMenu(tr("Signal type"))
         for ac in self.signal_type_ag.actions():
+            stm.addAction(ac)
+        stm = self.menus['Signal'].addMenu(tr("Signal data type"))
+        for ac in self.signal_datatype_ag.actions():
             stm.addAction(ac)
 
         # Model menu
@@ -189,6 +209,10 @@ class MainWindow(MainWindowLayer5):
 
         # Create Windows menu
         super(MainWindow, self).create_menu()
+        
+        self.menus['File'].addSeparator()
+        self.add_menuitem('File', self.actions['close_all'])
+        self.add_menuitem('File', self.actions['exit'])
 
         self.add_menuitem('Settings', self.actions['plugin_manager'])
         self.add_menuitem('Settings', self.actions['edit_settings'])
@@ -222,10 +246,17 @@ class MainWindow(MainWindowLayer5):
         if s is None:
             for ac in self.signal_type_ag.actions():
                 ac.setChecked(False)
+            for ac in self.signal_datatype_ag.actions():
+                ac.setChecked(False)
         else:
             t = type(s.signal)
             key = 'signal_type_' + dict_rlu(self.signal_types, t)
             self.actions[key].setChecked(True)
+            key2 = 'signal_data_type_' + s.signal.data.dtype.type.__name__
+            if key2 in self.actions:
+                self.actions[key2].setChecked(True)
+            else:
+                self.actions['signal_data_type_custom'].setChecked(True)
 
     # ---------------------------------------
     # Slots
@@ -295,3 +326,10 @@ class MainWindow(MainWindowLayer5):
             signal.keep_on_close = False
         finally:
             self.setUpdatesEnabled(True)
+
+    def set_signal_dtype(self, data_type, signal=None):
+        if signal is None:
+            signal = self.get_selected_signal()
+        if isinstance(data_type, basestring) and data_type.lower() == 'custom':
+            return    # TODO: Show dialog and prompt
+        signal.change_dtype(data_type)
