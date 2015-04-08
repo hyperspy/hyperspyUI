@@ -246,14 +246,20 @@ class MainWindowLayer5(MainWindowLayer4):
                 axis = p.axes_manager.signal_axes[0]
             vals = (xd,)
             ind = (v2i(axis, xd),)
-            units = (axis.units,)
+            units = [axis.units]
             intensity = yd
         elif hasattr(p, 'xaxis') and hasattr(p, 'yaxis'):   # ImagePlot
             vals = (xd, yd)
             ind = (v2i(p.xaxis, xd),
                    v2i(p.yaxis, yd))
-            units = (p.xaxis.units, p.yaxis.units)
+            units = [p.xaxis.units, p.yaxis.units]
             intensity = p.ax.images[0].get_array()[ind[1], ind[0]]
+
+        # Remove <undefined> units
+        for i in xrange(len(units)):
+            if str(units[i]) == "<undefined>":
+                units[i] = ""
+        units = tuple(units)
 
         # Finally, display coordinates
         self.set_mouse_coords_status(ind, vals, units, intensity)
@@ -274,7 +280,11 @@ class MainWindowLayer5(MainWindowLayer4):
         vu = "(%s)" % ", ".join(vu)
         text = "Mouse: " + str(indices) + " px; " + vu
         if intensity is not None:
-            text += ("; Intensity: %.3g" % intensity)
+            text += "; Intensity: "
+            if isinstance(intensity, np.ndarray):
+                text += str(intensity)
+            else:
+                text += "%.3g" % intensity
         self.mouse_coords_label.setText(text)
 
     def add_model(self, signal, *args, **kwargs):
