@@ -73,8 +73,12 @@ class MainWindow(MainWindowLayer5):
         # Redirect streams (wait until the end to not affect during load)
         self.settings.set_default('Output to console', False)
         if self.settings['Output to console'] is True:
+            self._old_stdout = sys.stdout
+            self._old_stderr = sys.stdout
             sys.stdout = self.console.kernel.stdout
             sys.stderr = self.console.kernel.stderr
+        else:
+            self._old_stdout = self._old_stderr = None
 
     def handleSecondInstance(self, argv):
         """
@@ -267,6 +271,20 @@ class MainWindow(MainWindowLayer5):
                 self.actions[key2].setChecked(True)
             else:
                 self.actions['signal_data_type_custom'].setChecked(True)
+
+    def on_settings_changed(self):
+        # Redirect streams (wait until the end to not affect during load)
+        self.settings.set_default('Output to console', False)
+        if self.settings['Output to console'] is True:
+            if self._old_stdout is None:
+                self._old_stdout = sys.stdout
+                self._old_stderr = sys.stderr
+                sys.stdout = self.console.kernel.stdout
+                sys.stderr = self.console.kernel.stderr
+        else:
+            if self._old_stdout is not None:
+                sys.stdout = self._old_stdout
+                sys.stderr = self._old_stderr
 
     # ---------------------------------------
     # Slots
