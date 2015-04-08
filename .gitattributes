@@ -20,3 +20,8 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+*.py diff=python
+*.bat        eol=crlf
+*.msa        eol=crlf
+*.nsi        eol=crlf 

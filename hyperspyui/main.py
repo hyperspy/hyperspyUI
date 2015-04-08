@@ -27,6 +27,10 @@ from singleapplication import get_app
 # TODO: Add EELSDB widget plugin
 # TODO: Create contributed plugins repository with UI integrated hot-load
 # TODO: Auto-resize font in Periodic table
+# TODO: Utilities to combine signals into stack and reverse
+# TODO: "New editor" + open of .py files.
+# TODO: File -> Exit
+# TODO: DataTreeWidget: Delete-key deletes/closes
 
 
 def main():

@@ -26,6 +26,7 @@ class RecorderWidget(QDockWidget):
         self.setWindowTitle(tr("Recorder"))
         self.ui = main_window
         self.create_controls()
+        self.recorder = None
 
     def start_recording(self):
         self.btn_start.setEnabled(False)

@@ -41,12 +41,6 @@ overrides.override_hyperspy()           # Enable hyperspy overrides
 glob_escape = re.compile(r'([\[\]])')
 
 
-def get_accepted_extensions():
-    extensions = set([extensions.lower() for plugin in io_plugins
-                      for extensions in plugin.file_extensions])
-    return extensions
-
-
 class TrackEventFilter(QObject):
     track = Signal(QPoint)
 
@@ -77,7 +71,6 @@ class MainWindowLayer5(MainWindowLayer4):
             # Needed since hyperspy has special equality operator...
             for i, s in enumerate(self.hspy_signals):
                 if s is x.signal:
-                    print s, x.signal
                     self.hspy_signals.pop(i)
         self.signals.add_custom(
             'hspy_signals',
@@ -405,13 +398,19 @@ class MainWindowLayer5(MainWindowLayer4):
 
     # --------- File I/O ----------
 
+    @staticmethod
+    def get_accepted_extensions():
+        extensions = set([extensions.lower() for plugin in io_plugins
+                          for extensions in plugin.file_extensions])
+        return extensions
+
     def load(self, filenames=None):
         """
         Load 'filenames', or if 'filenames' is None, open a dialog to let the
         user interactively browse for files. It then load these files using
         hyperspy.hspy.load and wraps them and adds them to self.signals.
         """
-        extensions = get_accepted_extensions()
+        extensions = self.get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
 
@@ -455,13 +454,13 @@ class MainWindowLayer5(MainWindowLayer4):
                 r.steps.remove(r.steps[-1])
             r.add_code('ui.load({0})'.format(files_loaded))
 
-        return len(files_loaded) > 1
+        return files_loaded
 
     def save(self, signals=None, filenames=None):
         if signals is None:
             signals = self.get_selected_wrappers()
 
-        extensions = get_accepted_extensions()
+        extensions = self.get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
 
@@ -507,7 +506,7 @@ class MainWindowLayer5(MainWindowLayer4):
         if base is None or base == "":
             base = os.path.dirname(self.cur_dir)
         # If extension is not valid, use the defualt
-        extensions = get_accepted_extensions()
+        extensions = self.get_accepted_extensions()
         if ext not in extensions:
             ext = default_ext
         # Filename itself is signal's name
@@ -521,7 +520,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def dragEnterEvent(self, event):
         # Check file name extensions to see if we should accept
-        extensions = set(get_accepted_extensions())
+        extensions = set(self.get_accepted_extensions())
         mimeData = event.mimeData()
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]

@@ -95,7 +95,8 @@ class HyperspyItem(QTreeWidgetItem):
     def __init__(self, parent, itemtype, hspy_item):
         super(HyperspyItem, self).__init__(parent, itemtype)
         self.hspy_item = hspy_item
-        self.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+        self.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable |
+                      Qt.ItemIsEnabled)
         self.setText(NameCol, hspy_item.name)
 
     def data(self, column, role):
@@ -165,7 +166,6 @@ class DataViewWidget(QWidget):
         self.tree.header().close()
         self.lut = {}
         self.editor_visible = True
-        self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.tree.setColumnCount(2)
         self.editor = QVBoxLayout()
         self.editor_bottom_padding = 20
@@ -190,6 +190,7 @@ class DataViewWidget(QWidget):
 
         self.tree.setItemDelegateForColumn(VisibilityCol,
                                            VisbilityDelegate(self.tree))
+        self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
     def _add(self, item, itemtype, parent=None):
         """

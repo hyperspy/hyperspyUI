@@ -212,7 +212,7 @@ class EditorWidget(ExToolWindow):
         editor.modes.append(modes.SmartBackSpaceMode())
         editor.modes.append(modes.OccurrencesHighlighterMode())
         editor.modes.append(modes.SymbolMatcherMode())
-        editor.modes.append(modes.WordClickMode())
+#        editor.modes.append(modes.WordClickMode())
         editor.modes.append(modes.ZoomMode())
         if path is not None:
             editor.file._path = path
