@@ -30,7 +30,6 @@ from singleapplication import get_app
 # TODO: Utilities to combine signals into stack and reverse
 # TODO: "New editor" + open of .py files.
 # TODO: Make data type changer handle RGBX data types.
-# TODO: File -> Exit
 
 
 def main():

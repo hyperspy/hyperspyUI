@@ -106,6 +106,7 @@ class MainWindow(MainWindowLayer5):
     def create_default_actions(self):
         super(MainWindow, self).create_default_actions()
 
+        # Files:
         self.add_action('open', "&Open", self.load,
                         shortcut=QKeySequence.Open,
                         icon='open.svg',
@@ -122,13 +123,17 @@ class MainWindow(MainWindowLayer5):
                         shortcut=close_all_key,
                         icon='close_windows.svg',
                         tip="Close all signals")
+        self.add_action('exit', "E&xit", self.close,
+                        shortcut=QKeySequence.Quit,
+                        tip="Exits the application")
+
+        # I/O:
         self.add_action('save', "&Save", self.save,
                         shortcut=QKeySequence.Save,
                         icon='save.svg',
                         selection_callback=self.select_signal,
                         tip="Save the selected signal(s)")
         self.add_action('save_fig', "Save &figure", self.save_figure,
-#                       icon=os.path.dirname(__file__) + '/../images/save.svg',
                         tip="Save the active figure")
 
         self.add_action('add_model', "Create Model", self.make_model,
