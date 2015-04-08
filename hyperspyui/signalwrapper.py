@@ -6,7 +6,7 @@ Created on Fri Oct 24 18:27:15 2014
 """
 
 from util import fig2win
-from python_qt_binding import QtCore, QtGui
+from python_qt_binding import QtCore
 
 from modelwrapper import ModelWrapper
 from actionable import Actionable
@@ -18,6 +18,8 @@ class SignalWrapper(Actionable):
     model_added = QtCore.Signal(object)
     model_removed = QtCore.Signal(object)
 
+    _untitled_counter = 0
+
     def __init__(self, signal, mainwindow, name=None):
         super(SignalWrapper, self).__init__()
         self.signal = signal
@@ -25,7 +27,13 @@ class SignalWrapper(Actionable):
         self._old_replot = signal._replot
         signal._replot = self._replot
         if name is None:
-            name = signal.metadata.General.title
+            if signal.metadata.General.title:
+                name = signal.metadata.General.title
+            elif signal.tmp_parameters.has_item('filename'):
+                name = signal.tmp_parameters.filename
+            else:
+                name = "Untitled %d" % SignalWrapper._untitled_counter
+                SignalWrapper._untitled_counter += 1
         self.name = name
         self.figures = []
         self.mainwindow = mainwindow
