@@ -23,8 +23,13 @@ def lstrip(string, prefix):
 
 def fig2win(fig, windows):
     # Each figure has FigureCanvas as widget, canvas has figure property
+    if fig is None:
+        return None
     matches = [w for w in windows if w.widget().figure == fig]
-    return matches[0]
+    if len(matches) > 1:
+        return matches[0]
+    else:
+        return None
 
 
 def win2fig(window):
