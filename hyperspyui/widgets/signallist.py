@@ -10,7 +10,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from bindinglist import BindingList
+from hyperspyui.bindinglist import BindingList
 
 
 class SignalList(QListWidget):

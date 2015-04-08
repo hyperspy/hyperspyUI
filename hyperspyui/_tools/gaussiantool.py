@@ -19,7 +19,7 @@ except ImportError:
     has_gauss_v2 = False
 
 from figuretool import FigureTool
-from util import load_cursor
+from hyperspyui.util import load_cursor
 
 
 class GaussianTool(FigureTool):

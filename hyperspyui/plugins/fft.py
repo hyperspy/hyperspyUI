@@ -14,7 +14,7 @@ from hyperspy.drawing.image import ImagePlot
 from hyperspy.axes import AxesManager
 import hyperspy.signals
 
-from threaded import ProgressThreaded
+from hyperspyui.threaded import ProgressThreaded
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *

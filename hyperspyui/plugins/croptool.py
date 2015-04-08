@@ -14,7 +14,7 @@ from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
 from hyperspy.roi import RectangularROI, SpanROI
 
 from hyperspyui.tools import FigureTool
-from util import load_cursor
+from hyperspyui.util import load_cursor
 
 
 class CropToolPlugin(Plugin):

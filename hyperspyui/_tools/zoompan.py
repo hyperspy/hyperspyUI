@@ -8,7 +8,7 @@ Created on Sun Dec 07 02:03:23 2014
 import os
 
 from figuretool import FigureTool
-from util import load_cursor
+from hyperspyui.util import load_cursor
 
 
 class ZoomPanTool(FigureTool):
