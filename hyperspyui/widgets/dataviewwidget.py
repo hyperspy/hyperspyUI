@@ -329,8 +329,9 @@ class DataViewWidget(QWidget):
         citem = self.tree.currentItem()
         if event.key() == Qt.Key_Delete:
             data = citem.data(NameCol, Qt.UserRole)
-            # Do nothing if SignalType
-            if citem.type() == self.ModelType:
+            if citem.type() == self.SignalType:
+                data.close()
+            elif citem.type() == self.ModelType:
                 data.actions['delete'].trigger()
             elif citem.type() == self.ComponentType:
                 model = citem.parent().data(NameCol, Qt.UserRole)

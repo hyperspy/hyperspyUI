@@ -30,7 +30,6 @@ from singleapplication import get_app
 # TODO: Utilities to combine signals into stack and reverse
 # TODO: "New editor" + open of .py files.
 # TODO: File -> Exit
-# TODO: DataTreeWidget: Delete-key deletes/closes
 
 
 def main():
