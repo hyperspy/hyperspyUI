@@ -33,10 +33,10 @@ class TraitsWidget(QDockWidget):
         self.cb_make_dialog = cb_make_dialog
         self._last_window = None
 
-        self.connect()
+        self.connect_()
         self.visibilityChanged.connect(self.on_visibility)
 
-    def connect(self, action=None):
+    def connect_(self, action=None):
         """
         Connects the widget to its update trigger, which is either a supplied
         action, or by default, the subWindowActivated of the MainWindow.
