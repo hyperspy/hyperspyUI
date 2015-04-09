@@ -71,6 +71,7 @@ class BasicSpectrumPlugin(Plugin):
 
         self.add_action('estimate_thickness', "Estimate thickness",
                         self.estimate_thickness,
+                        icon="t_over_lambda.svg",
                         tip="Estimates the thickness (relative to the mean " +
                         "free path) of a sample using the log-ratio method.",
                         selection_callback=SignalTypeFilter(
