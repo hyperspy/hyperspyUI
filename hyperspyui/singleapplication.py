@@ -5,9 +5,10 @@ Created on Thu Nov 27 03:01:19 2014
 @author: Vidar Tonaas Fauske
 """
 
+
 import sys
 import pickle
-from python_qt_binding import QtGui, QtCore, QtNetwork
+from python_qt_binding import QtGui, QtCore, QtNetwork, QT_BINDING
 
 
 class SingleApplication(QtGui.QApplication):
@@ -68,15 +69,22 @@ class SingleApplicationWithMessaging(SingleApplication):
 
 def get_app(key):
     # send commandline args as message
-    if len(sys.argv) > 1:
-        app = SingleApplicationWithMessaging(sys.argv, key)
-        if app.isRunning():
-            msg = pickle.dumps(sys.argv)
-            app.sendMessage(msg)
-            sys.exit(1)
+    if QT_BINDING == 'pyqt':
+        if len(sys.argv) > 1:
+            app = SingleApplicationWithMessaging(sys.argv, key)
+            if app.isRunning():
+                msg = pickle.dumps(sys.argv)
+                app.sendMessage(msg)
+                sys.exit(1)
+        else:
+            app = SingleApplication(sys.argv, key)
+            if app.isRunning():
+                sys.exit(1)
+    elif QT_BINDING == 'pyside':
+        from siding.singleinstance import QSingleApplication
+        app = QSingleApplication(sys.argv)
+        msg = pickle.dumps(sys.argv[1:])
+        app.ensure_single(message=msg)
     else:
-        app = SingleApplication(sys.argv, key)
-        if app.isRunning():
-            sys.exit(1)
-
+        app = QtGui.QApplication(sys.argv)
     return app

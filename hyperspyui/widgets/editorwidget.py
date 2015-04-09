@@ -157,7 +157,7 @@ class EditorWidget(ExToolWindow):
         self.addAction(self.save_action)
 
         self.run_action = QAction(self)
-        self.run_action.setShortcut(Qt.Key_F5)
+        self.run_action.setShortcut(QKeySequence(Qt.Key_F5))
         self.run_action.triggered.connect(self.run)
         self.addAction(self.run_action)
 

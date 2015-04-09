@@ -8,7 +8,7 @@ Created on Tue Nov 25 02:10:29 2014
 import os
 import sys
 
-from python_qt_binding import QtGui, QtCore
+from python_qt_binding import QtGui, QtCore, QT_BINDING
 import hyperspyui.info
 from hyperspyui.singleapplication import get_app
 
@@ -62,7 +62,10 @@ def main():
     from hyperspyui.mainwindow import MainWindow
 
     form = MainWindow()
-    app.messageAvailable.connect(form.handleSecondInstance)
+    if QT_BINDING == 'pyqt':
+        app.messageAvailable.connect(form.handleSecondInstance)
+    elif QT_BINDING == 'pyside':
+        app.messageReceived.connect(form.handleSecondInstance)
     form.showMaximized()
 
     splash.finish(form)

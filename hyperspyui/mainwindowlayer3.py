@@ -56,7 +56,7 @@ class MainWindowLayer3(MainWindowLayer2):
                 icon = QIcon(icon)
             ac = QAction(icon, tr(label), self)
         if shortcut is not None:
-            ac.setShortcuts(shortcut)
+            ac.setShortcut(shortcut)
         if tip is not None:
             ac.setStatusTip(tr(tip))
         if userdata is not None:
