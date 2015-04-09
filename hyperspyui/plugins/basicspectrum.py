@@ -69,14 +69,23 @@ class BasicSpectrumPlugin(Plugin):
                              hyperspy.signals.EDSTEMSpectrum),
                             self.ui.signals))
 
+        self.add_action('estimate_thickness', "Estimate thickness",
+                        self.estimate_thickness,
+                        tip="Estimates the thickness (relative to the mean " +
+                        "free path) of a sample using the log-ratio method.",
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.EELSSpectrum, self.ui.signals))
+
     def create_menus(self):
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
+        self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
         self.add_menuitem('Signal', self.ui.actions['pick_elements'])
 
     def create_toolbars(self):
         self.add_toolbar_button("EELS", self.ui.actions['remove_background'])
         self.add_toolbar_button("EELS", self.ui.actions['fourier_ratio'])
+        self.add_toolbar_button("EELS", self.ui.actions['estimate_thickness'])
         self.add_toolbar_button("Signal", self.ui.actions['pick_elements'])
 
     def fourier_ratio(self):
@@ -104,9 +113,10 @@ class BasicSpectrumPlugin(Plugin):
             def run_fr():
                 ns.s_return = s_core.signal.fourier_ratio_deconvolution(
                     s_lowloss.signal)
-                ns.s_return.data = np.ma.masked_array(ns.s_return.data,
-                                                      mask=(np.isnan(ns.s_return.data) |
-                                                            np.isinf(ns.s_return.data)))
+                ns.s_return.data = np.ma.masked_array(
+                    ns.s_return.data,
+                    mask=(np.isnan(ns.s_return.data) |
+                          np.isinf(ns.s_return.data)))
 
             def fr_complete():
                 ns.s_return.metadata.General.title = \
@@ -129,3 +139,10 @@ class BasicSpectrumPlugin(Plugin):
 
         ptw = ElementPickerWidget(signal, self.ui)
         ptw.show()
+
+    def estimate_thickness(self):
+        ui = self.ui
+        siglist = ui.hspy_signals
+        s = ui.get_selected_signal()
+        s_t = s.estimate_thickness(3.0)
+        s_t.plot()
