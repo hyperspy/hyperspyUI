@@ -27,7 +27,7 @@ class ImageRotation_Plugin(Plugin):
 
     def create_actions(self):
         self.add_action('rotate', "Rotate", self.show_rotate_dialog,
-#                        icon='rotate.svg',  # TODO: Icon
+                        icon='rotate.svg',
                         tip="Rotate an image",
                         selection_callback=self.selection_rules)
 
