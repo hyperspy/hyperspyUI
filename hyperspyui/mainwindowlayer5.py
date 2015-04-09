@@ -370,7 +370,11 @@ class MainWindowLayer5(MainWindowLayer4):
         return [s.signal for s in self.get_selected_wrappers()]
 
     def get_selected_signal(self):
-        return self.get_selected_wrapper().signal
+        sw = self.get_selected_wrapper()
+        if sw is None:
+            return None
+        else:
+            return sw.signal
 
     def get_selected_model(self):
         """
