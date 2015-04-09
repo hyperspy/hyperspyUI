@@ -22,18 +22,27 @@ class MirrorPlotPlugin(Plugin):
     name = "Mirror plot"
 
     def create_actions(self):
-        self.add_action('mirror', "Mirror", self.mirror_navi,
+        self.add_action('mirror', "Mirror navigation", self.mirror_navi,
                         icon='mirror.svg',
+                        selection_callback=self.ui.select_signal,
+                        tip="Mirror navigation axes of selected signals")
+        self.add_action('share_nav', "Share navigation", self.share_navi,
+                        icon='intersection.svg',
                         selection_callback=self.ui.select_signal,
                         tip="Mirror navigation axes of selected signals")
 
     def create_menus(self):
         self.add_menuitem('Signal', self.ui.actions['mirror'])
+        self.add_menuitem('Signal', self.ui.actions['share_nav'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Signal", self.ui.actions['mirror'])
+        self.add_toolbar_button("Signal", self.ui.actions['share_nav'])
 
-    def mirror_navi(self, uisignals=None):
+    def share_navi(self, uisignals=None):
+        self.mirror_navi(uisignals, shared_nav=True)
+
+    def mirror_navi(self, uisignals=None, shared_nav=False):
         # Select signals
         if uisignals is None:
             uisignals = self.ui.get_selected_wrappers()
@@ -51,6 +60,12 @@ class MirrorPlotPlugin(Plugin):
         # SignalWrapper also saves and then restores window geometry
         self.ui.setUpdatesEnabled(False)
         try:
-            hyperspy.utils.plot.plot_signals(signals)
+            if shared_nav:
+                navs = ["auto"]
+                navs.extend([None] * (len(signals)-1))
+                hyperspy.utils.plot.plot_signals(signals, sync=True,
+                                                 navigator_list=navs)
+            else:
+                hyperspy.utils.plot.plot_signals(signals, sync=True)
         finally:
             self.ui.setUpdatesEnabled(True)    # Continue updating UI
