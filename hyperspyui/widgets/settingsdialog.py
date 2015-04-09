@@ -43,7 +43,7 @@ class SettingsDialog(ExToolWindow):
         """
         return self._btns.button(QDialogButtonBox.Apply)
 
-    def _on_setting_changed(self, key, widget):
+    def _on_setting_changed(self, key, widget, *pysideargs):
         """
         Callback when the value of a settings editor widget has changed.
         """
