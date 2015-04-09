@@ -116,22 +116,30 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
     """
 
     def run(self, request_data):
-        r = copy.copy(request_data)
-        r['code'] = server._console_mode_header + r['code']
+        if not self.myeditor.is_plugin:
+            r = copy.copy(request_data)
+            r['code'] = server._console_mode_header + r['code']
+        else:
+            r = request_data
         return run_frosted(r)
 
-    def __init__(self):
+    def __init__(self, editor):
+        self.myeditor = editor
         super(ConsoleCodeCheckerMode, self).__init__(self.run, delay=1200)
 
 
 class ConsoleCodeCalltipsMode(pymodes.CalltipsMode):
 
+    def __init__(self, editor, *args, **kwargs):
+        super(ConsoleCodeCalltipsMode, self).__init__(*args, **kwargs)
+        self.myeditor = editor
+
     def _request_calltip(self, source, line, col, fn, encoding):
         if self._CalltipsMode__requestCnt == 0:
             self._CalltipsMode__requestCnt += 1
-            _logger().debug("Calltip requested")
-            source = server._console_mode_header + source
-            line += server._header_num_lines
+            if not self.myeditor.is_plugin:
+                source = server._console_mode_header + source
+                line += server._header_num_lines
             self.editor.backend.send_request(
                 calltips,
                 {'code': source, 'line': line, 'column': col, 'path': None,
@@ -274,8 +282,8 @@ class EditorWidget(ExToolWindow):
 
         editor.modes.append(pymodes.PythonSH(editor.document()))
         editor.modes.append(pymodes.CommentsMode())
-        editor.modes.append(ConsoleCodeCalltipsMode())
-        editor.modes.append(ConsoleCodeCheckerMode())
+        editor.modes.append(ConsoleCodeCalltipsMode(self))
+        editor.modes.append(ConsoleCodeCheckerMode(self))
         editor.modes.append(pymodes.PEP8CheckerMode())
         editor.modes.append(pymodes.PyAutoCompleteMode())
         editor.modes.append(pymodes.PyAutoIndentMode())
