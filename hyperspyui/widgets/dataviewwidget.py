@@ -15,7 +15,7 @@ from functools import partial
 import traits.api as t
 import traitsui.api as tu
 
-from hyperspyui.util import create_add_component_actions
+from hyperspyui.util import create_add_component_actions, win2sig
 
 
 def tr(text):
@@ -349,12 +349,13 @@ class DataViewWidget(QWidget):
             self.lut.pop(key)
 
     def add_signal(self, signal):
-        self._add(signal, self.SignalType)
+        item = self._add(signal, self.SignalType)
         signal.model_added[object].connect(self.add_model)
         signal.model_removed[object].connect(self.remove)
 
         for m in signal.models:
             self.add_model(m, signal)
+        self.tree.setCurrentItem(item)
 
     def add_model(self, model, signal=None):
         if signal is None:
@@ -384,21 +385,14 @@ class DataViewWidget(QWidget):
         Can be connected to an MdiArea's subWindowActivated signal to sync
         the selected signal.
         """
-        found = None
+        sf = win2sig(mdi_figure, self.main_window.signals)
         for i in xrange(self.tree.topLevelItemCount()):
             item = self.tree.topLevelItem(i)
             s = item.data(NameCol, Qt.UserRole)
             # In case topLevelItems are not all SignalWrappers in future
-            try:
-                if mdi_figure in (s.navigator_plot, s.signal_plot):
-                    found = item
-                    break
-            except AttributeError:
-                pass
-        if found is not None:
-            found
-            if found is not self.get_selected_wrapper():
-                self.tree.setCurrentItem(found)
+            if s is sf and s is not self.get_selected_wrapper():
+                self.tree.setCurrentItem(item)
+                return
 
     def get_selected_wrappers(self):
         """

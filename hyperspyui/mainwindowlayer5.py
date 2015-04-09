@@ -208,7 +208,7 @@ class MainWindowLayer5(MainWindowLayer4):
         # We only care about FigureCanvases
         if isinstance(canvas, FigureCanvas):
             win = canvas.parent()
-            s = hyperspyui.util.win2sig(win)
+            s = hyperspyui.util.win2sig(win, self.signals)
             # Currently we only know how to deal with standard plots
             if s is None:
                 return
@@ -353,7 +353,7 @@ class MainWindowLayer5(MainWindowLayer4):
                 mb.exec_()
                 raise RuntimeError()
             w = self.main_frame.activeSubWindow()
-            s = [hyperspyui.util.win2sig(w, self.figures)]
+            s = [hyperspyui.util.win2sig(w, self.signals)]
             if s in signals:
                 return s
             else:
@@ -474,9 +474,6 @@ class MainWindowLayer5(MainWindowLayer4):
         elif len(files_loaded) > 1:
             self.set_status("Loaded %d files" % len(files_loaded))
         for r in self.recorders:
-            # Remove "open" action if that was the previous one.
-            if len(r.steps) > 0 and r.steps[-1] == ('action', 'open'):
-                r.steps.remove(r.steps[-1])
             r.add_code('ui.load({0})'.format(files_loaded))
 
         return files_loaded
