@@ -13,6 +13,7 @@ from QtCore import *
 from QtGui import *
 
 from extendedqwidgets import ExToolWindow
+from editorwidget import EditorWidget
 
 
 def tr(text):
@@ -20,6 +21,10 @@ def tr(text):
 
 
 class PluginsModel(QAbstractItemModel):
+
+    EnabledColumn = 0
+    NameColumn = 1
+    PathColumn = 2
 
     def __init__(self, plugin_manager, parent=None):
         super(PluginsModel, self).__init__(parent)
@@ -37,9 +42,9 @@ class PluginsModel(QAbstractItemModel):
             self._plugin_data.append([enabled, name, path])
 
     def flags(self, index):
-        if index.column() in [1, 2]:
+        if index.column() in [self.NameColumn, self.PathColumn]:
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
-        elif index.column() == 0:
+        elif index.column() == self.EnabledColumn:
             return (Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
                     Qt.ItemIsEnabled)
 
@@ -53,12 +58,12 @@ class PluginsModel(QAbstractItemModel):
         self._update_data()
         r, c = index.row(), index.column()
         if role in (Qt.DisplayRole, Qt.EditRole):
-            if c == 0:
+            if c == self.EnabledColumn:
                 return None
             else:
                 return self._plugin_data[r][c]
         elif role == Qt.CheckStateRole:
-            if c == 0:
+            if c == self.EnabledColumn:
                 if self._plugin_data[r][c]:
                     return Qt.Checked
                 else:
@@ -68,14 +73,14 @@ class PluginsModel(QAbstractItemModel):
     def setData(self, index, value, role=Qt.EditRole):
         r, c = index.row(), index.column()
         if role in (Qt.DisplayRole, Qt.EditRole):
-            if c == 0:
-                name = self._plugin_data[r][1]
+            if c == self.EnabledColumn:
+                name = self._plugin_data[r][self.NameColumn]
                 self._plugin_data[r][c] = bool(value)
                 self.plugin_manager.enable_plugin(name, bool(value))
                 return True
         if role == Qt.CheckStateRole:
-            if c == 0:
-                name = self._plugin_data[r][1]
+            if c == self.EnabledColumn:
+                name = self._plugin_data[r][self.NameColumn]
                 enabled = (value != Qt.Unchecked)
                 self._plugin_data[r][c] = enabled
                 self.plugin_manager.enable_plugin(name, enabled)
@@ -85,11 +90,11 @@ class PluginsModel(QAbstractItemModel):
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         if orientation == Qt.Horizontal:
             if role == Qt.DisplayRole:
-                if section == 0:
+                if section == self.EnabledColumn:
                     return tr("Enabled")
-                elif section == 1:
+                elif section == self.NameColumn:
                     return tr("Name")
-                elif section == 2:
+                elif section == self.PathColumn:
                     return tr("Path")
         return None
 
@@ -109,6 +114,20 @@ class PluginManagerWidget(ExToolWindow):
         self.plugin_manager = plugin_manager
         self.create_controls()
 
+    def edit_plugin(self):
+        i = self.table.currentIndex()
+        if not i.isValid():
+            return
+        if i.column() != PluginsModel.PathColumn:
+            i = i.sibling(i.row(), PluginsModel.PathColumn)
+        path = self.model.data(i)
+        if path is not None and os.path.isfile(path):
+            ui = self.plugin_manager.ui
+            e = EditorWidget(ui, ui, path)
+            ui.editors.append(e)
+            e.is_plugin = True
+            e.show()
+
     def create_controls(self):
         table = QTableView(self)
         self.model = PluginsModel(self.plugin_manager)
@@ -119,12 +138,16 @@ class PluginManagerWidget(ExToolWindow):
         h = table.verticalHeader()
         h.setResizeMode(QHeaderView.ResizeToContents)
         table.setVerticalHeader(h)
+        self.table = table
         width = 80
         for i in xrange(3):
             width += table.columnWidth(i)
 
         btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
                                 Qt.Horizontal)
+        self.edit_btn = QPushButton("Edit")
+        btns.addButton(self.edit_btn, QDialogButtonBox.ActionRole)
+        self.edit_btn.clicked.connect(self.edit_plugin)
         btns.accepted.connect(self.accept)
         btns.rejected.connect(self.reject)
 
