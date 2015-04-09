@@ -26,7 +26,7 @@ def fig2win(fig, windows):
     if fig is None:
         return None
     matches = [w for w in windows if w.widget().figure == fig]
-    if len(matches) > 1:
+    if len(matches) >= 1:
         return matches[0]
     else:
         return None
