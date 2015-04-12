@@ -39,7 +39,7 @@ from hyperspyui.singleapplication import get_app
 
 
 def main():
-    exe_dir, exe_name = os.path.split(sys.executable)
+    _, exe_name = os.path.split(sys.executable)
     if exe_name.startswith('pythonw'):
         sys.stdout = sys.stderr = open(
             os.path.dirname(__file__) + './hyperspyui.log', 'w')

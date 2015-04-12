@@ -7,7 +7,7 @@ Created on Mon Nov 17 11:58:16 2014
 @author: Vidar Tonaas Fauske
 """
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 import hyperspyui.info
 
@@ -16,24 +16,30 @@ setup(name='hyperspyUI',
       description='Hyperspy Graphical Interface',
       author='Vidar Tonaas Fauske',
       author_email='vidartf+hyperspyui@gmail.com',
-      packages=['hyperspyui'],
+      url='http://github.com/vidartf/hyperspyUI/',
+      license='GPLv3',
+      packages=find_packages(exclude=['tests*']),
       requires=['hyperspy',
                 'matplotlib (>= 1.3)',
                 'python_qt_binding',
-                'pycode.python',
+                'pyqode.python',
                 'autopep8',
                 'traits',
                 'traitsui'],
       install_requires=['hyperspy',  # TODO: Find lowest allowed version of hyperspy
                         'matplotlib >= 1.3',
                         'python_qt_binding',
+                        'pyqode.python',
+                        'autopep8',
                         'traits',
                         'traitsui'],
       package_data={
           'hyperspyui':
           ['images/*.svg',
-             'images/*.png',
-             'images/attribtutions.txt'],
+           'images/*.png',
+           'images/*.ico',
+           'images/attributions.txt'],
       },
-      url="https://github.com/vidartf/hyperspyUI",
+      scripts=['bin/register_linux_extensions.sh', 'bin/win_post_install.py',
+               'bin/Register Windows extensions.bat'],
       )
