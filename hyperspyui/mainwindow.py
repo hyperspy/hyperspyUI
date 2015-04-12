@@ -328,7 +328,6 @@ class MainWindow(MainWindowLayer5):
         if signal_type not in self.signal_types.keys():
             raise ValueError()
 
-        signal.keep_on_close = True
         self.setUpdatesEnabled(False)
         try:
             if signal_type in ['Image', 'Image simulation']:
@@ -356,7 +355,6 @@ class MainWindow(MainWindowLayer5):
                 signal.signal.set_signal_origin('')  # Undetermined
 
             signal.plot()
-            signal.keep_on_close = False
         finally:
             self.setUpdatesEnabled(True)
 

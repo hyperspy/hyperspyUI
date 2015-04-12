@@ -96,13 +96,14 @@ class MainWindowLayer3(MainWindowLayer2):
         by 'cateogry' does not exist, it will be created in
         self.menus[category].
 
-        If the category_label argument is not supplied, category will be used.
+        If the label argument is not supplied, category will be used.
         """
         if category in self.menus:
             m = self.menus[category]
         else:
             if label is None:
                 label = category
+            # Make sure we add menu before window menu
             if self.windowmenu is None:
                 m = self.menuBar().addMenu(label)
             else:

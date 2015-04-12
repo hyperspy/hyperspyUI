@@ -259,7 +259,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
         # Remove <undefined> units
         for i in xrange(len(units)):
-            if str(units[i]) == "<undefined>":
+            if unicode(units[i]) == u"<undefined>":
                 units[i] = ""
         units = tuple(units)
 
