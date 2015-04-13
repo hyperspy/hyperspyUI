@@ -4,7 +4,7 @@ A Graphical interface for HyperSpy.
 
 To install the current version as a user, run the following command (assuming
 you have the package manager 'pip'):
-"pip install https://github.com/vidartf/hyperspyUI/archive/master.zip --compile"
+"pip install https://github.com/vidartf/hyperspyUI/archive/metastable.zip --compile"
 
 To install a development version, clone the git repository and run
 "pip install -e ./" from the hyperspyui root directory.
