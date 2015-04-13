@@ -50,7 +50,7 @@ class MainWindowLayer3(MainWindowLayer2):
         else:
             if not isinstance(icon, QIcon):
                 if isinstance(icon, basestring) and not os.path.isfile(icon):
-                    sugg = os.path.dirname(__file__) + '/../images/' + icon
+                    sugg = os.path.dirname(__file__) + '/images/' + icon
                     if os.path.isfile(sugg):
                         icon = sugg
                 icon = QIcon(icon)

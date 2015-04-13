@@ -38,14 +38,14 @@ class GaussianTool(FigureTool):
         return 'Components'
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../../images/gaussian.svg'
+        return os.path.dirname(__file__) + '/../images/gaussian.svg'
 
     def is_selectable(self):
         return True
 
     def make_cursor(self):
         return load_cursor(os.path.dirname(__file__) +
-                           '/../../images/picker.svg', 8, 8)
+                           '/../images/picker.svg', 8, 8)
 
     def _wire_wrapper(self, wrapper):
         if wrapper is None:

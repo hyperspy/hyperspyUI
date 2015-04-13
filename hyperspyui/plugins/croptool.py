@@ -70,14 +70,14 @@ class CropTool(FigureTool):
         return 'Signal'
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../../images/crop.svg'
+        return os.path.dirname(__file__) + '/../images/crop.svg'
 
     def is_selectable(self):
         return True
 
     def make_cursor(self):
         return load_cursor(os.path.dirname(__file__) +
-                           '/../../images/crop.svg', 8, 8)
+                           '/../images/crop.svg', 8, 8)
 
     def on_mousedown(self, event):
         if event.inaxes is None:

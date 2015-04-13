@@ -39,12 +39,13 @@ from hyperspyui.singleapplication import get_app
 
 
 def main():
+    # TODO: Make single/multi a setting
+    app = get_app('hyperspyui')     # Make sure we only have a single instance
+
     _, exe_name = os.path.split(sys.executable)
     if exe_name.startswith('pythonw'):
         sys.stdout = sys.stderr = open(
-            os.path.dirname(__file__) + './hyperspyui.log', 'w')
-    # TODO: Make single/multi a setting
-    app = get_app('hyperspyui')     # Make sure we only have a single instance
+            os.path.dirname(__file__) + '/hyperspyui.log', 'w')
 
     QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
     QtCore.QCoreApplication.setOrganizationName("Hyperspy")
@@ -74,5 +75,5 @@ def main():
     app.exec_()
 
 if __name__ == "__main__":
-    sys.path.append(os.path.dirname(__file__) + './')
+    sys.path.append(os.path.dirname(__file__))
     main()

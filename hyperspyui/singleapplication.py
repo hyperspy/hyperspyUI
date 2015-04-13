@@ -51,6 +51,7 @@ class SingleApplicationWithMessaging(SingleApplication):
 
     def sendMessage(self, message):
         if self.isRunning():
+            print self._key
             socket = QtNetwork.QLocalSocket(self)
             socket.connectToServer(self._key, QtCore.QIODevice.WriteOnly)
             if not socket.waitForConnected(self._timeout):
@@ -73,11 +74,11 @@ def get_app(key):
         if len(sys.argv) > 1:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
-                msg = pickle.dumps(sys.argv)
+                msg = pickle.dumps(sys.argv[1:])
                 app.sendMessage(msg)
                 sys.exit(1)
         else:
-            app = SingleApplication(sys.argv, key)
+            app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
                 sys.exit(1)
     elif QT_BINDING == 'pyside':

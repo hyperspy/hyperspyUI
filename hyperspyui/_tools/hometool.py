@@ -23,7 +23,7 @@ class HomeTool(FigureTool):
         return 'Navigation'
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../../images/home.svg'
+        return os.path.dirname(__file__) + '/../images/home.svg'
 
     def single_action(self):
         return self.home

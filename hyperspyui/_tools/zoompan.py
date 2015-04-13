@@ -26,14 +26,14 @@ class ZoomPanTool(FigureTool):
         return 'Navigation'
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../../images/panzoom2.svg'
+        return os.path.dirname(__file__) + '/../images/panzoom2.svg'
 
     def is_selectable(self):
         return True
 
     def make_cursor(self):
         return load_cursor(os.path.dirname(__file__) +
-                           '/../../images/panzoom2.svg', 8, 8)
+                           '/../images/panzoom2.svg', 8, 8)
 
     def on_mousedown(self, event):
         if event.inaxes is None:

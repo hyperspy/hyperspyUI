@@ -45,8 +45,8 @@ class VisbilityDelegate(QStyledItemDelegate):
         if icons is None or len(icons) < 1:
             icons = []
             path = os.path.dirname(__file__)
-            for fn in [path + "/../../images/visibility_on.svg",
-                       path + "/../../images/visibility_off.svg"]:
+            for fn in [path + "/../images/visibility_on.svg",
+                       path + "/../images/visibility_off.svg"]:
                 renderer = QtSvg.QSvgRenderer(fn)
                 pm = QPixmap(12, 12)
                 pm.fill(Qt.transparent)

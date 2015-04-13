@@ -22,7 +22,7 @@ class PointerTool(FigureTool):
         return 'Navigation'
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../../images/pointer.svg'
+        return os.path.dirname(__file__) + '/../images/pointer.svg'
 
     def is_selectable(self):
         return True

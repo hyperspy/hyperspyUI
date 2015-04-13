@@ -38,8 +38,16 @@ setup(name='hyperspyUI',
           ['images/*.svg',
            'images/*.png',
            'images/*.ico',
-           'images/attributions.txt'],
+           'images/attributions.txt',
+           'ipython_profile/*'],
       },
-      scripts=['bin/register_linux_extensions.sh', 'bin/win_post_install.py',
-               'bin/Register Windows extensions.bat'],
+      entry_points={
+          'gui_scripts': [
+              'HyperSpyUI = hyperspyui.launch:main',
+           ]
+      },
+      scripts=[
+          'bin/hyperspyui_install.py',
+          # 'bin/hyperspyui_reg_linux_extensions.sh',
+      ],
       )

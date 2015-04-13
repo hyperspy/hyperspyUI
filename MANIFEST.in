@@ -1,3 +1,4 @@
 include *.txt
-recursive-include images *.svg *.png *.ico attributions.txt
-recursive-include bin *.sh *.bat
+recursive-include hyperspyui/images *.svg *.png *.ico attributions.txt
+recursive-include bin *.sh *.bat *.py
+recursive-include hyperspyui/ipython_profile *.py
