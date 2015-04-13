@@ -2,4 +2,13 @@ HyperSpyUI
 
 A Graphical interface for HyperSpy.
 
-To install, obtain the source and run "pip install -e ./[editor]" from the hyperspyui root directory. The "[editor]" part can be dropped if you do not want to install pyqode.core, but this will disable the integrated code editor/recorder.
+To install the current version as a user, run the following command (assuming
+you have the package manager 'pip'):
+"pip install https://github.com/vidartf/hyperspyUI/archive/master.zip --compile"
+
+To install a development version, clone the git repository and run
+"pip install -e ./" from the hyperspyui root directory.
+
+For both cases, to create desktop and start menu icons on windows, run the
+installed script "hyperspyui_install.py". This will also associate .msa and
+.hdf5 files with the UI. Similar behavior for linux is under development.

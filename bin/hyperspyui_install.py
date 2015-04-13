@@ -7,7 +7,7 @@ Created on Sun Apr 12 17:43:47 2015
 
 import sys
 import os
-import platform  
+import platform
 import subprocess
 
 
@@ -20,7 +20,7 @@ if platform.system().lower() == 'windows':
         def create_shortcut(path, description, filename,
                             arguments="", workdir="", iconpath="",
                             iconindex=0):
-            with open(filename, 'a') as f:
+            with open(filename, 'a'):
                 pass    # Touch
             import pythoncom
             from win32com.shell import shell
@@ -75,7 +75,7 @@ if platform.system().lower() == 'windows':
     script_path = os.path.join(dirname, "launch.py")
     icon_path = os.path.join(dirname, 'images', 'icon', 'hyperspy.ico')
 
-    if sys.argv[1] == '-install':
+    if len(sys.argv) == 0 or sys.argv[1] != '-remove':
         # Get paths to the desktop and start menu
         print 'Creating Shortcuts'
         try:
@@ -142,5 +142,5 @@ if platform.system().lower() == 'windows':
             r = subprocess.call(cmd, shell=True)
             r
         print "File types registered"
-    elif sys.argv[1] == '-remove':
+    elif len(sys.argv) > 0 and sys.argv[1] == '-remove':
         pass    # Should we delete registry entries? Maybe if not edited?
