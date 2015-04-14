@@ -39,29 +39,63 @@
         <ul></ul>
       </nav>
       <section>
-        <h3>
-<a id="a-graphical-interface-for-hyperspy" class="anchor" href="#a-graphical-interface-for-hyperspy" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Graphical interface for HyperSpy</h3>
+        <p>HeadersPostResponseHTMLCacheCookies
+Parametersapplication/x-www-form-urlencodedDo not sort
+authenticity_token<br>
+xu35M52PBuIOYUJe9V7yFK41q/nX8EZagkNOTMOqghdSOaQ8mFltpiUiVyrXG5D0SpMo+J25w/9UEjU/p3pbYw==
+page[body]  </p>
 
-<p><a href="http://hyperspy.org">HyperSpy</a> is an open source Python library which provides tools to facilitate the interactive data analysis of multidimensional datasets that can be described as multidimensional arrays of a given signal (e.g. a 2D array of spectra a.k.a spectrum image).</p>
+<h2>
+<a id="a-graphical-interface-for-hyperspy" class="anchor" href="#a-graphical-interface-for-hyperspy" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Graphical interface for HyperSpy</h2>
 
-<p>HyperSpy aims at making it easy and natural to apply analytical procedures that operate on an individual signal to multidimensional arrays, as well as providing easy access to analytical tools that exploit the multidimensionality of the dataset.</p>
+<p><a href="http://hyperspy.org">HyperSpy</a> is an open source Python library which provides tools to facilitate the
+ interactive data analysis of multidimensional datasets that can be described as multidimensional arrays
+ of a given signal (e.g. a 2D array of spectra a.k.a spectrum image).</p>
 
-<p>HyperSpyUI streamlines user interaction with the powerful analysis capabilities of HyperSpy, while still retaining the raw power of HyperSpy via it's built in IPython console. As HyperSpyUI is made in Python, the same programming language as HyperSpy, the integration is seamless.</p>
+<p>HyperSpy aims at making it easy and natural to apply analytical procedures that operate on an individual
+ signal to multidimensional arrays, as well as providing easy access to analytical tools that exploit
+ the multidimensionality of the dataset.</p>
+
+<p>HyperSpyUI streamlines user interaction with the powerful analysis capabilities of HyperSpy, while still
+ retaining the raw power of HyperSpy via it's built in IPython console. As HyperSpyUI is made in Python
+, the same programming language as HyperSpy, the integration is seamless.</p>
 
 <h3>
 <a id="development-status" class="anchor" href="#development-status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development status</h3>
 
-<p>Currently, the development of HyperSpyUI is focused on implementing a solid back-bone for bridging the gap between HyperSpy and the user interface. This involves making sure that it is as easy as possible to add new features to the UI. The next area of focus will then be to add easy, intuitive access to as many of HyperSpy's features as possible.</p>
+<p>Currently, the development of HyperSpyUI is focused on implementing a solid back-bone for bridging the
+ gap between HyperSpy and the user interface. This involves making sure that it is as easy as possible
+ to add new features to the UI. The next area of focus will then be to add easy, intuitive access to
+ as many of HyperSpy's features as possible.</p>
 
-<p>HyperSpy itself is stated to be in a "perpetual beta". As such, the UI will never be more stable than the underlying drivetrain, however that should only affect the analysis capabilities. The application itself is based on the mature <a href="http://qt.io">Qt</a> framework, and should be robust.</p>
+<p>HyperSpy itself is stated to be in a "perpetual beta". As such, the UI will never be more stable than
+ the underlying drivetrain, however that should only affect the analysis capabilities. The application
+ itself is based on the mature <a href="http://qt.io">Qt</a> framework, and should be robust.</p>
 
-<h3>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>An installation package for windows has been created, but currently there is no copy of this online.
+ It will be made available here as soon as a hosting solution has been decided.</p>
+
+<p>Other than that, you can install it manually:</p>
+
+<ol>
+<li>Install a python distribution. What distribution is not so important, but if you are on windows I'd
+recommend <a href="https://winpython.github.io/">WinPython</a> as that has a lot of the packages that you need
+bundled.</li>
+<li>Install HyperSpyUI:</li>
+</ol>
+
+<pre><code>$ pip install --compile https://github.com/vidartf/hyperspyUI/zipball/master
+OR
+$ pip install --compile https://github.com/vidartf/hyperspyUI/tarball/master
 </code></pre>
+
+<ol>
+<li>If you received any errors during the previous step, they will most likely be related to missing dependencies. Try to ask google how to resolve them.</li>
+<li>For windows users, there is a script to register HyperSpyUI, which will create a shortcut on the Desktop and in the Start menu, as well as associate the .hdf5 and .msa file types with the application. It should be in the scripts folder of the python distribution, and it is called 'install_hyperspy.py'.</li>
+</ol>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/vidartf">vidartf</a></p>
