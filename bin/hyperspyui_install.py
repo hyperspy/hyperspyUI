@@ -75,7 +75,7 @@ if platform.system().lower() == 'windows':
     script_path = os.path.join(dirname, "launch.py")
     icon_path = os.path.join(dirname, 'images', 'icon', 'hyperspy.ico')
 
-    if len(sys.argv) == 0 or sys.argv[1] != '-remove':
+    if (len(sys.argv) <= 1) or (sys.argv[1] != '-remove'):
         # Get paths to the desktop and start menu
         print 'Creating Shortcuts'
         try:
@@ -106,7 +106,7 @@ if platform.system().lower() == 'windows':
 
         d = dirname
         docname = "HyperSpy.Document"
-        filetypes = ['.msa', '.hd5']
+        filetypes = ['.msa', '.hdf5']
 
         # Setup default icon
         cmd = r'1>nul 2>nul REG ADD "HKCR\%s\DefaultIcon" ' % docname
@@ -120,21 +120,21 @@ if platform.system().lower() == 'windows':
                 cmds.append(r'1>nul 2>nul ASSOC %s=%s' % (ft, docname))
             cmds.append(r'1>nul 2>nul FTYPE ' +
                         r'{0}="%PYTHONPATH%pythonw.exe" '.format(docname) +
-                        d + r'\launch.py "\%1" \%*')
+                        d + r'\launch.py "%1" %*')
         else:
             # Not admin. We have to add everything to HKCU
             cmd = (r'1>nul 2>nul REG ADD ' +
-                   '"HKCU\Software\%s\DefaultIcon' % docname) + \
+                   '"HKCU\Software\Classes\%s\DefaultIcon' % docname) + \
                    r'" /t REG_SZ /f /d '
             cmd += d + r'\images\icon\hyperspy.ico'
             cmds.append(cmd)
             for ft in filetypes:
                 cmds.append(
-                    (r'1>nul 2>nul REG ADD "HKCU\Software\%s" ' % ft) +
+                    (r'1>nul 2>nul REG ADD "HKCU\Software\Classes\%s" ' % ft) +
                     (r'/v "" /t REG_SZ /d "%s" /f' % docname))
             cmds.append(
                 r'1>nul 2>nul REG ADD ' +
-                (r'"HKCU\Software\%s\shell\open\command"' % docname) +
+                (r'"HKCU\Software\Classes\%s\shell\open\command"' % docname) +
                 r' /v "" /t REG_EXPAND_SZ /d "\"%PYTHONPATH%pythonw.exe\" ' +
                 d + r'\launch.py \"%1\" %*" /f')
 

@@ -9,6 +9,7 @@ __pycache__/
 .Python
 env/
 build/
+bundle_prerequisites/
 develop-eggs/
 dist/
 eggs/
@@ -105,3 +106,4 @@ $RECYCLE.BIN/
 *.spyderproject
 
 MANIFEST
+HyperSpyUI-Bundle.exe
