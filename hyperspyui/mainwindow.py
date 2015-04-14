@@ -19,6 +19,7 @@ from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.editorwidget import EditorWidget
 from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
+from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
 import hyperspyui.tools
 
 from python_qt_binding import QtGui, QtCore
@@ -223,7 +224,7 @@ class MainWindow(MainWindowLayer5):
 
         # Create Windows menu
         super(MainWindow, self).create_menu()
-        
+
         self.menus['File'].addSeparator()
         self.add_menuitem('File', self.actions['close_all'])
         self.add_menuitem('File', self.actions['exit'])
@@ -289,6 +290,19 @@ class MainWindow(MainWindowLayer5):
     # ---------------------------------------
     # Slots
     # ---------------------------------------
+
+    def select_x_signals(self, x, titles=None, wrap_col=4):
+        """
+        Displays a blocking dialog prompting the user to select 'x' signals.
+        Over each selection box, the title as defined by 'titles' is displayed.
+        """
+        w = PickXSignalsWidget(self.signals, x, titles, wrap_col)
+        diag = self.show_okcancel_dialog("Select signals", w, True)
+        signals = None
+        if diag.result() == QDialog.Accepted:
+            signals = w.get_selected()
+        w.unbind()
+        return signals
 
     def show_plugin_manager(self):
         if self._plugin_manager_widget is None:

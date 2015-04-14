@@ -90,21 +90,10 @@ class BasicSpectrumPlugin(Plugin):
         self.add_toolbar_button("Signal", self.ui.actions['pick_elements'])
 
     def fourier_ratio(self):
-        wrap = QWidget(self.ui)
-        pickerCL = SignalList(self.ui.signals, wrap, False)
-        pickerLL = SignalList(self.ui.signals, wrap, False)
-        grid = QGridLayout(wrap)
-        grid.addWidget(QLabel(tr("Core loss")), 1, 1)
-        grid.addWidget(QLabel(tr("Low loss")), 1, 2)
-        grid.addWidget(pickerCL, 2, 1)
-        grid.addWidget(pickerLL, 2, 2)
-        wrap.setLayout(grid)
-
-        diag = self.ui.show_okcancel_dialog("Select signals", wrap, True)
-
-        if diag.result() == QDialog.Accepted:
-            s_core = pickerCL.get_selected()
-            s_lowloss = pickerLL.get_selected()
+        signals = self.ui.select_x_signals(2, [tr("Core loss"),
+                                               tr("Low loss")])
+        if signals is not None:
+            s_core, s_lowloss = signals
 
             # Variable to store return value in
             ns = Namespace()
@@ -126,8 +115,6 @@ class BasicSpectrumPlugin(Plugin):
 
             t = Threaded(self.ui, run_fr, fr_complete)
             t.run()
-        pickerCL.unbind(self.ui.signals)
-        pickerLL.unbind(self.ui.signals)
 
     def remove_background(self, signal=None):
         if signal is None:
