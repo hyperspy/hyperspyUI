@@ -42,6 +42,7 @@ class ModelWrapper(Actionable):
         self.add_action('set_signal_range', tr("Set signal &range"),
                         self.set_signal_range)
         if isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
+            self.add_action('lowloss', tr("Set low-loss"), self.set_lowloss)
             self.add_action('fine_structure', tr("Enable fine &structure"),
                             self.toggle_fine_structure)
         f = partial(self.signal.remove_model, self)
@@ -82,6 +83,14 @@ class ModelWrapper(Actionable):
         self.model.set_signal_range(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
+
+    def set_lowloss(self, signal=None):
+        if signal is None:
+            signal = self.signal.mainwindow.select_x_signals(
+                1, ['Select low-loss'])
+            if signal is None:
+                return
+        self.model.lowloss = signal.signal
 
     def toggle_fine_structure(self):
         if not isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
