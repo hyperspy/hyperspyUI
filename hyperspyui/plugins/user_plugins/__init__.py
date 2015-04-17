@@ -13,5 +13,3 @@ modules = glob.glob(os.path.dirname(__file__) + "/*.py")
 __all__ = [os.path.splitext(os.path.basename(f))[0] for f in modules
            if not os.path.basename(f).startswith('_')]
 __all__ = list(set(__all__))    # Make unique as py/pyc/pyo all match
-# -*- coding: utf-8 -*-
-

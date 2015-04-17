@@ -14,6 +14,7 @@ from tool import Tool
 class FigureTool(Tool):
 
     def __init__(self, windows=None):
+        super(FigureTool, self).__init__()
         self.cids = {}
         if self.single_action() is not None:
             self.connect(windows)

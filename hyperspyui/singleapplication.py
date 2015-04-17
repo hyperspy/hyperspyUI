@@ -51,7 +51,6 @@ class SingleApplicationWithMessaging(SingleApplication):
 
     def sendMessage(self, message):
         if self.isRunning():
-            print self._key
             socket = QtNetwork.QLocalSocket(self)
             socket.connectToServer(self._key, QtCore.QIODevice.WriteOnly)
             if not socket.waitForConnected(self._timeout):
