@@ -90,6 +90,12 @@ class MainWindowLayer3(MainWindowLayer2):
             action = self.actions[action]
         tb.addAction(action)
 
+    def remove_toolbar_button(self, category, action):
+        tb = self.toolbars[category]
+        tb.removeAction(action)
+        if len(tb.actions()) < 1:
+            self.removeToolBar(tb)
+
     def add_menuitem(self, category, action, label=None):
         """
         Add the supplied 'action' as a menu entry. If the menu defined
@@ -116,7 +122,7 @@ class MainWindowLayer3(MainWindowLayer2):
         m.addAction(action)
 
     def add_tool(self, tool, selection_callback=None):
-        if type(tool) == type:
+        if isinstance(tool, type):
             t = tool(self.figures)
             key = tool.__name__
         else:
@@ -139,6 +145,26 @@ class MainWindowLayer3(MainWindowLayer2):
             self.selectable_tools.addAction(self.actions[key])
             self.actions[key].setCheckable(True)
             self.add_toolbar_button(t.get_category(), self.actions[key])
+        return key
+
+    def remove_tool(self, tool):
+        if isinstance(tool, type):
+            for t in self.tools:
+                if isinstance(t, tool):
+                    break
+            key = tool.__name__
+        else:
+            t = tool
+            try:
+                key = t.get_name()
+            except NotImplementedError:
+                key = tool.__class__.__name__
+        self.tools.remove(t)
+        ac = self.actions.pop(key, None)
+        if ac is not None:
+            self.remove_toolbar_button(t.get_category(), ac)
+            if t.is_selectable():
+                self.selectable_tools.removeAction(ac)
 
     def add_widget(self, widget, floating=None):
         """

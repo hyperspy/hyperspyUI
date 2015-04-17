@@ -24,6 +24,7 @@ class Plugin(object):
         self.actions = {}
         self.menu_actions = {}
         self.toolbar_actions = {}
+        self.tools = []
         self.widgets = set()
 
     def add_action(self, key, *args, **kwargs):
@@ -36,6 +37,10 @@ class Plugin(object):
             self.menu_actions[category].append(action)
         else:
             self.menu_actions[category] = [action]
+
+    def add_tool(self, tool, selection_callback=None):
+        self.ui.add_tool(tool, selection_callback)
+        self.tools.append(tool)
 
     def add_toolbar_button(self, category, action, *args, **kwargs):
         self.ui.add_toolbar_button(category, action, *args, **kwargs)
@@ -76,6 +81,8 @@ class Plugin(object):
                 self.ui.toolbars[category].removeAction(action)
         for key in self.actions.iterkeys():
             self.ui.actions.pop(key, None)
+        for tool in self.tools:
+            self.ui.remove_tool(tool)
         for widget in self.widgets:
             self.ui.removeDockWidget(widget)
             if widget in self.ui.widgets:

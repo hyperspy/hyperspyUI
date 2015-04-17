@@ -84,7 +84,7 @@ class PluginManager(object):
     def discover(self):
         """Auto-discover all plugins defined in plugin directory.
         """
-        import plugins
+        import hyperspyui.plugins as plugins
         for plug in plugins.__all__:
             try:
                 __import__('plugins.' + plug, globals())
@@ -180,6 +180,7 @@ class PluginManager(object):
                 # Order of execution is significant!
                 p.create_actions()
                 p.create_menu()
+                p.create_tools()
                 p.create_toolbars()
                 p.create_widgets()
         except Exception:
@@ -218,6 +219,11 @@ class PluginManager(object):
                 p.create_menu()
             except Exception:
                 self.warn('create_menu', p.name)
+        for p in new_ps:
+            try:
+                p.create_tools()
+            except Exception:
+                self.warn('create_tools', p.name)
         for p in new_ps:
             try:
                 p.create_toolbars()
