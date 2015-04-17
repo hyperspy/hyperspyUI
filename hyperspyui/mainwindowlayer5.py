@@ -422,25 +422,49 @@ class MainWindowLayer5(MainWindowLayer4):
                           for extensions in plugin.file_extensions])
         return extensions
 
+    def prompt_files(self, extension_filter=None):
+        filenames = QFileDialog.getOpenFileNames(self,
+                                                 tr('Load file'),
+                                                 self.cur_dir,
+                                                 extension_filter)
+        # Pyside returns tuple, PyQt not
+        if isinstance(filenames, tuple):
+            filenames = filenames[0]
+        return filenames
+
+    def load_stack(self, filenames=None, stack_axes=None):
+        if filenames is None:
+            extensions = self.get_accepted_extensions()
+            type_choices = ';;'.join(["*." + e for e in extensions])
+            type_choices = ';;'.join(("Python code (*.py)", type_choices))
+            type_choices = ';;'.join(("All types (*.*)", type_choices))
+            filenames = self.prompt_files(type_choices)
+            if not filenames:
+                return False
+            self.cur_dir = filenames[0]
+        for i, f in enumerate(filenames):
+            filenames[i] = glob_escape.sub(r'[\1]', f)    # glob escapes
+
+        sig = hyperspy.hspy.load(filenames, stack=True, stack_axes=stack_axes)
+        if isinstance(sig, list):
+            for s in sig:
+                s.plot()
+        else:
+            sig.plot()
+
     def load(self, filenames=None):
         """
         Load 'filenames', or if 'filenames' is None, open a dialog to let the
         user interactively browse for files. It then load these files using
         hyperspy.hspy.load and wraps them and adds them to self.signals.
         """
-        extensions = self.get_accepted_extensions()
-        type_choices = ';;'.join(["*." + e for e in extensions])
-        type_choices = ';;'.join(("Python code (*.py)", type_choices))
-        type_choices = ';;'.join(("All types (*.*)", type_choices))
 
         if filenames is None:
-            filenames = QFileDialog.getOpenFileNames(self,
-                                                     tr('Load file'),
-                                                     self.cur_dir,
-                                                     type_choices)
-            # Pyside returns tuple, PyQt not
-            if isinstance(filenames, tuple):
-                filenames = filenames[0]
+            extensions = self.get_accepted_extensions()
+            type_choices = ';;'.join(["*." + e for e in extensions])
+            type_choices = ';;'.join(("Python code (*.py)", type_choices))
+            type_choices = ';;'.join(("All types (*.*)", type_choices))
+            filenames = self.prompt_files(type_choices)
             if not filenames:
                 return False
             self.cur_dir = filenames[0]

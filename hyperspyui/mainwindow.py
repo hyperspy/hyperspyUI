@@ -117,6 +117,8 @@ class MainWindow(MainWindowLayer5):
                         shortcut=QKeySequence.Open,
                         icon='open.svg',
                         tip="Open existing file(s)")
+        self.add_action('open_stack', "Open S&tack", self.load_stack,
+                        tip="Open files and combine into one signal (stacked)")
         self.add_action('close', "&Close", self.close_signal,
                         shortcut=QKeySequence.Close,
                         icon='close_window.svg',
@@ -199,6 +201,7 @@ class MainWindow(MainWindowLayer5):
         # File menu (I/O)
         self.menus['File'] = mb.addMenu(tr("&File"))
         self.add_menuitem('File', self.actions['open'])
+        self.add_menuitem('File', self.actions['open_stack'])
         self.add_menuitem('File', self.actions['close'])
         self.add_menuitem('File', self.actions['save'])
         self.add_menuitem('File', self.actions['save_fig'])
