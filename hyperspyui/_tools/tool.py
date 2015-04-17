@@ -5,8 +5,10 @@ Created on Sun Dec 07 03:48:36 2014
 @author: Vidar Tonaas Fauske
 """
 
+#from python_qt_binding import QtCore
+from PyQt4 import QtCore
 
-class Tool(object):
+class Tool(QtCore.QObject):
 
     def get_name(self):
         raise NotImplementedError()
