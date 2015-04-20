@@ -6,12 +6,14 @@ Created on Fri Apr 17 00:03:50 2015
 """
 
 from python_qt_binding import QtCore
+import os
 
 from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
     DraggableResizableRange
 from hyperspy.roi import BaseInteractiveROI, RectangularROI, SpanROI
 
 from hyperspyui.tools import FigureTool
+from hyperspyui.util import load_cursor
 
 
 class SelectionTool(FigureTool):
@@ -26,7 +28,7 @@ class SelectionTool(FigureTool):
     accepted = QtCore.Signal([BaseInteractiveROI],
                              [BaseInteractiveROI, FigureTool])
     updated = QtCore.Signal([BaseInteractiveROI],
-                             [BaseInteractiveROI, FigureTool]) # TODO: Implement
+                            [BaseInteractiveROI, FigureTool])    # TODO: Use
     cancelled = QtCore.Signal()
 
     def __init__(self, windows=None):
@@ -62,6 +64,10 @@ class SelectionTool(FigureTool):
 
     def get_category(self):
         return 'Signal'
+
+    def make_cursor(self):
+        return load_cursor(os.path.dirname(__file__) +
+                           '/../images/picker.svg', 8, 8)
 
     def is_selectable(self):
         return True
