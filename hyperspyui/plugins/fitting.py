@@ -74,6 +74,13 @@ class RegressionTool(SelectionTool):
         super(RegressionTool, self).__init__(windows)
         self.valid_dimensions = [1]
 
+    def on_keyup(self, event):
+        if event.key == 'delete':   # TODO: OR escape + inactive
+            # TODO: Delete regression
+            pass
+        else:
+            super(RegressionTool, self).on_keyup(event)
+
     def get_name(self):
         return "Regression tool"
 

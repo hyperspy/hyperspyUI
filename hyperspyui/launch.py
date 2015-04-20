@@ -30,6 +30,7 @@ from hyperspyui.singleapplication import get_app
 # TODO: Utilities to combine signals into stack and reverse
 # TODO: Make editor tabs drag&dropable + default to all in one
 # TODO: Make data type changer handle RGBX data types.
+# TODO: Put licensing info in the right places
 
 
 # import logging
