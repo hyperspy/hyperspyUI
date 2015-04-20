@@ -251,3 +251,5 @@ class SignalWrapper(Actionable):
         if self in self.mainwindow.signals and not self.keep_on_close:
             self.mainwindow.signals.remove(self)
             self.signal._replot = self._old_replot
+            self._old_replot = None
+            self.signal = None

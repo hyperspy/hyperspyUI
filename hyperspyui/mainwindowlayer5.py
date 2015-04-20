@@ -86,7 +86,7 @@ class MainWindowLayer5(MainWindowLayer4):
             self.lut_signalwrapper[sw.signal] = sw
         lut = self.lut_signalwrapper
         self.signals.add_custom('lut', lut_add, None, None,
-                                lambda s: lut.pop(s, None), None)
+                                lambda sw: lut.pop(sw.signal), None)
 
         # Setup variables
         self.progressbars = {}
