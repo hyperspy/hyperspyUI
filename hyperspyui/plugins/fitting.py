@@ -7,12 +7,12 @@ Created on Fri Apr 17 00:23:43 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
+import os
 from scipy import stats
 import numpy as np
 
 from hyperspyui.tools import SelectionTool
 from hyperspy.roi import BaseInteractiveROI
-# from hyperspyui.util import load_cursor
 from hyperspy.utils.markers import line_segment, text
 
 
@@ -65,7 +65,6 @@ class FittingPlugin(Plugin):
         self.reg_tool.cancel()   # Turn off functionality as we are finished
 
 
-
 class RegressionTool(SelectionTool):
 
     """
@@ -78,9 +77,5 @@ class RegressionTool(SelectionTool):
     def get_name(self):
         return "Regression tool"
 
-#    def get_icon(self):
-#        return os.path.dirname(__file__) + '/../images/crop.svg'
-
-#    def make_cursor(self):
-#        return load_cursor(os.path.dirname(__file__) +
-#                           '/../images/crop.svg', 8, 8)
+    def get_icon(self):
+        return os.path.dirname(__file__) + '/../images/regression.svg'
