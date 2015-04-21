@@ -69,23 +69,22 @@ class Threaded(QObject):
         Threaded.add_to_pool(self)
 
         # Connect error reporting
-        self.connect(worker, SIGNAL('error(QString)'), self.errorString)
+        worker.error[str].connect(self.errorString)
 
         # Start up
-        self.connect(self.thread, SIGNAL('started()'), worker.process)
+        self.thread.started.connect(worker.process)
 
         # Clean up
-        self.connect(worker, SIGNAL('finished()'), self.thread.quit)
-        self.connect(worker, SIGNAL('finished()'), worker.deleteLater)
-        self.connect(
-            self.thread, SIGNAL('finished()'), self.thread.deleteLater)
+        worker.finished.connect(self.thread.quit)
+        worker.finished.connect(worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+
+        if finished is not None:
+            worker.finished.connect(finished)
 
         def remove_ref():
             Threaded.remove_from_pool(self)
-        self.connect(self.thread, SIGNAL('finished()'), remove_ref)
-
-        if finished is not None:
-            self.connect(worker, SIGNAL('finished()'), finished)
+        self.thread.finished.connect(remove_ref)
 
         # Need to keep ref so they stay in mem
         self.worker = worker
