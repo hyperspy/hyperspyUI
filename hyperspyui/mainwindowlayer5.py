@@ -408,7 +408,7 @@ class MainWindowLayer5(MainWindowLayer4):
         """Signal selection callback for actions that are only valid for
         selected Signals.
         """
-        s = hyperspyui.util.win2sig(win, self.signals)
+        s = hyperspyui.util.win2sig(win, self.signals, self._plotting_signal)
         if s is None:
             action.setEnabled(False)
         else:
