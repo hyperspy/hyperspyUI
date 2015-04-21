@@ -141,8 +141,9 @@ class MVA_Plugin(Plugin):
         Makes sure we have BSS results. If results already are available, it
         will only recalculate if the `force` parameter is True.
         """
-        if force or s.learning_results.bss_factors is None:
-            s.blind_source_separation(n_components)
+        s.blind_source_separation(n_components)
+#        if force or s.learning_results.bss_factors is None:
+#            s.blind_source_separation(n_components)
 
     def plot_decomposition_results(self, signal=None):
         """
@@ -158,9 +159,9 @@ class MVA_Plugin(Plugin):
         loadings = signal.get_bss_loadings()
         factors.axes_manager._axes[0] = loadings.axes_manager._axes[0]
         if loadings.axes_manager.signal_dimension > 2:
-            loadings.axes_manager.set_signal_dimension(loadings_dim)
+            loadings.axes_manager.set_signal_dimension(loadings_dim)  # TODO: fix
         if factors.axes_manager.signal_dimension > 2:
-            factors.axes_manager.set_signal_dimension(factors_dim)
+            factors.axes_manager.set_signal_dimension(factors_dim)  # TODO: fix
         return loadings, factors
 
     def _record(self, autosig, model, signal, n_components):
