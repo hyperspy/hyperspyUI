@@ -83,15 +83,15 @@ class GaussianTool(FigureTool):
                             isinstance(c, GaussTypes):
                         mw.remove_component(c)
 
-    def connect(self, windows):
-        super(GaussianTool, self).connect(windows)
+    def connect_windows(self, windows):
+        super(GaussianTool, self).connect_windows(windows)
         windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')
             self._wire_wrapper(mw)
 
-    def disconnect(self, windows):
-        super(GaussianTool, self).disconnect(windows)
+    def disconnect_windows(self, windows):
+        super(GaussianTool, self).disconnect_windows(windows)
         windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')

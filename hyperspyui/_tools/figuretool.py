@@ -17,7 +17,7 @@ class FigureTool(Tool):
         super(FigureTool, self).__init__()
         self.cids = {}
         if self.single_action() is not None:
-            self.connect(windows)
+            self.connect_windows(windows)
         self.cursor = self.make_cursor()
 
     def make_cursor(self):
@@ -72,7 +72,7 @@ class FigureTool(Tool):
             windows = (windows,)
         return windows
 
-    def connect(self, windows):
+    def connect_windows(self, windows):
         """Connects the tool to the windows that are passed. This means that it
         connects to the appropriate MPL events of each window.
         """
@@ -94,7 +94,7 @@ class FigureTool(Tool):
             self._wire(canvas, 'on_axes_enter', 'axes_enter_event')
             self._wire(canvas, 'on_axes_leave', 'axes_leave_event')
 
-    def disconnect(self, windows):
+    def disconnect_windows(self, windows):
         windows = self._iter_windows(windows)
         for w in windows:
             canvas = w.widget()

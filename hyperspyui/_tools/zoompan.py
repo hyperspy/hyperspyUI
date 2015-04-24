@@ -78,8 +78,8 @@ class ZoomPanTool(FigureTool):
         for canvas in cs:
             canvas.draw()
 
-    def connect(self, windows):
-        super(ZoomPanTool, self).connect(windows)
+    def connect_windows(self, windows):
+        super(ZoomPanTool, self).connect_windows(windows)
         windows = self._iter_windows(windows)
         canvases = set()
         for w in windows:
@@ -87,8 +87,8 @@ class ZoomPanTool(FigureTool):
         for c in canvases:
             c.widgetlock(self)
 
-    def disconnect(self, windows):
-        super(ZoomPanTool, self).disconnect(windows)
+    def disconnect_windows(self, windows):
+        super(ZoomPanTool, self).disconnect_windows(windows)
         windows = self._iter_windows(windows)
         canvases = set()
         for w in windows:

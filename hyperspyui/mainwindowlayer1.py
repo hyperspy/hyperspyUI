@@ -209,9 +209,9 @@ class MainWindowLayer1(QMainWindow):
 
     def select_tool(self, tool):
         if self.active_tool is not None:
-            self.active_tool.disconnect(self.figures)
+            self.active_tool.disconnect_windows(self.figures)
         self.active_tool = tool
-        tool.connect(self.figures)
+        tool.connect_windows(self.figures)
 
     # --------- Figure management ---------
 
@@ -226,9 +226,9 @@ class MainWindowLayer1(QMainWindow):
         self.windowmenu.addAction(figure.activateAction())
         for tool in self.tools:
             if tool.single_action() is not None:
-                tool.connect(figure)
+                tool.connect_windows(figure)
         if self.active_tool is not None:
-            self.active_tool.connect(figure)
+            self.active_tool.connect_windows(figure)
 
     def on_destroy_figure(self, figure, userdata=None):
         """
@@ -239,9 +239,9 @@ class MainWindowLayer1(QMainWindow):
         self.windowmenu.removeAction(figure.activateAction())
         for tool in self.tools:
             if tool.single_action() is not None:
-                tool.disconnect(figure)
+                tool.disconnect_windows(figure)
         if self.active_tool is not None:
-            self.active_tool.disconnect(figure)
+            self.active_tool.disconnect_windows(figure)
         self.main_frame.removeSubWindow(figure)
 
     # --------- End MPL Events ---------

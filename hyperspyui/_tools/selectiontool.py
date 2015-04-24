@@ -160,6 +160,6 @@ class SelectionTool(FigureTool):
         self.axes = None
         self.cancelled.emit()
 
-    def disconnect(self, windows):
-        super(SelectionTool, self).disconnect(windows)
+    def disconnect_windows(self, windows):
+        super(SelectionTool, self).disconnect_windows(windows)
         self.cancel()
