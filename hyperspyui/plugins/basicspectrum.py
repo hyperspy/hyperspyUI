@@ -12,7 +12,6 @@ from QtCore import *
 from QtGui import *
 
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
-from hyperspyui.widgets.signallist import SignalList
 from hyperspyui.threaded import Threaded
 from hyperspyui.util import win2sig
 
@@ -130,7 +129,6 @@ class BasicSpectrumPlugin(Plugin):
 
     def estimate_thickness(self):
         ui = self.ui
-        siglist = ui.hspy_signals
         s = ui.get_selected_signal()
         s_t = s.estimate_thickness(3.0)
         s_t.plot()

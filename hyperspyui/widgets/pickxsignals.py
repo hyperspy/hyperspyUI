@@ -8,8 +8,9 @@ from hyperspyui.widgets.signallist import SignalList
 
 class PickXSignalsWidget(QWidget):
 
-    def __init__(self, signal_wrappers, x, titles=None, wrap_col=4):
-        super(PickXSignalsWidget, self).__init__()
+    def __init__(self, signal_wrappers, x, parent=None, titles=None,
+                 wrap_col=4):
+        super(PickXSignalsWidget, self).__init__(parent)
         grid = QGridLayout()
         self.pickers = []
         self._x = x
