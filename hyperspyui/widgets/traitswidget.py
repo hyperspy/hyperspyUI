@@ -5,18 +5,20 @@ Created on Wed Jan 07 20:01:34 2015
 @author: Vidar Tonaas Fauske
 """
 
+from hyperspyui.widgets.extendedqwidgets import FigureWidget
+
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
 
-class TraitsWidget(QDockWidget):
+class TraitsWidget(FigureWidget):
 
     """
     DockWidget for TraitsUI dialogs. The default behavior is to update the
     dialog when the active subwindow changes or when the widget becomes visible
-    (updates are supressed when widget is hidden). This is done by capturing the
-    traitsui dialog as it is created (see code in mainwindowlayer1).
+    (updates are supressed when widget is hidden). This is done by capturing
+    the traitsui dialog as it is created (see code in mainwindowlayer1).
     """
 
     def __init__(
@@ -27,31 +29,9 @@ class TraitsWidget(QDockWidget):
         be captured), cb_check is an optional callback which determines whether
         the given window is supported for this dialog.
         """
-        super(TraitsWidget, self).__init__(parent)
-        self.main_window = main_window
         self.cb_check = cb_check
         self.cb_make_dialog = cb_make_dialog
-        self._last_window = None
-
-        self.connect_()
-        self.visibilityChanged.connect(self.on_visibility)
-
-    def connect_(self, action=None):
-        """
-        Connects the widget to its update trigger, which is either a supplied
-        action, or by default, the subWindowActivated of the MainWindow.
-        """
-        if action is None:
-            action = self.main_window.main_frame.subWindowActivated
-        action.connect(self.on_change)
-
-    def disconnect(self, action=None):
-        """
-        Disconnects an update trigger connected with connect().
-        """
-        if action is None:
-            action = self.main_window.main_frame.subWindowActivated
-        action.disconnect(self.on_change)
+        super(TraitsWidget, self).__init__(main_window, parent)
 
     def clear_editor(self):
         """
@@ -70,23 +50,19 @@ class TraitsWidget(QDockWidget):
         else:
             return self.cb_check(window)
 
-    def on_change(self, window):
+    def _on_figure_change(self, window):
         """
         Called when a connected update triggers. If the window is valid, it
         sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
         window is invalid, it clears the widget.
         """
-        self._last_window = window
+        super(TraitsWidget, self)._on_figure_change(window)
 
         if self._check(window):
-            self.main_window.capture_traits_dialog(self.set_traits_editor)
+            self.ui.capture_traits_dialog(self.set_traits_editor)
             self.cb_make_dialog(window)
         else:
             self.clear_editor()
-
-    def on_visibility(self, visible):
-        if visible:
-            self.on_change(self._last_window)
 
     def set_traits_editor(self, traits_dialog):
         """

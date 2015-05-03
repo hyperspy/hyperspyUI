@@ -10,7 +10,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from extendedqwidgets import ExDoubleSlider, ExClickLabel
+from extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.drawing.mpl_he import MPL_HyperExplorer
 from hyperspy.drawing.image import ImagePlot
 from hyperspyui.util import win2fig
@@ -36,25 +36,24 @@ def fig2plot(fig, signals):
     return None
 
 
-class ContrastWidget(QDockWidget):
+class ContrastWidget(FigureWidget):
     LevelLabel = tr("Level")
     WindowLabel = tr("Window")
 
-    def __init__(self, parent, figure=None):
-        super(ContrastWidget, self).__init__(parent)
+    def __init__(self, main_window, parent, figure=None):
+        super(ContrastWidget, self).__init__(main_window, parent)
         self.setWindowTitle(tr("Contrast control"))
         self.create_controls()
 
-        self.cur_figure = None
-        self.on_figure_change(figure)
+        self._on_figure_change(figure)
 
-    def on_figure_change(self, figure):
+    def _on_figure_change(self, figure):
+        super(ContrastWidget, self)._on_figure_change(figure)
         if isinstance(figure, QMdiSubWindow):
             figure = win2fig(figure)
 
-        self.cur_figure = figure
         signals = self.parent().signals
-        p = fig2plot(self.cur_figure, signals)
+        p = fig2plot(self._last_window, signals)
         self._cur_plot = p
         self.update_controls_from_fig()
 

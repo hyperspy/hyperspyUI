@@ -27,6 +27,49 @@ class ExToolWindow(QDialog):
         self.setWindowFlags(Qt.Tool)
 
 
+class FigureWidget(QDockWidget):
+
+    def __init__(self, main_window, parent=None):
+        super(FigureWidget, self).__init__(parent)
+        self.ui = main_window
+        self._last_window = None
+
+        self.connect_()
+        self.visibilityChanged.connect(self.on_visibility)
+
+    def connect_(self, action=None):
+        """
+        Connects the widget to its update trigger, which is either a supplied
+        action, or by default, the subWindowActivated of the MainWindow.
+        """
+        if action is None:
+            action = self.ui.main_frame.subWindowActivated
+        action.connect(self._on_figure_change)
+
+    def disconnect(self, action=None):
+        """
+        Disconnects an update trigger connected with connect().
+        """
+        if action is None:
+            action = self.ui.main_frame.subWindowActivated
+        action.disconnect(self.on_change)
+
+    def _on_figure_activate(self, figure):
+        self._cur_fig = figure
+
+    def _on_figure_change(self, window):
+        """
+        Called when a connected update triggers. If the window is valid, it
+        sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
+        window is invalid, it clears the widget.
+        """
+        self._last_window = window
+
+    def on_visibility(self, visible):
+        if visible:
+            self._on_figure_change(self._last_window)
+
+
 class ExClickLabel(QLabel):
 
     """

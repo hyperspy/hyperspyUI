@@ -250,9 +250,7 @@ class MainWindow(MainWindowLayer5):
     def create_widgetbar(self):
         super(MainWindow, self).create_widgetbar()
 
-        cbw = ContrastWidget(self)
-        self.main_frame.subWindowActivated.connect(cbw.on_figure_change)
-        self.add_widget(cbw)
+        self.add_widget(ContrastWidget(self, self))
 
     # ---------------------------------------
     # Events
