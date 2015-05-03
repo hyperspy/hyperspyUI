@@ -14,8 +14,9 @@ from QtGui import *
 import hyperspy.signals
 from hyperspy.misc.elements import elements as elements_db
 
-from extendedqwidgets import ExToolWindow, ExClickLabel
-from periodictable import PeriodicTableWidget
+from hyperspyui.widgets.extendedqwidgets import FigureWidget, ExClickLabel
+from hyperspyui.widgets.periodictable import PeriodicTableWidget
+from hyperspyui.util import win2sig
 
 
 def tr(text):
@@ -24,7 +25,7 @@ def tr(text):
 edstypes = (hyperspy.signals.EDSSEMSpectrum, hyperspy.signals.EDSTEMSpectrum)
 
 
-class ElementPickerWidget(ExToolWindow):
+class ElementPickerWidget(FigureWidget):
 
     """
     Tool window for picking elements of an interactive periodic table.
@@ -32,18 +33,41 @@ class ElementPickerWidget(ExToolWindow):
     """
     element_toggled = Signal(str)
 
-    def __init__(self, signal, parent):
-        super(ElementPickerWidget, self).__init__(parent)
-        self.signal = signal
+    def __init__(self, main_window, parent):
+        super(ElementPickerWidget, self).__init__(main_window, parent)
+        self.signal = None
         self.create_controls()
         self.table.element_toggled.connect(self._toggle_element)
-        self.set_signal(signal)
+        self.set_signal(self.signal)
         self._only_lines = ['Ka', 'La', 'Ma',
                             'Kb', 'Lb1', 'Mb']
 
+    def _on_figure_change(self, figure):
+        super(ElementPickerWidget, self)._on_figure_change(figure)
+        signal = win2sig(figure, plotting_signal=self.ui._plotting_signal)
+        self.set_signal(signal)
+
     def set_signal(self, signal):
         self.signal = signal
-        self.setWindowTitle(tr("Select elements for ") + signal.name)
+        self.setWindowTitle(tr("Element picker"))
+
+        if self.isEDS():
+            self.map_btn.show()
+        else:
+            self.map_btn.hide()
+
+        if signal is None or signal.signal is None:
+            self.set_enabled(False)
+            return
+        else:
+            self.set_enabled(True)
+
+        # Enable markers if plot has any
+        self.chk_markers.blockSignals(True)
+        markers = (hasattr(signal.signal, '_xray_markers') and
+                   bool(signal.signal._xray_markers))
+        self.chk_markers.setChecked(markers)
+        self.chk_markers.blockSignals(False)
 
         # Make sure we have the Sample node, and Sample.elements
         if not hasattr(signal.signal.metadata, 'Sample'):
@@ -51,10 +75,6 @@ class ElementPickerWidget(ExToolWindow):
             signal.signal.metadata.Sample.elements = []
 
         self._set_elements(signal.signal.metadata.Sample.elements)
-        if self.isEELS():
-            self.map_btn.hide()
-        elif self.isEDS():
-            self.map_btn.show()
 
         # Disable elements which hyperspy does not accept
         hsyp_elem = elements_db.keys()
@@ -66,14 +86,21 @@ class ElementPickerWidget(ExToolWindow):
                 else:
                     self.table.enable_element(elem)
 
+    def set_enabled(self, value):
+        self.setEnabled(value)
+
     @property
     def markers(self):
         return self.chk_markers.isChecked()
 
     def isEDS(self):
+        if self.signal is None or self.signal.signal is None:
+            return False
         return isinstance(self.signal.signal, edstypes)
 
     def isEELS(self):
+        if self.signal is None or self.signal.signal is None:
+            return False
         return isinstance(self.signal.signal, hyperspy.signals.EELSSpectrum)
 
     def _toggle_element(self, element):
@@ -92,6 +119,7 @@ class ElementPickerWidget(ExToolWindow):
         lines_added = []
         lines_removed = []
         if element in s.metadata.Sample.elements:
+            # Element present, we're removing it
             s.metadata.Sample.elements.remove(element)
             if 'Sample.xray_lines' in s.metadata:
                 for line in reversed(s.metadata.Sample.xray_lines):
@@ -180,22 +208,33 @@ class ElementPickerWidget(ExToolWindow):
         """
         self.table.set_elements(elements)
 
+    def set_element(self, element, value):
+        """Sets the state of element in table and adds/removes in signal if
+        necessary
+        """
+        self.table.set_element(element, value)
+        s = self.signal.signal
+        if (element in s.metadata.Sample.elements) != value:
+            self._toggle_element(element)
+
     def _on_toggle_markers(self, value):
         """Toggles peak markers on the plot, i.e. adds/removes markers for all
         elements added on signal.
         """
+        w = self.signal
         s = self.signal.signal
         if value:
             if self.isEDS():
-                self.signal.keep_on_close = True
-                s.plot(xray_lines=True)
-                self.signal.update_figures()
-                self.signal.keep_on_close = False
+                w.keep_on_close = True
+                s._plot_xray_lines(xray_lines=True)
+                w.update_figures()
+                w.keep_on_close = False
         else:
             if self.isEDS():
                 for m in reversed(s._plot.signal_plot.ax_markers):
                     s._plot.signal_plot.ax_markers.remove(m)
                     m.close()
+                s._xray_markers.clear()
 
     def make_map(self):
         """
@@ -203,7 +242,7 @@ class ElementPickerWidget(ExToolWindow):
         only implemented for EDS signals.
         """
         if self.isEELS():
-            pass
+            pass    # TODO: EELS maps
         elif self.isEDS():
             imgs = self.signal.signal.get_lines_intensity(only_one=False)
             for im in imgs:
@@ -287,16 +326,17 @@ class ElementPickerWidget(ExToolWindow):
         self.map_btn = QPushButton(tr("Map"))
         self.map_btn.clicked.connect(self.make_map)
 
-        vbox = QVBoxLayout(self)
+        vbox = QVBoxLayout()
         vbox.addWidget(self.table)
 
-        if self.isEDS():
-            hbox = QHBoxLayout()
-            # TODO: TAG: Feature-check
-            if hasattr(hyperspy.signals.EDSTEMSpectrum,
-                       '_add_xray_lines_markers'):
-                hbox.addWidget(self.chk_markers)
-            hbox.addWidget(self.map_btn)
-            vbox.addLayout(hbox)
+        hbox = QHBoxLayout()
+        # TODO: TAG: Feature-check
+        if hasattr(hyperspy.signals.EDSTEMSpectrum,
+                   '_add_xray_lines_markers'):
+            hbox.addWidget(self.chk_markers)
+        hbox.addWidget(self.map_btn)
+        vbox.addLayout(hbox)
 
-        self.setLayout(vbox)
+        w = QWidget()
+        w.setLayout(vbox)
+        self.setWidget(w)

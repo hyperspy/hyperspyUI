@@ -59,8 +59,8 @@ class PeriodicTableWidget(QWidget):
         self.set_element(element, not self.toggled[element])
 
     def set_elements(self, elements):
-        for e in elements:
-            self.set_element(e, True)
+        for e in self.elements.iterkeys():
+            self.set_element(e, e in elements)
 
     def set_element(self, element, value):
         if self.toggled[element] == value:
@@ -102,7 +102,7 @@ class PeriodicTableWidget(QWidget):
         self.element_toggled.emit(value['id'])
 
     def sizeHint(self):
-        return QSize(350, 140)
+        return QSize(310, 140)
 
     def create_controls(self):
         grid = QGridLayout(self)

@@ -20,7 +20,6 @@ from hyperspyui.singleapplication import get_app
 # TODO: Batch processing dialog (browse + drop&drop target)
 # TODO: Editor threading + parallell processing utils (w/batch input)
 # TODO: Layout save/restore (ignorable settings (_settings?))
-# TODO: Add xray element find tool
 # TODO: Add xray 3rd state: Element present, but not used for maps
 # TODO: Add xray background window tool for modifying those by auto
 # TODO: Add quantification button. Needs k-factor setup.

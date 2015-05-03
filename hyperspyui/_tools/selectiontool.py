@@ -9,8 +9,9 @@ from python_qt_binding import QtCore
 import os
 
 from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
-    DraggableResizableRange
-from hyperspy.roi import BaseInteractiveROI, RectangularROI, SpanROI
+    DraggableResizableRange, DraggableSquare, DraggableVerticalLine
+from hyperspy.roi import BaseInteractiveROI, RectangularROI, SpanROI, \
+    Point1DROI, Point2DROI
 
 from hyperspyui.tools import FigureTool
 from hyperspyui.util import load_cursor
@@ -33,19 +34,30 @@ class SelectionTool(FigureTool):
 
     def __init__(self, windows=None):
         super(SelectionTool, self).__init__(windows)
-        self.widget2d = ResizableDraggableRectangle(None)
+        self.widget2d_r = ResizableDraggableRectangle(None)
+        self.widget2d_r.set_on(False)
+        self.widget1d_r = DraggableResizableRange(None)
+        self.widget1d_r.set_on(False)
+        self.widget2d = DraggableSquare(None)
         self.widget2d.set_on(False)
-        self.widget1d = DraggableResizableRange(None)
+        self.widget1d = DraggableVerticalLine(None)
         self.widget1d.set_on(False)
         self.axes = None
         self.valid_dimensions = [1, 2]
+        self.ranged = True
 
     @property
     def widget(self):
         if self.ndim == 1:
-            return self.widget1d
+            if self.ranged:
+                return self.widget1d_r
+            else:
+                return self.widget1d
         else:
-            return self.widget2d
+            if self.ranged:
+                return self.widget2d_r
+            else:
+                return self.widget2d
 
     @property
     def ndim(self):
@@ -127,14 +139,19 @@ class SelectionTool(FigureTool):
         if self.ndim == 1:
             self.widget.coordinates = (x,)
             self.widget.size = 1
-            span = self.widget.span
-            span.buttonDown = True
-            span.on_move_cid = \
-                span.canvas.mpl_connect('motion_notify_event', span.move_right)
+            if self.ranged:
+                span = self.widget.span
+                span.buttonDown = True
+                span.on_move_cid = \
+                    span.canvas.mpl_connect('motion_notify_event',
+                                            span.move_right)
+            else:
+                self.widget.picked = True
         else:
             self.widget.coordinates = (x, y)
             self.widget.size = (1, 1)
-            self.widget.pick_on_frame = 3
+            if self.ranged:
+                self.widget.pick_on_frame = 3
             self.widget.picked = True
 
     def on_keyup(self, event):
@@ -146,9 +163,15 @@ class SelectionTool(FigureTool):
     def accept(self):
         if self.is_on():
             if self.ndim == 1:
-                roi = SpanROI(0, 1)
+                if self.ranged:
+                    roi = SpanROI(0, 1)
+                else:
+                    roi = Point1DROI(0)
             elif self.ndim > 1:
-                roi = RectangularROI(0, 0, 1, 1)
+                if self.ranged:
+                    roi = RectangularROI(0, 0, 1, 1)
+                else:
+                    roi = Point2DROI(0, 0)
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, FigureTool].emit(roi, self)

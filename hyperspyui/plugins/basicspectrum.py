@@ -14,9 +14,15 @@ from QtGui import *
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
 from hyperspyui.threaded import Threaded
 from hyperspyui.util import win2sig
+from hyperspyui.tools import SelectionTool
 
 import hyperspy.signals
+from hyperspy.misc.eds.utils import get_xray_lines_near_energy, \
+    _get_element_and_line
 import numpy as np
+
+import os
+from functools import partial
 
 
 def tr(text):
@@ -27,15 +33,25 @@ class Namespace:
     pass
 
 
+QWIDGETSIZE_MAX = 16777215
+
+
 class SignalTypeFilter(object):
 
-    def __init__(self, signal_type, signal_list):
+    def __init__(self, signal_type, ui, space=None):
         self.signal_type = signal_type
-        self.signal_list = signal_list
+        self.ui = ui
+        self.space = space
 
     def __call__(self, win, action):
-        sig = win2sig(win, self.signal_list)
-        valid = sig is None or isinstance(sig.signal, self.signal_type)
+        sig = win2sig(win, self.ui.signals, self.ui._plotting_signal)
+        valid = sig is not None and isinstance(sig.signal, self.signal_type)
+        if valid and self.space:
+            # Check that we have right figure
+            if not ((self.space == "navigation" and win is sig.navigator_plot)
+                    or
+                    (self.space == "signal" and win is sig.signal_plot)):
+                valid = False
         action.setEnabled(valid)
 
 
@@ -49,7 +65,7 @@ class BasicSpectrumPlugin(Plugin):
                         tip="Interactively define the background, and " +
                             "remove it",
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui.signals))
+                            hyperspy.signals.Spectrum, self.ui))
 
         self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
                         self.fourier_ratio,
@@ -57,16 +73,7 @@ class BasicSpectrumPlugin(Plugin):
                         tip="Use the Fourier-Ratio method" +
                         " to deconvolve one signal from another",
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.EELSSpectrum, self.ui.signals))
-
-        self.add_action('pick_elements', "Pick elements", self.pick_elements,
-                        icon='periodic_table.svg',
-                        tip="Pick the elements for the spectrum",
-                        selection_callback=SignalTypeFilter(
-                            (hyperspy.signals.EELSSpectrum,
-                             hyperspy.signals.EDSSEMSpectrum,
-                             hyperspy.signals.EDSTEMSpectrum),
-                            self.ui.signals))
+                            hyperspy.signals.EELSSpectrum, self.ui))
 
         self.add_action('estimate_thickness', "Estimate thickness",
                         self.estimate_thickness,
@@ -74,19 +81,56 @@ class BasicSpectrumPlugin(Plugin):
                         tip="Estimates the thickness (relative to the mean " +
                         "free path) of a sample using the log-ratio method.",
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.EELSSpectrum, self.ui.signals))
+                            hyperspy.signals.EELSSpectrum, self.ui))
 
     def create_menus(self):
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
-        self.add_menuitem('Signal', self.ui.actions['pick_elements'])
 
     def create_toolbars(self):
         self.add_toolbar_button("EELS", self.ui.actions['remove_background'])
         self.add_toolbar_button("EELS", self.ui.actions['fourier_ratio'])
         self.add_toolbar_button("EELS", self.ui.actions['estimate_thickness'])
-        self.add_toolbar_button("Signal", self.ui.actions['pick_elements'])
+
+    def create_tools(self):
+        self.picker_tool = ElementPickerTool()
+        self.picker_tool.picked[basestring].connect(self.pick_element)
+        self.add_tool(self.picker_tool,
+                      SignalTypeFilter(
+                          (hyperspy.signals.EELSSpectrum,
+                           hyperspy.signals.EDSSEMSpectrum,
+                           hyperspy.signals.EDSTEMSpectrum),
+                          self.ui))
+
+    def _toggle_fixed_height(self, floating):
+        w = self.picker_widget
+        if floating:
+            w.setFixedHeight(QWIDGETSIZE_MAX)
+        else:
+            w.setFixedHeight(w.minimumSize().height())
+
+    def create_widgets(self):
+        self.picker_widget = ElementPickerWidget(self.ui, self.ui)
+        self.picker_widget.topLevelChanged[bool].connect(
+            self._toggle_fixed_height)
+        self.add_widget(self.picker_widget)
+        self._toggle_fixed_height(False)
+
+    def pick_element(self, element, signal=None):
+        if signal is None:
+            f = self.picker_tool.widget.ax.figure
+            window = f.canvas.parent()
+            sw = window.property('hyperspyUI.SignalWrapper')
+            if sw is None:
+                return
+            signal = sw.signal
+
+        wp = [w for w in self.ui.widgets if
+              isinstance(w, ElementPickerWidget)][0]
+        wp.set_element(element, True)
+        if not wp.chk_markers.isChecked():
+            wp.chk_markers.setChecked(True)
 
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
@@ -120,15 +164,52 @@ class BasicSpectrumPlugin(Plugin):
             signal = self.ui.get_selected_wrapper()
         signal.signal.remove_background()
 
-    def pick_elements(self, signal=None):
-        if signal is None:
-            signal = self.ui.get_selected_wrapper()
-
-        ptw = ElementPickerWidget(signal, self.ui)
-        ptw.show()
-
     def estimate_thickness(self):
         ui = self.ui
         s = ui.get_selected_signal()
         s_t = s.estimate_thickness(3.0)
         s_t.plot()
+
+
+class ElementPickerTool(SelectionTool):
+    picked = Signal(basestring)
+
+    def __init__(self, windows=None):
+        super(ElementPickerTool, self).__init__(windows)
+        self.ranged = False
+        self.valid_dimensions = [1]
+
+    def get_name(self):
+        return "Element picker tool"
+
+    def get_category(self):
+        return 'EDS'
+
+    def get_icon(self):
+        return os.path.dirname(__file__) + '/../images/periodic_table.svg'
+
+    def nearby_energies(self, roi):
+        c = roi.coords[0][0]
+        dd = NearbyElementDropdown(c)
+        dd.show()
+
+    def on_pick_line(self, line):
+        el, _ = _get_element_and_line(line)
+        self.picked.emit(el)
+
+    def on_mouseup(self, event):
+        if event.inaxes is None:
+            return
+        self.accept()
+        energy = event.xdata
+        a = self.axes[0]
+        if a.units.lower() == 'ev':
+            energy /= 1000.0
+        lines = get_xray_lines_near_energy(energy)
+        if lines:
+            m = QMenu()
+            for line in lines:
+                m.addAction(line, partial(self.on_pick_line, line))
+            m.exec_(QCursor.pos())
+
+        self.cancel()
