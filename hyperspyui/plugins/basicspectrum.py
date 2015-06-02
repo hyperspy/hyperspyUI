@@ -17,8 +17,7 @@ from hyperspyui.util import win2sig
 from hyperspyui.tools import SelectionTool
 
 import hyperspy.signals
-from hyperspy.misc.eds.utils import get_xray_lines_near_energy, \
-    _get_element_and_line
+from hyperspy.misc.eds.utils import _get_element_and_line
 import numpy as np
 
 import os
@@ -94,14 +93,18 @@ class BasicSpectrumPlugin(Plugin):
         self.add_toolbar_button("EELS", self.ui.actions['estimate_thickness'])
 
     def create_tools(self):
-        self.picker_tool = ElementPickerTool()
-        self.picker_tool.picked[basestring].connect(self.pick_element)
-        self.add_tool(self.picker_tool,
-                      SignalTypeFilter(
-                          (hyperspy.signals.EELSSpectrum,
-                           hyperspy.signals.EDSSEMSpectrum,
-                           hyperspy.signals.EDSTEMSpectrum),
-                          self.ui))
+        try:
+            from hyperspy.misc.eds.utils import get_xray_lines_near_energy as _
+            self.picker_tool = ElementPickerTool()
+            self.picker_tool.picked[basestring].connect(self.pick_element)
+            self.add_tool(self.picker_tool,
+                          SignalTypeFilter(
+                              (hyperspy.signals.EELSSpectrum,
+                               hyperspy.signals.EDSSEMSpectrum,
+                               hyperspy.signals.EDSTEMSpectrum),
+                              self.ui))
+        except ImportError:
+            pass
 
     def _toggle_fixed_height(self, floating):
         w = self.picker_widget
@@ -188,11 +191,6 @@ class ElementPickerTool(SelectionTool):
     def get_icon(self):
         return os.path.dirname(__file__) + '/../images/periodic_table.svg'
 
-    def nearby_energies(self, roi):
-        c = roi.coords[0][0]
-        dd = NearbyElementDropdown(c)
-        dd.show()
-
     def on_pick_line(self, line):
         el, _ = _get_element_and_line(line)
         self.picked.emit(el)
@@ -205,6 +203,7 @@ class ElementPickerTool(SelectionTool):
         a = self.axes[0]
         if a.units.lower() == 'ev':
             energy /= 1000.0
+        from hyperspy.misc.eds.utils import get_xray_lines_near_energy
         lines = get_xray_lines_near_energy(energy)
         if lines:
             m = QMenu()
