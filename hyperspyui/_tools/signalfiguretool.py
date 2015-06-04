@@ -25,8 +25,23 @@ class SignalFigureTool(FigureTool):
             return
         return sw.signal
 
+    def _is_nav(self, event):
+        sw = self._get_wrapper(event.inaxes.figure)
+        if sw.signal._plot.navigator_plot is not None:
+            nav_ax = sw.signal._plot.navigator_plot.ax
+            return nav_ax == event.inaxes
+        return False
+
+    def _is_sig(self, event):
+        sw = self._get_wrapper(event.inaxes.figure)
+        if sw.signal._plot.signal_plot is not None:
+            sig_ax = sw.signal._plot.signal_plot.ax
+            return sig_ax == event.inaxes
+        return False
+             
+
     def _get_axes(self, event):
-        sw = self._get_wrapper(event.figure)
+        sw = self._get_wrapper(event.inaxes.figure)
         if sw.signal._plot.signal_plot is not None:
             sig_ax = sw.signal._plot.signal_plot.ax
         else:
@@ -35,16 +50,12 @@ class SignalFigureTool(FigureTool):
             nav_ax = sw.signal._plot.navigator_plot.ax
         else:
             nav_ax = None
-
         # Find out which axes of Signal are plotted in figure
         am = sw.signal.axes_manager
-        if sig_ax == event.inaxes:
+        if self._is_sig(event):
             axes = am.signal_axes
         elif nav_ax == event.inaxes:
             axes = am.navigation_axes
         else:
             return
-        # Make sure we have a figure with valid dimensions
-        if len(axes) not in self.valid_dimensions:
-            return
-        self.axes = axes
+        return axes

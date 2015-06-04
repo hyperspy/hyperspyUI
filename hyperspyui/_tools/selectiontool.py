@@ -87,6 +87,12 @@ class SelectionTool(SignalFigureTool):
         # Only accept mouse down inside axes
         if event.inaxes is None:
             return
+
+        axes = self._get_axes(event)
+        # Make sure we have a figure with valid dimensions
+        if len(axes) not in self.valid_dimensions:
+            return
+        self.axes = axes
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
             if self.widget.patch.contains(event)[0] == True:
@@ -100,16 +106,11 @@ class SelectionTool(SignalFigureTool):
             self.cancel()
 
         # Find out which axes of Signal are plotted in figure
-        s = self._get_signal(event.figure)
+        s = self._get_signal(event.inaxes.figure)
         if s is None:
             return
-        axes = self._get_axes(event)
         am = s.axes_manager
 
-        # Make sure we have a figure with valid dimensions
-        if len(axes) not in self.valid_dimensions:
-            return
-        self.axes = axes
         self.widget.axes = axes
         if self.ndim > 1:
             self.widget.axes_manager = am
@@ -157,7 +158,7 @@ class SelectionTool(SignalFigureTool):
                     roi = Point2DROI(0, 0)
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
-            self.accepted[BaseInteractiveROI, FigureTool].emit(roi, self)
+            self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
 
     def cancel(self):
         if self.widget.is_on():
