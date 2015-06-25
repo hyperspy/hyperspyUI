@@ -39,7 +39,7 @@ class FittingPlugin(Plugin):
             axes = sig_axes[axes]
 
         i_ax = sig_axes.index(axes[0])
-        slices = roi._make_slices(sig_axes, axes)
+        slices = list(roi._make_slices(sig_axes, axes))
         for i, a in enumerate(sig_axes):
             if i != i_ax:
                 slices[i] = a.index

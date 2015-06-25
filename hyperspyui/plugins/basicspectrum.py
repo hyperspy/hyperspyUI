@@ -14,11 +14,10 @@ from QtGui import *
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
 from hyperspyui.threaded import Threaded
 from hyperspyui.util import win2sig
-from hyperspyui.tools import SelectionTool
+from hyperspyui.tools import SignalFigureTool
 
 import hyperspy.signals
-from hyperspy.misc.eds.utils import get_xray_lines_near_energy, \
-    _get_element_and_line
+from hyperspy.misc.eds.utils import _get_element_and_line
 import numpy as np
 
 import os
@@ -94,14 +93,18 @@ class BasicSpectrumPlugin(Plugin):
         self.add_toolbar_button("EELS", self.ui.actions['estimate_thickness'])
 
     def create_tools(self):
-        self.picker_tool = ElementPickerTool()
-        self.picker_tool.picked[basestring].connect(self.pick_element)
-        self.add_tool(self.picker_tool,
-                      SignalTypeFilter(
-                          (hyperspy.signals.EELSSpectrum,
-                           hyperspy.signals.EDSSEMSpectrum,
-                           hyperspy.signals.EDSTEMSpectrum),
-                          self.ui))
+        try:
+            from hyperspy.misc.eds.utils import get_xray_lines_near_energy as _
+            self.picker_tool = ElementPickerTool()
+            self.picker_tool.picked[basestring].connect(self.pick_element)
+            self.add_tool(self.picker_tool,
+                          SignalTypeFilter(
+                              (  # hyperspy.signals.EELSSpectrum,
+                               hyperspy.signals.EDSSEMSpectrum,
+                               hyperspy.signals.EDSTEMSpectrum),
+                              self.ui))
+        except ImportError:
+            pass
 
     def _toggle_fixed_height(self, floating):
         w = self.picker_widget
@@ -118,16 +121,9 @@ class BasicSpectrumPlugin(Plugin):
         self._toggle_fixed_height(False)
 
     def pick_element(self, element, signal=None):
-        if signal is None:
-            f = self.picker_tool.widget.ax.figure
-            window = f.canvas.parent()
-            sw = window.property('hyperspyUI.SignalWrapper')
-            if sw is None:
-                return
-            signal = sw.signal
-
-        wp = [w for w in self.ui.widgets if
-              isinstance(w, ElementPickerWidget)][0]
+        wp = self.picker_widget
+        if signal:
+            wp.set_signal(signal)
         wp.set_element(element, True)
         if not wp.chk_markers.isChecked():
             wp.chk_markers.setChecked(True)
@@ -171,7 +167,7 @@ class BasicSpectrumPlugin(Plugin):
         s_t.plot()
 
 
-class ElementPickerTool(SelectionTool):
+class ElementPickerTool(SignalFigureTool):
     picked = Signal(basestring)
 
     def __init__(self, windows=None):
@@ -188,28 +184,27 @@ class ElementPickerTool(SelectionTool):
     def get_icon(self):
         return os.path.dirname(__file__) + '/../images/periodic_table.svg'
 
-    def nearby_energies(self, roi):
-        c = roi.coords[0][0]
-        dd = NearbyElementDropdown(c)
-        dd.show()
-
     def on_pick_line(self, line):
         el, _ = _get_element_and_line(line)
         self.picked.emit(el)
 
+    def is_selectable(self):
+        return True
+
     def on_mouseup(self, event):
         if event.inaxes is None:
             return
-        self.accept()
         energy = event.xdata
-        a = self.axes[0]
+        axes = self._get_axes(event)
+        if len(axes) not in self.valid_dimensions:
+            return
+        a = axes[0]
         if a.units.lower() == 'ev':
             energy /= 1000.0
+        from hyperspy.misc.eds.utils import get_xray_lines_near_energy
         lines = get_xray_lines_near_energy(energy)
         if lines:
             m = QMenu()
             for line in lines:
                 m.addAction(line, partial(self.on_pick_line, line))
             m.exec_(QCursor.pos())
-
-        self.cancel()

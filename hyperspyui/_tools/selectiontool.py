@@ -13,11 +13,11 @@ from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
 from hyperspy.roi import BaseInteractiveROI, RectangularROI, SpanROI, \
     Point1DROI, Point2DROI
 
-from hyperspyui.tools import FigureTool
+from hyperspyui.tools import SignalFigureTool
 from hyperspyui.util import load_cursor
 
 
-class SelectionTool(FigureTool):
+class SelectionTool(SignalFigureTool):
 
     """
     Tool to select a ROI on a  signal interactively. Simply click and drag in a
@@ -27,9 +27,9 @@ class SelectionTool(FigureTool):
     """
 
     accepted = QtCore.Signal([BaseInteractiveROI],
-                             [BaseInteractiveROI, FigureTool])
+                             [BaseInteractiveROI, SignalFigureTool])
     updated = QtCore.Signal([BaseInteractiveROI],
-                            [BaseInteractiveROI, FigureTool])    # TODO: Use
+                            [BaseInteractiveROI, SignalFigureTool]) # TODO: Use
     cancelled = QtCore.Signal()
 
     def __init__(self, windows=None):
@@ -42,7 +42,6 @@ class SelectionTool(FigureTool):
         self.widget2d.set_on(False)
         self.widget1d = DraggableVerticalLine(None)
         self.widget1d.set_on(False)
-        self.axes = None
         self.valid_dimensions = [1, 2]
         self.ranged = True
 
@@ -88,6 +87,12 @@ class SelectionTool(FigureTool):
         # Only accept mouse down inside axes
         if event.inaxes is None:
             return
+
+        axes = self._get_axes(event)
+        # Make sure we have a figure with valid dimensions
+        if len(axes) not in self.valid_dimensions:
+            return
+        self.axes = axes
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
             if self.widget.patch.contains(event)[0] == True:
@@ -100,33 +105,12 @@ class SelectionTool(FigureTool):
             # Cancel previous and start new
             self.cancel()
 
-        # We need to map figure to a hyperspy Signal:
-        f = event.inaxes.figure
-        window = f.canvas.parent()
-        sw = window.property('hyperspyUI.SignalWrapper')
-        if sw is None:
-            return
-        if sw.signal._plot.signal_plot is not None:
-            sig_ax = sw.signal._plot.signal_plot.ax
-        else:
-            sig_ax = None
-        if sw.signal._plot.navigator_plot is not None:
-            nav_ax = sw.signal._plot.navigator_plot.ax
-        else:
-            nav_ax = None
-
         # Find out which axes of Signal are plotted in figure
-        am = sw.signal.axes_manager
-        if sig_ax == event.inaxes:
-            axes = am.signal_axes
-        elif nav_ax == event.inaxes:
-            axes = am.navigation_axes
-        else:
+        s = self._get_signal(event.inaxes.figure)
+        if s is None:
             return
-        # Make sure we have a figure with valid dimensions
-        if len(axes) not in self.valid_dimensions:
-            return
-        self.axes = axes
+        am = s.axes_manager
+
         self.widget.axes = axes
         if self.ndim > 1:
             self.widget.axes_manager = am
@@ -174,7 +158,7 @@ class SelectionTool(FigureTool):
                     roi = Point2DROI(0, 0)
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
-            self.accepted[BaseInteractiveROI, FigureTool].emit(roi, self)
+            self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
 
     def cancel(self):
         if self.widget.is_on():
