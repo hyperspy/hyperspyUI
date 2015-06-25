@@ -333,6 +333,8 @@ class MainWindowLayer5(MainWindowLayer4):
         if sw.keep_on_close:
             sw.keep_on_close = False
         self._plotting_signal = None
+        self.main_frame.subWindowActivated.emit(
+            self.main_frame.activeSubWindow())
 
     # -------- Selection management -------
 

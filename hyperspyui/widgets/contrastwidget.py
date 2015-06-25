@@ -53,7 +53,7 @@ class ContrastWidget(FigureWidget):
             figure = win2fig(figure)
 
         signals = self.parent().signals
-        p = fig2plot(self._last_window, signals)
+        p = fig2plot(figure, signals)
         self._cur_plot = p
         self.update_controls_from_fig()
 

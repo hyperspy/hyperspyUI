@@ -54,9 +54,6 @@ class FigureWidget(QDockWidget):
             action = self.ui.main_frame.subWindowActivated
         action.disconnect(self.on_change)
 
-    def _on_figure_activate(self, figure):
-        self._cur_fig = figure
-
     def _on_figure_change(self, window):
         """
         Called when a connected update triggers. If the window is valid, it
