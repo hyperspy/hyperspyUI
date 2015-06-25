@@ -297,7 +297,8 @@ class MainWindow(MainWindowLayer5):
         Displays a blocking dialog prompting the user to select 'x' signals.
         Over each selection box, the title as defined by 'titles' is displayed.
         """
-        w = PickXSignalsWidget(self.signals, x, titles, wrap_col)
+        w = PickXSignalsWidget(self.signals, x, parent=self,
+                               titles=titles, wrap_col=wrap_col)
         diag = self.show_okcancel_dialog("Select signals", w, True)
         signals = None
         if diag.result() == QDialog.Accepted:
