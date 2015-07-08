@@ -30,6 +30,8 @@ from hyperspyui.singleapplication import get_app
 # TODO: Make editor tabs drag&droppable + default to all in one
 # TODO: Make data type changer handle RGBX data types.
 # TODO: Put licensing info in the right places
+# TODO: Metadata explorer (TreeView)
+# TODO: Variable explorer (Signal/Model etc.). 3rd party library?
 
 
 # import logging
