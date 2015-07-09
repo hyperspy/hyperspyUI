@@ -1,6 +1,7 @@
 from hyperspyui.plugins.plugin import Plugin
 import matplotlib as mpl
 import os
+import sys
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -11,6 +12,7 @@ def tr(text):
     return QCoreApplication.translate("MovieSaver", text)
 
 
+# =============================================================================
 # Check that we have a valid writer
 writer = mpl.rcParams['animation.writer']
 writers = mpl.animation.writers
@@ -27,6 +29,7 @@ else:
                          "available. Please install mencoder or "
                          "ffmpeg to save animations.")
 del writer
+# =============================================================================
 
 
 class MovieSaver(Plugin):
@@ -59,12 +62,29 @@ class MovieSaver(Plugin):
         dlg.edt_fname.setText(fname)
         dlg_w = self.ui.show_okcancel_dialog(tr("Save movie"), dlg)
         if dlg_w.result() == QDialog.Accepted:
+            # Setup writer:
             fps = dlg.num_fps.value()
+            codec = dlg.edt_codec.text()
+            if not codec:
+                codec = None
+            extra = dlg.edt_extra.text()
+            if extra:
+                extra = list(extra.split())
+            else:
+                extra = None
+            if dlg.chk_verbose.isChecked():
+                old_verbose = mpl.verbose.level
+                mpl.verbose.level = 'debug'
+                if extra:
+                    extra.extend(['-v', 'debug'])
+                else:
+                    extra = ['-v', 'debug']
             metadata = signal.metadata.as_dictionary()
             writer = mpl.rcParams['animation.writer']
             writers = mpl.animation.writers
             if writer in writers.avail:
-                writer = writers[writer](fps=fps, metadata=metadata)
+                writer = writers[writer](fps=fps, metadata=metadata,
+                                         codec=codec, extra_args=extra)
             else:
                 import warnings
                 warnings.warn("MovieWriter %s unavailable" % writer)
@@ -80,10 +100,28 @@ class MovieSaver(Plugin):
             fname = dlg.edt_fname.text()
             dpi = dlg.num_dpi.value()
             fig = signal._plot.signal_plot.figure
-            with writer.saving(fig, fname, dpi):
-                for idx in signal.axes_manager:
-                    QApplication.processEvents()
-                    writer.grab_frame()
+
+            # Set figure props:
+            if not dlg.chk_colorbar.isChecked():
+                cb_ax = signal._plot.signal_plot._colorbar.ax
+                fig.delaxes(cb_ax)
+            if not dlg.chk_axes.isChecked():
+                signal._plot.signal_plot.ax.set_axis_off()
+
+            try:
+                with writer.saving(fig, fname, dpi):
+                    for idx in signal.axes_manager:
+                        QApplication.processEvents()
+                        writer.grab_frame()
+            finally:
+                # Reset figure props:
+                if dlg.chk_verbose.isChecked():
+                    mpl.verbose.level = old_verbose
+                if not dlg.chk_colorbar.isChecked():
+                    fig.add_axes(cb_ax)
+                if not dlg.chk_axes.isChecked():
+                    signal._plot.signal_plot.ax.set_axis_on()
+                fig.canvas.draw()
 
 
 class MovieArgsPrompt(QWidget):
@@ -94,7 +132,7 @@ class MovieArgsPrompt(QWidget):
 
     def create_controls(self):
         self.num_fps = QDoubleSpinBox()
-        self.num_fps.setValue(5.0)
+        self.num_fps.setValue(25.0)
         self.num_fps.setMinimum(0.001)
 
         self.edt_fname = QLineEdit()
@@ -105,12 +143,33 @@ class MovieArgsPrompt(QWidget):
         self.num_dpi.setMinimum(1)
         self.num_dpi.setMaximum(10000)
 
+        self.chk_axes = QCheckBox("Axes")
+        self.chk_colorbar = QCheckBox("Colorbar")
+
+        self.edt_codec = QLineEdit(mpl.rcParams['animation.codec'])
+        self.edt_extra = QLineEdit()
+
+        # TODO: Use QCompleter or QComboBox for codecs
+        # TODO: Use QCompleter for 'extra' history
+
+        self.chk_verbose = QCheckBox("Verbose")
+        try:
+            sys.stdout.fileno()
+        except:
+            self.chk_verbose.setEnabled(False)
+            self.chk_verbose.setToolTip("Verbose output does not work with " +
+                                        "internal console.")
+
         frm = QFormLayout()
         frm.addRow(tr("FPS:"), self.num_fps)
         frm.addRow(tr("DPI:"), self.num_dpi)
+        frm.addRow(tr("Codec:"), self.edt_codec)
+        frm.addRow(tr("Extra args:"), self.edt_extra)
+        frm.addRow(self.chk_axes, self.chk_colorbar)
         hbox = QHBoxLayout()
         hbox.addWidget(self.edt_fname)
         hbox.addWidget(self.btn_browse)
         frm.addRow(tr("File:"), hbox)
+        frm.addRow("", self.chk_verbose)
 
         self.setLayout(frm)
