@@ -151,6 +151,7 @@ class MovieArgsPrompt(QWidget):
 
         # TODO: Use QCompleter or QComboBox for codecs
         # TODO: Use QCompleter for 'extra' history
+        # TODO: Bitrate and/or quality slider
 
         self.chk_verbose = QCheckBox("Verbose")
         try:
