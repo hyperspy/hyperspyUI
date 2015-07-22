@@ -132,7 +132,7 @@ class MovieArgsPrompt(QWidget):
 
     def create_controls(self):
         self.num_fps = QDoubleSpinBox()
-        self.num_fps.setValue(25.0)
+        self.num_fps.setValue(15.0)
         self.num_fps.setMinimum(0.001)
 
         self.edt_fname = QLineEdit()
@@ -146,8 +146,10 @@ class MovieArgsPrompt(QWidget):
         self.chk_axes = QCheckBox("Axes")
         self.chk_colorbar = QCheckBox("Colorbar")
 
-        self.edt_codec = QLineEdit(mpl.rcParams['animation.codec'])
-        self.edt_extra = QLineEdit()
+        # codec = mpl.rcParams['animation.codec']
+        codec = 'h264'
+        self.edt_codec = QLineEdit(codec)
+        self.edt_extra = QLineEdit("-preset veryslow -crf 0")
 
         # TODO: Use QCompleter or QComboBox for codecs
         # TODO: Use QCompleter for 'extra' history
