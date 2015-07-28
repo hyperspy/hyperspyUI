@@ -1,15 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="50px" height="50px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-<path d="M46.949,19.061c-0.475-0.591-1.191-0.936-1.949-0.936h-2.5c0-1.381-1.119-2.5-2.5-2.5h-2.5v-2.5c0-1.381-1.119-2.5-2.5-2.5
-	h-1.25v-5c0-0.69-0.561-1.25-1.25-1.25h-25c-0.691,0-1.25,0.56-1.25,1.25v5H5c-1.381,0-2.5,1.119-2.5,2.5v30
-	c0,1.381,1.119,2.5,2.5,2.5h5h25h5c1.172,0,2.187-0.814,2.439-1.958l5-22.5C47.605,20.427,47.424,19.652,46.949,19.061z
-	 M6.25,43.125H5v-30h1.25V43.125z M33.968,30.969l-8.75,8.749c-0.488,0.488-1.279,0.488-1.768,0l-8.75-8.75
-	c-0.357-0.356-0.465-0.895-0.271-1.362c0.193-0.467,0.648-0.771,1.154-0.771h3.125V18.126H15c-1.172,0-2.188,0.814-2.441,1.958
-	c0,0-5.057,22.861-5.057,23.042H7.5v-37.5h25v10c-1.381,0-2.5,1.119-2.5,2.5h-0.042v10.71h3.125c0.506,0,0.961,0.305,1.156,0.771
-	C34.434,30.074,34.325,30.611,33.968,30.969z M35,15.625h-1.25v-2.5H35V15.625z M11.167,9.917c0-0.69,0.56-1.25,1.25-1.25h14.916
-	c0.69,0,1.25,0.56,1.25,1.25s-0.56,1.25-1.25,1.25H12.417C11.728,11.167,11.167,10.607,11.167,9.917z M27.333,16.25H12.417
-	c-0.69,0-1.25-0.56-1.25-1.25s0.56-1.25,1.25-1.25h14.916c0.69,0,1.25,0.56,1.25,1.25S28.023,16.25,27.333,16.25z"/>
-</svg>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_2"
+   x="0px"
+   y="0px"
+   width="50px"
+   height="50px"
+   viewBox="0 0 50 50"
+   enable-background="new 0 0 50 50"
+   xml:space="preserve"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="download.svg"><metadata
+     id="metadata9"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs7" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="717"
+     inkscape:window-height="480"
+     id="namedview5"
+     showgrid="false"
+     inkscape:zoom="4.72"
+     inkscape:cx="25"
+     inkscape:cy="25"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_2" /><path
+     d="m 46.949347,19.061 c -0.475,-0.591 -1.191,-0.936 -1.949,-0.936 l -2.5,0 c 0,-1.381 -1.119,-2.5 -2.5,-2.5 l -2.5,0 0,-2.5 c 0,-1.381 -1.119,-2.5 -2.5,-2.5 l -1.25,0 0,-5 c 0,-0.69 -0.561,-1.25 -1.25,-1.25 l -24.9999995,0 c -0.691,0 -1.25,0.56 -1.25,1.25 l 0,5 -1.25,0 c -1.381,0 -2.5,1.119 -2.5,2.5 l 0,30 c 0,1.381 1.119,2.5 2.5,2.5 l 4.9999995,0 25,0 5,0 c 1.172,0 2.187,-0.814 2.439,-1.958 l 5,-22.5 c 0.166,-0.74 -0.015,-1.515 -0.49,-2.106 z m -40.6989995,24.064 -1.25,0 0,-30 1.25,0 0,30 z m 27.7179995,-12.156 -8.75,8.749 c -0.488,0.488 -1.279,0.488 -1.768,0 l -8.75,-8.75 c -0.357,-0.356 -0.465,-0.895 -0.271,-1.362 0.193,-0.467 0.648,-0.771 1.154,-0.771 l 3.125,0 0,-10.709 -3.708,0 c -1.172,0 -2.188,0.814 -2.441,1.958 0,0 -5.0569995,22.861 -5.0569995,23.042 l -0.002,0 0,-37.5 24.9999995,0 0,10 c -1.381,0 -2.5,1.119 -2.5,2.5 l -0.042,0 0,10.71 3.125,0 c 0.506,0 0.961,0.305 1.156,0.771 0.195,0.467 0.086,1.004 -0.271,1.362 z m 1.032,-15.344 -1.25,0 0,-2.5 1.25,0 0,2.5 z m -23.833,-5.708 c 0,-0.69 0.56,-1.25 1.25,-1.25 l 14.916,0 c 0.69,0 1.25,0.56 1.25,1.25 0,0.69 -0.56,1.25 -1.25,1.25 l -14.916,0 c -0.689,0 -1.25,-0.56 -1.25,-1.25 z m 16.166,6.333 -14.916,0 c -0.69,0 -1.25,-0.56 -1.25,-1.25 0,-0.69 0.56,-1.25 1.25,-1.25 l 14.916,0 c 0.69,0 1.25,0.56 1.25,1.25 0,0.69 -0.56,1.25 -1.25,1.25 z"
+     id="path3"
+     inkscape:connector-curvature="0" /></svg>
