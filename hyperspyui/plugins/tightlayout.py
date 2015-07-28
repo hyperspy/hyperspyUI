@@ -1,4 +1,5 @@
 from hyperspyui.plugins.plugin import Plugin
+import os
 import numpy as np
 from hyperspy.hspy import *
 
@@ -9,7 +10,7 @@ class Tightlayout(Plugin):
     def create_actions(self):
         self.add_action(
             self.name + '.default', self.name, self.default,
-            icon="C:/github/hyperspyUI/hyperspyui/images/move.svg",
+            icon="move.svg",
             tip="")
 
     def create_menu(self):
