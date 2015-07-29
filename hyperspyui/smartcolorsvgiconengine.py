@@ -37,7 +37,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         self._svgBuffers = {}
         self._color = QApplication.palette().foreground().color()
         self._color_replacements = {
-            '#000000': self._color.name()
+            '#000000': self._color.name(),
             'black': self._color.name()
             }
 
