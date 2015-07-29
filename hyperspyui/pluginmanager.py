@@ -201,7 +201,7 @@ class PluginManager(object):
         new_ps = []
         for plug_type in loaded:
             if reload_plugins and plug_type.name in self.plugins:
-                 # Unload any plugins with same name
+                # Unload any plugins with same name
                 self.unload(self.plugins[plug_type.name])
             try:
                 p = self._load_if_enabled(plug_type)
