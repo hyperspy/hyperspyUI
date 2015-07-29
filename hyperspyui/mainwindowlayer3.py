@@ -5,7 +5,6 @@ Created on Sat Feb 21 16:05:41 2015
 @author: Vidar Tonaas Fauske
 """
 
-
 from mainwindowlayer2 import MainWindowLayer2, tr
 
 from python_qt_binding import QtGui, QtCore
@@ -17,7 +16,6 @@ from functools import partial
 
 
 class MainWindowLayer3(MainWindowLayer2):
-
     """
     Third layer in the application stack. Adds UI utility functions.
     """
@@ -61,6 +59,7 @@ class MainWindowLayer3(MainWindowLayer2):
         else:
             def callback_udwrap():
                 callback(userdata)
+
             self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
         self.actions[key] = ac
         if selection_callback is not None:
