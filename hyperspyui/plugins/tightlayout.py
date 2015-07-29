@@ -1,6 +1,4 @@
 from hyperspyui.plugins.plugin import Plugin
-import os
-import numpy as np
 from hyperspy.hspy import *
 
 
@@ -25,7 +23,6 @@ class Tightlayout(Plugin):
 
     def default(self):
         ui = self.ui
-        siglist = ui.hspy_signals
         s = ui.get_selected_signal()
         for p in (s._plot.signal_plot, s._plot.navigator_plot):
             p.figure.tight_layout()
