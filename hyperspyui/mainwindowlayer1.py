@@ -25,6 +25,7 @@ import hyperspyui.mdi_mpl_backend
 from pluginmanager import PluginManager
 from hyperspyui.settings import Settings
 from hyperspyui.widgets.settingsdialog import SettingsDialog
+from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 
 
 class MainWindowLayer1(QMainWindow):
@@ -260,6 +261,26 @@ class MainWindowLayer1(QMainWindow):
     # --------- End figure management ---------
 
     # --------- UI utility finctions ---------
+
+    def make_icon(self, icon):
+        if not isinstance(icon, QIcon):
+            if isinstance(icon, basestring) and not os.path.isfile(icon):
+                sugg = os.path.dirname(__file__) + '/images/' + icon
+                if os.path.isfile(sugg):
+                    icon = sugg
+            if isinstance(icon, basestring) and (
+                    icon.endswith('svg') or
+                    icon.endswith('svgz') or 
+                    icon.endswith('svg.gz')):
+                ie = SmartColorSVGIconEngine()
+                path = icon
+                icon = QIcon(ie)
+                icon.addFile(path)
+            else:
+                icon = QIcon(icon)
+        else:
+            icon = QIcon(SmartColorSVGIconEngine(icon))
+        return icon
 
     def get_figure_filepath_suggestion(self, figure, deault_ext=None):
         canvas = figure.widget()

@@ -48,12 +48,7 @@ class MainWindowLayer3(MainWindowLayer2):
         if icon is None:
             ac = QAction(tr(label), self)
         else:
-            if not isinstance(icon, QIcon):
-                if isinstance(icon, basestring) and not os.path.isfile(icon):
-                    sugg = os.path.dirname(__file__) + '/images/' + icon
-                    if os.path.isfile(sugg):
-                        icon = sugg
-                icon = QIcon(icon)
+            icon = self.make_icon(icon)
             ac = QAction(icon, tr(label), self)
         if shortcut is not None:
             ac.setShortcut(shortcut)
