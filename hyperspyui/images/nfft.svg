@@ -47,7 +47,7 @@
      id="text4282"
      x="61.461651"
      y="109.74943"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.47124863px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:center;writing-mode:lr;text-anchor:middle;"
+     style="fill:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.47124863px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:center;writing-mode:lr;text-anchor:middle;"
      sodipodi:linespacing="125%"><tspan
        style="-inkscape-font-specification:'Arial, Normal';font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:50.47124863px;text-anchor:middle;text-align:center;writing-mode:lr;line-height:125%;"
        id="tspan4160">FFT</tspan></text>
@@ -56,7 +56,7 @@
      id="text4282-4"
      x="65.072021"
      y="56.596893"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.47124863px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:center;writing-mode:lr;text-anchor:middle;"
+     style="fill:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.47124863px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:center;writing-mode:lr;text-anchor:middle;"
      sodipodi:linespacing="125%"><tspan
        style="-inkscape-font-specification:'Arial, Normal';font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:43.75px;text-anchor:middle;text-align:center;writing-mode:lr;line-height:125%"
        id="tspan4164">Sig.</tspan></text>

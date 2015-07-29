@@ -118,7 +118,7 @@ class Example(QtGui.QMainWindow):
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(action_list[8])
         
-        self.setGeometry(300, 300, 650, 350)
+        self.setGeometry(50, 30, 650, 350)
         self.setWindowTitle('Icon color testing')    
         self.show()
 

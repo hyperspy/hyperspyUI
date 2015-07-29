@@ -3,14 +3,17 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="87.5px" height="85.5px" viewBox="10.167 8 87.5 85.5" enable-background="new 10.167 8 87.5 85.5" xml:space="preserve">
-<polygon points="91.334,80.333 91.334,86.333 16,86.333 16,15.667 22,15.667 22,80.334 91.334,80.334 "/>
-<circle cx="35.833" cy="41" r="4.5"/>
-<circle cx="69.888" cy="45.5" r="4.5"/>
-<circle cx="73.555" cy="22.833" r="4.5"/>
-<circle cx="85.501" cy="45.5" r="4.5"/>
-<circle cx="84.667" cy="28.333" r="4.5"/>
-<circle cx="35" cy="66.756" r="4.5"/>
-<circle cx="52.435" cy="59.544" r="4.5"/>
-<circle cx="56.101" cy="38.833" r="4.5"/>
+<style type="text/css">
+	.st0{fill:#000000;}
+</style>
+<polygon class="st0" points="91.334,80.333 91.334,86.333 16,86.333 16,15.667 22,15.667 22,80.334 91.334,80.334 "/>
+<circle class="st0" cx="35.833" cy="41" r="4.5"/>
+<circle class="st0" cx="69.888" cy="45.5" r="4.5"/>
+<circle class="st0" cx="73.555" cy="22.833" r="4.5"/>
+<circle class="st0" cx="85.501" cy="45.5" r="4.5"/>
+<circle class="st0" cx="84.667" cy="28.333" r="4.5"/>
+<circle class="st0" cx="35" cy="66.756" r="4.5"/>
+<circle class="st0" cx="52.435" cy="59.544" r="4.5"/>
+<circle class="st0" cx="56.101" cy="38.833" r="4.5"/>
 <line stroke="#000000" stroke-width="5" stroke-linecap="round" x1="26.185" y1="62.256" x2="87.685" y2="30.756"/>
 </svg>

@@ -5,7 +5,6 @@ Created on Sat Feb 21 16:05:41 2015
 @author: Vidar Tonaas Fauske
 """
 
-
 from mainwindowlayer2 import MainWindowLayer2, tr
 
 from python_qt_binding import QtGui, QtCore
@@ -13,11 +12,11 @@ from QtCore import *
 from QtGui import *
 
 import os
+import tempfile
 from functools import partial
 
 
 class MainWindowLayer3(MainWindowLayer2):
-
     """
     Third layer in the application stack. Adds UI utility functions.
     """
@@ -32,6 +31,20 @@ class MainWindowLayer3(MainWindowLayer2):
         # TODO: What info is needed? Add simple label first, create utility to
         # add more?
         self.statusBar().showMessage(msg)
+
+    @staticmethod
+    def replace_svg_color(filename, old_color, new_color):
+        """
+        Generate and return a temp svg filename with old_color replaced
+        by new_color (color names are in HTML format '#XXXXXX')
+        """
+        svg_file = open(filename, 'r')
+        svg_cnt = svg_file.read()
+        temp = tempfile.NamedTemporaryFile(delete=False)
+        temp.write(svg_cnt.replace(old_color, new_color))
+        temp.close()
+
+        return temp.name
 
     def add_action(self, key, label, callback, tip=None, icon=None,
                    shortcut=None, userdata=None, selection_callback=None):
@@ -52,7 +65,13 @@ class MainWindowLayer3(MainWindowLayer2):
                 if isinstance(icon, basestring) and not os.path.isfile(icon):
                     sugg = os.path.dirname(__file__) + '/images/' + icon
                     if os.path.isfile(sugg):
-                        icon = sugg
+                        icon = QIcon(self.replace_svg_color(sugg,
+                                                            '#000000',
+                                                            self.palette().
+                                                            color(QtGui.
+                                                                  QPalette.
+                                                                  Text).name()
+                                                            ))
                 icon = QIcon(icon)
             ac = QAction(icon, tr(label), self)
         if shortcut is not None:
@@ -66,6 +85,7 @@ class MainWindowLayer3(MainWindowLayer2):
         else:
             def callback_udwrap():
                 callback(userdata)
+
             self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
         self.actions[key] = ac
         if selection_callback is not None:
@@ -179,7 +199,7 @@ class MainWindowLayer3(MainWindowLayer2):
         """
         if floating is None:
             floating = self.settings[
-                'default_widget_floating'].lower() == 'true'
+                           'default_widget_floating'].lower() == 'true'
         if isinstance(widget, QDockWidget):
             d = widget
         else:
