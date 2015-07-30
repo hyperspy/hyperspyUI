@@ -7,9 +7,9 @@ class Tightlayout(Plugin):
 
     def create_actions(self):
         self.add_action(
-            self.name + '.default', self.name, self.default,
+            self.name + '.default', "Tight layout", self.default,
             icon="move.svg",
-            tip="")
+            tip="Apply a tight layout to all plots of selected signal.")
 
     def create_menu(self):
         self.add_menuitem('Plot', self.ui.actions[self.name + '.default'])
