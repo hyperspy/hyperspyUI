@@ -77,8 +77,14 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         to the dictionary `color_replacements`. Returns a QByteArray of the
         processed content.
         """
-        svg_file = open(filename, 'r')
-        svg_cnt = svg_file.read()
+        f_low = filename.lower()
+        if f_low.endswith('.svgz') or f_low.endswith('.svg.gz'):
+            import gzip
+            with gzip.open(filename, 'r') as svg_file:
+                svg_cnt = svg_file.read()
+        else:
+            with open(filename, 'r') as svg_file:
+                svg_cnt = svg_file.read()
 
         # Merge automatic and custom LUTs
         color_table = self._automatic_color_replacements.copy()
