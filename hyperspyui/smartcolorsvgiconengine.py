@@ -11,6 +11,8 @@ from QtCore import *
 from QtGui import *
 from QtSvg import *
 
+import re
+
 
 class SmartColorSVGIconEngine(QIconEngineV2):
     """
@@ -86,7 +88,8 @@ class SmartColorSVGIconEngine(QIconEngineV2):
 
         # Perform replacement according to correct table
         for old, new in color_table[color_key].iteritems():
-            svg_cnt = svg_cnt.replace(old, new)
+            re_exp = re.compile(re.escape(old), re.IGNORECASE)
+            svg_cnt = re_exp.sub(new, svg_cnt)
         out = QByteArray(svg_cnt)
         return out
 
