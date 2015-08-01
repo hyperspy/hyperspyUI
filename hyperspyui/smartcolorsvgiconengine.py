@@ -15,7 +15,9 @@ from QtSvg import *
 class SmartColorSVGIconEngine(QIconEngineV2):
     """
     This class is basically a port to Python from the code for Qt's
-    QSvgIconEnginePlugin. Note: Some of the more esoteric uses of QIcon might
+    QSvgIconEnginePlugin. On top of this has been added the ability to exchange
+    colors in the icons. It's also possible in the future to do more advanced
+    XML pro-processing. Note: Some of the more esoteric uses of QIcon might
     not be fully tested for yet.
     """
 
@@ -35,38 +37,83 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         self._addedPixmaps = {}
         self._svgFiles = {}
         self._svgBuffers = {}
-        self._color = QApplication.palette().foreground().color()
-        self._color_replacements = {
-            '#000000': self._color.name(),
-            'black': self._color.name()
+        self.default_key = (QIcon.Normal, QIcon.Off)
+        self.custom_color_replacements = {}
+        self._automatic_color_replacements = {}
+        self._palette_key = None
+        self._set_replacements_from_palette()
+
+    def _set_replacements_from_palette(self):
+        """Sets `_automatic_color_replacements` attribute from application
+        palette. Updates `_palette_key` to the cacheKey of the used palette.
+        """
+        palette = QApplication.palette()
+        foreground = palette.color(QPalette.Active, QPalette.WindowText)
+        disabled_foreground = palette.color(QPalette.Disabled,
+                                            QPalette.WindowText)
+        self._automatic_color_replacements = {
+            'default': {
+                '#000000': foreground.name(),
+                'black': foreground.name()
+                },
+            'disabled': {
+                '#000000': disabled_foreground.name(),
+                'black': disabled_foreground.name()
+                }
             }
+        self._palette_key = palette.cacheKey()
 
     def _make_cache_key(self, size, mode, state):
+        """Make a unique, reproducable key to store/lookup icons in the pixmap
+        cache.
+        """
         return str(self) + str((size, mode, state))
 
-    def _replace_in_stream(self, filename):
+    def _replace_in_stream(self, filename, color_key='default'):
+        """Opens supplied SVG file, parses the file replacing colors according
+        to the dictionary `color_replacements`. Returns a QByteArray of the
+        processed content.
+        """
         svg_file = open(filename, 'r')
         svg_cnt = svg_file.read()
-        for old, new in self._color_replacements.iteritems():
+
+        # Merge automatic and custom LUTs
+        color_table = self._automatic_color_replacements.copy()
+        color_table.update(self.custom_color_replacements)
+        if color_key not in color_table:
+            color_key = 'default'
+
+        # Perform replacement according to correct table
+        for old, new in color_table[color_key].iteritems():
             svg_cnt = svg_cnt.replace(old, new)
         out = QByteArray(svg_cnt)
         return out
 
     def _loadDataForModeAndState(self, renderer, mode, state):
-        buf = QByteArray()
+        """Load SVG data to renderer.
+        """
+        # First, try to load from a buffer if available.
         if (mode, state) in self._svgBuffers:
             buf = self._svgBuffers[(mode, state)]
-            if buf is None:
-                buf = self._svgBuffers[(QIcon.Normal, QIcon.Off)]
+        elif self.default_key in self._svgBuffers:
+            buf = self._svgBuffers[self.default_key]
+        else:
+            buf = QByteArray()
+
         if buf:
             buf = qUncompress(buf)
             renderer.load(buf)
         else:
+            # If no buffer is available, load from file
             if (mode, state) in self._svgFiles:
                 svgFile = self._svgFiles[(mode, state)]
+                renderer.load(self._replace_in_stream(svgFile))
             else:
-                svgFile = self._svgFiles[(QIcon.Normal, QIcon.Off)]
-            renderer.load(self._replace_in_stream(svgFile))
+                svgFile = self._svgFiles[self.default_key]
+                if mode == QIcon.Disabled:
+                    renderer.load(self._replace_in_stream(svgFile, 'disabled'))
+                else:
+                    renderer.load(self._replace_in_stream(svgFile))
 
     def paint(self, painter, rect, mode, state):
         painter.drawPixmap(rect, self.pixmap(rect.size(), mode, state))
@@ -83,6 +130,10 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         return pm.size()
 
     def pixmap(self, size, mode, state):
+        # Check if the palette has changed (if so invalidate cache)
+        if self._palette_key != QApplication.palette().cacheKey():
+            QPixmapCache.clear()
+            self._set_replacements_from_palette()
         pmckey = self._make_cache_key(size, mode, state)
         pm = QPixmapCache.find(pmckey)
         if pm:
@@ -106,12 +157,6 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         img.fill(0x00000000)
         p = QPainter(img)
         renderer.render(p)
-        if img.isGrayscale() and img.hasAlphaChannel() and \
-                not self._color_replacements:
-            img2 = QImage(actualSize, QImage.Format_ARGB32_Premultiplied)
-            img2.fill(self._color)
-            p.setCompositionMode(QPainter.CompositionMode_SourceIn)
-            p.drawImage(0, 0, img2)
         p.end()
         pm = QPixmap.fromImage(img)
         opt = QStyleOption(0)
@@ -125,7 +170,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
 
         return pm
 
-    def addPixmap(self, pximap, mode, state):
+    def addPixmap(self, pixmap, mode, state):
         self._addedPixmaps[(mode, state)] = pixmap
 
     def addFile(self, fileName, size, mode, state):
@@ -182,7 +227,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
             if not data.isEmpty():
                 data = qUncompress(data)
                 if not data.isEmpty():
-                    self._svgBuffers[(QIcon.Normal, QIcon.Off)] = data
+                    self._svgBuffers[self.default_key] = data
             num_entries = ds_in.readInt()
             for i in xrange(num_entries):
                 if ds_in.atEnd():
@@ -217,9 +262,9 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         else:
             buf = QByteArray()
             if self._svgBuffers:
-                buf = self._svgBuffers[(QIcon.Normal, QIcon.Off)]
+                buf = self._svgBuffers[self.default_key]
             if buf.isEmpty():
-                svgFile = self._svgFiles[(QIcon.Normal, QIcon.Off)]
+                svgFile = self._svgFiles[self.default_key]
                 if not svgFile.isEmpty():
                     f = QFile(svgFile)
                     if f.open(QIODevice.ReadOnly):
