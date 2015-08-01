@@ -23,7 +23,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
 
     serial_gen = 0L
 
-    def __init__(self, other=None):
+    def __init__(self, use_qt_disabled=False, other=None):
         if other:
             super(SmartColorSVGIconEngine, self).__init__(other)
             if isinstance(other, SmartColorSVGIconEngine):
@@ -40,6 +40,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         self.default_key = (QIcon.Normal, QIcon.Off)
         self.custom_color_replacements = {}
         self._automatic_color_replacements = {}
+        self.use_qt_disabled = use_qt_disabled
         self._palette_key = None
         self._set_replacements_from_palette()
 
@@ -159,11 +160,12 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         renderer.render(p)
         p.end()
         pm = QPixmap.fromImage(img)
-        opt = QStyleOption(0)
+        opt = QStyleOption()
         opt.palette = QApplication.palette()
-        generated = QApplication.style().generatedIconPixmap(mode, pm, opt)
-        if generated is not None:
-            pm = generated
+        if self.use_qt_disabled or mode != QIcon.Disabled:
+            generated = QApplication.style().generatedIconPixmap(mode, pm, opt)
+            if generated is not None:
+                pm = generated
 
         if pm is not None:
             QPixmapCache.insert(pmckey, pm)
