@@ -14,10 +14,17 @@ from QtGui import *
 from QtWebKit import *
 from QtNetwork import *
 
+try:
+    assert(QSslSocket.supportsSsl())
+except NameError, AssertionError:
+    raise ImportError("Current platform doesn't support SSL. EELSDB plugin"
+                      " disabled.")
+
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
-import urllib
 import os
 import re
+import urllib2
+import tempfile
 
 re_dl_url = re.compile(
     r'http://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa')
@@ -64,7 +71,6 @@ class EELSDBPlugin(Plugin):
 
         def unravel():
             view.loadFinished.disconnect(loop.quit)
-            view.loadFinished.disconnect(dbg)
             view.loadFinished.disconnect(unravel)
 
         view.loadFinished.connect(unravel)
@@ -132,8 +138,6 @@ class EELSDBPlugin(Plugin):
 
         suffix = '.msa'
 
-        import urllib2
-        import tempfile
         req = urllib2.Request(url, headers=header)
         page = urllib2.urlopen(req)
 
