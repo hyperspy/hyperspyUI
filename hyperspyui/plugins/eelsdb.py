@@ -84,6 +84,12 @@ class EELSDBPlugin(Plugin):
         loginurl = QUrl("https://eelsdb.eu/wp-login.php")
         self.load_blocking(view, loginurl)
 
+        self.settings['uname'] = self.edt_uname.text()
+        if self.chk_remember.isChecked():
+            self.settings['pwd'] = self.edt_pwd.text()
+        else:
+            self.settings['pwd'] = None
+
         # Log in
         post_data = {'log': self.edt_uname.text(),
                      'pwd': self.edt_pwd.text(),
@@ -157,11 +163,17 @@ class EELSDBPlugin(Plugin):
             self.window = ExToolWindow(self.ui)
             self.window.setWindowTitle("EELSDB")
             form = QFormLayout()
-            self.edt_uname = QLineEdit("")
+            uname = self.settings['uname'] if 'uname' in self.settings else ""
+            pwd = self.settings['pwd'] if 'pwd' in self.settings else ""
+
+            self.edt_uname = QLineEdit(uname)
             form.addRow("Username:", self.edt_uname)
-            self.edt_pwd = QLineEdit("")
+            self.edt_pwd = QLineEdit(pwd)
             self.edt_pwd.setEchoMode(QLineEdit.Password)
             form.addRow("Password:", self.edt_pwd)
+            self.chk_remember = QCheckBox("Remember password")
+            self.chk_remember.setChecked(bool(pwd))
+            form.addRow(None, self.chk_remember)
             vbox = QVBoxLayout()
             vbox.addLayout(form)
             login_btn = QPushButton("Login")
