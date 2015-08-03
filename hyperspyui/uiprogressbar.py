@@ -9,7 +9,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-import hyperspy.misc.progressbar
+import hyperspy.external.progressbar
 import time
 
 from hyperspyui.exceptions import ProcessCanceled
@@ -32,7 +32,7 @@ signaler.on_cancel = _on_cancel
 
 def _wrap(*args, **kwargs):
     """
-    Replacement function for hyperspy.misc.progressbar.progressbar().
+    Replacement function for hyperspy.external.progressbar.progressbar().
     Causes a UIProgressBar() to be made, which the MainWindow can connect to
     in order to create a progress indicator. It is important that the
     connection is made with QtCore.Signals, as they are thread aware, and the
@@ -44,30 +44,30 @@ def _wrap(*args, **kwargs):
     maxval = kwargs.pop('maxval', 100)
     text = kwargs.pop('text', "")
     if disabled:
-        return hyperspy.misc.progressbar.DummyProgressBar()
+        return hyperspy.external.progressbar.DummyProgressBar()
     else:
         widgets = [text, "bar",
-                   hyperspy.misc.progressbar.ETA()]
+                   hyperspy.external.progressbar.ETA()]
         return UIProgressBar(widgets=widgets, maxval=maxval).start()
 
 # Override hyperspy prgoressbar implementation
-orig = hyperspy.misc.progressbar.progressbar
+orig = hyperspy.external.progressbar.progressbar
 
 
 def takeover_progressbar():
     """
-    Replace hyperspy.misc.progressbar.progressbar() with uiprogressbar.wrap().
+    Replace hyperspy.external.progressbar.progressbar() with uiprogressbar.wrap().
     The main_window will be connected to all the events whenever a progressbar
     is created.
     """
-    hyperspy.misc.progressbar.progressbar = _wrap
+    hyperspy.external.progressbar.progressbar = _wrap
 
 
 def reset_progressbar():
-    hyperspy.misc.progressbar.progressbar = orig
+    hyperspy.external.progressbar.progressbar = orig
 
 
-class UIProgressBar(hyperspy.misc.progressbar.ProgressBar):
+class UIProgressBar(hyperspy.external.progressbar.ProgressBar):
 
     """
     Connector between hyperspy process with a progressbar, and the UI. See also
@@ -117,7 +117,7 @@ class UIProgressBar(hyperspy.misc.progressbar.ProgressBar):
         has_eta = False
         global signaler
         for w in self.widgets:
-            if isinstance(w, hyperspy.misc.progressbar.ETA):
+            if isinstance(w, hyperspy.external.progressbar.ETA):
                 has_eta = True
                 eta = w.update(self)
                 txt = self.widgets[0] + " " + eta

@@ -18,6 +18,8 @@ from mainwindowlayer4 import MainWindowLayer4, tr
 
 import hooksignal
 hooksignal.hook_signal()
+import uiprogressbar
+uiprogressbar.takeover_progressbar()    # Enable hooks
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -33,9 +35,7 @@ import hyperspy.hspy
 import hyperspy.defaults_parser
 from hyperspy.io_plugins import io_plugins
 
-import uiprogressbar
 import overrides
-uiprogressbar.takeover_progressbar()    # Enable hooks
 overrides.override_hyperspy()           # Enable hyperspy overrides
 
 
