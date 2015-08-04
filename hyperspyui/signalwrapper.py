@@ -176,20 +176,22 @@ class SignalWrapper(Actionable):
             self.figures.remove(fig)
 
     def as_image(self, axis=(0, 1)):
+        signal = self.signal
         self.close()  # Store geomtery and close
         # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
-        self.signal = self.signal.as_image(axis)
+        self.signal = signal.as_image(axis)
 
     def as_spectrum(self, axis=0):
+        signal = self.signal
         self.close()  # Store geomtery and close
         # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
-        self.signal = self.signal.as_spectrum(axis)
+        self.signal = signal.as_spectrum(axis)
 
     def make_model(self, *args, **kwargs):
         m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)
