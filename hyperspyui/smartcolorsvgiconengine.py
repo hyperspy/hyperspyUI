@@ -118,7 +118,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
             if (mode, state) in self._svgFiles:
                 svgFile = self._svgFiles[(mode, state)]
                 renderer.load(self._replace_in_stream(svgFile))
-            else:
+            elif self.default_key in self._svgFiles:
                 svgFile = self._svgFiles[self.default_key]
                 if mode == QIcon.Disabled:
                     renderer.load(self._replace_in_stream(svgFile, 'disabled'))
