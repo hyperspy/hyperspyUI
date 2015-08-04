@@ -434,7 +434,7 @@ class MainWindowLayer5(MainWindowLayer4):
             filenames = filenames[0]
         return filenames
 
-    def load_stack(self, filenames=None, stack_axes=None):
+    def load_stack(self, filenames=None, stack_axis=None):
         if filenames is None:
             extensions = self.get_accepted_extensions()
             type_choices = ';;'.join(["*." + e for e in extensions])
@@ -447,7 +447,7 @@ class MainWindowLayer5(MainWindowLayer4):
         for i, f in enumerate(filenames):
             filenames[i] = glob_escape.sub(r'[\1]', f)    # glob escapes
 
-        sig = hyperspy.hspy.load(filenames, stack=True, stack_axes=stack_axes)
+        sig = hyperspy.hspy.load(filenames, stack=True, stack_axis=stack_axis)
         if isinstance(sig, list):
             for s in sig:
                 s.plot()
