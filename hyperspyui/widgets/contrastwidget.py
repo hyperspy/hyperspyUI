@@ -13,6 +13,7 @@ from QtGui import *
 from extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.drawing.mpl_he import MPL_HyperExplorer
 from hyperspy.drawing.image import ImagePlot
+from hyperspy.misc.rgb_tools import rgbx2regular_array
 from hyperspyui.util import win2fig
 
 import numpy as np
@@ -61,7 +62,7 @@ class ContrastWidget(FigureWidget):
         p = self._cur_plot
         if p is None:
             return 0.0, 0.0
-        data = p.data_function().ravel()
+        data = rgbx2regular_array(p.data_function().ravel())
         return np.nanmin(data), np.nanmax(data)
 
     def update_controls_from_fig(self):
