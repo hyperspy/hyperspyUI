@@ -12,6 +12,7 @@ from python_qt_binding import QtGui, QtCore, QT_BINDING
 import hyperspyui.info
 from hyperspyui.singleapplication import get_app
 
+# TODO: Make sure tools are disconnected when closing signal!
 
 # TODO: Autohide toolbars w.r.t. signal type. (maybe?)
 # TODO: Add selection groups for signals by hierarchy in DataViewWidget
