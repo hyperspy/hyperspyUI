@@ -22,7 +22,7 @@ class SignalFigureTool(FigureTool):
     def _get_signal(self, figure):
         sw = self._get_wrapper(figure)
         if sw is None:
-            return
+            return None
         return sw.signal
 
     def _is_nav(self, event):
@@ -38,7 +38,6 @@ class SignalFigureTool(FigureTool):
             sig_ax = sw.signal._plot.signal_plot.ax
             return sig_ax == event.inaxes
         return False
-             
 
     def _get_axes(self, event):
         sw = self._get_wrapper(event.inaxes.figure)
