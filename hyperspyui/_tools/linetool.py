@@ -109,9 +109,11 @@ class LineTool(SignalFigureTool):
         x, y = event.xdata, event.ydata
         self.widget.axes = axes
         self.widget.set_mpl_ax(event.inaxes)  # connects
+        new_widget = not self.is_on()
         if self.ndim == 1:
             self.widget.coordinates = (x,)
             self.widget.size = 0
+            self.widget.set_on(True)
             if self.ranged:
                 span = self.widget.span
                 span.buttonDown = True
@@ -123,14 +125,14 @@ class LineTool(SignalFigureTool):
         else:
             self.widget.coordinates = np.array(((x, y), (x, y)))
             self.widget.size = 1
+            self.widget.set_on(True)
             self.widget.picked = True
             self.widget.func = self.widget._get_func_from_pos(event.x, event.y)
             self.widget._prev_pos = [x, y]
             if self.widget.func & self.widget.FUNC_ROTATE:
                 self.widget._rotate_orig = self.widget.coordinates
-        if not self.is_on():
+        if new_widget:
             self.widget.events.changed.connect(self._on_change, 1)
-        self.widget.set_on(True)
 
     def on_keyup(self, event):
         if event.key == 'enter':
