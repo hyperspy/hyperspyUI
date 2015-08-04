@@ -23,7 +23,7 @@ class Tightlayout(Plugin):
 
     def default(self):
         ui = self.ui
-        s = ui.get_selected_signal()
-        for p in (s._plot.signal_plot, s._plot.navigator_plot):
-            p.figure.tight_layout()
-            p.figure.canvas.draw()
+        plot = ui.get_selected_plot()[2]
+        if plot and hasattr(plot, 'figure'):
+            plot.figure.tight_layout()
+            plot.figure.canvas.draw()
