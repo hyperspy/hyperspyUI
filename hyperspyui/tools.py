@@ -11,6 +11,7 @@ from _tools.figuretool import FigureTool
 try:
     from _tools.signalfiguretool import SignalFigureTool
     from _tools.selectiontool import SelectionTool
+    from _tools.multiselectiontool import MultiSelectionTool
     from _tools.linetool import LineTool
 except ImportError:
     pass
