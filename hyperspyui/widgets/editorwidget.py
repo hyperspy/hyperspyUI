@@ -10,7 +10,6 @@ from QtCore import *
 from QtGui import *
 
 import os
-import copy
 
 from pyqode.core import api
 from pyqode.core import modes
@@ -18,7 +17,7 @@ from pyqode.core import panels
 from pyqode.core.widgets import TabWidget
 import _editor_server as server
 from pyqode.python import modes as pymodes
-from pyqode.python.backend.workers import run_frosted, calltips
+from pyqode.python.backend.workers import run_pyflakes, calltips
 
 from extendedqwidgets import ExToolWindow
 import hyperspyui.plugincreator as pc
@@ -115,17 +114,48 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
     HyperspyUI's "globals".
     """
 
-    def run(self, request_data):
+    def _request(self):
+        """ Requests a checking of the editor content. """
+        if not self.editor:
+            return
+        code = self.editor.toPlainText()
         if not self.myeditor.is_plugin:
-            r = copy.copy(request_data)
-            r['code'] = server._console_mode_header + r['code']
-        else:
-            r = request_data
-        return run_frosted(r)
+            code = server._console_mode_header + code
+        request_data = {
+            'code': code,
+            'path': self.editor.file.path,
+            'encoding': self.editor.file.encoding
+        }
+        try:
+            self.editor.backend.send_request(
+                self._worker, request_data, on_receive=self._on_work_finished)
+            self._finished = False
+        except NotRunning:
+            # retry later
+            QtCore.QTimer.singleShot(100, self._request)
+
+    def _on_work_finished(self, results):
+        """
+        Display results.
+
+        :param status: Response status
+        :param results: Response data, messages.
+        """
+        messages = []
+        for msg in results:
+            msg = modes.CheckerMessage(*msg)
+            msg.line -= server._header_num_lines
+            if msg.line < 0:
+                continue
+            block = self.editor.document().findBlockByNumber(msg.line)
+            msg.block = block
+            messages.append(msg)
+        self.add_messages(messages)
 
     def __init__(self, editor):
         self.myeditor = editor
-        super(ConsoleCodeCheckerMode, self).__init__(self.run, delay=1200)
+        super(ConsoleCodeCheckerMode, self).__init__(run_pyflakes,
+                                                     delay=1200)
 
 
 class ConsoleCodeCalltipsMode(pymodes.CalltipsMode):

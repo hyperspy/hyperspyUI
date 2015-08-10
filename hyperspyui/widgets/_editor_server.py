@@ -8,6 +8,7 @@ import numpy as np
 import hyperspy.api as hs
 ui = MainWindow()
 siglist = [hs.signals.Signal(None), hs.signals.Signal(None)]
+
 """
 _header_num_lines = _console_mode_header.count('\n')
 
