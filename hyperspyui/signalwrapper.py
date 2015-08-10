@@ -10,7 +10,6 @@ from python_qt_binding import QtCore
 
 from modelwrapper import ModelWrapper
 from actionable import Actionable
-import hyperspy.hspy
 
 
 class SignalWrapper(Actionable):
@@ -194,7 +193,7 @@ class SignalWrapper(Actionable):
         self.signal = signal.as_spectrum(axis)
 
     def make_model(self, *args, **kwargs):
-        m = hyperspy.hspy.create_model(self.signal, *args, **kwargs)
+        m = self.signal.create_model(*args, **kwargs)
 #        modelname = self.signal.metadata.General.title
         modelname = "Model %d" % self._model_id
         self._model_id += 1

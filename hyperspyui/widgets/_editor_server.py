@@ -5,9 +5,9 @@ import sys
 
 _console_mode_header = """from hyperspyui.mainwindow import MainWindow
 import numpy as np
-from hyperspy.hspy import *
+import hyperspy.api as hs
 ui = MainWindow()
-siglist = [signals.Signal(None), signals.Signal(None)]
+siglist = [hs.signals.Signal(None), hs.signals.Signal(None)]
 """
 _header_num_lines = _console_mode_header.count('\n')
 
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     from pyqode.python.backend.workers import JediCompletionProvider
     import jedi.api
     jedi.api.preload_module(["hyperspyui.mainwindow", "numpy",
-                             "hyperspy.hspy"])
+                             "hyperspy.api"])
 
     class ConsoleJediCompletionProvider():
         @staticmethod

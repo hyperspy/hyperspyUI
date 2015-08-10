@@ -1,5 +1,5 @@
 from hyperspyui.plugins.plugin import Plugin
-from hyperspy.hspy import *
+import matplotlib.pyplot as plt
 
 
 class Tightlayout(Plugin):

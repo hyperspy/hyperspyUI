@@ -31,7 +31,7 @@ from hyperspyui.widgets.editorwidget import EditorWidget
 import hyperspyui.util
 from hyperspyui.mdi_mpl_backend import FigureCanvas
 
-import hyperspy.hspy
+import hyperspy.io
 import hyperspy.defaults_parser
 from hyperspy.io_plugins import io_plugins
 
@@ -447,7 +447,7 @@ class MainWindowLayer5(MainWindowLayer4):
         for i, f in enumerate(filenames):
             filenames[i] = glob_escape.sub(r'[\1]', f)    # glob escapes
 
-        sig = hyperspy.hspy.load(filenames, stack=True, stack_axis=stack_axis)
+        sig = hyperspy.io.load(filenames, stack=True, stack_axis=stack_axis)
         if isinstance(sig, list):
             for s in sig:
                 s.plot()
@@ -458,7 +458,7 @@ class MainWindowLayer5(MainWindowLayer4):
         """
         Load 'filenames', or if 'filenames' is None, open a dialog to let the
         user interactively browse for files. It then load these files using
-        hyperspy.hspy.load and wraps them and adds them to self.signals.
+        hyperspy.io.load and wraps them and adds them to self.signals.
         """
 
         if filenames is None:
@@ -483,7 +483,7 @@ class MainWindowLayer5(MainWindowLayer4):
             self.setUpdatesEnabled(False)   # Prevent flickering during load
             try:
                 escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
-                sig = hyperspy.hspy.load(escaped)
+                sig = hyperspy.io.load(escaped)
                 if isinstance(sig, list):
                     for s in sig:
                         s.plot()
@@ -641,15 +641,13 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def _get_console_exec(self):
         ex = super(MainWindowLayer5, self)._get_console_exec()
-        ex += '\nfrom hyperspy.hspy import *'
+        ex += '\nimport hyperspy.api as hs'
         ex += '\nimport numpy as np'
         return ex
 
     def _get_console_exports(self):
         push = super(MainWindowLayer5, self)._get_console_exports()
         push['siglist'] = self.hspy_signals
-        # Override hyperspy.hspy.create_model
-        push['create_model'] = self.make_model
         return push
 
     def _get_console_config(self):
