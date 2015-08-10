@@ -9,7 +9,7 @@ class Tightlayout(Plugin):
         self.add_action(
             self.name + '.default', "Tight layout", self.default,
             icon="move.svg",
-            tip="Apply a tight layout to all plots of selected signal.")
+            tip="Apply a tight layout to the selected plot.")
 
     def create_menu(self):
         self.add_menuitem('Plot', self.ui.actions[self.name + '.default'])
@@ -23,7 +23,7 @@ class Tightlayout(Plugin):
 
     def default(self):
         ui = self.ui
-        plot = ui.get_selected_plot()[2]
-        if plot and hasattr(plot, 'figure'):
-            plot.figure.tight_layout()
-            plot.figure.canvas.draw()
+        f = plt.gcf()
+        if f:
+            f.tight_layout()
+            f.canvas.draw()
