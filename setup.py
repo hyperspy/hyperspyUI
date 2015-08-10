@@ -27,7 +27,7 @@ setup(name='hyperspyUI',
                 'autopep8',
                 'traits',
                 'traitsui'],
-      install_requires=['hyperspy',  # TODO: Find lowest allowed version of hyperspy
+      install_requires=['hyperspy >= 0.8.1',
                         'matplotlib >= 1.3',
                         'python_qt_binding',
                         'pyqode.python == 2.5.0',
