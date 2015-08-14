@@ -568,7 +568,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def dragEnterEvent(self, event):
         # Check file name extensions to see if we should accept
-        extensions = set(self.get_accepted_extensions())
+        extensions = set(self.get_accepted_extensions().union(('py',)))
         mimeData = event.mimeData()
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]
