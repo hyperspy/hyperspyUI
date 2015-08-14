@@ -16,7 +16,7 @@ import hyperspyui.plugins.plugin
 
 header = """from hyperspyui.plugins.plugin import Plugin
 import numpy as np
-from hyperspy.hspy import *
+import hyperspy.api as hs
 
 class {0}(Plugin):
     name = "{1}"

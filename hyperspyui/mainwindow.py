@@ -233,6 +233,7 @@ class MainWindow(MainWindowLayer5):
         self.add_menuitem('File', self.actions['exit'])
 
         self.add_menuitem('Settings', self.actions['plugin_manager'])
+        self.add_menuitem('Settings', self.actions['reset_layout'])
         self.add_menuitem('Settings', self.actions['edit_settings'])
 
     def create_tools(self):

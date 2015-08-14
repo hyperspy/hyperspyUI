@@ -98,6 +98,8 @@ class SettingsDialog(ExToolWindow):
         wrap = QWidget(self)
         form = QFormLayout()
         for k in settings.allKeys():
+            if k.startswith("_"):
+                continue                                # Ignore hidden keys
             v = settings.value(k)                       # Read value
             label = k.capitalize().replace('_', ' ')
             abs_key = settings.group() + '/' + k

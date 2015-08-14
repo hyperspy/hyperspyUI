@@ -97,6 +97,21 @@ class Settings(object):
         for k in defaults.allKeys():
             settings.setValue(k, defaults.value(k))
 
+    def restore_key_default(self, key):
+        """
+        Restore a given setting to its default value.
+        """
+        groupings = self._get_groups(key)
+        groupings.insert(0, 'defaults')
+        inner_key = groupings.pop()
+        settings = QSettings(self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        default_value = settings.value(inner_key)
+        for g in groupings:
+            settings.endGroup()
+        self[key] = default_value
+
     def set_default(self, key, value):
         """
         To set default value, write into defaults group.

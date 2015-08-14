@@ -77,6 +77,7 @@ class MainWindowLayer3(MainWindowLayer2):
             tb = self.toolbars[category]
         else:
             tb = QToolBar(tr(category) + tr(" toolbar"), self)
+            tb.setObjectName(category + "_toolbar")
             self.addToolBar(Qt.LeftToolBarArea, tb)
             self.toolbars[category] = tb
 
@@ -180,6 +181,8 @@ class MainWindowLayer3(MainWindowLayer2):
             d = QDockWidget(self)
             d.setWidget(widget)
             d.setWindowTitle(widget.windowTitle())
+        if not d.objectName():
+            d.setObjectName(d.windowTitle())
         d.setAllowedAreas(Qt.RightDockWidgetArea | Qt.LeftDockWidgetArea)
         self.addDockWidget(Qt.RightDockWidgetArea, d)
         d.setFloating(floating)

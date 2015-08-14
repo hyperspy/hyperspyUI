@@ -81,6 +81,18 @@ class MainWindowLayer1(QMainWindow):
         # Connect figure management functions
         self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
 
+        # Save standard layout/state
+        self.settings.set_default('_geometry', self.saveGeometry())
+        self.settings.set_default('_windowState', self.saveState())
+
+        # Restore layout/state if saved
+        geometry = self.settings['_geometry']
+        state = self.settings['_windowState']
+        if geometry:
+            self.restoreGeometry(geometry)
+        if state:
+            self.restoreState(state)
+
     @property
     def toolbar_button_size(self):
         return int(self.settings['toolbar_button_size'])
@@ -108,6 +120,22 @@ class MainWindowLayer1(QMainWindow):
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized |
                             QtCore.Qt.WindowActive)
         self.activateWindow()
+
+    def closeEvent(self, event):
+        self.settings['_geometry'] = self.saveGeometry()
+        self.settings['_windowState'] = self.saveState()
+        super(MainWindowLayer1, self).closeEvent(event)
+
+    def reset_geometry(self):
+        self.settings.restore_key_default('_geometry')
+        self.settings.restore_key_default('_windowState')
+        geometry = self.settings['_geometry']
+        state = self.settings['_windowState']
+        if geometry:
+            self.restoreGeometry(geometry)
+        if state:
+            self.restoreState(state)
+        self.setWindowState(Qt.WindowMaximized)
 
     def create_ui(self):
         self.setIconSize(
@@ -144,17 +172,28 @@ class MainWindowLayer1(QMainWindow):
         self.selectable_tools = QActionGroup(self)
         self.selectable_tools.setExclusive(True)
 
+        # Tile windows action
         ac_tile = QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
         self.connect(ac_tile, SIGNAL('triggered()'),
                      self.main_frame.tileSubWindows)
         self.actions['tile_windows'] = ac_tile
+
+        # Cascade windows action
         ac_cascade = QAction(tr("Cascade"), self)
         ac_cascade.setStatusTip(
             tr("Arranges all figures in a cascade pattern"))
         self.connect(ac_cascade, SIGNAL('triggered()'),
                      self.main_frame.cascadeSubWindows)
         self.actions['cascade_windows'] = ac_cascade
+
+        # Reset geometry action
+        ac_reset_layout = QAction(tr("Reset layout"), self)
+        ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and "
+                                        "widgets"))
+        self.connect(ac_reset_layout, SIGNAL('triggered()'),
+                     self.reset_geometry)
+        self.actions['reset_layout'] = ac_reset_layout
 
     def create_menu(self):
         mb = self.menuBar()
@@ -270,7 +309,7 @@ class MainWindowLayer1(QMainWindow):
                     icon = sugg
             if isinstance(icon, basestring) and (
                     icon.endswith('svg') or
-                    icon.endswith('svgz') or 
+                    icon.endswith('svgz') or
                     icon.endswith('svg.gz')):
                 ie = SmartColorSVGIconEngine()
                 path = icon
@@ -377,6 +416,7 @@ class MainWindowLayer1(QMainWindow):
         self.console = control
 
         self._console_dock = QDockWidget()
+        self._console_dock.setObjectName('console_widget')
         self._console_dock.setWidget(control)
         self._console_dock.setWindowTitle("Console")
         self.addDockWidget(Qt.BottomDockWidgetArea, self._console_dock)

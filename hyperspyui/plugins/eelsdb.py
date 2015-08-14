@@ -6,7 +6,6 @@ Created on Mon May 04 17:30:36 2015
 """
 
 from hyperspyui.plugins.plugin import Plugin
-from hyperspy.hspy import *
 
 from python_qt_binding import QtGui, QtCore, QtWebKit, QtNetwork
 from QtCore import *

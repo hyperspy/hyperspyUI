@@ -17,6 +17,7 @@ class Segmentation(Plugin):
     def create_tools(self):
         self.tool = MultiSelectionTool()
         self.tool.name = 'Segmentation tool'
+        self.tool.icon = 'segmentation.svg'
         self.tool.updated[Signal, list].connect(self._on_update)
         self.tool.accepted[Signal, list].connect(self.segment)
         self.tool.validator = self._tool_signal_validator
@@ -54,7 +55,7 @@ class Segmentation(Plugin):
         self.map[hist] = (signal, s_out)
 
     def _make_gray(self, data):
-        data = data - np.nanmin(data)
+        data = data.astype(np.float) - np.nanmin(data)
         data /= np.nanmax(data)
         return (255 * plt_cm.gray(data)).astype('uint8')
 
