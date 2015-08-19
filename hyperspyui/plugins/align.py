@@ -1,6 +1,5 @@
 from hyperspyui.plugins.plugin import Plugin
 import numpy as np
-import hyperspy.api as hs
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
@@ -12,6 +11,10 @@ from hyperspy.roi import BaseInteractiveROI
 
 class AlignPlugin(Plugin):
     name = "Align"
+
+    def __init__(self, main_window):
+        super(AlignPlugin, self).__init__(main_window)
+        self.sub_pixel_factor = 20
 
     def create_tools(self):
         tools = []
@@ -92,7 +95,7 @@ class AlignPlugin(Plugin):
         shifts = signal.estimate_shift2D(
             reference='current',
             roi=(roi.left, roi.right, roi.top, roi.bottom),
-            sub_pixel_factor=20,
+            sub_pixel_factor=self.sub_pixel_factor,
             show_progressbar=True)
         s_aligned = signal.deepcopy()
         s_aligned.align2D(shifts=shifts, expand=True)
