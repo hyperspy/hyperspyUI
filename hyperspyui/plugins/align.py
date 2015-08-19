@@ -30,6 +30,7 @@ class AlignPlugin(Plugin):
             description="Align images across the stack")
         self.tool_2D.accepted[BaseInteractiveROI].connect(
             self.align_2D)
+        self.tool_1D.valid_dimensions = (2,)
         tools.append(self.tool_2D)
 
         # Vertical 2D align
@@ -38,6 +39,7 @@ class AlignPlugin(Plugin):
             description="Align an image feature vertically across the stack")
         self.tool_vertical.accepted[BaseInteractiveROI].connect(
             self.align_vertical)
+        self.tool_1D.valid_dimensions = (2,)
         tools.append(self.tool_vertical)
 
         # Vertical 2D align
@@ -46,6 +48,7 @@ class AlignPlugin(Plugin):
             description="Align an image feature horizontally across the stack")
         self.tool_horizontal.accepted[BaseInteractiveROI].connect(
             self.align_horizontal)
+        self.tool_1D.valid_dimensions = (2,)
         tools.append(self.tool_horizontal)
 
         for t in tools:
@@ -63,7 +66,7 @@ class AlignPlugin(Plugin):
             return self.ui.get_selected_signal()
         return signal
 
-    def align_1D(self, roi=None, signal=None):
+    def align_1D(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
@@ -76,7 +79,7 @@ class AlignPlugin(Plugin):
         s_aligned.plot()
         return s_aligned
 
-    def align_2D(self, roi=None, signal=None):
+    def align_2D(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
@@ -89,13 +92,13 @@ class AlignPlugin(Plugin):
         s_aligned.plot()
         return s_aligned
 
-    def align_vertical(self, roi=None, signal=None):
+    def align_vertical(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
         return self._align_along_axis(roi, signal, axis=1)
 
-    def align_horizontal(self, roi=None, signal=None):
+    def align_horizontal(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
