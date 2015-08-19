@@ -63,9 +63,8 @@ class AlignPlugin(Plugin):
 
     def _get_signal(self, signal):
         if signal is None:
-            s = self.ui.get_selected_signal()
-        else:
-            s = signal
+            return self.ui.get_selected_signal()
+        return signal
 
     def align_1D(self, roi=None, signal=None):
         signal = self._get_signal(signal)
@@ -97,7 +96,7 @@ class AlignPlugin(Plugin):
         signal = self._get_signal(signal)
         if signal is None:
             return
-        self._align_along_axis(roi, signal, axis=1)
+        return self._align_along_axis(roi, signal, axis=1)
 
     def _align_along_axis(self, roi, signal, axis):
         axis = signal.axes_manager.signal_axes[axis]
@@ -127,3 +126,4 @@ class AlignPlugin(Plugin):
                 s_aligned.data = d[:, shifts.max():d.shape[1] + shifts.min(), :]
         s_aligned.get_dimensions_from_data()
         s_aligned.plot()
+        return s_aligned
