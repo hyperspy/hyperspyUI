@@ -13,7 +13,7 @@ from QtGui import *
 
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
 from hyperspyui.threaded import Threaded
-from hyperspyui.util import win2sig
+from hyperspyui.util import SignalTypeFilter
 from hyperspyui.tools import SignalFigureTool
 
 import hyperspy.signals
@@ -33,25 +33,6 @@ class Namespace:
 
 
 QWIDGETSIZE_MAX = 16777215
-
-
-class SignalTypeFilter(object):
-
-    def __init__(self, signal_type, ui, space=None):
-        self.signal_type = signal_type
-        self.ui = ui
-        self.space = space
-
-    def __call__(self, win, action):
-        sig = win2sig(win, self.ui.signals, self.ui._plotting_signal)
-        valid = sig is not None and isinstance(sig.signal, self.signal_type)
-        if valid and self.space:
-            # Check that we have right figure
-            if not ((self.space == "navigation" and win is sig.navigator_plot)
-                    or
-                    (self.space == "signal" and win is sig.signal_plot)):
-                valid = False
-        action.setEnabled(valid)
 
 
 class BasicSpectrumPlugin(Plugin):

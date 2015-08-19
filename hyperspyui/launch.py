@@ -32,6 +32,7 @@ from hyperspyui.singleapplication import get_app
 # TODO: Put licensing info in the right places
 # TODO: Metadata explorer (TreeView)
 # TODO: Variable explorer (Signal/Model etc.). 3rd party library?
+# TODO: Disable tools when no figure
 
 
 # import logging
