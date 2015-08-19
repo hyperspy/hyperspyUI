@@ -32,7 +32,8 @@ class SelectionTool(SignalFigureTool):
                             [BaseInteractiveROI, SignalFigureTool]) # TODO: Use
     cancelled = QtCore.Signal()
 
-    def __init__(self, windows=None):
+    def __init__(self, windows=None, name=None, category=None, icon=None,
+                 description=None):
         super(SelectionTool, self).__init__(windows)
         self.widget2d_r = ResizableDraggableRectangle(None)
         self.widget2d_r.set_on(False)
@@ -44,6 +45,12 @@ class SelectionTool(SignalFigureTool):
         self.widget1d.set_on(False)
         self.valid_dimensions = [1, 2]
         self.ranged = True
+
+        self.name = name or "Selection tool"
+        self.category = category or 'Signal'
+        self.description = description
+        self.icon = icon
+        self.cancel_on_accept = False
 
     @property
     def widget(self):
@@ -71,10 +78,13 @@ class SelectionTool(SignalFigureTool):
         return ax == self.widget.ax
 
     def get_name(self):
-        return "Selection tool"
+        return self.name
 
     def get_category(self):
-        return 'Signal'
+        return self.category
+
+    def get_icon(self):
+        return self.icon
 
     def make_cursor(self):
         return load_cursor(os.path.dirname(__file__) +
@@ -159,6 +169,8 @@ class SelectionTool(SignalFigureTool):
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
+        if self.cancel_on_accept:
+            self.cancel()
 
     def cancel(self):
         if self.widget.is_on():
