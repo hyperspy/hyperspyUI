@@ -98,6 +98,12 @@ class AlignPlugin(Plugin):
             return
         return self._align_along_axis(roi, signal, axis=1)
 
+    def align_horizontal(self, roi=None, signal=None):
+        signal = self._get_signal(signal)
+        if signal is None:
+            return
+        return self._align_along_axis(roi, signal, axis=0)
+
     def _align_along_axis(self, roi, signal, axis):
         daxis = signal.axes_manager.signal_axes[axis]
         s_al = roi(signal).sum(axis=daxis.index_in_array+3j)
