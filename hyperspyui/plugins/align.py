@@ -99,8 +99,8 @@ class AlignPlugin(Plugin):
         return self._align_along_axis(roi, signal, axis=1)
 
     def _align_along_axis(self, roi, signal, axis):
-        axis = signal.axes_manager.signal_axes[axis]
-        s_al = roi(signal).sum(axis=axis.index_in_array+3j)
+        daxis = signal.axes_manager.signal_axes[axis]
+        s_al = roi(signal).sum(axis=daxis.index_in_array+3j)
         s_al.change_dtype(float)
         s_al.unfold()   # Temp signal, so don't need to refold
         # Check that signal axis is last dimension
@@ -109,21 +109,24 @@ class AlignPlugin(Plugin):
         # From now on, navigation is in first dimension
         d = np.array([self._smooth(s_al.data[i, :], 50)
                       for i in xrange(s_al.data.shape[0])])
-        d = np.diff(d, axis=1)
-        sz = d.shape
-        ref = d[0, :]
+        d = np.diff(d, axis=1)      # Differentiate to highlight edges
+        sz = d.shape                # Initial shape
+        ref = d[0, :]               # Reference row
+        # Pad reference with +/- half size at each ends (maximum shift allowed)
         ref = np.pad(ref, (sz[1] / 2, sz[1] / 2), 'edge')
+        # Set shift of reference to compensate for padding
         shifts = [sz[1] / 2]
+        # Find shifts for each row
         for row in xrange(1, sz[0]):
             corr = np.correlate(ref, d[row, :], 'valid')
             shifts.append(corr.argmax())
+        # Remove "padding" from found shifts
         shifts = np.array(shifts) - sz[1] / 2
+        # Pad for both x and y shifts, but zero unused one:
+        shifts = np.tile(-shifts, (2, 1)).T
+        shifts[:, axis] = 0.0
+        # Apply shifts using hyperspy routine:
         s_aligned = signal.deepcopy()
-        with s_align.unfolded(unfold_signal=False):
-            d = s_aligned.data
-            for row in xrange(1, sz[0]):
-                d[row, :, :] = np.roll(d[row, :, :], shifts[row], axis=0)
-                s_aligned.data = d[:, shifts.max():d.shape[1] + shifts.min(), :]
-        s_aligned.get_dimensions_from_data()
+        s_aligned.align2D(shifts=shifts, crop=False, expand=True)
         s_aligned.plot()
         return s_aligned
