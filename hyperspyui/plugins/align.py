@@ -92,11 +92,18 @@ class AlignPlugin(Plugin):
         signal = self._get_signal(signal)
         if signal is None:
             return
-        shifts = signal.estimate_shift2D(
-            reference='current',
-            roi=(roi.left, roi.right, roi.top, roi.bottom),
-            sub_pixel_factor=self.sub_pixel_factor,
-            show_progressbar=True)
+        try:
+            shifts = signal.estimate_shift2D(
+                reference='current',
+                roi=(roi.left, roi.right, roi.top, roi.bottom),
+                sub_pixel_factor=self.sub_pixel_factor,
+                show_progressbar=True)
+        except TypeError:
+            # Hyperspy might not accept 'sub_pixel_factor'
+            shifts = signal.estimate_shift2D(
+                reference='current',
+                roi=(roi.left, roi.right, roi.top, roi.bottom),
+                show_progressbar=True)
         s_aligned = signal.deepcopy()
         s_aligned.align2D(shifts=shifts, expand=True)
         s_aligned.plot()
