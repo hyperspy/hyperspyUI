@@ -1,13 +1,10 @@
 from hyperspyui.plugins.plugin import Plugin
 import numpy as np
 import hyperspy.api as hs
-import os
-
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from hyperspyui.util import SignalTypeFilter
 from hyperspyui.tools import SelectionTool
 
 from hyperspy.roi import BaseInteractiveROI
@@ -21,7 +18,7 @@ class AlignPlugin(Plugin):
 
         # 1D tool
         self.tool_1D = SelectionTool(
-            name='Align 1D', icon="align1d.svg",
+            name='Align 1D tool', icon="align1d.svg",
             description="Align spectra across the stack")
         self.tool_1D.accepted[BaseInteractiveROI].connect(self.align_1D)
         self.tool_1D.valid_dimensions = (1,)
@@ -29,26 +26,26 @@ class AlignPlugin(Plugin):
 
         # 2D tool
         self.tool_2D = SelectionTool(
-            name='Align 2D', icon="align2d.svg",
+            name='Align 2D tool', icon="align2d.svg",
             description="Align images across the stack")
         self.tool_2D.accepted[BaseInteractiveROI].connect(
-            partial(self.align_2D, "2D"))
+            self.align_2D)
         tools.append(self.tool_2D)
 
         # Vertical 2D align
         self.tool_vertical = SelectionTool(
-            name='Align vertical', icon="align_vertical.svg",
+            name='Align vertical tool', icon="align_vertical.svg",
             description="Align an image feature vertically across the stack")
         self.tool_vertical.accepted[BaseInteractiveROI].connect(
-            partial(self.align_vertical, "vertical"))
+            self.align_vertical)
         tools.append(self.tool_vertical)
 
         # Vertical 2D align
         self.tool_horizontal = SelectionTool(
-            name='Align horizontal', icon="align_horizontal.svg",
+            name='Align horizontal tool', icon="align_horizontal.svg",
             description="Align an image feature horizontally across the stack")
         self.tool_horizontal.accepted[BaseInteractiveROI].connect(
-            partial(self.align_horizontal, "horizontal"))
+            self.align_horizontal)
         tools.append(self.tool_horizontal)
 
         for t in tools:
