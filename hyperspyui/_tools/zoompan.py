@@ -67,12 +67,11 @@ class ZoomPanTool(FigureTool):
 
         x0, y0 = self.pan_data[0:2]
         x1, y1 = self.pan_data[0:2] = (event.x, event.y)
-        dx, dy = x1 - x0, y1 - y0
 
         cs = set()
         for a in self.pan_data[3]:
-            # safer to use the recorded button at the press than current button:
-            # multiple button can get pressed during motion...
+            # safer to use the recorded button at the press than current button
+            # as multiple buttons can get pressed during motion...
             a.drag_pan(self.pan_data[2], event.key, event.x, event.y)
             cs.add(a.figure.canvas)
         for canvas in cs:
