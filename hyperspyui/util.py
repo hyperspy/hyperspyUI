@@ -52,6 +52,25 @@ def win2sig(window, signals=None, plotting_signal=None):
     return r
 
 
+class SignalTypeFilter(object):
+
+    def __init__(self, signal_type, ui, space=None):
+        self.signal_type = signal_type
+        self.ui = ui
+        self.space = space
+
+    def __call__(self, win, action):
+        sig = win2sig(win, self.ui.signals, self.ui._plotting_signal)
+        valid = sig is not None and isinstance(sig.signal, self.signal_type)
+        if valid and self.space:
+            # Check that we have right figure
+            if not ((self.space == "navigation" and win is sig.navigator_plot)
+                    or
+                    (self.space == "signal" and win is sig.signal_plot)):
+                valid = False
+        action.setEnabled(valid)
+
+
 def dict_rlu(dictionary, value):
     """
     Reverse dictionary lookup.
