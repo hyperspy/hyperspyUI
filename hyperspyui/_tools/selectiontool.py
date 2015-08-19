@@ -43,6 +43,8 @@ class SelectionTool(SignalFigureTool):
         self.widget2d.set_on(False)
         self.widget1d = DraggableVerticalLine(None)
         self.widget1d.set_on(False)
+        self._widgets = [self.widget2d_r, self.widget1d_r, self.widget2d,
+                         self.widget1d]
         self.valid_dimensions = [1, 2]
         self.ranged = True
 
@@ -173,9 +175,10 @@ class SelectionTool(SignalFigureTool):
             self.cancel()
 
     def cancel(self):
-        if self.widget.is_on():
-            self.widget.set_on(False)
-            self.widget.size = 1    # Prevents flickering
+        for w in self._widgets:
+            if w.is_on():
+                w.set_on(False)
+                w.size = 1    # Prevents flickering
         self.axes = None
         self.cancelled.emit()
 
