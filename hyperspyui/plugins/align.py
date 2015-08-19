@@ -16,22 +16,14 @@ class AlignPlugin(Plugin):
     def create_tools(self):
         tools = []
 
-        # 1D tool
-        self.tool_1D = SelectionTool(
-            name='Align 1D tool', icon="align1d.svg",
-            description="Align spectra across the stack")
-        self.tool_1D.accepted[BaseInteractiveROI].connect(self.align_1D)
-        self.tool_1D.valid_dimensions = (1,)
-        tools.append(self.tool_1D)
-
-        # 2D tool
-        self.tool_2D = SelectionTool(
-            name='Align 2D tool', icon="align2d.svg",
+        # XD tool
+        self.tool_XD = SelectionTool(
+            name='Align tool', icon="align2d.svg",
             description="Align images across the stack")
-        self.tool_2D.accepted[BaseInteractiveROI].connect(
-            self.align_2D)
-        self.tool_1D.valid_dimensions = (2,)
-        tools.append(self.tool_2D)
+        self.tool_XD.accepted[BaseInteractiveROI].connect(
+            self.align_XD)
+        self.tool_XD.valid_dimensions = (1, 2)
+        tools.append(self.tool_XD)
 
         # Vertical 2D align
         self.tool_vertical = SelectionTool(
@@ -39,7 +31,7 @@ class AlignPlugin(Plugin):
             description="Align an image feature vertically across the stack")
         self.tool_vertical.accepted[BaseInteractiveROI].connect(
             self.align_vertical)
-        self.tool_1D.valid_dimensions = (2,)
+        self.tool_vertical.valid_dimensions = (2,)
         tools.append(self.tool_vertical)
 
         # Vertical 2D align
@@ -48,7 +40,7 @@ class AlignPlugin(Plugin):
             description="Align an image feature horizontally across the stack")
         self.tool_horizontal.accepted[BaseInteractiveROI].connect(
             self.align_horizontal)
-        self.tool_1D.valid_dimensions = (2,)
+        self.tool_horizontal.valid_dimensions = (2,)
         tools.append(self.tool_horizontal)
 
         for t in tools:
@@ -65,6 +57,20 @@ class AlignPlugin(Plugin):
         if signal is None:
             return self.ui.get_selected_signal()
         return signal
+
+    def align_XD(self, roi=None, signal=None):
+        signal = self._get_signal(signal)
+        if signal is None:
+            return
+        if signal.axes_manager.signal_dimension != roi.ndim:
+            return
+        if roi.ndim == 1:
+            return self.align_1D(roi, signal)
+        elif roi.ndim == 2:
+            return self.align_2D(roi, signal)
+        else:
+            raise ValueError("Cannot align a signal of %d dimensions" %
+                             roi.ndim)
 
     def align_1D(self, roi, signal=None):
         signal = self._get_signal(signal)
@@ -86,6 +92,7 @@ class AlignPlugin(Plugin):
         shifts = signal.estimate_shift2D(
             reference='current',
             roi=(roi.left, roi.right, roi.top, roi.bottom),
+            sub_pixel_factor=20,
             show_progressbar=True)
         s_aligned = signal.deepcopy()
         s_aligned.align2D(shifts=shifts, expand=True)
