@@ -5,8 +5,11 @@ from QtCore import *
 from QtGui import *
 
 from hyperspyui.tools import SelectionTool
+from hyperspyui.util import SignalTypeFilter
+from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 from hyperspy.roi import BaseInteractiveROI
+import hyperspy.signals
 
 
 class AlignPlugin(Plugin):
@@ -18,6 +21,20 @@ class AlignPlugin(Plugin):
         self.settings.set_default('smooth_amount', 50)
         self.settings.set_default('sobel2d', True)
         self.settings.set_default('hanning2d', True)
+
+    def create_actions(self):
+        self.add_action('manual_align', "Manual align",
+                        self.manual_align,
+                        icon='align_manual.svg',
+                        tip="Interactively align the signal",
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Image, self.ui))
+
+    def create_menu(self):
+        self.add_menuitem("Align", self.ui.actions['manual_align'])
+
+    def create_toolbars(self):
+        self.add_toolbar_button("Align", self.ui.actions['manual_align'])
 
     def create_tools(self):
         tools = []
@@ -54,6 +71,13 @@ class AlignPlugin(Plugin):
         for t in tools:
             t.cancel_on_accept = True
             self.add_tool(t, self.ui.select_signal)
+
+    def manual_align(self, signal=None):
+        signal = self._get_signal(signal)
+        if signal is None:
+            return
+        diag = ManualAlignDialog(signal, self.ui)
+        diag.show()
 
     @staticmethod
     def _smooth(y, box_pts):
@@ -169,3 +193,101 @@ class AlignPlugin(Plugin):
         s_aligned.align2D(shifts=shifts, crop=False, expand=True)
         s_aligned.plot()
         return s_aligned
+
+
+class ManualAlignDialog(ExToolWindow):
+
+    def __init__(self, signal, parent=None):
+        super(ExToolWindow, self).__init__(parent)
+        self.ui = parent
+        self.signal = signal
+        self._orig_data = None
+        self.shifts = None
+        self._prev_x = 0
+        self._prev_y = 0
+        self.create_controls()
+        self.accepted.connect(self.ok)
+        self.rejected.connect(self.cancel)
+
+    def ok(self):
+        """
+        Callback when dialog is closed by OK-button.
+        """
+        signal = self.signal
+        if self._orig_data is not None:
+            signal.data = self._orig_data
+        if self.shifts is not None:
+            with signal.unfolded(unfold_signal=False):
+                signal.align2D(shifts=self.shifts, expand=True)
+            signal.get_dimensions_from_data()
+
+    def cancel(self):
+        signal = self.signal
+        if self._orig_data is not None:
+            signal.data = self._orig_data
+            signal.update_plot()
+        self.close()
+
+    def close(self):
+        self._orig_data = None
+
+    def update_x(self):
+        signal = self.signal
+        val = self.num_x.value() - self._prev_x
+        self._prev_x = self.num_x.value()
+        if self._orig_data is None:
+            with signal.unfolded(unfold_signal=False):
+                self._orig_data = signal.data.copy()
+        if self.shifts is None:
+            self.shifts = np.zeros((signal.axes_manager.navigation_size, 2),
+                                   dtype=np.int)
+        index = np.ravel_multi_index(signal.axes_manager.indices,
+                                     signal.axes_manager.navigation_shape)
+        with signal.unfolded(unfold_signal=False):
+            axis = signal.axes_manager.signal_axes[0].index_in_array
+            signal.data[index:, ...] = np.roll(
+                signal.data[index:, ...], val, axis)
+            self.shifts[index:, 1] -= val
+            signal.update_plot()
+
+    def update_y(self):
+        signal = self.signal
+        val = self.num_y.value() - self._prev_y
+        self._prev_y = self.num_y.value()
+        if self._orig_data is None:
+            with signal.unfolded(unfold_signal=False):
+                self._orig_data = signal.data.copy()
+        if self.shifts is None:
+            self.shifts = np.zeros((signal.axes_manager.navigation_size, 2),
+                                   dtype=np.int)
+        index = np.ravel_multi_index(signal.axes_manager.indices,
+                                     signal.axes_manager.navigation_shape)
+        with signal.unfolded(unfold_signal=False):
+            axis = signal.axes_manager.signal_axes[1].index_in_array
+            signal.data[index:, ...] = np.roll(
+                signal.data[index:, ...], val, axis)
+            self.shifts[index:, 0] -= val
+            signal.update_plot()
+
+    def create_controls(self):
+        self.setWindowTitle("Align signal")
+        form = QFormLayout()
+        self.num_x = QSpinBox()
+        self.num_y = QSpinBox()
+        self.num_x.valueChanged.connect(self.update_x)
+        self.num_y.valueChanged.connect(self.update_y)
+        dims = self.signal.axes_manager.signal_shape
+        self.num_x.setMaximum(dims[0])
+        self.num_y.setMaximum(dims[1])
+        self.num_x.setMinimum(-dims[0])
+        self.num_y.setMinimum(-dims[1])
+        form.addRow("X:", self.num_x)
+        form.addRow("Y:", self.num_y)
+        vbox = QVBoxLayout()
+        vbox.addLayout(form)
+        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
+                                Qt.Horizontal, self)
+        btns.accepted.connect(self.accept)
+        btns.rejected.connect(self.reject)
+        vbox.addWidget(btns)
+        self.setLayout(vbox)
