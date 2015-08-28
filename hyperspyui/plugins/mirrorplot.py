@@ -31,7 +31,7 @@ class MirrorPlotPlugin(Plugin):
                         selection_callback=self.ui.select_signal,
                         tip="Mirror navigation axes of selected signals")
 
-    def create_menus(self):
+    def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions['mirror'])
         self.add_menuitem('Signal', self.ui.actions['share_nav'])
 

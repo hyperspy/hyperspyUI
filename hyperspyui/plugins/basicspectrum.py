@@ -63,7 +63,7 @@ class BasicSpectrumPlugin(Plugin):
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.ui))
 
-    def create_menus(self):
+    def create_menu(self):
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
