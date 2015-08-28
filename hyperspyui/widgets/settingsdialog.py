@@ -14,6 +14,8 @@ from QtGui import *
 from extendedqwidgets import ExToolWindow
 from hyperspyui.settings import Settings
 
+import numpy as np
+
 
 def tr(text):
     return QCoreApplication.translate("PluginManagerWidget", text)
@@ -117,11 +119,13 @@ class SettingsDialog(ExToolWindow):
                                                   abs_key, w))
             elif isinstance(v, int):
                 w = QSpinBox()
+                w.setRange(np.iinfo(np.int32).min, np.iinfo(np.int32).max)
                 w.setValue(v)
                 w.valueChanged.connect(partial(self._on_setting_changed,
                                                abs_key, w))
             elif isinstance(v, float):
                 w = QDoubleSpinBox()
+                w.setRange(np.iinfo(np.float32).min, np.iinfo(np.float32).max)
                 w.setValue(v)
                 w.valueChanged.connect(partial(self._on_setting_changed,
                                                abs_key, w))
