@@ -52,16 +52,23 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         """
         palette = QApplication.palette()
         foreground = palette.color(QPalette.Active, QPalette.WindowText)
+        background = palette.color(QPalette.Active, QPalette.Window)
         disabled_foreground = palette.color(QPalette.Disabled,
                                             QPalette.WindowText)
+        disabled_background = palette.color(QPalette.Disabled,
+                                            QPalette.Window)
         self._automatic_color_replacements = {
             'default': {
                 '#000000': foreground.name(),
-                'black': foreground.name()
+                'black': foreground.name(),
+                '#ffffff': background.name(),
+                'white': background.name(),
                 },
             'disabled': {
                 '#000000': disabled_foreground.name(),
-                'black': disabled_foreground.name()
+                'black': disabled_foreground.name(),
+                '#ffffff': disabled_background.name(),
+                'white': disabled_background.name(),
                 }
             }
         self._palette_key = palette.cacheKey()
