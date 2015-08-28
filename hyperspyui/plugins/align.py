@@ -14,7 +14,10 @@ class AlignPlugin(Plugin):
 
     def __init__(self, main_window):
         super(AlignPlugin, self).__init__(main_window)
-        self.sub_pixel_factor = 20
+        self.settings.set_default('sub_pixel_factor', 20)
+        self.settings.set_default('smooth_amount', 50)
+        self.settings.set_default('sobel2d', True)
+        self.settings.set_default('hanning2d', True)
 
     def create_tools(self):
         tools = []
@@ -92,17 +95,22 @@ class AlignPlugin(Plugin):
         signal = self._get_signal(signal)
         if signal is None:
             return
+        sobel = self.settings['sobel2d']
+        hanning = self.settings['hanning2d']
+        sub_pixel_factor = self.settings['sub_pixel_factor']
         try:
             shifts = signal.estimate_shift2D(
                 reference='current',
                 roi=(roi.left, roi.right, roi.top, roi.bottom),
-                sub_pixel_factor=self.sub_pixel_factor,
+                sobel=sobel, hanning=hanning,
+                sub_pixel_factor=sub_pixel_factor,
                 show_progressbar=True)
         except TypeError:
             # Hyperspy might not accept 'sub_pixel_factor'
             shifts = signal.estimate_shift2D(
                 reference='current',
                 roi=(roi.left, roi.right, roi.top, roi.bottom),
+                sobel=sobel, hanning=hanning,
                 show_progressbar=True)
         s_aligned = signal.deepcopy()
         s_aligned.align2D(shifts=shifts, expand=True)
