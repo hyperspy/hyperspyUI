@@ -130,7 +130,9 @@ class AlignPlugin(Plugin):
         return self._align_along_axis(roi, signal, axis=0)
 
     def _align_along_axis(self, roi, signal, axis):
-        daxis = signal.axes_manager.signal_axes[axis]
+        sumaxis = 1 if axis == 0 else 0
+        daxis = signal.axes_manager.signal_axes[sumaxis]
+        iref = daxis.index
         s_al = roi(signal).sum(axis=daxis.index_in_array+3j)
         s_al.change_dtype(float)
         s_al.unfold()   # Temp signal, so don't need to refold
@@ -138,19 +140,23 @@ class AlignPlugin(Plugin):
         if s_al.axes_manager.signal_axes[0].index_in_array < 1:
             s_al.data = s_al.data.T             # Unfolded, so simply transpose
         # From now on, navigation is in first dimension
-        d = np.array([self._smooth(s_al.data[i, :], 50)
+        smooth = self.settings['smooth_amount']
+        d = np.array([self._smooth(s_al.data[i, :], smooth)
                       for i in xrange(s_al.data.shape[0])])
         d = np.diff(d, axis=1)      # Differentiate to highlight edges
         sz = d.shape                # Initial shape
-        ref = d[0, :]               # Reference row
+        ref = d[iref, :]               # Reference row
         # Pad reference with +/- half size at each ends (maximum shift allowed)
         ref = np.pad(ref, (sz[1] / 2, sz[1] / 2), 'edge')
-        # Set shift of reference to compensate for padding
-        shifts = [sz[1] / 2]
+        shifts = []
         # Find shifts for each row
-        for row in xrange(1, sz[0]):
-            corr = np.correlate(ref, d[row, :], 'valid')
-            shifts.append(corr.argmax())
+        for row in xrange(sz[0]):
+            if row == iref:
+                # Set shift of reference to compensate for padding
+                shifts.append(sz[1] / 2)
+            else:
+                corr = np.correlate(ref, d[row, :], 'valid')
+                shifts.append(corr.argmax())
         # Remove "padding" from found shifts
         shifts = np.array(shifts) - sz[1] / 2
         # Pad for both x and y shifts, but zero unused one:
