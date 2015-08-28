@@ -24,7 +24,7 @@ class AlignPlugin(Plugin):
 
         # XD tool
         self.tool_XD = SelectionTool(
-            name='Align tool', icon="align2d.svg",
+            name='Align tool', icon="align2d.svg", category="Align",
             description="Align images across the stack")
         self.tool_XD.accepted[BaseInteractiveROI].connect(
             self.align_XD)
@@ -34,6 +34,7 @@ class AlignPlugin(Plugin):
         # Vertical 2D align
         self.tool_vertical = SelectionTool(
             name='Align vertical tool', icon="align_vertical.svg",
+            category="Align",
             description="Align an image feature vertically across the stack")
         self.tool_vertical.accepted[BaseInteractiveROI].connect(
             self.align_vertical)
@@ -43,6 +44,7 @@ class AlignPlugin(Plugin):
         # Vertical 2D align
         self.tool_horizontal = SelectionTool(
             name='Align horizontal tool', icon="align_horizontal.svg",
+            category="Align",
             description="Align an image feature horizontally across the stack")
         self.tool_horizontal.accepted[BaseInteractiveROI].connect(
             self.align_horizontal)
