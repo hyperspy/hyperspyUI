@@ -19,7 +19,7 @@ except ImportError:
     has_gauss_v2 = False
 
 from figuretool import FigureTool
-from hyperspyui.util import load_cursor
+from hyperspyui.util import crosshair_cursor
 
 
 class GaussianTool(FigureTool):
@@ -44,8 +44,7 @@ class GaussianTool(FigureTool):
         return True
 
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) +
-                           '/../images/picker.svg', 8, 8)
+        return crosshair_cursor()
 
     def _wire_wrapper(self, wrapper):
         if wrapper is None:

@@ -9,6 +9,7 @@ Created on Mon Oct 27 18:47:05 2014
 import hyperspy.components
 from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
+import os
 
 
 def tr(text):
@@ -79,6 +80,30 @@ def dict_rlu(dictionary, value):
         if v == value or v is value:
             return k
     raise KeyError()
+
+
+def crosshair_cursor():
+    if os.name == 'nt':
+        # On windows, cursors support "inversion" mode, where they invert the
+        # underlying color. This is achived with two bitmap.
+        # Final cursor has mask all 0
+        # When main bitmap is 0, this means transparent, when 1, inversion.
+        bm = QtGui.QBitmap(16, 16)
+        ma = QtGui.QBitmap(16, 16)
+        bm.clear()
+        ma.clear()
+        # Paint a crosshair on the main bitmap with color1.
+        pbm = QtGui.QPainter(bm)
+        pbm.setPen(QtCore.Qt.color1)
+        pbm.drawLine(8, 0, 8, 15)
+        pbm.drawLine(0, 8, 15, 8)
+        pbm.setPen(QtCore.Qt.color0)
+        pbm.drawPoint(8, 8)
+        pbm.end()
+        return QtGui.QCursor(bm, ma, 8, 8)
+    else:
+        fn = os.path.dirname(__file__) + '/images/picker.svg'
+        return load_cursor(fn, 8, 8)
 
 
 def load_cursor(filename, hotX=-1, hotY=-1):

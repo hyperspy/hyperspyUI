@@ -15,7 +15,7 @@ from hyperspy.roi import RectangularROI, SpanROI, \
     Point1DROI, Point2DROI
 
 from hyperspyui.tools import SignalFigureTool
-from hyperspyui.util import load_cursor
+from hyperspyui.util import crosshair_cursor
 import copy
 
 
@@ -58,8 +58,7 @@ class MultiSelectionTool(SignalFigureTool):
         return self.category
 
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) +
-                           '/../images/picker.svg', 8, 8)
+        return crosshair_cursor()
 
     def get_icon(self):
         return self.icon

@@ -15,7 +15,7 @@ from hyperspy.drawing.widgets import DraggableResizable2DLine, \
 from hyperspy.roi import BaseInteractiveROI, SpanROI, Line2DROI
 
 from hyperspyui.tools import SignalFigureTool
-from hyperspyui.util import load_cursor
+from hyperspyui.util import crosshair_cursor
 
 
 class LineTool(SignalFigureTool):
@@ -67,8 +67,7 @@ class LineTool(SignalFigureTool):
         return 'Signal'
 
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) +
-                           '/../images/picker.svg', 8, 8)
+        return crosshair_cursor()
 
     def is_selectable(self):
         return True
