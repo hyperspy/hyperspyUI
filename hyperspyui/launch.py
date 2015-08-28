@@ -11,6 +11,7 @@ import sys
 from python_qt_binding import QtGui, QtCore, QT_BINDING
 import hyperspyui.info
 from hyperspyui.singleapplication import get_app
+from hyperspyui.settings import Settings
 
 # TODO: Make sure tools are disconnected when closing signal!
 
@@ -40,17 +41,27 @@ from hyperspyui.singleapplication import get_app
 
 
 def main():
-    # TODO: Make single/multi a setting
-    app = get_app('hyperspyui')     # Make sure we only have a single instance
+    # Need to set early to make QSettings accessible
+    QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
+    QtCore.QCoreApplication.setOrganizationName("Hyperspy")
+    QtCore.QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+
+    # First, clear all default settings!
+    Settings.clear_defaults()
+    # Setup default for single/multi-instance
+    settings = Settings(group="General")
+    settings.set_default('allow_multiple_instances', False)
+    if settings['allow_multiple_instances']:
+        # Using multiple instances, get a new application
+        app = QtGui.QApplication(sys.argv)
+    else:
+        # Make sure we only have a single instance
+        app = get_app('hyperspyui')
 
     _, exe_name = os.path.split(sys.executable)
     if exe_name.startswith('pythonw'):
         sys.stdout = sys.stderr = open(
             os.path.dirname(__file__) + '/hyperspyui.log', 'w')
-
-    QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
-    QtCore.QCoreApplication.setOrganizationName("Hyperspy")
-    QtCore.QCoreApplication.setApplicationVersion(hyperspyui.info.version)
 
     # Create and display the splash screen
     splash_pix = QtGui.QPixmap(
