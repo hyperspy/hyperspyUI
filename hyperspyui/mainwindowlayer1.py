@@ -11,6 +11,7 @@ matplotlib.use('module://hyperspyui.mdi_mpl_backend')
 matplotlib.interactive(True)
 
 import os
+import warnings
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -247,7 +248,10 @@ class MainWindowLayer1(QMainWindow):
 
     def select_tool(self, tool):
         if self.active_tool is not None:
-            self.active_tool.disconnect_windows(self.figures)
+            try:
+                self.active_tool.disconnect_windows(self.figures)
+            except Exception as e:
+                warnings.warn("Exception disabling tool %s: %s" %(self.active_tool.name, e.message))
         self.active_tool = tool
         tool.connect_windows(self.figures)
 
