@@ -23,6 +23,8 @@ class SignalList(QListWidget):
             self.addItems(items)
             if isinstance(items, BindingList):
                 self.bind(items)
+        self._bound_blists = []
+        self.destroyed.connect(self._on_destroy)
 
     @property
     def multiselect(self):
@@ -38,10 +40,15 @@ class SignalList(QListWidget):
 
     def bind(self, blist):
         blist.add_target(self)
-        # TODO: Keep blist ref to unbind on destroyed
+        self._bound_blists.append(blist)
 
     def unbind(self, blist):
         blist.remove_target(self)
+        self._bound_blists.remove(blist)
+
+    def _on_destroy(self):
+        for b in reversed(self._bound_blists):
+            self.unbind(b)
 
     def addItem(self, object):
         item = QListWidgetItem(object.name, self)
