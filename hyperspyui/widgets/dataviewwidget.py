@@ -452,5 +452,3 @@ class DataViewWidget(QWidget):
 
     def get_selected_component(self):
         raise NotImplementedError()
-
-        # TODO: Make TraitsUI widget, and display one underneath the TreeView
