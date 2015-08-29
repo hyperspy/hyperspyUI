@@ -16,10 +16,10 @@ ETSConfig.toolkit = 'qt4'
 
 from mainwindowlayer4 import MainWindowLayer4, tr
 
-import hooksignal
-hooksignal.hook_signal()
 import uiprogressbar
 uiprogressbar.takeover_progressbar()    # Enable hooks
+import hooksignal
+hooksignal.hook_signal()
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
