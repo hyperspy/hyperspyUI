@@ -5,9 +5,8 @@ Created on Wed Nov 26 19:11:19 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from python_qt_binding import QtCore
+from QtCore import QObject, Signal, SIGNAL
 
 import hyperspy.external.progressbar
 import time
