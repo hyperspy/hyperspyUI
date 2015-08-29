@@ -77,14 +77,28 @@ class ImageRotation_Plugin(Plugin):
         # Reframe into 0-360 deg
         angle %= 360
         const_mode = 'mode' not in kwargs or kwargs['mode'] == 'constant'
+        # Check if multiple of 90 deg -> Fast rotation
         if round(angle % 90, 2) == 0 and (reshape or const_mode):
             angle = 90 * (angle // 90)
             axes = kwargs.pop('axes', (1, 0))
             k = angle // 90
-            if k // 2 == 1:     # Rotating 180 or 270
-                # Invert axes[0]
-                s = (slice(None),) * axes[0] + (slice(None, None, -1),) + \
-                    (Ellipsis,)
+            if k > 0:
+                if k == 1:  # 90 deg
+                    # Invert axes[1]
+                    s = (slice(None),)* axes[1] + (slice(None, None, -1),) + \
+                        (Ellipsis,)
+                elif k == 2:  # 180 deg
+                    # Invert both axes
+                    axisA = min(axes[0], axes[1])
+                    axisB = max(axes[0], axes[1])
+                    adiff = (axisB-axisA-1)
+                    s = (slice(None),)* axisA + (slice(None, None, -1),) + \
+                        (slice(None),)* adiff + (slice(None, None, -1),) + \
+                        (Ellipsis,)
+                elif k == 3:  # 270 deg
+                    # Invert axes[0]
+                    s = (slice(None),)* axes[0] + (slice(None, None, -1),) + \
+                        (Ellipsis,)
                 data = signal.data[s]
             else:
                 data = signal.data
