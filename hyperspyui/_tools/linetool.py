@@ -40,6 +40,7 @@ class LineTool(SignalFigureTool):
         self.widget1d = DraggableResizableRange(None)
         self.widget1d.set_on(False)
         self.valid_dimensions = [1, 2]
+        self.axes = None
 
     @property
     def widget(self):
