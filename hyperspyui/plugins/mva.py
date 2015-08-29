@@ -123,17 +123,8 @@ class MVA_Plugin(Plugin):
         Makes sure we have decomposition results. If results already are
         available, it will only recalculate if the `force` parameter is True.
         """
-        if s.data.ndim == 2:
-            bk_s_navigate = \
-                s.axes_manager._get_axis_attribute_values('navigate')
-            s.axes_manager.set_signal_dimension(1)
-
         if force or s.learning_results.explained_variance_ratio is None:
             s.decomposition()
-
-        if s.data.ndim == 2:
-            s.axes_manager._set_axis_attribute_values('navigate',
-                                                      bk_s_navigate)
         return s
 
     def _do_bss(self, s, n_components, force=False):
@@ -158,10 +149,6 @@ class MVA_Plugin(Plugin):
         factors = signal.get_bss_factors()
         loadings = signal.get_bss_loadings()
         factors.axes_manager._axes[0] = loadings.axes_manager._axes[0]
-        if loadings.axes_manager.signal_dimension > 2:
-            loadings.axes_manager.set_signal_dimension(loadings_dim)  # TODO: fix
-        if factors.axes_manager.signal_dimension > 2:
-            factors.axes_manager.set_signal_dimension(factors_dim)  # TODO: fix
         return loadings, factors
 
     def _record(self, autosig, model, signal, n_components):
@@ -218,7 +205,7 @@ class MVA_Plugin(Plugin):
                 scree.setWindowTitle("Pick number of components")
 
                 def clicked(event):
-                    n_components = round(event.xdata)
+                    n_components = int(round(event.xdata))
                     # Close scree plot
                     w = fig2win(scree.figure, self.ui.figures)
                     w.close()
@@ -277,10 +264,6 @@ class MVA_Plugin(Plugin):
             s = ns.s
             s_scree.metadata.General.title = signal.name + " Component model"
             s_residual.metadata.General.title = signal.name + " Residual"
-            if s.data.ndim == 2:
-                bk_s_navigate = \
-                    s.axes_manager._get_axis_attribute_values('navigate')
-                s.axes_manager.set_signal_dimension(1)
 
             s_factors = s.get_decomposition_factors()
             if s_factors.axes_manager.navigation_dimension < 1:
@@ -290,10 +273,6 @@ class MVA_Plugin(Plugin):
             s_factors.metadata.General.title = signal.name + " Factors"
 
             s_loadings = s.get_decomposition_loadings().inav[:n_component]
-
-            if s.data.ndim == 2:
-                s.axes_manager._set_axis_attribute_values('navigate',
-                                                          bk_s_navigate)
 
             for ax in s_scree.axes_manager.navigation_axes:
                 s_residual.axes_manager._axes[ax.index_in_array] = ax
