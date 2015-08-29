@@ -396,7 +396,6 @@ class MainWindowLayer1(QMainWindow):
         pass
 
     def create_console(self):
-        # TODO: Reroute STDOUT/STDERR to console. Maybe only for actions?
         # We could inherit QAction, and have it reroute when it triggers,
         # and then drop route when it finishes, however this will not catch
         # interactive dialogs and such.
