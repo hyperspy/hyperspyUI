@@ -5,12 +5,17 @@ Created on Tue Nov 04 16:04:17 2014
 @author: Vidar Tonaas Fauske
 """
 
-from IPython.qt.console.rich_ipython_widget import RichIPythonWidget
-from IPython.qt.inprocess import QtInProcessKernelManager
+try:
+    from qtconsole.rich_jupyter_widget import RichJupyterWidget
+    from qtconsole.inprocess import QtInProcessKernelManager
+except ImportError:
+    from IPython.qt.console.rich_ipython_widget import RichIPythonWidget as \
+        RichJupyterWidget
+    from IPython.qt.inprocess import QtInProcessKernelManager
 from IPython.lib import guisupport
 
 
-class ConsoleWidget(RichIPythonWidget):
+class ConsoleWidget(RichJupyterWidget):
 
     def __init__(self, *args, **kwargs):
         super(ConsoleWidget, self).__init__(*args, **kwargs)

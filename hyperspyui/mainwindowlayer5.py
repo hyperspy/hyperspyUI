@@ -657,13 +657,19 @@ class MainWindowLayer5(MainWindowLayer4):
 
     def _get_console_config(self):
         # ===== THIS ======
-        from IPython.config.loader import PyFileConfigLoader
+        try:
+            from traitlets.config.loader import PyFileConfigLoader
+        except ImportError:
+            from IPython.config.loader import PyFileConfigLoader
         ipcp = os.path.sep.join((os.path.dirname(__file__), "ipython_profile",
                                  "ipython_embedded_config.py"))
         c = PyFileConfigLoader(ipcp).load_config()
         # ===== OR THIS =====
 #        import hyperspy.Release
-#        from IPython.config import Config
+#        try:
+#            from traitlets.config import Config
+#        except ImportError:
+#            from IPython.config import Config
 #        c = Config()
 #        c.FrontendWidget.banner = hyperspy.Release.info
         # ===== END =====
