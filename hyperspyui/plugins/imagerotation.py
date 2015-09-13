@@ -160,7 +160,7 @@ class ImageRotation_Plugin(Plugin):
                         out.events, 'axes_changed'):
                     out.events.axes_changed.trigger()
             # TODO: TAG: Functionality check
-            if hasattr(out, 'events') and hasattr(out.events, 'axes_changed'):
+            if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger()
 
     def on_dialog_accept(self):
