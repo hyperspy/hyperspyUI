@@ -69,7 +69,7 @@ class GaussianFilter(Plugin):
             data = np.zeros_like(signal.data, dtype=np.float)
             it = DataIterator(signal)
             for im in it:
-                data[it.slices] = gaussian_filter(signal.data, sigma)
+                data[it.slices] = gaussian_filter(im, sigma)
             return signal._deepcopy_with_new_data(data)
         else:
             if out.data.dtype is not np.float:
@@ -80,7 +80,7 @@ class GaussianFilter(Plugin):
                         sigma, out, args, kwargs))
             it = DataIterator(signal)
             for im in it:
-                out.data[it.slices] = gaussian_filter(signal.data, sigma)
+                out.data[it.slices] = gaussian_filter(im, sigma)
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger()
 
