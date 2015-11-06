@@ -18,9 +18,15 @@ class AlignPlugin(Plugin):
     def __init__(self, main_window):
         super(AlignPlugin, self).__init__(main_window)
         self.settings.set_default('sub_pixel_factor', 20)
-        self.settings.set_default('smooth_amount', 50)
-        self.settings.set_default('sobel2d', True)
-        self.settings.set_default('hanning2d', True)
+        self.settings.set_default('1d_smooth_amount', 50)
+        self.settings.set_default('2d_smooth_amount', 0.0)
+        self.settings.set_default('sobel_2D', True)
+        self.settings.set_default('median_2D', True)
+        self.settings.set_default('hanning_2D', True)
+        self.settings.set_default('alignment_reference', 'current')
+        self.settings.set_default('expand', True)
+        self.settings.set_default('crop', True)
+        self.settings.set_default('plot', False)
 
     def create_actions(self):
         self.add_action('manual_align', "Manual align",
@@ -90,7 +96,7 @@ class AlignPlugin(Plugin):
             return self.ui.get_selected_signal()
         return signal
 
-    def align_XD(self, roi=None, signal=None):
+    def align_XD(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
@@ -121,25 +127,40 @@ class AlignPlugin(Plugin):
         signal = self._get_signal(signal)
         if signal is None:
             return
-        sobel = self.settings['sobel2d']
-        hanning = self.settings['hanning2d']
-        sub_pixel_factor = self.settings['sub_pixel_factor']
+        s = signal
+        sobel = 'true' == self.settings['sobel_2D'].lower()
+        hanning = 'true' == self.settings['hanning_2D'].lower()
+        median = 'true' == self.settings['median_2D'].lower()
+        sub_pixel_factor = float(self.settings['sub_pixel_factor'])
+        plot = 'true' == self.settings['plot'].lower()
+        ref = self.settings['alignment_reference'].lower()
+        if not ref:
+            ref = 'current'
+        expand = 'true' == self.settings['expand'].lower()
+        crop = 'true' == self.settings['crop'].lower()
+        gauss = float(self.settings['2d_smooth_amount'])
+        if gauss > 0.0 and 'Gaussian Filter' in self.ui.plugins:
+            p = self.ui.plugins['Gaussian Filter']
+            s = p.gaussian(sigma=gauss, signal=signal, record=False)
+            s.axes_manager.indices = signal.axes_manager.indices
         try:
-            shifts = signal.estimate_shift2D(
-                reference='current',
+            shifts = s.estimate_shift2D(
+                reference=ref,
                 roi=(roi.left, roi.right, roi.top, roi.bottom),
-                sobel=sobel, hanning=hanning,
+                sobel=sobel, hanning=hanning, medfilter=median,
                 sub_pixel_factor=sub_pixel_factor,
+                plot=plot,
                 show_progressbar=True)
         except TypeError:
             # Hyperspy might not accept 'sub_pixel_factor'
-            shifts = signal.estimate_shift2D(
-                reference='current',
+            shifts = s.estimate_shift2D(
+                reference=ref,
                 roi=(roi.left, roi.right, roi.top, roi.bottom),
-                sobel=sobel, hanning=hanning,
+                sobel=sobel, hanning=hanning, medfilter=median,
+                plot=plot,
                 show_progressbar=True)
         s_aligned = signal.deepcopy()
-        s_aligned.align2D(shifts=shifts, expand=True)
+        s_aligned.align2D(shifts=shifts, crop=crop, expand=expand)
         s_aligned.plot()
         return s_aligned
 
@@ -166,7 +187,7 @@ class AlignPlugin(Plugin):
         if s_al.axes_manager.signal_axes[0].index_in_array < 1:
             s_al.data = s_al.data.T             # Unfolded, so simply transpose
         # From now on, navigation is in first dimension
-        smooth = self.settings['smooth_amount']
+        smooth = float(self.settings['1d_smooth_amount'])
         d = np.array([self._smooth(s_al.data[i, :], smooth)
                       for i in xrange(s_al.data.shape[0])])
         d = np.diff(d, axis=1)      # Differentiate to highlight edges
