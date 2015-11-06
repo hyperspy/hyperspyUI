@@ -559,6 +559,9 @@ class MainWindowLayer5(MainWindowLayer4):
             ext = default_ext
         # Filename itself is signal's name
         fn = signal.name
+        if os.name == 'nt':
+            fn = fn.replace("<", "[").replace(">", "]")
+            fn = re.sub("[:\"|\?\*]", '', fn)
         # Build suggestion and return
         path_suggestion = os.path.sep.join((base, fn))
         path_suggestion = os.path.extsep.join((path_suggestion, ext))
