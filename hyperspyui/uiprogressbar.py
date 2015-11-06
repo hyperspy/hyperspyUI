@@ -119,7 +119,10 @@ class UIProgressBar(hyperspy.external.progressbar.ProgressBar):
             if isinstance(w, hyperspy.external.progressbar.ETA):
                 has_eta = True
                 eta = w.update(self)
-                txt = self.widgets[0] + " " + eta
+                if isinstance(self.widgets[0], basestring):
+                    txt = self.widgets[0] + " " + eta
+                else:
+                    txt = str(eta)
                 signaler.emit(SIGNAL('progress(int, int, QString)'),
                               self.id, value, txt)
         if not has_eta:
