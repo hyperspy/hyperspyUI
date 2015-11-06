@@ -124,8 +124,8 @@ class SignalWrapper(Actionable):
             # Did the window change?
             if old_nav is not self.navigator_plot:
                 # Process the plot
-                navi.axes[0].set_title("")  # remove title
-                navi.tight_layout()
+                title = navi.axes[0].set_title("")  # remove title
+                title.set_visible(False)
                 # Wire closing event
                 self.navigator_plot.closing.connect(self.nav_closing)
                 # Set a reference on window to self
@@ -136,6 +136,7 @@ class SignalWrapper(Actionable):
 
                 # Did we have a previous window?
                 if old_nav is not None:
+                    navi.tight_layout()
                     # Save geometry of old, and make sure it is closed
                     self._nav_geom = old_nav.saveGeometry()
                     old_nav.closing.disconnect(self.nav_closing)
@@ -150,12 +151,13 @@ class SignalWrapper(Actionable):
             sigp = self.signal._plot.signal_plot.figure
             self.signal_plot = fig2win(sigp, self.mainwindow.figures)
             if old_sig is not self.signal_plot:
-                sigp.axes[0].set_title("")
-                sigp.tight_layout()
+                title = sigp.axes[0].set_title("")
+                title.set_visible(False)
                 self.signal_plot.closing.connect(self.sig_closing)
                 self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
                 self.add_figure(self.signal_plot)
                 if old_sig is not None:
+                    sigp.tight_layout()
                     self._sig_geom = old_sig.saveGeometry()
                     old_sig.closing.disconnect(self.sig_closing)
                     old_sig.close()
