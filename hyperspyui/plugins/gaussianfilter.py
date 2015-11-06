@@ -1,4 +1,4 @@
-from hyperspyui.plugins.plugin import Plugin
+﻿from hyperspyui.plugins.plugin import Plugin
 import numpy as np
 from hyperspy.signal import DataIterator
 from skimage.filters import gaussian_filter
@@ -14,6 +14,10 @@ def tr(text):
 
 class GaussianFilter(Plugin):
     name = "Gaussian Filter"
+
+    def __init__(self, ui):
+        super(GaussianFilter, self).__init__(ui)
+        self.settings.set_default('sigma', 1.0)
 
     def create_actions(self):
         self.add_action(
@@ -69,7 +73,7 @@ class GaussianFilter(Plugin):
             data = np.zeros_like(signal.data, dtype=np.float)
             it = DataIterator(signal)
             for im in it:
-                data[it.slices] = gaussian_filter(signal.data, sigma)
+                data[it.slices] = gaussian_filter(im, sigma)
             return signal._deepcopy_with_new_data(data)
         else:
             if out.data.dtype is not np.float:
@@ -80,15 +84,23 @@ class GaussianFilter(Plugin):
                         sigma, out, args, kwargs))
             it = DataIterator(signal)
             for im in it:
-                out.data[it.slices] = gaussian_filter(signal.data, sigma)
+                out.data[it.slices] = gaussian_filter(im, sigma)
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger()
+
+    def on_dialog_accept(self):
+        self.settings['sigma'] = self.dialog.num_sigma.value()
+        self.dialog.deleteLater()
+        self.dialog = None
 
     def show_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
         if space != "signal":
             return
         self.dialog = GaussianFilterDialog(signal, self.ui, self)
+        if 'sigma' in self.settings:
+            self.dialog.num_sigma.setValue(float(self.settings['sigma']))
+        self.dialog.accepted.connect(self.on_dialog_accept)
         self.dialog.show()
 
 
@@ -185,6 +197,7 @@ class GaussianFilterDialog(ExToolWindow):
         self.num_sigma = QtGui.QDoubleSpinBox()
         self.num_sigma.setValue(1.0)
         self.num_sigma.setMinimum(0.0)
+        self.num_sigma.setSingleStep(0.1)
         self.num_sigma.setMaximum(1e3)
         self.num_sigma.setDecimals(2)
         form.addRow(tr("Sigma:"), self.num_sigma)
