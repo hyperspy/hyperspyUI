@@ -7,6 +7,7 @@ Created on Tue Nov 25 02:10:29 2014
 
 import os
 import sys
+import locale
 
 from python_qt_binding import QtGui, QtCore, QT_BINDING
 import hyperspyui.info
@@ -87,5 +88,6 @@ def main():
     app.exec_()
 
 if __name__ == "__main__":
+    locale.setlocale(locale.LC_ALL, '')
     sys.path.append(os.path.dirname(__file__))
     main()
