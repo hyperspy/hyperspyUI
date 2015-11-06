@@ -18,12 +18,12 @@ class SignalList(QListWidget):
     def __init__(self, items=None, parent=None, multiselect=True):
         super(SignalList, self).__init__(parent)
         self.multiselect = multiselect
+        self._bound_blists = []
 
         if items is not None:
             self.addItems(items)
             if isinstance(items, BindingList):
                 self.bind(items)
-        self._bound_blists = []
         self.destroyed.connect(self._on_destroy)
 
     @property
@@ -76,7 +76,10 @@ class SignalList(QListWidget):
         if self.multiselect:
             return sigs
         else:
-            return sigs[0]
+            if len(sigs) > 0:
+                return sigs[0]
+            else:
+                return None
 
     def __getitem__(self, key):
         if isinstance(key, QListWidgetItem):
