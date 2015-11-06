@@ -173,6 +173,8 @@ class ImageRotation_Plugin(Plugin):
         self.settings['preview'] = self.dialog.gbo_preview.isChecked()
         self.settings['grid'] = self.dialog.chk_grid.isChecked()
         self.settings['grid_spacing'] = self.dialog.num_grid.value()
+        self.dialog.deleteLater()
+        self.dialog = None
 
     def show_rotate_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
