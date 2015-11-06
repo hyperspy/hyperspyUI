@@ -12,14 +12,11 @@ matplotlib.interactive(True)
 
 import os
 import warnings
+import sys
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
-
-
-def tr(text):
-    return QCoreApplication.translate("MainWindow", text)
 
 from widgets.consolewidget import ConsoleWidget
 import hyperspyui.mdi_mpl_backend
@@ -27,6 +24,61 @@ from pluginmanager import PluginManager
 from hyperspyui.settings import Settings
 from hyperspyui.widgets.settingsdialog import SettingsDialog
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
+
+
+def tr(text):
+    return QCoreApplication.translate("MainWindow", text)
+
+
+def lowpriority():
+    """ Set the priority of the process to below-normal."""
+
+    if sys.platform == 'win32':
+        # Based on:
+        #   "Recipe 496767: Set Process Priority In Windows" on ActiveState
+        #   http://code.activestate.com/recipes/496767/
+        try:
+            import win32api
+            import win32process
+            import win32con
+        except ImportError as e:
+            warnings.warn("Could not set process priority: %s" % e.message)
+            return
+
+        pid = win32api.GetCurrentProcessId()
+        handle = win32api.OpenProcess(win32con.PROCESS_ALL_ACCESS, True, pid)
+        win32process.SetPriorityClass(
+            handle, win32process.BELOW_NORMAL_PRIORITY_CLASS)
+    else:
+        import os
+
+        os.nice(1)
+
+
+def normalpriority():
+    """ Set the priority of the process to below-normal."""
+
+    if sys.platform == 'win32':
+        # Based on:
+        #   "Recipe 496767: Set Process Priority In Windows" on ActiveState
+        #   http://code.activestate.com/recipes/496767/
+        try:
+            import win32api
+            import win32process
+            import win32con
+        except ImportError as e:
+            warnings.warn("Could not set process priority: %s" % e.message)
+            return
+
+        pid = win32api.GetCurrentProcessId()
+        handle = win32api.OpenProcess(win32con.PROCESS_ALL_ACCESS, True, pid)
+        win32process.SetPriorityClass(
+            handle, win32process.NORMAL_PRIORITY_CLASS)
+    else:
+        import os
+
+        # Reset nice to 0
+        os.nice(-os.nice(0))
 
 
 class MainWindowLayer1(QMainWindow):
@@ -48,10 +100,13 @@ class MainWindowLayer1(QMainWindow):
         self.settings.set_default('toolbar_button_size', 32)
         self.settings.set_default('default_widget_floating', False)
         self.settings.set_default('working_directory', "")
+        self.settings.set_default('low_process_priority', False)
         # Override any possible invalid stored values, which could prevent load
         if 'toolbar_button_size' not in self.settings or \
                 not isinstance(self.settings['toolbar_button_size'], int):
             self.settings['toolbar_button_size'] = 32
+        if self.low_process_priority:
+            lowpriority()
 
         # State varaibles
         self.should_capture_traits = None
@@ -109,6 +164,18 @@ class MainWindowLayer1(QMainWindow):
     @cur_dir.setter
     def cur_dir(self, value):
         self.settings['working_directory'] = value
+
+    @property
+    def low_process_priority(self):
+        return "true" == self.settings['low_process_priority'].lower()
+
+    @low_process_priority.setter
+    def low_process_priority(self, value):
+        self.settings['low_process_priority'] = value
+        if value:
+            lowpriority()
+        else:
+            normalpriority()
 
     @property
     def plugins(self):
@@ -245,6 +312,7 @@ class MainWindowLayer1(QMainWindow):
         """
         # Due to the way the property is defined, this updates the UI:
         self.toolbar_button_size = self.toolbar_button_size
+        self.low_process_priority = self.low_process_priority
 
     def select_tool(self, tool):
         if self.active_tool is not None:
