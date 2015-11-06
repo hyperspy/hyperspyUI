@@ -18,7 +18,8 @@ class Plugin(object):
             set_group = 'plugins/' + str.lower(self.__class__.__name__)
             set_group = set_group.replace('.', '')
         else:
-            set_group = 'plugins/' + self.name
+            set_group = 'plugins/' + self.name.replace('/', '-').replace(
+                '\\', '-')
         self.settings = Settings(self.ui, group=set_group)
 
         self.actions = {}
