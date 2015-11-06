@@ -253,6 +253,13 @@ class MainWindowLayer1(QMainWindow):
                      self.main_frame.cascadeSubWindows)
         self.actions['cascade_windows'] = ac_cascade
 
+        # Close all figures action
+        ac_close_figs = QAction(tr("Close all"), self)
+        ac_close_figs.setStatusTip(tr("Closes all matplotlib figures"))
+        self.connect(ac_close_figs, SIGNAL('triggered()'),
+                     lambda: matplotlib.pyplot.close("all"))
+        self.actions['close_all_windows'] = ac_close_figs
+
         # Reset geometry action
         ac_reset_layout = QAction(tr("Reset layout"), self)
         ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and "
@@ -271,6 +278,8 @@ class MainWindowLayer1(QMainWindow):
         self.windowmenu_sep = self.windowmenu.addSeparator()
         self.windowmenu.addAction(self.actions['tile_windows'])
         self.windowmenu.addAction(self.actions['cascade_windows'])
+        self.windowmenu.addSeparator()
+        self.windowmenu.addAction(self.actions['close_all_windows'])
         self.windowmenu_actions_sep = self.windowmenu.addSeparator()
 
         self.plugin_manager.create_menu()
