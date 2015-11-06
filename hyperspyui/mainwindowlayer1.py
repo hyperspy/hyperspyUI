@@ -190,7 +190,7 @@ class MainWindowLayer1(QMainWindow):
     def closeEvent(self, event):
         self.settings['_geometry'] = self.saveGeometry()
         self.settings['_windowState'] = self.saveState()
-        super(MainWindowLayer1, self).closeEvent(event)
+        return super(MainWindowLayer1, self).closeEvent(event)
 
     def reset_geometry(self):
         self.settings.restore_key_default('_geometry')
