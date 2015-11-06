@@ -291,6 +291,23 @@ class EditorWidget(ExToolWindow):
         self.ui.console.ex(code)
         self._suppress_append = old
 
+    def sizeHint(self):
+        # Default size to fit right margin
+        def_sz = super(EditorWidget, self).sizeHint()
+        if hasattr(self, 'editor'):
+            font = QFont(self.editor.font_name, self.editor.font_size +
+                         self.editor.zoom_level)
+            metrics = QFontMetricsF(font)
+            pos = 80
+            cm = self.layout().contentsMargins()
+            # TODO: Currently uses manual, magic number. Do properly!
+            offset = self.editor.contentOffset().x() + \
+                2 * self.editor.document().documentMargin() + \
+                cm.left() + cm.right() + 60
+            x80 = round(metrics.width(' ') * pos) + offset
+            def_sz.setWidth(x80)
+        return def_sz
+
     def create_controls(self, path):
         editor = api.CodeEdit()
         editor.backend.start(server.__file__)
