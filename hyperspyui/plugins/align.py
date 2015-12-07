@@ -133,6 +133,8 @@ class AlignPlugin(Plugin):
         median = 'true' == self.settings['median_2D'].lower()
         sub_pixel_factor = float(self.settings['sub_pixel_factor'])
         plot = 'true' == self.settings['plot'].lower()
+        if plot:
+            plot = 'reuse'
         ref = self.settings['alignment_reference'].lower()
         if not ref:
             ref = 'current'
