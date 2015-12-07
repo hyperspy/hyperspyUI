@@ -11,6 +11,7 @@ import argparse
 import os
 import sys
 import pickle
+import numpy as np
 
 # Should go before any MPL imports:
 from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
@@ -375,9 +376,21 @@ class MainWindow(MainWindowLayer5):
         finally:
             self.setUpdatesEnabled(True)
 
-    def set_signal_dtype(self, data_type, signal=None):
+    def set_signal_dtype(self, data_type, signal=None, clip=False):
         if signal is None:
             signal = self.get_selected_signal()
         if isinstance(data_type, basestring) and data_type.lower() == 'custom':
             return    # TODO: Show dialog and prompt
+        if not clip:
+            old_type = signal.data.dtype
+            if np.issubdtype(data_type, np.integer):
+                info = np.iinfo(data_type)
+            elif np.issubdtype(data_type, np.float):
+                info = np.finfo(data_type)
+            if np.issubdtype(old_type, np.integer):
+                old_info = np.iinfo(old_type)
+            elif np.issubdtype(old_type, np.float):
+                old_info = np.finfo(old_type)
+            if old_info.max > info.max:
+                signal.data *= float(info.max) / np.nanmax(signal.data)
         signal.change_dtype(data_type)
