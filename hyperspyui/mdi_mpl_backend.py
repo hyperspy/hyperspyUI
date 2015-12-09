@@ -14,31 +14,28 @@ from matplotlib import __version__ as mplversionstring
 
 mpl13 = mplversionstring.startswith('1.3')
 mpl14 = mplversionstring.startswith('1.4')
+mpl15 = mplversionstring.startswith('1.5')
 
 if mpl13:
     from matplotlib.backends.qt4_compat import QtCore, QtGui, _getSaveFileName, __version__
-elif mpl14:
+else: # mpl14 or mpl15, or higher
     from matplotlib.backends.qt_compat import QtCore, QtGui, _getSaveFileName, __version__
-else:
-    from python_qt_binding import QtGui, QtCore
 
 if mpl13:
     from matplotlib.backends.backend_qt4 import (QtCore, QtGui, FigureManagerQT, FigureCanvasQT,
                                                  show, draw_if_interactive, backend_version,
                                                  NavigationToolbar2QT)
-elif mpl14:
+else: # mpl14 or mpl15, or higher
     from matplotlib.backends.backend_qt5 import (SPECIAL_KEYS, SUPER, ALT, CTRL,
                                                  SHIFT, MODIFIER_KEYS, fn_name, cursord,
                                                  draw_if_interactive, _create_qApp, show, TimerQT,
                                                  FigureManagerQT,
                                                  SubplotToolQt, error_msg_qt, exception_handler)
-else:
-    pass
 
 # FigureCanvas definition
 if mpl13:
     FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg
-elif mpl14:
+else:  # mpl14 or mpl15, or higher
     FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
 
 # =================
