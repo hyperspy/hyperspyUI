@@ -6,6 +6,7 @@ Created on Fri Dec 12 23:44:26 2014
 """
 
 from hyperspyui.settings import Settings
+from functools import partial
 
 
 class Plugin(object):
@@ -27,6 +28,7 @@ class Plugin(object):
         self.toolbar_actions = {}
         self.tools = []
         self.widgets = set()
+        self.dialogs = []
 
     def add_action(self, key, *args, **kwargs):
         ac = self.ui.add_action(key, *args, **kwargs)
@@ -95,3 +97,16 @@ class Plugin(object):
         self.menu_actions.clear()
         self.toolbar_actions.clear()
         self.widgets.clear()
+
+    def _on_dialog_close(self, diag):
+        self.dialogs.remove(diag)
+        diag.deleteLater()
+
+    def open_dialog(self, dialog, modal=False, delete_on_close=True):
+        self.dialogs.append(dialog)
+        if delete_on_close:
+            dialog.finished.connect(partial(self._on_dialog_close, dialog))
+        if modal:
+            dialog.exec_()
+        else:
+            dialog.show()
