@@ -1,6 +1,5 @@
 ﻿from hyperspyui.plugins.plugin import Plugin
 import numpy as np
-from hyperspy.signal import DataIterator
 from skimage.filters import gaussian_filter
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
@@ -21,10 +20,7 @@ class GaussianFilter(Plugin):
 
     def create_actions(self):
         self.add_action(
-            self.name +
-            '.show_dialog',
-            self.name,
-            self.show_dialog,
+            self.name + '.show_dialog', self.name, self.show_dialog,
             icon="gaussian_bare.svg",
             tip="Apply a gaussian filter",
             selection_callback=self.selection_rules)
@@ -65,26 +61,32 @@ class GaussianFilter(Plugin):
                     axes = (axm._axes.index(axm.signal_axes[0]),
                             axm._axes.index(axm.signal_axes[1]))
 
+        s_out = out or signal.deepcopy()
+        if s_out.data.dtype is not np.float:
+            s_out.change_dtype(np.float)
+        if signal.data.dtype is np.float:
+            vmin, vmax = np.nanmin(signal.data), np.nanmax(signal.data)
+        else:
+            vmin, vmax = (None, None)
+        for im_o, im_i in zip(s_out._iterate_signal(),
+                              signal._iterate_signal()):
+            if vmin is None:
+                im_o[:] = gaussian_filter(im_i, sigma)
+            else:
+                im_o[:] = gaussian_filter((im_i-vmin)/(vmax-vmin), sigma)
+        if vmin is not None:
+            s_out.data[:] = (vmax-vmin)*s_out.data + vmin
+
         if out is None:
             if record:
-                self.record_code(
-                    r"<p>.gaussian({0}, {1}, {2})".format(
+                self.record_code(r"<p>.gaussian({0}, {1}, {2})".format(
                         sigma, args, kwargs))
-            data = np.zeros_like(signal.data, dtype=np.float)
-            it = DataIterator(signal)
-            for im in it:
-                data[it.slices] = gaussian_filter(im, sigma)
-            return signal._deepcopy_with_new_data(data)
+            return s_out
         else:
-            if out.data.dtype is not np.float:
-                out.change_dtype(np.float)
             if record:
                 self.record_code(
                     r"<p>.gaussian({0}, out={1}, {2}, {3})".format(
                         sigma, out, args, kwargs))
-            it = DataIterator(signal)
-            for im in it:
-                out.data[it.slices] = gaussian_filter(im, sigma)
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger()
 
