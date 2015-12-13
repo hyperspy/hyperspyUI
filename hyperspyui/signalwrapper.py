@@ -97,8 +97,15 @@ class SignalWrapper(Actionable):
         """
         old_signal = self.signal
         self.signal = new_signal
+        idx = -1
+        for i, s in enumerate(self.mainwindow.hspy_signals):
+            if s is old_signal:
+                idx = i
+                break
         self.mainwindow.lut_signalwrapper[new_signal] = self
         del self.mainwindow.lut_signalwrapper[old_signal]
+        if idx >= 0:
+            self.mainwindow.hspy_signals[idx] = new_signal
 
     def update(self):
         if self.navigator_plot is not None:

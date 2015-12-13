@@ -106,7 +106,7 @@ if platform.system().lower() == 'windows':
 
         d = dirname
         docname = "HyperSpy.Document"
-        filetypes = ['.msa', '.hdf5']
+        filetypes = ['.msa', '.hdf5', '.dens', '.blo']
 
         # Setup default icon
         cmd = r'1>nul 2>nul REG ADD "HKCR\%s\DefaultIcon" ' % docname

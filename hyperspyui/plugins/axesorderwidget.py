@@ -8,9 +8,12 @@ Created on Tue Apr 28 11:00:55 2015
 from hyperspyui.plugins.plugin import Plugin
 
 from python_qt_binding import QtGui, QtCore
+import collections
 
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
+from hyperspy.axes import DataAxis
+from hyperspy.signals import Signal
 
 
 def tr(text):
@@ -22,8 +25,45 @@ class AxesOrderPlugin(Plugin):
 
     def create_widgets(self):
         w = AxesOrderWidget(self.ui, self.ui)
+        w.plugin = self
         self.add_widget(w)
         w.hide()  # Initial state hidden
+
+    def flip_axes(self, axes, signal=None):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+        self.record_code("<p>.flip_axes(axes=%s)" % axes)
+        if not isinstance(axes, collections.Iterable):
+            axes = (axes,)
+        replot = False
+        for axis in axes:
+            if not isinstance(axis, DataAxis):
+                axis = signal.axes_manager[axis]
+            ax = axis.index_in_array
+            slices = (slice(None),) * ax + (slice(None, None, -1), Ellipsis)
+            signal.data = signal.data[slices]
+            replot |= axis.navigate
+        if replot:
+            signal.plot()
+        else:
+            signal.update_plot()
+
+    def rollaxis(self, axis, pos, signal=None):
+        # Get signal
+        if signal is None:
+            signal = self.ui.get_selected_wrapper()
+        elif isinstance(signal, Signal):
+            signal = self.ui.lut_signalwrapper[signal]
+        am = signal.signal.axes_manager
+        # Get DataAxis
+        if not isinstance(axis, DataAxis):
+            axis = am[axis]
+        # Reorder
+        old_idx = am._axes.index(axis) + 3j
+        new_s = signal.signal.rollaxis(old_idx, pos)
+        signal.switch_signal(new_s)
+        self.record_code("<p>.rollaxis(%s, %s)" % (str(old_idx), str(pos)))
+        signal.replot()
 
 
 class AxesOrderWidget(FigureWidget):
@@ -72,13 +112,17 @@ class AxesOrderWidget(FigureWidget):
         max_sig = max(self.lst_sig.sizeHint().height(), 20)
         self.lst_nav.setFixedHeight(max_nav)
         self.lst_sig.setFixedHeight(max_sig)
-        self.setFixedHeight(max_nav + max_sig + 110)
+        self.setFixedHeight(max_nav + max_sig + 150)
         self.lst_nav.setUpdatesEnabled(True)
         self.lst_sig.setUpdatesEnabled(True)
 
     def _move_item(self, item):
         ax = item.data(QtCore.Qt.UserRole)
         ax.navigate = not ax.navigate
+        self.ui.record_code((
+            "ax = ui.get_selected_signal().axes_manager[%s]\n"
+            "ax.navigate = not ax.navigate\n"
+            "ui.get_selected_wrapper().replot()") % (ax.index_in_array + 3j))
         self.signal.replot()
 
     def _list_move(self, item, dst_row, dst):
@@ -87,14 +131,9 @@ class AxesOrderWidget(FigureWidget):
         if self._updating:
             return
         ax = item.data(QtCore.Qt.UserRole)
-        # Reorder
-        am = self.signal.signal.axes_manager
         space = 1j if ax.navigate else 2j
-        old_idx = am._axes.index(ax) + 3j
         new_idx = dst_row + space
-        new_s = self.signal.signal.rollaxis(old_idx, new_idx)
-        self.signal.switch_signal(new_s)
-        self.signal.replot()
+        self.plugin.rollaxis(ax, new_idx)
 
     def _list_insert(self, src_row, dst_row, dst):
         """Called when drag and drop moved between lists.
@@ -107,13 +146,13 @@ class AxesOrderWidget(FigureWidget):
         old_idx = src_row + old_space
         ax = am[old_idx]
         dst.item(dst_row).setData(QtCore.Qt.UserRole, ax)
-        old_idx = am._axes.index(ax) + 3j
         ax.navigate = not ax.navigate
+        self.ui.record_code((
+            "ax = ui.get_selected_signal().axes_manager[%s]\n"
+            "ax.navigate = not ax.navigate\n") % (ax.index_in_array + 3j))
         space = 1j if ax.navigate else 2j
         new_idx = dst_row + space
-        new_s = self.signal.signal.rollaxis(old_idx, new_idx)
-        self.signal.switch_signal(new_s)
-        self.signal.replot()
+        self.plugin.rollaxis(ax, new_idx)
 
     def _move_down(self):
         if self.lst_nav.count() == 0:
@@ -133,6 +172,14 @@ class AxesOrderWidget(FigureWidget):
         i = self.lst_sig.takeItem(self.lst_sig.currentRow())
         self.lst_nav.addItem(i)
         self._move_item(i)
+
+    def _flip_clicked(self):
+        # Get selected axes
+        axes = []
+        for lst in (self.lst_nav, self.lst_sig):
+            items = lst.selectedItems()
+            axes.extend([i.data(QtCore.Qt.UserRole) for i in items])
+        self.plugin.flip_axes(axes)
 
     def create_controls(self):
         self.lbl_nav = QtGui.QLabel(tr("Navigate"), self)
@@ -158,6 +205,9 @@ class AxesOrderWidget(FigureWidget):
         self.lst_nav.moved.connect(self._list_move)
         self.lst_sig.moved.connect(self._list_move)
 
+        self.btn_flip = QtGui.QPushButton(tr("Reverse axes"))
+        self.btn_flip.clicked.connect(self._flip_clicked)
+
         vbox = QtGui.QVBoxLayout()
         vbox.addWidget(self.lbl_nav)
         vbox.addWidget(self.lst_nav)
@@ -167,6 +217,7 @@ class AxesOrderWidget(FigureWidget):
         vbox.addLayout(hbox)
         vbox.addWidget(self.lbl_sig)
         vbox.addWidget(self.lst_sig)
+        vbox.addWidget(self.btn_flip)
 
         w = QtGui.QWidget()
         w.setLayout(vbox)
