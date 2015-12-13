@@ -88,20 +88,18 @@ class GaussianFilter(Plugin):
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger()
 
-    def on_dialog_accept(self):
-        self.settings['sigma'] = self.dialog.num_sigma.value()
-        self.dialog.deleteLater()
-        self.dialog = None
+    def on_dialog_accept(self, dialog):
+        self.settings['sigma'] = dialog.num_sigma.value()
 
     def show_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
         if space != "signal":
             return
-        self.dialog = GaussianFilterDialog(signal, self.ui, self)
+        dialog = GaussianFilterDialog(signal, self.ui, self)
         if 'sigma' in self.settings:
-            self.dialog.num_sigma.setValue(float(self.settings['sigma']))
-        self.dialog.accepted.connect(self.on_dialog_accept)
-        self.dialog.show()
+            dialog.num_sigma.setValue(float(self.settings['sigma']))
+        dialog.accepted.connect(lambda: self.on_dialog_accept(dialog))
+        self.open_dialog(dialog)
 
 
 class GaussianFilterDialog(ExToolWindow):
