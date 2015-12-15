@@ -33,6 +33,7 @@ setup(
               'autopep8',
               'traits',
               'traitsui',
+              'qtconsole',
               ] + platform_req,
     install_requires=['hyperspy >= 0.8.1',
                       'matplotlib >= 1.3',
@@ -41,6 +42,7 @@ setup(
                       'autopep8',
                       'traits',
                       'traitsui',
+                      'qtconsole',
                       ] + platform_req,
     package_data={
         'hyperspyui':
