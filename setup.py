@@ -27,14 +27,16 @@ setup(
               'pyqode.python (>= 2.6.0)',
               'autopep8',
               'traits',
-              'traitsui'],
+              'traitsui',
+              ],
     install_requires=['hyperspy >= 0.8.1',
                       'matplotlib >= 1.3',
                       'python_qt_binding',
                       'pyqode.python >= 2.6.0',
                       'autopep8',
                       'traits',
-                      'traitsui'],
+                      'traitsui',
+                      ],
     package_data={
         'hyperspyui':
         ['images/*.svg',
