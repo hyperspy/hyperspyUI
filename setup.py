@@ -7,9 +7,14 @@ Created on Mon Nov 17 11:58:16 2014
 @author: Vidar Tonaas Fauske
 """
 
+import os
 from setuptools import setup, find_packages
 
 import hyperspyui.info
+
+platform_req = []
+if os.name == 'nt':
+    platform_req.append('pywin32')
 
 setup(
     name='hyperspyUI',
@@ -28,7 +33,7 @@ setup(
               'autopep8',
               'traits',
               'traitsui',
-              ],
+              ] + platform_req,
     install_requires=['hyperspy >= 0.8.1',
                       'matplotlib >= 1.3',
                       'python_qt_binding',
@@ -36,7 +41,7 @@ setup(
                       'autopep8',
                       'traits',
                       'traitsui',
-                      ],
+                      ] + platform_req,
     package_data={
         'hyperspyui':
         ['images/*.svg',
