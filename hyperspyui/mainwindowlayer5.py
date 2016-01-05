@@ -9,6 +9,7 @@ import os
 import gc
 import re
 import numpy as np
+import logging
 
 # Hyperspy uses traitsui, set proper backend
 from traits.etsconfig.api import ETSConfig
@@ -40,6 +41,8 @@ overrides.override_hyperspy()           # Enable hyperspy overrides
 
 
 glob_escape = re.compile(r'([\[\]])')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class TrackEventFilter(QObject):
@@ -505,12 +508,17 @@ class MainWindowLayer5(MainWindowLayer4):
         return files_loaded
 
     def save(self, signals=None, filenames=None):
+        logger.debug("entering save(), with args: %s, %s",
+                     str(signals), str(filenames))
         if signals is None:
             signals = self.get_selected_wrappers()
+            logger.debug("No signals passed, saving selection: %s",
+                         str(signals))
 
         extensions = self.get_accepted_extensions()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
+        logger.debug("Save type choices: %s", type_choices)
 
         i = 0
         overwrite = None
@@ -521,6 +529,8 @@ class MainWindowLayer5(MainWindowLayer4):
             if filenames is None or len(
                     filenames) <= i or filenames[i] is None:
                 path_suggestion = self.get_signal_filepath_suggestion(s)
+                logger.debug("No filenames passed. Auto-suggestion: %s",
+                             path_suggestion)
                 filename = QFileDialog.getSaveFileName(self, tr("Save file"),
                                                        path_suggestion,
                                                        type_choices,
@@ -528,6 +538,7 @@ class MainWindowLayer5(MainWindowLayer4):
                 # Dialog should have prompted about overwrite
                 overwrite = True
                 if not filename:
+                    logger.info("Not saving signal %s", str(s))
                     continue
             else:
                 filename = filenames[i]
