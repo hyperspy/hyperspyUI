@@ -11,7 +11,7 @@ from QtGui import *
 
 from functools import partial
 from hyperspyui._elements import elements
-from extendedqwidgets import ExClickLabel
+from .extendedqwidgets import ExClickLabel
 
 
 def tr(text):

@@ -8,7 +8,7 @@ Created on Sun Dec 07 03:49:54 2014
 import os
 from matplotlib.pylab import gca
 
-from figuretool import FigureTool
+from .figuretool import FigureTool
 
 
 class HomeTool(FigureTool):

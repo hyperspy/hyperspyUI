@@ -11,7 +11,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from extendedqwidgets import ExToolWindow
+from .extendedqwidgets import ExToolWindow
 from hyperspyui.settings import Settings
 
 import numpy as np

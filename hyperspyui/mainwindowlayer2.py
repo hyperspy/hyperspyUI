@@ -6,13 +6,13 @@ Created on Sat Feb 21 15:59:57 2015
 """
 
 
-from mainwindowlayer1 import MainWindowLayer1, tr
+from .mainwindowlayer1 import MainWindowLayer1, tr
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-import hooktraitsui
+from . import hooktraitsui
 
 hooktraitsui.hook_traitsui()
 

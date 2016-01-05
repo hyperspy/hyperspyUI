@@ -7,7 +7,7 @@ Created on Sat Feb 21 12:03:33 2015
 
 from python_qt_binding import QtCore
 
-from plugincreator import create_plugin_code
+from .plugincreator import create_plugin_code
 
 
 class Recorder(QtCore.QObject):

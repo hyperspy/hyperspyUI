@@ -18,9 +18,9 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from widgets.consolewidget import ConsoleWidget
+from .widgets.consolewidget import ConsoleWidget
 import hyperspyui.mdi_mpl_backend
-from pluginmanager import PluginManager
+from .pluginmanager import PluginManager
 from hyperspyui.settings import Settings
 from hyperspyui.widgets.settingsdialog import SettingsDialog
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine

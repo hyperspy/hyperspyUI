@@ -5,7 +5,7 @@ Created on Sat Feb 21 16:05:41 2015
 @author: Vidar Tonaas Fauske
 """
 
-from mainwindowlayer2 import MainWindowLayer2, tr
+from .mainwindowlayer2 import MainWindowLayer2, tr
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *

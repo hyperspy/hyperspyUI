@@ -12,8 +12,8 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from extendedqwidgets import ExToolWindow
-from editorwidget import EditorWidget
+from .extendedqwidgets import ExToolWindow
+from .editorwidget import EditorWidget
 
 
 def tr(text):

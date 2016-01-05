@@ -15,11 +15,11 @@ import logging
 from traits.etsconfig.api import ETSConfig
 ETSConfig.toolkit = 'qt4'
 
-from mainwindowlayer4 import MainWindowLayer4, tr
+from .mainwindowlayer4 import MainWindowLayer4, tr
 
-import uiprogressbar
+from . import uiprogressbar
 uiprogressbar.takeover_progressbar()    # Enable hooks
-import hooksignal
+from . import hooksignal
 hooksignal.hook_signal()
 
 from python_qt_binding import QtGui, QtCore
@@ -36,7 +36,7 @@ import hyperspy.io
 import hyperspy.defaults_parser
 from hyperspy.io_plugins import io_plugins
 
-import overrides
+from . import overrides
 overrides.override_hyperspy()           # Enable hyperspy overrides
 
 

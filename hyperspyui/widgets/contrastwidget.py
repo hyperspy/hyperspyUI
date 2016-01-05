@@ -10,7 +10,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
+from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.drawing.mpl_he import MPL_HyperExplorer
 from hyperspy.drawing.image import ImagePlot
 from hyperspy.misc.rgb_tools import rgbx2regular_array

@@ -9,7 +9,7 @@ Created on Tue Nov 04 16:25:54 2014
 from python_qt_binding import QtCore, QtGui
 #from hyperspy.model import Model
 import hyperspy.models.eelsmodel
-from actionable import Actionable
+from .actionable import Actionable
 from functools import partial
 
 # TODO: Add smartfit for EELSModel

@@ -7,7 +7,7 @@ Created on Sun Dec 07 05:23:12 2014
 
 import os
 
-from figuretool import FigureTool
+from .figuretool import FigureTool
 
 
 class PointerTool(FigureTool):

@@ -18,7 +18,7 @@ except ImportError:
     GaussTypes = (Gaussian, )
     has_gauss_v2 = False
 
-from figuretool import FigureTool
+from .figuretool import FigureTool
 from hyperspyui.util import crosshair_cursor
 
 

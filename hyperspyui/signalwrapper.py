@@ -5,11 +5,11 @@ Created on Fri Oct 24 18:27:15 2014
 @author: Vidar Tonaas Fauske
 """
 
-from util import fig2win
+from .util import fig2win
 from python_qt_binding import QtCore
 
-from modelwrapper import ModelWrapper
-from actionable import Actionable
+from .modelwrapper import ModelWrapper
+from .actionable import Actionable
 
 
 class SignalWrapper(Actionable):

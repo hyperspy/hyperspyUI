@@ -7,7 +7,7 @@ Created on Sun Dec 07 02:03:23 2014
 
 import os
 
-from figuretool import FigureTool
+from .figuretool import FigureTool
 from hyperspyui.util import load_cursor
 
 
