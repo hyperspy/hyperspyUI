@@ -191,7 +191,7 @@ class AlignPlugin(Plugin):
         # From now on, navigation is in first dimension
         smooth = float(self.settings['1d_smooth_amount'])
         d = np.array([self._smooth(s_al.data[i, :], smooth)
-                      for i in xrange(s_al.data.shape[0])])
+                      for i in range(s_al.data.shape[0])])
         d = np.diff(d, axis=1)      # Differentiate to highlight edges
         sz = d.shape                # Initial shape
         ref = d[iref, :]               # Reference row
@@ -199,7 +199,7 @@ class AlignPlugin(Plugin):
         ref = np.pad(ref, (sz[1] / 2, sz[1] / 2), 'edge')
         shifts = []
         # Find shifts for each row
-        for row in xrange(sz[0]):
+        for row in range(sz[0]):
             if row == iref:
                 # Set shift of reference to compensate for padding
                 shifts.append(sz[1] / 2)

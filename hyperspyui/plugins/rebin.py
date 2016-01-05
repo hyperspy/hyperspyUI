@@ -36,7 +36,7 @@ class RebinPlugin(Plugin):
         s = signal.signal
         shape = []
         mods = [tuple()] * len(s.axes_manager.shape)
-        for i in xrange(len(s.axes_manager.shape)):
+        for i in range(len(s.axes_manager.shape)):
             ax = s.axes_manager[i]
             factor = factors[i]
             if factor > ax.size:

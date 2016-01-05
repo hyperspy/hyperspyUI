@@ -373,7 +373,7 @@ class MainWindowLayer1(QMainWindow):
     def check_action_selections(self, mdi_figure=None):
         if mdi_figure is None:
             mdi_figure = self.main_frame.activeSubWindow()
-        for key, cb in self._action_selection_cbs.iteritems():
+        for key, cb in self._action_selection_cbs.items():
             cb(mdi_figure, self.actions[key])
 
     # --------- End figure management ---------
@@ -382,11 +382,11 @@ class MainWindowLayer1(QMainWindow):
 
     def make_icon(self, icon):
         if not isinstance(icon, QIcon):
-            if isinstance(icon, basestring) and not os.path.isfile(icon):
+            if isinstance(icon, str) and not os.path.isfile(icon):
                 sugg = os.path.dirname(__file__) + '/images/' + icon
                 if os.path.isfile(sugg):
                     icon = sugg
-            if isinstance(icon, basestring) and (
+            if isinstance(icon, str) and (
                     icon.endswith('svg') or
                     icon.endswith('svgz') or
                     icon.endswith('svg.gz')):
@@ -436,8 +436,8 @@ class MainWindowLayer1(QMainWindow):
         # Build type selection string
         def_type = os.path.extsep + canvas.get_default_filetype()
         extensions = canvas.get_supported_filetypes_grouped()
-        type_choices = u"All types (*.*)"
-        for group, exts in extensions.iteritems():
+        type_choices = "All types (*.*)"
+        for group, exts in extensions.items():
             fmt = group + \
                 ' (' + \
                 '; '.join([os.path.extsep + sube for sube in exts]) + ')'

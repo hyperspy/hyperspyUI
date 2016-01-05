@@ -353,7 +353,7 @@ class MVA_Plugin(Plugin):
                     data = np.zeros_like(ns.s.data)
                 else:
                     data = np.copy(target.mean)
-                for n in xrange(1, n_component):
+                for n in range(1, n_component):
                     a = np.dot(factors[:, n - 1:n],
                                loadings[n - 1:n, :])
                     data += a.T

@@ -90,7 +90,7 @@ class Threaded(QObject):
         self.worker = worker
 
     def errorString(self, error):
-        print error
+        print(error)
 
     def run(self):
         self.thread.start()

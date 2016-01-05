@@ -36,7 +36,7 @@ _plotted_cbs = {}
 
 
 def _cb(cbs, *args, **kwargs):
-    for cb, userdata in cbs.iteritems():
+    for cb, userdata in cbs.items():
         if userdata is None:
             cb(*args, **kwargs)
         else:

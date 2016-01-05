@@ -19,7 +19,7 @@ class NavigatorSwitch(Plugin):
         self._nav_ag = QActionGroup(self.ui)
         self._nav_ag.setExclusive(True)
         self._nav_menu = QMenu("Navigator")
-        for ac in self.actions.itervalues():
+        for ac in self.actions.values():
             ac.setCheckable(True)
             self._nav_ag.addAction(ac)
             self._nav_menu.addAction(ac)

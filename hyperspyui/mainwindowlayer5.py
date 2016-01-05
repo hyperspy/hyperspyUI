@@ -261,8 +261,8 @@ class MainWindowLayer5(MainWindowLayer4):
             intensity = p.ax.images[0].get_array()[ind[1], ind[0]]
 
         # Remove <undefined> units
-        for i in xrange(len(units)):
-            if unicode(units[i]) == u"<undefined>":
+        for i in range(len(units)):
+            if str(units[i]) == "<undefined>":
                 units[i] = ""
         units = tuple(units)
 
@@ -281,7 +281,7 @@ class MainWindowLayer5(MainWindowLayer4):
 
         'units' must be the same size as 'values'
         """
-        vu = tuple([u"%.3g %s" % (v, u) for v, u in zip(values, units)])
+        vu = tuple(["%.3g %s" % (v, u) for v, u in zip(values, units)])
         vu = "(%s)" % ", ".join(vu)
         text = "Mouse: " + str(indices) + " px; " + vu
         if intensity is not None:

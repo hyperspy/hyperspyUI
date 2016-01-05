@@ -77,7 +77,7 @@ if platform.system().lower() == 'windows':
 
     if (len(sys.argv) <= 1) or (sys.argv[1] != '-remove'):
         # Get paths to the desktop and start menu
-        print 'Creating Shortcuts'
+        print('Creating Shortcuts')
         try:
             desktop_path = get_special_folder_path(
                 "CSIDL_COMMON_DESKTOPDIRECTORY")
@@ -141,6 +141,6 @@ if platform.system().lower() == 'windows':
         for cmd in cmds:
             r = subprocess.call(cmd, shell=True)
             r
-        print "File types registered"
+        print("File types registered")
     elif len(sys.argv) > 0 and sys.argv[1] == '-remove':
         pass    # Should we delete registry entries? Maybe if not edited?

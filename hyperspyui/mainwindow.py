@@ -162,7 +162,7 @@ class MainWindow(MainWindowLayer5):
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
         signal_type_ag.setExclusive(True)
-        for st in self.signal_types.iterkeys():
+        for st in self.signal_types.keys():
             f = partial(self.set_signal_type, st)
             st_ac = self.add_action('signal_type_' + st, st, f)
             st_ac.setCheckable(True)
@@ -179,7 +179,7 @@ class MainWindow(MainWindowLayer5):
                   np.uint, np.uint8, np.uint16, np.uint32, np.uint64, 'Custom'
                   ]:
             f = partial(self.set_signal_dtype, t)
-            if isinstance(t, basestring):
+            if isinstance(t, str):
                 st = t.lower()
             else:
                 st = t.__name__
@@ -192,7 +192,7 @@ class MainWindow(MainWindowLayer5):
         # --- Add "add component" actions ---
         comp_actions = create_add_component_actions(self, self.make_component)
         self.comp_actions = []
-        for ac_name, ac in comp_actions.iteritems():
+        for ac_name, ac in comp_actions.items():
             self.actions[ac_name] = ac
             self.comp_actions.append(ac_name)
 
@@ -379,7 +379,7 @@ class MainWindow(MainWindowLayer5):
     def set_signal_dtype(self, data_type, signal=None, clip=False):
         if signal is None:
             signal = self.get_selected_signal()
-        if isinstance(data_type, basestring) and data_type.lower() == 'custom':
+        if isinstance(data_type, str) and data_type.lower() == 'custom':
             return    # TODO: Show dialog and prompt
         if not clip:
             old_type = signal.data.dtype

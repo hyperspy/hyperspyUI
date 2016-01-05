@@ -59,7 +59,7 @@ class ImageRotation_Plugin(Plugin):
                       record=True, *args, **kwargs):
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()
-            if isinstance(axes, basestring):
+            if isinstance(axes, str):
                 axm = signal.signal.axes_manager
                 if axes.startswith("nav"):
                     axes = (axm._axes.index(axm.navigation_axes[0]),
@@ -216,7 +216,7 @@ class ImageRotationDialog(ExToolWindow):
         self.plugin = plugin
         self.new_out = None
         self._connected_updates = False
-        if isinstance(axes, basestring):
+        if isinstance(axes, str):
             axm = signal.signal.axes_manager
             if axes.startswith("nav"):
                 axes = (axm._axes.index(axm.navigation_axes[0]),

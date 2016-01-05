@@ -254,7 +254,7 @@ class AxesListWidget(QtGui.QListWidget):
         return self.minimumSizeHint()
 
     def _on_rows_inserted(self, parent, begin, end):
-        for new_idx in xrange(begin, end+1):
+        for new_idx in range(begin, end+1):
             if AxesListWidget.last_drop:
                 old_idx = AxesListWidget.last_drop.pop(0)
                 self.inserted.emit(old_idx, new_idx, self)
@@ -262,7 +262,7 @@ class AxesListWidget(QtGui.QListWidget):
     def _on_rows_moved(self, sourceParent, sourceStart, sourceEnd,
                        destinationParent, destinationRow):
         N = sourceEnd - sourceStart + 1
-        for i in xrange(N):
+        for i in range(N):
             idx = destinationRow + i
             if destinationRow > sourceStart:
                 idx -= N
@@ -288,6 +288,6 @@ class AxesListWidget(QtGui.QListWidget):
             data = m.data("application/x-qabstractitemmodeldatalist")
             r = self.decodeMimeData(data)
             AxesListWidget.last_drop = []
-            for k in r.iterkeys():
+            for k in r.keys():
                 AxesListWidget.last_drop.append(k)
         super(AxesListWidget, self).dropEvent(event)

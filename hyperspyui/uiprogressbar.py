@@ -119,7 +119,7 @@ class UIProgressBar(hyperspy.external.progressbar.ProgressBar):
             if isinstance(w, hyperspy.external.progressbar.ETA):
                 has_eta = True
                 eta = w.update(self)
-                if isinstance(self.widgets[0], basestring):
+                if isinstance(self.widgets[0], str):
                     txt = self.widgets[0] + " " + eta
                 else:
                     txt = str(eta)

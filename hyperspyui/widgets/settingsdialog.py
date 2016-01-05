@@ -57,7 +57,7 @@ class SettingsDialog(ExToolWindow):
                     widget.checkState() == Qt.PartiallyChecked:
                 v = None
             else:
-                v = u"true" if widget.isChecked() else u"false"
+                v = "true" if widget.isChecked() else "false"
         elif isinstance(widget, (QSpinBox, QDoubleSpinBox)):
             v = widget.value()
 
@@ -82,7 +82,7 @@ class SettingsDialog(ExToolWindow):
         if len(self._changes) < 1:
             return
         s = QSettings(self.ui)
-        for k, v in self._changes.iteritems():
+        for k, v in self._changes.items():
             if k in self._initial_values:   # Avoid readding removed settings
                 s.setValue(k, v)
                 self._initial_values[k] = v
@@ -107,7 +107,7 @@ class SettingsDialog(ExToolWindow):
             abs_key = settings.group() + '/' + k
             self._initial_values[abs_key] = v           # Store initial value
             # Create a fitting editor widget based on value type:
-            if isinstance(v, basestring):
+            if isinstance(v, str):
                 if v.lower() in ('true', 'false'):
                     w = QCheckBox()
                     w.setChecked(v.lower() == 'true')

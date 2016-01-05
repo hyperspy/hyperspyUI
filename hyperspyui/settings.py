@@ -177,7 +177,7 @@ class Settings(object):
         if group is not None:
             settings.beginGroup(group)
 
-        for k, v in d.iteritems():
+        for k, v in d.items():
             settings.setValue(k, v)
 
         if group is not None:
@@ -189,7 +189,7 @@ class Settings(object):
         if group is not None:
             settings.beginGroup(group)
 
-        for k, v in d.iteritems():
+        for k, v in d.items():
             if isinstance(v, tuple):
                 settings.value(k, v)
 

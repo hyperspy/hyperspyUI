@@ -72,7 +72,7 @@ def _on_new_figure(figure):
     'figure' parameter is of the type FigureWindow defined below
     """
     global _new_fig_cbs
-    for callback, userdata in _new_fig_cbs.iteritems():
+    for callback, userdata in _new_fig_cbs.items():
         try:
             callback(figure, userdata)
         except TypeError:
@@ -105,7 +105,7 @@ def _on_destroy(figure):
     'figure' parameter is of the type FigureWindow defined below
     """
     global _destroy_cbs
-    for callback, userdata in _destroy_cbs.iteritems():
+    for callback, userdata in _destroy_cbs.items():
         try:
             callback(figure, userdata)
         except TypeError:
@@ -263,7 +263,7 @@ class FigureManagerMdi(FigureManagerBase):
     @QtCore.Slot()
     def _show_message(self, s):
         # Fixes a PySide segfault.
-        print "Trying to show: " + s
+        print("Trying to show: " + s)
 #        self.window.statusBar().showMessage(s)
 
     def full_screen_toggle(self):

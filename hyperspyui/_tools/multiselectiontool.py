@@ -90,7 +90,7 @@ class MultiSelectionTool(SignalFigureTool):
         if widget.is_on():
             widget.set_on(False)
         if signal is None:
-            for widgets in self.widgets.itervalues():
+            for widgets in self.widgets.values():
                 if widget in widgets:
                     widgets.remove(widget)
         else:
@@ -223,7 +223,7 @@ class MultiSelectionTool(SignalFigureTool):
 
     def _on_change(self, widget, signal=None):
         if signal is None:
-            for s, widgets in self.widgets.iteritems():
+            for s, widgets in self.widgets.items():
                 if widget in widgets:
                     signal = s
                     break

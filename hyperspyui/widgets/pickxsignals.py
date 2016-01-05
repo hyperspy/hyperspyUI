@@ -18,12 +18,12 @@ class PickXSignalsWidget(QWidget):
 
         if titles is None:
             titles = list(("",) * x)
-        elif isinstance(titles, basestring):
+        elif isinstance(titles, str):
             titles = list((titles,) * x)
         elif len(titles) < x:
             titles.extend(list(("",) * (x-len(titles))))
 
-        for i in xrange(x):
+        for i in range(x):
             picker = SignalList(signal_wrappers, self, False)
             grid.addWidget(QLabel(titles[i]), 2*(i // wrap_col),
                            i % wrap_col)
@@ -33,12 +33,12 @@ class PickXSignalsWidget(QWidget):
 
     def get_selected(self):
         signals = []
-        for i in xrange(self._x):
+        for i in range(self._x):
             signals.append(self.pickers[i].get_selected())
         if self._x == 1:
             return signals[0]
         return signals
 
     def unbind(self):
-        for i in xrange(self._x):
+        for i in range(self._x):
             self.pickers[i].unbind(self._sws)

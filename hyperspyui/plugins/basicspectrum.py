@@ -77,7 +77,7 @@ class BasicSpectrumPlugin(Plugin):
         try:
             from hyperspy.misc.eds.utils import get_xray_lines_near_energy as _
             self.picker_tool = ElementPickerTool()
-            self.picker_tool.picked[basestring].connect(self.pick_element)
+            self.picker_tool.picked[str].connect(self.pick_element)
             self.add_tool(self.picker_tool,
                           SignalTypeFilter(
                               (  # hyperspy.signals.EELSSpectrum,
@@ -149,7 +149,7 @@ class BasicSpectrumPlugin(Plugin):
 
 
 class ElementPickerTool(SignalFigureTool):
-    picked = Signal(basestring)
+    picked = Signal(str)
 
     def __init__(self, windows=None):
         super(ElementPickerTool, self).__init__(windows)

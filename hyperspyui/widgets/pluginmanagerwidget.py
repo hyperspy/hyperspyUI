@@ -34,7 +34,7 @@ class PluginsModel(QAbstractItemModel):
     def _update_data(self):
         self._plugin_data = []
         for i, (name, (enabled, ptype)) in enumerate(
-                self.plugin_manager._enabled.iteritems()):
+                self.plugin_manager._enabled.items()):
             path = sys.modules[ptype.__module__].__file__
             path = os.path.normpath(path)
             if path.endswith('.pyc') or path.endswith('.pyo'):
@@ -140,7 +140,7 @@ class PluginManagerWidget(ExToolWindow):
         table.setVerticalHeader(h)
         self.table = table
         width = 80
-        for i in xrange(3):
+        for i in range(3):
             width += table.columnWidth(i)
 
         btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,

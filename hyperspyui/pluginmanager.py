@@ -59,7 +59,7 @@ class PluginManager(object):
         of all plugins.
         """
         d = ReadOnlyDict()
-        for name, (enabled, _) in d.iteritems():
+        for name, (enabled, _) in d.items():
             d[name] = enabled
         d._readonly = True
         return d
@@ -123,35 +123,35 @@ class PluginManager(object):
                 self.warn("initialization", plug_type.name)
 
     def create_actions(self):
-        for p in self.plugins.itervalues():
+        for p in self.plugins.values():
             try:
                 p.create_actions()
             except Exception:
                 self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_menu(self):
-        for p in self.plugins.itervalues():
+        for p in self.plugins.values():
             try:
                 p.create_menu()
             except Exception:
                 self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_tools(self):
-        for p in self.plugins.itervalues():
+        for p in self.plugins.values():
             try:
                 p.create_tools()
             except Exception:
                 self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_toolbars(self):
-        for p in self.plugins.itervalues():
+        for p in self.plugins.values():
             try:
                 p.create_toolbars()
             except Exception:
                 self.warn(sys._getframe().f_code.co_name, p.name)
 
     def create_widgets(self):
-        for p in self.plugins.itervalues():
+        for p in self.plugins.values():
             try:
                 p.create_widgets()
             except Exception:

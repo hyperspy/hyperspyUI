@@ -98,8 +98,8 @@ class FigureTool(Tool):
         windows = self._iter_windows(windows)
         for w in windows:
             canvas = w.widget()
-            for cid_iter in self.cids.itervalues():
-                for canv, cid in cid_iter.iteritems():
+            for cid_iter in self.cids.values():
+                for canv, cid in cid_iter.items():
                     if canv == canvas:
                         try:
                             canvas.mpl_disconnect(cid)

@@ -76,7 +76,7 @@ def dict_rlu(dictionary, value):
     """
     Reverse dictionary lookup.
     """
-    for k, v in dictionary.iteritems():
+    for k, v in dictionary.items():
         if v == value or v is value:
             return k
     raise KeyError()

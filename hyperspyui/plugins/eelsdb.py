@@ -15,7 +15,7 @@ from QtNetwork import *
 
 try:
     assert(QSslSocket.supportsSsl())
-except NameError, AssertionError:
+except NameError as AssertionError:
     raise ImportError("Current platform doesn't support SSL. EELSDB plugin"
                       " disabled.")
 
@@ -51,8 +51,8 @@ class EELSDBPlugin(Plugin):
 
     def _urlencode_post_data(self, post_data):
         post_params = QUrl()
-        for (key, value) in post_data.items():
-            post_params.addQueryItem(key, unicode(value))
+        for (key, value) in list(post_data.items()):
+            post_params.addQueryItem(key, str(value))
 
         return post_params.encodedQuery()
 

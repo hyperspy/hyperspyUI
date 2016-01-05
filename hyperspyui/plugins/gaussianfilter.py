@@ -52,7 +52,7 @@ class GaussianFilter(Plugin):
                  *args, **kwargs):
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()
-            if isinstance(axes, basestring):
+            if isinstance(axes, str):
                 axm = signal.signal.axes_manager
                 if axes.startswith("nav"):
                     axes = (axm._axes.index(axm.navigation_axes[0]),

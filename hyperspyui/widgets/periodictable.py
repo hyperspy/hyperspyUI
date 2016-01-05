@@ -59,7 +59,7 @@ class PeriodicTableWidget(QWidget):
         self.set_element(element, not self.toggled[element])
 
     def set_elements(self, elements):
-        for e in self.elements.iterkeys():
+        for e in self.elements.keys():
             self.set_element(e, e in elements)
 
     def set_element(self, element, value):

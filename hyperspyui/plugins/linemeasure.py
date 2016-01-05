@@ -24,9 +24,9 @@ class LineMeasure(Plugin):
     def measure(self, roi):
         if self.tool.ndim == 2:
             self.ui.set_status("Line length: %G" % roi.length)
-            print roi.length
+            print(roi.length)
         else:
-            print roi
+            print(roi)
         # Finished with tool, so turn off
         self.tool.cancel()
 

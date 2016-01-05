@@ -11,7 +11,7 @@ from plugincreator import create_plugin_code
 
 
 class Recorder(QtCore.QObject):
-    record = QtCore.Signal(basestring)
+    record = QtCore.Signal(str)
 
     def __init__(self):
         super(Recorder, self).__init__()

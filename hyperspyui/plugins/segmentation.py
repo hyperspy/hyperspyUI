@@ -68,7 +68,7 @@ class Segmentation(Plugin):
             source, s_out = self.map[signal]
         else:
             found = False
-            for h, (s, s_out) in self.map.iteritems():
+            for h, (s, s_out) in self.map.items():
                 if signal in (s, s_out):
                     found = True
                     histogram = h
@@ -114,7 +114,7 @@ class Segmentation(Plugin):
 
         gray = self._make_gray(data)
         s_out.data = regular_array2rgbx(gray)
-        for i in xrange(N):
+        for i in range(N):
             color = (255 * plt_cm.hsv([float(i) / max(N, 10)])).astype('uint8')
             color = regular_array2rgbx(color)
             r = rois[i]

@@ -100,7 +100,7 @@ class FFT_Plugin(Plugin):
                 ffts.metadata.General.title = invstr + 'FFT of ' + \
                     ffts.metadata.General.title + indstr
 
-                for i in xrange(ffts.axes_manager.signal_dimension):
+                for i in range(ffts.axes_manager.signal_dimension):
                     axis = ffts.axes_manager.signal_axes[i]
                     s_axis = s.axes_manager.signal_axes[i]
                     if not inverse:
@@ -171,7 +171,7 @@ class FFT_Plugin(Plugin):
                     j += 1
                     yield j
 
-                for i in xrange(ffts.axes_manager.signal_dimension):
+                for i in range(ffts.axes_manager.signal_dimension):
                     axis = ffts.axes_manager.signal_axes[i]
                     s_axis = s.axes_manager.signal_axes[i]
                     axis.scale = 1 / (s_axis.size * s_axis.scale)
@@ -201,7 +201,7 @@ class FFT_Plugin(Plugin):
                 s = sw.signal
                 am = AxesManager(s.axes_manager._get_axes_dicts())
 
-                for i in xrange(ffts.axes_manager.signal_dimension):
+                for i in range(ffts.axes_manager.signal_dimension):
                     axis = ffts.axes_manager.signal_axes[i]
                     s_axis = s.axes_manager.signal_axes[i]
                     shift = (axis.high_value - axis.low_value) / 2
