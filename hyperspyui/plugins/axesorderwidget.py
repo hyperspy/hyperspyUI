@@ -94,7 +94,6 @@ class AxesOrderWidget(FigureWidget):
 
         for ax in signal.signal.axes_manager._get_axes_in_natural_order():
             rep = '%s axis, size: %i' % (ax._get_name(), ax.size)
-            rep = rep.encode('utf8')
             p = self.lst_nav if ax.navigate else self.lst_sig
             i = QtGui.QListWidgetItem(rep)
             i.setData(QtCore.Qt.UserRole, ax)

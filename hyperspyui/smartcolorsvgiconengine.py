@@ -59,16 +59,16 @@ class SmartColorSVGIconEngine(QIconEngineV2):
                                             QPalette.Window)
         self._automatic_color_replacements = {
             'default': {
-                '#000000': foreground.name(),
-                'black': foreground.name(),
-                '#ffffff': background.name(),
-                'white': background.name(),
+                b'#000000': foreground.name().encode('ascii'),
+                b'black': foreground.name().encode('ascii'),
+                b'#ffffff': background.name().encode('ascii'),
+                b'white': background.name().encode('ascii'),
                 },
             'disabled': {
-                '#000000': disabled_foreground.name(),
-                'black': disabled_foreground.name(),
-                '#ffffff': disabled_background.name(),
-                'white': disabled_background.name(),
+                b'#000000': disabled_foreground.name().encode('ascii'),
+                b'black': disabled_foreground.name().encode('ascii'),
+                b'#ffffff': disabled_background.name().encode('ascii'),
+                b'white': disabled_background.name().encode('ascii'),
                 }
             }
         self._palette_key = palette.cacheKey()
@@ -87,10 +87,10 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         f_low = filename.lower()
         if f_low.endswith('.svgz') or f_low.endswith('.svg.gz'):
             import gzip
-            with gzip.open(filename, 'r') as svg_file:
+            with gzip.open(filename, 'rb') as svg_file:
                 svg_cnt = svg_file.read()
         else:
-            with open(filename, 'r') as svg_file:
+            with open(filename, 'rb') as svg_file:
                 svg_cnt = svg_file.read()
 
         # Merge automatic and custom LUTs
