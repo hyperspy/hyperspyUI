@@ -100,7 +100,7 @@ def get_branches(package_name, url):
 def checkout_branch(branch, stream=None):
     if branch is None:
         return
-    if isinstance(branch, basestring):
+    if isinstance(branch, str):
         import pip
         ic = pip.commands.InstallCommand()
         ic.log_streams = (stream, stream)
@@ -162,7 +162,7 @@ class VersionSelectionDialog(QDialog):
             'HyperSpy': [True, 'https://github.com/hyperspy/hyperspy'],
             'HyperSpyUI': [True, 'https://github.com/vidartf/hyperspyui'],
             }
-        for package_name in self.packages.iterkeys():
+        for package_name in self.packages.keys():
             if check_git_repo(package_name.lower()):
                 git_ok = use_git
                 if git_ok:
@@ -197,12 +197,12 @@ class VersionSelectionDialog(QDialog):
 
         vbox = QVBoxLayout()
         form = QFormLayout()
-        for Name, (enabled, url) in self.packages.iteritems():
+        for Name, (enabled, url) in self.packages.items():
             name = Name.lower()
             cbo = QComboBox()
             if enabled:
                 branches = get_branches(name, url)
-                for n, b in branches.iteritems():
+                for n, b in branches.items():
                     cbo.addItem(n, b)
                 if not check_git_repo(name):
                     cbo.insertItem(0, "<Select to change>", None)

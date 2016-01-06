@@ -343,7 +343,7 @@ class MainWindow(MainWindowLayer5):
             signal = self.get_selected_wrapper()
 
         # Sanity check
-        if signal_type not in self.signal_types.keys():
+        if signal_type not in list(self.signal_types.keys()):
             raise ValueError()
 
         self.setUpdatesEnabled(False)

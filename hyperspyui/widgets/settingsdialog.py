@@ -191,7 +191,7 @@ class SettingsDialog(ExToolWindow):
 
             # Now we update controls:
             s = QSettings(self.ui)
-            keys = self._initial_values.keys()  # Use copy, as we may modify
+            keys = list(self._initial_values.keys())  # Use copy, as we may modify
             for k in keys:
                 # Check if setting is still present
                 if s.contains(k):

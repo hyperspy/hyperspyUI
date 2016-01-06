@@ -114,7 +114,7 @@ class ModelWrapper(Actionable):
 
         # Add missing
         for c in self.model:
-            if c.name not in self.components.keys():
+            if c.name not in list(self.components.keys()):
                 self.components[c.name] = c
                 self.component_added(c)
 

@@ -252,7 +252,7 @@ class MultiSelectionTool(SignalFigureTool):
 
     def cancel(self, signal=None):
         if signal is None:
-            signals = self.widgets.keys()
+            signals = list(self.widgets.keys())
         else:
             signals = [signal]
         for s in signals:
