@@ -22,7 +22,7 @@ except NameError as AssertionError:
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 import os
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import tempfile
 
 re_dl_url = re.compile(
@@ -143,8 +143,8 @@ class EELSDBPlugin(Plugin):
 
         suffix = '.msa'
 
-        req = urllib2.Request(url, headers=header)
-        page = urllib2.urlopen(req)
+        req = urllib.request.Request(url, headers=header)
+        page = urllib.request.urlopen(req)
 
         try:
             f = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)

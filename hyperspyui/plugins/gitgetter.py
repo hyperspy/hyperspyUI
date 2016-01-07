@@ -13,7 +13,7 @@ import os
 from collections import OrderedDict
 import imp
 from functools import partial
-from StringIO import StringIO, _complain_ifclosed
+from io import StringIO
 
 
 def check_git_repo(package_name):
@@ -29,9 +29,9 @@ def check_git_repo(package_name):
 
 def get_github_branches(repo_url):
     import re
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
     branch_url = repo_url + '/branches/all'
-    html = urllib2.urlopen(branch_url).read()
+    html = urllib.request.urlopen(branch_url).read()
     names = re.findall(
         '<a href=".*?" class="branch-name css-truncate-target">(.*?)</a>',
         html)
@@ -243,7 +243,8 @@ class VisualLogStream(StringIO):
             self.dialog.show()
 
     def isatty(self):
-        _complain_ifclosed(self.closed)
+        if self.closed:
+            raise ValueError("Cannot call isatty when stream is closed.")
         return True
 
     def write(self, s):
