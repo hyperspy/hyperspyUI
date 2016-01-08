@@ -9,11 +9,6 @@ import os
 import sys
 import locale
 
-from python_qt_binding import QtGui, QtCore, QT_BINDING
-import hyperspyui.info
-from hyperspyui.singleapplication import get_app
-from hyperspyui.settings import Settings
-
 # TODO: Make sure tools are disconnected when closing signal!
 
 # TODO: Autohide toolbars w.r.t. signal type. (maybe?)
@@ -42,6 +37,11 @@ from hyperspyui.settings import Settings
 
 
 def main():
+    from python_qt_binding import QtGui, QtCore, QT_BINDING
+    import hyperspyui.info
+    from hyperspyui.singleapplication import get_app
+    from hyperspyui.settings import Settings
+
     # Need to set early to make QSettings accessible
     QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
     QtCore.QCoreApplication.setOrganizationName("Hyperspy")

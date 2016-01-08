@@ -73,7 +73,8 @@ class Settings(object):
     @staticmethod
     def clear_defaults():
         """
-        Clear all settings in defaults group.
+        Clear all settings in defaults group. Should only be run once during
+        application start, as it will undo any defaults that have been set.
         """
         settings = QSettings()
         settings.beginGroup('defaults')
@@ -81,7 +82,7 @@ class Settings(object):
         settings.endGroup()
 
     @staticmethod
-    def restore_defaults():
+    def restore_from_defaults():
         """
         Clears all settings (except "defaults" group) and restores all settings
         from the defaults group.
@@ -114,13 +115,13 @@ class Settings(object):
 
     def set_default(self, key, value):
         """
-        To set default value, write into defaults group.
+        Sets default value by writing into defaults group.
         """
         # If not in normal settings, set it:
         if key not in self:
             self[key] = value
 
-        # Either way, write to defaults
+        # Either way, write to defaults group
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')
         key = groupings.pop()
@@ -158,7 +159,7 @@ class Settings(object):
             pass  # TODO: Make list selection
         mb.addButton(QMessageBox.Cancel)
 
-        # Show the dialog
+        # Show the dialog modal/blocking
         mb.exec_()
         btn = mb.clickedButton()
         if btn not in buttons:

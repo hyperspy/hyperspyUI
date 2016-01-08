@@ -35,7 +35,10 @@ class CropToolPlugin(Plugin):
         if axes is None:
             axes = self.tool.axes
         else:
-            axes = sig_axes[axes]
+            old_axes = axes
+            axes = []
+            for a in old_axes:
+                axes.append(sig_axes[a])
         slices = roi._make_slices(sig_axes, axes)
         new_offsets = np.array(roi.coords)[:, 0]
         signal.data = signal.data[slices]

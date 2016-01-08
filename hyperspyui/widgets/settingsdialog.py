@@ -187,7 +187,7 @@ class SettingsDialog(ExToolWindow):
         if dr == QMessageBox.Yes:
             # This clears all settings, and recreates only those values
             # initialized with set_default this session.
-            Settings.restore_defaults()
+            Settings.restore_from_defaults()
 
             # Now we update controls:
             s = QSettings(self.ui)
