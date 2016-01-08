@@ -26,7 +26,7 @@ import urllib2
 import tempfile
 
 re_dl_url = re.compile(
-    r'http://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa')
+    r'https?://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa')
 
 
 class EELSDBPlugin(Plugin):
@@ -49,21 +49,6 @@ class EELSDBPlugin(Plugin):
         request.setUrl(QUrl(url))
         return request
 
-    def _urlencode_post_data(self, post_data):
-        post_params = QUrl()
-        for (key, value) in post_data.items():
-            post_params.addQueryItem(key, unicode(value))
-
-        return post_params.encodedQuery()
-
-    def _clear_window(self):
-        item = self.window.layout().takeAt(0)
-        while item:
-            w = item.widget()
-            if w:
-                w.close()
-            item = self.window.layout().takeAt(0)
-
     def load_blocking(self, view, *args):
         loop = QEventLoop()
         view.loadFinished.connect(loop.quit)
@@ -75,45 +60,6 @@ class EELSDBPlugin(Plugin):
         view.loadFinished.connect(unravel)
         view.load(*args)
         loop.exec_()
-
-    def login(self, req):
-        view = QWebView(self.ui)
-        self.view = view
-        # Grab cookie
-        loginurl = QUrl("https://eelsdb.eu/wp-login.php")
-        self.load_blocking(view, loginurl)
-
-        self.settings['uname'] = self.edt_uname.text()
-        if self.chk_remember.isChecked():
-            self.settings['pwd'] = self.edt_pwd.text()
-        else:
-            self.settings['pwd'] = None
-
-        # Log in
-        post_data = {'log': self.edt_uname.text(),
-                     'pwd': self.edt_pwd.text(),
-                     'wp-submit': 'Log In',
-                     'redirect_to': 'https://eelsdb.eu/spectra',
-                     'testcookie': 1
-                     }
-        request = self._make_request(loginurl)
-        encoded_data = self._urlencode_post_data(post_data)
-        request.setRawHeader('Content-Type',
-                             QByteArray('application/x-www-form-urlencoded'))
-        self.load_blocking(view, request, QNetworkAccessManager.PostOperation,
-                           encoded_data)
-        # Remove header/footer
-        frame = view.page().mainFrame()
-        frame.findFirstElement(".footer").removeFromDocument()
-        for el in frame.findAllElements(".navbar"):
-            el.removeFromDocument()
-        view.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-        view.linkClicked.connect(self._on_link)
-
-        self._clear_window()
-        vbox = self.window.layout()
-        vbox.addWidget(view)
-        self.window.resize(view.sizeHint())
 
     def _on_link(self, url):
         su = url.toString(QUrl.RemoveQuery)
@@ -139,7 +85,9 @@ class EELSDBPlugin(Plugin):
         header = {'Accept': r'text/html,application/xhtml+xml,'
                   'application/xml;q=0.9,*/*;q=0.8',
                   'Accept-Encoding': r'gzip, deflate',
-                  'User-Agent': r''}
+                  'User-Agent': r'Mozilla/5.0 (Windows NT 10.0; WOW64;'
+                  ' rv:43.0)Gecko/20100101 Firefox/43.0',
+                  }
 
         suffix = '.msa'
 
@@ -161,22 +109,20 @@ class EELSDBPlugin(Plugin):
         if self.window is None:
             self.window = ExToolWindow(self.ui)
             self.window.setWindowTitle("EELSDB")
-            form = QFormLayout()
-            uname = self.settings['uname'] if 'uname' in self.settings else ""
-            pwd = self.settings['pwd'] if 'pwd' in self.settings else ""
-
-            self.edt_uname = QLineEdit(uname)
-            form.addRow("Username:", self.edt_uname)
-            self.edt_pwd = QLineEdit(pwd)
-            self.edt_pwd.setEchoMode(QLineEdit.Password)
-            form.addRow("Password:", self.edt_pwd)
-            self.chk_remember = QCheckBox("Remember password")
-            self.chk_remember.setChecked(bool(pwd))
-            form.addRow(None, self.chk_remember)
             vbox = QVBoxLayout()
-            vbox.addLayout(form)
-            login_btn = QPushButton("Login")
-            login_btn.clicked.connect(self.login)
-            vbox.addWidget(login_btn)
             self.window.setLayout(vbox)
+            view = QWebView(self.ui)
+            self.view = view
+            vbox.addWidget(view)
+            self.window.resize(self.view.sizeHint())
+        # Load spectra browser
+        browse_url = QUrl("https://eelsdb.eu/spectra")
+        self.load_blocking(self.view, browse_url)
+        # Remove header/footer
+        frame = self.view.page().mainFrame()
+        frame.findFirstElement(".footer").removeFromDocument()
+        for el in frame.findAllElements(".navbar"):
+            el.removeFromDocument()
+        self.view.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+        self.view.linkClicked.connect(self._on_link)
         self.window.show()
