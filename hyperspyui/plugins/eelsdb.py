@@ -26,7 +26,7 @@ import urllib.request, urllib.error, urllib.parse
 import tempfile
 
 re_dl_url = re.compile(
-    r'http://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa')
+    br'https?://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa')
 
 
 class EELSDBPlugin(Plugin):
@@ -129,7 +129,7 @@ class EELSDBPlugin(Plugin):
             def resp_finished():
                 html = response.readAll()
                 matches = re_dl_url.findall(html)
-                self.download(str(matches[0]))
+                self.download(matches[0].decode('ascii'))
                 response.deleteLater()
             response.finished.connect(resp_finished)
         else:
