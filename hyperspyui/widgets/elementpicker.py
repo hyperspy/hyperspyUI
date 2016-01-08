@@ -77,7 +77,7 @@ class ElementPickerWidget(FigureWidget):
         self._set_elements(signal.signal.metadata.Sample.elements)
 
         # Disable elements which hyperspy does not accept
-        hsyp_elem = elements_db.keys()
+        hsyp_elem = list(elements_db.keys())
         for w in self.table.children():
             if isinstance(w, ExClickLabel):
                 elem = w.text()

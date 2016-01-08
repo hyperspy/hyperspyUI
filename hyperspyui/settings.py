@@ -9,7 +9,7 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-from widgets.extendedqwidgets import ExRememberPrompt
+from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 
 class Settings(object):
