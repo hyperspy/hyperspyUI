@@ -6,6 +6,4 @@ Created on Mon Nov 17 12:30:07 2014
 """
 
 
-from hyperspyui.launch import main
-
 from hyperspyui.info import version
