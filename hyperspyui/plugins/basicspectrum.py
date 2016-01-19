@@ -131,9 +131,9 @@ class BasicSpectrumPlugin(Plugin):
             return
         current = model._plot_components
         if current:
-            model.enable_plot_components()
-        else:
             model.disable_plot_components()
+        else:
+            model.enable_plot_components()
 
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
