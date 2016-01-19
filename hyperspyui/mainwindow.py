@@ -156,6 +156,9 @@ class MainWindow(MainWindowLayer5):
         self.add_action('plugin_manager', "Plugin manager",
                         self.show_plugin_manager,
                         tip="Show the plugin manager")
+        self.add_action('hspy_settings', "HyperSpy settings",
+                        self.edit_hspy_settings,
+                        tip="Edit the HyperSpy package settings")
         self.add_action('edit_settings', "Edit settings", self.edit_settings,
                         tip="Edit the application and plugins settings")
 
@@ -235,6 +238,7 @@ class MainWindow(MainWindowLayer5):
 
         self.add_menuitem('Settings', self.actions['plugin_manager'])
         self.add_menuitem('Settings', self.actions['reset_layout'])
+        self.add_menuitem('Settings', self.actions['hspy_settings'])
         self.add_menuitem('Settings', self.actions['edit_settings'])
 
     def create_tools(self):

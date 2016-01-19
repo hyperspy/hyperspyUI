@@ -46,6 +46,9 @@ logger.setLevel(logging.DEBUG)
 
 
 class TrackEventFilter(QObject):
+    """Qt Event filter for tracking the mouse position in the application.
+    """
+
     track = Signal(QPoint)
 
     def eventFilter(self, receiver, event):
@@ -162,6 +165,8 @@ class MainWindowLayer5(MainWindowLayer4):
         self.mouse_coords_label = QLabel("Mouse: (,) px; (,)")
         sb.addPermanentWidget(self.mouse_coords_label)
 
+        # To be able to update coordinates, we need to track the mouse
+        # position with an event filter
         self.main_frame.subWindowActivated.connect(
             self._connect_figure_2_statusbar)
         app = QApplication.instance()
@@ -316,6 +321,9 @@ class MainWindowLayer5(MainWindowLayer4):
     def make_component(self, comp_type):
         m = self.get_selected_model_wrapper()
         m.add_component(comp_type)
+
+    def edit_hspy_settings(self):
+        hyperspy.api.preferences.gui()
 
     # -------- Signal plotting callbacks -------
     def on_signal_plotting(self, signal, *args, **kwargs):
