@@ -314,7 +314,7 @@ class MainWindowLayer5(MainWindowLayer4):
         return mw.model
 
     def make_component(self, comp_type):
-        m = self.get_selected_model()
+        m = self.get_selected_model_wrapper()
         m.add_component(comp_type)
 
     # -------- Signal plotting callbacks -------
@@ -381,11 +381,18 @@ class MainWindowLayer5(MainWindowLayer4):
         else:
             return sw.signal
 
-    def get_selected_model(self):
+    def get_selected_model_wrapper(self):
         """
         Returns the selected model
         """
         return self.tree.get_selected_model()
+
+    def get_selected_model(self):
+        """
+        Returns the selected model
+        """
+        mw = self.get_selected_model_wrapper()
+        return None if mw is None else mw.model
 
     def get_selected_component(self):
         """
@@ -418,6 +425,13 @@ class MainWindowLayer5(MainWindowLayer4):
             action.setEnabled(False)
         else:
             action.setEnabled(True)
+
+    def select_model(self, win, action):
+        """Model selection callback for actions that are only valid for
+        selected Models.
+        """
+        m = self.get_selected_model()
+        action.setEnabled(m is not None)
 
     # --------- File I/O ----------
 
