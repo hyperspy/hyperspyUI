@@ -328,7 +328,8 @@ class MainWindowLayer1(QMainWindow):
             try:
                 self.active_tool.disconnect_windows(self.figures)
             except Exception as e:
-                warnings.warn("Exception disabling tool %s: %s" %(self.active_tool.name, e.message))
+                warnings.warn("Exception disabling tool %s: %s" % (
+                    self.active_tool.get_name(), e.message))
         self.active_tool = tool
         tool.connect_windows(self.figures)
 
