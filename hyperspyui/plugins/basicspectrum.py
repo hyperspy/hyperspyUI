@@ -39,31 +39,40 @@ class BasicSpectrumPlugin(Plugin):
     name = "Basic spectrum tools"
 
     def create_actions(self):
-        self.add_action('remove_background', "Remove Background",
+        self.add_action('plot_components', tr("Plot components"),
+                        self.plot_components,
+                        icon=None,
+                        tip=tr(""),
+                        selection_callback=self._plot_components_state_update)
+        self.actions['plot_components'].setCheckable(True)
+
+        self.add_action('remove_background', tr("Remove Background"),
                         self.remove_background,
                         icon='power_law.svg',
-                        tip="Interactively define the background, and " +
-                            "remove it",
+                        tip=tr("Interactively define the background, and "
+                               "remove it"),
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.Spectrum, self.ui))
 
-        self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
+        self.add_action('fourier_ratio', tr("Fourier Ratio Deconvoloution"),
                         self.fourier_ratio,
                         icon='fourier_ratio.svg',
-                        tip="Use the Fourier-Ratio method" +
-                        " to deconvolve one signal from another",
+                        tip=tr("Use the Fourier-Ratio method to deconvolve "
+                               "one signal from another"),
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.ui))
 
-        self.add_action('estimate_thickness', "Estimate thickness",
+        self.add_action('estimate_thickness', tr("Estimate thickness"),
                         self.estimate_thickness,
                         icon="t_over_lambda.svg",
-                        tip="Estimates the thickness (relative to the mean " +
-                        "free path) of a sample using the log-ratio method.",
+                        tip=tr("Estimates the thickness (relative to the "
+                               "mean free path) of a sample using the "
+                               "log-ratio method."),
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.ui))
 
     def create_menu(self):
+        self.add_menuitem("Model", self.ui.actions['plot_components'])
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
@@ -108,6 +117,23 @@ class BasicSpectrumPlugin(Plugin):
         wp.set_element(element, True)
         if not wp.chk_markers.isChecked():
             wp.chk_markers.setChecked(True)
+
+    def _plot_components_state_update(self, win, action):
+        model = self.ui.get_selected_model()
+        action.setEnabled(model is not None)
+        if model is not None:
+            action.setChecked(model._plot_components)
+
+    def plot_components(self, model=None):
+        if model is None:
+            model = self.ui.get_selected_model()
+        if model is None:
+            return
+        current = model._plot_components
+        if current:
+            model.enable_plot_components()
+        else:
+            model.disable_plot_components()
 
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
