@@ -46,6 +46,14 @@ class BasicSpectrumPlugin(Plugin):
                         selection_callback=self._plot_components_state_update)
         self.actions['plot_components'].setCheckable(True)
 
+        self.add_action(
+            'adjust_component_position', tr("Adjust component positions"),
+            self.adjust_component_position,
+            icon=None,
+            tip=tr(""),
+            selection_callback=self._adjust_components_state_update)
+        self.actions['adjust_component_position'].setCheckable(True)
+
         self.add_action('remove_background', tr("Remove Background"),
                         self.remove_background,
                         icon='power_law.svg',
@@ -73,6 +81,8 @@ class BasicSpectrumPlugin(Plugin):
 
     def create_menu(self):
         self.add_menuitem("Model", self.ui.actions['plot_components'])
+        self.add_menuitem("Model",
+                          self.ui.actions['adjust_component_position'])
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
@@ -84,6 +94,7 @@ class BasicSpectrumPlugin(Plugin):
 
     def create_tools(self):
         try:
+            # Import for functionality test
             from hyperspy.misc.eds.utils import get_xray_lines_near_energy as _
             self.picker_tool = ElementPickerTool()
             self.picker_tool.picked[basestring].connect(self.pick_element)
@@ -125,6 +136,9 @@ class BasicSpectrumPlugin(Plugin):
             action.setChecked(model._plot_components)
 
     def plot_components(self, model=None):
+        """
+        Plot the function of each component together with the model.
+        """
         if model is None:
             model = self.ui.get_selected_model()
         if model is None:
@@ -134,6 +148,26 @@ class BasicSpectrumPlugin(Plugin):
             model.disable_plot_components()
         else:
             model.enable_plot_components()
+
+    def _adjust_components_state_update(self, win, action):
+        model = self.ui.get_selected_model()
+        action.setEnabled(model is not None)
+        if model is not None:
+            action.setChecked(bool(model._position_widgets))
+
+    def adjust_component_position(self, model=None):
+        """
+        Add widgets to adjust the position of the components in the model.
+        """
+        if model is None:
+            model = self.ui.get_selected_model()
+        if model is None:
+            return
+        current = bool(model._position_widgets)
+        if current:
+            model.disable_adjust_position()
+        else:
+            model.enable_adjust_position()
 
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
