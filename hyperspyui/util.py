@@ -119,7 +119,7 @@ def load_cursor(filename, hotX=-1, hotY=-1):
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}
     compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw',
-                 'Erf', 'Exponential', 'Gaussian', 'Gaussian2', 'Logistic',
+                 'Erf', 'Exponential', 'Gaussian', 'GaussianHF', 'Logistic',
                  'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 'Vignetting',
                  'Voigt', 'Polynomial', 'PESCoreLineShape',
                  'VolumePlasmonDrude']
