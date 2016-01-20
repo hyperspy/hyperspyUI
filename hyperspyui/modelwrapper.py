@@ -12,6 +12,8 @@ import hyperspy.models.eelsmodel
 from actionable import Actionable
 from functools import partial
 
+from hyperspyui.widgets.stringinput import StringInputDialog
+
 # TODO: Add smartfit for EELSModel
 
 
@@ -132,7 +134,15 @@ class ModelWrapper(Actionable):
                 raise TypeError(
                     tr("Component of type %s currently not supported")
                     % component)
-            component = component()
+            elif component.__name__ == 'Expression':
+                dlg = StringInputDialog(prompt="Enter expression:")
+                expression = dlg.prompt_modal(rejection=None)
+                if expression:
+                    component = component(expression, 'Expression')
+                else:
+                    return
+            else:
+                component = component()
 
         added = False
         if component not in self.model:

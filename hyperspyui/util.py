@@ -121,7 +121,7 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
     compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw',
                  'Erf', 'Exponential', 'Gaussian', 'GaussianHF', 'Logistic',
                  'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 'Vignetting',
-                 'Voigt', 'Polynomial', 'PESCoreLineShape',
+                 'Voigt', 'Polynomial', 'PESCoreLineShape', 'Expression',
                  'VolumePlasmonDrude']
     for name in compnames:
         try:
