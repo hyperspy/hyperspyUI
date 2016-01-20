@@ -79,6 +79,45 @@ class BasicSpectrumPlugin(Plugin):
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.EELSSpectrum, self.ui))
 
+        # -------------- Filter actions -----------------
+
+        self.add_action('smooth_savitzky_golay', tr("Smooth Savitzky-Golay"),
+                        self.smooth_savitzky_golay,
+                        icon=None,
+                        tip=tr("Apply a Savitzky-Golay filter"),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('smooth_lowess', tr("Smooth Lowess"),
+                        self.smooth_lowess,
+                        icon=None,
+                        tip=tr("Apply a Lowess smoothing filter"),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('smooth_tv', tr("Smooth Total variation"),
+                        self.smooth_tv,
+                        icon=None,
+                        tip=tr("Total variation data smoothing"),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('filter_butterworth', tr("Butterworth filter"),
+                        self.filter_butterworth,
+                        icon=None,
+                        tip=tr("Apply a Butterworth filter"),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('hanning_taper', tr("Hanning taper"),
+                        self.hanning_taper,
+                        icon=None,
+                        tip=tr("Apply a Hanning taper to both ends of the "
+                               "data."),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
+
+
     def create_menu(self):
         self.add_menuitem("Model", self.ui.actions['plot_components'])
         self.add_menuitem("Model",
@@ -86,6 +125,11 @@ class BasicSpectrumPlugin(Plugin):
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
+        self.add_menuitem("Filter", self.ui.actions['smooth_savitzky_golay'])
+        self.add_menuitem("Filter", self.ui.actions['smooth_lowess'])
+        self.add_menuitem("Filter", self.ui.actions['smooth_tv'])
+        self.add_menuitem("Filter", self.ui.actions['filter_butterworth'])
+        self.add_menuitem("Filter", self.ui.actions['hanning_taper'])
 
     def create_toolbars(self):
         self.add_toolbar_button("EELS", self.ui.actions['remove_background'])
@@ -139,8 +183,7 @@ class BasicSpectrumPlugin(Plugin):
         """
         Plot the function of each component together with the model.
         """
-        if model is None:
-            model = self.ui.get_selected_model()
+        model = model or self.ui.get_selected_model()
         if model is None:
             return
         current = model._plot_components
@@ -159,8 +202,7 @@ class BasicSpectrumPlugin(Plugin):
         """
         Add widgets to adjust the position of the components in the model.
         """
-        if model is None:
-            model = self.ui.get_selected_model()
+        model = model or self.ui.get_selected_model()
         if model is None:
             return
         current = bool(model._position_widgets)
@@ -197,15 +239,40 @@ class BasicSpectrumPlugin(Plugin):
             t.run()
 
     def remove_background(self, signal=None):
-        if signal is None:
-            signal = self.ui.get_selected_wrapper()
-        signal.signal.remove_background()
+        signal = signal or self.ui.get_selected_signal()
+        signal.remove_background()
 
-    def estimate_thickness(self):
-        ui = self.ui
-        s = ui.get_selected_signal()
-        s_t = s.estimate_thickness(3.0)
+    def estimate_thickness(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        s_t = signal.estimate_thickness(3.0)
         s_t.plot()
+
+    # ----------- Filter callbacks --------------
+
+    def smooth_savitzky_golay(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.smooth_savitzky_golay()
+
+    def smooth_lowess(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.smooth_lowess()
+
+    def smooth_tv(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.smooth_tv()
+
+    def filter_butterworth(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.filter_butterworth()
+
+    def hanning_taper(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.hanning_taper()
 
 
 class ElementPickerTool(SignalFigureTool):
