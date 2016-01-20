@@ -38,23 +38,55 @@ class BasicSignalPlugin(Plugin):
                         tip=tr("Plot a histogram of the signal."),
                         selection_callback=self.ui.select_signal)
 
-        self.add_action('mean', tr("Mean Signal"),
+        self.add_action('mean', tr("Mean"),
                         self.mean,
                         icon=None,
                         tip=tr("Plot the mean of the current signal"),
                         selection_callback=self.ui.select_signal)
 
-        self.add_action('sum', tr("Summed Signal"),
+        self.add_action('sum', tr("Sum"),
                         self.sum,
                         icon=None,
                         tip=tr("Plot the sum of the current signal"),
                         selection_callback=self.ui.select_signal)
+
+        self.add_action('max', tr("Maximum"),
+                        self.max,
+                        icon=None,
+                        tip=tr("Plot the maximum of the current signal"),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('min', tr("Minimum"),
+                        self.min,
+                        icon=None,
+                        tip=tr("Plot the sum of the current signal"),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('std', tr("Std.dev."),
+                        self.std,
+                        icon=None,
+                        tip=tr("Plot the standard deviation of the current "
+                               "signal"),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('var', tr("Variance"),
+                        self.var,
+                        icon=None,
+                        tip=tr("Plot the variances of the current signal"),
+                        selection_callback=self.ui.select_signal)
+
+#        max, min, std, var, diff?, derivate?, integrate_simpson, integrate1D,
+#        indexmax, valuemax
 
     def create_menu(self):
         self.add_menuitem("Signal", self.ui.actions['stats'])
         self.add_menuitem("Signal", self.ui.actions['histogram'])
         self.add_menuitem("Signal", self.ui.actions['mean'])
         self.add_menuitem('Signal', self.ui.actions['sum'])
+        self.add_menuitem('Signal', self.ui.actions['max'])
+        self.add_menuitem('Signal', self.ui.actions['min'])
+        self.add_menuitem('Signal', self.ui.actions['std'])
+        self.add_menuitem('Signal', self.ui.actions['var'])
 
     def statistics(self, signal=None):
         if signal is None:
@@ -77,23 +109,32 @@ class BasicSignalPlugin(Plugin):
             method = self.settings['histogram_bins_method']
             signal.get_histogram(bins=method).plot()
 
-    def mean(self, signal=None):
+    def _np_method(self, name, signal):
         if signal is None:
             signal = self.ui.get_selected_signal()
+        f = getattr(signal, name)
         try:
-            signal.mean().plot()
+            f().plot()
         except TypeError:
             # hyperspy < 0.9 compatibility
             for ax in signal.axes_manager.navigation_axes:
-                signal = signal.mean(ax.index_in_array + 3j)
+                signal = f(ax.index_in_array + 3j)
             signal.plot()
 
+    def mean(self, signal=None):
+        self._np_method('mean', signal)
+
     def sum(self, signal=None):
-        if signal is None:
-            signal = self.ui.get_selected_signal()
-        try:
-            signal.sum().plot()
-        except TypeError:
-            for ax in signal.axes_manager.navigation_axes:
-                signal = signal.sum(ax.index_in_array + 3j)
-            signal.plot()
+        self._np_method('sum', signal)
+
+    def max(self, signal=None):
+        self._np_method('max', signal)
+
+    def min(self, signal=None):
+        self._np_method('min', signal)
+
+    def std(self, signal=None):
+        self._np_method('std', signal)
+
+    def var(self, signal=None):
+        self._np_method('var', signal)
