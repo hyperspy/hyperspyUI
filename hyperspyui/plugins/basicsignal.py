@@ -21,11 +21,21 @@ def tr(text):
 class BasicSignalPlugin(Plugin):
     name = "Basic signal tools"
 
+    def __init__(self, *args, **kwargs):
+        super(BasicSignalPlugin, self).__init__(*args, **kwargs)
+        self.settings.set_default('histogram_bins_method', 'freedman')
+
     def create_actions(self):
         self.add_action('stats', tr("Statistics"),
                         self.statistics,
                         icon=None,
                         tip=tr("Print the signal statistics to the console."),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('histogram', tr("Histogram"),
+                        self.histogram,
+                        icon=None,
+                        tip=tr("Plot a histogram of the signal."),
                         selection_callback=self.ui.select_signal)
 
         self.add_action('mean', tr("Mean Signal"),
@@ -42,6 +52,7 @@ class BasicSignalPlugin(Plugin):
 
     def create_menu(self):
         self.add_menuitem("Signal", self.ui.actions['stats'])
+        self.add_menuitem("Signal", self.ui.actions['histogram'])
         self.add_menuitem("Signal", self.ui.actions['mean'])
         self.add_menuitem('Signal', self.ui.actions['sum'])
 
@@ -59,6 +70,12 @@ class BasicSignalPlugin(Plugin):
         finally:
             if self.ui.settings['Output to console'].lower() != 'true':
                 sys.stdout = _old_stdout
+
+    def histogram(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            method = self.settings['histogram_bins_method']
+            signal.get_histogram(bins=method).plot()
 
     def mean(self, signal=None):
         if signal is None:
