@@ -33,6 +33,21 @@ def fig2win(fig, windows):
         return None
 
 
+def fig2plot(fig, signals):
+    from hyperspy.drawing.mpl_he import MPL_HyperExplorer
+    from hyperspy.drawing.image import ImagePlot
+    for s in signals:
+        p = s.signal._plot
+        if isinstance(p, MPL_HyperExplorer):
+            if isinstance(p.signal_plot, ImagePlot):
+                if p.signal_plot.figure is fig:
+                    return p.signal_plot
+            elif isinstance(p.navigator_plot, ImagePlot):
+                if p.navigator_plot.figure is fig:
+                    return p.navigator_plot
+    return None
+
+
 def win2fig(window):
     # Each figure has FigureCanvas as widget, canvas has figure property
     return window.widget().figure

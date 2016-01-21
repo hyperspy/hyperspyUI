@@ -11,10 +11,8 @@ from QtCore import *
 from QtGui import *
 
 from extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
-from hyperspy.drawing.mpl_he import MPL_HyperExplorer
-from hyperspy.drawing.image import ImagePlot
 from hyperspy.misc.rgb_tools import rgbx2regular_array
-from hyperspyui.util import win2fig
+from hyperspyui.util import win2fig, fig2plot
 
 import numpy as np
 from matplotlib.colors import Normalize, SymLogNorm
@@ -22,19 +20,6 @@ from matplotlib.colors import Normalize, SymLogNorm
 
 def tr(text):
     return QCoreApplication.translate("ContrastWidget", text)
-
-
-def fig2plot(fig, signals):
-    for s in signals:
-        p = s.signal._plot
-        if isinstance(p, MPL_HyperExplorer):
-            if isinstance(p.signal_plot, ImagePlot):
-                if p.signal_plot.figure is fig:
-                    return p.signal_plot
-            elif isinstance(p.navigator_plot, ImagePlot):
-                if p.navigator_plot.figure is fig:
-                    return p.navigator_plot
-    return None
 
 
 class ContrastWidget(FigureWidget):
