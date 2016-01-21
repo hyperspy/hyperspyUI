@@ -16,9 +16,9 @@ class FigureTool(Tool):
     def __init__(self, windows=None):
         super(FigureTool, self).__init__()
         self.cids = {}
+        self.cursor = self.make_cursor()
         if self.single_action() is not None:
             self.connect_windows(windows)
-        self.cursor = self.make_cursor()
 
     def make_cursor(self):
         """
