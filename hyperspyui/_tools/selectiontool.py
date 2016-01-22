@@ -23,9 +23,10 @@ Created on Fri Apr 17 00:03:50 2015
 
 from python_qt_binding import QtCore
 
-from hyperspy.drawing.widgets import Rectangle, Range, Square, VerticalLine
-from hyperspy.roi import BaseInteractiveROI, RectangularROI, SpanROI, \
-    Point1DROI, Point2DROI
+from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
+                                      SquareWidget, VerticalLineWidget)
+from hyperspy.roi import (BaseInteractiveROI, RectangularROI, SpanROI,
+    Point1DROI, Point2DROI)
 
 from hyperspyui.tools import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
@@ -49,13 +50,13 @@ class SelectionTool(SignalFigureTool):
     def __init__(self, windows=None, name=None, category=None, icon=None,
                  description=None):
         super(SelectionTool, self).__init__(windows)
-        self.widget2d_r = Rectangle(None)
+        self.widget2d_r = RectangleWidget(None)
         self.widget2d_r.set_on(False)
-        self.widget1d_r = Range(None)
+        self.widget1d_r = RangeWidget(None)
         self.widget1d_r.set_on(False)
-        self.widget2d = Square(None)
+        self.widget2d = SquareWidget(None)
         self.widget2d.set_on(False)
-        self.widget1d = VerticalLine(None)
+        self.widget1d = VerticalLineWidget(None)
         self.widget1d.set_on(False)
         self._widgets = [self.widget2d_r, self.widget1d_r, self.widget2d,
                          self.widget1d]
