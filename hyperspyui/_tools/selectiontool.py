@@ -22,10 +22,8 @@ Created on Fri Apr 17 00:03:50 2015
 """
 
 from python_qt_binding import QtCore
-import os
 
-from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
-    DraggableResizableRange, DraggableSquare, DraggableVerticalLine
+from hyperspy.drawing.widgets import Rectangle, Range, Square, VerticalLine
 from hyperspy.roi import BaseInteractiveROI, RectangularROI, SpanROI, \
     Point1DROI, Point2DROI
 
@@ -51,13 +49,13 @@ class SelectionTool(SignalFigureTool):
     def __init__(self, windows=None, name=None, category=None, icon=None,
                  description=None):
         super(SelectionTool, self).__init__(windows)
-        self.widget2d_r = ResizableDraggableRectangle(None)
+        self.widget2d_r = Rectangle(None)
         self.widget2d_r.set_on(False)
-        self.widget1d_r = DraggableResizableRange(None)
+        self.widget1d_r = Range(None)
         self.widget1d_r.set_on(False)
-        self.widget2d = DraggableSquare(None)
+        self.widget2d = Square(None)
         self.widget2d.set_on(False)
-        self.widget1d = DraggableVerticalLine(None)
+        self.widget1d = VerticalLine(None)
         self.widget1d.set_on(False)
         self._widgets = [self.widget2d_r, self.widget1d_r, self.widget2d,
                          self.widget1d]
@@ -122,7 +120,7 @@ class SelectionTool(SignalFigureTool):
         self.axes = axes
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
-            if self.widget.patch.contains(event)[0] == True:
+            if any([p.contains(event)[0] == True for p in self.widget.patch]):
                 return              # Moving, handle in widget
             # Clicked outside existing widget, check for resize handles
             if self.ndim > 1 and self.widget.resizers:
@@ -131,6 +129,8 @@ class SelectionTool(SignalFigureTool):
                         return      # Leave the event to widget
             # Cancel previous and start new
             self.cancel()
+            # Cancel reset axes, so set again
+            self.axes = axes
 
         # Find out which axes of Signal are plotted in figure
         s = self._get_signal(event.inaxes.figure)
@@ -139,17 +139,16 @@ class SelectionTool(SignalFigureTool):
         am = s.axes_manager
 
         self.widget.axes = axes
-        if self.ndim > 1:
+        if self.ndim > 0:
             self.widget.axes_manager = am
 
         # Have what we need, create widget
         x, y = event.xdata, event.ydata
-        self.widget.axes = axes
         self.widget.set_mpl_ax(event.inaxes)  # connects
-        self.widget.set_on(True)
         if self.ndim == 1:
-            self.widget.coordinates = (x,)
-            self.widget.size = 1
+            self.widget.position = (x,)
+            self.widget.size = axes[0].scale
+            self.widget.set_on(True)
             if self.ranged:
                 span = self.widget.span
                 span.buttonDown = True
@@ -159,11 +158,12 @@ class SelectionTool(SignalFigureTool):
             else:
                 self.widget.picked = True
         else:
-            self.widget.coordinates = (x, y)
-            self.widget.size = (1, 1)
+            self.widget.position = (x, y)
+            self.widget.size = [ax.scale for ax in axes]
             if self.ranged:
-                self.widget.pick_on_frame = 3
+                self.widget.resizer_picked = 3
             self.widget.picked = True
+            self.widget.set_on(True)
 
     def on_keyup(self, event):
         if event.key == 'enter':
@@ -196,7 +196,6 @@ class SelectionTool(SignalFigureTool):
         for w in self._widgets:
             if w.is_on():
                 w.set_on(False)
-                w.size = 1    # Prevents flickering
         self.axes = None
         self.cancelled.emit()
 
