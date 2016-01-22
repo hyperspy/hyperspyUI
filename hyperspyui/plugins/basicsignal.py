@@ -62,7 +62,7 @@ class BasicSignalPlugin(Plugin):
 
         self.add_action('sum', tr("Sum"),
                         self.sum,
-                        icon=None,
+                        icon='sum.svg',
                         tip=tr("Plot the sum of the current signal"),
                         selection_callback=self.ui.select_signal)
 
