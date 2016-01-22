@@ -252,6 +252,12 @@ class MainWindow(MainWindowLayer5):
         self.add_menuitem('File', self.actions['close_all'])
         self.add_menuitem('File', self.actions['exit'])
 
+        # Ensure settings menu next to last
+        if 'Settings' in self.menus:
+            m = self.menus['Settings']
+            self.menuBar().removeAction(m.menuAction())
+            self.menuBar().insertMenu(self.windowmenu.menuAction(), m)
+
         self.add_menuitem('Settings', self.actions['plugin_manager'])
         self.add_menuitem('Settings', self.actions['reset_layout'])
         self.add_menuitem('Settings', self.actions['hspy_settings'])
