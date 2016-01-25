@@ -25,6 +25,7 @@ from QtGui import *
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 import os
+import re
 from collections import OrderedDict
 import imp
 from functools import partial
@@ -32,6 +33,10 @@ from StringIO import StringIO, _complain_ifclosed
 
 
 def check_git_repo(package_name):
+    """
+    Try to determine if the package "package_name" is installed as a source
+    install from a git folder.
+    """
     pkg_path = imp.find_module(package_name)[1]
     while pkg_path:
         if os.path.exists(pkg_path + os.path.sep + '.git'):
@@ -43,7 +48,12 @@ def check_git_repo(package_name):
 
 
 def get_github_branches(repo_url):
-    import re
+    """
+    Return a list of branches for the github repo at given URL.
+
+    The branches are returned in the form of an ordered dictionary, with branch
+    names as keys, and source zip URL as value.
+    """
     import urllib2
     branch_url = repo_url + '/branches/all'
     html = urllib2.urlopen(branch_url).read()
@@ -56,6 +66,10 @@ try:
     import git
 
     def check_git_cmd(prompt=True, parent=None):
+        """
+        Check if we have git.exe. If not prompt for its location (if `prompt`
+        is True).
+        """
         try:
             git.Git().status()
             return True
@@ -74,6 +88,11 @@ try:
             return False
 
     def get_git_branches(package_name, fetch=False):
+        """
+        Get both local and remote branches for the local git repo of
+        `package_name`. Ensure that the package has a local repo by calling
+        `check_git_repo` first.
+        """
         pkg_path = imp.find_module(package_name)[1]
         r = git.Repo(pkg_path, search_parent_directories=True)
         # Start with active branch:
@@ -106,6 +125,9 @@ except ImportError:
 
 
 def get_branches(package_name, url):
+    """
+    Either get git branches, or fetch branches from github.com
+    """
     if use_git and check_git_repo(package_name):
         return get_git_branches(package_name)
     else:
@@ -113,6 +135,11 @@ def get_branches(package_name, url):
 
 
 def checkout_branch(branch, stream=None):
+    """
+    If `branch` is a string, assume it is archive url. Try to install by pip.
+    Otherwise `branch` is assumed by a branch object from the `git` package,
+    which will be attempted to be checked out.
+    """
     if branch is None:
         return
     if isinstance(branch, basestring):
