@@ -234,7 +234,7 @@ class GitSelector(Plugin):
 
     def update_check(self):
         self._check_git()
-        available = []
+        available = {}
         for Name, (enabled, urls) in self.packages.iteritems():
             name = Name.lower()
             if enabled:
@@ -243,22 +243,31 @@ class GitSelector(Plugin):
                     # TODO: Check for commits to pull
                     pass
                 else:
+                    import xmlrpclib
+                    pypi = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+                    found = pypi.package_releases(name)
+                    if not found:
+                        # Try to capitalize pkg name
+                        if name == 'hyperspyui':
+                            found = pypi.package_releases('hyperspyUI')
+                        else:
+                            found = pypi.package_releases(Name)
                     import pip
-                    c = pip.commands.ListCommand()
-                    options, args = c.parse_args([])
-
-                    for dist, version, typ in c.find_packages_latest_versions(
-                            options):
-                        if dist.key == name and version > dist.parsed_version:
-                            available.append(name)
+                    dist = [d for d in pip.get_installed_distributions()
+                            if d.project_name.lower() == name]
+                    if dist[0].version != found[0]:
+                        available[name] = found[0]
 
         if available:
-            w = self._get_update_list(available)
+            w = self._get_update_list(available.keys())
             dr = self.ui.show_okcancel_dialog("Updates available", w).result()
             if dr == QDialog.Accepted:
                 for chk in w.children():
                     if isinstance(chk, QCheckBox):
-                        self._perform_update(chk.text())
+                        name = chk.text()
+                        if available[name]:
+                            name += '==' + available[name]
+                        self._perform_update(name)
         else:
             mb = QMessageBox(QMessageBox.Information, tr("No updates"),
                              tr("No new updates were found."),
