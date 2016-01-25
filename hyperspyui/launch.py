@@ -68,7 +68,7 @@ def main():
     # Setup default for single/multi-instance
     settings = Settings(group="General")
     settings.set_default('allow_multiple_instances', False)
-    if settings['allow_multiple_instances']:
+    if "true" == settings['allow_multiple_instances'].lower():
         # Using multiple instances, get a new application
         app = QtGui.QApplication(sys.argv)
     else:
@@ -93,10 +93,11 @@ def main():
     from hyperspyui.mainwindow import MainWindow
 
     form = MainWindow()
-    if QT_BINDING == 'pyqt':
-        app.messageAvailable.connect(form.handleSecondInstance)
-    elif QT_BINDING == 'pyside':
-        app.messageReceived.connect(form.handleSecondInstance)
+    if "true" != settings['allow_multiple_instances'].lower():
+        if QT_BINDING == 'pyqt':
+            app.messageAvailable.connect(form.handleSecondInstance)
+        elif QT_BINDING == 'pyside':
+            app.messageReceived.connect(form.handleSecondInstance)
     form.showMaximized()
 
     splash.finish(form)

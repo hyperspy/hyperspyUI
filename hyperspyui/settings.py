@@ -50,7 +50,7 @@ class Settings(object):
         if key not in self:
             groupings.insert(0, 'defaults')
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         ret = settings.value(key, t)
@@ -61,7 +61,7 @@ class Settings(object):
     def __setitem__(self, key, value):
         groupings = self._get_groups(key)
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)
@@ -71,7 +71,7 @@ class Settings(object):
     def __contains__(self, key):
         groupings = self._get_groups(key)
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         r = settings.contains(key)
@@ -80,7 +80,7 @@ class Settings(object):
         return r
 
     def __iter__(self):
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         settings.beginGroup(self.group)
         keys = settings.allKeys()
         for k in keys:
@@ -121,7 +121,7 @@ class Settings(object):
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')
         inner_key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         default_value = settings.value(inner_key)
@@ -141,7 +141,7 @@ class Settings(object):
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)

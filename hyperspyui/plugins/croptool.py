@@ -56,12 +56,14 @@ class CropToolPlugin(Plugin):
             for a in old_axes:
                 axes.append(sig_axes[a])
         slices = roi._make_slices(sig_axes, axes)
-        new_offsets = np.array(roi.coords)[:, 0]
         signal.data = signal.data[slices]
-        for i, ax in enumerate(axes):
-            signal.axes_manager[ax.name].offset = new_offsets[i]
-        signal.get_dimensions_from_data()
+        if roi.ndim > 0:
+            signal.axes_manager[axes[0]].offset = roi.left
+        if roi.ndim > 1:
+            signal.axes_manager[axes[1]].offset = roi.top
+
         signal.squeeze()
+        signal.get_dimensions_from_data()
 
         self.record_code("s_crop = ui.get_selected_signal()")
         self.record_code("axes = " +

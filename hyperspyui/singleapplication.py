@@ -91,11 +91,11 @@ def get_app(key):
             if app.isRunning():
                 msg = pickle.dumps(sys.argv[1:])
                 app.sendMessage(msg)
-                sys.exit(1)
+                sys.exit(1)     # An instance is already running
         else:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
-                sys.exit(1)
+                sys.exit(1)     # An instance is already running
     elif QT_BINDING == 'pyside':
         from siding.singleinstance import QSingleApplication
         app = QSingleApplication(sys.argv)

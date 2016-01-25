@@ -22,13 +22,10 @@ Created on Mon Aug 03 19:43:52 2015
 """
 
 from python_qt_binding import QtCore
-import os
 
 from hyperspy.signal import Signal
-from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
-    DraggableResizableRange, DraggableSquare, DraggableVerticalLine
-from hyperspy.roi import RectangularROI, SpanROI, \
-    Point1DROI, Point2DROI
+from hyperspy.drawing.widgets import Rectangle, Range, Square, VerticalLine
+from hyperspy.roi import RectangularROI, SpanROI, Point1DROI, Point2DROI
 
 from hyperspyui.tools import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
@@ -87,14 +84,14 @@ class MultiSelectionTool(SignalFigureTool):
             return None
         if self.ndim(signal) == 1:
             if self.ranged:
-                w = DraggableResizableRange(None)
+                w = Range(None)
             else:
-                w = DraggableVerticalLine(None)
+                w = VerticalLine(None)
         else:
             if self.ranged:
-                w = ResizableDraggableRectangle(None)
+                w = Rectangle(None)
             else:
-                w = DraggableSquare(None)
+                w = Square(None)
         if signal in self.widgets:
             self.widgets[signal].append(w)
         else:
@@ -213,7 +210,7 @@ class MultiSelectionTool(SignalFigureTool):
             widget.size = (1, 1)
             widget.set_on(True)
             if self.ranged:
-                widget.pick_on_frame = 3
+                widget.resizer_picked = 3
             widget.picked = True
         widget.events.changed.connect(self._on_change, 1)
 
