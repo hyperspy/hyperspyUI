@@ -21,23 +21,57 @@ Created on Sat Feb 21 16:05:41 2015
 @author: Vidar Tonaas Fauske
 """
 
-from mainwindowlayer2 import MainWindowLayer2, tr
+from mainwindowbase import MainWindowBase, tr
+
+import os
+from functools import partial
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
-import os
-from functools import partial
+from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
+
+import hooktraitsui
+
+hooktraitsui.hook_traitsui()
 
 
-class MainWindowLayer3(MainWindowLayer2):
+class MainWindowUtils(MainWindowBase):
     """
-    Third layer in the application stack. Adds UI utility functions.
+    Adds UI utility functions to the main window, including traitsui dialog
+    capture.
     """
 
     def __init__(self, parent=None):
-        super(MainWindowLayer3, self).__init__(parent)
+        # traitsui backend bindings
+        hooktraitsui.connect_created(self.on_traits_dialog)
+        hooktraitsui.connect_destroyed(self.on_traits_destroyed)
+
+        super(MainWindowUtils, self).__init__(parent)
+
+
+    # --------- traitsui Events ---------
+
+    def capture_traits_dialog(self, callback):
+        self.should_capture_traits = callback
+
+    def on_traits_dialog(self, dialog, ui, parent):
+        self.traits_dialogs.append(dialog)
+        if parent is None:
+            if self.should_capture_traits:
+                self.should_capture_traits(dialog)
+                self.should_capture_traits = None
+            else:
+                dialog.setParent(self, QtCore.Qt.Tool)
+                dialog.show()
+                dialog.activateWindow()
+
+    def on_traits_destroyed(self, dialog):
+        if dialog in self.traits_dialogs:
+            self.traits_dialogs.remove(dialog)
+
+    # --------- End traitsui Events ---------
 
     def set_status(self, msg):
         """
@@ -208,7 +242,104 @@ class MainWindowLayer3(MainWindowLayer2):
         self.windowmenu.insertAction(self.windowmenu_sep, d.toggleViewAction())
         return d
 
+    def make_icon(self, icon):
+        """
+        Create an icon that coheres to the internal standard for icons.
+
+        Parameters:
+        -----------
+            icon: {string | QIcon}
+                If icon is a path, it loads the file. If the path does not
+                correspond to a valid file, it is checked if it is a valid
+                path relative to the 'images' folder of the package.
+
+                After loading, SVG files will be run through
+                `SmartColorSVGIconEngine` to adapt suitable icons to the
+                current palette. If a QIcon is passed directly, it is also
+                sent through `SmartColorSVGIconEngine`.
+        """
+        if not isinstance(icon, QIcon):
+            if isinstance(icon, basestring) and not os.path.isfile(icon):
+                sugg = os.path.dirname(__file__) + '/images/' + icon
+                if os.path.isfile(sugg):
+                    icon = sugg
+            if isinstance(icon, basestring) and (
+                    icon.endswith('svg') or
+                    icon.endswith('svgz') or
+                    icon.endswith('svg.gz')):
+                ie = SmartColorSVGIconEngine()
+                path = icon
+                icon = QIcon(ie)
+                icon.addFile(path)
+            else:
+                icon = QIcon(icon)
+        else:
+            icon = QIcon(SmartColorSVGIconEngine(icon))
+        return icon
+
+    def get_figure_filepath_suggestion(self, figure, deault_ext=None):
+        """
+        Get a suggestion for a file path for saving `figure`.
+        """
+        canvas = figure.widget()
+        if deault_ext is None:
+            deault_ext = canvas.get_default_filetype()
+
+        f = canvas.get_default_filename()
+        if not f:
+            f = self.cur_dir
+
+        # Analyze suggested filename
+        base, tail = os.path.split(f)
+        fn, ext = os.path.splitext(tail)
+
+        # If no directory in filename, use self.cur_dir's dirname
+        if base is None or base == "":
+            base = os.path.dirname(self.cur_dir)
+        # If extension is not valid, use the defualt
+        if ext not in canvas.get_supported_filetypes():
+            ext = deault_ext
+
+        # Build suggestion and return
+        path_suggestion = os.path.sep.join((base, fn))
+        path_suggestion = os.path.extsep.join((path_suggestion, ext))
+        return path_suggestion
+
+    def save_figure(self, figure=None):
+        """
+        Save the matplotlib figure. If a figure is not passed, it tries to
+        save whichever is active (using `activeSubWindow()` of the MDI area).
+        """
+        if figure is None:
+            figure = self.main_frame.activeSubWindow()
+            if figure is None:
+                return
+        path_suggestion = self.get_figure_filepath_suggestion(figure)
+        canvas = figure.widget()
+
+        # Build type selection string
+        def_type = os.path.extsep + canvas.get_default_filetype()
+        extensions = canvas.get_supported_filetypes_grouped()
+        type_choices = u"All types (*.*)"
+        for group, exts in extensions.iteritems():
+            fmt = group + \
+                ' (' + \
+                '; '.join([os.path.extsep + sube for sube in exts]) + ')'
+            type_choices = ';;'.join((type_choices, fmt))
+            if def_type[1:] in exts:
+                def_type = fmt
+
+        # Present filename prompt
+        filename = QFileDialog.getSaveFileName(self, tr("Save file"),
+                                               path_suggestion, type_choices,
+                                               def_type)[0]
+        if filename:
+            canvas.figure.savefig(filename)
+
     def show_okcancel_dialog(self, title, widget, modal=True):
+        """
+        Show a dialog with the passed widget and OK and cancel buttons.
+        """
         diag = QDialog(self)
         diag.setWindowTitle(title)
         diag.setWindowFlags(Qt.Tool)
@@ -230,3 +361,47 @@ class MainWindowLayer3(MainWindowLayer2):
         # Return the dialog for result checking, and to keep widget in scope
         # for caller
         return diag
+
+
+class MainWindowActionRecorder(MainWindowUtils):
+
+    """
+    Adds recorder functionality.
+    """
+
+    def __init__(self, parent=None):
+        self.recorders = []
+        super(MainWindowActionRecorder, self).__init__(parent)
+
+    def add_action(self, key, label, callback, tip=None, icon=None,
+                   shortcut=None, userdata=None, selection_callback=None):
+        ac = super(MainWindowActionRecorder, self).add_action(
+            key, label, callback, tip, icon, shortcut, userdata,
+            selection_callback)
+        # Monitor events needs to trigger first!
+        e = self.actions[key].triggered
+        e.disconnect()  # Disconnect everything
+        self.monitor_action(key)    # Connect monitor
+        # Remake callback connection
+        if userdata is None:
+            self.connect(ac, SIGNAL('triggered()'), callback)
+        else:
+            def callback_udwrap():
+                callback(userdata)
+            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
+        return ac
+
+    def monitor_action(self, key):
+        self.actions[key].triggered.connect(lambda: self.record_action(key))
+
+    def record_action(self, key):
+        for r in self.recorders:
+            r.add_action(key)
+
+    def record_code(self, code):
+        for r in self.recorders:
+            r.add_code(code)
+
+    def on_console_executing(self, source):
+        super(MainWindowActionRecorder, self).on_console_executing(source)
+        self.record_code(source)

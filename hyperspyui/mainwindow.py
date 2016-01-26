@@ -30,7 +30,7 @@ import pickle
 import numpy as np
 
 # Should go before any MPL imports:
-from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
+from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.widgets.contrastwidget import ContrastWidget
@@ -47,7 +47,7 @@ import hyperspy.utils.plot
 import hyperspy.signals
 
 
-class MainWindow(MainWindowLayer5):
+class MainWindow(MainWindowHyperspy):
 
     """
     Main window of the application. Top layer in application stack. Is

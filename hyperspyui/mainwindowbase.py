@@ -39,7 +39,6 @@ import hyperspyui.mdi_mpl_backend
 from pluginmanager import PluginManager
 from hyperspyui.settings import Settings
 from hyperspyui.widgets.settingsdialog import SettingsDialog
-from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 
 
 def tr(text):
@@ -97,7 +96,7 @@ def normalpriority():
         os.nice(-os.nice(0))
 
 
-class MainWindowLayer1(QMainWindow):
+class MainWindowBase(QMainWindow):
 
     """
     Base layer in application stack. Should handle the connection to our custom
@@ -108,7 +107,7 @@ class MainWindowLayer1(QMainWindow):
     """
 
     def __init__(self, parent=None):
-        super(MainWindowLayer1, self).__init__(parent)
+        super(MainWindowBase, self).__init__(parent)
 
         # Setup settings:
         self.settings = Settings(self, 'General')
@@ -206,7 +205,7 @@ class MainWindowLayer1(QMainWindow):
     def closeEvent(self, event):
         self.settings['_geometry'] = self.saveGeometry()
         self.settings['_windowState'] = self.saveState()
-        return super(MainWindowLayer1, self).closeEvent(event)
+        return super(MainWindowBase, self).closeEvent(event)
 
     def reset_geometry(self):
         self.settings.restore_key_default('_geometry')
@@ -395,79 +394,6 @@ class MainWindowLayer1(QMainWindow):
 
     # --------- End figure management ---------
 
-    # --------- UI utility finctions ---------
-
-    def make_icon(self, icon):
-        if not isinstance(icon, QIcon):
-            if isinstance(icon, basestring) and not os.path.isfile(icon):
-                sugg = os.path.dirname(__file__) + '/images/' + icon
-                if os.path.isfile(sugg):
-                    icon = sugg
-            if isinstance(icon, basestring) and (
-                    icon.endswith('svg') or
-                    icon.endswith('svgz') or
-                    icon.endswith('svg.gz')):
-                ie = SmartColorSVGIconEngine()
-                path = icon
-                icon = QIcon(ie)
-                icon.addFile(path)
-            else:
-                icon = QIcon(icon)
-        else:
-            icon = QIcon(SmartColorSVGIconEngine(icon))
-        return icon
-
-    def get_figure_filepath_suggestion(self, figure, deault_ext=None):
-        canvas = figure.widget()
-        if deault_ext is None:
-            deault_ext = canvas.get_default_filetype()
-
-        f = canvas.get_default_filename()
-        if not f:
-            f = self.cur_dir
-
-        # Analyze suggested filename
-        base, tail = os.path.split(f)
-        fn, ext = os.path.splitext(tail)
-
-        # If no directory in filename, use self.cur_dir's dirname
-        if base is None or base == "":
-            base = os.path.dirname(self.cur_dir)
-        # If extension is not valid, use the defualt
-        if ext not in canvas.get_supported_filetypes():
-            ext = deault_ext
-
-        # Build suggestion and return
-        path_suggestion = os.path.sep.join((base, fn))
-        path_suggestion = os.path.extsep.join((path_suggestion, ext))
-        return path_suggestion
-
-    def save_figure(self, figure=None):
-        if figure is None:
-            figure = self.main_frame.activeSubWindow()
-            if figure is None:
-                return
-        path_suggestion = self.get_figure_filepath_suggestion(figure)
-        canvas = figure.widget()
-
-        # Build type selection string
-        def_type = os.path.extsep + canvas.get_default_filetype()
-        extensions = canvas.get_supported_filetypes_grouped()
-        type_choices = u"All types (*.*)"
-        for group, exts in extensions.iteritems():
-            fmt = group + \
-                ' (' + \
-                '; '.join([os.path.extsep + sube for sube in exts]) + ')'
-            type_choices = ';;'.join((type_choices, fmt))
-            if def_type[1:] in exts:
-                def_type = fmt
-
-        # Present filename prompt
-        filename = QFileDialog.getSaveFileName(self, tr("Save file"),
-                                               path_suggestion, type_choices,
-                                               def_type)[0]
-        if filename:
-            canvas.figure.savefig(filename)
 
     # --------- Console functions ---------
 

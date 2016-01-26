@@ -34,7 +34,7 @@ class TraitsWidget(FigureWidget):
     DockWidget for TraitsUI dialogs. The default behavior is to update the
     dialog when the active subwindow changes or when the widget becomes visible
     (updates are supressed when widget is hidden). This is done by capturing
-    the traitsui dialog as it is created (see code in mainwindowlayer1).
+    the traitsui dialog as it is created (see code in mainwindowbase).
     """
 
     def __init__(

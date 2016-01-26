@@ -31,7 +31,7 @@ import logging
 from traits.etsconfig.api import ETSConfig
 ETSConfig.toolkit = 'qt4'
 
-from mainwindowlayer4 import MainWindowLayer4, tr
+from mainwindowutillayer import MainWindowActionRecorder, tr
 
 import uiprogressbar
 uiprogressbar.takeover_progressbar()    # Enable hooks
@@ -74,7 +74,7 @@ class TrackEventFilter(QObject):
         return False
 
 
-class MainWindowLayer5(MainWindowLayer4):
+class MainWindowHyperspy(MainWindowActionRecorder):
 
     """
     Fifth layer in the application stack. Should integrate hyperspy basics,
@@ -116,7 +116,7 @@ class MainWindowLayer5(MainWindowLayer4):
         self._plotting_signal = None
 
         # Call super init, which creates main controls etc.
-        super(MainWindowLayer5, self).__init__(parent)
+        super(MainWindowHyperspy, self).__init__(parent)
 
         self.create_statusbar()
 
@@ -157,11 +157,11 @@ class MainWindowLayer5(MainWindowLayer4):
         self.add_widget(self.tree)
 
         # Put plugin widgets at end
-        super(MainWindowLayer5, self).create_widgetbar()
+        super(MainWindowHyperspy, self).create_widgetbar()
 
     def create_menu(self):
         # Super creates Windows menu
-        super(MainWindowLayer5, self).create_menu()
+        super(MainWindowHyperspy, self).create_menu()
 
         # Add custom action to signals' BindingList, so appropriate menu items
         # are removed if a signal is removed from the list
@@ -684,26 +684,26 @@ class MainWindowLayer5(MainWindowLayer4):
     # --------- Console functions ----------
 
     def on_console_executing(self, source):
-        super(MainWindowLayer5, self).on_console_executing(source)
+        super(MainWindowHyperspy, self).on_console_executing(source)
 #        self.setUpdatesEnabled(False)
         for s in self.signals:
             s.keep_on_close = True
 
     def on_console_executed(self, response):
-        super(MainWindowLayer5, self).on_console_executed(response)
+        super(MainWindowHyperspy, self).on_console_executed(response)
         for s in self.signals:
             s.update_figures()
             s.keep_on_close = False
 #        self.setUpdatesEnabled(True)
 
     def _get_console_exec(self):
-        ex = super(MainWindowLayer5, self)._get_console_exec()
+        ex = super(MainWindowHyperspy, self)._get_console_exec()
         ex += '\nimport hyperspy.api as hs'
         ex += '\nimport numpy as np'
         return ex
 
     def _get_console_exports(self):
-        push = super(MainWindowLayer5, self)._get_console_exports()
+        push = super(MainWindowHyperspy, self)._get_console_exports()
         push['siglist'] = self.hspy_signals
         return push
 
