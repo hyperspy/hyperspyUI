@@ -36,13 +36,11 @@ import locale
 # TODO: Add xray 3rd state: Element present, but not used for maps
 # TODO: Add xray background window tool for modifying those by auto
 # TODO: Add quantification button. Needs k-factor setup.
-# TODO: Add EELSDB widget plugin
 # TODO: Create contributed plugins repository with UI integrated hot-load
 # TODO: Auto-resize font in Periodic table
 # TODO: Utilities to combine signals into stack and reverse
 # TODO: Make editor tabs drag&droppable + default to all in one
 # TODO: Make data type changer handle RGBX data types.
-# TODO: Put licensing info in the right places
 # TODO: Metadata explorer (TreeView)
 # TODO: Variable explorer (Signal/Model etc.). 3rd party library?
 # TODO: Disable tools when no figure
