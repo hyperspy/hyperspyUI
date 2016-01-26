@@ -193,6 +193,7 @@ class GitSelector(Plugin):
                                 'https://github.com/vidartf/hyperspy']],
             'HyperSpyUI': [True, ['https://github.com/vidartf/hyperspyui']],
             }
+        self.ui.load_complete.connect(self._on_load_complete)
         if got_git:
             git.Git.GIT_PYTHON_GIT_EXECUTABLE = \
                     self.settings['git_executable'] or ''
@@ -214,14 +215,16 @@ class GitSelector(Plugin):
                     git_ok = check_git_cmd(True, self.ui)
                     self.settings['git_executable'] = \
                         git.Git.GIT_PYTHON_GIT_EXECUTABLE
-                if not git_ok:
-                    self.packages[package_name][0] = False
+                self.packages[package_name][0] = git_ok
 
     def create_menu(self):
         self.add_menuitem('Settings',
                           self.ui.actions[self.name + '.show_dialog'])
         self.add_menuitem('Settings',
                           self.ui.actions[self.name + '.update_check'])
+
+    def _on_load_complete(self):
+        self.update_check(silent=True)
 
     def _perform_update(self, package):
         stream = VisualLogStream(self.plugin.ui)
@@ -232,7 +235,19 @@ class GitSelector(Plugin):
             if diag is not None:
                 diag.btn_close.setEnabled(True)
 
-    def update_check(self):
+    def update_check(self, silent=False):
+        """
+        Checks for updates to hyperspy and hyperspyUI.
+
+        If the packages are not source installs, it checks for a new version on
+        PyPI.
+
+        Arguments:
+        ----------
+            silent: bool
+                If not silent (default), a message box will appear if no
+                updates are available, with a message to that fact.
+        """
         self._check_git()
         available = {}
         for Name, (enabled, urls) in self.packages.iteritems():
@@ -268,7 +283,7 @@ class GitSelector(Plugin):
                         if available[name]:
                             name += '==' + available[name]
                         self._perform_update(name)
-        else:
+        elif not silent:
             mb = QMessageBox(QMessageBox.Information, tr("No updates"),
                              tr("No new updates were found."),
                              parent=self.ui)
