@@ -153,6 +153,41 @@ class Settings(object):
         for g in groupings:
             settings.endGroup()
 
+    def set_enum_hint(self, key, options):
+        """
+        Indicate possible values for a setting.
+
+        The `options` are not strictly enforced, but can be used to indicate
+        valid values to the user. A typical usecase is to allow the use of a
+        combobox in a dialog to pick a value.
+        """
+        groupings = self._get_groups(key)
+        groupings.insert(0, 'defaults')
+        key = groupings.pop()
+        key = '_' + key + '_options'    # Change key to avoid conflicts
+        settings = QSettings(parent=self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        settings.setValue(key, options)
+        for g in groupings:
+            settings.endGroup()
+
+    def get_enum_hint(self, key):
+        """
+        Returns the enum hint if set, otherwise None.
+        """
+        groupings = self._get_groups(key)
+        groupings.insert(0, 'defaults')
+        key = groupings.pop()
+        key = '_' + key + '_options'    # Change key to avoid conflicts
+        settings = QSettings(parent=self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        value = settings.value(key)
+        for g in groupings:
+            settings.endGroup()
+        return value
+
     def get_or_prompt(self, key, options, title="Prompt", descr=""):
         """
         Gets the setting specified by key. If it is not set, prompts the user

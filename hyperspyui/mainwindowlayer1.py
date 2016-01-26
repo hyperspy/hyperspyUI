@@ -498,7 +498,14 @@ class MainWindowLayer1(QMainWindow):
         # and then drop route when it finishes, however this will not catch
         # interactive dialogs and such.
         c = self._get_console_config()
-        control = ConsoleWidget(config=c)
+        self.settings.set_default('console_completion_type', 'droplist')
+        valid_completions = ConsoleWidget.gui_completion.values
+        self.settings.set_enum_hint('console_completion_type',
+                                    valid_completions)
+        gui_completion = self.settings['console_completion_type']
+        if gui_completion not in valid_completions:
+            gui_completion = 'droplist'
+        control = ConsoleWidget(config=c, gui_completion=gui_completion)
         control.executing.connect(self.on_console_executing)
         control.executed.connect(self.on_console_executed)
 

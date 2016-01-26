@@ -42,6 +42,7 @@ class ImageRotation_Plugin(Plugin):
     name = 'Image Rotation'
 
     def create_actions(self):
+        self.settings.set_enum_hint('new_or_replace', ['new', 'replace'])
         self.add_action('rotate', "Rotate", self.show_rotate_dialog,
                         icon='rotate.svg',
                         tip="Rotate an image",
