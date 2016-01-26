@@ -24,7 +24,8 @@ Created on Mon Aug 03 19:43:52 2015
 from python_qt_binding import QtCore
 
 from hyperspy.signal import Signal
-from hyperspy.drawing.widgets import Rectangle, Range, Square, VerticalLine
+from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
+                                      SquareWidget, VerticalLineWidget)
 from hyperspy.roi import RectangularROI, SpanROI, Point1DROI, Point2DROI
 
 from hyperspyui.tools import SignalFigureTool
@@ -84,14 +85,14 @@ class MultiSelectionTool(SignalFigureTool):
             return None
         if self.ndim(signal) == 1:
             if self.ranged:
-                w = Range(None)
+                w = RangeWidget(None)
             else:
-                w = VerticalLine(None)
+                w = VerticalLineWidget(None)
         else:
             if self.ranged:
-                w = Rectangle(None)
+                w = RectangleWidget(None)
             else:
-                w = Square(None)
+                w = SquareWidget(None)
         if signal in self.widgets:
             self.widgets[signal].append(w)
         else:
