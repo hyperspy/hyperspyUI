@@ -369,6 +369,7 @@ class MainWindow(MainWindowHyperspy):
         # to be diferentiated based on behavior either way.
         if signal is None:
             signal = self.get_selected_wrapper()
+        self.record_code("signal = ui.get_selected_signal()")
 
         # Sanity check
         if signal_type not in self.signal_types.keys():
@@ -381,24 +382,30 @@ class MainWindow(MainWindowHyperspy):
                                   (hyperspy.signals.Image,
                                    hyperspy.signals.ImageSimulation)):
                     signal.as_image()
+                    self.record_code("signal = signal.as_image()")
             elif signal_type in['Spectrum', 'Spectrum simulation', 'EELS',
                                 'EELS simulation', 'EDS SEM', 'EDS TEM']:
                 if isinstance(signal.signal,
                               (hyperspy.signals.Image,
                                hyperspy.signals.ImageSimulation)):
                     signal.as_spectrum()
+                    self.record_code("signal = signal.as_spectrum()")
 
             if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:
                 underscored = signal_type.replace(" ", "_")
                 signal.signal.set_signal_type(underscored)
+                self.record_code("signal.set_signal_type('%s')" % underscored)
             elif signal_type == 'EELS simulation':
                 signal.signal.set_signal_type('EELS')
+                self.record_code("signal.set_signal_type('EELS')")
 
             if signal_type in ['Spectrum simulation', 'Image simulation',
                                'EELS simulation']:
                 signal.signal.set_signal_origin('simulation')
+                self.record_code("signal.set_signal_origin('simulation')")
             else:
                 signal.signal.set_signal_origin('')  # Undetermined
+                self.record_code("signal.set_signal_origin('')")
 
             signal.plot()
         finally:
@@ -407,6 +414,7 @@ class MainWindow(MainWindowHyperspy):
     def set_signal_dtype(self, data_type, signal=None, clip=False):
         if signal is None:
             signal = self.get_selected_signal()
+        self.record_code("signal = ui.get_selected_signal()")
         if isinstance(data_type, basestring) and data_type.lower() == 'custom':
             return    # TODO: Show dialog and prompt
         if not clip:
@@ -421,4 +429,10 @@ class MainWindow(MainWindowHyperspy):
                 old_info = np.finfo(old_type)
             if old_info.max > info.max:
                 signal.data *= float(info.max) / np.nanmax(signal.data)
+                self.record_code("signal.data *= %f / np.nanmax(signal.data)" %
+                                 float(info.max))
         signal.change_dtype(data_type)
+        dts = data_type.__name__
+        if data_type.__module__ == 'numpy':
+            dts = 'np.' + dts
+        self.record_code("signal.change_dtype(%s)" % dts)
