@@ -28,6 +28,7 @@ import warnings
 import traceback
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.settings import Settings
+from hyperspyui.util import AttributeDict
 
 
 class ReadOnlyDict(dict):
@@ -62,7 +63,7 @@ class PluginManager(object):
         """
         Initializates the manager, and performs discovery of plugins
         """
-        self.plugins = {}
+        self.plugins = AttributeDict()
         self.ui = main_window
         self._enabled = {}
         self.settings = Settings(self.ui, group="PluginManager/enabled")
