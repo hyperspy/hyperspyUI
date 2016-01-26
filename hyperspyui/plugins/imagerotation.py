@@ -198,7 +198,7 @@ class ImageRotation_Plugin(Plugin):
             return
         self.dialog = ImageRotationDialog(signal, space, self.ui, self)
         if 'angle' in self.settings:
-            self.dialog.num_angle.setValue(float(self.settings['angle']))
+            self.dialog.num_angle.setValue(self.settings['angle', float])
         if 'new_or_replace' in self.settings:
             v = self.settings['new_or_replace']
             if v == 'new':
@@ -206,16 +206,13 @@ class ImageRotation_Plugin(Plugin):
             elif v == 'replace':
                 self.dialog.opt_replace.setChecked(True)
         if 'reshape' in self.settings:
-            self.dialog.chk_reshape.setChecked(
-                "true" == self.settings['reshape'].lower())
+            self.dialog.chk_reshape.setChecked(self.settings['reshape', bool])
         if 'preview' in self.settings:
-            self.dialog.gbo_preview.setChecked(
-                "true" == self.settings['preview'].lower())
+            self.dialog.gbo_preview.setChecked(self.settings['preview', bool])
         if 'grid' in self.settings:
-            self.dialog.chk_grid.setChecked(
-                "true" == self.settings['grid'].lower())
+            self.dialog.chk_grid.setChecked(self.settings['grid', bool])
         if 'grid_spacing' in self.settings:
-            self.dialog.num_grid.setValue(int(self.settings['grid_spacing']))
+            self.dialog.num_grid.setValue(self.settings['grid_spacing', int])
         self.dialog.accepted.connect(self.on_dialog_accept)
         self.dialog.show()
 

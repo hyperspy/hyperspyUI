@@ -89,8 +89,8 @@ class MainWindow(MainWindowLayer5):
         self.set_status("Ready")
 
         # Redirect streams (wait until the end to not affect during load)
-        self.settings.set_default('Output to console', False)
-        if self.settings['Output to console'].lower() == 'true':
+        self.settings.set_default('output_to_console', False)
+        if self.settings['output_to_console', bool]:
             self._old_stdout = sys.stdout
             self._old_stderr = sys.stdout
             sys.stdout = self.console.kernel.stdout
@@ -305,7 +305,7 @@ class MainWindow(MainWindowLayer5):
     def on_settings_changed(self):
         # Redirect streams (wait until the end to not affect during load)
         super(MainWindow, self).on_settings_changed()
-        if self.settings['Output to console'].lower() == 'true':
+        if self.settings['output_to_console', bool]:
             if self._old_stdout is None:
                 self._old_stdout = sys.stdout
                 self._old_stderr = sys.stderr

@@ -179,7 +179,7 @@ class PluginManager(object):
         if self.settings[p_type.name] is None:
             # Init setting to True on first encounter
             self.settings[p_type.name] = True
-        enabled = (self.settings[p_type.name].lower() == "true")
+        enabled = self.settings[p_type.name, bool]
         self._enabled[p_type.name] = (enabled, p_type)
         if enabled:
             # Init

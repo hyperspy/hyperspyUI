@@ -146,19 +146,19 @@ class AlignPlugin(Plugin):
         if signal is None:
             return
         s = signal
-        sobel = 'true' == self.settings['sobel_2D'].lower()
-        hanning = 'true' == self.settings['hanning_2D'].lower()
-        median = 'true' == self.settings['median_2D'].lower()
-        sub_pixel_factor = float(self.settings['sub_pixel_factor'])
-        plot = 'true' == self.settings['plot'].lower()
+        sobel = self.settings['sobel_2D', bool]
+        hanning = self.settings['hanning_2D', bool]
+        median = self.settings['median_2D', bool]
+        sub_pixel_factor = self.settings['sub_pixel_factor', float]
+        plot = self.settings['plot', bool]
         if plot:
             plot = 'reuse'
         ref = self.settings['alignment_reference'].lower()
         if not ref:
             ref = 'current'
-        expand = 'true' == self.settings['expand'].lower()
-        crop = 'true' == self.settings['crop'].lower()
-        gauss = float(self.settings['2d_smooth_amount'])
+        expand = self.settings['expand', bool]
+        crop = self.settings['crop', bool]
+        gauss = self.settings['2d_smooth_amount', float]
         if gauss > 0.0 and 'Gaussian Filter' in self.ui.plugins:
             p = self.ui.plugins['Gaussian Filter']
             s = p.gaussian(sigma=gauss, signal=signal, record=False)
@@ -207,7 +207,7 @@ class AlignPlugin(Plugin):
         if s_al.axes_manager.signal_axes[0].index_in_array < 1:
             s_al.data = s_al.data.T             # Unfolded, so simply transpose
         # From now on, navigation is in first dimension
-        smooth = float(self.settings['1d_smooth_amount'])
+        smooth = self.settings['1d_smooth_amount', float]
         d = np.array([self._smooth(s_al.data[i, :], smooth)
                       for i in xrange(s_al.data.shape[0])])
         d = np.diff(d, axis=1)      # Differentiate to highlight edges

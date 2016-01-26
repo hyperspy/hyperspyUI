@@ -165,7 +165,7 @@ class MainWindowLayer1(QMainWindow):
 
     @property
     def toolbar_button_size(self):
-        return int(self.settings['toolbar_button_size'])
+        return self.settings['toolbar_button_size', int]
 
     @toolbar_button_size.setter
     def toolbar_button_size(self, value):
@@ -183,7 +183,7 @@ class MainWindowLayer1(QMainWindow):
 
     @property
     def low_process_priority(self):
-        return "true" == self.settings['low_process_priority'].lower()
+        return self.settings['low_process_priority', bool]
 
     @low_process_priority.setter
     def low_process_priority(self, value):

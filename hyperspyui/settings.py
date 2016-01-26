@@ -53,7 +53,12 @@ class Settings(object):
         settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
-        ret = settings.value(key, t)
+        ret = settings.value(key)
+        if t and isinstance(t, type):
+            if t is bool:
+                ret = ("true" == ret.lower())
+            else:
+                ret = t(ret)
         for g in groupings:
             settings.endGroup()
         return ret

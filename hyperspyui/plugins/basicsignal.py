@@ -110,13 +110,13 @@ class BasicSignalPlugin(Plugin):
         # If we're using an external console for errors, we need to temporarily
         # redirect stdout
         _old_stdout = None
-        if self.ui.settings['Output to console'].lower() != 'true':
+        if self.ui.settings['output_to_console', bool]:
             _old_stdout = sys.stdout
             sys.stdout = self.ui.console.kernel.stdout
         try:
             signal.print_summary_statistics()
         finally:
-            if self.ui.settings['Output to console'].lower() != 'true':
+            if self.ui.settings['output_to_console', bool]:
                 sys.stdout = _old_stdout
 
     def histogram(self, signal=None):

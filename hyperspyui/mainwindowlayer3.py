@@ -189,8 +189,7 @@ class MainWindowLayer3(MainWindowLayer2):
         is used.
         """
         if floating is None:
-            floating = self.settings[
-                'default_widget_floating'].lower() == 'true'
+            floating = self.settings['default_widget_floating', bool]
         if isinstance(widget, QDockWidget):
             d = widget
         else:
