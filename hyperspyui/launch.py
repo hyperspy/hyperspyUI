@@ -99,6 +99,7 @@ def main():
     form.showMaximized()
 
     splash.finish(form)
+    form.load_complete.emit()
 
     app.exec_()
 

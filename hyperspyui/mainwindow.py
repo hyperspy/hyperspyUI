@@ -70,6 +70,8 @@ class MainWindow(MainWindowLayer5):
          ('Image', hyperspy.signals.Image),
          ('Image simulation', hyperspy.signals.ImageSimulation)])
 
+    load_complete = Signal()
+
     def __init__(self, parent=None):
         # State variables
         self.signal_type_ag = None
