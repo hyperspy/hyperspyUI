@@ -173,12 +173,13 @@ class ImageRotation_Plugin(Plugin):
                     dx = diff[i] * 0.5 * ax.scale
                     ax.offset -= dx
                 # TODO: TAG: Functionality check
-                if hasattr(out, 'events') and hasattr(
-                        out.events, 'axes_changed'):
-                    out.events.axes_changed.trigger()
+                if hasattr(out.axes_manager, 'events') and hasattr(
+                        out.axes_manager.events, 'axes_changed'):
+                    out.axes_manager.events.axes_changed.trigger(
+                        out.axes_manager)
             # TODO: TAG: Functionality check
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
-                out.events.data_changed.trigger()
+                out.events.data_changed.trigger(out)
 
     def on_dialog_accept(self):
         self.settings['angle'] = self.dialog.num_angle.value()
@@ -308,9 +309,9 @@ class ImageRotationDialog(ExToolWindow):
         if self._connected_updates != disconnect:
             return  # Nothing to do, prevent double connections
         if self._axes_in_nav():
-            f = signal._plot.navigator_plot._update
+            f = signal._plot.navigator_plot.update
         else:
-            f = signal._plot.signal_plot._update
+            f = signal._plot.signal_plot.update
 
         # TODO: TAG: Functionality check
         if hasattr(signal, 'events') and hasattr(
@@ -318,7 +319,7 @@ class ImageRotationDialog(ExToolWindow):
             if disconnect:
                 signal.events.data_changed.disconnect(f)
             else:
-                signal.events.data_changed.connect(f)
+                signal.events.data_changed.connect(f, 0)
         self._connected_updates = not disconnect
 
     def update(self):

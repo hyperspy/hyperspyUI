@@ -64,11 +64,13 @@ class VirtualBfDf(Plugin):
                        signal.axes_manager.signal_axes]) / 2.0
         r = hs.roi.CircleROI(dd[0], dd[1],
                              signal.axes_manager.signal_axes[0].scale*3)
-        s_virtual = r.interactive(signal, None, axes='signal')
+        s_virtual = r.interactive(signal, None,
+                                  axes=signal.axes_manager.signal_axes)
         s_nav = hs.interactive(
             s_virtual.mean,
             s_virtual.events.data_changed,
-            axis='signal')
+            axis=s_virtual.axes_manager.signal_axes)
+        s_nav.axes_manager.set_signal_dimension(2)
         if navigate:
             signal.plot(navigator=s_nav)
             signal._plot.navigator_plot.update()
@@ -83,4 +85,4 @@ class VirtualBfDf(Plugin):
                 s_nav._plot.signal_plot.figure,
                 partial(self._on_close, r))
 
-        r.add_widget(signal, axes='signal')
+        r.add_widget(signal, axes=signal.axes_manager.signal_axes)

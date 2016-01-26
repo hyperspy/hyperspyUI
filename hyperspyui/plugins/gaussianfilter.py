@@ -106,7 +106,7 @@ class GaussianFilter(Plugin):
                     r"<p>.gaussian({0}, out={1}, {2}, {3})".format(
                         sigma, out, args, kwargs))
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
-                out.events.data_changed.trigger()
+                out.events.data_changed.trigger(out)
 
     def on_dialog_accept(self, dialog):
         self.settings['sigma'] = dialog.num_sigma.value()
