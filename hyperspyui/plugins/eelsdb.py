@@ -55,7 +55,8 @@ class EELSDBPlugin(Plugin):
 
     def create_actions(self):
         self.add_action(self.name + '.default', "Browse", self.default,
-                        tip="")
+                        tip="Browse the EELSDB online database of standard"
+                        "EEL spectra")
 
     def create_menu(self):
         self.add_menuitem('EELSDB', self.ui.actions[self.name + '.default'])

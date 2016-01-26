@@ -55,28 +55,29 @@ class BasicSpectrumPlugin(Plugin):
     name = "Basic spectrum tools"
 
     def create_actions(self):
-        self.add_action('plot_components', tr("Plot components"),
-                        self.plot_components,
-                        icon=None,
-                        tip=tr(""),
-                        selection_callback=self._plot_components_state_update)
+        self.add_action(
+            'plot_components', tr("Plot components"),
+            self.plot_components,
+            icon=None,
+            tip=tr("Plot the individual components of the model"),
+            selection_callback=self._plot_components_state_update)
         self.actions['plot_components'].setCheckable(True)
 
         self.add_action(
             'adjust_component_position', tr("Adjust component positions"),
             self.adjust_component_position,
             icon=None,
-            tip=tr(""),
+            tip=tr("Adjust the position of the components interactively"),
             selection_callback=self._adjust_components_state_update)
         self.actions['adjust_component_position'].setCheckable(True)
 
-        self.add_action('remove_background', tr("Remove Background"),
-                        self.remove_background,
-                        icon='power_law.svg',
-                        tip=tr("Interactively define the background, and "
-                               "remove it"),
-                        selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui))
+        self.add_action(
+            'remove_background', tr("Remove Background"),
+            self.remove_background,
+            icon='power_law.svg',
+            tip=tr("Interactively define the background, and remove it"),
+            selection_callback=SignalTypeFilter(
+                hyperspy.signals.Spectrum, self.ui))
 
         self.add_action('fourier_ratio', tr("Fourier Ratio Deconvoloution"),
                         self.fourier_ratio,

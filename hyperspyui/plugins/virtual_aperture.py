@@ -34,11 +34,11 @@ class VirtualBfDf(Plugin):
         self.add_action(self.name + '.virtual_navigator',
                         "Virtual navigator",
                         self.virtual_navigator,
-                        tip="")
+                        tip="Set the navigator inesity by a virtual aperture")
         self.add_action(self.name + '.virtual_aperture',
                         "Virtual aperture",
                         self.virtual_aperture,
-                        tip="")
+                        tip="Add a virtual aperture to the diffraction image")
 
     def create_menu(self):
         self.add_menuitem(
