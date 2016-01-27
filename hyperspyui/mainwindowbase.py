@@ -253,6 +253,15 @@ class MainWindowBase(QMainWindow):
         self.selectable_tools = QActionGroup(self)
         self.selectable_tools.setExclusive(True)
 
+        # Nested docking action
+        ac_nested = QAction(tr("Nested docking"), self)
+        ac_nested.setStatusTip(tr("Allow nested widget docking"))
+        ac_nested.setCheckable(True)
+        ac_nested.setChecked(self.isDockNestingEnabled())
+        self.connect(ac_nested, SIGNAL('triggered(bool)'),
+                     self.setDockNestingEnabled)
+        self.actions['nested_docking'] = ac_nested
+
         # Tile windows action
         ac_tile = QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
@@ -288,6 +297,7 @@ class MainWindowBase(QMainWindow):
         # Window menu is filled in add_widget and add_figure
         self.windowmenu = mb.addMenu(tr("&Windows"))
         self.windowmenu.addAction(self._console_dock.toggleViewAction())
+        self.windowmenu.addAction(self.actions['nested_docking'])
         # Figure windows go below this separator. Other windows can be added
         # above it with insertAction(self.windowmenu_sep, QAction)
         self.windowmenu_sep = self.windowmenu.addSeparator()
