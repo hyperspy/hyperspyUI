@@ -166,7 +166,7 @@ class MainWindow(MainWindowHyperspy):
         self.add_action('save_fig', "Save &figure", self.save_figure,
                         tip="Save the active figure")
 
-        self.add_action('add_model', "Create Model", self.make_model,
+        self.add_action('add_model', "Create Model", self.add_model,
                         selection_callback=self.select_signal,
                         tip="Create a model for the selected signal")
 

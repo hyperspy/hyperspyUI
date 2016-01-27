@@ -315,7 +315,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 text += "%.3g" % intensity
         self.mouse_coords_label.setText(text)
 
-    def add_model(self, signal, *args, **kwargs):
+    def add_model(self, signal=None, *args, **kwargs):
         """
         Add a default model for the given/selected signal. Returns the
         newly created ModelWrapper.
@@ -327,14 +327,6 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             signal = signal[0]
         mw = signal.make_model(*args, **kwargs)
         return mw
-
-    def make_model(self, signal=None, *args, **kwargs):
-        """
-        Same as add_model(), but returns the hyperspy.Model instead of the
-        wrapper. Useful as replacement for hyperspy code in console.
-        """
-        mw = self.add_model(signal, *args, **kwargs)
-        return mw.model
 
     def make_component(self, comp_type):
         m = self.get_selected_model_wrapper()
@@ -496,6 +488,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 s.plot()
         else:
             sig.plot()
+        self.record_code('ui.load_stack({0}, {1})'.format(filenames,
+                                                          stack_axis))
 
     def load(self, filenames=None):
         """
@@ -548,8 +542,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             self.set_status("Loaded \"" + files_loaded[0] + "\"")
         elif len(files_loaded) > 1:
             self.set_status("Loaded %d files" % len(files_loaded))
-        for r in self.recorders:
-            r.add_code('ui.load({0})'.format(files_loaded))
+        self.record_code('ui.load({0})'.format(files_loaded))
 
         return files_loaded
 

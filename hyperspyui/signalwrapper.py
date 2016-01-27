@@ -219,6 +219,8 @@ class SignalWrapper(Actionable):
 
     def make_model(self, *args, **kwargs):
         m = self.signal.create_model(*args, **kwargs)
+        self.mainwindow.record_code("signal = ui.get_selected_signal()")
+        self.mainwindow.record_code("model = signal.create_model()")
 #        modelname = self.signal.metadata.General.title
         modelname = "Model %d" % self._model_id
         self._model_id += 1
