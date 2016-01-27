@@ -86,3 +86,4 @@ class VirtualBfDf(Plugin):
                 partial(self._on_close, r))
 
         r.add_widget(signal, axes=signal.axes_manager.signal_axes)
+        self.record_code("<p>.virtual_aperture(navigate=%s)" % navigate)
