@@ -206,18 +206,25 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             return
         s = hyperspyui.util.win2sig(mdi_window)
         if self.prev_mdi is not None:
-            ps = hyperspui.util.win2sig(self.prev_mdi)
+            ps = hyperspyui.util.win2sig(self.prev_mdi, self.signals)
         else:
             ps = None
         if s is not ps:
-            if ps is not None:
-                # If previous signal present, try to disconnect
-                if ps.signal.axes_manager is not None:
+            # If previous signal present, try to disconnect
+            if ps and ps.signal and ps.signal.axes_manager:
+                try:
                     ps.signal.axes_manager.events.indices_changed.disconnect(
                         self._on_active_navigate)
-            s.signal.axes_manager.events.indices_changed.connect(
-                self._on_active_navigate)
-            self._on_active_navigate(s.signal.axes_manager)
+                except ValueError:
+                    pass
+            if s and s.signal and s.signal.axes_manager:
+                try:
+                    s.signal.axes_manager.events.indices_changed.connect(
+                        self._on_active_navigate)
+                except ValueError:
+                    pass
+                self.prev_mdi = mdi_window
+                self._on_active_navigate(s.signal.axes_manager)
 
     def _on_active_navigate(self, axes_manager):
         """
