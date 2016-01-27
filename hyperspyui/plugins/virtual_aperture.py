@@ -85,5 +85,9 @@ class VirtualBfDf(Plugin):
                 s_nav._plot.signal_plot.figure,
                 partial(self._on_close, r))
 
-        r.add_widget(signal, axes=signal.axes_manager.signal_axes)
+        if navigate:
+            r.add_widget(signal, axes=signal.axes_manager.signal_axes,
+                         color='darkorange')
+        else:
+            r.add_widget(signal, axes=signal.axes_manager.signal_axes)
         self.record_code("<p>.virtual_aperture(navigate=%s)" % navigate)
