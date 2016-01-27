@@ -26,6 +26,9 @@ import gc
 import re
 import numpy as np
 import logging
+import warnings
+import traceback
+import sys
 
 # Hyperspy uses traitsui, set proper backend
 from traits.etsconfig.api import ETSConfig
@@ -530,8 +533,14 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 else:
                     sig.plot()
                 files_loaded.append(filename)
-            except (IOError, ValueError):
+            except (IOError, ValueError) as e:
                 self.set_status("Failed to load \"" + filename + "\"")
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                tb = traceback.extract_tb(exc_traceback)[-1]
+                warnings.warn_explicit(
+                    ("Failed to load file '%s'. Internal exception:\n %s: %s"
+                     % (filename, exc_type.__name__, str(e))),
+                    RuntimeWarning, tb[0], tb[1])
             finally:
                 self.setUpdatesEnabled(True)    # Always resume updates!
 
