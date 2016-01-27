@@ -148,7 +148,7 @@ class LineTool(SignalFigureTool):
             if self.widget.func & self.widget.FUNC_ROTATE:
                 self.widget._rotate_orig = self.widget.coordinates
         if new_widget:
-            self.widget.events.changed.connect(self._on_change, 1)
+            self.widget.events.changed.connect(self._on_change)
 
     def on_keyup(self, event):
         if event.key == 'enter':

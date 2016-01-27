@@ -319,7 +319,7 @@ class ImageRotationDialog(ExToolWindow):
             if disconnect:
                 signal.events.data_changed.disconnect(f)
             else:
-                signal.events.data_changed.connect(f, 0)
+                signal.events.data_changed.connect(f, [])
         self._connected_updates = not disconnect
 
     def update(self):

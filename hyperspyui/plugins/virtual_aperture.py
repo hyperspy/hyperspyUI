@@ -75,7 +75,7 @@ class VirtualBfDf(Plugin):
             signal.plot(navigator=s_nav)
             signal._plot.navigator_plot.update()
             s_nav.events.data_changed.connect(
-                signal._plot.navigator_plot.update)
+                signal._plot.navigator_plot.update, [])
             utils.on_figure_window_close(
                 signal._plot.navigator_plot.figure,
                 partial(self._on_close, r))
