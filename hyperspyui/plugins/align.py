@@ -279,11 +279,12 @@ class ManualAlignDialog(ExToolWindow):
             with signal.unfolded(unfold_signal=False):
                 signal.align2D(shifts=self.shifts, expand=True)
             signal.get_dimensions_from_data()
-        self.record_code("signal = ui.get_selected_signal()")
-        self.record_code("shifts = np.array(%s)" % str(self.shifts.tolist()))
-        self.record_code("with signal.unfolded(unfold_signal=False):")
-        self.record_code("    s_aligned.align1D(shifts=shifts, expand=True)")
-        self.record_code("signal.get_dimensions_from_data()")
+        rc = self.ui.record_code
+        rc("signal = ui.get_selected_signal()")
+        rc("shifts = np.array(%s)" % str(self.shifts.tolist()))
+        rc("with signal.unfolded(unfold_signal=False):")
+        rc("    signal.align2D(shifts=shifts, expand=True)")
+        rc("signal.get_dimensions_from_data()")
 
     def cancel(self):
         signal = self.signal
