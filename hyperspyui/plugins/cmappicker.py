@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
-from hyperspyui.util import win2fig, fig2plot
+from hyperspyui.util import win2fig, fig2image_plot
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -146,7 +146,7 @@ class CMapPickerWidget(FigureWidget):
             figure = win2fig(figure)
 
         signals = self.parent().signals
-        p = fig2plot(figure, signals)
+        p = fig2image_plot(figure, signals)
         img = None
         if p is not None and len(p.ax.images) > 0:
             img = p.ax.images

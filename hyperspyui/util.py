@@ -58,7 +58,7 @@ def fig2win(fig, windows):
         return None
 
 
-def fig2plot(fig, signals):
+def fig2image_plot(fig, signals):
     from hyperspy.drawing.mpl_he import MPL_HyperExplorer
     from hyperspy.drawing.image import ImagePlot
     for s in signals:

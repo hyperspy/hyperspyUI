@@ -28,7 +28,7 @@ from QtGui import *
 
 from extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.misc.rgb_tools import rgbx2regular_array
-from hyperspyui.util import win2fig, fig2plot
+from hyperspyui.util import win2fig, fig2image_plot
 
 import numpy as np
 from matplotlib.colors import Normalize, SymLogNorm
@@ -55,7 +55,7 @@ class ContrastWidget(FigureWidget):
             figure = win2fig(figure)
 
         signals = self.parent().signals
-        p = fig2plot(figure, signals)
+        p = fig2image_plot(figure, signals)
         self._cur_plot = p
         self.update_controls_from_fig()
 
