@@ -121,6 +121,7 @@ class EELSDBPlugin(Plugin):
         finally:
             f.close()
             os.remove(fn)
+        self.record_code("<p>.download(url='%s')" % url)
 
     def default(self):
         if self.window is None:

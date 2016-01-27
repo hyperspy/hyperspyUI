@@ -68,7 +68,7 @@ class CropToolPlugin(Plugin):
         self.record_code("s_crop = ui.get_selected_signal()")
         self.record_code("axes = " +
                          str(tuple([sig_axes.index(a) for a in axes])))
-        self.record_code("roi = utils.roi." + str(roi))
+        self.record_code("roi = hs.roi." + str(roi))
         self.record_code("<p>.crop(roi, s_crop, axes)")
         self.tool.cancel()   # Turn off functionality as we are finished
 

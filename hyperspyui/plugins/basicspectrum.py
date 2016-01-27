@@ -231,6 +231,7 @@ class BasicSpectrumPlugin(Plugin):
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
                                                tr("Low loss")])
+        self.record_code("<p>.fourier_ratio()")
         if signals is not None:
             s_core, s_lowloss = signals
 
@@ -270,26 +271,36 @@ class BasicSpectrumPlugin(Plugin):
         signal = signal or self.ui.get_selected_signal()
         if signal is not None:
             signal.smooth_savitzky_golay()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.smooth_savitzky_golay()")
 
     def smooth_lowess(self, signal=None):
         signal = signal or self.ui.get_selected_signal()
         if signal is not None:
             signal.smooth_lowess()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.smooth_lowess()")
 
     def smooth_tv(self, signal=None):
         signal = signal or self.ui.get_selected_signal()
         if signal is not None:
             signal.smooth_tv()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.smooth_tv()")
 
     def filter_butterworth(self, signal=None):
         signal = signal or self.ui.get_selected_signal()
         if signal is not None:
             signal.filter_butterworth()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.filter_butterworth()")
 
     def hanning_taper(self, signal=None):
         signal = signal or self.ui.get_selected_signal()
         if signal is not None:
             signal.hanning_taper()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.hanning_taper()")
 
 
 class ElementPickerTool(SignalFigureTool):

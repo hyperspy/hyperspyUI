@@ -115,6 +115,8 @@ class BasicSignalPlugin(Plugin):
             sys.stdout = self.ui.console.kernel.stdout
         try:
             signal.print_summary_statistics()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.print_summary_statistics()")
         finally:
             if self.ui.settings['output_to_console', bool]:
                 sys.stdout = _old_stdout
@@ -124,6 +126,9 @@ class BasicSignalPlugin(Plugin):
         if signal is not None:
             method = self.settings['histogram_bins_method']
             signal.get_histogram(bins=method).plot()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("histogram = signal.get_histogram(bins=%s)" %
+                             method)
 
     def _np_method(self, name, signal):
         if signal is None:
@@ -136,6 +141,8 @@ class BasicSignalPlugin(Plugin):
             for ax in signal.axes_manager.navigation_axes:
                 signal = f(ax.index_in_array + 3j)
             signal.plot()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code("result = signal.%s()" % name)
 
     def mean(self, signal=None):
         self._np_method('mean', signal)

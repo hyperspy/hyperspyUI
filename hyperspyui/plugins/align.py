@@ -139,6 +139,11 @@ class AlignPlugin(Plugin):
         s_aligned = signal.deepcopy()
         s_aligned.align1D(shifts=shifts, expand=True)
         s_aligned.plot()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code("s_aligned = signal.deepcopy()")
+        self.record_code("s_aligned.align1D(reference='current', "
+                         "roi=(%f, %f), show_progressbar=True, expand=True)" %
+                         (roi.left, roi.right))
         return s_aligned
 
     def align_2D(self, roi, signal=None):
@@ -163,6 +168,12 @@ class AlignPlugin(Plugin):
             p = self.ui.plugins['Gaussian Filter']
             s = p.gaussian(sigma=gauss, signal=signal, record=False)
             s.axes_manager.indices = signal.axes_manager.indices
+        record_string = (
+            "reference={0}, sobel={1}, hanning={2}, medfilter={3},"
+            "roi=({4}, {5}, {6}, {7}), plot={8},"
+            "show_progressbar=True").format(
+                ref, sobel, hanning, median, roi.left, roi.right, roi.top,
+                roi.bottom, plot)
         try:
             shifts = s.estimate_shift2D(
                 reference=ref,
@@ -171,6 +182,7 @@ class AlignPlugin(Plugin):
                 sub_pixel_factor=sub_pixel_factor,
                 plot=plot,
                 show_progressbar=True)
+            record_string += ", sub_pixel_factor=" + str(sub_pixel_factor)
         except TypeError:
             # Hyperspy might not accept 'sub_pixel_factor'
             shifts = s.estimate_shift2D(
@@ -181,19 +193,25 @@ class AlignPlugin(Plugin):
                 show_progressbar=True)
         s_aligned = signal.deepcopy()
         s_aligned.align2D(shifts=shifts, crop=crop, expand=expand)
+        record_string += ", crop={0}, expand={1}".format(crop, expand)
         s_aligned.plot()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code("s_aligned = signal.deepcopy()")
+        self.record_code("s_aligned.align1D(%s)" % record_string)
         return s_aligned
 
     def align_vertical(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
+        self.record_code("<p>.align_vertical(roi=%s)" % repr(roi))
         return self._align_along_axis(roi, signal, axis=1)
 
     def align_horizontal(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
             return
+        self.record_code("<p>.align_vertical(roi=%s)" % repr(roi))
         return self._align_along_axis(roi, signal, axis=0)
 
     def _align_along_axis(self, roi, signal, axis):
@@ -261,6 +279,11 @@ class ManualAlignDialog(ExToolWindow):
             with signal.unfolded(unfold_signal=False):
                 signal.align2D(shifts=self.shifts, expand=True)
             signal.get_dimensions_from_data()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code("shifts = np.array(%s)" % str(self.shifts.tolist()))
+        self.record_code("with signal.unfolded(unfold_signal=False):")
+        self.record_code("    s_aligned.align1D(shifts=shifts, expand=True)")
+        self.record_code("signal.get_dimensions_from_data()")
 
     def cancel(self):
         signal = self.signal
