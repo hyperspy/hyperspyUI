@@ -86,7 +86,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         # Setup signals list. This is a BindingList, and all components of the
         # code that needs to keep track of the signals loaded bind into this.
         self.signals = BindingList()
-        self.signals.add_custom(self.sweeper, None, None, None, self.sweeper,
+        self.signals.add_custom(self._sweeper, None, None, None, self._sweeper,
                                 None)
         self.hspy_signals = []
 
@@ -142,11 +142,15 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         # Finish off hyperspy customization of layer 1
         self.setWindowTitle("HyperSpy")
 
-    def sweeper(self, removed):
+    def _sweeper(self, removed):
+        """
+        Trigger a GC one second after calling this.
+        """
         del removed
         QTimer.singleShot(1000, gc.collect)
 
     def create_widgetbar(self):
+        # Add DataViewWidget to widget bar:
         self.tree = DataViewWidget(self, self)
         self.tree.setWindowTitle(tr("Data View"))
         # Sync tree with signals list:
@@ -156,7 +160,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             self.tree.on_mdiwin_activated)
         self.add_widget(self.tree)
 
-        # Put plugin widgets at end
+        # Put other widgets at end (plugin widgets)
         super(MainWindowHyperspy, self).create_widgetbar()
 
     def create_menu(self):
@@ -204,21 +208,20 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             ps = None
         if s is not ps:
             if ps is not None:
+                # If previous signal present, try to disconnect
                 if ps.signal.axes_manager is not None:
-                    ps.signal.axes_manager.disconnect(self._on_active_navigate)
-            s.signal.axes_manager.connect(self._on_active_navigate)
-            self._on_active_navigate()
+                    ps.signal.axes_manager.events.indices_changed.disconnect(
+                        self._on_active_navigate)
+            s.signal.axes_manager.events.indices_changed.connect(
+                self._on_active_navigate)
+            self._on_active_navigate(s.signal.axes_manager)
 
-    def _on_active_navigate(self):
+    def _on_active_navigate(self, axes_manager):
         """
         Callback triggered when the active signal navigates. Updates the
         status bar with the navigation indices.
         """
-        s = self.get_selected_signal()
-        if s is None:
-            ind = tuple()
-        else:
-            ind = s.axes_manager.indices
+        ind = axes_manager.indices
         self.set_navigator_coords_status(ind)
 
     def _on_track(self, gpos):
@@ -226,23 +229,17 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         Tracks the mouse position for the entire application, and if the mouse
         is over a figure axes it updates the status bar mouse coordinates.
         """
+
         # Find which window the mouse is above
         pos = self.mapFromGlobal(gpos)
         canvas = self.childAt(pos)
         # We only care about FigureCanvases
         if isinstance(canvas, FigureCanvas):
-            win = canvas.parent()
-            s = hyperspyui.util.win2sig(win, self.signals)
+            fig = canvas.figure
+            s, p = hyperspyui.util.fig2sig(fig, self.signals)
             # Currently we only know how to deal with standard plots
-            if s is None:
+            if p is None:
                 return
-        else:
-            return
-        # Currently we can only handle navigator or signal plots
-        if win is s.navigator_plot:
-            p = s.signal._plot.navigator_plot
-        elif win is s.signal_plot:
-            p = s.signal._plot.signal_plot
         else:
             return
         if p.ax is None:
@@ -266,10 +263,12 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             return a.value2index(v)
 
         if hasattr(p, 'axis'):                              # SpectrumFigure
-            if win is s.navigator_plot:
+            if p is s.signal._plot.navigator_plot:
                 axis = p.axes_manager.navigation_axes[0]
-            elif win is s.signal_plot:
+            elif p is s.signal._plot.signal_plot:
                 axis = p.axes_manager.signal_axes[0]
+            else:
+                return
             vals = (xd,)
             ind = (v2i(axis, xd),)
             units = [axis.units]
