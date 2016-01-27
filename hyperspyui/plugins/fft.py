@@ -296,12 +296,10 @@ class FFT_Plugin(Plugin):
                 sigp.axes_manager = s.axes_manager
                 sigp.data_function = data_function
 
-            def update():   # Wrapper as sigp.updatewould be passed values
-                sigp.update()
-            s.axes_manager.connect(update)
+            s.axes_manager.events.indices_changed.connect(sigp.update, [])
 
             def on_closing():
-                s.axes_manager.disconnect(update)
+                s.axes_manager.events.indices_changed.disconnect(sigp.update)
             fft_wrapper.closing.connect(on_closing)
 
         setup_live.i = 0
