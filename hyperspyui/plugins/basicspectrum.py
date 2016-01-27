@@ -134,7 +134,6 @@ class BasicSpectrumPlugin(Plugin):
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.Spectrum, self.ui))
 
-
     def create_menu(self):
         self.add_menuitem("Model", self.ui.actions['plot_components'])
         self.add_menuitem("Model",
@@ -203,11 +202,14 @@ class BasicSpectrumPlugin(Plugin):
         model = model or self.ui.get_selected_model()
         if model is None:
             return
+        self.record_code("model = ui.get_selected_model()")
         current = model._plot_components
         if current:
             model.disable_plot_components()
+            self.record_code("model.disable_plot_components()")
         else:
             model.enable_plot_components()
+            self.record_code("model.enable_plot_components()")
 
     def _adjust_components_state_update(self, win, action):
         model = self.ui.get_selected_model()
@@ -222,11 +224,14 @@ class BasicSpectrumPlugin(Plugin):
         model = model or self.ui.get_selected_model()
         if model is None:
             return
+        self.record_code("model = ui.get_selected_model()")
         current = bool(model._position_widgets)
         if current:
             model.disable_adjust_position()
+            self.record_code("model.disable_adjust_position()")
         else:
             model.enable_adjust_position()
+            self.record_code("model.enable_adjust_position()")
 
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
@@ -266,6 +271,13 @@ class BasicSpectrumPlugin(Plugin):
         threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()
         s_t = signal.estimate_thickness(threshold)
         s_t.plot()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code(
+            "threshold = signal.estimate_elastic_scattering_threshold().data")
+        self.record_code(
+            "threshold = np.ma.masked_array(threshold, "
+            "np.isnan(threshold)).mean()")
+        self.record_code("thickness = signal.estimate_thickness(threshold)")
 
     # ----------- Filter callbacks --------------
 
