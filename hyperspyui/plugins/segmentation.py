@@ -119,7 +119,7 @@ class Segmentation(Plugin):
         s_seg = Image(data)
         s_seg.plot(cmap=plt_cm.jet)
 
-        roi_str = '[' + ',\n'.join([str(r) for r in rois]) + ']'
+        roi_str = '[' + ',\n'.join(['hs.roi.' + str(r) for r in rois]) + ']'
         self.record_code('segment_rois = ' + roi_str)
         self.record_code('<p>.segment(None, segment_rois)')
 
