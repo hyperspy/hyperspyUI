@@ -39,7 +39,7 @@ class RebinPlugin(Plugin):
 
     def create_actions(self):
         self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
-                        #                        icon='rebin.svg',
+                        icon='rebin.svg',
                         selection_callback=self.ui.select_signal,
                         tip=tr("Rebin the signal"))
 
