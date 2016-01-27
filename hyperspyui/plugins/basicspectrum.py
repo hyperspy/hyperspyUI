@@ -262,7 +262,9 @@ class BasicSpectrumPlugin(Plugin):
 
     def estimate_thickness(self, signal=None):
         signal = signal or self.ui.get_selected_signal()
-        s_t = signal.estimate_thickness(3.0)
+        threshold = signal.estimate_elastic_scattering_threshold().data
+        threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()
+        s_t = signal.estimate_thickness(threshold)
         s_t.plot()
 
     # ----------- Filter callbacks --------------
