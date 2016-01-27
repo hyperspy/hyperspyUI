@@ -53,7 +53,7 @@ class GaussianFilter(Plugin):
 
     def selection_rules(self, win, action):
         """
-        Callback to determine if rotation is valid for the passed window.
+        Callback to determine if filter is valid for the passed window.
         """
         s = win2sig(win, self.ui.signals)
         ok = False
@@ -68,10 +68,30 @@ class GaussianFilter(Plugin):
 
     def gaussian(self, sigma, signal=None, out=None, record=True,
                  *args, **kwargs):
+        """
+        Apply a gaussian smoothing filter to an image signal.
+
+        Uses `skimage.filters.gaussian_filter()` for the actual processing.
+
+        Parameters:
+        -----------
+            sigma : {float}
+                Smoothing factor in units of pixels, i.e a value around 1 is
+                a slight smoothing.
+            signal : {Signal | None}
+                Signal to operate on. If not, it will use the currently
+                selected one
+            out : {Signal | None}
+                Output signal
+            record : {bool}
+                Whether the operation should be recorded or not.
+            Other args are passed to `skimage.filters.gaussian_filter()`.
+        """
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()
+            signal = signal.signal
             if isinstance(axes, basestring):
-                axm = signal.signal.axes_manager
+                axm = signal.axes_manager
                 if axes.startswith("nav"):
                     axes = (axm._axes.index(axm.navigation_axes[0]),
                             axm._axes.index(axm.navigation_axes[1]))
