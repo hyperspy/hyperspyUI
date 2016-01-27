@@ -27,8 +27,8 @@ from matplotlib.widgets import SpanSelector
 
 from hyperspy.components import Gaussian
 try:
-    from hyperspy.components import Gaussian2
-    GaussTypes = (Gaussian, Gaussian2)
+    from hyperspy.components import GaussianHF
+    GaussTypes = (Gaussian, GaussianHF)
     has_gauss_v2 = True
 except ImportError:
     GaussTypes = (Gaussian, )
@@ -133,7 +133,7 @@ class GaussianTool(FigureTool):
             if m.spectrum.metadata.Signal.binned:
                 h /= m.axis.scale
             if has_gauss_v2:
-                g = Gaussian2(height=h * np.sqrt(2 * np.pi), centre=x)
+                g = GaussianHF(height=h * np.sqrt(2 * np.pi), centre=x)
                 g.height.free = False
             else:
                 g = Gaussian(A=h, centre=x)
@@ -161,7 +161,7 @@ class GaussianTool(FigureTool):
         m = mw.model
 
         if has_gauss_v2:
-            g = Gaussian2()
+            g = GaussianHF()
         else:
             g = Gaussian()
         mw.add_component(g)
