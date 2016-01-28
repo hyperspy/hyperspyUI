@@ -258,8 +258,9 @@ class GitSelector(Plugin):
                     # TODO: Check for commits to pull
                     pass
                 else:
-                    import xmlrpclib
-                    pypi = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+                    import xmlrpc.client
+                    pypi = xmlrpc.client.ServerProxy(
+                        'http://pypi.python.org/pypi')
                     found = pypi.package_releases(name)
                     if not found:
                         # Try to capitalize pkg name
