@@ -3,7 +3,7 @@
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "HyperSpyUI Bundle"
 !define PRODUCT_PUBLISHER "HyperSpyUI"
-!define PRODUCT_VERSION "0.6"
+!define PRODUCT_VERSION "0.5"
 !define WHEEL "hyperspyUI-0.5-py2-none-any.whl"
 
 SetCompressor lzma
@@ -281,13 +281,14 @@ Section "HyperSpyUI"
     ; If you want to include binary wheels for prerequisites, or just to enable
     ; offline innstallation, uncomment these lines (and delete line below)
     ; and add the wheels to the .\bundle_prerequisites\wheels\ folder:
-    ;SetOutPath "$TEMP\wheels"
-    ;File ".\bundle_prerequisites\wheels\*.whl"
+    SetOutPath "$TEMP\wheels"
+    File ".\bundle_prerequisites\wheels\*.whl"
     SetOutPath $INSTDIR
 
-    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --compile "$TEMP\${WHEEL}"'
-    ;Delete "$TEMP\${WHEEL}"
-    ;Delete "$TEMP\wheels\*.whl"
+    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" easy_install --upgrade pip'
+    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --find-links="$TEMP\wheels" --compile "$TEMP\${WHEEL}"'
+    Delete "$TEMP\${WHEEL}"
+    Delete "$TEMP\wheels\*.whl"
     Delete "$TEMP\win_bundle_install.bat"
 SectionEnd
 
