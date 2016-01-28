@@ -237,29 +237,21 @@ class BasicSpectrumPlugin(Plugin):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
                                                tr("Low loss")])
         self.record_code("<p>.fourier_ratio()")
-        if signals is not None:
-            s_core, s_lowloss = signals
+        if signals is None:
+            return
+        s_core, s_lowloss = signals
+        title = s_core.name + "[Fourier-ratio]"
+        s_core, s_lowloss = s_core.signal, s_lowloss.signal
 
-            # Variable to store return value in
-            ns = Namespace()
-            ns.s_return = None
+        threshold = s_lowloss.estimate_elastic_scattering_threshold().data
+        threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()
 
-#            s_core.signal.remove_background()
-            def run_fr():
-                ns.s_return = s_core.signal.fourier_ratio_deconvolution(
-                    s_lowloss.signal)
-                ns.s_return.data = np.ma.masked_array(
-                    ns.s_return.data,
-                    mask=(np.isnan(ns.s_return.data) |
-                          np.isinf(ns.s_return.data)))
-
-            def fr_complete():
-                ns.s_return.metadata.General.title = \
-                    s_core.name + "[Fourier-ratio]"
-                ns.s_return.plot()
-
-            t = Threaded(self.ui, run_fr, fr_complete)
-            t.run()
+        sdcnv = s_core.fourier_ratio_deconvolution(s_lowloss, threshold)
+        sdcnv.data = np.ma.masked_array(
+            sdcnv.data,
+            mask=(np.isnan(sdcnv.data) | np.isinf(sdcnv.data)))
+        sdcnv.metadata.General.title = title
+        sdcnv.plot()
 
     def remove_background(self, signal=None):
         signal = signal or self.ui.get_selected_signal()
