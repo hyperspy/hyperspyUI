@@ -244,4 +244,3 @@ class MVA_Plugin(Plugin):
         closes the scree and creates the model.
         """
         return self.do_after_scree('bss', signal, n_components)
-                for n in xrange(1, n_component):
