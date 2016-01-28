@@ -30,7 +30,7 @@ from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 from scipy.ndimage import rotate
 import numpy as np
-from hyperspyui.util import win2sig
+from hyperspyui.util import win2sig, dummy_context_manager
 from hyperspyui.signalwrapper import SignalWrapper
 
 
@@ -166,16 +166,22 @@ class ImageRotation_Plugin(Plugin):
             if sig.data.shape != old_shape:
                 old = out.auto_replot
                 out.auto_replot = False
-                out.get_dimensions_from_data()
-                out.auto_replot = old
-                diff = np.array(out.data.shape) - old_shape
-                for i, ax in enumerate(out.axes_manager._axes):
-                    dx = diff[i] * 0.5 * ax.scale
-                    ax.offset -= dx
+                if hasattr(out.axes_manager, 'events') and hasattr(
+                        out.axes_manager.events, 'transformed'):
+                    cm = out.axes_manager.events.transformed.suppress
+                else:
+                    cm = dummy_context_manager
+                with cm():
+                    out.get_dimensions_from_data()
+                    out.auto_replot = old
+                    diff = np.array(out.data.shape) - old_shape
+                    for i, ax in enumerate(out.axes_manager._axes):
+                        dx = diff[i] * 0.5 * ax.scale
+                        ax.offset -= dx
                 # TODO: TAG: Functionality check
                 if hasattr(out.axes_manager, 'events') and hasattr(
-                        out.axes_manager.events, 'axes_changed'):
-                    out.axes_manager.events.axes_changed.trigger(
+                        out.axes_manager.events, 'transformed'):
+                    out.axes_manager.events.transformed.trigger(
                         out.axes_manager)
             # TODO: TAG: Functionality check
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
@@ -315,7 +321,7 @@ class ImageRotationDialog(ExToolWindow):
 
         # TODO: TAG: Functionality check
         if hasattr(signal, 'events') and hasattr(
-                signal.events, 'axes_changed'):
+                signal.events, 'data_changed'):
             if disconnect:
                 signal.events.data_changed.disconnect(f)
             else:

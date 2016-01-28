@@ -27,10 +27,16 @@ from hyperspy.misc.utils import slugify
 from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
 import os
+from contextlib import contextmanager
 
 
 def tr(text):
     return QtCore.QCoreApplication.translate("MainWindow", text)
+
+
+@contextmanager
+def dummy_context_manager(*args, **kwargs):
+    yield
 
 
 def lstrip(string, prefix):
