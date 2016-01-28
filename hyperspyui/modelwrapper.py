@@ -46,7 +46,7 @@ class ModelWrapper(Actionable):
         self.model = model
         self.signal = signal_wrapper
         self.name = name
-        if self.signal.signal is not self.model.spectrum:
+        if self.signal.signal is not self.model.signal:
             raise ValueError("SignalWrapper doesn't match model.signal")
         self.components = {}
         self.update_components()
