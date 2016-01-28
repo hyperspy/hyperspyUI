@@ -164,6 +164,7 @@ def checkout_branch(branch, stream=None):
         pip.download.DownloadProgressBar = WrapDownloadProgressBar
         pip.download.DownloadProgressSpinner = WrapDownloadProgressBarSpinner
         try:
+            ic.main(['--no-deps', '-I', branch])
             ic.main([branch])
         finally:
             (pip.download.DownloadProgressBar,
