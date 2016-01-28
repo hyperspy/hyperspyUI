@@ -54,10 +54,10 @@ def get_github_branches(repo_url):
     The branches are returned in the form of an ordered dictionary, with branch
     names as keys, and source zip URL as value.
     """
-    import urllib.request, urllib.error, urllib.parse
+    import urllib.request
     branch_url = repo_url + '/branches/all'
     res = urllib.request.urlopen(branch_url)
-    html = res.read().decode(resource.headers.get_content_charset())
+    html = res.read().decode(res.headers.get_content_charset())
     names = re.findall(
         '<a href=".*?" class="branch-name css-truncate-target">(.*?)</a>',
         html)
