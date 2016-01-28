@@ -405,6 +405,7 @@ class VisualLogStream(StringIO):
             pos = v.rfind('\n', 0, len(v)-1)
             if pos > 0:
                 self.truncate(pos+1)
+                self.seek(pos+1)
         else:
             StringIO.write(self, s)
             self._ensure_dialog()
