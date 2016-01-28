@@ -199,7 +199,7 @@ class AttributeDict(dict):
         super(AttributeDict, self).__init__(obj)
 
     def __dir__(self):
-        return [slugify(k, True) for k in self.iterkeys()]
+        return [slugify(k, True) for k in self.keys()]
 
     def __repr__(self):
         return "%s(%s)" % (

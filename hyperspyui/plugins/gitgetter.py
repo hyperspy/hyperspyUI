@@ -208,7 +208,7 @@ class GitSelector(Plugin):
             tip="Check for new versions of HyperSpy/HyperSpyUI",)
 
     def _check_git(self):
-        for package_name in self.packages.iterkeys():
+        for package_name in self.packages.keys():
             if check_git_repo(package_name.lower()):
                 git_ok = use_git
                 if git_ok:
