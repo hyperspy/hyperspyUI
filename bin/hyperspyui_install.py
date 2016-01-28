@@ -116,7 +116,7 @@ if platform.system().lower() == 'windows':
                                     "A Graphical interface for HyperSpy",
                                     os.path.join(path, shortcut_filename),
                                     script_path,
-                                    dirname,
+                                    sys.prefix,
                                     icon_path)
             except IOError as e:
                 desktop_path = get_special_folder_path(
@@ -129,7 +129,7 @@ if platform.system().lower() == 'windows':
                                     "A Graphical interface for HyperSpy",
                                     os.path.join(path, shortcut_filename),
                                     script_path,
-                                    dirname,
+                                    sys.prefix,
                                     icon_path)
 
         if filetypes:

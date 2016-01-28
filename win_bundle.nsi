@@ -297,7 +297,7 @@ SectionGroup /e "Register HyperSpyUI"
         SetOutPath $INSTDIR
         Push $R0
         ${GetPythonDir} $R0
-        ExecWait '"$R0\python.exe" "$R0\Scripts\hyperspyui_install.py"'
+        ExecWait '"$R0\python.exe" "$R0\Scripts\hyperspyui_install.py -filetypes"'
         Pop $R0
     SectionEnd
     SectionGroup "Register filetypes"
