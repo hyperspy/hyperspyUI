@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Mon May 04 17:30:36 2015
 
@@ -38,11 +54,12 @@ class EELSDBPlugin(Plugin):
         self.view = None
 
     def create_actions(self):
-        self.add_action(self.name + '.default', "Browse", self.default,
-                        tip="")
+        self.add_action(self.name + '.browse', "Browse", self.default,
+                        tip="Browse the EELSDB online database of standard"
+                        "EEL spectra")
 
     def create_menu(self):
-        self.add_menuitem('EELSDB', self.ui.actions[self.name + '.default'])
+        self.add_menuitem('EELSDB', self.ui.actions[self.name + '.browse'])
 
     def _make_request(self, url):
         request = QNetworkRequest()
@@ -104,6 +121,7 @@ class EELSDBPlugin(Plugin):
         finally:
             f.close()
             os.remove(fn)
+        self.record_code("<p>.download(url='%s')" % url)
 
     def default(self):
         if self.window is None:

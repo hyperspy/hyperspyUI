@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sun Apr 12 17:43:47 2015
 
@@ -9,6 +25,24 @@ import sys
 import os
 import platform
 import subprocess
+
+
+import argparse
+
+parser = argparse.ArgumentParser(
+    description='Install HyperspyUI into the OS')
+parser.add_argument('-remove', action="store_true", help='uninstall flag')
+parser.add_argument('-no-shortcuts', action="store_true",
+                    help='do not create shortcuts')
+parser.add_argument('-filetypes', dest='filetypes', nargs='*',
+                    default=['hdf5', 'msa', 'dens', 'blo'],
+                    help='filetypes to register with HyperspyUI')
+
+args = parser.parse_args()
+filetypes = args.filetypes
+for i, f in enumerate(filetypes):
+    if not 'a'.startswith('.'):
+        filetypes[i] = '.' + f
 
 
 if platform.system().lower() == 'windows':
@@ -56,17 +90,6 @@ if platform.system().lower() == 'windows':
                     return shell.SHGetSpecialFolderPath(0, csidl, False)
             raise ValueError("%s is an unknown path ID" % (path_name,))
 
-    # import sys
-    # import win32com.shell.shell as shell
-    # ASADMIN = 'asadmin'
-    #
-    # if sys.argv[-1] != ASADMIN:
-    #    script = os.path.abspath(sys.argv[0])
-    #    params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
-    #    shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable,
-    #                         lpParameters=params)
-    #    sys.exit(0)
-
     pyw_executable = os.path.join(sys.prefix, "pythonw.exe")
 
     shortcut_filename = "HyperSpyUI.lnk"
@@ -75,72 +98,77 @@ if platform.system().lower() == 'windows':
     script_path = os.path.join(dirname, "launch.py")
     icon_path = os.path.join(dirname, 'images', 'icon', 'hyperspy.ico')
 
-    if (len(sys.argv) <= 1) or (sys.argv[1] != '-remove'):
-        # Get paths to the desktop and start menu
-        print('Creating Shortcuts')
-        try:
-            desktop_path = get_special_folder_path(
-                "CSIDL_COMMON_DESKTOPDIRECTORY")
-            startmenu_path = get_special_folder_path("CSIDL_COMMON_STARTMENU")
-
-            # Create shortcuts.
-            for path in [desktop_path, startmenu_path]:
-                create_shortcut(pyw_executable,
-                                "A Graphical interface for HyperSpy",
-                                os.path.join(path, shortcut_filename),
-                                script_path,
-                                dirname,
-                                icon_path)
-        except IOError as e:
-            desktop_path = get_special_folder_path("CSIDL_DESKTOPDIRECTORY")
-            startmenu_path = get_special_folder_path("CSIDL_STARTMENU")
-
-            # Create shortcuts.
-            for path in [desktop_path, startmenu_path]:
-                create_shortcut(pyw_executable,
-                                "A Graphical interface for HyperSpy",
-                                os.path.join(path, shortcut_filename),
-                                script_path,
-                                dirname,
-                                icon_path)
-
-        d = dirname
-        docname = "HyperSpy.Document"
-        filetypes = ['.msa', '.hdf5', '.dens', '.blo']
-
-        # Setup default icon
-        cmd = r'1>nul 2>nul REG ADD "HKCR\%s\DefaultIcon" ' % docname
-        cmd += '/t REG_SZ /f /d ' + d + r'\images\icon\hyperspy.ico'
-
-        # Try to register for all users (requires admin)
-        r = subprocess.call(cmd, shell=True)
-        cmds = []
-        if r == 0:  # Everything OK, we're admin. Use ASSOC and FTYPE
-            for ft in filetypes:
-                cmds.append(r'1>nul 2>nul ASSOC %s=%s' % (ft, docname))
-            cmds.append(r'1>nul 2>nul FTYPE ' +
-                        r'{0}="%PYTHONPATH%pythonw.exe" '.format(docname) +
-                        d + r'\launch.py "%1" %*')
-        else:
-            # Not admin. We have to add everything to HKCU
-            cmd = (r'1>nul 2>nul REG ADD ' +
-                   '"HKCU\Software\Classes\%s\DefaultIcon' % docname) + \
-                   r'" /t REG_SZ /f /d '
-            cmd += d + r'\images\icon\hyperspy.ico'
-            cmds.append(cmd)
-            for ft in filetypes:
-                cmds.append(
-                    (r'1>nul 2>nul REG ADD "HKCU\Software\Classes\%s" ' % ft) +
-                    (r'/v "" /t REG_SZ /d "%s" /f' % docname))
-            cmds.append(
-                r'1>nul 2>nul REG ADD ' +
-                (r'"HKCU\Software\Classes\%s\shell\open\command"' % docname) +
-                r' /v "" /t REG_EXPAND_SZ /d "\"%PYTHONPATH%pythonw.exe\" ' +
-                d + r'\launch.py \"%1\" %*" /f')
-
-        for cmd in cmds:
-            r = subprocess.call(cmd, shell=True)
-            r
-        print("File types registered")
-    elif len(sys.argv) > 0 and sys.argv[1] == '-remove':
+    if args.remove:
         pass    # Should we delete registry entries? Maybe if not edited?
+    else:
+        if not args.no_shortcuts:
+            # Get paths to the desktop and start menu
+            print('Creating Shortcuts')
+            try:
+                desktop_path = get_special_folder_path(
+                    "CSIDL_COMMON_DESKTOPDIRECTORY")
+                startmenu_path = get_special_folder_path(
+                    "CSIDL_COMMON_STARTMENU")
+
+                # Create shortcuts.
+                for path in [desktop_path, startmenu_path]:
+                    create_shortcut(pyw_executable,
+                                    "A Graphical interface for HyperSpy",
+                                    os.path.join(path, shortcut_filename),
+                                    script_path,
+                                    dirname,
+                                    icon_path)
+            except IOError as e:
+                desktop_path = get_special_folder_path(
+                    "CSIDL_DESKTOPDIRECTORY")
+                startmenu_path = get_special_folder_path("CSIDL_STARTMENU")
+
+                # Create shortcuts.
+                for path in [desktop_path, startmenu_path]:
+                    create_shortcut(pyw_executable,
+                                    "A Graphical interface for HyperSpy",
+                                    os.path.join(path, shortcut_filename),
+                                    script_path,
+                                    dirname,
+                                    icon_path)
+
+        if filetypes:
+            d = dirname
+            docname = "HyperSpy.Document"
+
+            # Setup default icon
+            cmd = r'1>nul 2>nul REG ADD "HKCR\%s\DefaultIcon" ' % docname
+            cmd += '/t REG_SZ /f /d "' + d + r'\images\icon\hyperspy.ico"'
+
+            # Try to register for all users (requires admin)
+            r = subprocess.call(cmd, shell=True)
+            cmds = []
+            if r == 0:  # Everything OK, we're admin. Use ASSOC and FTYPE
+                for ft in filetypes:
+                    cmds.append(r'1>nul 2>nul ASSOC %s=%s' % (ft, docname))
+                cmds.append(r'1>nul 2>nul FTYPE ' +
+                            r'{0}="{1}" '.format(docname, pyw_executable) +
+                            d + r'\launch.py "%1" %*')
+            else:
+                # Not admin. We have to add everything to HKCU manually
+                cmd = (r'1>nul 2>nul REG ADD ' +
+                       r'"HKCU\Software\Classes\%s\DefaultIcon"' % docname) + \
+                       r' /t REG_SZ /f /d "'
+                cmd += d + r'\images\icon\hyperspy.ico"'
+                cmds.append(cmd)
+                for ft in filetypes:
+                    cmds.append(
+                        (r'1>nul 2>nul REG ADD "HKCU\Software\Classes\%s" ' %
+                         ft) +
+                        (r'/v "" /t REG_SZ /d "%s" /f' % docname))
+                cmds.append(
+                    r'1>nul 2>nul REG ADD ' +
+                    (r'"HKCU\Software\Classes\%s\shell\open\command"' %
+                     docname) +
+                    r' /v "" /t REG_EXPAND_SZ /d ' +
+                    (r'"\"%s\" ' % pyw_executable) +
+                    d + r'\launch.py \"%1\" %*" /f')
+
+            for cmd in cmds:
+                r = subprocess.call(cmd, shell=True)
+            print("File types registered: ", filetypes)

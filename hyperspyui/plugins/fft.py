@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Fri Dec 12 23:43:54 2014
 
@@ -280,12 +296,10 @@ class FFT_Plugin(Plugin):
                 sigp.axes_manager = s.axes_manager
                 sigp.data_function = data_function
 
-            def update():   # Wrapper as sigp.updatewould be passed values
-                sigp.update()
-            s.axes_manager.connect(update)
+            s.axes_manager.events.indices_changed.connect(sigp.update, [])
 
             def on_closing():
-                s.axes_manager.disconnect(update)
+                s.axes_manager.events.indices_changed.disconnect(sigp.update)
             fft_wrapper.closing.connect(on_closing)
 
         setup_live.i = 0

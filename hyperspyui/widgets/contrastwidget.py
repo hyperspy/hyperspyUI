@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Wed Oct 29 16:49:48 2014
 
@@ -11,10 +27,8 @@ from QtCore import *
 from QtGui import *
 
 from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
-from hyperspy.drawing.mpl_he import MPL_HyperExplorer
-from hyperspy.drawing.image import ImagePlot
 from hyperspy.misc.rgb_tools import rgbx2regular_array
-from hyperspyui.util import win2fig
+from hyperspyui.util import win2fig, fig2image_plot
 
 import numpy as np
 from matplotlib.colors import Normalize, SymLogNorm
@@ -22,19 +36,6 @@ from matplotlib.colors import Normalize, SymLogNorm
 
 def tr(text):
     return QCoreApplication.translate("ContrastWidget", text)
-
-
-def fig2plot(fig, signals):
-    for s in signals:
-        p = s.signal._plot
-        if isinstance(p, MPL_HyperExplorer):
-            if isinstance(p.signal_plot, ImagePlot):
-                if p.signal_plot.figure is fig:
-                    return p.signal_plot
-            elif isinstance(p.navigator_plot, ImagePlot):
-                if p.navigator_plot.figure is fig:
-                    return p.navigator_plot
-    return None
 
 
 class ContrastWidget(FigureWidget):
@@ -54,7 +55,7 @@ class ContrastWidget(FigureWidget):
             figure = win2fig(figure)
 
         signals = self.parent().signals
-        p = fig2plot(figure, signals)
+        p = fig2image_plot(figure, signals)
         self._cur_plot = p
         self.update_controls_from_fig()
 

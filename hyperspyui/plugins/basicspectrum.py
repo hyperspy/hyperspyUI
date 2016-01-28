@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sun Mar 01 15:20:55 2015
 
@@ -39,34 +55,97 @@ class BasicSpectrumPlugin(Plugin):
     name = "Basic spectrum tools"
 
     def create_actions(self):
-        self.add_action('remove_background', "Remove Background",
-                        self.remove_background,
-                        icon='power_law.svg',
-                        tip="Interactively define the background, and " +
-                            "remove it",
+        self.add_action(
+            'plot_components', tr("Plot components"),
+            self.plot_components,
+            icon=None,
+            tip=tr("Plot the individual components of the model"),
+            selection_callback=self._plot_components_state_update)
+        self.actions['plot_components'].setCheckable(True)
+
+        self.add_action(
+            'adjust_component_position', tr("Adjust component positions"),
+            self.adjust_component_position,
+            icon=None,
+            tip=tr("Adjust the position of the components interactively"),
+            selection_callback=self._adjust_components_state_update)
+        self.actions['adjust_component_position'].setCheckable(True)
+
+        self.add_action(
+            'remove_background', tr("Remove Background"),
+            self.remove_background,
+            icon='power_law.svg',
+            tip=tr("Interactively define the background, and remove it"),
+            selection_callback=SignalTypeFilter(
+                hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('fourier_ratio', tr("Fourier Ratio Deconvoloution"),
+                        self.fourier_ratio,
+                        icon='fourier_ratio.svg',
+                        tip=tr("Use the Fourier-Ratio method to deconvolve "
+                               "one signal from another"),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.EELSSpectrum, self.ui))
+
+        self.add_action('estimate_thickness', tr("Estimate thickness"),
+                        self.estimate_thickness,
+                        icon="t_over_lambda.svg",
+                        tip=tr("Estimates the thickness (relative to the "
+                               "mean free path) of a sample using the "
+                               "log-ratio method."),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.EELSSpectrum, self.ui))
+
+        # -------------- Filter actions -----------------
+
+        self.add_action('smooth_savitzky_golay', tr("Smooth Savitzky-Golay"),
+                        self.smooth_savitzky_golay,
+                        icon=None,
+                        tip=tr("Apply a Savitzky-Golay filter"),
                         selection_callback=SignalTypeFilter(
                             hyperspy.signals.Spectrum, self.ui))
 
-        self.add_action('fourier_ratio', "Fourier Ratio Deconvoloution",
-                        self.fourier_ratio,
-                        icon='fourier_ratio.svg',
-                        tip="Use the Fourier-Ratio method" +
-                        " to deconvolve one signal from another",
+        self.add_action('smooth_lowess', tr("Smooth Lowess"),
+                        self.smooth_lowess,
+                        icon=None,
+                        tip=tr("Apply a Lowess smoothing filter"),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.EELSSpectrum, self.ui))
+                            hyperspy.signals.Spectrum, self.ui))
 
-        self.add_action('estimate_thickness', "Estimate thickness",
-                        self.estimate_thickness,
-                        icon="t_over_lambda.svg",
-                        tip="Estimates the thickness (relative to the mean " +
-                        "free path) of a sample using the log-ratio method.",
+        self.add_action('smooth_tv', tr("Smooth Total variation"),
+                        self.smooth_tv,
+                        icon=None,
+                        tip=tr("Total variation data smoothing"),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.EELSSpectrum, self.ui))
+                            hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('filter_butterworth', tr("Butterworth filter"),
+                        self.filter_butterworth,
+                        icon=None,
+                        tip=tr("Apply a Butterworth filter"),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
+
+        self.add_action('hanning_taper', tr("Hanning taper"),
+                        self.hanning_taper,
+                        icon=None,
+                        tip=tr("Apply a Hanning taper to both ends of the "
+                               "data."),
+                        selection_callback=SignalTypeFilter(
+                            hyperspy.signals.Spectrum, self.ui))
 
     def create_menu(self):
+        self.add_menuitem("Model", self.ui.actions['plot_components'])
+        self.add_menuitem("Model",
+                          self.ui.actions['adjust_component_position'])
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
+        self.add_menuitem("Filter", self.ui.actions['smooth_savitzky_golay'])
+        self.add_menuitem("Filter", self.ui.actions['smooth_lowess'])
+        self.add_menuitem("Filter", self.ui.actions['smooth_tv'])
+        self.add_menuitem("Filter", self.ui.actions['filter_butterworth'])
+        self.add_menuitem("Filter", self.ui.actions['hanning_taper'])
 
     def create_toolbars(self):
         self.add_toolbar_button("EELS", self.ui.actions['remove_background'])
@@ -75,6 +154,7 @@ class BasicSpectrumPlugin(Plugin):
 
     def create_tools(self):
         try:
+            # Import for functionality test
             from hyperspy.misc.eds.utils import get_xray_lines_near_energy as _
             self.picker_tool = ElementPickerTool()
             self.picker_tool.picked[str].connect(self.pick_element)
@@ -109,9 +189,54 @@ class BasicSpectrumPlugin(Plugin):
         if not wp.chk_markers.isChecked():
             wp.chk_markers.setChecked(True)
 
+    def _plot_components_state_update(self, win, action):
+        model = self.ui.get_selected_model()
+        action.setEnabled(model is not None)
+        if model is not None:
+            action.setChecked(model._plot_components)
+
+    def plot_components(self, model=None):
+        """
+        Plot the function of each component together with the model.
+        """
+        model = model or self.ui.get_selected_model()
+        if model is None:
+            return
+        self.record_code("model = ui.get_selected_model()")
+        current = model._plot_components
+        if current:
+            model.disable_plot_components()
+            self.record_code("model.disable_plot_components()")
+        else:
+            model.enable_plot_components()
+            self.record_code("model.enable_plot_components()")
+
+    def _adjust_components_state_update(self, win, action):
+        model = self.ui.get_selected_model()
+        action.setEnabled(model is not None)
+        if model is not None:
+            action.setChecked(bool(model._position_widgets))
+
+    def adjust_component_position(self, model=None):
+        """
+        Add widgets to adjust the position of the components in the model.
+        """
+        model = model or self.ui.get_selected_model()
+        if model is None:
+            return
+        self.record_code("model = ui.get_selected_model()")
+        current = bool(model._position_widgets)
+        if current:
+            model.disable_adjust_position()
+            self.record_code("model.disable_adjust_position()")
+        else:
+            model.enable_adjust_position()
+            self.record_code("model.enable_adjust_position()")
+
     def fourier_ratio(self):
         signals = self.ui.select_x_signals(2, [tr("Core loss"),
                                                tr("Low loss")])
+        self.record_code("<p>.fourier_ratio()")
         if signals is not None:
             s_core, s_lowloss = signals
 
@@ -137,15 +262,59 @@ class BasicSpectrumPlugin(Plugin):
             t.run()
 
     def remove_background(self, signal=None):
-        if signal is None:
-            signal = self.ui.get_selected_wrapper()
-        signal.signal.remove_background()
+        signal = signal or self.ui.get_selected_signal()
+        signal.remove_background()
 
-    def estimate_thickness(self):
-        ui = self.ui
-        s = ui.get_selected_signal()
-        s_t = s.estimate_thickness(3.0)
+    def estimate_thickness(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        threshold = signal.estimate_elastic_scattering_threshold().data
+        threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()
+        s_t = signal.estimate_thickness(threshold)
         s_t.plot()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code(
+            "threshold = signal.estimate_elastic_scattering_threshold().data")
+        self.record_code(
+            "threshold = np.ma.masked_array(threshold, "
+            "np.isnan(threshold)).mean()")
+        self.record_code("thickness = signal.estimate_thickness(threshold)")
+
+    # ----------- Filter callbacks --------------
+
+    def smooth_savitzky_golay(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.smooth_savitzky_golay()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.smooth_savitzky_golay()")
+
+    def smooth_lowess(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.smooth_lowess()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.smooth_lowess()")
+
+    def smooth_tv(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.smooth_tv()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.smooth_tv()")
+
+    def filter_butterworth(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.filter_butterworth()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.filter_butterworth()")
+
+    def hanning_taper(self, signal=None):
+        signal = signal or self.ui.get_selected_signal()
+        if signal is not None:
+            signal.hanning_taper()
+            self.record_code("signal = ui.get_selected_signal()")
+            self.record_code("signal.hanning_taper()")
 
 
 class ElementPickerTool(SignalFigureTool):

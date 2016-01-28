@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Tue Nov 04 16:25:54 2014
 
@@ -11,6 +27,8 @@ from python_qt_binding import QtCore, QtGui
 import hyperspy.models.eelsmodel
 from .actionable import Actionable
 from functools import partial
+
+from hyperspyui.widgets.stringinput import StringInputDialog
 
 # TODO: Add smartfit for EELSModel
 
@@ -58,31 +76,60 @@ class ModelWrapper(Actionable):
     def update_plot(self):
         self.model.update_plot()
 
-    def fit(self):
-        self.signal.keep_on_close = True
-        self.model.fit()
-        self.signal.keep_on_close = False
-        self.signal.update_figures()
+    def record_code(self, code):
+        self.signal.mainwindow.record_code("model = ui.get_selected_model()")
+        self.signal.mainwindow.record_code(code)
 
-    def multifit(self):
+    def _args_for_record(self, args, kwargs):
+        argstr = str(args)[1:-1]
+        kwargstr = str(kwargs)[1:-1]
+        kwargstr = kwargstr.replace(": ", "=")
+        if argstr and kwargstr:
+            return ", ".join((argstr, kwargstr))
+        else:
+            return argstr + kwargstr
+
+    def fit(self, *args, **kwargs):
         self.signal.keep_on_close = True
-        self.model.multifit()
+        self.model.fit(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
+        self.record_code("model.fit(%s)" %
+                         self._args_for_record(args, kwargs))
+
+    def multifit(self, *args, **kwargs):
+        self.signal.keep_on_close = True
+        self.model.multifit(*args, **kwargs)
+        self.signal.keep_on_close = False
+        self.signal.update_figures()
+        self.record_code("model.multifit(%s)" %
+                         self._args_for_record(args, kwargs))
+
+    def smartfit(self, *args, **kwargs):
+        if hasattr(self.model, 'smartfit'):
+            self.signal.keep_on_close = True
+            self.model.smartfit(*args, **kwargs)
+            self.signal.keep_on_close = False
+            self.signal.update_figures()
+            self.record_code("model.smartfit(%)" %
+                             self._args_for_record(args, kwargs))
 
     def fit_component(self, component):
         # This is a non-blocking call, which means the normal keep_on_close +
         # update_figures won't work. To make sure we keep our figures,
         # we force a plot first if it is not active already.
-        if not self.model._plot.is_active():
+        if not self.model.signal._plot.is_active():
             self.plot()
         self.model.fit_component(component)
+        self.record_code("model.fit_component(%s)" % component.name)
 
     def set_signal_range(self, *args, **kwargs):
         self.signal.keep_on_close = True
         self.model.set_signal_range(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
+        self.record_code("model.set_signal_range(%s)" %
+                         self._args_for_record(args, kwargs))
 
     def set_lowloss(self, signal=None):
         if signal is None:
@@ -91,6 +138,7 @@ class ModelWrapper(Actionable):
             if signal is None:
                 return
         self.model.lowloss = signal.signal
+        self.record_code("model.set_lowloss(low_loss_signal)")
 
     def toggle_fine_structure(self):
         if not isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
@@ -100,10 +148,12 @@ class ModelWrapper(Actionable):
             self.model.disable_fine_structure()
             self.actions['fine_structure'].setText(
                 tr("Enable fine &structure"))
+            self.record_code("model.disable_fine_structure()")
         else:
             self.model.enable_fine_structure()
             self.actions['fine_structure'].setText(
                 tr("Disable fine &structure"))
+            self.record_code("model.enable_fine_structure()")
         self.fine_structure_enabled = not self.fine_structure_enabled
 
     def update_components(self):
@@ -132,12 +182,21 @@ class ModelWrapper(Actionable):
                 raise TypeError(
                     tr("Component of type %s currently not supported")
                     % component)
-            component = component()
+            elif component.__name__ == 'Expression':
+                dlg = StringInputDialog(prompt="Enter expression:")
+                expression = dlg.prompt_modal(rejection=None)
+                if expression:
+                    component = component(expression, 'Expression')
+                else:
+                    return
+            else:
+                component = component()
 
         added = False
         if component not in self.model:
             self.model.append(component)
             added = True
+            self.record_code("model.append(%s)" % component.name)
         if component.name not in self.components:
             self.components[component.name] = component
             added = True
@@ -148,6 +207,7 @@ class ModelWrapper(Actionable):
         removed = False
         if component in self.model:
             self.model.remove(component)
+            self.record_code("model.remove(%s)" % component.name)
             removed = True
         if component.name in self.components:
             self.components.pop(component.name)

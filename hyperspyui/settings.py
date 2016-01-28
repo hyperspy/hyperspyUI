@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sat Dec 27 14:21:00 2014
 
@@ -34,10 +50,15 @@ class Settings(object):
         if key not in self:
             groupings.insert(0, 'defaults')
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
-        ret = settings.value(key, t)
+        ret = settings.value(key)
+        if t and isinstance(t, type):
+            if t is bool:
+                ret = ("true" == ret.lower())
+            else:
+                ret = t(ret)
         for g in groupings:
             settings.endGroup()
         return ret
@@ -45,7 +66,7 @@ class Settings(object):
     def __setitem__(self, key, value):
         groupings = self._get_groups(key)
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)
@@ -55,7 +76,7 @@ class Settings(object):
     def __contains__(self, key):
         groupings = self._get_groups(key)
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         r = settings.contains(key)
@@ -64,7 +85,7 @@ class Settings(object):
         return r
 
     def __iter__(self):
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         settings.beginGroup(self.group)
         keys = settings.allKeys()
         for k in keys:
@@ -105,7 +126,7 @@ class Settings(object):
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')
         inner_key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         default_value = settings.value(inner_key)
@@ -125,12 +146,47 @@ class Settings(object):
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')
         key = groupings.pop()
-        settings = QSettings(self.parent)
+        settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)
         for g in groupings:
             settings.endGroup()
+
+    def set_enum_hint(self, key, options):
+        """
+        Indicate possible values for a setting.
+
+        The `options` are not strictly enforced, but can be used to indicate
+        valid values to the user. A typical usecase is to allow the use of a
+        combobox in a dialog to pick a value.
+        """
+        groupings = self._get_groups(key)
+        groupings.insert(0, 'defaults')
+        key = groupings.pop()
+        key = '_' + key + '_options'    # Change key to avoid conflicts
+        settings = QSettings(parent=self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        settings.setValue(key, options)
+        for g in groupings:
+            settings.endGroup()
+
+    def get_enum_hint(self, key):
+        """
+        Returns the enum hint if set, otherwise None.
+        """
+        groupings = self._get_groups(key)
+        groupings.insert(0, 'defaults')
+        key = groupings.pop()
+        key = '_' + key + '_options'    # Change key to avoid conflicts
+        settings = QSettings(parent=self.parent)
+        for g in groupings:
+            settings.beginGroup(g)
+        value = settings.value(key)
+        for g in groupings:
+            settings.endGroup()
+        return value
 
     def get_or_prompt(self, key, options, title="Prompt", descr=""):
         """

@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sun Dec 07 01:48:00 2014
 
@@ -16,9 +32,9 @@ class FigureTool(Tool):
     def __init__(self, windows=None):
         super(FigureTool, self).__init__()
         self.cids = {}
+        self.cursor = self.make_cursor()
         if self.single_action() is not None:
             self.connect_windows(windows)
-        self.cursor = self.make_cursor()
 
     def make_cursor(self):
         """

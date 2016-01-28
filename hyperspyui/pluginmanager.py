@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sat Dec 13 00:41:15 2014
 
@@ -12,6 +28,7 @@ import warnings
 import traceback
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.settings import Settings
+from hyperspyui.util import AttributeDict
 
 
 class ReadOnlyDict(dict):
@@ -46,7 +63,7 @@ class PluginManager(object):
         """
         Initializates the manager, and performs discovery of plugins
         """
-        self.plugins = {}
+        self.plugins = AttributeDict()
         self.ui = main_window
         self._enabled = {}
         self.settings = Settings(self.ui, group="PluginManager/enabled")
@@ -163,7 +180,7 @@ class PluginManager(object):
         if self.settings[p_type.name] is None:
             # Init setting to True on first encounter
             self.settings[p_type.name] = True
-        enabled = (self.settings[p_type.name].lower() == "true")
+        enabled = self.settings[p_type.name, bool]
         self._enabled[p_type.name] = (enabled, p_type)
         if enabled:
             # Init

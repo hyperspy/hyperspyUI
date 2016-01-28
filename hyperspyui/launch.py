@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Tue Nov 25 02:10:29 2014
 
@@ -20,13 +36,11 @@ import locale
 # TODO: Add xray 3rd state: Element present, but not used for maps
 # TODO: Add xray background window tool for modifying those by auto
 # TODO: Add quantification button. Needs k-factor setup.
-# TODO: Add EELSDB widget plugin
 # TODO: Create contributed plugins repository with UI integrated hot-load
 # TODO: Auto-resize font in Periodic table
 # TODO: Utilities to combine signals into stack and reverse
 # TODO: Make editor tabs drag&droppable + default to all in one
 # TODO: Make data type changer handle RGBX data types.
-# TODO: Put licensing info in the right places
 # TODO: Metadata explorer (TreeView)
 # TODO: Variable explorer (Signal/Model etc.). 3rd party library?
 # TODO: Disable tools when no figure
@@ -52,7 +66,7 @@ def main():
     # Setup default for single/multi-instance
     settings = Settings(group="General")
     settings.set_default('allow_multiple_instances', False)
-    if settings['allow_multiple_instances']:
+    if settings['allow_multiple_instances', bool]:
         # Using multiple instances, get a new application
         app = QtGui.QApplication(sys.argv)
     else:
@@ -77,13 +91,15 @@ def main():
     from hyperspyui.mainwindow import MainWindow
 
     form = MainWindow()
-    if QT_BINDING == 'pyqt':
-        app.messageAvailable.connect(form.handleSecondInstance)
-    elif QT_BINDING == 'pyside':
-        app.messageReceived.connect(form.handleSecondInstance)
+    if not settings['allow_multiple_instances', bool]:
+        if QT_BINDING == 'pyqt':
+            app.messageAvailable.connect(form.handleSecondInstance)
+        elif QT_BINDING == 'pyside':
+            app.messageReceived.connect(form.handleSecondInstance)
     form.showMaximized()
 
     splash.finish(form)
+    form.load_complete.emit()
 
     app.exec_()
 

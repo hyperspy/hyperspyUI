@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sun Dec 07 10:30:08 2014
 
@@ -11,8 +27,8 @@ from matplotlib.widgets import SpanSelector
 
 from hyperspy.components import Gaussian
 try:
-    from hyperspy.components import Gaussian2
-    GaussTypes = (Gaussian, Gaussian2)
+    from hyperspy.components import GaussianHF
+    GaussTypes = (Gaussian, GaussianHF)
     has_gauss_v2 = True
 except ImportError:
     GaussTypes = (Gaussian, )
@@ -117,7 +133,7 @@ class GaussianTool(FigureTool):
             if m.spectrum.metadata.Signal.binned:
                 h /= m.axis.scale
             if has_gauss_v2:
-                g = Gaussian2(height=h * np.sqrt(2 * np.pi), centre=x)
+                g = GaussianHF(height=h * np.sqrt(2 * np.pi), centre=x)
                 g.height.free = False
             else:
                 g = Gaussian(A=h, centre=x)
@@ -145,7 +161,7 @@ class GaussianTool(FigureTool):
         m = mw.model
 
         if has_gauss_v2:
-            g = Gaussian2()
+            g = GaussianHF()
         else:
             g = Gaussian()
         mw.add_component(g)

@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Mon Oct 27 18:47:05 2014
 
@@ -7,6 +23,7 @@ Created on Mon Oct 27 18:47:05 2014
 
 
 import hyperspy.components
+from hyperspy.misc.utils import slugify
 from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
 import os
@@ -22,6 +39,14 @@ def lstrip(string, prefix):
             return string[len(prefix):]
 
 
+def debug_trace():
+    '''Set a tracepoint in the Python debugger that works with Qt'''
+    from PyQt4.QtCore import pyqtRemoveInputHook
+    from pdb import set_trace
+    pyqtRemoveInputHook()
+    set_trace()
+
+
 def fig2win(fig, windows):
     # Each figure has FigureCanvas as widget, canvas has figure property
     if fig is None:
@@ -31,6 +56,33 @@ def fig2win(fig, windows):
         return matches[0]
     else:
         return None
+
+
+def fig2image_plot(fig, signals):
+    from hyperspy.drawing.mpl_he import MPL_HyperExplorer
+    from hyperspy.drawing.image import ImagePlot
+    for s in signals:
+        p = s.signal._plot
+        if isinstance(p, MPL_HyperExplorer):
+            if isinstance(p.signal_plot, ImagePlot):
+                if p.signal_plot.figure is fig:
+                    return p.signal_plot
+            elif isinstance(p.navigator_plot, ImagePlot):
+                if p.navigator_plot.figure is fig:
+                    return p.navigator_plot
+    return None
+
+
+def fig2sig(fig, signals):
+    from hyperspy.drawing.mpl_he import MPL_HyperExplorer
+    for s in signals:
+        p = s.signal._plot
+        if isinstance(p, MPL_HyperExplorer):
+            if p.signal_plot and p.signal_plot.figure is fig:
+                return s, p.signal_plot
+            elif p.navigator_plot and p.navigator_plot.figure is fig:
+                return s, p.navigator_plot
+    return None, None
 
 
 def win2fig(window):
@@ -119,9 +171,9 @@ def load_cursor(filename, hotX=-1, hotY=-1):
 def create_add_component_actions(parent, callback, prefix="", postfix=""):
     actions = {}
     compnames = ['Arctan', 'Bleasdale', 'DoubleOffset', 'DoublePowerLaw',
-                 'Erf', 'Exponential', 'Gaussian', 'Gaussian2', 'Logistic',
+                 'Erf', 'Exponential', 'Gaussian', 'GaussianHF', 'Logistic',
                  'Lorentzian', 'Offset', 'PowerLaw', 'SEE', 'RC', 'Vignetting',
-                 'Voigt', 'Polynomial', 'PESCoreLineShape',
+                 'Voigt', 'Polynomial', 'PESCoreLineShape', 'Expression',
                  'VolumePlasmonDrude']
     for name in compnames:
         try:
@@ -137,31 +189,24 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
     return actions
 
 
-class Namespace(dict):
+class AttributeDict(dict):
 
     """A dict subclass that exposes its items as attributes.
-
-    Warning: Namespace instances do not have direct access to the
-    dict methods.
 
     """
 
     def __init__(self, obj={}):
-        super(Namespace, self).__init__(obj)
+        super(AttributeDict, self).__init__(obj)
 
     def __dir__(self):
-        return tuple(self)
+        return [slugify(k, True) for k in self.iterkeys()]
 
     def __repr__(self):
         return "%s(%s)" % (
             type(self).__name__, super(Namespace, self).__repr__())
 
-    def __getattribute__(self, name):
-        try:
-            return self[name]
-        except KeyError:
-            msg = tr("'%s' object has no attribute '%s'")
-            raise AttributeError(msg % (type(self).__name__, name))
+    def __getattr__(self, name):
+        return self[name]
 
     def __setattr__(self, name, value):
         self[name] = value
@@ -169,7 +214,7 @@ class Namespace(dict):
     def __delattr__(self, name):
         del self[name]
 
-    #------------------------
+    # ------------------------
     # "copy constructors"
 
     @classmethod
@@ -191,7 +236,7 @@ class Namespace(dict):
             seq = {name: val for name, val in seq if name in names}
         return cls(seq)
 
-    #------------------------
+    # ------------------------
     # static methods
 
     @staticmethod
@@ -213,3 +258,27 @@ class Namespace(dict):
     @staticmethod
     def delattr(ns, name):
         return object.__delattr__(ns, name)
+
+
+class Namespace(AttributeDict):
+
+    """A dict subclass that exposes its items as attributes.
+
+    Warning: Namespace instances do not have direct access to the
+    dict methods.
+
+    """
+
+    def __init__(self, obj={}):
+        super(Namespace, self).__init__(obj)
+
+    def __repr__(self):
+        return "%s(%s)" % (
+            type(self).__name__, dict.__repr__())
+
+    def __getattribute__(self, name):
+        try:
+            return self[name]
+        except KeyError:
+            msg = tr("'%s' object has no attribute '%s'")
+            raise AttributeError(msg % (type(self).__name__, name))

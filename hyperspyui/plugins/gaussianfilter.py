@@ -1,4 +1,22 @@
-﻿from hyperspyui.plugins.plugin import Plugin
+# -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
+
+from hyperspyui.plugins.plugin import Plugin
 import numpy as np
 from skimage.filters import gaussian_filter
 from hyperspyui.util import win2sig
@@ -35,7 +53,7 @@ class GaussianFilter(Plugin):
 
     def selection_rules(self, win, action):
         """
-        Callback to determine if rotation is valid for the passed window.
+        Callback to determine if filter is valid for the passed window.
         """
         s = win2sig(win, self.ui.signals)
         ok = False
@@ -50,10 +68,30 @@ class GaussianFilter(Plugin):
 
     def gaussian(self, sigma, signal=None, out=None, record=True,
                  *args, **kwargs):
+        """
+        Apply a gaussian smoothing filter to an image signal.
+
+        Uses `skimage.filters.gaussian_filter()` for the actual processing.
+
+        Parameters:
+        -----------
+            sigma : {float}
+                Smoothing factor in units of pixels, i.e a value around 1 is
+                a slight smoothing.
+            signal : {Signal | None}
+                Signal to operate on. If not, it will use the currently
+                selected one
+            out : {Signal | None}
+                Output signal
+            record : {bool}
+                Whether the operation should be recorded or not.
+            Other args are passed to `skimage.filters.gaussian_filter()`.
+        """
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()
+            signal = signal.signal
             if isinstance(axes, str):
-                axm = signal.signal.axes_manager
+                axm = signal.axes_manager
                 if axes.startswith("nav"):
                     axes = (axm._axes.index(axm.navigation_axes[0]),
                             axm._axes.index(axm.navigation_axes[1]))
@@ -88,7 +126,7 @@ class GaussianFilter(Plugin):
                     r"<p>.gaussian({0}, out={1}, {2}, {3})".format(
                         sigma, out, args, kwargs))
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
-                out.events.data_changed.trigger()
+                out.events.data_changed.trigger(out)
 
     def on_dialog_accept(self, dialog):
         self.settings['sigma'] = dialog.num_sigma.value()

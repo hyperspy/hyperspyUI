@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Thu Jul 30 11:35:49 2015
 
@@ -8,7 +24,7 @@ Created on Thu Jul 30 11:35:49 2015
 import os
 
 from hyperspyui.plugins.plugin import Plugin
-from hyperspy.roi  import BaseInteractiveROI
+from hyperspy.roi import BaseInteractiveROI
 from hyperspyui.tools import LineTool
 
 
@@ -24,11 +40,11 @@ class LineMeasure(Plugin):
     def measure(self, roi):
         if self.tool.ndim == 2:
             self.ui.set_status("Line length: %G" % roi.length)
-            print(roi.length)
+
+            s = self.tool._get_signal(self.tool.widget.ax.figure)
+            roi(s).plot()
         else:
             print(roi)
-        # Finished with tool, so turn off
-        self.tool.cancel()
 
     def _continuous_update(self, roi):
         if self.tool.ndim == 2:
@@ -48,4 +64,4 @@ class LineMeasureTool(LineTool):
         return "Line measure"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/crop.svg'
+        return os.path.dirname(__file__) + '/../images/ruler.svg'

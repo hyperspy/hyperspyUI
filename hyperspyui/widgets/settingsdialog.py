@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sun Mar 01 18:26:38 2015
 
@@ -60,6 +76,8 @@ class SettingsDialog(ExToolWindow):
                 v = "true" if widget.isChecked() else "false"
         elif isinstance(widget, (QSpinBox, QDoubleSpinBox)):
             v = widget.value()
+        elif isinstance(widget, QComboBox):
+            v = widget.currentText()
 
         # Compare to initial value:
         if v == self._initial_values[key]:
@@ -94,11 +112,12 @@ class SettingsDialog(ExToolWindow):
         """
         Create a widget for a settings instance, containing label/editor pairs
         for each setting in the current level of the passed QSettings instance.
-        The key of the setting is used as the label, but its capitalized and
+        The key of the setting is used as the label, but it's capitalized and
         underscores are replaced by spaces.
         """
         wrap = QWidget(self)
         form = QFormLayout()
+        hint_lookup = Settings()
         for k in settings.allKeys():
             if k.startswith("_"):
                 continue                                # Ignore hidden keys
@@ -106,8 +125,16 @@ class SettingsDialog(ExToolWindow):
             label = k.capitalize().replace('_', ' ')
             abs_key = settings.group() + '/' + k
             self._initial_values[abs_key] = v           # Store initial value
+            hints = hint_lookup.get_enum_hint(abs_key)  # Check for enum hints
             # Create a fitting editor widget based on value type:
-            if isinstance(v, str):
+            if hints is not None:
+                w = QComboBox()
+                w.addItems(hints)
+                w.setEditable(True)
+                w.setEditText(v)
+                w.editTextChanged.connect(partial(self._on_setting_changed,
+                                                  abs_key, w))
+            elif isinstance(v, str):
                 if v.lower() in ('true', 'false'):
                     w = QCheckBox()
                     w.setChecked(v.lower() == 'true')

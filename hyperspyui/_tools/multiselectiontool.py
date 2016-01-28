@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Mon Aug 03 19:43:52 2015
 
@@ -6,13 +22,11 @@ Created on Mon Aug 03 19:43:52 2015
 """
 
 from python_qt_binding import QtCore
-import os
 
 from hyperspy.signal import Signal
-from hyperspy.drawing.widgets import ResizableDraggableRectangle, \
-    DraggableResizableRange, DraggableSquare, DraggableVerticalLine
-from hyperspy.roi import RectangularROI, SpanROI, \
-    Point1DROI, Point2DROI
+from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
+                                      SquareWidget, VerticalLineWidget)
+from hyperspy.roi import RectangularROI, SpanROI, Point1DROI, Point2DROI
 
 from hyperspyui.tools import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
@@ -71,14 +85,14 @@ class MultiSelectionTool(SignalFigureTool):
             return None
         if self.ndim(signal) == 1:
             if self.ranged:
-                w = DraggableResizableRange(None)
+                w = RangeWidget(None)
             else:
-                w = DraggableVerticalLine(None)
+                w = VerticalLineWidget(None)
         else:
             if self.ranged:
-                w = ResizableDraggableRectangle(None)
+                w = RectangleWidget(None)
             else:
-                w = DraggableSquare(None)
+                w = SquareWidget(None)
         if signal in self.widgets:
             self.widgets[signal].append(w)
         else:
@@ -127,7 +141,7 @@ class MultiSelectionTool(SignalFigureTool):
 
         s = self._get_signal(event.inaxes.figure)
         for w in self.widgets[s]:
-            if w.patch.contains(event)[0] == True:
+            if any([p.contains(event)[0] == True for p in w.patch]):
                 self._remove_widget(w, s)
                 self._on_change(w, s)
 
@@ -159,7 +173,7 @@ class MultiSelectionTool(SignalFigureTool):
         # If we already have widgets, make sure editing is passed through
         if self.have_selection(s):
             for w in self.widgets[s]:
-                if w.patch.contains(event)[0] == True:
+                if any([p.contains(event)[0] == True for p in w.patch]):
                     return              # Moving, handle in widget
             # Clicked outside existing widget, check for resize handles
             if self.ndim(s) > 1:
@@ -181,8 +195,8 @@ class MultiSelectionTool(SignalFigureTool):
         widget.axes = axes
         widget.set_mpl_ax(event.inaxes)  # connects
         if self.ndim(s) == 1:
-            widget.coordinates = (x,)
-            widget.size = 1
+            widget.position = (x,)
+            widget.size = axes[0].scale
             widget.set_on(True)
             if self.ranged:
                 span = widget.span
@@ -193,13 +207,13 @@ class MultiSelectionTool(SignalFigureTool):
             else:
                 widget.picked = True
         else:
-            widget.coordinates = (x, y)
-            widget.size = (1, 1)
+            widget.position = (x, y)
+            widget.size = [ax.scale for ax in axes]
             widget.set_on(True)
             if self.ranged:
-                widget.pick_on_frame = 3
+                widget.resizer_picked = 3
             widget.picked = True
-        widget.events.changed.connect(self._on_change, 1)
+        widget.events.changed.connect(self._on_change)
 
     def _get_rois(self, signal):
         rois = []

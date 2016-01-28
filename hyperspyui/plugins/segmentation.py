@@ -1,3 +1,21 @@
+# -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
+
 from hyperspyui.plugins.plugin import Plugin
 from hyperspy.signal import Signal
 import numpy as np
@@ -101,7 +119,7 @@ class Segmentation(Plugin):
         s_seg = Image(data)
         s_seg.plot(cmap=plt_cm.jet)
 
-        roi_str = '[' + ',\n'.join([str(r) for r in rois]) + ']'
+        roi_str = '[' + ',\n'.join(['hs.roi.' + str(r) for r in rois]) + ']'
         self.record_code('segment_rois = ' + roi_str)
         self.record_code('<p>.segment(None, segment_rois)')
 

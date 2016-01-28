@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Thu Jul 30 11:42:05 2015
 
@@ -7,11 +23,9 @@ Created on Thu Jul 30 11:42:05 2015
 
 
 from python_qt_binding import QtCore
-import os
 import numpy as np
 
-from hyperspy.drawing.widgets import DraggableResizable2DLine, \
-                                     DraggableResizableRange
+from hyperspy.drawing.widgets import Line2DWidget, RangeWidget
 from hyperspy.roi import BaseInteractiveROI, SpanROI, Line2DROI
 
 from hyperspyui.tools import SignalFigureTool
@@ -35,9 +49,9 @@ class LineTool(SignalFigureTool):
 
     def __init__(self, windows=None):
         super(LineTool, self).__init__(windows)
-        self.widget2d = DraggableResizable2DLine(None)
+        self.widget2d = Line2DWidget(None)
         self.widget2d.set_on(False)
-        self.widget1d = DraggableResizableRange(None)
+        self.widget1d = RangeWidget(None)
         self.widget1d.set_on(False)
         self.valid_dimensions = [1, 2]
         self.axes = None
@@ -85,15 +99,12 @@ class LineTool(SignalFigureTool):
         self.axes = axes
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
-            if self.widget.patch.contains(event)[0] == True:
-                return              # Moving, handle in widget
-#            # Clicked outside existing widget, check for resize handles
-#            if self.ndim > 1 and self.widget.resizers:
-#                for r in self.widget._resizer_handles:
-#                    if r.contains(event)[0] == True:
-#                        return      # Leave the event to widget
+            if any([p.contains(event)[0] == True for p in self.widget.patch]):
+                return              # Interacting, handle in widget
             # Cancel previous and start new
             self.cancel()
+            # Cancel reset axes, so set again
+            self.axes = axes
 
         # Find out which axes of Signal are plotted in figure
         s = self._get_signal(event.inaxes.figure)
@@ -107,12 +118,11 @@ class LineTool(SignalFigureTool):
 
         # Have what we need, create widget
         x, y = event.xdata, event.ydata
-        self.widget.axes = axes
         self.widget.set_mpl_ax(event.inaxes)  # connects
         new_widget = not self.is_on()
         if self.ndim == 1:
-            self.widget.coordinates = (x,)
-            self.widget.size = 0
+            self.widget.position = (x,)
+            self.widget.size = axes[0].scale
             self.widget.set_on(True)
             if self.ranged:
                 span = self.widget.span
@@ -123,16 +133,15 @@ class LineTool(SignalFigureTool):
             else:
                 self.widget.picked = True
         else:
-            self.widget.coordinates = np.array(((x, y), (x, y)))
-            self.widget.size = 1
-            self.widget.set_on(True)
+            self.widget.position = np.array(((x, y), (x, y)))
+            self.widget.size = np.min([ax.scale for ax in axes])
             self.widget.picked = True
             self.widget.func = self.widget._get_func_from_pos(event.x, event.y)
-            self.widget._prev_pos = [x, y]
-            if self.widget.func & self.widget.FUNC_ROTATE:
-                self.widget._rotate_orig = self.widget.coordinates
+            self.widget._drag_start = [x, y]
+            self.widget._drag_store = (self.widget.position, self.widget.size)
+            self.widget.set_on(True)
         if new_widget:
-            self.widget.events.changed.connect(self._on_change, 1)
+            self.widget.events.changed.connect(self._on_change)
 
     def on_keyup(self, event):
         if event.key == 'enter':

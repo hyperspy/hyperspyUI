@@ -1,3 +1,21 @@
+# -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
+
 from hyperspyui.plugins.plugin import Plugin
 import numpy as np
 import hyperspy.api as hs
@@ -16,11 +34,11 @@ class VirtualBfDf(Plugin):
         self.add_action(self.name + '.virtual_navigator',
                         "Virtual navigator",
                         self.virtual_navigator,
-                        tip="")
+                        tip="Set the navigator inesity by a virtual aperture")
         self.add_action(self.name + '.virtual_aperture',
                         "Virtual aperture",
                         self.virtual_aperture,
-                        tip="")
+                        tip="Add a virtual aperture to the diffraction image")
 
     def create_menu(self):
         self.add_menuitem(
@@ -46,16 +64,18 @@ class VirtualBfDf(Plugin):
                        signal.axes_manager.signal_axes]) / 2.0
         r = hs.roi.CircleROI(dd[0], dd[1],
                              signal.axes_manager.signal_axes[0].scale*3)
-        s_virtual = r.interactive(signal, None, axes='signal')
+        s_virtual = r.interactive(signal, None,
+                                  axes=signal.axes_manager.signal_axes)
         s_nav = hs.interactive(
             s_virtual.mean,
             s_virtual.events.data_changed,
-            axis='signal')
+            axis=s_virtual.axes_manager.signal_axes)
+        s_nav.axes_manager.set_signal_dimension(2)
         if navigate:
             signal.plot(navigator=s_nav)
             signal._plot.navigator_plot.update()
             s_nav.events.data_changed.connect(
-                signal._plot.navigator_plot.update)
+                signal._plot.navigator_plot.update, [])
             utils.on_figure_window_close(
                 signal._plot.navigator_plot.figure,
                 partial(self._on_close, r))
@@ -65,4 +85,9 @@ class VirtualBfDf(Plugin):
                 s_nav._plot.signal_plot.figure,
                 partial(self._on_close, r))
 
-        r.add_widget(signal, axes='signal')
+        if navigate:
+            r.add_widget(signal, axes=signal.axes_manager.signal_axes,
+                         color='darkorange')
+        else:
+            r.add_widget(signal, axes=signal.axes_manager.signal_axes)
+        self.record_code("<p>.virtual_aperture(navigate=%s)" % navigate)

@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Fri Oct 24 16:46:35 2014
 
@@ -14,7 +30,7 @@ import pickle
 import numpy as np
 
 # Should go before any MPL imports:
-from hyperspyui.mainwindowlayer5 import MainWindowLayer5, tr
+from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.widgets.contrastwidget import ContrastWidget
@@ -31,7 +47,7 @@ import hyperspy.utils.plot
 import hyperspy.signals
 
 
-class MainWindow(MainWindowLayer5):
+class MainWindow(MainWindowHyperspy):
 
     """
     Main window of the application. Top layer in application stack. Is
@@ -54,6 +70,8 @@ class MainWindow(MainWindowLayer5):
          ('Image', hyperspy.signals.Image),
          ('Image simulation', hyperspy.signals.ImageSimulation)])
 
+    load_complete = Signal()
+
     def __init__(self, parent=None):
         # State variables
         self.signal_type_ag = None
@@ -73,8 +91,8 @@ class MainWindow(MainWindowLayer5):
         self.set_status("Ready")
 
         # Redirect streams (wait until the end to not affect during load)
-        self.settings.set_default('Output to console', False)
-        if self.settings['Output to console'].lower() == 'true':
+        self.settings.set_default('output_to_console', False)
+        if self.settings['output_to_console', bool]:
             self._old_stdout = sys.stdout
             self._old_stderr = sys.stdout
             sys.stdout = self.console.kernel.stdout
@@ -148,7 +166,7 @@ class MainWindow(MainWindowLayer5):
         self.add_action('save_fig', "Save &figure", self.save_figure,
                         tip="Save the active figure")
 
-        self.add_action('add_model', "Create Model", self.make_model,
+        self.add_action('add_model', "Create Model", self.add_model,
                         selection_callback=self.select_signal,
                         tip="Create a model for the selected signal")
 
@@ -156,6 +174,9 @@ class MainWindow(MainWindowLayer5):
         self.add_action('plugin_manager', "Plugin manager",
                         self.show_plugin_manager,
                         tip="Show the plugin manager")
+        self.add_action('hspy_settings', "HyperSpy settings",
+                        self.edit_hspy_settings,
+                        tip="Edit the HyperSpy package settings")
         self.add_action('edit_settings', "Edit settings", self.edit_settings,
                         tip="Edit the application and plugins settings")
 
@@ -233,8 +254,15 @@ class MainWindow(MainWindowLayer5):
         self.add_menuitem('File', self.actions['close_all'])
         self.add_menuitem('File', self.actions['exit'])
 
+        # Ensure settings menu next to last
+        if 'Settings' in self.menus:
+            m = self.menus['Settings']
+            self.menuBar().removeAction(m.menuAction())
+            self.menuBar().insertMenu(self.windowmenu.menuAction(), m)
+
         self.add_menuitem('Settings', self.actions['plugin_manager'])
         self.add_menuitem('Settings', self.actions['reset_layout'])
+        self.add_menuitem('Settings', self.actions['hspy_settings'])
         self.add_menuitem('Settings', self.actions['edit_settings'])
 
     def create_tools(self):
@@ -279,7 +307,7 @@ class MainWindow(MainWindowLayer5):
     def on_settings_changed(self):
         # Redirect streams (wait until the end to not affect during load)
         super(MainWindow, self).on_settings_changed()
-        if self.settings['Output to console'].lower() == 'true':
+        if self.settings['output_to_console', bool]:
             if self._old_stdout is None:
                 self._old_stdout = sys.stdout
                 self._old_stderr = sys.stderr
@@ -341,6 +369,7 @@ class MainWindow(MainWindowLayer5):
         # to be diferentiated based on behavior either way.
         if signal is None:
             signal = self.get_selected_wrapper()
+        self.record_code("signal = ui.get_selected_signal()")
 
         # Sanity check
         if signal_type not in list(self.signal_types.keys()):
@@ -353,24 +382,30 @@ class MainWindow(MainWindowLayer5):
                                   (hyperspy.signals.Image,
                                    hyperspy.signals.ImageSimulation)):
                     signal.as_image()
+                    self.record_code("signal = signal.as_image()")
             elif signal_type in['Spectrum', 'Spectrum simulation', 'EELS',
                                 'EELS simulation', 'EDS SEM', 'EDS TEM']:
                 if isinstance(signal.signal,
                               (hyperspy.signals.Image,
                                hyperspy.signals.ImageSimulation)):
                     signal.as_spectrum()
+                    self.record_code("signal = signal.as_spectrum()")
 
             if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:
                 underscored = signal_type.replace(" ", "_")
                 signal.signal.set_signal_type(underscored)
+                self.record_code("signal.set_signal_type('%s')" % underscored)
             elif signal_type == 'EELS simulation':
                 signal.signal.set_signal_type('EELS')
+                self.record_code("signal.set_signal_type('EELS')")
 
             if signal_type in ['Spectrum simulation', 'Image simulation',
                                'EELS simulation']:
                 signal.signal.set_signal_origin('simulation')
+                self.record_code("signal.set_signal_origin('simulation')")
             else:
                 signal.signal.set_signal_origin('')  # Undetermined
+                self.record_code("signal.set_signal_origin('')")
 
             signal.plot()
         finally:
@@ -379,6 +414,7 @@ class MainWindow(MainWindowLayer5):
     def set_signal_dtype(self, data_type, signal=None, clip=False):
         if signal is None:
             signal = self.get_selected_signal()
+        self.record_code("signal = ui.get_selected_signal()")
         if isinstance(data_type, str) and data_type.lower() == 'custom':
             return    # TODO: Show dialog and prompt
         if not clip:
@@ -393,4 +429,10 @@ class MainWindow(MainWindowLayer5):
                 old_info = np.finfo(old_type)
             if old_info.max > info.max:
                 signal.data *= float(info.max) / np.nanmax(signal.data)
+                self.record_code("signal.data *= %f / np.nanmax(signal.data)" %
+                                 float(info.max))
         signal.change_dtype(data_type)
+        dts = data_type.__name__
+        if data_type.__module__ == 'numpy':
+            dts = 'np.' + dts
+        self.record_code("signal.change_dtype(%s)" % dts)

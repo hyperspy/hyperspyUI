@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+# Copyright 2007-2016 The HyperSpyUI developers
+#
+# This file is part of HyperSpyUI.
+#
+# HyperSpyUI is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# HyperSpyUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 """
 Created on Sun Dec 07 02:03:23 2014
 
@@ -40,17 +56,19 @@ class CropToolPlugin(Plugin):
             for a in old_axes:
                 axes.append(sig_axes[a])
         slices = roi._make_slices(sig_axes, axes)
-        new_offsets = np.array(roi.coords)[:, 0]
         signal.data = signal.data[slices]
-        for i, ax in enumerate(axes):
-            signal.axes_manager[ax.name].offset = new_offsets[i]
-        signal.get_dimensions_from_data()
+        if roi.ndim > 0:
+            signal.axes_manager[axes[0]].offset = roi.left
+        if roi.ndim > 1:
+            signal.axes_manager[axes[1]].offset = roi.top
+
         signal.squeeze()
+        signal.get_dimensions_from_data()
 
         self.record_code("s_crop = ui.get_selected_signal()")
         self.record_code("axes = " +
                          str(tuple([sig_axes.index(a) for a in axes])))
-        self.record_code("roi = utils.roi." + str(roi))
+        self.record_code("roi = hs.roi." + str(roi))
         self.record_code("<p>.crop(roi, s_crop, axes)")
         self.tool.cancel()   # Turn off functionality as we are finished
 
