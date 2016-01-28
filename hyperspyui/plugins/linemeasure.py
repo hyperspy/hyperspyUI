@@ -24,7 +24,7 @@ Created on Thu Jul 30 11:35:49 2015
 import os
 
 from hyperspyui.plugins.plugin import Plugin
-from hyperspy.roi  import BaseInteractiveROI
+from hyperspy.roi import BaseInteractiveROI
 from hyperspyui.tools import LineTool
 
 
@@ -40,11 +40,11 @@ class LineMeasure(Plugin):
     def measure(self, roi):
         if self.tool.ndim == 2:
             self.ui.set_status("Line length: %G" % roi.length)
-            print roi.length
+
+            s = self.tool._get_signal(self.tool.widget.ax.figure)
+            roi(s).plot()
         else:
             print roi
-        # Finished with tool, so turn off
-        self.tool.cancel()
 
     def _continuous_update(self, roi):
         if self.tool.ndim == 2:
@@ -64,4 +64,4 @@ class LineMeasureTool(LineTool):
         return "Line measure"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/crop.svg'
+        return os.path.dirname(__file__) + '/../images/ruler.svg'
