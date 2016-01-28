@@ -5,7 +5,6 @@
 !define PRODUCT_PUBLISHER "HyperSpyUI"
 !define PRODUCT_VERSION "0.6"
 !define WHEEL "hyperspyUI-0.5-py2-none-any.whl"
-!define BUNDLE_OUT "HyperSpy 0.8.1"
 
 SetCompressor lzma
 SetCompress off
@@ -211,14 +210,14 @@ FunctionEnd
 Function GetPythonDir
     Push $R1
     Push $R0
-    FindFirst $R0 $R1 "$INSTDIR\${BUNDLE_OUT}\python*"
+    FindFirst $R0 $R1 "$INSTDIR\python*"
     loop:
         StrCmp $R1 "" done
-        IfFileExists "$INSTDIR\${BUNDLE_OUT}\$R1\*.*" done
+        IfFileExists "$INSTDIR\$R1\*.*" done
         FindNext $R0 $R1
         Goto loop
     done:
-    StrCpy $R1 "$INSTDIR\${BUNDLE_OUT}\$R1"
+    StrCpy $R1 "$INSTDIR\$R1"
     FindClose $R0
     FindClose $R0
     Pop $R0
@@ -286,7 +285,7 @@ Section "HyperSpyUI"
     ;File ".\bundle_prerequisites\wheels\*.whl"
     SetOutPath $INSTDIR
 
-    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\${BUNDLE_OUT}\scripts\env.bat" pip install --use-wheel --compile "$TEMP\${WHEEL}"'
+    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --compile "$TEMP\${WHEEL}"'
     ;Delete "$TEMP\${WHEEL}"
     ;Delete "$TEMP\wheels\*.whl"
     Delete "$TEMP\win_bundle_install.bat"
