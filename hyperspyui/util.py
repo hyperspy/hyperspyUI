@@ -27,10 +27,16 @@ from hyperspy.misc.utils import slugify
 from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
 import os
+from contextlib import contextmanager
 
 
 def tr(text):
     return QtCore.QCoreApplication.translate("MainWindow", text)
+
+
+@contextmanager
+def dummy_context_manager(*args, **kwargs):
+    yield
 
 
 def lstrip(string, prefix):
@@ -67,7 +73,7 @@ def fig2image_plot(fig, signals):
             if isinstance(p.signal_plot, ImagePlot):
                 if p.signal_plot.figure is fig:
                     return p.signal_plot
-            elif isinstance(p.navigator_plot, ImagePlot):
+            if isinstance(p.navigator_plot, ImagePlot):
                 if p.navigator_plot.figure is fig:
                     return p.navigator_plot
     return None

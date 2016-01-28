@@ -320,7 +320,7 @@ class FigureManagerMdi(FigureManagerBase):
             self.toolbar.destroy()
         self.window.close()
         self.window = None
-        self.canvas.figure = None
+        # self.canvas.figure = None  # Causes exceptions in delayed drawing
         self.canvas = None
         self.toolbar = None
 
