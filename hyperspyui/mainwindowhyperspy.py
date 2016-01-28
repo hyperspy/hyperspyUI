@@ -337,6 +337,11 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def make_component(self, comp_type):
         m = self.get_selected_model_wrapper()
+        if m is None:
+            sw = self.get_selected_wrapper()
+            if sw is None:
+                return
+            m = self.add_model(signal=sw)
         m.add_component(comp_type)
 
     def edit_hspy_settings(self):

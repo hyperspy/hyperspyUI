@@ -48,28 +48,40 @@ class FFT_Plugin(Plugin):
         self.add_action('fft', "FFT", self.fft,
                         icon='fft.svg',
                         tip="Perform a fast fourier transform on the " +
-                        "active part of the signal")
+                        "active part of the signal",
+                        selection_callback=self.ui.select_signal)
 
         self.add_action('live_fft', "Live FFT", self.live_fft,
                         icon='live_fft.svg',
                         tip="Perform a fast fourier transform on the " +
                         "active part of the signal, and link it to the " +
-                        "navigator")
+                        "navigator",
+                        selection_callback=self.ui.select_signal)
 
         self.add_action('nfft', "Signal FFT", self.nfft,
                         icon='nfft.svg',
                         tip="Perform a fast fourier transform on the " +
-                            "entire signal")
+                            "entire signal",
+                        selection_callback=self.ui.select_signal)
 
         self.add_action('ifft', "Inverse FFT", self.ifft,
                         icon='ifft.svg',
                         tip="Perform an inverse fast fourier transform on " +
-                            "the active part of the signal")
+                            "the active part of the signal",
+                        selection_callback=self.ui.select_signal)
 
         self.add_action('infft', "Inverse Signal FFT", self.infft,
                         icon='infft.svg',
                         tip="Perform an inverse fast fourier transform on" +
-                        " the entire signal")
+                        " the entire signal",
+                        selection_callback=self.ui.select_signal)
+
+    def create_menu(self):
+        self.add_menuitem("Math", self.ui.actions['fft'])
+        self.add_menuitem("Math", self.ui.actions['live_fft'])
+        self.add_menuitem("Math", self.ui.actions['nfft'])
+        self.add_menuitem("Math", self.ui.actions['ifft'])
+        self.add_menuitem("Math", self.ui.actions['infft'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Math", self.ui.actions['fft'])

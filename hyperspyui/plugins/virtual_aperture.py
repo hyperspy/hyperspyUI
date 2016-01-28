@@ -42,9 +42,9 @@ class VirtualBfDf(Plugin):
 
     def create_menu(self):
         self.add_menuitem(
-            'ASTAR', self.ui.actions[self.name + '.virtual_navigator'])
+            'Diffraction', self.ui.actions[self.name + '.virtual_navigator'])
         self.add_menuitem(
-            'ASTAR', self.ui.actions[self.name + '.virtual_aperture'])
+            'Diffraction', self.ui.actions[self.name + '.virtual_aperture'])
 
     def _on_close(self, roi):
         for w in roi.widgets:

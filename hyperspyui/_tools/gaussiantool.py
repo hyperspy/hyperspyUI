@@ -51,7 +51,7 @@ class GaussianTool(FigureTool):
         return "Gaussian tool"
 
     def get_category(self):
-        return 'Components'
+        return 'Spectrum'
 
     def get_icon(self):
         return os.path.dirname(__file__) + '/../images/gaussian.svg'
@@ -129,8 +129,8 @@ class GaussianTool(FigureTool):
                 self._wire_wrapper(mw)
             m = mw.model
             i = m.axis.value2index(x)
-            h = m.spectrum()[i] - m()[i]
-            if m.spectrum.metadata.Signal.binned:
+            h = m.signal()[i] - m()[i]
+            if m.signal.metadata.Signal.binned:
                 h /= m.axis.scale
             if has_gauss_v2:
                 g = GaussianHF(height=h * np.sqrt(2 * np.pi), centre=x)
@@ -169,9 +169,9 @@ class GaussianTool(FigureTool):
         m.fit_component(g, signal_range=(x0, x1))
         i = m.axis.value2index(g.centre.value)
         g.active = False
-        h = m.spectrum()[i] - m(onlyactive=True)[i]
+        h = m.signal()[i] - m(onlyactive=True)[i]
         g.active = True
-        if m.spectrum.metadata.Signal.binned:
+        if m.signal.metadata.Signal.binned:
             h /= m.axis.scale
         if has_gauss_v2:
             g.height.value = h

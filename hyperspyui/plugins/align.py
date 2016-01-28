@@ -55,17 +55,17 @@ class AlignPlugin(Plugin):
                             hyperspy.signals.Image, self.ui))
 
     def create_menu(self):
-        self.add_menuitem("Align", self.ui.actions['manual_align'])
+        self.add_menuitem("Signal", self.ui.actions['manual_align'])
 
     def create_toolbars(self):
-        self.add_toolbar_button("Align", self.ui.actions['manual_align'])
+        self.add_toolbar_button("Signal", self.ui.actions['manual_align'])
 
     def create_tools(self):
         tools = []
 
         # XD tool
         self.tool_XD = SelectionTool(
-            name='Align tool', icon="align2d.svg", category="Align",
+            name='Align tool', icon="align2d.svg", category="Signal",
             description="Align images across the stack")
         self.tool_XD.accepted[BaseInteractiveROI].connect(
             self.align_XD)
@@ -75,7 +75,7 @@ class AlignPlugin(Plugin):
         # Vertical 2D align
         self.tool_vertical = SelectionTool(
             name='Align vertical tool', icon="align_vertical.svg",
-            category="Align",
+            category="Signal",
             description="Align an image feature vertically across the stack")
         self.tool_vertical.accepted[BaseInteractiveROI].connect(
             self.align_vertical)
@@ -85,7 +85,7 @@ class AlignPlugin(Plugin):
         # Vertical 2D align
         self.tool_horizontal = SelectionTool(
             name='Align horizontal tool', icon="align_horizontal.svg",
-            category="Align",
+            category="Signal",
             description="Align an image feature horizontally across the stack")
         self.tool_horizontal.accepted[BaseInteractiveROI].connect(
             self.align_horizontal)

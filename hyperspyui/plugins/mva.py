@@ -74,14 +74,14 @@ class MVA_Plugin(Plugin):
                         selection_callback=self.selection_rules)
 
     def create_menu(self):
-        self.add_menuitem('Signal', self.ui.actions['pca'])
-        self.add_menuitem('Signal', self.ui.actions['bss'])
-        self.add_menuitem('Signal',
+        self.add_menuitem('Decomposition', self.ui.actions['pca'])
+        self.add_menuitem('Decomposition', self.ui.actions['bss'])
+        self.add_menuitem('Decomposition',
                           self.ui.actions['plot_decomposition_results'])
 
     def create_toolbars(self):
-        self.add_toolbar_button("Signal", self.ui.actions['pca'])
-        self.add_toolbar_button("Signal", self.ui.actions['bss'])
+        self.add_toolbar_button("Decomposition", self.ui.actions['pca'])
+        self.add_toolbar_button("Decomposition", self.ui.actions['bss'])
 
     def selection_rules(self, win, action):
         """

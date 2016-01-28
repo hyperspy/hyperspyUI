@@ -141,11 +141,11 @@ class BasicSpectrumPlugin(Plugin):
         self.add_menuitem("EELS", self.ui.actions['remove_background'])
         self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
         self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
-        self.add_menuitem("Filter", self.ui.actions['smooth_savitzky_golay'])
-        self.add_menuitem("Filter", self.ui.actions['smooth_lowess'])
-        self.add_menuitem("Filter", self.ui.actions['smooth_tv'])
-        self.add_menuitem("Filter", self.ui.actions['filter_butterworth'])
-        self.add_menuitem("Filter", self.ui.actions['hanning_taper'])
+        self.add_menuitem("Spectrum", self.ui.actions['smooth_savitzky_golay'])
+        self.add_menuitem("Spectrum", self.ui.actions['smooth_lowess'])
+        self.add_menuitem("Spectrum", self.ui.actions['smooth_tv'])
+        self.add_menuitem("Spectrum", self.ui.actions['filter_butterworth'])
+        self.add_menuitem("Spectrum", self.ui.actions['hanning_taper'])
 
     def create_toolbars(self):
         self.add_toolbar_button("EELS", self.ui.actions['remove_background'])

@@ -37,6 +37,7 @@ class FittingPlugin(Plugin):
 
     def create_tools(self):
         self.reg_tool = RegressionTool()
+        self.reg_tool.category = 'Spectrum'
         self.reg_tool.accepted[BaseInteractiveROI].connect(self.regression)
         self.add_tool(self.reg_tool, self.ui.select_signal)
 

@@ -54,12 +54,12 @@ class EELSDBPlugin(Plugin):
         self.view = None
 
     def create_actions(self):
-        self.add_action(self.name + '.browse', "Browse", self.default,
+        self.add_action(self.name + '.browse', "Browse EELSDB", self.default,
                         tip="Browse the EELSDB online database of standard"
                         "EEL spectra")
 
     def create_menu(self):
-        self.add_menuitem('EELSDB', self.ui.actions[self.name + '.browse'])
+        self.add_menuitem('EELS', self.ui.actions[self.name + '.browse'])
 
     def _make_request(self, url):
         request = QNetworkRequest()

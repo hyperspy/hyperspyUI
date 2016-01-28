@@ -97,12 +97,12 @@ class BasicSignalPlugin(Plugin):
     def create_menu(self):
         self.add_menuitem("Signal", self.ui.actions['stats'])
         self.add_menuitem("Signal", self.ui.actions['histogram'])
-        self.add_menuitem("Signal", self.ui.actions['mean'])
-        self.add_menuitem('Signal', self.ui.actions['sum'])
-        self.add_menuitem('Signal', self.ui.actions['max'])
-        self.add_menuitem('Signal', self.ui.actions['min'])
-        self.add_menuitem('Signal', self.ui.actions['std'])
-        self.add_menuitem('Signal', self.ui.actions['var'])
+        self.add_menuitem("Math", self.ui.actions['mean'])
+        self.add_menuitem('Math', self.ui.actions['sum'])
+        self.add_menuitem('Math', self.ui.actions['max'])
+        self.add_menuitem('Math', self.ui.actions['min'])
+        self.add_menuitem('Math', self.ui.actions['std'])
+        self.add_menuitem('Math', self.ui.actions['var'])
 
     def statistics(self, signal=None):
         if signal is None:
