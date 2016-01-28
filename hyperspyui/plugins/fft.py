@@ -76,6 +76,13 @@ class FFT_Plugin(Plugin):
                         " the entire signal",
                         selection_callback=self.ui.select_signal)
 
+    def create_menu(self):
+        self.add_menuitem("Math", self.ui.actions['fft'])
+        self.add_menuitem("Math", self.ui.actions['live_fft'])
+        self.add_menuitem("Math", self.ui.actions['nfft'])
+        self.add_menuitem("Math", self.ui.actions['ifft'])
+        self.add_menuitem("Math", self.ui.actions['infft'])
+
     def create_toolbars(self):
         self.add_toolbar_button("Math", self.ui.actions['fft'])
         self.add_toolbar_button("Math", self.ui.actions['live_fft'])
