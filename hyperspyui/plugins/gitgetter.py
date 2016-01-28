@@ -271,7 +271,7 @@ class GitSelector(Plugin):
                         import pip
                         dist = [d for d in pip.get_installed_distributions()
                                 if d.project_name.lower() == name]
-                        if dist[0].version != found[0]:
+                        if dist[0].version < found[0]:
                             available[name] = found[0]
 
         if available:
