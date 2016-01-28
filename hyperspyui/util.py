@@ -67,7 +67,7 @@ def fig2image_plot(fig, signals):
             if isinstance(p.signal_plot, ImagePlot):
                 if p.signal_plot.figure is fig:
                     return p.signal_plot
-            elif isinstance(p.navigator_plot, ImagePlot):
+            if isinstance(p.navigator_plot, ImagePlot):
                 if p.navigator_plot.figure is fig:
                     return p.navigator_plot
     return None
