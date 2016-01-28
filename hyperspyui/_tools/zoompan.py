@@ -39,7 +39,7 @@ class ZoomPanTool(FigureTool):
         return "Pan/Zoom tool"
 
     def get_category(self):
-        return 'Navigation'
+        return 'Plot'
 
     def get_icon(self):
         return os.path.dirname(__file__) + '/../images/panzoom2.svg'

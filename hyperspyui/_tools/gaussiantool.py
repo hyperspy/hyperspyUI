@@ -51,7 +51,7 @@ class GaussianTool(FigureTool):
         return "Gaussian tool"
 
     def get_category(self):
-        return 'Components'
+        return 'Spectrum'
 
     def get_icon(self):
         return os.path.dirname(__file__) + '/../images/gaussian.svg'

@@ -36,6 +36,7 @@ class Segmentation(Plugin):
         self.tool = MultiSelectionTool()
         self.tool.name = 'Segmentation tool'
         self.tool.icon = 'segmentation.svg'
+        self.tool.category = 'Image'
         self.tool.updated[Signal, list].connect(self._on_update)
         self.tool.accepted[Signal, list].connect(self.segment)
         self.tool.validator = self._tool_signal_validator

@@ -36,7 +36,7 @@ class HomeTool(FigureTool):
         return "Home tool"
 
     def get_category(self):
-        return 'Navigation'
+        return 'Plot'
 
     def get_icon(self):
         return os.path.dirname(__file__) + '/../images/home.svg'
