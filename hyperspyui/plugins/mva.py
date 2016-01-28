@@ -160,6 +160,9 @@ class MVA_Plugin(Plugin):
         s, _ = self._get_signal(signal)
         self._do_decomposition(s)
         s.plot_decomposition_results()
+        # Somewhat speculative workaround to HSPY not adding metadata
+        sd = self.ui.hspy_signals[-1]
+        sd.metadata.add_dictionary(s.metadata.as_dictionary())
 
     def get_bss_results(self, signal):
         factors = signal.get_bss_factors()
@@ -204,6 +207,7 @@ class MVA_Plugin(Plugin):
                 elif model == 'bss':
                     self._do_bss(ns.s, n_components)
                     f, o = self.get_bss_results(ns.s)
+                    o.metadata.add_dictionary(ns.s.metadata.as_dictionary())
                     f.metadata.General.title = signal.name + "[BSS-Factors]"
                     o.metadata.General.title = signal.name + "[BSS-Loadings]"
                     f.plot()
