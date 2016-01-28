@@ -210,12 +210,18 @@ class MainWindow(MainWindowHyperspy):
             signal_datatype_ag.addAction(sdt_ac)
         self.signal_datatype_ag = signal_datatype_ag
 
+        # Start disabled until a valid figure is selected
+        self.signal_type_ag.setEnabled(False)
+        self.signal_datatype_ag.setEnabled(False)
+
         # --- Add "add component" actions ---
         comp_actions = create_add_component_actions(self, self.make_component)
         self.comp_actions = []
         for ac_name, ac in comp_actions.iteritems():
             self.actions[ac_name] = ac
             self.comp_actions.append(ac_name)
+            self._action_selection_cbs[ac_name] = self._check_add_component_ok
+            ac.setEnabled(False)
 
     def create_menu(self):
         mb = self.menuBar()
@@ -286,6 +292,13 @@ class MainWindow(MainWindowHyperspy):
     # Events
     # ---------------------------------------
 
+    def _check_add_component_ok(self, win, action):
+        s = win2sig(win, self.signals, self._plotting_signal)
+        if s is None:
+            action.setEnabled(False)
+        else:
+            action.setEnabled(True)
+
     def on_subwin_activated(self, mdi_figure):
         super(MainWindow, self).on_subwin_activated(mdi_figure)
         s = win2sig(mdi_figure, self.signals, self._plotting_signal)
@@ -294,6 +307,8 @@ class MainWindow(MainWindowHyperspy):
                 ac.setChecked(False)
             for ac in self.signal_datatype_ag.actions():
                 ac.setChecked(False)
+            self.signal_type_ag.setEnabled(False)
+            self.signal_datatype_ag.setEnabled(False)
         else:
             t = type(s.signal)
             key = 'signal_type_' + dict_rlu(self.signal_types, t)
@@ -303,6 +318,8 @@ class MainWindow(MainWindowHyperspy):
                 self.actions[key2].setChecked(True)
             else:
                 self.actions['signal_data_type_custom'].setChecked(True)
+            self.signal_type_ag.setEnabled(True)
+            self.signal_datatype_ag.setEnabled(True)
 
     def on_settings_changed(self):
         # Redirect streams (wait until the end to not affect during load)
