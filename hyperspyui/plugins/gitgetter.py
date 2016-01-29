@@ -353,11 +353,14 @@ class VersionSelectionDialog(QDialog):
             cbo = QComboBox()
             if enabled:
                 branches = get_branches(name, urls[0])
+                # Add a selection of branches from vidartf repo
                 if len(urls) > 1:
                     for url in urls[1:]:
                         try:
                             b = get_branches(name, url)['hyperspyui']
                             branches.update({'hyperspyui': b})
+                            b = get_branches(name, url)['hyperspyui_py3']
+                            branches.update({'hyperspyui_py3': b})
                         except KeyError:
                             pass
                 for n, b in branches.items():
