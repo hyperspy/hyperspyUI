@@ -145,6 +145,7 @@ def checkout_branch(branch, stream=None):
         return
     if isinstance(branch, str):
         import pip
+        import sys
 
         class WrapDownloadProgressBar(pip.download.DownloadProgressBar):
             def __init__(self, *args, **kwargs):
@@ -164,10 +165,16 @@ def checkout_branch(branch, stream=None):
                        pip.download.DownloadProgressSpinner)
         pip.download.DownloadProgressBar = WrapDownloadProgressBar
         pip.download.DownloadProgressSpinner = WrapDownloadProgressBarSpinner
+        stdout_set = False
+        if sys.__stdout__ is None:
+            sys.__stdout__ = sys.stdout
+            stdout_set = True
         try:
             ic.main(['--no-deps', '-I', branch])
             ic.main([branch])
         finally:
+            if stdout_set:
+                sys.__stdout__ = None  # Let's leave things as we found them.
             (pip.download.DownloadProgressBar,
              pip.download.DownloadProgressSpinner) = old_classes
     else:
