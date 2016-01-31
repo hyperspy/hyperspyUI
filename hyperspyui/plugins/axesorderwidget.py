@@ -263,11 +263,13 @@ class AxesListWidget(QtGui.QListWidget):
             shfr = 12
         h = shfr * self.count() + 2 * self.frameWidth()
         s.setHeight(h)
-        s.setWidth(super(AxesListWidget, self).sizeHint().width())
+        s.setWidth(super(AxesListWidget, self).minimumSizeHint().width())
         return s
 
     def sizeHint(self):
-        return self.minimumSizeHint()
+        s = self.minimumSizeHint()
+        s.setWidth(super(AxesListWidget, self).sizeHint().width())
+        return s
 
     def _on_rows_inserted(self, parent, begin, end):
         for new_idx in xrange(begin, end+1):
