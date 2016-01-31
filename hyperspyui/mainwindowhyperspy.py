@@ -220,7 +220,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             if s and s.signal and s.signal.axes_manager:
                 try:
                     s.signal.axes_manager.events.indices_changed.connect(
-                        self._on_active_navigate)
+                        self._on_active_navigate, {'obj': 'axes_manager'})
                 except ValueError:
                     pass
                 self.prev_mdi = mdi_window
