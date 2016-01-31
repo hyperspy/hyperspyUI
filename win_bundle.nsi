@@ -236,10 +236,11 @@ FunctionEnd
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 !ifdef CL64
     OutFile "HyperSpyUI-${PRODUCT_VERSION}-Bundle-64bit.exe"
+    InstallDir "$PROGRAMFILES64\HyperSpyUI"
 !else
     OutFile "HyperSpyUI-${PRODUCT_VERSION}-Bundle-32bit.exe"
+    InstallDir "$PROGRAMFILES32\HyperSpyUI"
 !endif
-InstallDir "$PROGRAMFILES\HyperSpyUI"
 ShowInstDetails show
 
 InstType "Default"
@@ -298,7 +299,8 @@ SectionGroup /e "Register HyperSpyUI"
         SetOutPath $INSTDIR
         Push $R0
         ${GetPythonDir} $R0
-        ExecWait '"$R0\python.exe" "$R0\Scripts\hyperspyui_install.py -filetypes"'
+        SetOutPath "$R0"
+        ExecWait '"$R0\python.exe" "$R0\Scripts\hyperspyui_install.py" -filetypes'
         Pop $R0
     SectionEnd
     SectionGroup "Register filetypes"
@@ -343,6 +345,7 @@ SectionGroup /e "Register HyperSpyUI"
             DetailPrint $R0
             Push $R1
             ${GetPythonDir} $R1
+            SetOutPath "$R1"
             ExecWait '"$R1\python.exe" "$R1\Scripts\hyperspyui_install.py" -no-shortcuts -filetypes $R0'
             Pop $R0
             Pop $R1
