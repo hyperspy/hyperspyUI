@@ -61,7 +61,7 @@ class RebinPlugin(Plugin):
                 mods[ax.index_in_array] = slice(None)
             else:
                 mods[ax.index_in_array] = slice(None, - (ax.size % factor))
-            shape.append(ax.size / factor)
+            shape.append(ax.size // factor)
         # Crop to multiple of factors
         s.data = s.data[tuple(mods)]
 

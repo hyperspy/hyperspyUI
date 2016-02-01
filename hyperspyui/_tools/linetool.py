@@ -124,24 +124,22 @@ class LineTool(SignalFigureTool):
             self.widget.position = (x,)
             self.widget.size = axes[0].scale
             self.widget.set_on(True)
-            if self.ranged:
-                span = self.widget.span
-                span.buttonDown = True
-                span.on_move_cid = \
-                    span.canvas.mpl_connect('motion_notify_event',
-                                            span.move_right)
-            else:
-                self.widget.picked = True
+            span = self.widget.span
+            span.buttonDown = True
+            span.on_move_cid = \
+                span.canvas.mpl_connect('motion_notify_event',
+                                        span.move_right)
         else:
             self.widget.position = np.array(((x, y), (x, y)))
             self.widget.size = np.min([ax.scale for ax in axes])
             self.widget.picked = True
-            self.widget.func = self.widget._get_func_from_pos(event.x, event.y)
+            self.widget.func = Line2DWidget.FUNC_B | Line2DWidget.FUNC_RESIZE
             self.widget._drag_start = [x, y]
             self.widget._drag_store = (self.widget.position, self.widget.size)
             self.widget.set_on(True)
         if new_widget:
-            self.widget.events.changed.connect(self._on_change)
+            self.widget.events.changed.connect(self._on_change,
+                                               {'obj': 'widget'})
 
     def on_keyup(self, event):
         if event.key == 'enter':
@@ -173,7 +171,8 @@ class LineTool(SignalFigureTool):
         if self.widget.is_on():
             self.widget.set_on(False)
             self.widget.size = 1    # Prevents flickering
-        self.widget.events.changed.disconnect(self._on_change)
+        if self._on_change in self.widget.events.changed.connected:
+            self.widget.events.changed.disconnect(self._on_change)
         self.axes = None
         self.cancelled.emit()
 

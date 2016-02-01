@@ -246,7 +246,8 @@ class BasicSpectrumPlugin(Plugin):
         threshold = s_lowloss.estimate_elastic_scattering_threshold().data
         threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()
 
-        sdcnv = s_core.fourier_ratio_deconvolution(s_lowloss, threshold)
+        sdcnv = s_core.fourier_ratio_deconvolution(s_lowloss,
+                                                   threshold=threshold)
         sdcnv.data = np.ma.masked_array(
             sdcnv.data,
             mask=(np.isnan(sdcnv.data) | np.isinf(sdcnv.data)))
