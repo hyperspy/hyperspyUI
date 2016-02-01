@@ -213,7 +213,7 @@ class MultiSelectionTool(SignalFigureTool):
             if self.ranged:
                 widget.resizer_picked = 3
             widget.picked = True
-        widget.events.changed.connect(self._on_change)
+        widget.events.changed.connect(self._on_change, {'obj': 'widget'})
 
     def _get_rois(self, signal):
         rois = []

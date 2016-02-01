@@ -141,7 +141,8 @@ class LineTool(SignalFigureTool):
             self.widget._drag_store = (self.widget.position, self.widget.size)
             self.widget.set_on(True)
         if new_widget:
-            self.widget.events.changed.connect(self._on_change)
+            self.widget.events.changed.connect(self._on_change,
+                                               {'obj': 'widget'})
 
     def on_keyup(self, event):
         if event.key == 'enter':
@@ -173,7 +174,8 @@ class LineTool(SignalFigureTool):
         if self.widget.is_on():
             self.widget.set_on(False)
             self.widget.size = 1    # Prevents flickering
-        self.widget.events.changed.disconnect(self._on_change)
+        if self._on_change in self.widget.events.changed.connected:
+            self.widget.events.changed.disconnect(self._on_change)
         self.axes = None
         self.cancelled.emit()
 

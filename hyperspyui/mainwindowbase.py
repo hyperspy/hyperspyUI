@@ -57,7 +57,7 @@ def lowpriority():
             import win32process
             import win32con
         except ImportError as e:
-            warnings.warn("Could not set process priority: %s" % e.message)
+            warnings.warn("Could not set process priority: %s" % e)
             return
 
         pid = win32api.GetCurrentProcessId()
@@ -82,7 +82,7 @@ def normalpriority():
             import win32process
             import win32con
         except ImportError as e:
-            warnings.warn("Could not set process priority: %s" % e.message)
+            warnings.warn("Could not set process priority: %s" % e)
             return
 
         pid = win32api.GetCurrentProcessId()
@@ -354,7 +354,7 @@ class MainWindowBase(QMainWindow):
                 self.active_tool.disconnect_windows(self.figures)
             except Exception as e:
                 warnings.warn("Exception disabling tool %s: %s" % (
-                    self.active_tool.get_name(), e.message))
+                    self.active_tool.get_name(), e))
         self.active_tool = tool
         tool.connect_windows(self.figures)
 
