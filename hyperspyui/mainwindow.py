@@ -26,7 +26,7 @@ from functools import partial
 import argparse
 import os
 import sys
-import pickle
+import json
 import numpy as np
 
 # Should go before any MPL imports:
@@ -106,7 +106,7 @@ class MainWindow(MainWindowHyperspy):
         that were passed to the new instance.
         """
         super(MainWindow, self).handleSecondInstance(argv)
-        argv = pickle.loads(argv)
+        argv = json.loads(argv)
         self.parse_args(argv)
 
     def parse_args(self, argv=None):

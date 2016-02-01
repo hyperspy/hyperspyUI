@@ -23,7 +23,7 @@ Created on Thu Nov 27 03:01:19 2014
 
 
 import sys
-import pickle
+import json
 from python_qt_binding import QtGui, QtCore, QtNetwork, QT_BINDING
 
 
@@ -89,7 +89,7 @@ def get_app(key):
         if len(sys.argv) > 1:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
-                msg = pickle.dumps(sys.argv[1:])
+                msg = json.dumps(sys.argv[1:])
                 app.sendMessage(msg)
                 sys.exit(1)     # An instance is already running
         else:
@@ -99,7 +99,7 @@ def get_app(key):
     elif QT_BINDING == 'pyside':
         from siding.singleinstance import QSingleApplication
         app = QSingleApplication(sys.argv)
-        msg = pickle.dumps(sys.argv[1:])
+        msg = json.dumps(sys.argv[1:])
         app.ensure_single(message=msg)
     else:
         app = QtGui.QApplication(sys.argv)
