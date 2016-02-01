@@ -51,6 +51,14 @@ SetCompress off
 !define LVM_GETITEMTEXT 0x102D
 
 
+!include 'LogicLib.nsh'
+!include 'FileFunc.nsh'
+!insertmacro Locate
+
+Var /GLOBAL switch_overwrite
+!include 'MoveFileFolder.nsh'
+
+
 ; ----------------------- Macro definitions ----------------------------------
 
 !define AllFileTypes ""
@@ -231,6 +239,32 @@ FunctionEnd
 
 !define GetPythonDir "!insertmacro GetPythonDir"
 
+Function InstallInProgramFiles
+    Push $R0
+    Push $R1
+    StrLen $R1 $PROGRAMFILES64
+    StrCpy $R0 $InstDir $R1
+    StrCmp $R0 $PROGRAMFILES64 yes
+    StrLen $R1 $PROGRAMFILES32
+    StrCpy $R0 $InstDir $R1
+    StrCmp $R0 $PROGRAMFILES32 yes no
+    yes:
+    StrCpy $R0 1
+    Goto return
+    no:
+    StrCpy $R0 0
+    return:
+    Pop $R1
+    Exch $R0
+FunctionEnd
+
+!macro InstallInProgramFiles ReturnValue
+    Call InstallInProgramFiles
+    Pop `${ReturnValue}`
+!macroend
+
+!define InstallInProgramFiles "!insertmacro InstallInProgramFiles"
+
 ; ---------------------------- Start installer --------------------------------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
@@ -263,6 +297,25 @@ Section "Python"
     ExecWait "$TEMP\${BUNDLE} /S /D=$INSTDIR"
     Delete "$TEMP\${BUNDLE}"
 
+    ; If we install in Program files, prevent settings from being stored
+    ; locally, as that will require admin rights to run scripts!
+    Push $R0
+    ${InstallInProgramFiles} $R0
+    ${If} $R0 ==  1
+        StrCpy $switch_overwrite 2  ; Don't overwrite anything
+        !insertmacro MoveFolder "$INSTDIR\settings" "$PROFILE" *
+        RMDir /r "$INSTDIR\settings\.ipython"
+        RMDir /r "$INSTDIR\settings\.jupyter"
+        RMDir /r "$INSTDIR\settings\.matplotlib"
+        RMDir /r "$INSTDIR\settings\.hyperspy"
+        RMDir /r "$INSTDIR\settings\nbextensions"
+        RMDir /r "$INSTDIR\settings\runtime"
+        RMDir /r "$INSTDIR\settings\seaborn-data"
+        Delete "$INSTDIR\settings\winpython.ini"
+        Delete "$INSTDIR\settings\pydistutils.cfg"
+        RMDir "$INSTDIR\settings"
+    ${EndIf}
+    Pop $R0
 SectionEnd
 
 Section "Register python"
@@ -287,6 +340,7 @@ Section "HyperSpyUI"
     SetOutPath $INSTDIR
 
     ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" easy_install --upgrade pip'
+    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --no-deps --compile -U "$TEMP\${WHEEL}"'
     ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --find-links="$TEMP\wheels" --compile "$TEMP\${WHEEL}"'
     Delete "$TEMP\${WHEEL}"
     Delete "$TEMP\wheels\*.whl"

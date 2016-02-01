@@ -112,14 +112,14 @@ class MainWindowBase(QMainWindow):
         # Setup settings:
         self.settings = Settings(self, 'General')
         # Default setting values:
-        self.settings.set_default('toolbar_button_size', 32)
+        self.settings.set_default('toolbar_button_size', 24)
         self.settings.set_default('default_widget_floating', False)
         self.settings.set_default('working_directory', "")
         self.settings.set_default('low_process_priority', False)
         # Override any possible invalid stored values, which could prevent load
         if 'toolbar_button_size' not in self.settings or \
                 not isinstance(self.settings['toolbar_button_size'], int):
-            self.settings['toolbar_button_size'] = 32
+            self.settings['toolbar_button_size'] = 24
         if self.low_process_priority:
             lowpriority()
 

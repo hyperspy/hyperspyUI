@@ -115,10 +115,11 @@ if platform.system().lower() == 'windows':
                     create_shortcut(pyw_executable,
                                     "A Graphical interface for HyperSpy",
                                     os.path.join(path, shortcut_filename),
-                                    script_path,
+                                    '"%s"' % script_path,
                                     sys.prefix,
                                     icon_path)
             except IOError as e:
+                # Try again with user folders
                 desktop_path = get_special_folder_path(
                     "CSIDL_DESKTOPDIRECTORY")
                 startmenu_path = get_special_folder_path("CSIDL_STARTMENU")
@@ -128,7 +129,7 @@ if platform.system().lower() == 'windows':
                     create_shortcut(pyw_executable,
                                     "A Graphical interface for HyperSpy",
                                     os.path.join(path, shortcut_filename),
-                                    script_path,
+                                    '"%s"' % script_path,
                                     sys.prefix,
                                     icon_path)
 
@@ -147,8 +148,8 @@ if platform.system().lower() == 'windows':
                 for ft in filetypes:
                     cmds.append(r'1>nul 2>nul ASSOC %s=%s' % (ft, docname))
                 cmds.append(r'1>nul 2>nul FTYPE ' +
-                            r'{0}="{1}" '.format(docname, pyw_executable) +
-                            d + r'\launch.py "%1" %*')
+                            r'{0}="{1}" "'.format(docname, pyw_executable) +
+                            d + r'\launch.py" "%1" %*')
             else:
                 # Not admin. We have to add everything to HKCU manually
                 cmd = (r'1>nul 2>nul REG ADD ' +
@@ -166,8 +167,8 @@ if platform.system().lower() == 'windows':
                     (r'"HKCU\Software\Classes\%s\shell\open\command"' %
                      docname) +
                     r' /v "" /t REG_EXPAND_SZ /d ' +
-                    (r'"\"%s\" ' % pyw_executable) +
-                    d + r'\launch.py \"%1\" %*" /f')
+                    (r'"\"%s\" "' % pyw_executable) +
+                    d + r'\launch.py" \"%1\" %*" /f')
 
             for cmd in cmds:
                 r = subprocess.call(cmd, shell=True)
