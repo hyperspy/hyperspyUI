@@ -291,6 +291,10 @@ Section "HyperSpyUI"
     Delete "$TEMP\${WHEEL}"
     Delete "$TEMP\wheels\*.whl"
     Delete "$TEMP\win_bundle_install.bat"
+    Push $R0
+    ${GetPythonDir} $R0
+    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$R0\python.exe" "-m hyperspyui.launch"
+    Pop $R0
 SectionEnd
 
 SectionGroup /e "Register HyperSpyUI"
