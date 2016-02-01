@@ -223,8 +223,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                         self._on_active_navigate, {'obj': 'axes_manager'})
                 except ValueError:
                     pass
-                self.prev_mdi = mdi_window
                 self._on_active_navigate(s.signal.axes_manager)
+            self.prev_mdi = mdi_window
 
     def _on_active_navigate(self, axes_manager):
         """
