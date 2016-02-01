@@ -87,8 +87,8 @@ class RegressionTool(SelectionTool):
     """
     """
 
-    def __init__(self, windows=None):
-        super(RegressionTool, self).__init__(windows)
+    def __init__(self, *args, **kwargs):
+        super(RegressionTool, self).__init__(*args, **kwargs)
         self.valid_dimensions = [1]
 
     def on_keyup(self, event):
