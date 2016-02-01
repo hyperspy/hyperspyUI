@@ -50,11 +50,29 @@ import locale
 # logging.basicConfig(level=logging.DEBUG)
 
 
+def _get_logfile():
+    _, exe_name = os.path.split(sys.executable)
+    if exe_name.startswith('pythonw'):
+        log_path = os.path.dirname(__file__) + '/hyperspyui.log'
+        try:
+            log_file = open(log_path, 'w')
+        except IOError:
+            log_path = os.path.expanduser('~/hyperspyui.log')
+            try:
+                log_file = open(log_path, 'w')
+            except IOError:
+                log_file = None     # No log file for us!
+    else:
+        log_file = None
+    return log_file
+
+
 def main():
     from python_qt_binding import QtGui, QtCore, QT_BINDING
     import hyperspyui.info
     from hyperspyui.singleapplication import get_app
     from hyperspyui.settings import Settings
+    from hyperspyui.util import dummy_context_manager
 
     # Need to set early to make QSettings accessible
     QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
@@ -73,35 +91,38 @@ def main():
         # Make sure we only have a single instance
         app = get_app('hyperspyui')
 
-    _, exe_name = os.path.split(sys.executable)
-    if exe_name.startswith('pythonw'):
-        sys.stdout = sys.stderr = open(
-            os.path.dirname(__file__) + '/hyperspyui.log', 'w')
+    log_file = _get_logfile()
+    if log_file:
+        sys.stdout = sys.stderr = log_file
+    else:
+        log_file = dummy_context_manager()
 
-    # Create and display the splash screen
-    splash_pix = QtGui.QPixmap(
-        os.path.dirname(__file__) + './images/splash.png')
-    splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
-    splash.setMask(splash_pix.mask())
-    splash.show()
-    app.processEvents()
+    with log_file:
+        # Create and display the splash screen
+        splash_pix = QtGui.QPixmap(
+            os.path.dirname(__file__) + './images/splash.png')
+        splash = QtGui.QSplashScreen(splash_pix,
+                                     QtCore.Qt.WindowStaysOnTopHint)
+        splash.setMask(splash_pix.mask())
+        splash.show()
+        app.processEvents()
 
-    # Need to have import here, as it can take some time, so should happen
-    # after displaying splash
-    from hyperspyui.mainwindow import MainWindow
+        # Need to have import here, as it can take some time, so should happen
+        # after displaying splash
+        from hyperspyui.mainwindow import MainWindow
 
-    form = MainWindow()
-    if not settings['allow_multiple_instances', bool]:
-        if QT_BINDING == 'pyqt':
-            app.messageAvailable.connect(form.handleSecondInstance)
-        elif QT_BINDING == 'pyside':
-            app.messageReceived.connect(form.handleSecondInstance)
-    form.showMaximized()
+        form = MainWindow()
+        if not settings['allow_multiple_instances', bool]:
+            if QT_BINDING == 'pyqt':
+                app.messageAvailable.connect(form.handleSecondInstance)
+            elif QT_BINDING == 'pyside':
+                app.messageReceived.connect(form.handleSecondInstance)
+        form.showMaximized()
 
-    splash.finish(form)
-    form.load_complete.emit()
+        splash.finish(form)
+        form.load_complete.emit()
 
-    app.exec_()
+        app.exec_()
 
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')
