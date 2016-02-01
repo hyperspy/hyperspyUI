@@ -340,6 +340,7 @@ Section "HyperSpyUI"
     SetOutPath $INSTDIR
 
     ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" easy_install --upgrade pip'
+    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --no-deps --compile -U "$TEMP\${WHEEL}"'
     ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --find-links="$TEMP\wheels" --compile "$TEMP\${WHEEL}"'
     Delete "$TEMP\${WHEEL}"
     Delete "$TEMP\wheels\*.whl"
