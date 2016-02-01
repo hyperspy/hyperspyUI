@@ -4,7 +4,7 @@
 !define PRODUCT_NAME "HyperSpyUI Bundle"
 !define PRODUCT_PUBLISHER "HyperSpyUI"
 !define PRODUCT_VERSION "0.5"
-!define WHEEL "hyperspyUI-0.5-py2-none-any.whl"
+!define WHEEL "hyperspyUI-0.5-py3-none-any.whl"
 
 SetCompressor lzma
 SetCompress off
