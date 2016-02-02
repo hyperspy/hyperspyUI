@@ -250,7 +250,7 @@ class GitSelector(Plugin):
         If the packages are not source installs, it checks for a new version on
         PyPI.
 
-        Arguments:
+        Parameters
         ----------
             silent: bool
                 If not silent (default), a message box will appear if no
