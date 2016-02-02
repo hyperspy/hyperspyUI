@@ -246,8 +246,8 @@ class MainWindowUtils(MainWindowBase):
         """
         Create an icon that coheres to the internal standard for icons.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
             icon: {string | QIcon}
                 If icon is a path, it loads the file. If the path does not
                 correspond to a valid file, it is checked if it is a valid

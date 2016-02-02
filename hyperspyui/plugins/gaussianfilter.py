@@ -73,8 +73,8 @@ class GaussianFilter(Plugin):
 
         Uses `skimage.filters.gaussian_filter()` for the actual processing.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
             sigma : {float}
                 Smoothing factor in units of pixels, i.e a value around 1 is
                 a slight smoothing.
