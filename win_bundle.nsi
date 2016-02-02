@@ -104,6 +104,7 @@ Function DumpLog
     StrCpy $2 0
     System::Call "*(i, i, i, i, i, i, i, i, i) i \
       (0, 0, 0, 0, 0, r3, ${NSIS_MAX_STRLEN}) .r1"
+    FileWrite $5 "$\r$\n$\r$\n------- Begin detail view dump ----------$\r$\n"
     loop: StrCmp $2 $6 done
       System::Call "User32::SendMessageA(i, i, i, i) i \
         ($0, ${LVM_GETITEMTEXT}, $2, r1)"
@@ -125,14 +126,25 @@ Function DumpLog
     Exch $5
 FunctionEnd
 
-!define ConsumeWord "!insertmacro ConsumeWord"
-
-!macro ConsumeWord Word WordList
-    Push `${WordList}`
-    Call ConsumeWord
-    Pop `${WordList}`
-    Pop `${Word}`
+!macro DumpLog LogFile
+    Push `${LogFile}`
+    Call DumpLog
 !macroend
+
+!define DumpLog "!insertmacro DumpLog"
+
+Function DosLog
+    Exch $R0  ; Incoming command
+    ExecDos::exec /DETAILED $R0 "" ""
+    Pop $R0
+FunctionEnd
+
+!macro DosLog Cmd
+    Push `${Cmd}`
+    Call DosLog
+!macroend
+
+!define DosLog "!insertmacro DosLog"
 
 Function ConsumeWord
     Exch $R0  ; R0 has WordList (input)
@@ -169,6 +181,15 @@ Function ConsumeWord
     Exch
     Exch $R0
 FunctionEnd
+
+!macro ConsumeWord Word WordList
+    Push `${WordList}`
+    Call ConsumeWord
+    Pop `${WordList}`
+    Pop `${Word}`
+!macroend
+
+!define ConsumeWord "!insertmacro ConsumeWord"
 
 Function GetSelectedFileTypes
     Exch $R0  ; WordList - input, output
@@ -316,15 +337,17 @@ Section "Python"
         RMDir "$INSTDIR\settings"
     ${EndIf}
     Pop $R0
+    ; Installer is precompressed, so we need to add roughly a Gig of space
+    AddSize 1000000
 SectionEnd
 
 Section "Register python"
     SectionIn 1
     ; TODO: Check whether to reg for all
     SetOutPath "$INSTDIR\scripts"
-    ExecWait "$INSTDIR\scripts\register_python.bat"
+    ${DosLog} "$INSTDIR\scripts\register_python.bat"
     DetailPrint "Checking the list twice."
-    ExecWait "$INSTDIR\scripts\register_python.bat"
+    ${DosLog} "$INSTDIR\scripts\register_python.bat"
 SectionEnd
 
 Section "HyperSpyUI"
@@ -339,9 +362,9 @@ Section "HyperSpyUI"
     File ".\bundle_prerequisites\wheels\*.whl"
     SetOutPath $INSTDIR
 
-    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" easy_install --upgrade pip'
-    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --no-deps --compile -U "$TEMP\${WHEEL}"'
-    ExecWait '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --find-links="$TEMP\wheels" --compile "$TEMP\${WHEEL}"'
+    ${DosLog} '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" easy_install --upgrade pip'
+    ${DosLog} '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --no-deps --compile -U "$TEMP\${WHEEL}"'
+    ${DosLog} '$TEMP\win_bundle_install.bat "$INSTDIR\scripts\env.bat" pip install --use-wheel --find-links="$TEMP\wheels" --compile "$TEMP\${WHEEL}"'
     Delete "$TEMP\${WHEEL}"
     Delete "$TEMP\wheels\*.whl"
     Delete "$TEMP\win_bundle_install.bat"
@@ -358,7 +381,7 @@ SectionGroup /e "Register HyperSpyUI"
         Push $R0
         ${GetPythonDir} $R0
         SetOutPath "$R0"
-        ExecWait '"$R0\python.exe" "$R0\Scripts\hyperspyui_install.py" -filetypes'
+        ${DosLog} '"$R0\python.exe" "$R0\Scripts\hyperspyui_install.py" -filetypes'
         Pop $R0
     SectionEnd
     SectionGroup "Register filetypes"
@@ -404,12 +427,10 @@ SectionGroup /e "Register HyperSpyUI"
             Push $R1
             ${GetPythonDir} $R1
             SetOutPath "$R1"
-            ExecWait '"$R1\python.exe" "$R1\Scripts\hyperspyui_install.py" -no-shortcuts -filetypes $R0'
+            ${DosLog} '"$R1\python.exe" "$R1\Scripts\hyperspyui_install.py" -no-shortcuts -filetypes $R0'
             Pop $R0
             Pop $R1
-            StrCpy $0 "$INSTDIR\install.log"
-            Push $0
-            Call DumpLog
+            ${DumpLog} "$INSTDIR\install.log"
         SectionEnd
     SectionGroupEnd
 SectionGroupEnd
