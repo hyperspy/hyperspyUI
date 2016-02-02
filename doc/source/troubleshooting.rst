@@ -25,14 +25,16 @@ worth noticing:
         This is dependent on Pythons garbadge collector, and might be caused by
         remaining references to the signal held by parts of the UI or matplotlib
         figures. A program restart might be necessary to solve this, but using
-        `Close all`_ might also help clearing out any remaining references.
+        :ref:`close-all` might also help clearing out any remaining references.
 
     Signals can get stuck in "limbo"
         If a signal gets stuck in an invalid state, it might be problematic
         to close it fully. Similar to the above problem, this might be
-        fixed by the `Close all`_ action, or in the last resort a program
+        fixed by the :ref:`close-all` action, or in the last resort a program
         restart might be necessary.
 
+
+.. _error-output:
 
 Error output
 -----------------
@@ -46,5 +48,6 @@ the folder of the ``launch.py`` file. If that location is noe writable,
 the log file is attempted written to the users home folder (OS dependent).
 In either case, the log file is named ``hyperspyui.log``.
 
-Note that for a complete error output to the above sources, the
-`output to console`_ settings option should be disabled.
+.. note::
+    For a complete error output to the above sources, the
+    :ref:`output-to-console` settings option should be disabled.

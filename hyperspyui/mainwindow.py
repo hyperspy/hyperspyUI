@@ -111,7 +111,7 @@ class MainWindow(MainWindowHyperspy):
 
     def parse_args(self, argv=None):
         """
-        Parse comman line arguments, either from sys.argv, or from parameter
+        Parse command line arguments, either from sys.argv, or from parameter
         'argv'.
         """
         parser = argparse.ArgumentParser(
