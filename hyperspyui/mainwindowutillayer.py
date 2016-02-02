@@ -111,6 +111,11 @@ class MainWindowUtils(MainWindowBase):
                 callback(userdata)
 
             self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
+        if callback.__doc__:
+            d = callback.__doc__
+            if d.startswith('partial('):
+                d = callback.func.__doc__
+            ac.__doc__ = d
         self.actions[key] = ac
         if selection_callback is not None:
             self._action_selection_cbs[key] = selection_callback
