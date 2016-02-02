@@ -32,7 +32,7 @@ from QtGui import *
 
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 
-import hooktraitsui
+from hyperspyui import hooktraitsui
 
 hooktraitsui.hook_traitsui()
 
