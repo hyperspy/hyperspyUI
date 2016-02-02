@@ -14,6 +14,9 @@ User guide:
     installation.rst
     quickstart.rst
     actions.rst
+    tools.rst
+    widgets.rst
+    settings.rst
     troubleshooting.rst
 
 
@@ -21,13 +24,14 @@ Developer guide:
 
 While the UI doesn't easily lend itself to being used as a library, understanding
 the UI API is of importance for anybody that want to add plugins, or simply
-want to execute some code in the `console`_.
+want to execute some code in the :ref:`console`.
 
 .. toctree::
     :maxdepth: 2
-    developers.rst
-    api/hyperspyui.rst
 
+    devguide.rst
+    api/hyperspyui.rst
+    api/hyperspyui.plugins.rst
 
 
 Indices and tables
