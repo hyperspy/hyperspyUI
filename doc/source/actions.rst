@@ -89,6 +89,9 @@ Change the data type use to store the signal data internally. See
 :ref:`numpy:data-type-objects-dtype`. The operation is performed by 
 :py:meth:`hyperspy.signal.Signal.change_dtype`.
 
+
+.. _manual-alignment:
+
 Manual align
 """"""""""""""""""""""""""""""""""""
 Interactively align the signal. Navigate through the signal stack, and shift
@@ -428,6 +431,9 @@ Check for updates
 """"""""""""""""""
 Checks for updates to HyperSpy and HyperSpyUI. If the packages are not source
 installs, it checks for a new version on `PyPI`_.
+
+.. _PyPI: https://pypi.python.org/pypi/hyperspyui/
+
 
 Plugin manager
 """"""""""""""""""""""""""""""""""""

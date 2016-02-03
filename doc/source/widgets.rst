@@ -57,6 +57,8 @@ integrated intensity maps of the α-lines can be created by clicking the 'Maps'
 button (see :py:class:`~hyperspy.signals.EDSSpectrum.get_lines_intensity`
 for details).
 
+.. image:: element_picker.png
+
 
 Contrast control
 ---------------------
@@ -70,6 +72,7 @@ uses the automatic settings of :py:class:`hyperspy.drawing.image.ImagePlot`.
 By selecting 'Log' a logarithmic transform is applied to the image cotrast.
 This only affects the plot, and leaves the data untouched.
 
+.. image:: contrast_control.png
 
 
 Colormap picker
@@ -87,7 +90,7 @@ Axes configuration
 ---------------------
 
 
-AXes order
+Axes order
 ---------------------
 
 
@@ -101,7 +104,7 @@ The record widget offers controls to turn on or off recording to a dedicated
 :ref:`code-editor`. Two checkboxes allow for selecting what should be recorded.
 See :ref:`recording` for details on what is recorded, and how it can be used.
 
-
+.. image:: recorder_widget.png
 
 
 .. _console-widget:
@@ -115,3 +118,5 @@ the :ref:`console` section.
 
 .. _qtconsole: https://qtconsole.readthedocs.org/en/stable/
 .. _IPython: http://ipython.org/
+
+.. image:: console_widget.png
