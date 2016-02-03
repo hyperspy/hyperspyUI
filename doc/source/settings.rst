@@ -85,6 +85,8 @@ having the dialogs open where they were last used.
 
 
 
+.. _alignment-settings:
+
 Align
 ----------------------
 

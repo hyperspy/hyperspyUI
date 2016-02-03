@@ -74,7 +74,7 @@ A variety of settings for this tool is available in the
 
 Align horizontal tool
 """"""""""""""""""""""""""
-Similar to :ref:`_alignment-tool`, but is restricted to aligning images in 
+Similar to :ref:`alignment-tool`, but is restricted to aligning images in 
 the horizontal direction only.
 
 
@@ -82,7 +82,7 @@ the horizontal direction only.
 
 Align vertical tool
 """"""""""""""""""""""""""
-Similar to :ref:`_alignment-tool`, but is restricted to aligning images in 
+Similar to :ref:`alignment-tool`, but is restricted to aligning images in 
 the vertical direction only.
 
 
