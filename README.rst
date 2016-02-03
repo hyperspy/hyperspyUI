@@ -1,20 +1,24 @@
 HyperSpyUI
 ==========
-A graphical interface for HyperSpy.
 
-To install the current version as a user, run the following command (assuming
-you have the package manager 'pip')::
+|pypi_version|_ |pypi_downloads|_
 
-    pip install hyperspyui
+.. |pypi_downloads| image:: http://img.shields.io/pypi/dm/hyperspyui.svg?style=flat
+.. _pypi_downloads: https://pypi.python.org/pypi/hyperspyui
 
-To install a development version, clone the git repository and run::
+.. |pypi_version| image:: http://img.shields.io/pypi/v/hyperspyui.svg?style=flat
+.. _pypi_version: https://pypi.python.org/pypi/hyperspyui
 
-    pip install -e ./
+HyperSpyUI tries to bring a streamlined user interface the powerful
+multi-dimensional analysis capabilities of HyperSpy. HyperSpy is an open
+source Python library which provides tools to facilitate data analysis of
+multidimensional datasets.
 
-from the hyperspyui root directory.
+HyperSpy aims at making it easy and natural to apply analytical procedures
+that operate on an individual signal to multidimensional arrays, as well as
+providing easy access to analytical tools that exploit the multidimensionality
+of the dataset.
 
-For both cases, to create desktop and start menu icons on windows, run the
-installed script "hyperspyui_install.py". This will also associate .msa and
-.hdf5 files with the UI. Similar behavior for linux is under development.
-
-A GUI entry point is also defined, named "HyperSpyUI".
+While the UI tries to create a simple and intuitive interface to HyperSpy, it
+still retains the raw power of HyperSpy via the UI’s built in IPython console,
+which runs on the same Python kernel as the UI.
