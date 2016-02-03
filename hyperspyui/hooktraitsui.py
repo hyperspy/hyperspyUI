@@ -21,7 +21,17 @@ Created on Sun Nov 23 17:10:41 2014
 @author: Vidar Tonaas Fauske
 """
 
-import traitsui.qt4.ui_base as ui_base
+try:
+    import traitsui.qt4.ui_base as ui_base
+except RuntimeError:
+    import sys
+
+    if 'sphinx' in sys.modules:
+        class Dummy(object): pass
+        ui_base = Dummy()
+        ui_base._StickyDialog = Dummy
+    else:
+        raise
 orig_type = ui_base._StickyDialog
 
 

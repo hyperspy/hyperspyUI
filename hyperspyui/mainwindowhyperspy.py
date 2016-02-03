@@ -32,7 +32,11 @@ import sys
 
 # Hyperspy uses traitsui, set proper backend
 from traits.etsconfig.api import ETSConfig
-ETSConfig.toolkit = 'qt4'
+try:
+    ETSConfig.toolkit = 'qt4'
+except ValueError:
+    if 'sphinx' not in sys.modules:
+        raise
 
 from mainwindowutillayer import MainWindowActionRecorder, tr
 
