@@ -1,16 +1,6 @@
 hyperspyui.widgets package
 ==========================
 
-Submodules
-----------
-
-hyperspyui.widgets._editor_server module
-----------------------------------------
-
-.. automodule:: hyperspyui.widgets._editor_server
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 hyperspyui.widgets.consolewidget module
 ---------------------------------------
@@ -112,15 +102,6 @@ hyperspyui.widgets.traitswidget module
 --------------------------------------
 
 .. automodule:: hyperspyui.widgets.traitswidget
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: hyperspyui.widgets
     :members:
     :undoc-members:
     :show-inheritance:

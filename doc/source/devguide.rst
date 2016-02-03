@@ -50,3 +50,38 @@ we can then run::
     ├── XPERCHAN = 0.2
     ├── XUNITS = eV
     └── YUNITS = Counts
+
+
+
+.. _code-editor:
+
+Code editor widget
+------------------
+
+Code editor widgets allow you to edit Python code directly within the
+application. This can be useful for :ref:`recording` code, or for creating
+and modifying :ref:`plugins` on the fly. An editor widget is opened when
+the :ref:`new-editor` action is triggered, when a python script is opened,
+or when recording is started via the :ref:`recorder-widget`.
+
+
+
+.. _plugin-manager-widget:
+
+Plugin manager widget
+---------------------
+
+The plugin manager widget shows a list of all the discovered plugins 
+(and any that have been added manually), their locations, and allows 
+to set whether they should be loaded or not. There's also an 'Edit' button
+which will open up the source code of the plugin in a new :ref:`code-editor`.
+
+Unselecting a plugin will attempt to unload it, but the success of this
+depends on the plugin correctly implementing its 
+:py:meth:`~hyperspyui.plugins.plugin.unload` routine, which might not always
+be the case.
+
+.. note::
+    The unloading will only be partial if references to its content
+    remain elsewhere in the program, so for this reason many core plugins will 
+    fail to unload fully.

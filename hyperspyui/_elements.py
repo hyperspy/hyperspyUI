@@ -1,6 +1,9 @@
 
-# List of elements
-# Data processed from wikipedia\s periodic table template page (fall 2014)
+"""
+List of elements
+
+Data processed from wikipedia\s periodic table template page (fall 2014)
+"""
 
 elements = [[
     {'Z': 1, 'name': "hydrogen", 'id': "H", 'phase': "Gas  ",
