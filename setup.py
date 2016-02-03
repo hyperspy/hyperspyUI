@@ -72,7 +72,7 @@ setup(
     },
     entry_points={
         'gui_scripts': [
-            'HyperSpyUI = hyperspyui.launch:main',
+            'hyperspyui = hyperspyui.launch:main',
          ]
     },
     scripts=[
