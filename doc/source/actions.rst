@@ -86,8 +86,10 @@ Changes the signal type using a combination of methods on
 Signal data type
 """"""""""""""""""""""""""""""""""""
 Change the data type use to store the signal data internally. See
-:ref:`numpy:data-type-objects-dtype`. The operation is performed by 
+the `numpy docs`_ for details. The operation is performed by 
 :py:meth:`hyperspy.signal.Signal.change_dtype`.
+
+.. _numpy docs: http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype
 
 
 .. _manual-alignment:
