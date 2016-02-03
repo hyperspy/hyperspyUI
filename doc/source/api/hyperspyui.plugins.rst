@@ -1,15 +1,6 @@
 Core plugins
 ==========================
 
-Subpackages
------------
-
-.. toctree::
-
-    hyperspyui.plugins.user_plugins
-
-Submodules
-----------
 
 hyperspyui.plugins.align module
 -------------------------------
@@ -191,15 +182,6 @@ hyperspyui.plugins.virtual_aperture module
 ------------------------------------------
 
 .. automodule:: hyperspyui.plugins.virtual_aperture
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: hyperspyui.plugins
     :members:
     :undoc-members:
     :show-inheritance:

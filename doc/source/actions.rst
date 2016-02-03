@@ -44,6 +44,8 @@ Save the currently active figure using matplotlib's
 :py:meth:`~matplotlib.figure.Figure.savefig`. Note that this does not care 
 about how the figure was produced, or the underlying resolution of the data.
 
+.. _new-editor:
+
 New editor
 """"""""""""""""""""""""""""""""""""
 Opens a new :ref:`code-editor`.
@@ -137,11 +139,16 @@ Add and plot a default model for the selected signal. Note that the
 The newly created model is accessible through the :ref:`data-widget`.
 
 
+.. _add-component:
+
 Add component
 """"""""""""""""""""""""""""""""""""
 Add a component to the currently selected model.
 
 The newly created component is accessible through the :ref:`data-widget`.
+
+
+.. _plot-components:
 
 Plot components
 """""""""""""""
@@ -238,7 +245,7 @@ EELS
 Remove Background
 """"""""""""""""""""""""""""""""""""
 Interactively define the background, and remove it. See
-:py:meth:`hyperspy.signal.Signal.hanning_taper` for details.
+:py:meth:`hyperspy.signal.Signal.remove_background` for details.
 
 Fourier Ratio Deconvoloution
 """"""""""""""""""""""""""""""""""""
@@ -322,27 +329,27 @@ Math
 
 Mean
 """"""""""""""""""""""""""""""""""""
-Plot the mean of the current signal.
+Plot the mean of the current signal across all navigation axes.
 
 Sum
 """"""""""""""""""""""""""""""""""""
-Plot the sum of the current signal.
+Plot the sum of the current signal across all navigation axes.
 
 Maximum
 """"""""""""""""""""""""""""""""""""
-Plot the maximum of the current signal.
+Plot the maximum of the current signal across all navigation axes.
 
 Minimum
 """"""""""""""""""""""""""""""""""""
-Plot the sum of the current signal.
+Plot the sum of the current signal across all navigation axes.
 
 Std.dev.
 """"""""""""""""""""""""""""""""""""
-Plot the standard deviation of the current signal.
+Plot the standard deviation of the current signal across all navigation axes.
 
 Variance
 """"""""""""""""""""""""""""""""""""
-Plot the variances of the current signal.
+Plot the variances of the current signal. across all navigation axes
 
 
 FFT
@@ -377,7 +384,9 @@ Plot
 
 Tight layout
 """"""""""""""""""""""""""""""""""""
-Apply a tight layout to the selected plot.
+Apply a tight layout to the selected plot. This is basically a workaround
+for the not so ideal basic layout for matplotlib figures, especially if they
+have been resized.
 
 
 
@@ -388,9 +397,32 @@ Apply a tight layout to the selected plot.
 Settings
 -----------------
 
+.. _version-selector:
+
 Version selector
 """"""""""""""""""""""""""""""""""""
 Open dialog to select branch/version of HyperSpy/HyperSpyUI.
+
+ .. warning::
+    
+    This can invalidate your installation of HyperSpyUI and/or HyperSpy. Use
+    with caution!
+
+Opens up a dialogbox that enables you to install a specific GitHub branch for
+HyperSpy and HyperSpyUI. This will basically download and install the selected
+branch using `pip`_, whether or not that version works or if the HyperSpy and
+HyperSpyUI verions are internally compatible, or even compatible with your
+version of Python. As this can prevent you from starting the application 
+afterwards, you might end up having to reinstall it.
+
+.. _pip: http://pip.pypa.io/
+
+.. note::
+    
+    If your current installation is a git repository, this will check out
+    the selected branch instead of doing a pip install.
+
+.. _check-for-updates:
 
 Check for updates
 """"""""""""""""""
@@ -399,7 +431,12 @@ installs, it checks for a new version on `PyPI`_.
 
 Plugin manager
 """"""""""""""""""""""""""""""""""""
-Show the plugin manager.
+Show the plugin manager dialog (see
+:ref:`plugin-manager-widget` and
+:py:class:`~hyperspyui.pluginmanager.PluginManager`).
+
+
+.. _reset-layout:
 
 Reset layout
 """"""""""""""""""""""""""""""""""""
@@ -409,9 +446,12 @@ HyperSpy settings
 """"""""""""""""""""""""""""""""""""
 Edit the HyperSpy package settings.
 
+
+.. _edit-settings:
+
 Edit settings
 """""""""""""""
-Shows a dialog for editing the application and plugins settings.
+Shows a dialog for editing the application and plugins settings. See 
 
 
 
