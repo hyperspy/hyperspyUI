@@ -215,3 +215,12 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+##############
+## Code dirs
+##############
+
+hyperspyui/
+*.pyperf
+*.pyproj
+*.sln
