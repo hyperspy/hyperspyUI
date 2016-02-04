@@ -3,7 +3,7 @@
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "HyperSpyUI Bundle"
 !define PRODUCT_PUBLISHER "HyperSpyUI"
-!define PRODUCT_VERSION "0.6"
+!define PRODUCT_VERSION "0.6.1"
 !define WHEEL "hyperspyUI-${PRODUCT_VERSION}-py3-none-any.whl"
 
 SetCompressor lzma
