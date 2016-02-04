@@ -10,7 +10,7 @@ HyperSpyUI
 .. _pypi_version: https://pypi.python.org/pypi/hyperspyui
 
 HyperSpyUI tries to bring a streamlined user interface the powerful
-multi-dimensional analysis capabilities of HyperSpy. HyperSpy is an open
+multi-dimensional analysis capabilities of HyperSpy_. HyperSpy is an open
 source Python library which provides tools to facilitate data analysis of
 multidimensional datasets.
 
@@ -22,3 +22,5 @@ of the dataset.
 While the UI tries to create a simple and intuitive interface to HyperSpy, it
 still retains the raw power of HyperSpy via the UI’s built in IPython console,
 which runs on the same Python kernel as the UI.
+
+.. _HyperSpy: http://hyperspy.org
