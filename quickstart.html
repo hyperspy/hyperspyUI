@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart Guide &mdash; HyperSpyUI 0.7+dev documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="HyperSpyUI 0.7+dev documentation" href="index.html"/>
+        <link rel="next" title="Available actions" href="actions.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7+dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#launch">Launch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-data">Loading data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="devguide.html">Developer guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">HyperSpyUI</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Quickstart Guide</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/quickstart.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart-guide">
+<h1>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Permalink to this headline">¶</a></h1>
+<p>This guide is designed to help you get up and running quickly with HyperSpyUI.</p>
+<div class="section" id="launch">
+<h2>Launch<a class="headerlink" href="#launch" title="Permalink to this headline">¶</a></h2>
+<p>Sarting the HyperSpyUI application can be dependent on how it was installed.
+If it was installed into the OS, a shortcut might have been created on your
+desktop, and running the shortcut should then be enough to start the program.</p>
+<p>If you do not have a shortcut, the app can typically be started by running
+the command <code class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hyperspyui.launch</span></code>. This assumes that the python
+command is available from wherever you are running it. If that is not the case,
+figure out the full path to the python executable, and run it as above
+<code class="docutils literal"><span class="pre">&lt;full</span> <span class="pre">path&gt;/python</span> <span class="pre">-m</span> <span class="pre">hyperspyui.launch</span></code>.</p>
+<p>The final option is to fully explicit:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;full path to python&gt;/python &quot;&lt;full path to hyperspyui&gt;/launch.py&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The user interface is based on top of <a class="reference external" href="http://www.qt.io/">Qt</a>, and have four main components:</p>
+<img alt="_images/ui_overview.png" src="_images/ui_overview.png" />
+<blockquote>
+<div><ol class="arabic simple">
+<li>Menus: Most of the actions you can do have a menu entry.</li>
+<li>Toolbars: Several actions have their own button on a toolbar, and all
+interactive <a class="reference internal" href="tools.html#tools-section"><span>Tools</span></a> are here as well.</li>
+<li>Widgets: These are small panels or windows that can be moved, and
+are always open unless explicitly closed. Their content and behavior
+can vary widely, and includes the <cite>data tree</cite> and the <cite>console</cite> widgets.</li>
+<li>Figures: The final component are the figures and plots that are
+generated. These include all <a class="reference external" href="http://matplotlib.org/">matplotlib</a> figures, but the ones created
+by HyperSpy are the most interesting ones.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="loading-data">
+<h2>Loading data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h2>
+<p>The standard way of getting data into the application is to open a file of
+one of the <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/user_guide/io.html#supported-formats">file types</a> that HyperSpy can read. This can either be achived
+by dragging and dropping the file in question onto the application window,
+or by the open file dialog accessible in the toolbar (<a class="reference internal" href="_images/open.svg"><img alt="open button" src="_images/open.svg" width="18px" /></a>), or
+from the File menu.</p>
+<p>If you have registered the application with the operating system to handle the
+file types, files can also be opened in HyperSpyUI simply by opening them in
+a normal file browser.</p>
+<p>Once the file is loaded, the resulting HyperSpy signal should automatically
+be plotted. If not, an error might have occured, in which case you should
+check your <a class="reference internal" href="troubleshooting.html#error-output"><span>Error output</span></a>.</p>
+<p>Once the signal is loaded, you are ready to start inspecing and manipulating
+your data. See the following sections for a more detailed explanation of
+what can be done, or simply start playing around! It normally takes quite
+a conscious effort to overwrite existing data (&#8220;save&#8221; action, pick existing
+file name, confirm &#8220;yes I want to overwrite&#8221; dialog), so you should be
+safe in playing around.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="actions.html" class="btn btn-neutral float-right" title="Available actions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.7+dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

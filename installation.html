@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; HyperSpyUI 0.7+dev documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="HyperSpyUI 0.7+dev documentation" href="index.html"/>
+        <link rel="next" title="Quickstart Guide" href="quickstart.html"/>
+        <link rel="prev" title="HyperSpyUI A Graphical interface for HyperSpy" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7+dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bundle-installer">Bundle Installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-via-pip">Install via <cite>pip</cite></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-hyperspy-dependency">Custom HyperSpy dependency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-qt">Getting Qt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="devguide.html">Developer guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">HyperSpyUI</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/installation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>There are several ways to install HyperSpyUI. The application itself is rather
+simple to install, but its dependencies can be a bit more tricky.</p>
+<div class="section" id="bundle-installer">
+<h2>Bundle Installer<a class="headerlink" href="#bundle-installer" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re on Windows, the quickest way to get set up is to download and install
+the HyperSpyUI bundle installer. The bundled <a class="reference external" href="http://winpython.github.io/">WinPython</a> distribution includes
+all the dependencies of the program, and the installer also helps create
+program shortucts and register common microscopy file formats with the application.</p>
+<p>The bundle installer can also be used if you already have installed a WinPython
+distribution (e.g. via the <a class="reference external" href="http://hyperspy.org/download.html">HyperSpy bundle</a>), and just want to add HyperSpyUI and
+its dependencies, although it might not support older versions.</p>
+</div>
+<div class="section" id="install-via-pip">
+<h2>Install via <cite>pip</cite><a class="headerlink" href="#install-via-pip" title="Permalink to this headline">¶</a></h2>
+<p>HyperSpyUI is on <a class="reference external" href="https://pypi.python.org/pypi/hyperspyui/">PyPI</a>, so simply running the command <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">hyperspyui</span></code>
+should download and install HyperSpyUI and its dependencies. The package defines
+a GUI script <code class="docutils literal"><span class="pre">hyperspyui</span></code>, which can be called to start the application, or
+alternatively it can be started by running <code class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hyperspyui.launch</span></code>.</p>
+<p>To get HyperSpyUI to integrate with your operating system after installation,
+you can run the script <code class="docutils literal"><span class="pre">hyperspyui_install.py</span></code>. Currently, this only
+integrates with Windows, but this is intended to extend to Linux systems in the
+future (please consider contributing).</p>
+<div class="section" id="custom-hyperspy-dependency">
+<h3>Custom HyperSpy dependency<a class="headerlink" href="#custom-hyperspy-dependency" title="Permalink to this headline">¶</a></h3>
+<p>HyperSpyUI currently depends on a custom version of HyperSpy for much of its
+functionallity. This version contains several features that are still in
+development for version 0.9 of HyperSpy. To install this custom version,
+run the ollowing command if you have Python version 2:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install https://github.com/vidartf/hyperspy/archive/hyperspyui.zip
+</pre></div>
+</div>
+<p>Or the following if you are on Pyhton version 3:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install https://github.com/vidartf/hyperspy/archive/hyperspyui_py3.zip
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-qt">
+<h3>Getting Qt<a class="headerlink" href="#getting-qt" title="Permalink to this headline">¶</a></h3>
+<p>Getting and installing <a class="reference external" href="http://www.qt.io/">Qt</a> might or might not be easy, depending on which
+operating system you are on. For this reason, it is recommended to run
+HyperSpyUI on a distribution which offers ready-made Qt packages. Examples
+include <a class="reference external" href="http://winpython.github.io/">WinPython</a>, <a class="reference external" href="https://github.com/conda/conda">Conda</a> and <a class="reference external" href="http://www.qt.io/">Canopy</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="HyperSpyUI A Graphical interface for HyperSpy" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.7+dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

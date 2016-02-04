@@ -1,0 +1,681 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Available actions &mdash; HyperSpyUI 0.7+dev documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="HyperSpyUI 0.7+dev documentation" href="index.html"/>
+        <link rel="next" title="Tools" href="tools.html"/>
+        <link rel="prev" title="Quickstart Guide" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7+dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Available actions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#file">File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#open">Open</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open-stack">Open Stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#close">Close</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-figure">Save figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-editor">New editor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#close-all-signals">Close All (signals)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exit">Exit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#signal">Signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#signal-type">Signal type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signal-data-type">Signal data type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-align">Manual align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#statistics">Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#histogram">Histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mirror-navigation">Mirror navigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#share-navigation">Share navigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rebin">Rebin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model">Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-model">Create Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-component">Add component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-components">Plot components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adjust-component-positions">Adjust component positions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#decomposition">Decomposition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pca">PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bss">BSS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decomposition-results">Decomposition results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#spectrum">Spectrum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smooth-savitzky-golay">Smooth Savitzky-Golay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smooth-lowess">Smooth Lowess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smooth-total-variation">Smooth Total variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#butterworth-filter">Butterworth filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hanning-taper">Hanning taper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#eels">EELS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#remove-background">Remove Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fourier-ratio-deconvoloution">Fourier Ratio Deconvoloution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estimate-thickness">Estimate thickness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#browse-eelsdb">Browse EELSDB</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#image">Image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gaussian-filter">Gaussian Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rotate">Rotate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#diffraction">Diffraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-aperture">Virtual aperture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-navigator">Virtual navigator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#math">Math</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mean">Mean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sum">Sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maximum">Maximum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minimum">Minimum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#std-dev">Std.dev.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variance">Variance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fft">FFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#live-fft">Live FFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signal-fft">Signal FFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inverse-fft">Inverse FFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inverse-signal-fft">Inverse Signal FFT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#plot">Plot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tight-layout">Tight layout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-selector">Version selector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-for-updates">Check for updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugin-manager">Plugin manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reset-layout">Reset layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hyperspy-settings">HyperSpy settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit-settings">Edit settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tile">Tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cascade">Cascade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#close-all-windows">Close all (windows)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="devguide.html">Developer guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">HyperSpyUI</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Available actions</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/actions.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="available-actions">
+<span id="actions"></span><h1>Available actions<a class="headerlink" href="#available-actions" title="Permalink to this headline">¶</a></h1>
+<p>Most menu entries and toolbar buttons trigger an <cite>action</cite> when clicked. This
+is a rather loose definition, but actions are different from
+<a class="reference internal" href="tools.html#tools-section"><span>Tools</span></a> and <a class="reference internal" href="widgets.html#widgets-section"><span>Widgets</span></a>.</p>
+<p>The list below is sorted on category, which roughly corresponds to the
+toolbar/menu in which they appear.</p>
+<div class="section" id="file">
+<h2>File<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="open">
+<h3>Open<a class="headerlink" href="#open" title="Permalink to this headline">¶</a></h3>
+<p>Open a dialog to let the user interactively browse for files. It then loads
+these files using <code class="xref py py-meth docutils literal"><span class="pre">hyperspy.io.load()</span></code> before plotting the loaded
+signals.</p>
+</div>
+<div class="section" id="open-stack">
+<h3>Open Stack<a class="headerlink" href="#open-stack" title="Permalink to this headline">¶</a></h3>
+<p>Open files and combine the loaded signals into one signal (stacked).</p>
+</div>
+<div class="section" id="close">
+<h3>Close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
+<p>Close the selected signal(s).</p>
+</div>
+<div class="section" id="save">
+<h3>Save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
+<p>Save the selected signal(s).</p>
+</div>
+<div class="section" id="save-figure">
+<h3>Save figure<a class="headerlink" href="#save-figure" title="Permalink to this headline">¶</a></h3>
+<p>Save the currently active figure using matplotlib&#8217;s
+<a class="reference external" href="http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure.savefig" title="(in Matplotlib v1.5.1)"><code class="xref py py-meth docutils literal"><span class="pre">savefig()</span></code></a>. Note that this does not care
+about how the figure was produced, or the underlying resolution of the data.</p>
+</div>
+<div class="section" id="new-editor">
+<span id="id1"></span><h3>New editor<a class="headerlink" href="#new-editor" title="Permalink to this headline">¶</a></h3>
+<p>Opens a new <a class="reference internal" href="devguide.html#code-editor"><span>Code editor widget</span></a>.</p>
+</div>
+<div class="section" id="close-all-signals">
+<span id="close-all"></span><h3>Close All (signals)<a class="headerlink" href="#close-all-signals" title="Permalink to this headline">¶</a></h3>
+<p>Close all signals. This can sometimes help clear out signals that get stuck
+in an invalid state.</p>
+</div>
+<div class="section" id="exit">
+<h3>Exit<a class="headerlink" href="#exit" title="Permalink to this headline">¶</a></h3>
+<p>Close the application.</p>
+</div>
+</div>
+<div class="section" id="signal">
+<h2>Signal<a class="headerlink" href="#signal" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="signal-type">
+<span id="id2"></span><h3>Signal type<a class="headerlink" href="#signal-type" title="Permalink to this headline">¶</a></h3>
+<p>Changes the signal type using a combination of methods on
+<code class="xref py py-class docutils literal"><span class="pre">hyperspy.Signal</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="xref py py-meth docutils literal"><span class="pre">set_signal_type()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">set_signal_origin()</span></code></li>
+<li>and by converting with <code class="xref py py-meth docutils literal"><span class="pre">as_image()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">as_spectrum()</span></code>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="signal-data-type">
+<h3>Signal data type<a class="headerlink" href="#signal-data-type" title="Permalink to this headline">¶</a></h3>
+<p>Change the data type use to store the signal data internally. See
+the <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype">numpy docs</a> for details. The operation is performed by
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.change_dtype" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.change_dtype()</span></code></a>.</p>
+</div>
+<div class="section" id="manual-align">
+<span id="manual-alignment"></span><h3>Manual align<a class="headerlink" href="#manual-align" title="Permalink to this headline">¶</a></h3>
+<p>Interactively align the signal. Navigate through the signal stack, and shift
+each point individually. This will also shift all the following points by the
+same amount. During input, the images are simply looped around the edges, but
+for final processing the signal dimensions will be expanded to fit the aligned
+signal.</p>
+</div>
+<div class="section" id="statistics">
+<h3>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h3>
+<p>Print the signal statistics to the console. See
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.print_summary_statistics" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.print_summary_statistics()</span></code></a> for details.</p>
+</div>
+<div class="section" id="histogram">
+<h3>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h3>
+<p>Plot a histogram of the signal. See
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.get_histogram" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.get_histogram()</span></code></a> for details. The method
+for determining the number of bins can be set in the <a class="reference internal" href="settings.html#settings-section"><span>Settings</span></a>.</p>
+</div>
+<div class="section" id="mirror-navigation">
+<h3>Mirror navigation<a class="headerlink" href="#mirror-navigation" title="Permalink to this headline">¶</a></h3>
+<p>Mirror navigation axes of selected signals, <cite>i.e.</cite> they will always navigate
+together.</p>
+</div>
+<div class="section" id="share-navigation">
+<h3>Share navigation<a class="headerlink" href="#share-navigation" title="Permalink to this headline">¶</a></h3>
+<p>Mirror navigation axes of selected signals, and keep only one navigator
+plot.</p>
+</div>
+<div class="section" id="rebin">
+<h3>Rebin<a class="headerlink" href="#rebin" title="Permalink to this headline">¶</a></h3>
+<p>Opens a dialog to rebin the signal. See
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.rebin" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.rebin()</span></code></a> for details.</p>
+</div>
+</div>
+<div class="section" id="model">
+<h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-model">
+<h3>Create Model<a class="headerlink" href="#create-model" title="Permalink to this headline">¶</a></h3>
+<p>Add and plot a default model for the selected signal. Note that the
+<a class="reference internal" href="#signal-type"><span>Signal type</span></a> is important in order to create the correct model type.</p>
+<p>The newly created model is accessible through the <a class="reference internal" href="widgets.html#data-widget"><span>Data view</span></a>.</p>
+</div>
+<div class="section" id="add-component">
+<span id="id3"></span><h3>Add component<a class="headerlink" href="#add-component" title="Permalink to this headline">¶</a></h3>
+<p>Add a component to the currently selected model.</p>
+<p>The newly created component is accessible through the <a class="reference internal" href="widgets.html#data-widget"><span>Data view</span></a>.</p>
+</div>
+<div class="section" id="plot-components">
+<span id="id4"></span><h3>Plot components<a class="headerlink" href="#plot-components" title="Permalink to this headline">¶</a></h3>
+<p>Toggle the plotting of each component together with the model, as performed
+by <code class="xref py py-meth docutils literal"><span class="pre">hyprespy.Model1D.enable_plot_components()</span></code>.</p>
+</div>
+<div class="section" id="adjust-component-positions">
+<h3>Adjust component positions<a class="headerlink" href="#adjust-component-positions" title="Permalink to this headline">¶</a></h3>
+<p>Add/remove widgets to adjust the position of the components in the model, as
+performed by <code class="xref py py-meth docutils literal"><span class="pre">hyprespy.Model1D.enable_adjust_position()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="decomposition">
+<h2>Decomposition<a class="headerlink" href="#decomposition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pca">
+<h3>PCA<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h3>
+<p>Performs decomposition if neccessary, then plots the scree for selecting the
+number of components to use for a decomposition model. The selection is made
+by clicking on the in the scree plot on the first component to
+<cite>not be included</cite> in the decomposition. The scree plot will then automatically
+close and the decomposition model plotted (see
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.decomposition()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.get_decomposition_model()</span></code>).</p>
+</div>
+<div class="section" id="bss">
+<h3>BSS<a class="headerlink" href="#bss" title="Permalink to this headline">¶</a></h3>
+<p>Performs decomposition if neccessary, then plots the scree for selecting the
+number of components to use for a blind source separation. The selection
+is made by clicking in the scree plot on the first component to
+<cite>not be included</cite> in the decomposition. The scree plot will then automatically
+close and the BSS algortihm run (see
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.blind_source_separation()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.plot_bss_results()</span></code>).</p>
+</div>
+<div class="section" id="decomposition-results">
+<h3>Decomposition results<a class="headerlink" href="#decomposition-results" title="Permalink to this headline">¶</a></h3>
+<p>Performs decomposition if necessary, then plots the decomposition results
+according to the hyperspy&#8217;s
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.plot_decomposition_results()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="spectrum">
+<h2>Spectrum<a class="headerlink" href="#spectrum" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="smooth-savitzky-golay">
+<h3>Smooth Savitzky-Golay<a class="headerlink" href="#smooth-savitzky-golay" title="Permalink to this headline">¶</a></h3>
+<p>Apply a Savitzky-Golay filter. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.smooth_savitzky_golay()</span></code> for details.</p>
+</div>
+<div class="section" id="smooth-lowess">
+<h3>Smooth Lowess<a class="headerlink" href="#smooth-lowess" title="Permalink to this headline">¶</a></h3>
+<p>Apply a Lowess smoothing filter. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.smooth_lowess()</span></code> for details.</p>
+</div>
+<div class="section" id="smooth-total-variation">
+<h3>Smooth Total variation<a class="headerlink" href="#smooth-total-variation" title="Permalink to this headline">¶</a></h3>
+<p>Total variation data smoothing. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.smooth_tv()</span></code> for details.</p>
+</div>
+<div class="section" id="butterworth-filter">
+<h3>Butterworth filter<a class="headerlink" href="#butterworth-filter" title="Permalink to this headline">¶</a></h3>
+<p>Apply a Butterworth filter. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.filter_butterworth()</span></code> for details.</p>
+</div>
+<div class="section" id="hanning-taper">
+<h3>Hanning taper<a class="headerlink" href="#hanning-taper" title="Permalink to this headline">¶</a></h3>
+<p>Apply a Hanning taper to both ends of the data. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.hanning_taper()</span></code> for details.</p>
+</div>
+</div>
+<div class="section" id="eels">
+<h2>EELS<a class="headerlink" href="#eels" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="remove-background">
+<h3>Remove Background<a class="headerlink" href="#remove-background" title="Permalink to this headline">¶</a></h3>
+<p>Interactively define the background, and remove it. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.remove_background()</span></code> for details.</p>
+</div>
+<div class="section" id="fourier-ratio-deconvoloution">
+<h3>Fourier Ratio Deconvoloution<a class="headerlink" href="#fourier-ratio-deconvoloution" title="Permalink to this headline">¶</a></h3>
+<p>Use the Fourier-Ratio method to deconvolve one signal from another.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The background should be removed with e.g. <a class="reference internal" href="#remove-background">Remove Background</a> before
+running Fourier ratio deconvolution.</p>
+</div>
+<p>See <code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signals.EELSSpectrum.fourier_ratio_deconvolution()</span></code>
+for details.</p>
+</div>
+<div class="section" id="estimate-thickness">
+<h3>Estimate thickness<a class="headerlink" href="#estimate-thickness" title="Permalink to this headline">¶</a></h3>
+<p>Estimates the thickness (relative to the mean free path) of a sample using
+the log-ratio method. See
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signals.EELSSpectrum.estimate_thickness()</span></code> for details.</p>
+</div>
+<div class="section" id="browse-eelsdb">
+<h3>Browse EELSDB<a class="headerlink" href="#browse-eelsdb" title="Permalink to this headline">¶</a></h3>
+<p>Browse the <a class="reference external" href="http://eelsdb.eu">EELSDB</a> online database of standard EEL spectra.</p>
+</div>
+</div>
+<div class="section" id="image">
+<h2>Image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gaussian-filter">
+<h3>Gaussian Filter<a class="headerlink" href="#gaussian-filter" title="Permalink to this headline">¶</a></h3>
+<p>Opens a dialog to interactively apply a gaussian smoothing filter.</p>
+</div>
+<div class="section" id="rotate">
+<h3>Rotate<a class="headerlink" href="#rotate" title="Permalink to this headline">¶</a></h3>
+<p>Opens a dialog to interactively rotate an image. Works on images in both
+navigation and signal space.</p>
+</div>
+</div>
+<div class="section" id="diffraction">
+<h2>Diffraction<a class="headerlink" href="#diffraction" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="virtual-aperture">
+<h3>Virtual aperture<a class="headerlink" href="#virtual-aperture" title="Permalink to this headline">¶</a></h3>
+<p>Add a virtual aperture to the diffraction image. The aperture can be moved
+around and resized, allowing for an interactive creation of virtual BF/DF
+images.</p>
+</div>
+<div class="section" id="virtual-navigator">
+<h3>Virtual navigator<a class="headerlink" href="#virtual-navigator" title="Permalink to this headline">¶</a></h3>
+<p>Set the navigator intensity by a virtual aperture.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Setting a virtual navigator will replot the signal, so any existing
+apertures will be lost. Therefore always add the virtual navigator first
+if you want to use one.</p>
+</div>
+<div class="figure" id="id9">
+<img alt="_images/virtual_apertures.png" src="_images/virtual_apertures.png" />
+<p class="caption"><span class="caption-text">Example of a signal with a virtual navigator and three virtual apertures.
+The navigator (orange circle) selects the direct beam, giving a virtual
+bright-field image, while the other apertures select diffraction spots
+unique to three different grains/phases.</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="math">
+<h2>Math<a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mean">
+<h3>Mean<a class="headerlink" href="#mean" title="Permalink to this headline">¶</a></h3>
+<p>Plot the mean of the current signal across all navigation axes.</p>
+</div>
+<div class="section" id="sum">
+<h3>Sum<a class="headerlink" href="#sum" title="Permalink to this headline">¶</a></h3>
+<p>Plot the sum of the current signal across all navigation axes.</p>
+</div>
+<div class="section" id="maximum">
+<h3>Maximum<a class="headerlink" href="#maximum" title="Permalink to this headline">¶</a></h3>
+<p>Plot the maximum of the current signal across all navigation axes.</p>
+</div>
+<div class="section" id="minimum">
+<h3>Minimum<a class="headerlink" href="#minimum" title="Permalink to this headline">¶</a></h3>
+<p>Plot the sum of the current signal across all navigation axes.</p>
+</div>
+<div class="section" id="std-dev">
+<h3>Std.dev.<a class="headerlink" href="#std-dev" title="Permalink to this headline">¶</a></h3>
+<p>Plot the standard deviation of the current signal across all navigation axes.</p>
+</div>
+<div class="section" id="variance">
+<h3>Variance<a class="headerlink" href="#variance" title="Permalink to this headline">¶</a></h3>
+<p>Plot the variances of the current signal. across all navigation axes</p>
+</div>
+<div class="section" id="fft">
+<h3>FFT<a class="headerlink" href="#fft" title="Permalink to this headline">¶</a></h3>
+<p>Perform a fast fourier transform on the active part of the signal.</p>
+</div>
+<div class="section" id="live-fft">
+<h3>Live FFT<a class="headerlink" href="#live-fft" title="Permalink to this headline">¶</a></h3>
+<p>Perform a fast fourier transform on the active part of the signal. The live
+FFT updates the FFT as the signal is navigated.</p>
+</div>
+<div class="section" id="signal-fft">
+<h3>Signal FFT<a class="headerlink" href="#signal-fft" title="Permalink to this headline">¶</a></h3>
+<p>Perform a fast fourier transform on the entire signal, not just the active
+part.</p>
+</div>
+<div class="section" id="inverse-fft">
+<h3>Inverse FFT<a class="headerlink" href="#inverse-fft" title="Permalink to this headline">¶</a></h3>
+<p>Perform an inverse fast fourier transform on the active part of the signal.</p>
+</div>
+<div class="section" id="inverse-signal-fft">
+<h3>Inverse Signal FFT<a class="headerlink" href="#inverse-signal-fft" title="Permalink to this headline">¶</a></h3>
+<p>Perform an inverse fast fourier transform on the entire signal.</p>
+</div>
+</div>
+<div class="section" id="plot">
+<h2>Plot<a class="headerlink" href="#plot" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tight-layout">
+<h3>Tight layout<a class="headerlink" href="#tight-layout" title="Permalink to this headline">¶</a></h3>
+<p>Apply a tight layout to the selected plot. This is basically a workaround
+for the not so ideal basic layout for matplotlib figures, especially if they
+have been resized.</p>
+</div>
+</div>
+<div class="section" id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-selector">
+<span id="id5"></span><h3>Version selector<a class="headerlink" href="#version-selector" title="Permalink to this headline">¶</a></h3>
+<p>Open dialog to select branch/version of HyperSpy/HyperSpyUI.</p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This can invalidate your installation of HyperSpyUI and/or HyperSpy. Use
+with caution!</p>
+</div>
+</div></blockquote>
+<p>Opens up a dialogbox that enables you to install a specific GitHub branch for
+HyperSpy and HyperSpyUI. This will basically download and install the selected
+branch using <a class="reference external" href="http://pip.pypa.io/">pip</a>, whether or not that version works or if the HyperSpy and
+HyperSpyUI verions are internally compatible, or even compatible with your
+version of Python. As this can prevent you from starting the application
+afterwards, you might end up having to reinstall it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If your current installation is a git repository, this will check out
+the selected branch instead of doing a pip install.</p>
+</div>
+</div>
+<div class="section" id="check-for-updates">
+<span id="id6"></span><h3>Check for updates<a class="headerlink" href="#check-for-updates" title="Permalink to this headline">¶</a></h3>
+<p>Checks for updates to HyperSpy and HyperSpyUI. If the packages are not source
+installs, it checks for a new version on <a class="reference external" href="https://pypi.python.org/pypi/hyperspyui/">PyPI</a>.</p>
+</div>
+<div class="section" id="plugin-manager">
+<h3>Plugin manager<a class="headerlink" href="#plugin-manager" title="Permalink to this headline">¶</a></h3>
+<p>Show the plugin manager dialog (see
+<a class="reference internal" href="devguide.html#plugin-manager-widget"><span>Plugin manager widget</span></a> and
+<a class="reference internal" href="api/hyperspyui.html#hyperspyui.pluginmanager.PluginManager" title="hyperspyui.pluginmanager.PluginManager"><code class="xref py py-class docutils literal"><span class="pre">PluginManager</span></code></a>).</p>
+</div>
+<div class="section" id="reset-layout">
+<span id="id7"></span><h3>Reset layout<a class="headerlink" href="#reset-layout" title="Permalink to this headline">¶</a></h3>
+<p>Resets layout of toolbars and widgets.</p>
+</div>
+<div class="section" id="hyperspy-settings">
+<h3>HyperSpy settings<a class="headerlink" href="#hyperspy-settings" title="Permalink to this headline">¶</a></h3>
+<p>Edit the HyperSpy package settings.</p>
+</div>
+<div class="section" id="edit-settings">
+<span id="id8"></span><h3>Edit settings<a class="headerlink" href="#edit-settings" title="Permalink to this headline">¶</a></h3>
+<p>Shows a dialog for editing the application and plugins settings. See</p>
+</div>
+</div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tile">
+<h3>Tile<a class="headerlink" href="#tile" title="Permalink to this headline">¶</a></h3>
+<p>Arranges all figures in a tile pattern.</p>
+</div>
+<div class="section" id="cascade">
+<h3>Cascade<a class="headerlink" href="#cascade" title="Permalink to this headline">¶</a></h3>
+<p>Arranges all figures in a cascade pattern.</p>
+</div>
+<div class="section" id="close-all-windows">
+<h3>Close all (windows)<a class="headerlink" href="#close-all-windows" title="Permalink to this headline">¶</a></h3>
+<p>Closes all matplotlib figures.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tools.html" class="btn btn-neutral float-right" title="Tools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Quickstart Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.7+dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
