@@ -6,7 +6,7 @@ SPHINXOPTS    = -D exclude_patterns=['*user_plugins/*']
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
-GH_PAGES_SOURCES = source code wiki Makefile
+GH_PAGES_SOURCES = source code wiki Makefile make.bat
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -194,11 +194,10 @@ pseudoxml:
 
 gh-pages:
     git checkout gh-pages
-    rm -rf build _sources _static
-    git checkout master $(GH_PAGES_SOURCES)
-    git reset HEAD
+    rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
+    git checkout master -- $(GH_PAGES_SOURCES)
     make html
-    mv -fv build/html/* ./
-    rm -rf $(GH_PAGES_SOURCES) build
+    mv -fv $(BUILDDIR)/html/* ./
+    rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
     git add -A
     git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master

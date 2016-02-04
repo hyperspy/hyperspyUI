@@ -9,6 +9,7 @@ set BUILDDIR=build
 set SPHINXOPTS=%SPHINXOPTS% -D exclude_patterns=['*user_plugins/*']
 set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% source
 set I18NSPHINXOPTS=%SPHINXOPTS% source
+set GH_PAGES_SOURCES=source Makefile make.bat
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%
@@ -260,5 +261,25 @@ if "%1" == "pseudoxml" (
 	echo.Build finished. The pseudo-XML files are in %BUILDDIR%/pseudoxml.
 	goto end
 )
+
+if "%1" == "gh-pages" (
+	call make.bat clean
+	call make.bat html
+	TIMEOUT /T 1
+	move /y %BUILDDIR%\html not_ignored
+	git add -A not_ignored
+	git stash || goto end
+	git co gh-pages || goto end
+	git stash pop || goto end
+	git reset
+	for /f %%a IN ('dir not_ignored /b') do move not_ignored\%%a ..\
+	rmdir /S /Q not_ignored
+	git add -A
+	for /f "tokens=* USEBACKQ" %%f IN (`git rev-parse master`) do (SET commitmsg=%%f)
+	git commit -m "Generated gh-pages for %commitmsg%" && git push origin gh-pages	&& git co master
+
+	goto end
+)
+
 
 :end
