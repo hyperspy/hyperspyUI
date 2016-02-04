@@ -21,4 +21,4 @@ Created on Thu Nov 27 01:38:42 2014
 @author: Vidar Tonaas Fauske
 """
 
-version = '0.6'
+version = '0.7+dev'
