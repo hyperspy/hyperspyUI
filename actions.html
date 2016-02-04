@@ -54,6 +54,9 @@
           
 
           
+            
+            <img src="_static/header_logo.png" class="logo" />
+          
           </a>
 
           
@@ -190,7 +193,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
 </ul>
 
             
@@ -247,7 +250,7 @@ toolbar/menu in which they appear.</p>
 <div class="section" id="open">
 <h3>Open<a class="headerlink" href="#open" title="Permalink to this headline">¶</a></h3>
 <p>Open a dialog to let the user interactively browse for files. It then loads
-these files using <code class="xref py py-meth docutils literal"><span class="pre">hyperspy.io.load()</span></code> before plotting the loaded
+these files using <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.io.load" title="(in HyperSpy v0.8.2)"><code class="xref py py-func docutils literal"><span class="pre">hyperspy.io.load()</span></code></a> before plotting the loaded
 signals.</p>
 </div>
 <div class="section" id="open-stack">
@@ -287,13 +290,13 @@ in an invalid state.</p>
 <div class="section" id="signal-type">
 <span id="id2"></span><h3>Signal type<a class="headerlink" href="#signal-type" title="Permalink to this headline">¶</a></h3>
 <p>Changes the signal type using a combination of methods on
-<code class="xref py py-class docutils literal"><span class="pre">hyperspy.Signal</span></code>:</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal" title="(in HyperSpy v0.8.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.signal.Signal</span></code></a>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="xref py py-meth docutils literal"><span class="pre">set_signal_type()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">set_signal_origin()</span></code></li>
-<li>and by converting with <code class="xref py py-meth docutils literal"><span class="pre">as_image()</span></code> and
-<code class="xref py py-meth docutils literal"><span class="pre">as_spectrum()</span></code>.</li>
+<li><a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.set_signal_type" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">set_signal_type()</span></code></a></li>
+<li><a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.set_signal_origin" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">set_signal_origin()</span></code></a></li>
+<li>and by converting with <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.as_image" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">as_image()</span></code></a> and
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.as_spectrum" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">as_spectrum()</span></code></a>.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -301,7 +304,7 @@ in an invalid state.</p>
 <h3>Signal data type<a class="headerlink" href="#signal-data-type" title="Permalink to this headline">¶</a></h3>
 <p>Change the data type use to store the signal data internally. See
 the <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype">numpy docs</a> for details. The operation is performed by
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.change_dtype" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.change_dtype()</span></code></a>.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.change_dtype" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">change_dtype()</span></code></a>.</p>
 </div>
 <div class="section" id="manual-align">
 <span id="manual-alignment"></span><h3>Manual align<a class="headerlink" href="#manual-align" title="Permalink to this headline">¶</a></h3>
@@ -314,12 +317,12 @@ signal.</p>
 <div class="section" id="statistics">
 <h3>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h3>
 <p>Print the signal statistics to the console. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.print_summary_statistics" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.print_summary_statistics()</span></code></a> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.print_summary_statistics" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">print_summary_statistics()</span></code></a> for details.</p>
 </div>
 <div class="section" id="histogram">
 <h3>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h3>
 <p>Plot a histogram of the signal. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.get_histogram" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.get_histogram()</span></code></a> for details. The method
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.get_histogram" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">get_histogram()</span></code></a> for details. The method
 for determining the number of bins can be set in the <a class="reference internal" href="settings.html#settings-section"><span>Settings</span></a>.</p>
 </div>
 <div class="section" id="mirror-navigation">
@@ -335,7 +338,7 @@ plot.</p>
 <div class="section" id="rebin">
 <h3>Rebin<a class="headerlink" href="#rebin" title="Permalink to this headline">¶</a></h3>
 <p>Opens a dialog to rebin the signal. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.rebin" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.rebin()</span></code></a> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.rebin" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">rebin()</span></code></a> for details.</p>
 </div>
 </div>
 <div class="section" id="model">
@@ -354,12 +357,12 @@ plot.</p>
 <div class="section" id="plot-components">
 <span id="id4"></span><h3>Plot components<a class="headerlink" href="#plot-components" title="Permalink to this headline">¶</a></h3>
 <p>Toggle the plotting of each component together with the model, as performed
-by <code class="xref py py-meth docutils literal"><span class="pre">hyprespy.Model1D.enable_plot_components()</span></code>.</p>
+by <code class="xref py py-meth docutils literal"><span class="pre">enable_plot_components()</span></code>.</p>
 </div>
 <div class="section" id="adjust-component-positions">
 <h3>Adjust component positions<a class="headerlink" href="#adjust-component-positions" title="Permalink to this headline">¶</a></h3>
 <p>Add/remove widgets to adjust the position of the components in the model, as
-performed by <code class="xref py py-meth docutils literal"><span class="pre">hyprespy.Model1D.enable_adjust_position()</span></code>.</p>
+performed by <code class="xref py py-meth docutils literal"><span class="pre">enable_adjust_position()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="decomposition">
@@ -371,8 +374,8 @@ number of components to use for a decomposition model. The selection is made
 by clicking on the in the scree plot on the first component to
 <cite>not be included</cite> in the decomposition. The scree plot will then automatically
 close and the decomposition model plotted (see
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.decomposition()</span></code> and
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.get_decomposition_model()</span></code>).</p>
+<code class="xref py py-meth docutils literal"><span class="pre">decomposition()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">get_decomposition_model()</span></code>).</p>
 </div>
 <div class="section" id="bss">
 <h3>BSS<a class="headerlink" href="#bss" title="Permalink to this headline">¶</a></h3>
@@ -381,14 +384,14 @@ number of components to use for a blind source separation. The selection
 is made by clicking in the scree plot on the first component to
 <cite>not be included</cite> in the decomposition. The scree plot will then automatically
 close and the BSS algortihm run (see
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.blind_source_separation()</span></code> and
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.plot_bss_results()</span></code>).</p>
+<code class="xref py py-meth docutils literal"><span class="pre">blind_source_separation()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">plot_bss_results()</span></code>).</p>
 </div>
 <div class="section" id="decomposition-results">
 <h3>Decomposition results<a class="headerlink" href="#decomposition-results" title="Permalink to this headline">¶</a></h3>
 <p>Performs decomposition if necessary, then plots the decomposition results
 according to the hyperspy&#8217;s
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.Signal.plot_decomposition_results()</span></code>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">plot_decomposition_results()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="spectrum">
@@ -396,27 +399,27 @@ according to the hyperspy&#8217;s
 <div class="section" id="smooth-savitzky-golay">
 <h3>Smooth Savitzky-Golay<a class="headerlink" href="#smooth-savitzky-golay" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Savitzky-Golay filter. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.smooth_savitzky_golay()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.smooth_savitzky_golay" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">smooth_savitzky_golay()</span></code></a> for details.</p>
 </div>
 <div class="section" id="smooth-lowess">
 <h3>Smooth Lowess<a class="headerlink" href="#smooth-lowess" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Lowess smoothing filter. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.smooth_lowess()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.smooth_lowess" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">smooth_lowess()</span></code></a> for details.</p>
 </div>
 <div class="section" id="smooth-total-variation">
 <h3>Smooth Total variation<a class="headerlink" href="#smooth-total-variation" title="Permalink to this headline">¶</a></h3>
 <p>Total variation data smoothing. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.smooth_tv()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.smooth_tv" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">smooth_tv()</span></code></a> for details.</p>
 </div>
 <div class="section" id="butterworth-filter">
 <h3>Butterworth filter<a class="headerlink" href="#butterworth-filter" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Butterworth filter. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.filter_butterworth()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.filter_butterworth" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">filter_butterworth()</span></code></a> for details.</p>
 </div>
 <div class="section" id="hanning-taper">
 <h3>Hanning taper<a class="headerlink" href="#hanning-taper" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Hanning taper to both ends of the data. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.hanning_taper()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.hanning_taper" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hanning_taper()</span></code></a> for details.</p>
 </div>
 </div>
 <div class="section" id="eels">
@@ -424,7 +427,7 @@ according to the hyperspy&#8217;s
 <div class="section" id="remove-background">
 <h3>Remove Background<a class="headerlink" href="#remove-background" title="Permalink to this headline">¶</a></h3>
 <p>Interactively define the background, and remove it. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal.remove_background()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.remove_background" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">remove_background()</span></code></a> for details.</p>
 </div>
 <div class="section" id="fourier-ratio-deconvoloution">
 <h3>Fourier Ratio Deconvoloution<a class="headerlink" href="#fourier-ratio-deconvoloution" title="Permalink to this headline">¶</a></h3>
@@ -434,14 +437,14 @@ according to the hyperspy&#8217;s
 <p class="last">The background should be removed with e.g. <a class="reference internal" href="#remove-background">Remove Background</a> before
 running Fourier ratio deconvolution.</p>
 </div>
-<p>See <code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signals.EELSSpectrum.fourier_ratio_deconvolution()</span></code>
+<p>See <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy._signals.html#hyperspy._signals.eels.EELSSpectrum.fourier_ratio_deconvolution" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">fourier_ratio_deconvolution()</span></code></a>
 for details.</p>
 </div>
 <div class="section" id="estimate-thickness">
 <h3>Estimate thickness<a class="headerlink" href="#estimate-thickness" title="Permalink to this headline">¶</a></h3>
 <p>Estimates the thickness (relative to the mean free path) of a sample using
 the log-ratio method. See
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signals.EELSSpectrum.estimate_thickness()</span></code> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy._signals.html#hyperspy._signals.eels.EELSSpectrum.estimate_thickness" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy._signals.eels.EELSSpectrum.estimate_thickness()</span></code></a> for details.</p>
 </div>
 <div class="section" id="browse-eelsdb">
 <h3>Browse EELSDB<a class="headerlink" href="#browse-eelsdb" title="Permalink to this headline">¶</a></h3>

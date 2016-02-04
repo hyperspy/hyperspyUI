@@ -54,6 +54,9 @@
           
 
           
+            
+            <img src="_static/header_logo.png" class="logo" />
+          
           </a>
 
           
@@ -119,7 +122,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
 </ul>
 
             
@@ -167,7 +170,7 @@
   <div class="section" id="tools">
 <span id="tools-section"></span><h1>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h1>
 <p>Tools are different from actions, in that they listen for mouse or keyboard
-input on the figures. For example a click and drag manouver to specify a
+input on the figures. For example a click-and-drag manouver to specify a
 region of interest (ROI). Most tools need to be selected to work, as they
 need exclusive access to the input, but some will simply listen for a a key
 press in all figures.</p>
@@ -201,15 +204,15 @@ area.</p>
 </div>
 <div class="section" id="alignment-tool">
 <span id="id1"></span><h3>Alignment tool<a class="headerlink" href="#alignment-tool" title="Permalink to this headline">¶</a></h3>
-<p>The alignment tool algins a signal by a registration algorithm. To use it
+<p>The alignment tool algins a signal by a registration algorithm. To use it,
 click and drag to define an ROI which contains one or more features that
 can be used for alignment. The smaller the area, the speedier it operates.</p>
 <p>The tool works in either one or two dimensions, relying on
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.align1D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal1DTools.align1D()</span></code></a> and
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal2DTools.align2D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal2DTools.align2D()</span></code></a> under the hood.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.align1D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">align1D()</span></code></a> and
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal2DTools.align2D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">align2D()</span></code></a> under the hood.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">To ensure a successfull alignment, a significant portion of the alignment
+<p class="last">To ensure a successful alignment, a significant portion of the alignment
 feature(s) need to stay within the ROI for the entire sequence. If your
 data is shifting too much, consider using <a class="reference internal" href="actions.html#manual-alignment"><span>Manual align</span></a>
 to perform an initial coarse-alignment.</p>
