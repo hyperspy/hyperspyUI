@@ -224,3 +224,4 @@ hyperspyui/
 *.pyperf
 *.pyproj
 *.sln
+*.spyderproject
