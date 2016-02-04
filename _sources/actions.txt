@@ -23,7 +23,7 @@ File
 Open
 """""""""""""""""""
 Open a dialog to let the user interactively browse for files. It then loads
-these files using :py:meth:`hyperspy.io.load` before plotting the loaded
+these files using :py:func:`hyperspy.io.load` before plotting the loaded
 signals.
 
 Open Stack
@@ -76,18 +76,18 @@ Signal
 Signal type
 """""""""""""""
 Changes the signal type using a combination of methods on
-:py:class:`hyperspy.Signal`:
+:py:class:`hyperspy.signal.Signal`:
 
-    * :py:meth:`~hyperspy.Signal.set_signal_type()`
-    * :py:meth:`~hyperspy.Signal.set_signal_origin()`
-    * and by converting with :py:meth:`~hyperspy.Signal.as_image()` and
-      :py:meth:`~hyperspy.Signal.as_spectrum()`.
+    * :py:meth:`~hyperspy.signal.Signal.set_signal_type()`
+    * :py:meth:`~hyperspy.signal.Signal.set_signal_origin()`
+    * and by converting with :py:meth:`~hyperspy.signal.Signal.as_image()` and
+      :py:meth:`~hyperspy.signal.Signal.as_spectrum()`.
 
 Signal data type
 """"""""""""""""""""""""""""""""""""
 Change the data type use to store the signal data internally. See
 the `numpy docs`_ for details. The operation is performed by 
-:py:meth:`hyperspy.signal.Signal.change_dtype`.
+:py:meth:`~hyperspy.signal.Signal.change_dtype`.
 
 .. _numpy docs: http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype
 
@@ -105,12 +105,12 @@ signal.
 Statistics
 """"""""""""""""""""""""""""""""""""
 Print the signal statistics to the console. See 
-:py:meth:`hyperspy.signal.Signal.print_summary_statistics` for details.
+:py:meth:`~hyperspy.signal.Signal.print_summary_statistics` for details.
 
 Histogram
 """"""""""""""""""""""""""""""""""""
 Plot a histogram of the signal. See 
-:py:meth:`hyperspy.signal.Signal.get_histogram` for details. The method
+:py:meth:`~hyperspy.signal.Signal.get_histogram` for details. The method
 for determining the number of bins can be set in the :ref:`settings-section`.
 
 Mirror navigation
@@ -126,7 +126,7 @@ plot.
 Rebin
 """"""""""""""""""""""""""""""""""""
 Opens a dialog to rebin the signal. See
-:py:meth:`hyperspy.signal.Signal.rebin` for details.
+:py:meth:`~hyperspy.signal.Signal.rebin` for details.
 
 
 
@@ -158,12 +158,12 @@ The newly created component is accessible through the :ref:`data-widget`.
 Plot components
 """""""""""""""
 Toggle the plotting of each component together with the model, as performed
-by :py:meth:`hyprespy.Model1D.enable_plot_components()`.
+by :py:meth:`~hyprespy.models.Model1D.enable_plot_components()`.
 
 Adjust component positions
 """"""""""""""""""""""""""
 Add/remove widgets to adjust the position of the components in the model, as
-performed by :py:meth:`hyprespy.Model1D.enable_adjust_position()`.
+performed by :py:meth:`~hyprespy.models.Model1D.enable_adjust_position()`.
 
 
 
@@ -181,8 +181,8 @@ number of components to use for a decomposition model. The selection is made
 by clicking on the in the scree plot on the first component to
 `not be included` in the decomposition. The scree plot will then automatically
 close and the decomposition model plotted (see
-:py:meth:`hyperspy.Signal.decomposition` and
-:py:meth:`hyperspy.Signal.get_decomposition_model`).
+:py:meth:`~hyperspy.signal.Signal.decomposition` and
+:py:meth:`~hyperspy.signal.Signal.get_decomposition_model`).
 
 BSS
 """""""""""""""
@@ -192,8 +192,8 @@ number of components to use for a blind source separation. The selection
 is made by clicking in the scree plot on the first component to
 `not be included` in the decomposition. The scree plot will then automatically
 close and the BSS algortihm run (see
-:py:meth:`hyperspy.Signal.blind_source_separation` and
-:py:meth:`hyperspy.Signal.plot_bss_results`).
+:py:meth:`~hyperspy.signal.Signal.blind_source_separation` and
+:py:meth:`~hyperspy.signal.Signal.plot_bss_results`).
 
 
 Decomposition results
@@ -201,7 +201,7 @@ Decomposition results
 
 Performs decomposition if necessary, then plots the decomposition results
 according to the hyperspy's
-:py:meth:`hyperspy.Signal.plot_decomposition_results`.
+:py:meth:`~hyperspy.signal.Signal.plot_decomposition_results`.
 
 
 
@@ -216,27 +216,27 @@ Spectrum
 Smooth Savitzky-Golay
 """"""""""""""""""""""""""""""""""""
 Apply a Savitzky-Golay filter. See
-:py:meth:`hyperspy.signal.Signal.smooth_savitzky_golay` for details.
+:py:meth:`~hyperspy.signal.Signal1DTools.smooth_savitzky_golay` for details.
 
 Smooth Lowess
 """"""""""""""""""""""""""""""""""""
 Apply a Lowess smoothing filter. See
-:py:meth:`hyperspy.signal.Signal.smooth_lowess` for details.
+:py:meth:`~hyperspy.signal.Signal1DTools.smooth_lowess` for details.
 
 Smooth Total variation
 """"""""""""""""""""""""""""""""""""
 Total variation data smoothing. See
-:py:meth:`hyperspy.signal.Signal.smooth_tv` for details.
+:py:meth:`~hyperspy.signal.Signal1DTools.smooth_tv` for details.
 
 Butterworth filter
 """"""""""""""""""""""""""""""""""""
 Apply a Butterworth filter. See
-:py:meth:`hyperspy.signal.Signal.filter_butterworth` for details.
+:py:meth:`~hyperspy.signal.Signal1DTools.filter_butterworth` for details.
 
 Hanning taper
 """"""""""""""""""""""""""""""""""""
 Apply a Hanning taper to both ends of the data. See
-:py:meth:`hyperspy.signal.Signal.hanning_taper` for details.
+:py:meth:`~hyperspy.signal.Signal1DTools.hanning_taper` for details.
 
 
 
@@ -250,7 +250,7 @@ EELS
 Remove Background
 """"""""""""""""""""""""""""""""""""
 Interactively define the background, and remove it. See
-:py:meth:`hyperspy.signal.Signal.remove_background` for details.
+:py:meth:`~hyperspy.signal.Signal1DTools.remove_background` for details.
 
 Fourier Ratio Deconvoloution
 """"""""""""""""""""""""""""""""""""
@@ -261,14 +261,14 @@ Use the Fourier-Ratio method to deconvolve one signal from another.
     The background should be removed with e.g. `Remove Background`_ before
     running Fourier ratio deconvolution.
 
-See :py:meth:`hyperspy.signals.EELSSpectrum.fourier_ratio_deconvolution` 
+See :py:meth:`~hyperspy._signals.eels.EELSSpectrum.fourier_ratio_deconvolution` 
 for details. 
 
 Estimate thickness
 """"""""""""""""""""""""""""""""""""
 Estimates the thickness (relative to the mean free path) of a sample using 
 the log-ratio method. See 
-:py:meth:`hyperspy.signals.EELSSpectrum.estimate_thickness` for details.
+:py:meth:`hyperspy._signals.eels.EELSSpectrum.estimate_thickness` for details.
 
 Browse EELSDB
 """"""""""""""""""""""""""""""""""""

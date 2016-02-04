@@ -36,12 +36,14 @@ The user interface is based on top of Qt_, and have four main components:
 
 .. _Qt: http://www.qt.io/
 
-    #)  Menus: Most of the actions you can do have a menu entry.
-    #)  Toolbars: Several actions have their own button on a toolbar, and all
-        interactive :ref:`tools-section` are here as well.
-    #)  Widgets: These are small panels or windows that can be moved, and
-        are always open unless explicitly closed. Their content and behavior
-        can vary widely, and includes the `data tree` and the `console` widgets.
+    #)  Menus: Most of the :ref:`actions <actions>` you can do have a menu
+        entry.
+    #)  Toolbars: Several :ref:`actions <actions>` have their own button on a 
+        toolbar, and all interactive :ref:`tools-section` are here as well.
+    #)  :ref:`widgets-section`: These are small panels or windows that can be
+        moved, and are always open unless explicitly closed. Their content 
+        and behavior can vary widely, and includes the :ref:`data-widget`
+        and the :ref:`console-widget`.
     #)  Figures: The final component are the figures and plots that are
         generated. These include all `matplotlib`_ figures, but the ones created
         by HyperSpy are the most interesting ones.
@@ -62,7 +64,7 @@ from the File menu.
     :width: 18 px
 .. _file types: http://hyperspy.org/hyperspy-doc/current/user_guide/io.html#supported-formats
 
-If you have registered the application with the operating system to handle the
+If you have registered the application with the operating system to handle some
 file types, files can also be opened in HyperSpyUI simply by opening them in
 a normal file browser.
 
@@ -74,5 +76,5 @@ Once the signal is loaded, you are ready to start inspecing and manipulating
 your data. See the following sections for a more detailed explanation of
 what can be done, or simply start playing around! It normally takes quite
 a conscious effort to overwrite existing data ("save" action, pick existing
-file name, confirm "yes I want to overwrite" dialog), so you should be
-safe in playing around.
+file name, confirm "yes I want to overwrite" dialog), so you should feel
+confident in playing around!
