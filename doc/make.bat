@@ -265,7 +265,7 @@ if "%1" == "pseudoxml" (
 if "%1" == "gh-pages" (
 	call make.bat clean
 	call make.bat html
-	for /f "tokens=* USEBACKQ" %%f IN (`git rev-parse master`) do (SET commitmsg=%%f)
+	for /f "tokens=* USEBACKQ" %%f IN (`git rev-parse HEAD`) do (SET commitmsg=%%f)
 	TIMEOUT /T 1
 	move /y %BUILDDIR%\html not_ignored
 	git add -A not_ignored
@@ -276,7 +276,9 @@ if "%1" == "gh-pages" (
 	for /f %%a IN ('dir not_ignored /b') do move not_ignored\%%a ..\
 	rmdir /S /Q not_ignored
 	git add -A
-	git commit -m "Generated gh-pages for %commitmsg%" && git push origin gh-pages && git co master
+	git commit -m "Generated gh-pages for %commitmsg%" || goto end
+	echo.
+	echo.Commit added to gh-pages. You will need to manually push the commit upstream.
 	goto end
 )
 
