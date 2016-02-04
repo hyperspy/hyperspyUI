@@ -23,4 +23,7 @@ While the UI tries to create a simple and intuitive interface to HyperSpy, it
 still retains the raw power of HyperSpy via the UI’s built in IPython console,
 which runs on the same Python kernel as the UI.
 
+For further information, see the documentation at
+http://vidartf.github.io/hyperspyUI/.
+
 .. _HyperSpy: http://hyperspy.org
