@@ -167,8 +167,8 @@ class ImageRotation_Plugin(Plugin):
                 old = out.auto_replot
                 out.auto_replot = False
                 if hasattr(out.axes_manager, 'events') and hasattr(
-                        out.axes_manager.events, 'transformed'):
-                    cm = out.axes_manager.events.transformed.suppress
+                        out.axes_manager.events, 'any_axis_changed'):
+                    cm = out.axes_manager.events.any_axis_changed.suppress
                 else:
                     cm = dummy_context_manager
                 with cm():
@@ -180,8 +180,8 @@ class ImageRotation_Plugin(Plugin):
                         ax.offset -= dx
                 # TODO: TAG: Functionality check
                 if hasattr(out.axes_manager, 'events') and hasattr(
-                        out.axes_manager.events, 'transformed'):
-                    out.axes_manager.events.transformed.trigger(
+                        out.axes_manager.events, 'any_axis_changed'):
+                    out.axes_manager.events.any_axis_changed.trigger(
                         out.axes_manager)
             # TODO: TAG: Functionality check
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
