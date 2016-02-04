@@ -271,9 +271,10 @@ if "%1" == "gh-pages" (
 	git add -A not_ignored
 	git stash || goto end
 	git co gh-pages || goto end
+	rmdir /S /Q not_ignored
 	git stash pop || goto end
 	git reset
-	for /f %%a IN ('dir not_ignored /b') do move not_ignored\%%a ..\
+	robocopy /MOVE /S /IS not_ignored ..\
 	rmdir /S /Q not_ignored
 	git add -A
 	git commit -m "Generated gh-pages for %commitmsg%" || goto end
