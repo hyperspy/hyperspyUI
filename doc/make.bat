@@ -278,7 +278,7 @@ if "%1" == "gh-pages" (
 	git add -A
 	git commit -m "Generated gh-pages for %commitmsg%" || goto end
 	echo.
-	echo.Commit added to gh-pages. You will need to manually push the commit upstream.
+	echo.Build finished. The changes have been commited, but not yet pushed.
 	goto end
 )
 
