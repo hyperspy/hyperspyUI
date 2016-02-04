@@ -32,7 +32,9 @@ numpy_ is pre-loaded as ``np``, and :py:mod:`hyperspy.api` as ``hs``. The curren
 .. _numpy: http://www.numpy.org/
 
 If we want to inspect the original metadata of the currently selected signal,
-we can then run::
+we can then run:
+    
+.. sourcecode:: ipython
     
     In [1]: s = ui.get_selected_signal()
 
@@ -61,7 +63,7 @@ Code editor widget
 Code editor widgets allow you to edit Python code directly within the
 application. This can be useful for :ref:`recording`, or for creating
 and modifying :ref:`plugins-section` on the fly. An editor widget is opened
-when the :ref:`new-editor` action is triggered, when a python script is opened,
+by the :ref:`new-editor` action, when a python script is opened,
 or when recording is started via the :ref:`recorder-widget`.
 
 
@@ -81,8 +83,8 @@ stop the recording, but stopping the recording will leave the editor open.
 One of the most useful ways to use the recorder, is to perform an action on
 one signal, and then select another signal and perform those same actions
 on it as well. This can be very useful if you `e.g.` need to crop both a 
-core-loss and a low-loss spectrum, as they will be cropped exactly the 
-same way.
+core-loss and a low-loss spectrum, as they will be cropped to exactly the 
+same region.
 
 .. note::
     While most of the code that is recorded tries to infer as much about its 
@@ -100,10 +102,10 @@ Plugins
 
 Once a sequence of steps have been recorded and adjusted, it can be saved as 
 a python script which can then be loaded later for future use. However, if 
-this is something that is used often, and does not change from time to time,
-this might be rather cumbersome. The easiest step then is to turn the code
-into a UI action, either as a menu item, or toolbar button. This is done
-by creating a new plugin. To ease the creation of a plugin, the 
+this is something that is used often, and does not change from session to 
+session, this might become rather cumbersome. The easiest step then is to turn
+the code into a UI action, either as a menu item, or toolbar button. This is
+done by creating a new plugin. To ease the creation of a plugin, the 
 :ref:`code-editor` has a button 'Make Plugin'.
 
 For example, here we've created a rather simple exmple for code to
@@ -121,7 +123,7 @@ In editor:
 .. image:: plugin_code_in.png
 
 Clicking the 'Make plugin' button, we're presented with a dialog, asking
-what the plugin should be called, and whether we want to add it as a menu
+what the plugin should be called, whether we want to add it as a menu
 entry and/or toolbar button, which catgory it should go in (read: which menu
 and toolbar it goes into), and if it should have an icon (recommended for
 toolbar buttons):
@@ -192,7 +194,7 @@ time we start the application, we need to save it in the 'plugins' directory
     'user_plugins', which is added to the .gitignore file.
 
 Once the plugin has been registered, it will automatically be loaded, and so
-we should find our new menu entry like this:
+we should directly be able to find our new menu entry like this:
 
 .. image:: plugin_menu.png
 
@@ -209,7 +211,7 @@ The plugin manager widget shows a list of all the discovered plugins
 to set whether they should be loaded or not. There's also an 'Edit' button
 which will open up the source code of the plugin in a new :ref:`code-editor`.
 
-Unselecting a plugin will attempt to unload it, but the success of this
+Unchecking a plugin will attempt to unload it, but the success of this
 depends on the plugin correctly implementing its 
 :py:meth:`~hyperspyui.plugins.plugin.Plugin.unload` routine, which might not always
 be the case.

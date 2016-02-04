@@ -5,7 +5,7 @@ Tools
 ===========
 
 Tools are different from actions, in that they listen for mouse or keyboard
-input on the figures. For example a click and drag manouver to specify a 
+input on the figures. For example a click-and-drag manouver to specify a 
 region of interest (ROI). Most tools need to be selected to work, as they 
 need exclusive access to the input, but some will simply listen for a a key
 press in all figures.
@@ -52,16 +52,16 @@ area.
 
 Alignment tool
 """"""""""""""""""""""""""
-The alignment tool algins a signal by a registration algorithm. To use it
+The alignment tool algins a signal by a registration algorithm. To use it,
 click and drag to define an ROI which contains one or more features that 
 can be used for alignment. The smaller the area, the speedier it operates.
 
 The tool works in either one or two dimensions, relying on 
-:py:meth:`hyperspy.signal.Signal1DTools.align1D` and
-:py:meth:`hyperspy.signal.Signal2DTools.align2D` under the hood.
+:py:meth:`~hyperspy.signal.Signal1DTools.align1D` and
+:py:meth:`~hyperspy.signal.Signal2DTools.align2D` under the hood.
 
 .. note::
-    To ensure a successfull alignment, a significant portion of the alignment
+    To ensure a successful alignment, a significant portion of the alignment
     feature(s) need to stay within the ROI for the entire sequence. If your
     data is shifting too much, consider using :ref:`manual-alignment`
     to perform an initial coarse-alignment.

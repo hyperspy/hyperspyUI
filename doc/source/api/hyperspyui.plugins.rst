@@ -1,4 +1,4 @@
-Core plugins
+Core plugins API
 ==========================
 
 

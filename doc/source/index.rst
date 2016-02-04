@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 
-HyperSpyUI A Graphical interface for HyperSpy
+HyperSpyUI - A Graphical interface for HyperSpy
 ==================================================
 
 
@@ -29,10 +29,9 @@ as HyperSpy, the integration is seamless.
 Development status
 ----------------------
 
-Currently, the development of HyperSpyUI is focused on implementing a solid
-back-bone for bridging the gap between HyperSpy and the user interface. This
-involves making sure that it is as easy as possible to add new features to
-the UI. The next area of focus will then be to add easy, intuitive access
+Currently, the development of HyperSpyUI is focused on strengthening its
+back-bone and making sure that it is as easy as possible to add new features
+to the UI. There is also an ongoing efort to add easy, intuitive access
 to as many of HyperSpy's features as possible.
 
 HyperSpy itself is stated to be in a "perpetual beta". As such, the UI will
