@@ -39,12 +39,18 @@ class VirtualBfDf(Plugin):
                         "Virtual aperture",
                         self.virtual_aperture,
                         tip="Add a virtual aperture to the diffraction image")
+        self.add_action(self.name + '.virtual_annulus',
+                        "Virtual annulus",
+                        self.virtual_annulus,
+                        tip="Add a virtual annulus to the diffraction image")
 
     def create_menu(self):
         self.add_menuitem(
             'Diffraction', self.ui.actions[self.name + '.virtual_navigator'])
         self.add_menuitem(
             'Diffraction', self.ui.actions[self.name + '.virtual_aperture'])
+        self.add_menuitem(
+            'Diffraction', self.ui.actions[self.name + '.virtual_annulus'])
 
     def _on_close(self, roi):
         for w in roi.widgets:
@@ -56,7 +62,10 @@ class VirtualBfDf(Plugin):
     def virtual_navigator(self, signal=None):
         return self.virtual_aperture(signal=signal, navigate=True)
 
-    def virtual_aperture(self, signal=None, navigate=False):
+    def virtual_annulus(self, signal=None):
+        return self.virtual_aperture(signal=signal, annulus=True)
+
+    def virtual_aperture(self, signal=None, annulus=False, navigate=False):
         ui = self.ui
         if signal is None:
             signal = ui.get_selected_signal()
@@ -64,6 +73,8 @@ class VirtualBfDf(Plugin):
                        signal.axes_manager.signal_axes]) / 2.0
         r = hs.roi.CircleROI(dd[0], dd[1],
                              signal.axes_manager.signal_axes[0].scale*3)
+        if annulus:
+            r.r_inner = signal.axes_manager.signal_axes[0].scale*2
         s_virtual = r.interactive(signal, None,
                                   axes=signal.axes_manager.signal_axes)
         s_nav = hs.interactive(
@@ -90,4 +101,5 @@ class VirtualBfDf(Plugin):
                          color='darkorange')
         else:
             r.add_widget(signal, axes=signal.axes_manager.signal_axes)
+        self._rois.append(r)
         self.record_code("<p>.virtual_aperture(navigate=%s)" % navigate)
