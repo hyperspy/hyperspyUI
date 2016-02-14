@@ -212,7 +212,7 @@ class AttributeDict(dict):
             type(self).__name__, super(Namespace, self).__repr__())
 
     def __getattr__(self, name):
-        return self[name]
+        return self[slugify(name, True)]
 
     def __setattr__(self, name, value):
         self[name] = value
