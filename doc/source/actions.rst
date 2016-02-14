@@ -5,7 +5,7 @@ Available actions
 =================
 
 Most menu entries and toolbar buttons trigger an `action` when clicked. This
-is a rather loose definition, but actions are different from 
+is a rather loose definition, but actions are different from
 :ref:`tools-section` and :ref:`widgets-section`.
 
 The list below is sorted on category, which roughly corresponds to the
@@ -41,7 +41,7 @@ Save the selected signal(s).
 Save figure
 """""""""""""""
 Save the currently active figure using matplotlib's
-:py:meth:`~matplotlib.figure.Figure.savefig`. Note that this does not care 
+:py:meth:`~matplotlib.figure.Figure.savefig`. Note that this does not care
 about how the figure was produced, or the underlying resolution of the data.
 
 .. _new-editor:
@@ -86,7 +86,7 @@ Changes the signal type using a combination of methods on
 Signal data type
 """"""""""""""""""""""""""""""""""""
 Change the data type use to store the signal data internally. See
-the `numpy docs`_ for details. The operation is performed by 
+the `numpy docs`_ for details. The operation is performed by
 :py:meth:`~hyperspy.signal.Signal.change_dtype`.
 
 .. _numpy docs: http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype
@@ -104,12 +104,12 @@ signal.
 
 Statistics
 """"""""""""""""""""""""""""""""""""
-Print the signal statistics to the console. See 
+Print the signal statistics to the console. See
 :py:meth:`~hyperspy.signal.Signal.print_summary_statistics` for details.
 
 Histogram
 """"""""""""""""""""""""""""""""""""
-Plot a histogram of the signal. See 
+Plot a histogram of the signal. See
 :py:meth:`~hyperspy.signal.Signal.get_histogram` for details. The method
 for determining the number of bins can be set in the :ref:`settings-section`.
 
@@ -257,17 +257,17 @@ Fourier Ratio Deconvoloution
 Use the Fourier-Ratio method to deconvolve one signal from another.
 
 .. note::
-    
+
     The background should be removed with e.g. `Remove Background`_ before
     running Fourier ratio deconvolution.
 
-See :py:meth:`~hyperspy._signals.eels.EELSSpectrum.fourier_ratio_deconvolution` 
-for details. 
+See :py:meth:`~hyperspy._signals.eels.EELSSpectrum.fourier_ratio_deconvolution`
+for details.
 
 Estimate thickness
 """"""""""""""""""""""""""""""""""""
-Estimates the thickness (relative to the mean free path) of a sample using 
-the log-ratio method. See 
+Estimates the thickness (relative to the mean free path) of a sample using
+the log-ratio method. See
 :py:meth:`hyperspy._signals.eels.EELSSpectrum.estimate_thickness` for details.
 
 Browse EELSDB
@@ -311,17 +311,23 @@ Virtual navigator
 """"""""""""""""""""""""""""""""""""
 Set the navigator intensity by a virtual aperture.
 
-.. note:: 
-    Setting a virtual navigator will replot the signal, so any existing 
+.. note::
+    Setting a virtual navigator will replot the signal, so any existing
     apertures will be lost. Therefore always add the virtual navigator first
     if you want to use one.
 
 .. figure:: virtual_apertures.png
 
     Example of a signal with a virtual navigator and three virtual apertures.
-    The navigator (orange circle) selects the direct beam, giving a virtual 
+    The navigator (orange circle) selects the direct beam, giving a virtual
     bright-field image, while the other apertures select diffraction spots
     unique to three different grains/phases.
+
+Virtual annulus
+""""""""""""""""""""""""""""""""""""
+Add a virtual annulus to the diffraction image. An annulus is simply a hollow
+disc, and it can be moved around and resized, allowing for an interactive
+creation of virtual annular dark field images.
 
 
 
@@ -409,7 +415,7 @@ Version selector
 Open dialog to select branch/version of HyperSpy/HyperSpyUI.
 
  .. warning::
-    
+
     This can invalidate your installation of HyperSpyUI and/or HyperSpy. Use
     with caution!
 
@@ -417,13 +423,13 @@ Opens up a dialogbox that enables you to install a specific GitHub branch for
 HyperSpy and HyperSpyUI. This will basically download and install the selected
 branch using `pip`_, whether or not that version works or if the HyperSpy and
 HyperSpyUI verions are internally compatible, or even compatible with your
-version of Python. As this can prevent you from starting the application 
+version of Python. As this can prevent you from starting the application
 afterwards, you might end up having to reinstall it.
 
 .. _pip: http://pip.pypa.io/
 
 .. note::
-    
+
     If your current installation is a git repository, this will check out
     the selected branch instead of doing a pip install.
 
@@ -459,7 +465,7 @@ Edit the HyperSpy package settings.
 
 Edit settings
 """""""""""""""
-Shows a dialog for editing the application and plugins settings. See 
+Shows a dialog for editing the application and plugins settings. See
 
 
 
