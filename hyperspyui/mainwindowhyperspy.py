@@ -475,16 +475,6 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                           for extensions in plugin.file_extensions])
         return extensions
 
-    def prompt_files(self, extension_filter=None):
-        filenames = QFileDialog.getOpenFileNames(self,
-                                                 tr('Load file'),
-                                                 self.cur_dir,
-                                                 extension_filter)
-        # Pyside returns tuple, PyQt not
-        if isinstance(filenames, tuple):
-            filenames = filenames[0]
-        return filenames
-
     def load_stack(self, filenames=None, stack_axis=None):
         if filenames is None:
             extensions = self.get_accepted_extensions()
@@ -532,6 +522,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 e = EditorWidget(self, self, filename)
                 self.editors.append(e)
                 e.show()
+                files_loaded.append(filename)
                 continue
             self.setUpdatesEnabled(False)   # Prevent flickering during load
             try:
@@ -586,10 +577,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 path_suggestion = self.get_signal_filepath_suggestion(s)
                 logger.debug("No filenames passed. Auto-suggestion: %s",
                              path_suggestion)
-                filename = QFileDialog.getSaveFileName(self, tr("Save file"),
-                                                       path_suggestion,
-                                                       type_choices,
-                                                       "All types (*.*)")[0]
+                filename = self.prompt_files(type_choices, path_suggestion,
+                                             False)
                 # Dialog should have prompted about overwrite
                 overwrite = True
                 if not filename:

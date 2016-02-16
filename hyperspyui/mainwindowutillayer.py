@@ -282,6 +282,26 @@ class MainWindowUtils(MainWindowBase):
             icon = QIcon(SmartColorSVGIconEngine(icon))
         return icon
 
+    def prompt_files(self, extension_filter=None, path=None, exists=True,
+                     title=None, def_filter=None):
+        if title is None:
+            title = tr('Load file') if exists else tr('Save file')
+        path = path or self.cur_dir
+        if def_filter is None and extension_filter:
+            def_filter = extension_filter.split(';;', maxsplit=1)[0]
+
+        if exists:
+            filenames = QFileDialog.getOpenFileNames(
+                self, title, path, extension_filter)
+        else:
+
+            filenames = QFileDialog.getSaveFileName(
+                self, title, path, extension_filter, def_filter)
+        # Pyside returns tuple, PyQt not
+        if isinstance(filenames, tuple):
+            filenames = filenames[0]
+        return filenames
+
     def get_figure_filepath_suggestion(self, figure, deault_ext=None):
         """
         Get a suggestion for a file path for saving `figure`.
@@ -329,15 +349,14 @@ class MainWindowUtils(MainWindowBase):
         for group, exts in extensions.items():
             fmt = group + \
                 ' (' + \
-                '; '.join([os.path.extsep + sube for sube in exts]) + ')'
+                '; '.join(["*" + os.path.extsep + sube for sube in exts]) + ')'
             type_choices = ';;'.join((type_choices, fmt))
             if def_type[1:] in exts:
                 def_type = fmt
 
         # Present filename prompt
-        filename = QFileDialog.getSaveFileName(self, tr("Save file"),
-                                               path_suggestion, type_choices,
-                                               def_type)[0]
+        filename = self.prompt_files(type_choices, path_suggestion,
+                                     exists=False, def_filter=def_type)
         if filename:
             canvas.figure.savefig(filename)
 
