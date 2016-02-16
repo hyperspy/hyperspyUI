@@ -76,12 +76,19 @@ class FFT_Plugin(Plugin):
                         " the entire signal",
                         selection_callback=self.ui.select_signal)
 
+        self.add_action('decompose', "FFT Magnitude/Phase", self.decompose,
+                        icon=None,
+                        tip="Decompose a fast fourier transformation result " +
+                        "into its magnitude and phase.",
+                        selection_callback=self.ui.select_signal)
+
     def create_menu(self):
         self.add_menuitem("Math", self.ui.actions['fft'])
         self.add_menuitem("Math", self.ui.actions['live_fft'])
         self.add_menuitem("Math", self.ui.actions['nfft'])
         self.add_menuitem("Math", self.ui.actions['ifft'])
         self.add_menuitem("Math", self.ui.actions['infft'])
+        self.add_menuitem("Math", self.ui.actions['decompose'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Math", self.ui.actions['fft'])
@@ -322,3 +329,13 @@ class FFT_Plugin(Plugin):
 
     def infft(self, signals=None):
         return self.nfft(signals, inverse=True)
+
+    def decompose(self, signal=None):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+        s_magnitude = signal._deepcopy_with_new_data(
+            np.sqrt(np.real(signal.data)**2 + np.imag(signal.data)**2))
+        s_phase = signal._deepcopy_with_new_data(
+            np.arctan2(np.imag(signal.data), np.real(signal.data)))
+        s_magnitude.plot()
+        s_phase.plot()
