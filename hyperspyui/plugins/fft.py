@@ -99,7 +99,7 @@ class FFT_Plugin(Plugin):
 
     def fft(self, signals=None, inverse=False, on_complete=None):
         if signals is None:
-            signals = self.ui.get_selected_wrappers()
+            signals = self.ui.get_selected_signals()
         # Make sure we can iterate
         if isinstance(signals, hyperspy.signals.Signal):
             signals = (signals,)
@@ -114,8 +114,7 @@ class FFT_Plugin(Plugin):
                     on_complete(sw)
 
         def do_ffts():
-            for i, sw in enumerate(signals):
-                s = sw.signal
+            for i, s in enumerate(signals):
                 if inverse:
                     fftdata = scipy.fftpack.ifftshift(s())
                     fftdata = scipy.fftpack.ifftn(fftdata)
@@ -171,7 +170,7 @@ class FFT_Plugin(Plugin):
 
     def nfft(self, signals=None, inverse=False):
         if signals is None:
-            signals = self.ui.get_selected_wrappers()
+            signals = self.ui.get_selected_signals()
             if signals is None:
                 return
         # Make sure we can iterate
@@ -189,14 +188,13 @@ class FFT_Plugin(Plugin):
 
         def do_ffts():
             j = 0
-            for sw in signals:
-                ffts = sw.signal.deepcopy()
+            for s in signals:
+                ffts = s.deepcopy()
                 if ffts.data.itemsize <= 4:
                     ffts.change_dtype(np.complex64)
                 else:
                     ffts.change_dtype(np.complex128)
 
-                s = sw.signal
                 am = AxesManager(s.axes_manager._get_axes_dicts())
                 for idx in am:
                     fftdata = s.data[am._getitem_tuple]
@@ -226,14 +224,13 @@ class FFT_Plugin(Plugin):
 
         def do_iffts():
             j = 0
-            for sw in signals:
-                ffts = sw.signal.deepcopy()
+            for s in signals:
+                ffts = s.deepcopy()
                 if ffts.data.itemsize <= 4:
                     ffts.change_dtype(np.float32)
                 else:
                     ffts.change_dtype(np.float64)
 
-                s = sw.signal
                 am = AxesManager(s.axes_manager._get_axes_dicts())
 
                 for i in range(ffts.axes_manager.signal_dimension):
@@ -286,7 +283,7 @@ class FFT_Plugin(Plugin):
         intensive.
         """
         if signals is None:
-            signals = self.ui.get_selected_wrappers()
+            signals = self.ui.get_selected_signals()
             if signals is None:
                 return
         # Make sure we can iterate
@@ -297,7 +294,7 @@ class FFT_Plugin(Plugin):
             return
 
         def setup_live(fft_wrapper):
-            s = signals[setup_live.i].signal
+            s = signals[setup_live.i]
             setup_live.i += 1
 
             def data_function(axes_manager=None):
