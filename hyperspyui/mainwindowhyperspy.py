@@ -65,7 +65,6 @@ overrides.override_hyperspy()           # Enable hyperspy overrides
 
 glob_escape = re.compile(r'([\[\]])')
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class TrackEventFilter(QObject):
