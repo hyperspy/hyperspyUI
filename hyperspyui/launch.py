@@ -46,8 +46,10 @@ import locale
 # TODO: Disable tools when no figure
 
 
-# import logging
-# logging.basicConfig(level=logging.DEBUG)
+import logging
+logging.basicConfig()
+logging.getLogger('hyperspy').setLevel(logging.DEBUG)
+logging.getLogger('hyperspyui').setLevel(logging.DEBUG)
 
 
 def _get_logfile():
