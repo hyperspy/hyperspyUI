@@ -26,4 +26,4 @@ which runs on the same Python kernel as the UI.
 For further information, see the full documentation_.
 
 .. _HyperSpy: http://hyperspy.org
-.. _documentation: http://hyperspy.github.io/hyperspyUI/
+.. _documentation: http://hyperspy.org/hyperspyUI/
