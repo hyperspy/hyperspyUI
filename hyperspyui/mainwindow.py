@@ -27,6 +27,8 @@ import argparse
 import os
 import sys
 import json
+import logging
+
 import numpy as np
 
 # Should go before any MPL imports:
@@ -45,6 +47,8 @@ from QtGui import *
 
 import hyperspy.utils.plot
 import hyperspy.signals
+
+_logger = logging.getLogger(__name__)
 
 
 class MainWindow(MainWindowHyperspy):
@@ -99,6 +103,7 @@ class MainWindow(MainWindowHyperspy):
             sys.stderr = self.console.kernel.stderr
         else:
             self._old_stdout = self._old_stderr = None
+        _logger.info("Main window loaded!")
 
     def handleSecondInstance(self, argv):
         """

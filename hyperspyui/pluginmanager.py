@@ -26,9 +26,13 @@ import sys
 import importlib
 import warnings
 import traceback
+import logging
+
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.settings import Settings
 from hyperspyui.util import AttributeDict
+
+_logger = logging.getLogger(__name__)
 
 
 class ReadOnlyDict(dict):
@@ -110,6 +114,7 @@ class PluginManager(object):
                 self.warn("import", plug)
         master = Plugin
         self.implementors = self._inheritors(master)
+        _logger.debug("Found plugins: %s", self.implementors)
 
     @staticmethod
     def _inheritors(klass):
@@ -184,8 +189,10 @@ class PluginManager(object):
         self._enabled[p_type.name] = (enabled, p_type)
         if enabled:
             # Init
+            _logger.debug("Initializing plugin: %s", p_type)
             p = p_type(self.ui)
             self.plugins[p.name] = p
+            _logger.debug("Plugin loaded: %s", p.name)
             return p
         return None
 
