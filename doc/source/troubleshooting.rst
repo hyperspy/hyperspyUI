@@ -11,14 +11,14 @@ chat`_ first to discuss the issue, but if there's no help forthcoming, please
 submit an issue on the `HyperSpyUI Github page`_.
 
 .. _HyperSpy gitter chat: https://gitter.im/hyperspy/hyperspy
-.. _HyperSpyUI Github page: https://github.com/vidartf/hyperspyUI/issues
+.. _HyperSpyUI Github page: https://github.com/hyperspy/hyperspyUI/issues
 
 
 Known issues
 -----------------
 
 For a list of previously reported issues, see the `HyperSpyUI Github page`_.
-At the time of release, no major issues are known, but the following can be 
+At the time of release, no major issues are known, but the following can be
 worth noticing:
 
     Closed signals are not always cleared from memory
@@ -42,7 +42,7 @@ Error output
 To help diagnose problems, it would be helpful to include the application
 log. Depending on how you launch the program, there are different ways of
 obtaining this log output. The easiest is if the program is launched from
-a terminal, in which case the log is piped directly to its console. If 
+a terminal, in which case the log is piped directly to its console. If
 you've not launched it with a terminal, the log is attempted written to
 the folder of the ``launch.py`` file. If that location is noe writable,
 the log file is attempted written to the users home folder (OS dependent).
