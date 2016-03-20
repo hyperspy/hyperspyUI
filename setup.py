@@ -38,7 +38,7 @@ setup(
     description='Hyperspy Graphical User Interface',
     author='Vidar Tonaas Fauske',
     author_email='vidartf+hyperspyui@gmail.com',
-    url='http://github.com/vidartf/hyperspyUI/',
+    url='http://github.com/hyperspy/hyperspyUI/',
     license='GPLv3',
     packages=find_packages(exclude=['tests*',
                                     'hyperspyui.plugins.user_plugins']),

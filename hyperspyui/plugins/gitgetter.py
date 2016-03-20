@@ -201,7 +201,7 @@ class GitSelector(Plugin):
         self.packages = {
             'HyperSpy': [True, ['https://github.com/hyperspy/hyperspy',
                                 'https://github.com/vidartf/hyperspy']],
-            'HyperSpyUI': [True, ['https://github.com/vidartf/hyperspyui']],
+            'HyperSpyUI': [True, ['https://github.com/hyperspy/hyperspyui']],
             }
         self.ui.load_complete.connect(self._on_load_complete)
         if got_git:
