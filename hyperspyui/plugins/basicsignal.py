@@ -45,6 +45,10 @@ class BasicSignalPlugin(Plugin):
             ('knuth', 'scotts', 'freedman', 'blocks', '<integer>'))
 
     def create_actions(self):
+        self.add_action(self.name + '.stack', self.name, self.stack,
+                        tip="Stack selected signals along a new navigation "
+                        "axis")
+
         self.add_action('stats', tr("Statistics"),
                         self.statistics,
                         icon=None,
@@ -98,6 +102,7 @@ class BasicSignalPlugin(Plugin):
 #        indexmax, valuemax
 
     def create_menu(self):
+        self.add_menuitem('Signal', self.ui.actions[self.name + '.stack'])
         self.add_menuitem("Signal", self.ui.actions['stats'])
         self.add_menuitem("Signal", self.ui.actions['histogram'])
         self.add_menuitem("Math", self.ui.actions['mean'])
@@ -106,6 +111,12 @@ class BasicSignalPlugin(Plugin):
         self.add_menuitem('Math', self.ui.actions['min'])
         self.add_menuitem('Math', self.ui.actions['std'])
         self.add_menuitem('Math', self.ui.actions['var'])
+
+    def stack(self, signals=None):
+        if signals is None:
+            signals = self.ui.get_selected_signals()
+        stack = hs.stack(signals)
+        stack.plot()
 
     def statistics(self, signal=None):
         if signal is None:
