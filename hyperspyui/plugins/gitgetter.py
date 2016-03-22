@@ -199,9 +199,8 @@ class GitSelector(Plugin):
         self.settings.set_default('check_for_updates_on_start', True)
         self.settings.set_default('check_for_git_updates', False)
         self.packages = {
-            'HyperSpy': [True, ['https://github.com/hyperspy/hyperspy',
-                                'https://github.com/vidartf/hyperspy']],
-            'HyperSpyUI': [True, ['https://github.com/hyperspy/hyperspyui']],
+            'HyperSpy': [True, 'https://github.com/hyperspy/hyperspy'],
+            'HyperSpyUI': [True, 'https://github.com/hyperspy/hyperspyui'],
             }
         self.ui.load_complete.connect(self._on_load_complete)
         if got_git:
@@ -261,7 +260,7 @@ class GitSelector(Plugin):
         """
         self._check_git()
         available = {}
-        for Name, (enabled, urls) in self.packages.items():
+        for Name, (enabled, url) in self.packages.items():
             name = Name.lower()
             if enabled:
                 if (check_git_repo(name) and
@@ -351,21 +350,11 @@ class VersionSelectionDialog(QDialog):
 
         vbox = QVBoxLayout()
         form = QFormLayout()
-        for Name, (enabled, urls) in self.packages.items():
+        for Name, (enabled, url) in self.packages.items():
             name = Name.lower()
             cbo = QComboBox()
             if enabled:
-                branches = get_branches(name, urls[0])
-                # Add a selection of branches from vidartf repo
-                if len(urls) > 1:
-                    for url in urls[1:]:
-                        try:
-                            b = get_branches(name, url)['hyperspyui']
-                            branches.update({'hyperspyui': b})
-                            b = get_branches(name, url)['hyperspyui_py3']
-                            branches.update({'hyperspyui_py3': b})
-                        except KeyError:
-                            pass
+                branches = get_branches(name, url)
                 for n, b in branches.items():
                     cbo.addItem(n, b)
                 if not check_git_repo(name):
