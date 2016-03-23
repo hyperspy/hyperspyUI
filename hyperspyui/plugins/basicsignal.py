@@ -24,6 +24,7 @@ Created on Sun Mar 01 15:20:55 2015
 import sys
 
 from hyperspyui.plugins.plugin import Plugin
+from hyperspy.utils import stack as stack_signals
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -45,7 +46,7 @@ class BasicSignalPlugin(Plugin):
             ('knuth', 'scotts', 'freedman', 'blocks', '<integer>'))
 
     def create_actions(self):
-        self.add_action(self.name + '.stack', self.name, self.stack,
+        self.add_action(self.name + '.stack', "Stack", self.stack,
                         tip="Stack selected signals along a new navigation "
                         "axis")
 
@@ -115,7 +116,7 @@ class BasicSignalPlugin(Plugin):
     def stack(self, signals=None):
         if signals is None:
             signals = self.ui.get_selected_signals()
-        stack = hs.stack(signals)
+        stack = stack_signals(signals)
         stack.plot()
 
     def statistics(self, signal=None):
