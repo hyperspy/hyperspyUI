@@ -54,7 +54,7 @@ class Settings(object):
         for g in groupings:
             settings.beginGroup(g)
         ret = settings.value(key)
-        if t and isinstance(t, type):
+        if t and isinstance(t, type) and not isinstance(ret, t):
             if t is bool:
                 ret = ("true" == ret.lower())
             else:
