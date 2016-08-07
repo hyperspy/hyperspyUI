@@ -373,10 +373,7 @@ class ElementPickerWidget(FigureWidget):
         vbox.addWidget(self.table)
 
         hbox = QHBoxLayout()
-        # TODO: TAG: Feature-check
-        if hasattr(hyperspy.signals.EDSTEMSpectrum,
-                   'add_xray_lines_markers'):
-            hbox.addWidget(self.chk_markers)
+        hbox.addWidget(self.chk_markers)
         hbox.addWidget(self.map_btn)
         vbox.addLayout(hbox)
 
