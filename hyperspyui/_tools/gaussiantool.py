@@ -25,17 +25,13 @@ import os
 import numpy as np
 from matplotlib.widgets import SpanSelector
 
-from hyperspy.components import Gaussian
-try:
-    from hyperspy.components import GaussianHF
-    GaussTypes = (Gaussian, GaussianHF)
-    has_gauss_v2 = True
-except ImportError:
-    GaussTypes = (Gaussian, )
-    has_gauss_v2 = False
+from hyperspy.components1d import Gaussian
+from hyperspy.components1d import GaussianHF
 
 from .figuretool import FigureTool
 from hyperspyui.util import crosshair_cursor
+
+GaussTypes = (Gaussian, GaussianHF)
 
 
 class GaussianTool(FigureTool):
@@ -132,17 +128,13 @@ class GaussianTool(FigureTool):
             h = m.signal()[i] - m()[i]
             if m.signal.metadata.Signal.binned:
                 h /= m.axis.scale
-            if has_gauss_v2:
-                g = GaussianHF(height=h * np.sqrt(2 * np.pi), centre=x)
-                g.height.free = False
-            else:
-                g = Gaussian(A=h, centre=x)
+            g = GaussianHF(height=h * np.sqrt(2 * np.pi), centre=x)
+            g.height.free = False
             g.centre.free = False
             mw.add_component(g)
             g._model_plot_line.line.set_picker(True)
             m.fit_component(g, signal_range=None, estimate_parameters=False)
-            if has_gauss_v2:
-                g.height.free = True
+            g.height.free = True
             g.centre.free = True
         else:
             self.dragging = True
@@ -160,10 +152,7 @@ class GaussianTool(FigureTool):
             self._wire_wrapper(mw)
         m = mw.model
 
-        if has_gauss_v2:
-            g = GaussianHF()
-        else:
-            g = Gaussian()
+        g = GaussianHF()
         mw.add_component(g)
         g._model_plot_line.line.set_picker(True)
         m.fit_component(g, signal_range=(x0, x1))
@@ -173,15 +162,11 @@ class GaussianTool(FigureTool):
         g.active = True
         if m.signal.metadata.Signal.binned:
             h /= m.axis.scale
-        if has_gauss_v2:
-            g.height.value = h
-            g.height.free = False
-        else:
-            g.A.value = h * np.sqrt(2 * np.pi)
+        g.height.value = h
+        g.height.free = False
         g.centre.free = False
         m.fit_component(g, signal_range=(x0, x1), estimate_parameters=False)
-        if has_gauss_v2:
-            g.height.free = True
+        g.height.free = True
         g.centre.free = True
 
         if self.drag_data is None:
