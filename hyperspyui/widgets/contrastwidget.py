@@ -148,7 +148,12 @@ class ContrastWidget(FigureWidget):
     def auto(self, checked):
         p = self._cur_plot
         if p is not None:
-            p.auto_contrast = checked
+            if checked:
+                p.vmin = None
+                p.vmax = None
+            else:
+                p.vmin = p.vmin
+                p.vmax = p.vmax
             p.update()
             self.update_controls_from_fig()
 
