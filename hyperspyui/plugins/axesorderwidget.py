@@ -29,7 +29,7 @@ import collections
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
 from hyperspy.axes import DataAxis
-from hyperspy.signals import Signal
+from hyperspy.signal import BaseSignal
 
 
 def tr(text):
@@ -68,7 +68,7 @@ class AxesOrderPlugin(Plugin):
         # Get signal
         if signal is None:
             signal = self.ui.get_selected_wrapper()
-        elif isinstance(signal, Signal):
+        elif isinstance(signal, BaseSignal):
             signal = self.ui.lut_signalwrapper[signal]
         am = signal.signal.axes_manager
         # Get DataAxis

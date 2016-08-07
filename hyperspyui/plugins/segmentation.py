@@ -17,9 +17,9 @@
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
 from hyperspyui.plugins.plugin import Plugin
-from hyperspy.signal import Signal
+from hyperspy.signal import BaseSignal
 import numpy as np
-from hyperspy.signals import Spectrum, Image
+from hyperspy.signals import Signal1D, Signal2D
 from hyperspyui.tools import MultiSelectionTool
 from hyperspyui.util import win2sig
 from hyperspy.misc.rgb_tools import regular_array2rgbx
@@ -37,8 +37,8 @@ class Segmentation(Plugin):
         self.tool.name = 'Segmentation tool'
         self.tool.icon = 'segmentation.svg'
         self.tool.category = 'Image'
-        self.tool.updated[Signal, list].connect(self._on_update)
-        self.tool.accepted[Signal, list].connect(self.segment)
+        self.tool.updated[BaseSignal, list].connect(self._on_update)
+        self.tool.accepted[BaseSignal, list].connect(self.segment)
         self.tool.validator = self._tool_signal_validator
         self.add_tool(self.tool, self._select_image)
         self.map = {}
@@ -67,7 +67,7 @@ class Segmentation(Plugin):
         hist = signal._get_signal_signal(data).get_histogram(1000)
         hist.plot()
 
-        s_out = Spectrum(self._make_gray(data))
+        s_out = Signal1D(self._make_gray(data))
         s_out.change_dtype('rgb8')
         s_out.plot()
 
@@ -117,7 +117,7 @@ class Segmentation(Plugin):
             mask = (src_data <= r.right) & (src_data >= r.left)
             data[mask] = i + 1
 
-        s_seg = Image(data)
+        s_seg = Signal2D(data)
         s_seg.plot(cmap=plt_cm.jet)
 
         roi_str = '[' + ',\n'.join(['hs.roi.' + str(r) for r in rois]) + ']'

@@ -22,7 +22,7 @@ Created on Mon Oct 27 18:47:05 2014
 """
 
 
-import hyperspy.components
+import hyperspy.components1d
 from hyperspy.misc.utils import slugify
 from functools import partial
 from python_qt_binding import QtGui, QtCore, QtSvg
@@ -183,7 +183,7 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
                  'VolumePlasmonDrude']
     for name in compnames:
         try:
-            t = getattr(hyperspy.components, name)
+            t = getattr(hyperspy.components1d, name)
         except AttributeError:
             continue
         ac_name = 'add_component_' + name

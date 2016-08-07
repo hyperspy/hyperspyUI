@@ -77,7 +77,7 @@ class BasicSpectrumPlugin(Plugin):
             icon='power_law.svg',
             tip=tr("Interactively define the background, and remove it"),
             selection_callback=SignalTypeFilter(
-                hyperspy.signals.Spectrum, self.ui))
+                hyperspy.signals.Signal1D, self.ui))
 
         self.add_action('fourier_ratio', tr("Fourier Ratio Deconvoloution"),
                         self.fourier_ratio,
@@ -103,28 +103,28 @@ class BasicSpectrumPlugin(Plugin):
                         icon=None,
                         tip=tr("Apply a Savitzky-Golay filter"),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui))
+                            hyperspy.signals.Signal1D, self.ui))
 
         self.add_action('smooth_lowess', tr("Smooth Lowess"),
                         self.smooth_lowess,
                         icon=None,
                         tip=tr("Apply a Lowess smoothing filter"),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui))
+                            hyperspy.signals.Signal1D, self.ui))
 
         self.add_action('smooth_tv', tr("Smooth Total variation"),
                         self.smooth_tv,
                         icon=None,
                         tip=tr("Total variation data smoothing"),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui))
+                            hyperspy.signals.Signal1D, self.ui))
 
         self.add_action('filter_butterworth', tr("Butterworth filter"),
                         self.filter_butterworth,
                         icon=None,
                         tip=tr("Apply a Butterworth filter"),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui))
+                            hyperspy.signals.Signal1D, self.ui))
 
         self.add_action('hanning_taper', tr("Hanning taper"),
                         self.hanning_taper,
@@ -132,7 +132,7 @@ class BasicSpectrumPlugin(Plugin):
                         tip=tr("Apply a Hanning taper to both ends of the "
                                "data."),
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Spectrum, self.ui))
+                            hyperspy.signals.Signal1D, self.ui))
 
     def create_menu(self):
         self.add_menuitem("Model", self.ui.actions['plot_components'])
