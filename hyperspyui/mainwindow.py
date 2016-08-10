@@ -62,7 +62,8 @@ class MainWindow(MainWindowHyperspy):
     """
 
     signal_types = OrderedDict(
-        [('1D Signal', hyperspy.signals.Signal1D),
+        [('Signal', hyperspy.signal.BaseSignal),
+         ('1D Signal', hyperspy.signals.Signal1D),
          ('2D Signal', hyperspy.signals.Signal2D),
          ('EELS', hyperspy.signals.EELSSpectrum),
          ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
