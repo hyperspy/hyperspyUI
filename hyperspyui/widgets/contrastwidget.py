@@ -91,7 +91,10 @@ class ContrastWidget(FigureWidget):
             self.sl_window.blockSignals(old)
 
             old = self.chk_auto.blockSignals(True)
-            self.chk_auto.setChecked(p.auto_contrast)
+            state = QtCore.Qt.Checked if all(p.auto_contrast) else (
+                QtCore.Qt.PartiallyChecked if any(p.auto_contrast) else
+                QtCore.Qt.Unchecked)
+            self.chk_auto.setCheckState(state)
             self.chk_auto.blockSignals(old)
 
             if p.ax.images:
@@ -145,15 +148,10 @@ class ContrastWidget(FigureWidget):
     def disable(self):
         self.enable(False)
 
-    def auto(self, checked):
+    def auto(self, state):
         p = self._cur_plot
         if p is not None:
-            if checked:
-                p.vmin = None
-                p.vmax = None
-            else:
-                p.vmin = p.vmin
-                p.vmax = p.vmax
+            p.auto_contrast = state == QtCore.Qt.Checked
             p.update()
             self.update_controls_from_fig()
 
@@ -182,7 +180,7 @@ class ContrastWidget(FigureWidget):
         self.lbl_window.clicked.connect(self.reset_window)
         self.sl_level.valueChanged[float].connect(self.level_changed)
         self.sl_window.valueChanged[float].connect(self.window_changed)
-        self.connect(self.chk_auto, SIGNAL('toggled(bool)'), self.auto)
+        self.connect(self.chk_auto, SIGNAL('stateChanged(int)'), self.auto)
         self.connect(self.chk_log, SIGNAL('toggled(bool)'), self.log_changed)
 
         hbox = QHBoxLayout()
