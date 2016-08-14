@@ -108,7 +108,7 @@ class PluginManager(object):
         import hyperspyui.plugins as plugins
         for plug in plugins.__all__:
             try:
-                __import__('plugins.' + plug, globals())
+                __import__('hyperspyui.plugins.' + plug, globals())
 
             except Exception:
                 self.warn("import", plug)
