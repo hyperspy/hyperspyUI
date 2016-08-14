@@ -24,7 +24,6 @@ Created on Sun Dec 07 02:03:23 2014
 from hyperspyui.plugins.plugin import Plugin
 
 import os
-import numpy as np
 
 from hyperspy.roi import BaseInteractiveROI
 from hyperspyui.tools import SelectionTool
@@ -64,6 +63,7 @@ class CropToolPlugin(Plugin):
 
         signal.squeeze()
         signal.get_dimensions_from_data()
+        signal.events.data_changed.trigger(signal)
 
         self.record_code("s_crop = ui.get_selected_signal()")
         self.record_code("axes = " +
