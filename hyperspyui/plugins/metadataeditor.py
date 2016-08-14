@@ -41,13 +41,13 @@ class MetadataEditor(Plugin):
 
     def create_actions(self):
         self.add_action(self.name + '.edit_metadata',
-                        tr("Edit metadata"),
+                        tr("View metadata"),
                         self.edit_metadata,
-                        tip=tr("Edit signal meatadata"))
+                        tip=tr("View/edit signal meatadata"))
 
     def create_menu(self):
         self.add_menuitem(
-            'Signal', self.ui.actions[self.name + '.edit_metadata'])
+            'Signal', self.ui.actions[self.name + '.view_metadata'])
 
     def _on_close(self, signal):
         self.editors.pop(signal)
