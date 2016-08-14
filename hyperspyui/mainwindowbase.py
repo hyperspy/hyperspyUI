@@ -29,6 +29,7 @@ matplotlib.interactive(True)
 import os
 import warnings
 import sys
+import logging
 
 from python_qt_binding import QtGui, QtCore
 from QtCore import *
@@ -39,6 +40,8 @@ import hyperspyui.mdi_mpl_backend
 from .pluginmanager import PluginManager
 from hyperspyui.settings import Settings
 from hyperspyui.widgets.settingsdialog import SettingsDialog
+
+_logger = logging.getLogger(__name__)
 
 
 def tr(text):
@@ -226,15 +229,21 @@ class MainWindowBase(QMainWindow):
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
 
+        _logger.debug("Initializing plugins")
         self.init_plugins()
 
+        _logger.debug("Creating default actions")
         self.create_default_actions()   # Goes before menu/toolbar/widgetbar
 
         # Needs to go before menu, so console can be in menu
+        _logger.debug("Creating console")
         self.create_console()
         # This needs to happen before the widgetbar and toolbar
+        _logger.debug("Creating menus")
         self.create_menu()
+        _logger.debug("Creating toolbars")
         self.create_toolbars()
+        _logger.debug("Creating widgets")
         self.create_widgetbar()
 
         self.setCentralWidget(self.main_frame)
@@ -248,6 +257,7 @@ class MainWindowBase(QMainWindow):
         Create default actions that can be used for e.g. toolbars and menus,
         or triggered manually.
         """
+        _logger.debug("Creating plugin actions")
         self.plugin_manager.create_actions()
 
         self.selectable_tools = QActionGroup(self)
