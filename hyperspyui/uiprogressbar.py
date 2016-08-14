@@ -39,7 +39,7 @@ from hyperspyui.exceptions import ProcessCanceled
 signaler = QObject()
 signaler.created = Signal(object)
 signaler.progress = Signal((object, int), (object, int, str))
-signaler.finished = Signal(object)
+signaler.finished = Signal(int)
 signaler.cancel = Signal(int)
 # This is necessary as it bugs out if not (it's a daisy chained event)
 
@@ -187,7 +187,7 @@ class UIProgressBar(tqdm):
 
                     global signaler
                     signaler.emit(SIGNAL('progress(int, int, QString)'),
-                                  self.id, self.n, txt)
+                                  self.id, n, txt)
 
                     # If no `miniters` was specified, adjust automatically
                     # to the maximum iteration rate seen so far.
@@ -243,7 +243,7 @@ class UIProgressBar(tqdm):
                         (1 - self.smoothing) * self.avg_time
 
                 txt = self.format_string(
-                    n, self.total, elapsed,
+                    self.n, self.total, elapsed,
                     1 / self.avg_time if self.avg_time else None)
 
                 global signaler
