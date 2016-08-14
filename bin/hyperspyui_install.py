@@ -95,7 +95,7 @@ if platform.system().lower() == 'windows':
     shortcut_filename = "HyperSpyUI.lnk"
     import hyperspyui
     dirname = os.path.dirname(hyperspyui.__file__)
-    script_path = os.path.join(dirname, "launch.py")
+    script_path = os.path.join(dirname, "__main__.py")
     icon_path = os.path.join(dirname, 'images', 'icon', 'hyperspy.ico')
 
     if args.remove:
@@ -149,7 +149,7 @@ if platform.system().lower() == 'windows':
                     cmds.append(r'1>nul 2>nul ASSOC %s=%s' % (ft, docname))
                 cmds.append(r'1>nul 2>nul FTYPE ' +
                             r'{0}="{1}" "'.format(docname, pyw_executable) +
-                            d + r'\launch.py" "%1" %*')
+                            d + r'\__main__.py" "%1" %*')
             else:
                 # Not admin. We have to add everything to HKCU manually
                 cmd = (r'1>nul 2>nul REG ADD ' +
@@ -168,7 +168,7 @@ if platform.system().lower() == 'windows':
                      docname) +
                     r' /v "" /t REG_EXPAND_SZ /d ' +
                     (r'"\"%s\" "' % pyw_executable) +
-                    d + r'\launch.py" \"%1\" %*" /f')
+                    d + r'\__main__.py" \"%1\" %*" /f')
 
             for cmd in cmds:
                 r = subprocess.call(cmd, shell=True)

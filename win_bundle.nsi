@@ -370,7 +370,7 @@ Section "HyperSpyUI"
     Delete "$TEMP\win_bundle_install.bat"
     Push $R0
     ${GetPythonDir} $R0
-    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$R0\python.exe" "-m hyperspyui.launch"
+    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$R0\python.exe" "-m hyperspyui"
     Pop $R0
 SectionEnd
 

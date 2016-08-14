@@ -44,7 +44,7 @@ log. Depending on how you launch the program, there are different ways of
 obtaining this log output. The easiest is if the program is launched from
 a terminal, in which case the log is piped directly to its console. If
 you've not launched it with a terminal, the log is attempted written to
-the folder of the ``launch.py`` file. If that location is noe writable,
+the folder of hyperspyui. If that location is noe writable,
 the log file is attempted written to the users home folder (OS dependent).
 In either case, the log file is named ``hyperspyui.log``.
 
