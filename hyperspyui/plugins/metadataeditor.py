@@ -40,7 +40,7 @@ class MetadataEditor(Plugin):
         self.editors = {}
 
     def create_actions(self):
-        self.add_action(self.name + '.edit_metadata',
+        self.add_action(self.name + '.view_metadata',
                         tr("View metadata"),
                         self.edit_metadata,
                         tip=tr("View/edit signal meatadata"))
