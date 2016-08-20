@@ -29,7 +29,7 @@ from QtCore import *
 from QtGui import *
 
 from hyperspyui.util import win2sig, fig2win, Namespace
-from hyperspyui.threaded import ProgressThreaded
+from hyperspyui.threaded import ProgressThreaded, ProcessCanceled
 
 
 def tr(text):
@@ -57,8 +57,14 @@ class MVA_Plugin(Plugin):
     """
     name = 'MVA'    # Used for settings groups etc
 
+    coc_values = {'convert': tr("Convert"),
+                  'copy': tr("Copy")}
+
     # ----------- Plugin interface -----------
     def create_actions(self):
+        self.settings.set_default('convert_or_copy', None)
+        self.settings.set_enum_hint('convert_or_copy',
+                                    self.coc_values.keys())
         self.add_action('pca', tr("PCA"), self.pca,
                         icon='pca.svg',
                         tip=tr("Run Principal Component Analysis"),
@@ -109,13 +115,15 @@ class MVA_Plugin(Plugin):
         if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float
             cc = self.settings.get_or_prompt(
                 'convert_or_copy',
-                (('convert', tr("Convert")),
-                 ('copy', tr("Copy"))),
+                [kv for kv in self.coc_values.items()],
                 title=tr("Convert or copy"),
                 descr=tr(
                     "Signal data has the wrong data type (float needed)." +
                     "Would you like to convert the current signal, or " +
                     "perform the decomposition on a copy?"))
+            if cc is None:
+                # User canceled
+                raise ProcessCanceled()
             if cc == 'copy':
                 s = s.deepcopy()
                 s.metadata.General.title = signal.name + "[float]"

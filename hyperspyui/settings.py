@@ -168,13 +168,15 @@ class Settings(object):
         settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
+        if not isinstance(options, list):
+            options = list(options)
         settings.setValue(key, options)
         for g in groupings:
             settings.endGroup()
 
     def get_enum_hint(self, key):
         """
-        Returns the enum hint if set, otherwise None.
+        Returns the possible enum hint values if set, otherwise None.
         """
         groupings = self._get_groups(key)
         groupings.insert(0, 'defaults')
