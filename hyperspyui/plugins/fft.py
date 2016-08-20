@@ -25,7 +25,7 @@ from hyperspyui.plugins.plugin import Plugin
 import scipy.fftpack
 import numpy as np
 
-from hyperspy.drawing.spectrum import SpectrumFigure
+from hyperspy.drawing.signal1d import Signal1DFigure
 from hyperspy.drawing.image import ImagePlot
 from hyperspy.axes import AxesManager
 import hyperspy.signals
@@ -101,7 +101,7 @@ class FFT_Plugin(Plugin):
         if signals is None:
             signals = self.ui.get_selected_signals()
         # Make sure we can iterate
-        if isinstance(signals, hyperspy.signals.Signal):
+        if isinstance(signals, hyperspy.signal.BaseSignal):
             signals = (signals,)
 
         fftsignals = []
@@ -174,7 +174,7 @@ class FFT_Plugin(Plugin):
             if signals is None:
                 return
         # Make sure we can iterate
-        if isinstance(signals, hyperspy.signals.Signal):
+        if isinstance(signals, hyperspy.signal.BaseSignal):
             signals = (signals,)
 
         if len(signals) < 1:
@@ -287,7 +287,7 @@ class FFT_Plugin(Plugin):
             if signals is None:
                 return
         # Make sure we can iterate
-        if isinstance(signals, hyperspy.signals.Signal):
+        if isinstance(signals, hyperspy.signal.BaseSignal):
             signals = (signals,)
 
         if len(signals) < 1:
@@ -303,7 +303,7 @@ class FFT_Plugin(Plugin):
                 return fftdata
             fs = fft_wrapper.signal
             sigp = fs._plot.signal_plot
-            if isinstance(sigp, SpectrumFigure):
+            if isinstance(sigp, Signal1DFigure):
                 sigp.ax_lines[0].axes_manager = s.axes_manager
                 sigp.ax_lines[0].data_function = data_function
                 sigp.ax_lines[1].axes_manager = s.axes_manager

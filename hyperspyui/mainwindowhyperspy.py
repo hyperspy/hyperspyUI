@@ -137,7 +137,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                   self.on_progressbar_update)
         s.connect(s, SIGNAL('progress(int, int, QString)'),
                   self.on_progressbar_update)
-        s.connect(s, SIGNAL('finished_sig(int)'),
+        s.connect(s, SIGNAL('finished(int)'),
                   self.on_progressbar_finished)
         self.cancel_progressbar.connect(s.on_cancel)
 
@@ -653,6 +653,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
     cancel_progressbar = Signal(int)
 
     def on_progressbar_wanted(self, pid, maxval, label):
+        logger.debug("Progressbar wanted. ID: %d", pid)
         if pid in self.progressbars:
             progressbar = self.progressbars[pid]
             progressbar.setValue(0)
@@ -666,7 +667,11 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         if pid not in self.progressbars:
             def cancel():
-                self.cancel_progressbar.emit(pid)
+                # If pid not in collection, it is finished, and cancel
+                # triggered when dialog closed.
+                if pid in self.progressbars:
+                    logger.debug("Progressbar canceled. ID: %d", pid)
+                    self.cancel_progressbar.emit(pid)
 
             progressbar.canceled.connect(cancel)
             progressbar.setWindowModality(Qt.WindowModal)
@@ -681,6 +686,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             self.progressbars[pid].setLabelText(txt)
 
     def on_progressbar_finished(self, pid):
+        logger.debug("Progressbar finished. ID: %d", pid)
         progressbar = self.progressbars.pop(pid)
         progressbar.close()
 

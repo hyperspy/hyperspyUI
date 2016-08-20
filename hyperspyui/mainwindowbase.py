@@ -40,8 +40,18 @@ import hyperspyui.mdi_mpl_backend
 from .pluginmanager import PluginManager
 from hyperspyui.settings import Settings
 from hyperspyui.widgets.settingsdialog import SettingsDialog
+from hyperspyui.exceptions import ProcessCanceled
+
 
 _logger = logging.getLogger(__name__)
+
+
+def myexcepthook(exctype, value, traceback):
+    if exctype == ProcessCanceled:
+        _logger.info("User cancelled operation")
+    else:
+        sys.__excepthook__(exctype, value, traceback)
+sys.excepthook = myexcepthook
 
 
 def tr(text):

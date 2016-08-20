@@ -17,14 +17,14 @@ If it was installed into the OS, a shortcut might have been created on your
 desktop, and running the shortcut should then be enough to start the program.
 
 If you do not have a shortcut, the app can typically be started by running
-the command ``python -m hyperspyui.launch``. This assumes that the python
+the command ``python -m hyperspyui``. This assumes that the python
 command is available from wherever you are running it. If that is not the case,
-figure out the full path to the python executable, and run it as above 
-``<full path>/python -m hyperspyui.launch``.
+figure out the full path to the python executable, and run it as above
+``<full path>/python -m hyperspyui``.
 
 The final option is to fully explicit::
-    
-    <full path to python>/python "<full path to hyperspyui>/launch.py"
+
+    <full path to python>/python "<full path to hyperspyui>/__main__.py"
 
 
 Overview
@@ -38,10 +38,10 @@ The user interface is based on top of Qt_, and have four main components:
 
     #)  Menus: Most of the :ref:`actions <actions>` you can do have a menu
         entry.
-    #)  Toolbars: Several :ref:`actions <actions>` have their own button on a 
+    #)  Toolbars: Several :ref:`actions <actions>` have their own button on a
         toolbar, and all interactive :ref:`tools-section` are here as well.
     #)  :ref:`widgets-section`: These are small panels or windows that can be
-        moved, and are always open unless explicitly closed. Their content 
+        moved, and are always open unless explicitly closed. Their content
         and behavior can vary widely, and includes the :ref:`data-widget`
         and the :ref:`console-widget`.
     #)  Figures: The final component are the figures and plots that are

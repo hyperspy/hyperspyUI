@@ -23,7 +23,7 @@ Created on Mon Aug 03 19:43:52 2015
 
 from python_qt_binding import QtCore
 
-from hyperspy.signal import Signal
+from hyperspy.signal import BaseSignal
 from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
                                       SquareWidget, VerticalLineWidget)
 from hyperspy.roi import RectangularROI, SpanROI, Point1DROI, Point2DROI
@@ -43,11 +43,11 @@ class MultiSelectionTool(SignalFigureTool):
     selecting a different tool.
     """
 
-    accepted = QtCore.Signal([Signal, list],
-                             [Signal, list, SignalFigureTool])
-    updated = QtCore.Signal([Signal, list],
-                            [Signal, list, SignalFigureTool])
-    cancelled = QtCore.Signal([Signal])
+    accepted = QtCore.Signal([BaseSignal, list],
+                             [BaseSignal, list, SignalFigureTool])
+    updated = QtCore.Signal([BaseSignal, list],
+                            [BaseSignal, list, SignalFigureTool])
+    cancelled = QtCore.Signal([BaseSignal])
 
     def __init__(self, windows=None):
         super(MultiSelectionTool, self).__init__(windows)
@@ -245,8 +245,9 @@ class MultiSelectionTool(SignalFigureTool):
             return
 
         rois = self._get_rois(signal)
-        self.updated[Signal, list].emit(signal, rois)
-        self.updated[Signal, list, SignalFigureTool].emit(signal, rois, self)
+        self.updated[BaseSignal, list].emit(signal, rois)
+        self.updated[BaseSignal, list, SignalFigureTool].emit(
+            signal, rois, self)
 
     def _cancel(self, signal):
         for w in self.widgets[signal]:
@@ -258,9 +259,9 @@ class MultiSelectionTool(SignalFigureTool):
     def accept(self, signal):
         if self.have_selection(signal):
             rois = self._get_rois(signal)
-            self.accepted[Signal, list].emit(signal, rois)
-            self.accepted[Signal, list, SignalFigureTool].emit(signal, rois,
-                                                               self)
+            self.accepted[BaseSignal, list].emit(signal, rois)
+            self.accepted[BaseSignal, list, SignalFigureTool].emit(
+                signal, rois, self)
         if signal is not None:
             self.cancel(signal)
 
@@ -272,7 +273,7 @@ class MultiSelectionTool(SignalFigureTool):
         for s in signals:
             if s in self.widgets:
                 self._cancel(s)
-                self.cancelled[Signal].emit(s)
+                self.cancelled[BaseSignal].emit(s)
 
     def disconnect_windows(self, windows):
         super(MultiSelectionTool, self).disconnect_windows(windows)

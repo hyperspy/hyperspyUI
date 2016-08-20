@@ -37,7 +37,7 @@ setup(
     license='GPLv3',
     packages=find_packages(exclude=['tests*',
                                     'hyperspyui.plugins.user_plugins']),
-    requires=['hyperspy (>= 0.8.1)',
+    requires=['hyperspy (>= 1.0.0)',
               'matplotlib (>= 1.3)',
               'python_qt_binding',
               'pyqode.python (>= 2.6.0)',
@@ -46,7 +46,7 @@ setup(
               'traitsui',
               'qtconsole',
               ],
-    install_requires=['hyperspy >= 0.8.1',
+    install_requires=['hyperspy >= 1.0.0',
                       'matplotlib >= 1.3',
                       'python_qt_binding',
                       'pyqode.python >= 2.6.0',
@@ -72,7 +72,7 @@ setup(
     },
     entry_points={
         'gui_scripts': [
-            'hyperspyui = hyperspyui.launch:main',
+            'hyperspyui = hyperspyui.__main__:main',
          ]
     },
     scripts=[

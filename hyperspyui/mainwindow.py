@@ -62,17 +62,16 @@ class MainWindow(MainWindowHyperspy):
     """
 
     signal_types = OrderedDict(
-        [('Signal', hyperspy.signals.Signal),
-         ('Spectrum', hyperspy.signals.Spectrum),
-         ('Spectrum simulation',
-          hyperspy.signals.SpectrumSimulation),
+        [('Signal', hyperspy.signal.BaseSignal),
+         ('1D Signal', hyperspy.signals.Signal1D),
+         ('2D Signal', hyperspy.signals.Signal2D),
          ('EELS', hyperspy.signals.EELSSpectrum),
-         ('EELS simulation',
-          hyperspy.signals.EELSSpectrumSimulation),
          ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
          ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
-         ('Image', hyperspy.signals.Image),
-         ('Image simulation', hyperspy.signals.ImageSimulation)])
+         ('Complex Signal 1D', hyperspy.signals.ComplexSignal1D),
+         ('Complex Signal 2D', hyperspy.signals.ComplexSignal2D),
+         ('Dielectric Function', hyperspy.signals.DielectricFunction),
+         ])
 
     load_complete = Signal()
 
@@ -399,17 +398,16 @@ class MainWindow(MainWindowHyperspy):
 
         self.setUpdatesEnabled(False)
         try:
-            if signal_type in ['Image', 'Image simulation']:
+            if signal_type in ['2D Signal', 'Complex Signal 2D']:
                 if not isinstance(signal.signal,
-                                  (hyperspy.signals.Image,
-                                   hyperspy.signals.ImageSimulation)):
+                                  (hyperspy.signals.Signal2D,
+                                   hyperspy.signals.ComplexSignal2D)):
                     signal.as_image()
                     self.record_code("signal = signal.as_image()")
-            elif signal_type in['Spectrum', 'Spectrum simulation', 'EELS',
-                                'EELS simulation', 'EDS SEM', 'EDS TEM']:
+            else:
                 if isinstance(signal.signal,
-                              (hyperspy.signals.Image,
-                               hyperspy.signals.ImageSimulation)):
+                              (hyperspy.signals.Signal2D,
+                               hyperspy.signals.ComplexSignal2D)):
                     signal.as_spectrum()
                     self.record_code("signal = signal.as_spectrum()")
 
@@ -417,17 +415,6 @@ class MainWindow(MainWindowHyperspy):
                 underscored = signal_type.replace(" ", "_")
                 signal.signal.set_signal_type(underscored)
                 self.record_code("signal.set_signal_type('%s')" % underscored)
-            elif signal_type == 'EELS simulation':
-                signal.signal.set_signal_type('EELS')
-                self.record_code("signal.set_signal_type('EELS')")
-
-            if signal_type in ['Spectrum simulation', 'Image simulation',
-                               'EELS simulation']:
-                signal.signal.set_signal_origin('simulation')
-                self.record_code("signal.set_signal_origin('simulation')")
-            else:
-                signal.signal.set_signal_origin('')  # Undetermined
-                self.record_code("signal.set_signal_origin('')")
 
             signal.plot()
         finally:

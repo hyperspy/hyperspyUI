@@ -81,18 +81,7 @@ class MainWindowUtils(MainWindowBase):
         # add more?
         self.statusBar().showMessage(msg)
 
-    def add_action(self, key, label, callback, tip=None, icon=None,
-                   shortcut=None, userdata=None, selection_callback=None):
-        """
-        Create and add a QAction to self.actions[key]. 'label' is used as the
-        short description of the action, and 'tip' as the long description.
-        The tip is typically shown in the statusbar. The callback is called
-        when the action is triggered(). The 'userdata' is stored in the
-        QAction's data() attribute. The optional 'icon' should either be a
-        QIcon, or a path to an icon file, and is used to depict the action on
-        toolbar buttons and in menus.
-        """
-        # TODO: Update doc to reflect final decision on userdata
+    def _make_action(self, label, icon, shortcut, tip):
         if icon is None:
             ac = QAction(tr(label), self)
         else:
@@ -102,24 +91,40 @@ class MainWindowUtils(MainWindowBase):
             ac.setShortcut(shortcut)
         if tip is not None:
             ac.setStatusTip(tr(tip))
-        if userdata is not None:
-            ac.setData(userdata)
-        if userdata is None:
-            self.connect(ac, SIGNAL('triggered()'), callback)
-        else:
-            def callback_udwrap():
-                callback(userdata)
+        return ac
 
-            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
+    def _wire_action(self, ac, key, callback, selection_callback):
+        self.connect(ac, SIGNAL('triggered()'), callback)
+        # Use docstring for action
         if callback.__doc__:
             d = callback.__doc__
             if d.startswith('partial('):
+                # Fix docstring of partial functions:
                 d = callback.func.__doc__
             ac.__doc__ = d
-        self.actions[key] = ac
         if selection_callback is not None:
             self._action_selection_cbs[key] = selection_callback
             ac.setEnabled(False)
+
+
+    def add_action(self, key, label, callback, tip=None, icon=None,
+                   shortcut=None, selection_callback=None):
+        """
+        Create and add a QAction to self.actions[key]. 'label' is used as the
+        short description of the action, and 'tip' as the long description.
+        The tip is typically shown in the statusbar. The callback is called
+        when the action is triggered(). The optional 'icon' should either be a
+        QIcon, or a path to an icon file, and is used to depict the action on
+        toolbar buttons and in menus.
+
+        If `selection_callback` is supplied, it is called whenever the
+        currently selected signal/figure changes. This allows the callback to
+        enable/disable the action to reflect whether the selected figure/signal
+        is supported for the action.
+        """
+        ac = self._make_action(label, icon, shortcut, tip)
+        self._wire_action(ac, key, callback, selection_callback)
+        self.actions[key] = ac
         return ac
 
     def add_toolbar_button(self, category, action):
@@ -397,26 +402,12 @@ class MainWindowActionRecorder(MainWindowUtils):
         self.recorders = []
         super(MainWindowActionRecorder, self).__init__(parent)
 
-    def add_action(self, key, label, callback, tip=None, icon=None,
-                   shortcut=None, userdata=None, selection_callback=None):
-        ac = super(MainWindowActionRecorder, self).add_action(
-            key, label, callback, tip, icon, shortcut, userdata,
-            selection_callback)
-        # Monitor events needs to trigger first!
-        e = self.actions[key].triggered
-        e.disconnect()  # Disconnect everything
-        self.monitor_action(key)    # Connect monitor
-        # Remake callback connection
-        if userdata is None:
-            self.connect(ac, SIGNAL('triggered()'), callback)
-        else:
-            def callback_udwrap():
-                callback(userdata)
-            self.connect(ac, SIGNAL('triggered()'), callback_udwrap)
-        return ac
-
-    def monitor_action(self, key):
-        self.actions[key].triggered.connect(lambda: self.record_action(key))
+    def _wire_action(self, ac, key, callback, selection_callback):
+        # Connect monitor
+        ac.triggered.connect(partial(self.record_action, key))
+        # Wire as normal
+        super(MainWindowActionRecorder, self)._wire_action(
+            ac, key, callback, selection_callback)
 
     def record_action(self, key):
         for r in self.recorders:

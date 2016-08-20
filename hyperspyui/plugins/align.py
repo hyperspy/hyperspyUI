@@ -52,7 +52,7 @@ class AlignPlugin(Plugin):
                         icon='align_manual.svg',
                         tip="Interactively align the signal",
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Image, self.ui))
+                            hyperspy.signals.Signal2D, self.ui))
 
     def create_menu(self):
         self.add_menuitem("Signal", self.ui.actions['manual_align'])
