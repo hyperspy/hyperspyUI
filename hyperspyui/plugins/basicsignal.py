@@ -30,6 +30,8 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+from hyperspyui.widgets.axespicker import AxesPickerDialog
+
 
 def tr(text):
     return QCoreApplication.translate("BasicSignalPlugin", text)
@@ -185,37 +187,46 @@ class BasicSignalPlugin(Plugin):
             self.record_code("histogram = signal.get_histogram(bins=%s)" %
                              method)
 
-    def _np_method(self, name, signal):
+    def _prompt_axes(self, signal):
+        diag = AxesPickerDialog(self.ui, signal)
+        diag.setWindowTitle("Select axes to operate on")
+        dr = diag.exec_()
+        if dr == QtGui.QDialog.Accepted:
+            return diag.selected_axes
+        return None
+
+    def _np_method(self, name, signal, advanced):
         if signal is None:
             signal = self.ui.get_selected_signal()
         f = getattr(signal, name)
-        try:
+        if advanced:
+            # Advanced mode: Pop up a dialog to prompt for axes to sum over=
+            axes = self._prompt_axes(signal)
+            if not axes:
+                return
+            f(axis=axes).plot()
+        else:
             f().plot()
-        except TypeError:
-            # hyperspy < 0.9 compatibility
-            for ax in signal.axes_manager.navigation_axes:
-                signal = f(ax.index_in_array + 3j)
-            signal.plot()
         self.record_code("signal = ui.get_selected_signal()")
         self.record_code("result = signal.%s()" % name)
 
-    def mean(self, signal=None):
-        self._np_method('mean', signal)
+    def mean(self, signal=None, advanced=False):
+        self._np_method('mean', signal, advanced)
 
-    def sum(self, signal=None):
-        self._np_method('sum', signal)
+    def sum(self, signal=None, advanced=False):
+        self._np_method('sum', signal, advanced)
 
-    def max(self, signal=None):
-        self._np_method('max', signal)
+    def max(self, signal=None, advanced=False):
+        self._np_method('max', signal, advanced)
 
-    def min(self, signal=None):
-        self._np_method('min', signal)
+    def min(self, signal=None, advanced=False):
+        self._np_method('min', signal, advanced)
 
-    def std(self, signal=None):
-        self._np_method('std', signal)
+    def std(self, signal=None, advanced=False):
+        self._np_method('std', signal, advanced)
 
-    def var(self, signal=None):
-        self._np_method('var', signal)
+    def var(self, signal=None, advanced=False):
+        self._np_method('var', signal, advanced)
 
     def add(self, signals=None):
         if signals is None:
