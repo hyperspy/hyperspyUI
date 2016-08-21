@@ -23,6 +23,7 @@ Created on Sat Dec 13 00:41:15 2014
 
 import os
 import sys
+import glob
 import importlib
 import warnings
 import traceback
@@ -70,7 +71,9 @@ class PluginManager(object):
         self.plugins = AttributeDict()
         self.ui = main_window
         self._enabled = {}
-        self.settings = Settings(self.ui, group="PluginManager/enabled")
+        self.settings = Settings(self.ui, group="General")
+        self.settings.set_default("extra_plugin_directories", "")
+        self.enabled_store = Settings(self.ui, group="PluginManager/enabled")
 
         self.discover()
 
@@ -89,7 +92,7 @@ class PluginManager(object):
         """Enable/disable plugin functionality. Also loads/unloads plugin. If
         enabling and the plugin is already loaded, this will reload the plugin.
         """
-        self.settings[name] = value
+        self.enabled_store[name] = value
         ptype = self._enabled[name][1]
         self._enabled[name] = (value, ptype)
         if name in self.plugins:
@@ -102,6 +105,21 @@ class PluginManager(object):
         """
         self.enable_plugin(name, False)
 
+    def _import_plugin_from_path(self, name, path):
+        try:
+            mname = "hyperspyui.plugins." + name
+            if sys.version_info >= (3, 5):
+                import importlib.util
+                spec = importlib.util.spec_from_file_location(mname, path)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+            else:
+                from importlib.machinery import SourceFileLoader
+                loader = SourceFileLoader(mname, path)
+                loader.load_module()
+        except Exception:
+            self.warn("import", path)
+
     def discover(self):
         """Auto-discover all plugins defined in plugin directory.
         """
@@ -112,6 +130,26 @@ class PluginManager(object):
 
             except Exception:
                 self.warn("import", plug)
+
+        # Import any plugins in extra dirs.
+        extra_paths = self.settings['extra_plugin_directories']
+        if extra_paths:
+            extra_paths = extra_paths.split(os.path.pathsep)
+            for path in extra_paths:
+                if not os.path.isdir(path):
+                    path = os.path.dirname(path)
+                modules = glob.glob(path + "/*.py")
+                # TODO: In release form, we should consider supporting
+                # compiled plugins in pyc/pyo format
+                # modules.extend(glob.glob(os.path.dirname(__file__)+"/*.py?"))
+                # If so, ensure that duplicates are removed (picks py over pyc)
+                modules = [m for m in modules
+                           if not os.path.basename(m).startswith('_')]
+
+                for m in modules:
+                    name = os.path.splitext(os.path.basename(m))[0]
+                    self._import_plugin_from_path(name, m)
+
         master = Plugin
         self.implementors = self._inheritors(master)
         _logger.debug("Found plugins: %s", self.implementors)
@@ -130,7 +168,7 @@ class PluginManager(object):
                     work.append(child)
         return subclasses
 
-    def warn(self, f_name, p_name, ategory=RuntimeWarning):
+    def warn(self, f_name, p_name, category=RuntimeWarning):
         tbf = ''.join(traceback.format_exception(*sys.exc_info())[2:])
         warnings.warn(("Exception in {0} of hyperspyui plugin " +
                        "\"{1}\" error:\n{2}").format(f_name, p_name, tbf),
@@ -182,10 +220,10 @@ class PluginManager(object):
     def _load_if_enabled(self, p_type):
         if p_type is None or p_type.name is None:
             return
-        if self.settings[p_type.name] is None:
+        if self.enabled_store[p_type.name] is None:
             # Init setting to True on first encounter
-            self.settings[p_type.name] = True
-        enabled = self.settings[p_type.name, bool]
+            self.enabled_store[p_type.name] = True
+        enabled = self.enabled_store[p_type.name, bool]
         self._enabled[p_type.name] = (enabled, p_type)
         if enabled:
             # Init

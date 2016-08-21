@@ -212,13 +212,28 @@ class AttributeDict(dict):
             type(self).__name__, super(Namespace, self).__repr__())
 
     def __getattr__(self, name):
-        return self[slugify(name, True)]
+        if name in self.keys():
+            return self[name]
+        else:
+            for k in self.keys():
+                if name == slugify(k, True):
+                    return self[k]
 
     def __setattr__(self, name, value):
-        self[name] = value
+        if name in self.keys():
+            self[name] = value
+        else:
+            for k in self.keys():
+                if name == slugify(k, True):
+                    self[k] = value
 
     def __delattr__(self, name):
-        del self[name]
+        if name in self.keys():
+            del self[name]
+        else:
+            for k in self.keys():
+                if name == slugify(k, True):
+                    del self[k]
 
     # ------------------------
     # "copy constructors"
