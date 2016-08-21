@@ -62,41 +62,65 @@ class BasicSignalPlugin(Plugin):
                         tip=tr("Plot a histogram of the signal."),
                         selection_callback=self.ui.select_signal)
 
+        self.add_action('add', tr("Add"),
+                        self.add,
+                        icon='add.svg',
+                        tip=tr("Add the currently selected signals"),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('subtract', tr("Subtract"),
+                        self.subtract,
+                        icon='subtract.svg',
+                        tip=tr("Subtract two signals"),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('multiply', tr("Multiply"),
+                        self.multiply,
+                        icon='multiply.svg',
+                        tip=tr("Multiply the currently selected signals"),
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('divide', tr("Divide"),
+                        self.divide,
+                        icon='divide.svg',
+                        tip=tr("Divide two signals"),
+                        selection_callback=self.ui.select_signal)
+
         self.add_action('mean', tr("Mean"),
                         self.mean,
-                        icon=None,
-                        tip=tr("Plot the mean of the current signal"),
+                        icon='mean.svg',
+                        tip=tr("Take the mean of the current signal"),
                         selection_callback=self.ui.select_signal)
 
         self.add_action('sum', tr("Sum"),
                         self.sum,
                         icon='sum.svg',
-                        tip=tr("Plot the sum of the current signal"),
+                        tip=tr("Take the sum of the current signal"),
                         selection_callback=self.ui.select_signal)
 
         self.add_action('max', tr("Maximum"),
                         self.max,
-                        icon=None,
-                        tip=tr("Plot the maximum of the current signal"),
+                        icon='max.svg',
+                        tip=tr("Take the maximum of the current signal"),
                         selection_callback=self.ui.select_signal)
 
         self.add_action('min', tr("Minimum"),
                         self.min,
-                        icon=None,
-                        tip=tr("Plot the sum of the current signal"),
+                        icon='min.svg',
+                        tip=tr("Take the sum of the current signal"),
                         selection_callback=self.ui.select_signal)
 
         self.add_action('std', tr("Std.dev."),
                         self.std,
-                        icon=None,
-                        tip=tr("Plot the standard deviation of the current "
+                        icon='stddev.svg',
+                        tip=tr("Take the standard deviation of the current "
                                "signal"),
                         selection_callback=self.ui.select_signal)
 
         self.add_action('var', tr("Variance"),
                         self.var,
-                        icon=None,
-                        tip=tr("Plot the variances of the current signal"),
+                        icon='variance.svg',
+                        tip=tr("Take the variances of the current signal"),
                         selection_callback=self.ui.select_signal)
 
 #        max, min, std, var, diff?, derivate?, integrate_simpson, integrate1D,
@@ -106,12 +130,28 @@ class BasicSignalPlugin(Plugin):
         self.add_menuitem('Signal', self.ui.actions[self.name + '.stack'])
         self.add_menuitem("Signal", self.ui.actions['stats'])
         self.add_menuitem("Signal", self.ui.actions['histogram'])
+        self.add_menuitem("Math", self.ui.actions['add'])
+        self.add_menuitem("Math", self.ui.actions['subtract'])
+        self.add_menuitem("Math", self.ui.actions['multiply'])
+        self.add_menuitem("Math", self.ui.actions['divide'])
         self.add_menuitem("Math", self.ui.actions['mean'])
         self.add_menuitem('Math', self.ui.actions['sum'])
         self.add_menuitem('Math', self.ui.actions['max'])
         self.add_menuitem('Math', self.ui.actions['min'])
         self.add_menuitem('Math', self.ui.actions['std'])
         self.add_menuitem('Math', self.ui.actions['var'])
+
+    def create_toolbars(self):
+        self.add_toolbar_button("Math", self.ui.actions['add'])
+        self.add_toolbar_button("Math", self.ui.actions['subtract'])
+        self.add_toolbar_button("Math", self.ui.actions['multiply'])
+        self.add_toolbar_button("Math", self.ui.actions['divide'])
+        self.add_toolbar_button("Math", self.ui.actions['mean'])
+        self.add_toolbar_button('Math', self.ui.actions['sum'])
+        self.add_toolbar_button('Math', self.ui.actions['max'])
+        self.add_toolbar_button('Math', self.ui.actions['min'])
+        self.add_toolbar_button('Math', self.ui.actions['std'])
+        self.add_toolbar_button('Math', self.ui.actions['var'])
 
     def stack(self, signals=None):
         if signals is None:
@@ -176,3 +216,63 @@ class BasicSignalPlugin(Plugin):
 
     def var(self, signal=None):
         self._np_method('var', signal)
+
+    def add(self, signals=None):
+        if signals is None:
+            signals = self.ui.get_selected_signals()
+        if len(signals) < 2:
+            raise ValueError(
+                "Two or more signals should be selected for addition!")
+        s = signals[0] + signals[1]
+        for sb in signals[2:]:
+            s += sb
+        s.plot()
+        self.record_code("signals = ui.get_selected_signals()")
+        self.record_code("result = signals[0] + signals[1]")
+        if len(signals) == 2:
+            self.record_code("for other in signals[2:]:")
+            self.record_code("    result += other")
+
+    def subtract(self, signals=None):
+        if signals is None:
+            signals = self.ui.select_x_signals(2, ["a", " - b"])
+            signals = [s.signal for s in signals]
+            self.record_code(
+                "signals = [s.signal for s in "
+                "ui.select_x_signals(2, [\"a\", \" - b\"])")
+        elif len(signals != 2):
+            raise ValueError(
+                "Subtraction can only be performed with two signals")
+        result = signals[0] - signals[1]
+        result.plot()
+        self.record_code("result = signals[0] - signals[1]")
+
+    def multiply(self, signals=None):
+        if signals is None:
+            signals = self.ui.get_selected_signals()
+        if len(signals) < 2:
+            raise ValueError(
+                "Two or more signals should be selected for multiplication!")
+        s = signals[0] * signals[1]
+        for sb in signals[2:]:
+            s *= sb
+        s.plot()
+        self.record_code("signals = ui.get_selected_signals()")
+        self.record_code("result = signals[0] * signals[1]")
+        if len(signals) == 2:
+            self.record_code("for other in signals[2:]:")
+            self.record_code("    result *= other")
+
+    def divide(self, signals=None):
+        if signals is None:
+            signals = self.ui.select_x_signals(2, ["a", " - b"])
+            signals = [s.signal for s in signals]
+            self.record_code(
+                "signals = [s.signal for s in "
+                "ui.select_x_signals(2, [\"a\", \" - b\"])")
+        elif len(signals != 2):
+            raise ValueError(
+                "Division can only be performed with two signals")
+        result = signals[0] / signals[1]
+        result.plot()
+        self.record_code("result = signals[0] / signals[1]")
