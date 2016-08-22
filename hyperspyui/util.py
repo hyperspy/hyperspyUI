@@ -205,33 +205,35 @@ class AttributeDict(dict):
         super(AttributeDict, self).__init__(obj)
 
     def __dir__(self):
-        return [slugify(k, True) for k in self.keys()]
+        return [slugify(k, True) for k in self]
 
     def __repr__(self):
         return "%s(%s)" % (
             type(self).__name__, super(Namespace, self).__repr__())
 
     def __getattr__(self, name):
-        if name in self.keys():
+        if name in self:
             return self[name]
         else:
-            for k in self.keys():
+            for k in self:
                 if name == slugify(k, True):
                     return self[k]
 
     def __setattr__(self, name, value):
-        if name in self.keys():
+        if name in self:
             self[name] = value
         else:
-            for k in self.keys():
+            for k in self:
                 if name == slugify(k, True):
                     self[k] = value
+            else:
+                self[name] = value
 
     def __delattr__(self, name):
-        if name in self.keys():
+        if name in self:
             del self[name]
         else:
-            for k in self.keys():
+            for k in self:
                 if name == slugify(k, True):
                     del self[k]
 
