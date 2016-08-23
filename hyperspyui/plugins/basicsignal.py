@@ -168,7 +168,7 @@ class BasicSignalPlugin(Plugin):
             signals = self.ui.get_selected_signals()
         if signals is None:
             raise ValueError("No signals to stack")
-        self.record_code('signals = self.ui.get_selected_signal()')
+        self.record_code('signals = self.ui.get_selected_signals()')
         if advanced:
             # Advanced mode: Pop up a dialog to prompt for axes to sum over=
             axis = self._prompt_axes(signals[0], single=True)
@@ -202,7 +202,7 @@ class BasicSignalPlugin(Plugin):
             signals = self.ui.get_selected_signals()
         for s in signals:
             s.deepcopy().plot()
-        self.record_code('signals = self.ui.get_selected_signal()')
+        self.record_code('signals = self.ui.get_selected_signals()')
         self.record_code('for s in signals:\n\ts.deepcopy().plot()')
 
     def statistics(self, signal=None):
