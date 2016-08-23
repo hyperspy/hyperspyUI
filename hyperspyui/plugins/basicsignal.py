@@ -52,6 +52,12 @@ class BasicSignalPlugin(Plugin):
                         tip="Stack selected signals along a new navigation "
                         "axis")
 
+        self.add_action(self.name + '.split', "Split", self.split,
+                        tip="Split selected signal along an axis")
+
+        self.add_action(self.name + '.copy', "Copy", self.copy,
+                        tip="Make a copy of all selected signals")
+
         self.add_action('stats', tr("Statistics"),
                         self.statistics,
                         icon=None,
@@ -130,6 +136,8 @@ class BasicSignalPlugin(Plugin):
 
     def create_menu(self):
         self.add_menuitem('Signal', self.ui.actions[self.name + '.stack'])
+        self.add_menuitem('Signal', self.ui.actions[self.name + '.split'])
+        self.add_menuitem('Signal', self.ui.actions[self.name + '.copy'])
         self.add_menuitem("Signal", self.ui.actions['stats'])
         self.add_menuitem("Signal", self.ui.actions['histogram'])
         self.add_menuitem("Math", self.ui.actions['add'])
@@ -155,11 +163,47 @@ class BasicSignalPlugin(Plugin):
         self.add_toolbar_button('Math', self.ui.actions['std'])
         self.add_toolbar_button('Math', self.ui.actions['var'])
 
-    def stack(self, signals=None):
+    def stack(self, signals=None, advanced=False):
         if signals is None:
             signals = self.ui.get_selected_signals()
-        stack = stack_signals(signals)
+        if signals is None:
+            raise ValueError("No signals to stack")
+        self.record_code('signals = self.ui.get_selected_signals()')
+        if advanced:
+            # Advanced mode: Pop up a dialog to prompt for axes to sum over=
+            axis = self._prompt_axes(signals[0], single=True)
+            if not axis:
+                return
+            stack = stack_signals(signals, axis=axis.name)
+            self.record_code('s_stack = hs.stack(signals, axis="%s")' %
+                             axis.name)
+        else:
+            stack = stack_signals(signals)
+            self.record_code('s_stack = hs.stack(signals)')
         stack.plot()
+
+    def split(self, signal=None, advanced=False):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+        if signal is None:
+            raise ValueError('No signal to split')
+        axis = 'auto'
+        if advanced:
+            axis = self._prompt_axes(signal, single=True)
+            if not axis:
+                return
+            axis = axis.name
+        signals = signal.split(axis=axis)
+        for s in signals:
+            s.plot()
+
+    def copy(self, signals=None):
+        if signals is None:
+            signals = self.ui.get_selected_signals()
+        for s in signals:
+            s.deepcopy().plot()
+        self.record_code('signals = self.ui.get_selected_signals()')
+        self.record_code('for s in signals:\n\ts.deepcopy().plot()')
 
     def statistics(self, signal=None):
         if signal is None:
@@ -187,8 +231,8 @@ class BasicSignalPlugin(Plugin):
             self.record_code("histogram = signal.get_histogram(bins=%s)" %
                              method)
 
-    def _prompt_axes(self, signal):
-        diag = AxesPickerDialog(self.ui, signal)
+    def _prompt_axes(self, signal, single=False):
+        diag = AxesPickerDialog(self.ui, signal, single)
         diag.setWindowTitle("Select axes to operate on")
         dr = diag.exec_()
         if dr == QtGui.QDialog.Accepted:
