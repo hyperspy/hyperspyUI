@@ -28,8 +28,10 @@ from python_qt_binding import QtGui, QtCore
 from QtCore import *
 from QtGui import *
 
+from hyperspy.learn.mva import LearningResults
 from hyperspyui.util import win2sig, fig2win, Namespace
 from hyperspyui.threaded import ProgressThreaded, ProcessCanceled
+from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 
 def tr(text):
@@ -50,6 +52,40 @@ def align_yaxis(ax1, v1, ax2, v2):
     ax2.set_ylim((miny2 + dy) / ratio, (maxy2 + dy) / ratio)
 
 
+def make_advanced_dialog(ui, algorithms=None):
+    diag = ExToolWindow(ui)
+
+    diag.setWindowTitle("Decomposition parameters")
+
+    vbox = QVBoxLayout()
+    if algorithms:
+        lbl_algo = QLabel(tr("Choose algorithm:"))
+        cbo_algo = QComboBox()
+        cbo_algo.addItems(algorithms)
+
+        vbox.addWidget(lbl_algo)
+        vbox.addWidget(cbo_algo)
+    else:
+        lbl_comp = QLabel(tr(
+            "Enter a comma-separated list of component numbers to use for "
+            "the model:"))
+        txt_comp = QLineEdit()
+        vbox.addWidget(lbl_comp)
+        vbox.addWidget(txt_comp)
+
+    btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
+                            Qt.Horizontal)
+    btns.accepted.connect(diag.accept)
+    btns.rejected.connect(diag.reject)
+    vbox.addWidget(btns)
+
+    diag.setLayout(vbox)
+
+    diag.algorithm = lambda: cbo_algo.currentText()
+    diag.components = lambda: [int(s) for s in txt_comp.text().split(',')]
+    return diag
+
+
 class MVA_Plugin(Plugin):
 
     """
@@ -65,25 +101,38 @@ class MVA_Plugin(Plugin):
         self.settings.set_default('convert_or_copy', None)
         self.settings.set_enum_hint('convert_or_copy',
                                     self.coc_values.keys())
-        self.add_action('pca', tr("PCA"), self.pca,
+        self.add_action('plot_decomposition_results',
+                        tr("Decompose"),
+                        self.plot_decomposition_results,
                         icon='pca.svg',
-                        tip=tr("Run Principal Component Analysis"),
+                        tip=tr("Decompose signal using Principle Component "
+                               "analysis"),
+                        selection_callback=self.selection_rules)
+        self.add_action('pca', tr("Decomposition model"), self.pca,
+                        icon='pca.svg',
+                        tip=tr("Create a Principal Component Analysis "
+                               "decomposition model"),
                         selection_callback=self.selection_rules)
         self.add_action('bss', tr("BSS"), self.bss,
                         icon='bss.svg',
                         tip=tr("Run Blind Source Separation"),
                         selection_callback=self.selection_rules)
-        self.add_action('plot_decomposition_results',
-                        tr("Decomposition results"),
-                        self.plot_decomposition_results,
-                        tip=tr("Plot the decomposition results"),
+        self.add_action('bss_model', tr("BSS model"), self.bss_model,
+                        icon='bss.svg',
+                        tip=tr("Create a Blind Source Separation "
+                               "decomposition model"),
+                        selection_callback=self.selection_rules)
+        self.add_action('clear', tr("Clear"), self.clear,
+                        tip=tr("Clear decomposition cache"),
                         selection_callback=self.selection_rules)
 
     def create_menu(self):
-        self.add_menuitem('Decomposition', self.ui.actions['pca'])
-        self.add_menuitem('Decomposition', self.ui.actions['bss'])
         self.add_menuitem('Decomposition',
                           self.ui.actions['plot_decomposition_results'])
+        self.add_menuitem('Decomposition', self.ui.actions['pca'])
+        self.add_menuitem('Decomposition', self.ui.actions['bss'])
+        self.add_menuitem('Decomposition', self.ui.actions['bss_model'])
+        self.add_menuitem('Decomposition', self.ui.actions['clear'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Decomposition", self.ui.actions['pca'])
@@ -131,35 +180,26 @@ class MVA_Plugin(Plugin):
             s.change_dtype(float)
         return s, signal
 
-    def _do_decomposition(self, s, force=False):
+    def _do_decomposition(self, s, force=False, algorithm=None):
         """
         Makes sure we have decomposition results. If results already are
         available, it will only recalculate if the `force` parameter is True.
         """
-        if force or s.learning_results.explained_variance_ratio is None:
+        if algorithm:
+            s.decomposition(algorithm=algorithm)
+        elif force or s.learning_results.explained_variance_ratio is None:
             s.decomposition()
         return s
 
-    def _do_bss(self, s, n_components, force=False):
+    def _do_bss(self, s, n_components, algorithm=None):
         """
         Makes sure we have BSS results. If results already are available, it
         will only recalculate if the `force` parameter is True.
         """
-        s.blind_source_separation(n_components)
-#        if force or s.learning_results.bss_factors is None:
-#            s.blind_source_separation(n_components)
-
-    def plot_decomposition_results(self, signal=None):
-        """
-        Performs decomposition if necessary, then plots the decomposition
-        results according to the hyperspy implementation.
-        """
-        s, _ = self._get_signal(signal)
-        self._do_decomposition(s)
-        s.plot_decomposition_results()
-        # Somewhat speculative workaround to HSPY not adding metadata
-        sd = self.ui.hspy_signals[-1]
-        sd.metadata.add_dictionary(s.metadata.as_dictionary())
+        if algorithm:
+            s.blind_source_separation(n_components, algorithm=algorithm)
+        else:
+            s.blind_source_separation(n_components)
 
     def get_bss_results(self, signal):
         factors = signal.get_bss_factors()
@@ -169,11 +209,70 @@ class MVA_Plugin(Plugin):
 
     def _record(self, autosig, model, signal, n_components):
         if autosig:
-            self.record_code(r"<p>.%s(n_components=%d)" %
-                             (model, n_components))
+            self.record_code(r"<p>.{0}(n_components={1})".format(
+                             model, n_components))
         else:
             self.record_code(r"<p>.{0}({1}, n_components={2})".format(
                              model, signal, n_components))
+
+    def _decompose_threaded(self, callback, label, signal=None,
+                            algorithm=None, ns=None):
+        if ns is None:
+            ns = Namespace()
+            ns.autosig = signal is None
+            ns.s, signal = self._get_signal(signal)
+
+        def do_threaded():
+            ns.s = self._do_decomposition(ns.s, algorithm=algorithm)
+
+        t = ProgressThreaded(self.ui, do_threaded, lambda: callback(ns),
+                             label=label)
+        t.run()
+
+    def _perform_model(self, ns, n_components):
+        # Num comp. picked, get model, wrap new signal and plot
+        if ns.model == 'pca':
+            sc = ns.s.get_decomposition_model(n_components)
+            sc.metadata.General.title = ns.signal.name + "[PCA-model]"
+            sc.plot()
+        elif ns.model == 'bss' or ns.model.startswith('bss.'):
+            if ns.model.startswith('bss.'):
+                algorithm = ns.model[len('bss.'):]
+                self._do_bss(ns.s, n_components, algorithm=algorithm)
+            else:
+                self._do_bss(ns.s, n_components)
+            f, o = self.get_bss_results(ns.s)
+            o.metadata.add_dictionary(ns.s.metadata.as_dictionary())
+            f.metadata.General.title = ns.signal.name + "[BSS-Factors]"
+            o.metadata.General.title = ns.signal.name + "[BSS-Loadings]"
+            f.plot()
+            o.plot()
+        elif ns.model == 'bss_model':
+            # Here we have to assume the user has actually performed the BSS
+            # decomposition first!
+            sc = ns.s.get_bss_model(n_components)
+            sc.metadata.General.title = ns.signal.name + "[BSS-model]"
+            sc.plot()
+        if not ns.recorded:
+            self._record(ns.autosig, ns.model, ns.signal, n_components)
+
+    def _show_scree(self, ns, callback):
+        ax = ns.s.plot_explained_variance_ratio()
+
+        # Clean up plot and present, allow user to select components
+        # by picker
+        ax.set_title("")
+        scree = ax.get_figure().canvas
+        scree.draw()
+        scree.setWindowTitle("Pick number of components")
+
+        def clicked(event):
+            n_components = int(round(event.xdata))
+            # Close scree plot
+            w = fig2win(scree.figure, self.ui.figures)
+            w.close()
+            callback(ns, n_components)
+        scree.mpl_connect('button_press_event', clicked)
 
     def do_after_scree(self, model, signal=None, n_components=None):
         """
@@ -183,72 +282,101 @@ class MVA_Plugin(Plugin):
         and creates the model.
         """
         ns = Namespace()
-        autosig = signal is None
-        ns.s, signal = self._get_signal(signal)
+        ns.autosig = signal is None
+        ns.model = model
+        ns.s, ns.signal = self._get_signal(signal)
         if n_components is not None:
-            self._record(autosig, model, signal, n_components)
-            recorded = True
+            self._record(ns.autosig, ns.model, ns.signal, n_components)
+            ns.recorded = True
         else:
-            recorded = False
+            ns.recorded = False
 
-        def do_threaded():
-            ns.s = self._do_decomposition(ns.s)
-
-        def on_complete():
-            def _do(n_components):
-                # Num comp. picked, get model, wrap new signal and plot
-                if model == 'pca':
-                    sc = ns.s.get_decomposition_model(n_components)
-                    sc.metadata.General.title = signal.name + "[PCA]"
-                    sc.plot()
-                elif model == 'bss':
-                    self._do_bss(ns.s, n_components)
-                    f, o = self.get_bss_results(ns.s)
-                    o.metadata.add_dictionary(ns.s.metadata.as_dictionary())
-                    f.metadata.General.title = signal.name + "[BSS-Factors]"
-                    o.metadata.General.title = signal.name + "[BSS-Loadings]"
-                    f.plot()
-                    o.plot()
-                if not recorded:
-                    self._record(autosig, model, signal, n_components)
+        def on_complete(ns):
             if n_components is None:
-                ax = ns.s.plot_explained_variance_ratio()
-
-                # Clean up plot and present, allow user to select components
-                # by picker
-                ax.set_title("")
-                scree = ax.get_figure().canvas
-                scree.draw()
-                scree.setWindowTitle("Pick number of components")
-
-                def clicked(event):
-                    n_components = int(round(event.xdata))
-                    # Close scree plot
-                    w = fig2win(scree.figure, self.ui.figures)
-                    w.close()
-                    _do(n_components)
-                scree.mpl_connect('button_press_event', clicked)
+                self._show_scree(ns, self._perform_model)
             else:
-                _do(n_components)
+                self._perform_model(ns, n_components)
 
-        t = ProgressThreaded(self.ui, do_threaded, on_complete,
-                             label="Performing %s" % model.upper())
-        t.run()
+        self._decompose_threaded(on_complete, "Performing %s" % model.upper(),
+                                 n_components, ns=ns)
 
-    def pca(self, signal=None, n_components=None):
+    def plot_decomposition_results(self, signal=None, advanced=False):
+        """
+        Performs decomposition if necessary, then plots the decomposition
+        results according to the hyperspy implementation.
+        """
+        def on_complete(ns):
+            ns.s.plot_decomposition_results()
+            # Somewhat speculative workaround to HSPY not adding metadata
+            sd = self.ui.hspy_signals[-1]
+            sd.metadata.add_dictionary(ns.s.metadata.as_dictionary())
+
+        if advanced:
+            diag = make_advanced_dialog(
+                self.ui, ['svd', 'fast_svd', 'mlpca', 'fast_mlpca', 'nmf',
+                          'sparse_pca', 'mini_batch_sparse_pca'])
+            dr = diag.exec_()
+            if dr == QDialog.Accepted:
+                self._decompose_threaded(
+                    on_complete, "Decomposing signal",
+                    algorithm=diag.algorithm())
+        else:
+            self._decompose_threaded(on_complete, "Decomposing signal")
+
+    def pca(self, signal=None, n_components=None, advanced=False):
         """
         Performs decomposition, then plots the scree for the user to select
         the number of components to use for a decomposition model. The
         selection is made by clicking on the scree, which closes the scree
         and creates the model.
         """
-        return self.do_after_scree('pca', signal, n_components)
+        if advanced:
+            diag = make_advanced_dialog(self.ui)
+            dr = diag.exec_()
+            if dr == QDialog.Accepted:
+                self.do_after_scree(
+                    'pca', signal, n_components=diag.components())
+        else:
+            self.do_after_scree('pca', signal, n_components)
 
-    def bss(self, signal=None, n_components=None):
+    def bss(self, signal=None, n_components=None, advanced=False):
         """
         Performs decomposition if neccessary, then plots the scree for the user
         to select the number of components to use for a blind source
         separation. The selection is made by clicking on the scree, which
         closes the scree and creates the model.
         """
-        return self.do_after_scree('bss', signal, n_components)
+        if advanced:
+            diag = make_advanced_dialog(
+                self.ui, ['orthomax', 'sklearn_fastica', 'FastICA', 'JADE',
+                          'CuBICA', 'TDSEP'])
+            dr = diag.exec_()
+            if dr == QDialog.Accepted:
+                model = 'bss.' + diag.algorithm()
+                self.do_after_scree(model, signal, n_components)
+        else:
+            self.do_after_scree('bss', signal, n_components)
+
+    def bss_model(self, signal=None, n_components=None, advanced=False):
+        """
+        Performs decomposition if neccessary, then plots the scree for the user
+        to select the number of components to use for a blind source
+        separation model. The selection is made by clicking on the scree, which
+        closes the scree and creates the model.
+        """
+        if advanced:
+            diag = make_advanced_dialog(self.ui)
+            dr = diag.exec_()
+            if dr == QDialog.Accepted:
+                self.do_after_scree(
+                    'bss_model', signal, n_components=diag.components())
+        else:
+            self.do_after_scree('bss_model', signal, n_components)
+
+    def clear(self, signal=None):
+        """
+        Clears the learning results from the signal.
+        """
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+        signal.learning_results = LearningResults()

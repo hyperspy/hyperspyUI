@@ -24,6 +24,7 @@ Created on Sat Feb 21 16:05:41 2015
 from .mainwindowbase import MainWindowBase, tr
 
 import os
+import inspect
 from functools import partial
 
 from python_qt_binding import QtGui, QtCore
@@ -31,6 +32,7 @@ from QtCore import *
 from QtGui import *
 
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
+from hyperspyui.advancedaction import AdvancedAction
 
 from hyperspyui import hooktraitsui
 
@@ -83,10 +85,10 @@ class MainWindowUtils(MainWindowBase):
 
     def _make_action(self, label, icon, shortcut, tip):
         if icon is None:
-            ac = QAction(tr(label), self)
+            ac = AdvancedAction(tr(label), self)
         else:
             icon = self.make_icon(icon)
-            ac = QAction(icon, tr(label), self)
+            ac = AdvancedAction(icon, tr(label), self)
         if shortcut is not None:
             ac.setShortcut(shortcut)
         if tip is not None:
@@ -94,7 +96,19 @@ class MainWindowUtils(MainWindowBase):
         return ac
 
     def _wire_action(self, ac, key, callback, selection_callback):
-        self.connect(ac, SIGNAL('triggered()'), callback)
+        try:
+            keywords = inspect.getargspec(callback).args
+        except TypeError:
+            keywords = None
+        if keywords and 'advanced' in keywords:
+            orig_callback = callback
+
+            def wrap(checked, advanced):
+                orig_callback(advanced=advanced)
+            callback = wrap
+            ac.triggered[bool, bool].connect(callback)
+        else:
+            ac.triggered.connect(callback)
         # Use docstring for action
         if callback.__doc__:
             d = callback.__doc__
