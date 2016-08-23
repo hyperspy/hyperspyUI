@@ -23,9 +23,10 @@ from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 
 class AxesPickerDialog(ExToolWindow):
-    def __init__(self, ui, signal):
+    def __init__(self, ui, signal, single=False):
         super().__init__(ui)
         self.ui = ui
+        self.single = single
         self.signal = signal
         self.create_controls()
         self.setWindowTitle("Select axes")
@@ -33,7 +34,15 @@ class AxesPickerDialog(ExToolWindow):
     @property
     def selected_axes(self):
         sel = self.list.selectedItems()
-        return [i.data(QtCore.Qt.UserRole) for i in sel]
+        if self.single:
+            if len(sel) == 0:
+                return None
+            elif len(sel) == 1:
+                return sel[0].data(QtCore.Qt.UserRole)
+            else:
+                raise ValueError("Invalid selection")
+        else:
+            return [i.data(QtCore.Qt.UserRole) for i in sel]
 
     def create_controls(self):
         self.list = QtGui.QListWidget()
@@ -42,7 +51,9 @@ class AxesPickerDialog(ExToolWindow):
             item = QtGui.QListWidgetItem(rep, self.list)
             item.setData(QtCore.Qt.UserRole, ax)
             self.list.addItem(item)
-        self.list.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
+        if not self.single:
+            self.list.setSelectionMode(
+                QtGui.QAbstractItemView.ExtendedSelection)
         btns = QtGui.QDialogButtonBox(
             QtGui.QDialogButtonBox.Ok | QtGui.QDialogButtonBox.Cancel,
             QtCore.Qt.Horizontal)
