@@ -88,6 +88,7 @@ class ElementPickerWidget(FigureWidget):
         # Make sure we have the Sample node, and Sample.elements
         if not hasattr(signal.signal.metadata, 'Sample'):
             signal.signal.metadata.add_node('Sample')
+        if not hasattr(signal.signal.metadata.Sample, 'elements'):
             signal.signal.metadata.Sample.elements = []
 
         self._set_elements(signal.signal.metadata.Sample.elements)

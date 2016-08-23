@@ -48,8 +48,10 @@ import locale
 
 import logging
 logging.basicConfig()
-logging.getLogger('hyperspy').setLevel(logging.DEBUG)
-logging.getLogger('hyperspyui').setLevel(logging.DEBUG)
+# Note that this might be overriden during hyperspy import
+LOGLEVEL = logging.DEBUG
+logging.getLogger('hyperspy').setLevel(LOGLEVEL)
+logging.getLogger('hyperspyui').setLevel(LOGLEVEL)
 
 
 def _get_logfile():
@@ -123,6 +125,9 @@ def main():
 
         splash.finish(form)
         form.load_complete.emit()
+        # Ensure logging is OK
+        import hyperspy.api as hs
+        hs.set_log_level(LOGLEVEL)
 
         app.exec_()
 

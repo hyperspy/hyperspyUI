@@ -38,6 +38,19 @@ def tr(text):
     return QCoreApplication.translate("ContrastWidget", text)
 
 
+def _auto_contrast(plot):
+    return [plot._vmin_user is None, plot._vmax_user is None]
+
+
+def _set_auto_contrast(plot, auto):
+    if auto:
+        plot._vmin_user = None
+        plot._vmax_user = None
+    else:
+        plot._vmin_user = plot.vmin
+        plot._vmax_user = plot.vmax
+
+
 class ContrastWidget(FigureWidget):
     LevelLabel = tr("Level")
     WindowLabel = tr("Window")
@@ -91,8 +104,9 @@ class ContrastWidget(FigureWidget):
             self.sl_window.blockSignals(old)
 
             old = self.chk_auto.blockSignals(True)
-            state = QtCore.Qt.Checked if all(p.auto_contrast) else (
-                QtCore.Qt.PartiallyChecked if any(p.auto_contrast) else
+            auto = _auto_contrast(p)
+            state = QtCore.Qt.Checked if all(auto) else (
+                QtCore.Qt.PartiallyChecked if any(auto) else
                 QtCore.Qt.Unchecked)
             self.chk_auto.setCheckState(state)
             self.chk_auto.blockSignals(old)
@@ -151,7 +165,7 @@ class ContrastWidget(FigureWidget):
     def auto(self, state):
         p = self._cur_plot
         if p is not None:
-            p.auto_contrast = state == QtCore.Qt.Checked
+            _set_auto_contrast(p, state == QtCore.Qt.Checked)
             p.update()
             self.update_controls_from_fig()
 
