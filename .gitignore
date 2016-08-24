@@ -12,6 +12,7 @@ build/
 bundle_prerequisites/
 develop-eggs/
 dist/
+olddist/
 eggs/
 lib/
 lib64/

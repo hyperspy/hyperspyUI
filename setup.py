@@ -57,7 +57,7 @@ setup(
                       ],
     extras_require={
         ':sys_platform == "win32"': [
-            'pywin32',
+            'pypiwin32',
         ]
     },
     package_data={

@@ -270,7 +270,7 @@ class GitSelector(Plugin):
                 else:
                     import xmlrpc.client
                     pypi = xmlrpc.client.ServerProxy(
-                        'http://pypi.python.org/pypi')
+                        'https://pypi.python.org/pypi')
                     found = pypi.package_releases(name)
                     if not found:
                         # Try to capitalize pkg name
