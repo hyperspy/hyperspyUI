@@ -152,7 +152,7 @@ class SettingsDialog(ExToolWindow):
                                                abs_key, w))
             elif isinstance(v, float):
                 w = QDoubleSpinBox()
-                w.setRange(np.iinfo(np.float32).min, np.iinfo(np.float32).max)
+                w.setRange(np.finfo(np.float32).min, np.finfo(np.float32).max)
                 w.setValue(v)
                 w.valueChanged.connect(partial(self._on_setting_changed,
                                                abs_key, w))
