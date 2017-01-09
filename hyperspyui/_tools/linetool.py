@@ -21,13 +21,13 @@ Created on Thu Jul 30 11:42:05 2015
 @author: Vidar Tonaas Fauske
 """
 
-
 from python_qt_binding import QtCore
 import numpy as np
 
 from hyperspy.drawing.widgets import Line2DWidget, RangeWidget
 from hyperspy.roi import BaseInteractiveROI, SpanROI, Line2DROI
 
+from hyperspyui.log import logger
 from hyperspyui.tools import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
 
@@ -93,13 +93,16 @@ class LineTool(SignalFigureTool):
             return
 
         axes = self._get_axes(event)
+        if not axes:
+            logger.warning('Line tool only works on HyperSpy signal plots!')
+            return
         # Make sure we have a figure with valid dimensions
         if len(axes) not in self.valid_dimensions:
             return
         self.axes = axes
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
-            if any([p.contains(event)[0] == True for p in self.widget.patch]):
+            if any([p.contains(event)[0] is True for p in self.widget.patch]):
                 return              # Interacting, handle in widget
             # Cancel previous and start new
             self.cancel()
@@ -109,6 +112,7 @@ class LineTool(SignalFigureTool):
         # Find out which axes of Signal are plotted in figure
         s = self._get_signal(event.inaxes.figure)
         if s is None:
+            logger.warning('Line tool only works on HyperSpy signal plots!')
             return
         am = s.axes_manager
 

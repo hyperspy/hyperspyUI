@@ -43,14 +43,16 @@ class SignalFigureTool(FigureTool):
 
     def _is_nav(self, event):
         sw = self._get_wrapper(event.inaxes.figure)
-        if sw.signal._plot.navigator_plot is not None:
+        if (sw.signal._plot is not None and
+                sw.signal._plot.navigator_plot is not None):
             nav_ax = sw.signal._plot.navigator_plot.ax
             return nav_ax == event.inaxes
         return False
 
     def _is_sig(self, event):
         sw = self._get_wrapper(event.inaxes.figure)
-        if sw.signal._plot.signal_plot is not None:
+        if (sw.signal._plot is not None and
+                sw.signal._plot.signal_plot is not None):
             sig_ax = sw.signal._plot.signal_plot.ax
             return sig_ax == event.inaxes
         return False
@@ -58,6 +60,8 @@ class SignalFigureTool(FigureTool):
     def _get_axes(self, event):
         sw = self._get_wrapper(event.inaxes.figure)
         # Find out which axes of Signal are plotted in figure
+        if not sw or not sw.signal:
+            return
         am = sw.signal.axes_manager
         if self._is_sig(event):
             axes = am.signal_axes
