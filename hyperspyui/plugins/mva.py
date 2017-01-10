@@ -225,8 +225,17 @@ class MVA_Plugin(Plugin):
         def do_threaded():
             ns.s = self._do_decomposition(ns.s, algorithm=algorithm)
 
+        def on_error(message=None):
+            em = QErrorMessage(self.ui)
+            msg = tr("An error occurred during decomposition")
+            if message:
+                msg += ":\n" + message
+            em.setWindowTitle(tr("Decomposition error"))
+            em.showMessage(msg)
+
         t = ProgressThreaded(self.ui, do_threaded, lambda: callback(ns),
                              label=label)
+        t.worker.error[str].connect(on_error)
         t.run()
 
     def _perform_model(self, ns, n_components):
