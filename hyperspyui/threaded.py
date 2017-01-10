@@ -46,16 +46,20 @@ class Worker(QObject):
 
     def process(self):
         self.progress.emit(0)
-        if isinstance(self.run_function, types.GeneratorType):
-            p = 0
-            self.progress.emit(p)
-            while p < 100:
-                p = self.run_function()
+        try:
+            if isinstance(self.run_function, types.GeneratorType):
+                p = 0
                 self.progress.emit(p)
-        else:
-            self.run_function()
-        self.progress.emit(100)
-        self.finished.emit()
+                while p < 100:
+                    p = self.run_function()
+                    self.progress.emit(p)
+            else:
+                self.run_function()
+            self.progress.emit(100)
+            self.finished.emit()
+        except Exception as e:
+            self.error.emit(str(e))
+            raise
 
 
 class Threaded(QObject):
@@ -93,6 +97,8 @@ class Threaded(QObject):
         # Clean up
         worker.finished.connect(self.thread.quit)
         worker.finished.connect(worker.deleteLater)
+        worker.error.connect(self.thread.quit)
+        worker.error.connect(worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
 
         if finished is not None:
@@ -152,6 +158,7 @@ class ProgressThreaded(Threaded):
 
         self.connect(self.thread, SIGNAL('started()'), self.display)
         self.connect(self.worker, SIGNAL('finished()'), self.close)
+        self.connect(self.worker, SIGNAL('error()'), self.close)
         self.connect(
             self.worker, SIGNAL('progress(int)'), progressbar.setValue)
         self.progressbar = progressbar
