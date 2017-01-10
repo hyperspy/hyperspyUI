@@ -50,6 +50,7 @@ from QtCore import *
 from QtGui import *
 from hyperspyui.signalwrapper import SignalWrapper
 from hyperspyui.bindinglist import BindingList
+from hyperspyui.log import logger
 from hyperspyui.widgets.dataviewwidget import DataViewWidget
 from hyperspyui.widgets.editorwidget import EditorWidget
 import hyperspyui.util
@@ -64,7 +65,6 @@ overrides.override_hyperspy()           # Enable hyperspy overrides
 
 
 glob_escape = re.compile(r'([\[\]])')
-logger = logging.getLogger(__name__)
 
 
 class TrackEventFilter(QObject):
