@@ -305,7 +305,7 @@ class MainWindowUtils(MainWindowBase):
                      title=None, def_filter=None):
         if title is None:
             title = tr('Load file') if exists else tr('Save file')
-        path = path or self.cur_dir
+        path = path or self.cur_dir or ''
         if def_filter is None and extension_filter:
             def_filter = extension_filter.split(';;', maxsplit=1)[0]
 
