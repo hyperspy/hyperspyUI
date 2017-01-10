@@ -1,7 +1,7 @@
 HyperSpyUI
 ==========
 
-|pypi_version|_ |pypi_downloads|_
+|pypi_version|_
 
 .. |pypi_downloads| image:: http://img.shields.io/pypi/dm/hyperspyui.svg?style=flat
 .. _pypi_downloads: https://pypi.python.org/pypi/hyperspyui
