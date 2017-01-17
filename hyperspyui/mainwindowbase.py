@@ -185,7 +185,7 @@ class MainWindowBase(QMainWindow):
 
     @property
     def cur_dir(self):
-        return self.settings['working_directory']
+        return self.settings['working_directory'] or ''
 
     @cur_dir.setter
     def cur_dir(self, value):
