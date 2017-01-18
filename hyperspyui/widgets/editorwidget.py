@@ -66,9 +66,11 @@ class NameCategoryPrompt(ExToolWindow):
 
     def browse_icon(self):
         formats = QImageReader.supportedImageFormats()
-        formats = [str(f) for f in formats]
+        formats = [str(f, encoding='ascii') for f in formats]
+        # Add one filter that takes all supported:
         type_filter = tr("Supported formats")
         type_filter += ' (*.{0})'.format(' *.'.join(formats))
+        # Add all as individual options
         type_filter += ';;' + tr("All files") + \
             ' (*.*) ;;*.' + ';;*.'.join(formats)
         path = QFileDialog.getOpenFileName(self,
