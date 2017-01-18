@@ -80,8 +80,8 @@ Changes the signal type using a combination of methods on
 
     * :py:meth:`~hyperspy.signal.Signal.set_signal_type()`
     * :py:meth:`~hyperspy.signal.Signal.set_signal_origin()`
-    * and by converting with :py:meth:`~hyperspy.signal.Signal.as_image()` and
-      :py:meth:`~hyperspy.signal.Signal.as_spectrum()`.
+    * and by converting with :py:meth:`~hyperspy.signal.Signal.as_signal2D()` and
+      :py:meth:`~hyperspy.signal.Signal.as_signal1D()`.
 
 Signal data type
 """"""""""""""""""""""""""""""""""""
