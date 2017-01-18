@@ -199,23 +199,23 @@ class SignalWrapper(Actionable):
         if fig in self.figures:
             self.figures.remove(fig)
 
-    def as_image(self, axis=(0, 1)):
+    def as_signal2D(self, axis=(0, 1)):
         signal = self.signal
         self.close()  # Store geomtery and close
         # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
-        self.signal = signal.as_image(axis)
+        self.signal = signal.as_signal2D(axis)
 
-    def as_spectrum(self, axis=0):
+    def as_signal1D(self, axis=0):
         signal = self.signal
         self.close()  # Store geomtery and close
         # Swap geometries
         tmp = self._sig_geom
         self._sig_geom = self._nav_geom
         self._nav_geom = tmp
-        self.signal = signal.as_spectrum(axis)
+        self.signal = signal.as_signal1D(axis)
 
     def make_model(self, *args, **kwargs):
         m = self.signal.create_model(*args, **kwargs)

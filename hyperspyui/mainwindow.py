@@ -381,7 +381,7 @@ class MainWindow(MainWindowHyperspy):
         Changes the signal type using a combination of hyperspy.Signal.:
          * set_signal_type()
          * set_signal_origin()
-         * and by converting with as_image() and as_spectrum()
+         * and by converting with as_signal1D() and as_signal2D()
         """
         # The list of signal types is maintained as a list here and in
         # self.signal_types, as the names can be adapted, and since they need
@@ -400,14 +400,14 @@ class MainWindow(MainWindowHyperspy):
                 if not isinstance(signal.signal,
                                   (hyperspy.signals.Signal2D,
                                    hyperspy.signals.ComplexSignal2D)):
-                    signal.as_image()
-                    self.record_code("signal = signal.as_image()")
+                    signal.as_signal2D((0, 1))
+                    self.record_code("signal = signal.as_signal2D((0, 1))")
             else:
                 if isinstance(signal.signal,
                               (hyperspy.signals.Signal2D,
                                hyperspy.signals.ComplexSignal2D)):
-                    signal.as_spectrum()
-                    self.record_code("signal = signal.as_spectrum()")
+                    signal.as_signal1D(0)
+                    self.record_code("signal = signal.as_signal1D(0)")
 
             if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:
                 underscored = signal_type.replace(" ", "_")
