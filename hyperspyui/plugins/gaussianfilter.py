@@ -18,7 +18,7 @@
 
 from hyperspyui.plugins.plugin import Plugin
 import numpy as np
-from skimage.filters import gaussian_filter
+from skimage.filters import gaussian
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
@@ -71,7 +71,7 @@ class GaussianFilter(Plugin):
         """
         Apply a gaussian smoothing filter to an image signal.
 
-        Uses `skimage.filters.gaussian_filter()` for the actual processing.
+        Uses `skimage.filters.gaussian()` for the actual processing.
 
         Parameters
         ----------
@@ -85,7 +85,7 @@ class GaussianFilter(Plugin):
                 Output signal
             record : {bool}
                 Whether the operation should be recorded or not.
-            Other args are passed to `skimage.filters.gaussian_filter()`.
+            Other args are passed to `skimage.filters.gaussian()`.
         """
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()
@@ -100,7 +100,7 @@ class GaussianFilter(Plugin):
                             axm._axes.index(axm.signal_axes[1]))
 
         s_out = out or signal.deepcopy()
-        if s_out.data.dtype is not np.float:
+        if out is None and not np.issubdtype(s_out.data.dtype, np.float):
             s_out.change_dtype(np.float)
         if signal.data.dtype is np.float:
             vmin, vmax = np.nanmin(signal.data), np.nanmax(signal.data)
@@ -109,9 +109,9 @@ class GaussianFilter(Plugin):
         for im_o, im_i in zip(s_out._iterate_signal(),
                               signal._iterate_signal()):
             if vmin is None:
-                im_o[:] = gaussian_filter(im_i, sigma)
+                im_o[:] = gaussian(im_i, sigma, *args, **kwargs)
             else:
-                im_o[:] = gaussian_filter((im_i-vmin)/(vmax-vmin), sigma)
+                im_o[:] = gaussian((im_i-vmin)/(vmax-vmin), sigma, *args, **kwargs)
         if vmin is not None:
             s_out.data[:] = (vmax-vmin)*s_out.data + vmin
 
@@ -159,9 +159,6 @@ class GaussianFilterDialog(ExToolWindow):
         # TODO: TAG: Functionality check
         if not hasattr(signal.signal, 'events'):
             self.chk_preview.setVisible(False)
-
-        # TODO: Add dynamic rotation, e.g. one that rotates when source
-        # signal's data_changed event triggers
 
     def connect(self):
         self.opt_new.toggled.connect(self.close_new)
