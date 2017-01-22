@@ -43,4 +43,17 @@ class PlotUtils(Plugin):
             if len(spectra) == 1:
                 spectra = spectra[0]
 
-        plot_spectra(spectra)
+        spectra_t = []
+        for im in spectra:
+            if len(im.axes_manager.shape) != 1 and len(spectra) > 1:
+                raise ValueError(
+                    "Signal shape invalid for plot_spectra(): %s" % str(im))
+            if im.axes_manager.signal_dimension == 1:
+                spectra_t.append(im)
+            elif len(im.axes_manager.shape) != 1:
+                raise ValueError(
+                    "Signal needs to be 1-dimensional, or a stack of 1D signals")
+            else:
+                spectra_t.append(im.as_signal1D(0))
+
+        plot_spectra(spectra_t)
