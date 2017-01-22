@@ -43,7 +43,7 @@ class Segmentation(Plugin):
         self.add_tool(self.tool, self._select_image)
         self.map = {}
         self.ui.actions[self.tool.name].triggered.connect(
-            lambda c: self.start())
+            lambda c=None: self.start())
 
     def _select_image(self, win, action):
         """Signal selection callback for actions that are only valid for
