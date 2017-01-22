@@ -92,7 +92,8 @@ class EELSDBPlugin(Plugin):
             def resp_finished():
                 html = response.readAll()
                 matches = re_dl_url.findall(html)
-                self.download(matches[0].decode('ascii'))
+                if matches:
+                    self.download(matches[0].decode('ascii'))
                 response.deleteLater()
             response.finished.connect(resp_finished)
         else:
