@@ -65,11 +65,8 @@ class RebinPlugin(Plugin):
         # Crop to multiple of factors
         s.data = s.data[tuple(mods)]
 
-        # Update shape, but prevent auto_replot
-        old = s.auto_replot
-        s.auto_replot = False
+        # Update shape
         s.get_dimensions_from_data()
-        s.auto_replot = old
 
         # Do actual rebin
         signal.switch_signal(s.rebin(shape))

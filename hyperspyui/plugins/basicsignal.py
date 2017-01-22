@@ -58,6 +58,9 @@ class BasicSignalPlugin(Plugin):
         self.add_action(self.name + '.copy', "Copy", self.copy,
                         tip="Make a copy of all selected signals")
 
+        self.add_action(self.name + '.switch', "Switch spaces", self.switch,
+                        tip="Switch navigation and signal spaces")
+
         self.add_action('stats', tr("Statistics"),
                         self.statistics,
                         icon=None,
@@ -138,6 +141,7 @@ class BasicSignalPlugin(Plugin):
         self.add_menuitem('Signal', self.ui.actions[self.name + '.stack'])
         self.add_menuitem('Signal', self.ui.actions[self.name + '.split'])
         self.add_menuitem('Signal', self.ui.actions[self.name + '.copy'])
+        self.add_menuitem('Signal', self.ui.actions[self.name + '.switch'])
         self.add_menuitem("Signal", self.ui.actions['stats'])
         self.add_menuitem("Signal", self.ui.actions['histogram'])
         self.add_menuitem("Math", self.ui.actions['add'])
@@ -204,6 +208,19 @@ class BasicSignalPlugin(Plugin):
             s.deepcopy().plot()
         self.record_code('signals = self.ui.get_selected_signals()')
         self.record_code('for s in signals:\n\ts.deepcopy().plot()')
+
+    def switch(self, signal=None):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+        # Switch the nav and sig spaces:
+        switched = signal.transpose(signal.axes_manager.navigation_axes,
+                                    signal.axes_manager.signal_axes)
+        switched.plot()
+        self.record_code("signal = ui.get_selected_signal()")
+        self.record_code(
+            "switched = signal.transpose(" +
+            "signal.axes_manager.navigation_axes, " +
+            "signal.axes_manager.signal_axes)")
 
     def statistics(self, signal=None):
         if signal is None:

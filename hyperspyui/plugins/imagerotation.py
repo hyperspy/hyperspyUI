@@ -153,10 +153,7 @@ class ImageRotation_Plugin(Plugin):
         sig.data = data
         if out is None:
             if reshape:
-                old = sig.auto_replot
-                sig.auto_replot = False
                 sig.get_dimensions_from_data()
-                sig.auto_replot = old
                 diff = np.array(sig.data.shape) - signal.data.shape
                 for i, ax in enumerate(sig.axes_manager._axes):
                     dx = diff[i] * 0.5 * ax.scale
@@ -164,8 +161,6 @@ class ImageRotation_Plugin(Plugin):
             return sig
         else:
             if sig.data.shape != old_shape:
-                old = out.auto_replot
-                out.auto_replot = False
                 if hasattr(out.axes_manager, 'events') and hasattr(
                         out.axes_manager.events, 'any_axis_changed'):
                     cm = out.axes_manager.events.any_axis_changed.suppress
@@ -173,7 +168,6 @@ class ImageRotation_Plugin(Plugin):
                     cm = dummy_context_manager
                 with cm():
                     out.get_dimensions_from_data()
-                    out.auto_replot = old
                     diff = np.array(out.data.shape) - old_shape
                     for i, ax in enumerate(out.axes_manager._axes):
                         dx = diff[i] * 0.5 * ax.scale
