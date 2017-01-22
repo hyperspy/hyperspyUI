@@ -150,7 +150,7 @@ class PluginManager(object):
                     self._import_plugin_from_path(name, m)
 
         master = Plugin
-        self.implementors = self._inheritors(master)
+        self.implementors = sorted(self._inheritors(master), key=lambda x: x.name)
         logger.debug("Found plugins: %s", self.implementors)
 
     @staticmethod
