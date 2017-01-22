@@ -23,7 +23,19 @@ class PlotUtils(Plugin):
     def plot_images(self, images=None):
         if images is None:
             images = self.ui.get_selected_signals()
-        plot_images(images, colorbar=None, axes_decor=None)
+        images_t = []
+        for im in images:
+            if len(im.axes_manager.shape) != 2 and len(images) > 1:
+                raise ValueError(
+                    "Signal shape invalid for plot_images(): %s" % str(im))
+            if im.axes_manager.signal_dimension == 2:
+                images_t.append(im)
+            elif len(im.axes_manager.shape) != 2:
+                raise ValueError(
+                    "Signal needs to be an image, or a stack of images")
+            else:
+                images_t.append(im.as_signal2D((0, 1)))
+        plot_images(images_t, colorbar=None, axes_decor=None)
 
     def plot_spectra(self, spectra=None):
         if spectra is None:
