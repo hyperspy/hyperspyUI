@@ -264,7 +264,7 @@ class GitSelector(Plugin):
             name = Name.lower()
             if enabled:
                 if (check_git_repo(name) and
-                        self.settings['check_for_git_updates']):
+                        self.settings['check_for_git_updates', bool]):
                     # TODO: Check for commits to pull
                     pass
                 else:
@@ -275,9 +275,9 @@ class GitSelector(Plugin):
                     if not found:
                         # Try to capitalize pkg name
                         if name == 'hyperspyui':
-                            found = pypi.package_releases('hyperspyUI')
+                            found = pypi.package_releases('hyperspyUI', True)
                         else:
-                            found = pypi.package_releases(Name)
+                            found = pypi.package_releases(Name, True)
                     if found:
                         import pip
                         dist = [d for d in pip.get_installed_distributions()
