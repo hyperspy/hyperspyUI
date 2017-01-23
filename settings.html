@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Settings &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>Settings &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
         <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>
         <link rel="prev" title="Widgets" href="widgets.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -90,7 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="widgets.html">Widgets</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Settings</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Settings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#general">General</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#allow-multiple-instances">Allow multiple instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#console-completion-type">Console completion type</a></li>
@@ -153,7 +156,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -165,7 +168,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/settings.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/settings.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,7 +181,7 @@
   <div class="section" id="settings">
 <span id="settings-section"></span><h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h1>
 <p>This section documents all the settings of the application and the core plugins.
-To edit the settings use the the <a class="reference internal" href="actions.html#edit-settings"><span>Edit settings</span></a> action from the &#8216;Settings&#8217;
+To edit the settings use the the <a class="reference internal" href="actions.html#edit-settings"><span class="std std-ref">Edit settings</span></a> action from the &#8216;Settings&#8217;
 menu. This will show a
 <a class="reference internal" href="api/hyperspyui.widgets.html#hyperspyui.widgets.settingsdialog.SettingsDialog" title="hyperspyui.widgets.settingsdialog.SettingsDialog"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.settingsdialog.SettingsDialog</span></code></a>, which lists all
 the settings that have been stored or registered. It also has a &#8216;Reset&#8217; button
@@ -212,7 +215,7 @@ details on this setting.</p>
 <p>This settings determines how a widget is created when opened for the first
 time: Floating, or docked. After the first time, the layout and floating
 state of the widgets will be stored, unless reset by the
-<a class="reference internal" href="actions.html#reset-layout"><span>Reset layout</span></a> action.</p>
+<a class="reference internal" href="actions.html#reset-layout"><span class="std std-ref">Reset layout</span></a> action.</p>
 </div>
 <div class="section" id="low-process-priority">
 <h3>Low process priority<a class="headerlink" href="#low-process-priority" title="Permalink to this headline">¶</a></h3>
@@ -222,8 +225,8 @@ affect other applications.</p>
 </div>
 <div class="section" id="id1">
 <h3>Output to console<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>When set, the <a class="reference internal" href="troubleshooting.html#error-output"><span>Error output</span></a> of the application will be redirected
-to the <a class="reference internal" href="widgets.html#console-widget"><span>Console widget</span></a> after the application has successfully loaded.
+<p>When set, the <a class="reference internal" href="troubleshooting.html#error-output"><span class="std std-ref">Error output</span></a> of the application will be redirected
+to the <a class="reference internal" href="widgets.html#console-widget"><span class="std std-ref">Console widget</span></a> after the application has successfully loaded.
 This might make it easier to keep track of warnings and non-critical errors
 while running, but will prevent the output from reacing the standard error
 ouputs. This setting should therefore be disabled when debugging, or when
@@ -253,20 +256,20 @@ having the dialogs open where they were last used.</p>
 <p>Settings of the alignment plugin.</p>
 <div class="section" id="d-smooth-amount">
 <h3>1D smooth amount<a class="headerlink" href="#d-smooth-amount" title="Permalink to this headline">¶</a></h3>
-<p>Used by <a class="reference internal" href="tools.html#alignment-horz"><span>Align horizontal tool</span></a> and <a class="reference internal" href="tools.html#alignment-vert"><span>Align vertical tool</span></a> to specify how
+<p>Used by <a class="reference internal" href="tools.html#alignment-horz"><span class="std std-ref">Align horizontal tool</span></a> and <a class="reference internal" href="tools.html#alignment-vert"><span class="std std-ref">Align vertical tool</span></a> to specify how
 much to smooth the data in the direction of alignment. The smmothing is
 done by a box-car convolution, and the setting specifies the size of the
 box-car.</p>
 </div>
 <div class="section" id="id2">
 <h3>2D smooth amount<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Used by <a class="reference internal" href="tools.html#alignment-tool"><span>Alignment tool</span></a>. Specifies an optional amount of gaussian blur
+<p>Used by <a class="reference internal" href="tools.html#alignment-tool"><span class="std std-ref">Alignment tool</span></a>. Specifies an optional amount of gaussian blur
 filter to apply before alignment to reduce the effect of noise.</p>
 </div>
 <div class="section" id="parameters-to-hyperspy">
 <h3>Parameters to hyperspy<a class="headerlink" href="#parameters-to-hyperspy" title="Permalink to this headline">¶</a></h3>
 <p>The other settings are direct options for the parameters to pass to
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal2DTools.estimate_shift2D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal2DTools.estimate_shift2D()</span></code></a>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal2DTools.estimate_shift2D()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="basic-signal-tools">
@@ -299,7 +302,7 @@ wrong data type is selected for decomposition.</p>
 <div class="section" id="version-selector">
 <h2>Version selector<a class="headerlink" href="#version-selector" title="Permalink to this headline">¶</a></h2>
 <p>Stores settings for the cersion selector plugin, which affects the
-<a class="reference internal" href="actions.html#version-selector"><span>Version selector</span></a> and <a class="reference internal" href="actions.html#check-for-updates"><span>Check for updates</span></a> action. The
+<a class="reference internal" href="actions.html#version-selector"><span class="std std-ref">Version selector</span></a> and <a class="reference internal" href="actions.html#check-for-updates"><span class="std std-ref">Check for updates</span></a> action. The
 settings of this plugin is only relevant if you have a source installation
 of a git repository (developer mode).</p>
 <div class="section" id="check-for-git-updates">
@@ -357,7 +360,7 @@ this setting.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

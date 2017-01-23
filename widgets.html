@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Widgets &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>Widgets &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
         <link rel="next" title="Settings" href="settings.html"/>
         <link rel="prev" title="Tools" href="tools.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -89,7 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Widgets</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Widgets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-view">Data view</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#element-picker">Element picker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contrast-control">Contrast control</a></li>
@@ -131,7 +134,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -143,7 +146,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/widgets.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/widgets.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -213,7 +216,7 @@ for details).</p>
 type widget for adjusting the contrast response of image plots. The &#8216;Level&#8217;
 slider specifies the lower cut-off intensity, and the &#8216;Window&#8217; slider controls
 the width of the intensity window starting at <code class="docutils literal"><span class="pre">level</span></code>. The &#8216;Auto&#8217; option
-uses the automatic settings of <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.drawing.html#hyperspy.drawing.image.ImagePlot" title="(in HyperSpy v0.8.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.drawing.image.ImagePlot</span></code></a>.</p>
+uses the automatic settings of <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.drawing.html#hyperspy.drawing.image.ImagePlot" title="(in HyperSpy v1.1.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.drawing.image.ImagePlot</span></code></a>.</p>
 <p>By selecting &#8216;Log&#8217; a logarithmic transform is applied to the image cotrast.
 This only affects the plot, and leaves the data untouched.</p>
 <img alt="_images/contrast_control.png" src="_images/contrast_control.png" />
@@ -235,15 +238,15 @@ the colorscale alongside the name.</p>
 <div class="section" id="recorder-widget">
 <span id="id1"></span><h2>Recorder widget<a class="headerlink" href="#recorder-widget" title="Permalink to this headline">¶</a></h2>
 <p>The record widget offers controls to turn on or off recording to a dedicated
-<a class="reference internal" href="devguide.html#code-editor"><span>Code editor widget</span></a>. Two checkboxes allow for selecting what should be recorded.
-See <a class="reference internal" href="devguide.html#recording"><span>Recording code</span></a> for details on what is recorded, and how it can be used.</p>
+<a class="reference internal" href="devguide.html#code-editor"><span class="std std-ref">Code editor widget</span></a>. Two checkboxes allow for selecting what should be recorded.
+See <a class="reference internal" href="devguide.html#recording"><span class="std std-ref">Recording code</span></a> for details on what is recorded, and how it can be used.</p>
 <img alt="_images/recorder_widget.png" src="_images/recorder_widget.png" />
 </div>
 <div class="section" id="console-widget">
 <span id="id2"></span><h2>Console widget<a class="headerlink" href="#console-widget" title="Permalink to this headline">¶</a></h2>
 <p>The console widget is a <a class="reference external" href="https://qtconsole.readthedocs.org/en/stable/">qtconsole</a> console widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
 run any code that IPython can. For details on how to successfully use it, see
-the <a class="reference internal" href="devguide.html#console"><span>Internal Console</span></a> section.</p>
+the <a class="reference internal" href="devguide.html#console"><span class="std std-ref">Internal Console</span></a> section.</p>
 <img alt="_images/console_widget.png" src="_images/console_widget.png" />
 </div>
 </div>
@@ -289,7 +292,7 @@ the <a class="reference internal" href="devguide.html#console"><span>Internal Co
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

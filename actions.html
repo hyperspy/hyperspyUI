@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Available actions &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>Available actions &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
         <link rel="next" title="Tools" href="tools.html"/>
         <link rel="prev" title="Quickstart Guide" href="quickstart.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -87,7 +90,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Available actions</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Available actions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#file">File</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#open">Open</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#open-stack">Open Stack</a></li>
@@ -146,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#diffraction">Diffraction</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#virtual-aperture">Virtual aperture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#virtual-navigator">Virtual navigator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-annulus">Virtual annulus</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#math">Math</a><ul>
@@ -216,7 +220,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -228,7 +232,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/actions.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/actions.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -242,7 +246,7 @@
 <span id="actions"></span><h1>Available actions<a class="headerlink" href="#available-actions" title="Permalink to this headline">¶</a></h1>
 <p>Most menu entries and toolbar buttons trigger an <cite>action</cite> when clicked. This
 is a rather loose definition, but actions are different from
-<a class="reference internal" href="tools.html#tools-section"><span>Tools</span></a> and <a class="reference internal" href="widgets.html#widgets-section"><span>Widgets</span></a>.</p>
+<a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a> and <a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a>.</p>
 <p>The list below is sorted on category, which roughly corresponds to the
 toolbar/menu in which they appear.</p>
 <div class="section" id="file">
@@ -250,7 +254,7 @@ toolbar/menu in which they appear.</p>
 <div class="section" id="open">
 <h3>Open<a class="headerlink" href="#open" title="Permalink to this headline">¶</a></h3>
 <p>Open a dialog to let the user interactively browse for files. It then loads
-these files using <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.io.load" title="(in HyperSpy v0.8.2)"><code class="xref py py-func docutils literal"><span class="pre">hyperspy.io.load()</span></code></a> before plotting the loaded
+these files using <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.io.load" title="(in HyperSpy v1.1.2)"><code class="xref py py-func docutils literal"><span class="pre">hyperspy.io.load()</span></code></a> before plotting the loaded
 signals.</p>
 </div>
 <div class="section" id="open-stack">
@@ -268,12 +272,12 @@ signals.</p>
 <div class="section" id="save-figure">
 <h3>Save figure<a class="headerlink" href="#save-figure" title="Permalink to this headline">¶</a></h3>
 <p>Save the currently active figure using matplotlib&#8217;s
-<a class="reference external" href="http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure.savefig" title="(in Matplotlib v1.5.1)"><code class="xref py py-meth docutils literal"><span class="pre">savefig()</span></code></a>. Note that this does not care
+<a class="reference external" href="http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure.savefig" title="(in Matplotlib v2.0.0)"><code class="xref py py-meth docutils literal"><span class="pre">savefig()</span></code></a>. Note that this does not care
 about how the figure was produced, or the underlying resolution of the data.</p>
 </div>
 <div class="section" id="new-editor">
 <span id="id1"></span><h3>New editor<a class="headerlink" href="#new-editor" title="Permalink to this headline">¶</a></h3>
-<p>Opens a new <a class="reference internal" href="devguide.html#code-editor"><span>Code editor widget</span></a>.</p>
+<p>Opens a new <a class="reference internal" href="devguide.html#code-editor"><span class="std std-ref">Code editor widget</span></a>.</p>
 </div>
 <div class="section" id="close-all-signals">
 <span id="close-all"></span><h3>Close All (signals)<a class="headerlink" href="#close-all-signals" title="Permalink to this headline">¶</a></h3>
@@ -290,13 +294,13 @@ in an invalid state.</p>
 <div class="section" id="signal-type">
 <span id="id2"></span><h3>Signal type<a class="headerlink" href="#signal-type" title="Permalink to this headline">¶</a></h3>
 <p>Changes the signal type using a combination of methods on
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal" title="(in HyperSpy v0.8.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.signal.Signal</span></code></a>:</p>
+<code class="xref py py-class docutils literal"><span class="pre">hyperspy.signal.Signal</span></code>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.set_signal_type" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">set_signal_type()</span></code></a></li>
-<li><a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.set_signal_origin" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">set_signal_origin()</span></code></a></li>
-<li>and by converting with <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.as_image" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">as_image()</span></code></a> and
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.as_spectrum" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">as_spectrum()</span></code></a>.</li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">set_signal_type()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">set_signal_origin()</span></code></li>
+<li>and by converting with <code class="xref py py-meth docutils literal"><span class="pre">as_signal2D()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">as_signal1D()</span></code>.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -304,7 +308,7 @@ in an invalid state.</p>
 <h3>Signal data type<a class="headerlink" href="#signal-data-type" title="Permalink to this headline">¶</a></h3>
 <p>Change the data type use to store the signal data internally. See
 the <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype">numpy docs</a> for details. The operation is performed by
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.change_dtype" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">change_dtype()</span></code></a>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">change_dtype()</span></code>.</p>
 </div>
 <div class="section" id="manual-align">
 <span id="manual-alignment"></span><h3>Manual align<a class="headerlink" href="#manual-align" title="Permalink to this headline">¶</a></h3>
@@ -317,13 +321,13 @@ signal.</p>
 <div class="section" id="statistics">
 <h3>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h3>
 <p>Print the signal statistics to the console. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.print_summary_statistics" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">print_summary_statistics()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">print_summary_statistics()</span></code> for details.</p>
 </div>
 <div class="section" id="histogram">
 <h3>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h3>
 <p>Plot a histogram of the signal. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.get_histogram" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">get_histogram()</span></code></a> for details. The method
-for determining the number of bins can be set in the <a class="reference internal" href="settings.html#settings-section"><span>Settings</span></a>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">get_histogram()</span></code> for details. The method
+for determining the number of bins can be set in the <a class="reference internal" href="settings.html#settings-section"><span class="std std-ref">Settings</span></a>.</p>
 </div>
 <div class="section" id="mirror-navigation">
 <h3>Mirror navigation<a class="headerlink" href="#mirror-navigation" title="Permalink to this headline">¶</a></h3>
@@ -338,7 +342,7 @@ plot.</p>
 <div class="section" id="rebin">
 <h3>Rebin<a class="headerlink" href="#rebin" title="Permalink to this headline">¶</a></h3>
 <p>Opens a dialog to rebin the signal. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal.rebin" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">rebin()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">rebin()</span></code> for details.</p>
 </div>
 </div>
 <div class="section" id="model">
@@ -346,13 +350,13 @@ plot.</p>
 <div class="section" id="create-model">
 <h3>Create Model<a class="headerlink" href="#create-model" title="Permalink to this headline">¶</a></h3>
 <p>Add and plot a default model for the selected signal. Note that the
-<a class="reference internal" href="#signal-type"><span>Signal type</span></a> is important in order to create the correct model type.</p>
-<p>The newly created model is accessible through the <a class="reference internal" href="widgets.html#data-widget"><span>Data view</span></a>.</p>
+<a class="reference internal" href="#signal-type"><span class="std std-ref">Signal type</span></a> is important in order to create the correct model type.</p>
+<p>The newly created model is accessible through the <a class="reference internal" href="widgets.html#data-widget"><span class="std std-ref">Data view</span></a>.</p>
 </div>
 <div class="section" id="add-component">
 <span id="id3"></span><h3>Add component<a class="headerlink" href="#add-component" title="Permalink to this headline">¶</a></h3>
 <p>Add a component to the currently selected model.</p>
-<p>The newly created component is accessible through the <a class="reference internal" href="widgets.html#data-widget"><span>Data view</span></a>.</p>
+<p>The newly created component is accessible through the <a class="reference internal" href="widgets.html#data-widget"><span class="std std-ref">Data view</span></a>.</p>
 </div>
 <div class="section" id="plot-components">
 <span id="id4"></span><h3>Plot components<a class="headerlink" href="#plot-components" title="Permalink to this headline">¶</a></h3>
@@ -399,27 +403,27 @@ according to the hyperspy&#8217;s
 <div class="section" id="smooth-savitzky-golay">
 <h3>Smooth Savitzky-Golay<a class="headerlink" href="#smooth-savitzky-golay" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Savitzky-Golay filter. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.smooth_savitzky_golay" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">smooth_savitzky_golay()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">smooth_savitzky_golay()</span></code> for details.</p>
 </div>
 <div class="section" id="smooth-lowess">
 <h3>Smooth Lowess<a class="headerlink" href="#smooth-lowess" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Lowess smoothing filter. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.smooth_lowess" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">smooth_lowess()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">smooth_lowess()</span></code> for details.</p>
 </div>
 <div class="section" id="smooth-total-variation">
 <h3>Smooth Total variation<a class="headerlink" href="#smooth-total-variation" title="Permalink to this headline">¶</a></h3>
 <p>Total variation data smoothing. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.smooth_tv" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">smooth_tv()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">smooth_tv()</span></code> for details.</p>
 </div>
 <div class="section" id="butterworth-filter">
 <h3>Butterworth filter<a class="headerlink" href="#butterworth-filter" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Butterworth filter. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.filter_butterworth" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">filter_butterworth()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">filter_butterworth()</span></code> for details.</p>
 </div>
 <div class="section" id="hanning-taper">
 <h3>Hanning taper<a class="headerlink" href="#hanning-taper" title="Permalink to this headline">¶</a></h3>
 <p>Apply a Hanning taper to both ends of the data. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.hanning_taper" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hanning_taper()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">hanning_taper()</span></code> for details.</p>
 </div>
 </div>
 <div class="section" id="eels">
@@ -427,7 +431,7 @@ according to the hyperspy&#8217;s
 <div class="section" id="remove-background">
 <h3>Remove Background<a class="headerlink" href="#remove-background" title="Permalink to this headline">¶</a></h3>
 <p>Interactively define the background, and remove it. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.remove_background" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">remove_background()</span></code></a> for details.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">remove_background()</span></code> for details.</p>
 </div>
 <div class="section" id="fourier-ratio-deconvoloution">
 <h3>Fourier Ratio Deconvoloution<a class="headerlink" href="#fourier-ratio-deconvoloution" title="Permalink to this headline">¶</a></h3>
@@ -437,14 +441,14 @@ according to the hyperspy&#8217;s
 <p class="last">The background should be removed with e.g. <a class="reference internal" href="#remove-background">Remove Background</a> before
 running Fourier ratio deconvolution.</p>
 </div>
-<p>See <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy._signals.html#hyperspy._signals.eels.EELSSpectrum.fourier_ratio_deconvolution" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">fourier_ratio_deconvolution()</span></code></a>
+<p>See <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy._signals.html#hyperspy._signals.eels.EELSSpectrum.fourier_ratio_deconvolution" title="(in HyperSpy v1.1.2)"><code class="xref py py-meth docutils literal"><span class="pre">fourier_ratio_deconvolution()</span></code></a>
 for details.</p>
 </div>
 <div class="section" id="estimate-thickness">
 <h3>Estimate thickness<a class="headerlink" href="#estimate-thickness" title="Permalink to this headline">¶</a></h3>
 <p>Estimates the thickness (relative to the mean free path) of a sample using
 the log-ratio method. See
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy._signals.html#hyperspy._signals.eels.EELSSpectrum.estimate_thickness" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy._signals.eels.EELSSpectrum.estimate_thickness()</span></code></a> for details.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy._signals.html#hyperspy._signals.eels.EELSSpectrum.estimate_thickness" title="(in HyperSpy v1.1.2)"><code class="xref py py-meth docutils literal"><span class="pre">hyperspy._signals.eels.EELSSpectrum.estimate_thickness()</span></code></a> for details.</p>
 </div>
 <div class="section" id="browse-eelsdb">
 <h3>Browse EELSDB<a class="headerlink" href="#browse-eelsdb" title="Permalink to this headline">¶</a></h3>
@@ -487,6 +491,12 @@ The navigator (orange circle) selects the direct beam, giving a virtual
 bright-field image, while the other apertures select diffraction spots
 unique to three different grains/phases.</span></p>
 </div>
+</div>
+<div class="section" id="virtual-annulus">
+<h3>Virtual annulus<a class="headerlink" href="#virtual-annulus" title="Permalink to this headline">¶</a></h3>
+<p>Add a virtual annulus to the diffraction image. An annulus is simply a hollow
+disc, and it can be moved around and resized, allowing for an interactive
+creation of virtual annular dark field images.</p>
 </div>
 </div>
 <div class="section" id="math">
@@ -579,7 +589,7 @@ installs, it checks for a new version on <a class="reference external" href="htt
 <div class="section" id="plugin-manager">
 <h3>Plugin manager<a class="headerlink" href="#plugin-manager" title="Permalink to this headline">¶</a></h3>
 <p>Show the plugin manager dialog (see
-<a class="reference internal" href="devguide.html#plugin-manager-widget"><span>Plugin manager widget</span></a> and
+<a class="reference internal" href="devguide.html#plugin-manager-widget"><span class="std std-ref">Plugin manager widget</span></a> and
 <a class="reference internal" href="api/hyperspyui.html#hyperspyui.pluginmanager.PluginManager" title="hyperspyui.pluginmanager.PluginManager"><code class="xref py py-class docutils literal"><span class="pre">PluginManager</span></code></a>).</p>
 </div>
 <div class="section" id="reset-layout">
@@ -653,7 +663,7 @@ installs, it checks for a new version on <a class="reference external" href="htt
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

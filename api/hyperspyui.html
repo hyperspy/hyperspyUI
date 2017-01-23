@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API reference &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>API reference &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="../index.html"/>
         <link rel="next" title="hyperspyui._tools package" href="hyperspyui._tools.html"/>
         <link rel="prev" title="Developer guide" href="../devguide.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -97,7 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">API reference</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.html">hyperspyui._tools package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.html">hyperspyui.widgets package</a></li>
@@ -111,7 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.hooksignal">hyperspyui.hooksignal module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.hooktraitsui">hyperspyui.hooktraitsui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.info">hyperspyui.info module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.launch">hyperspyui.launch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hyperspyui-launch-module">hyperspyui.launch module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.mainwindow">hyperspyui.mainwindow module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.mainwindowbase">hyperspyui.mainwindowbase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.mainwindowhyperspy">hyperspyui.mainwindowhyperspy module</a></li>
@@ -156,7 +159,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -168,7 +171,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/hyperspyui.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/hyperspyui.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -256,7 +259,7 @@ and adds actions through add_action().</p>
 <dl class="class">
 <dt id="hyperspyui.bindinglist.BindingList">
 <em class="property">class </em><code class="descclassname">hyperspyui.bindinglist.</code><code class="descname">BindingList</code><span class="sig-paren">(</span><em>target=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a></p>
 <p>A list that has been extended to sync other lists or collections to changes
 in its contents. By custom targets, it can also be used to trigger events
 on addition/removal. Only append and remove actions are required, as
@@ -345,7 +348,7 @@ available. Supported targets for add_target are types &#8216;list&#8217; and
 <dl class="class">
 <dt id="hyperspyui.hooksignal.HookedSignal">
 <em class="property">class </em><code class="descclassname">hyperspyui.hooksignal.</code><code class="descname">HookedSignal</code><span class="sig-paren">(</span><em>data</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal" title="(in HyperSpy v0.8.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.signal.Signal</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.1.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.signal.BaseSignal</span></code></a></p>
 <dl class="method">
 <dt id="hyperspyui.hooksignal.HookedSignal.plot">
 <code class="descname">plot</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal.plot" title="Permalink to this definition">¶</a></dt>
@@ -365,12 +368,11 @@ after the plot call is executed.</p>
 
 <dl class="function">
 <dt id="hyperspyui.hooksignal.connect_plotting">
-<code class="descclassname">hyperspyui.hooksignal.</code><code class="descname">connect_plotting</code><span class="sig-paren">(</span><em>callback</em>, <em>userdata=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.connect_plotting" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">hyperspyui.hooksignal.</code><code class="descname">connect_plotting</code><span class="sig-paren">(</span><em>callback</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.connect_plotting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call to subscribe to Signal plot events. &#8216;callback&#8217; is called on the event.
 The Signal being plotted is passed as the first argument, then follows the
-arguments passed to plot(). If userdata is not None is is passed as a
-keyword argument, otherwise, it is left out. Plotting event are called just
-before the plot call is executed.</p>
+arguments passed to plot(). Plotting event are called just before the plot
+call is executed.</p>
 </dd></dl>
 
 <dl class="function">
@@ -520,15 +522,8 @@ The only other parameter is the dialog reference.</p>
 <p>Created on Thu Nov 27 01:38:42 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 </div>
-<div class="section" id="module-hyperspyui.launch">
-<span id="hyperspyui-launch-module"></span><h2>hyperspyui.launch module<a class="headerlink" href="#module-hyperspyui.launch" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Nov 25 02:10:29 2014</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="function">
-<dt id="hyperspyui.launch.main">
-<code class="descclassname">hyperspyui.launch.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.launch.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="hyperspyui-launch-module">
+<h2>hyperspyui.launch module<a class="headerlink" href="#hyperspyui-launch-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-hyperspyui.mainwindow">
 <span id="hyperspyui-mainwindow-module"></span><h2>hyperspyui.mainwindow module<a class="headerlink" href="#module-hyperspyui.mainwindow" title="Permalink to this headline">¶</a></h2>
@@ -632,7 +627,7 @@ Over each selection box, the title as defined by &#8216;titles&#8217; is display
 <dd><ul class="first last simple">
 <li>set_signal_type()</li>
 <li>set_signal_origin()</li>
-<li>and by converting with as_image() and as_spectrum()</li>
+<li>and by converting with as_signal1D() and as_signal2D()</li>
 </ul>
 </dd>
 </dl>
@@ -645,7 +640,7 @@ Over each selection box, the title as defined by &#8216;titles&#8217; is display
 
 <dl class="attribute">
 <dt id="hyperspyui.mainwindow.MainWindow.signal_types">
-<code class="descname">signal_types</code><em class="property"> = OrderedDict([('Signal', &lt;class 'hyperspyui.hooksignal.HookedSignal'&gt;), ('Spectrum', &lt;class 'hyperspy._signals.spectrum.Spectrum'&gt;), ('Spectrum simulation', &lt;class 'hyperspy._signals.spectrum_simulation.SpectrumSimulation'&gt;), ('EELS', &lt;class 'hyperspy._signals.eels.EELSSpectrum'&gt;), ('EELS simulation', &lt;class 'hyperspy._signals.eels_spectrum_simulation.EELSSpectrumSimulation'&gt;), ('EDS SEM', &lt;class 'hyperspy._signals.eds_sem.EDSSEMSpectrum'&gt;), ('EDS TEM', &lt;class 'hyperspy._signals.eds_tem.EDSTEMSpectrum'&gt;), ('Image', &lt;class 'hyperspy._signals.image.Image'&gt;), ('Image simulation', &lt;class 'hyperspy._signals.image_simulation.ImageSimulation'&gt;)])</em><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.signal_types" title="Permalink to this definition">¶</a></dt>
+<code class="descname">signal_types</code><em class="property"> = OrderedDict([('Signal', &lt;class 'hyperspyui.hooksignal.HookedSignal'&gt;), ('1D Signal', &lt;class 'hyperspy._signals.signal1d.Signal1D'&gt;), ('2D Signal', &lt;class 'hyperspy._signals.signal2d.Signal2D'&gt;), ('EELS', &lt;class 'hyperspy._signals.eels.EELSSpectrum'&gt;), ('EDS SEM', &lt;class 'hyperspy._signals.eds_sem.EDSSEMSpectrum'&gt;), ('EDS TEM', &lt;class 'hyperspy._signals.eds_tem.EDSTEMSpectrum'&gt;), ('Complex Signal 1D', &lt;class 'hyperspy._signals.complex_signal1d.ComplexSignal1D'&gt;), ('Complex Signal 2D', &lt;class 'hyperspy._signals.complex_signal2d.ComplexSignal2D'&gt;), ('Dielectric Function', &lt;class 'hyperspy._signals.dielectric_function.DielectricFunction'&gt;)])</em><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.signal_types" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -834,6 +829,11 @@ and need to apply the change.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="hyperspyui.mainwindowbase.myexcepthook">
+<code class="descclassname">hyperspyui.mainwindowbase.</code><code class="descname">myexcepthook</code><span class="sig-paren">(</span><em>exctype</em>, <em>value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.myexcepthook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="hyperspyui.mainwindowbase.normalpriority">
 <code class="descclassname">hyperspyui.mainwindowbase.</code><code class="descname">normalpriority</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.normalpriority" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the priority of the process to below-normal.</p>
@@ -1014,11 +1014,6 @@ hyperspy.io.load and wraps them and adds them to self.signals.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.prompt_files">
-<code class="descname">prompt_files</code><span class="sig-paren">(</span><em>extension_filter=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.prompt_files" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.save">
 <code class="descname">save</code><span class="sig-paren">(</span><em>signals=None</em>, <em>filenames=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1095,16 +1090,6 @@ selected Signals.</p>
 <dd><p>Bases: <a class="reference internal" href="#hyperspyui.mainwindowutillayer.MainWindowUtils" title="hyperspyui.mainwindowutillayer.MainWindowUtils"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.mainwindowutillayer.MainWindowUtils</span></code></a></p>
 <p>Adds recorder functionality.</p>
 <dl class="method">
-<dt id="hyperspyui.mainwindowutillayer.MainWindowActionRecorder.add_action">
-<code class="descname">add_action</code><span class="sig-paren">(</span><em>key</em>, <em>label</em>, <em>callback</em>, <em>tip=None</em>, <em>icon=None</em>, <em>shortcut=None</em>, <em>userdata=None</em>, <em>selection_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowActionRecorder.add_action" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="hyperspyui.mainwindowutillayer.MainWindowActionRecorder.monitor_action">
-<code class="descname">monitor_action</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowActionRecorder.monitor_action" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="hyperspyui.mainwindowutillayer.MainWindowActionRecorder.on_console_executing">
 <code class="descname">on_console_executing</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowActionRecorder.on_console_executing" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1129,14 +1114,17 @@ selected Signals.</p>
 capture.</p>
 <dl class="method">
 <dt id="hyperspyui.mainwindowutillayer.MainWindowUtils.add_action">
-<code class="descname">add_action</code><span class="sig-paren">(</span><em>key</em>, <em>label</em>, <em>callback</em>, <em>tip=None</em>, <em>icon=None</em>, <em>shortcut=None</em>, <em>userdata=None</em>, <em>selection_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowUtils.add_action" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_action</code><span class="sig-paren">(</span><em>key</em>, <em>label</em>, <em>callback</em>, <em>tip=None</em>, <em>icon=None</em>, <em>shortcut=None</em>, <em>selection_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowUtils.add_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and add a QAction to self.actions[key]. &#8216;label&#8217; is used as the
 short description of the action, and &#8216;tip&#8217; as the long description.
 The tip is typically shown in the statusbar. The callback is called
-when the action is triggered(). The &#8216;userdata&#8217; is stored in the
-QAction&#8217;s data() attribute. The optional &#8216;icon&#8217; should either be a
+when the action is triggered(). The optional &#8216;icon&#8217; should either be a
 QIcon, or a path to an icon file, and is used to depict the action on
 toolbar buttons and in menus.</p>
+<p>If <cite>selection_callback</cite> is supplied, it is called whenever the
+currently selected signal/figure changes. This allows the callback to
+enable/disable the action to reflect whether the selected figure/signal
+is supported for the action.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1214,6 +1202,11 @@ sent through <cite>SmartColorSVGIconEngine</cite>.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="hyperspyui.mainwindowutillayer.MainWindowUtils.prompt_files">
+<code class="descname">prompt_files</code><span class="sig-paren">(</span><em>extension_filter=None</em>, <em>path=None</em>, <em>exists=True</em>, <em>title=None</em>, <em>def_filter=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowUtils.prompt_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="hyperspyui.mainwindowutillayer.MainWindowUtils.remove_tool">
 <code class="descname">remove_tool</code><span class="sig-paren">(</span><em>tool</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowutillayer.MainWindowUtils.remove_tool" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1273,7 +1266,7 @@ save whichever is active (using <cite>activeSubWindow()</cite> of the MDI area).
 <dl class="class">
 <dt id="hyperspyui.mdi_mpl_backend.FigureManagerMdi">
 <em class="property">class </em><code class="descclassname">hyperspyui.mdi_mpl_backend.</code><code class="descname">FigureManagerMdi</code><span class="sig-paren">(</span><em>canvas</em>, <em>num</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://matplotlib.org/api/backend_bases_api.html#matplotlib.backend_bases.FigureManagerBase" title="(in Matplotlib v1.5.1)"><code class="xref py py-class docutils literal"><span class="pre">matplotlib.backend_bases.FigureManagerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="http://matplotlib.org/api/backend_bases_api.html#matplotlib.backend_bases.FigureManagerBase" title="(in Matplotlib v2.0.0)"><code class="xref py py-class docutils literal"><span class="pre">matplotlib.backend_bases.FigureManagerBase</span></code></a></p>
 <p>Public attributes</p>
 <p>canvas      : The FigureCanvas instance
 num         : The Figure number
@@ -1334,7 +1327,7 @@ try to make it the active window.</p>
 
 <dl class="attribute">
 <dt id="hyperspyui.mdi_mpl_backend.FigureWindow.activeFigureActionGroup">
-<code class="descname">activeFigureActionGroup</code><em class="property"> = &lt;PyQt4.QtGui.QActionGroup object at 0x000000000BE80E58&gt;</em><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.activeFigureActionGroup" title="Permalink to this definition">¶</a></dt>
+<code class="descname">activeFigureActionGroup</code><em class="property"> = &lt;PyQt4.QtGui.QActionGroup object at 0x000001C7ECE063A8&gt;</em><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.activeFigureActionGroup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1549,7 +1542,7 @@ for the action.</p>
 <dl class="class">
 <dt id="hyperspyui.pluginmanager.PluginManager">
 <em class="property">class </em><code class="descclassname">hyperspyui.pluginmanager.</code><code class="descname">PluginManager</code><span class="sig-paren">(</span><em>main_window</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="hyperspyui.pluginmanager.PluginManager.create_actions">
 <code class="descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_actions" title="Permalink to this definition">¶</a></dt>
@@ -1628,7 +1621,7 @@ of all plugins.</p>
 
 <dl class="method">
 <dt id="hyperspyui.pluginmanager.PluginManager.warn">
-<code class="descname">warn</code><span class="sig-paren">(</span><em>f_name</em>, <em>p_name</em>, <em>ategory=&lt;class 'RuntimeWarning'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.warn" title="Permalink to this definition">¶</a></dt>
+<code class="descname">warn</code><span class="sig-paren">(</span><em>f_name</em>, <em>p_name</em>, <em>category=&lt;class 'RuntimeWarning'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.warn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1636,7 +1629,7 @@ of all plugins.</p>
 <dl class="class">
 <dt id="hyperspyui.pluginmanager.ReadOnlyDict">
 <em class="property">class </em><code class="descclassname">hyperspyui.pluginmanager.</code><code class="descname">ReadOnlyDict</code><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
 <dl class="method">
 <dt id="hyperspyui.pluginmanager.ReadOnlyDict.pop">
 <code class="descname">pop</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict.pop" title="Permalink to this definition">¶</a></dt>
@@ -1698,7 +1691,7 @@ of all plugins.</p>
 <dl class="class">
 <dt id="hyperspyui.settings.Settings">
 <em class="property">class </em><code class="descclassname">hyperspyui.settings.</code><code class="descname">Settings</code><span class="sig-paren">(</span><em>parent=None</em>, <em>group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="staticmethod">
 <dt id="hyperspyui.settings.Settings.clear_defaults">
 <em class="property">static </em><code class="descname">clear_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.clear_defaults" title="Permalink to this definition">¶</a></dt>
@@ -1709,7 +1702,7 @@ application start, as it will undo any defaults that have been set.</p>
 <dl class="method">
 <dt id="hyperspyui.settings.Settings.get_enum_hint">
 <code class="descname">get_enum_hint</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.get_enum_hint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the enum hint if set, otherwise None.</p>
+<dd><p>Returns the possible enum hint values if set, otherwise None.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1797,13 +1790,13 @@ combobox in a dialog to pick a value.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="hyperspyui.signalwrapper.SignalWrapper.as_image">
-<code class="descname">as_image</code><span class="sig-paren">(</span><em>axis=(0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.signalwrapper.SignalWrapper.as_image" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperspyui.signalwrapper.SignalWrapper.as_signal1D">
+<code class="descname">as_signal1D</code><span class="sig-paren">(</span><em>axis=0</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.signalwrapper.SignalWrapper.as_signal1D" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="hyperspyui.signalwrapper.SignalWrapper.as_spectrum">
-<code class="descname">as_spectrum</code><span class="sig-paren">(</span><em>axis=0</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.signalwrapper.SignalWrapper.as_spectrum" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperspyui.signalwrapper.SignalWrapper.as_signal2D">
+<code class="descname">as_signal2D</code><span class="sig-paren">(</span><em>axis=(0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.signalwrapper.SignalWrapper.as_signal2D" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2123,8 +2116,8 @@ in percent (int from 0 to 100).</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="class">
 <dt id="hyperspyui.uiprogressbar.UIProgressBar">
-<em class="property">class </em><code class="descclassname">hyperspyui.uiprogressbar.</code><code class="descname">UIProgressBar</code><span class="sig-paren">(</span><em>maxval=100, widgets=['']</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.external.html#hyperspy.external.progressbar.ProgressBar" title="(in HyperSpy v0.8.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.external.progressbar.ProgressBar</span></code></a></p>
+<em class="property">class </em><code class="descclassname">hyperspyui.uiprogressbar.</code><code class="descname">UIProgressBar</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tqdm._tqdm.tqdm</span></code></p>
 <p>Connector between hyperspy process with a progressbar, and the UI. See also
 the doc for wrap() for more details.</p>
 <dl class="method">
@@ -2134,16 +2127,20 @@ the doc for wrap() for more details.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="hyperspyui.uiprogressbar.UIProgressBar.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="hyperspyui.uiprogressbar.UIProgressBar.finish">
 <code class="descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.finish" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used to tell the progress is finished. Called by hyperspy side.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="hyperspyui.uiprogressbar.UIProgressBar.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Starts the progress. Called by hyperspy side.</p>
-</dd></dl>
+<dl class="staticmethod">
+<dt id="hyperspyui.uiprogressbar.UIProgressBar.format_string">
+<em class="property">static </em><code class="descname">format_string</code><span class="sig-paren">(</span><em>n</em>, <em>total</em>, <em>elapsed</em>, <em>rate=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.format_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="hyperspyui.uiprogressbar.UIProgressBar.uid">
@@ -2152,9 +2149,15 @@ the doc for wrap() for more details.</p>
 
 <dl class="method">
 <dt id="hyperspyui.uiprogressbar.UIProgressBar.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>n=1</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the progress bar to a new value. Called by the hyperspy side.
 Not safe to call from UI.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="hyperspyui.uiprogressbar.UIProgressBar.write">
+<em class="property">classmethod </em><code class="descname">write</code><span class="sig-paren">(</span><em>s</em>, <em>file=&lt;colorama.ansitowin32.StreamWrapper object at 0x000001C7ECC5AF98&gt;</em>, <em>end='\n'</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.uiprogressbar.UIProgressBar.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a message via tqdm_gui (just an alias for print)</p>
 </dd></dl>
 
 </dd></dl>
@@ -2180,7 +2183,7 @@ is created.</p>
 <dl class="class">
 <dt id="hyperspyui.util.AttributeDict">
 <em class="property">class </em><code class="descclassname">hyperspyui.util.</code><code class="descname">AttributeDict</code><span class="sig-paren">(</span><em>obj={}</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
 <p>A dict subclass that exposes its items as attributes.</p>
 <dl class="staticmethod">
 <dt id="hyperspyui.util.AttributeDict.delattr">
@@ -2231,7 +2234,7 @@ dict methods.</p>
 <dl class="class">
 <dt id="hyperspyui.util.SignalTypeFilter">
 <em class="property">class </em><code class="descclassname">hyperspyui.util.</code><code class="descname">SignalTypeFilter</code><span class="sig-paren">(</span><em>signal_type</em>, <em>ui</em>, <em>space=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.SignalTypeFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
 <dl class="function">
@@ -2350,7 +2353,7 @@ dict methods.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
