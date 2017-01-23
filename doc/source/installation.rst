@@ -38,15 +38,6 @@ in the future (please consider contributing).
 .. _PyPI: https://pypi.python.org/pypi/hyperspyui/
 
 
-HyperSpy version dependency
-"""""""""""""""""""""""""""
-HyperSpyUI currently depends on the development version of HyperSpy for much of
-its functionallity. To install the development version, run the following
-command::
-
-    pip install https://github.com/hyperspy/hyperspy/archive/master.zip
-
-
 Getting Qt
 """"""""""
 Getting and installing Qt_ might or might not be easy, depending on which
