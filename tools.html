@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tools &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>Tools &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
         <link rel="next" title="Widgets" href="widgets.html"/>
         <link rel="prev" title="Available actions" href="actions.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -88,7 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Tools</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tools</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#plot-tools">Plot tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pan-zoom-tool">Pan/Zoom tool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#home-tool">Home tool</a></li>
@@ -145,7 +148,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -157,7 +160,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/tools.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tools.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -208,26 +211,26 @@ area.</p>
 click and drag to define an ROI which contains one or more features that
 can be used for alignment. The smaller the area, the speedier it operates.</p>
 <p>The tool works in either one or two dimensions, relying on
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal1DTools.align1D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">align1D()</span></code></a> and
-<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#hyperspy.signal.Signal2DTools.align2D" title="(in HyperSpy v0.8.2)"><code class="xref py py-meth docutils literal"><span class="pre">align2D()</span></code></a> under the hood.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">align1D()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">align2D()</span></code> under the hood.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To ensure a successful alignment, a significant portion of the alignment
 feature(s) need to stay within the ROI for the entire sequence. If your
-data is shifting too much, consider using <a class="reference internal" href="actions.html#manual-alignment"><span>Manual align</span></a>
+data is shifting too much, consider using <a class="reference internal" href="actions.html#manual-alignment"><span class="std std-ref">Manual align</span></a>
 to perform an initial coarse-alignment.</p>
 </div>
 <p>A variety of settings for this tool is available in the
-<a class="reference internal" href="settings.html#alignment-settings"><span>Align</span></a>.</p>
+<a class="reference internal" href="settings.html#alignment-settings"><span class="std std-ref">Align</span></a>.</p>
 </div>
 <div class="section" id="align-horizontal-tool">
 <span id="alignment-horz"></span><h3>Align horizontal tool<a class="headerlink" href="#align-horizontal-tool" title="Permalink to this headline">¶</a></h3>
-<p>Similar to <a class="reference internal" href="#alignment-tool"><span>Alignment tool</span></a>, but is restricted to aligning images in
+<p>Similar to <a class="reference internal" href="#alignment-tool"><span class="std std-ref">Alignment tool</span></a>, but is restricted to aligning images in
 the horizontal direction only.</p>
 </div>
 <div class="section" id="align-vertical-tool">
 <span id="alignment-vert"></span><h3>Align vertical tool<a class="headerlink" href="#align-vertical-tool" title="Permalink to this headline">¶</a></h3>
-<p>Similar to <a class="reference internal" href="#alignment-tool"><span>Alignment tool</span></a>, but is restricted to aligning images in
+<p>Similar to <a class="reference internal" href="#alignment-tool"><span class="std std-ref">Alignment tool</span></a>, but is restricted to aligning images in
 the vertical direction only.</p>
 </div>
 </div>
@@ -249,7 +252,7 @@ that point (<cite>i.e.</cite> only the horizontal position need to be accurate).
 <p>The gaussian wil be of the type
 <code class="xref py py-class docutils literal"><span class="pre">GaussianHF</span></code>, and will be added
 to the currently selected model of the signal. If no model exists, a model will
-be added. The <a class="reference internal" href="actions.html#plot-components"><span>Plot components</span></a> option will also be turned on.</p>
+be added. The <a class="reference internal" href="actions.html#plot-components"><span class="std std-ref">Plot components</span></a> option will also be turned on.</p>
 <p>Additionally, right-clicking on a gaussian component with this tool will remove
 that gaussian from the model.</p>
 </div>
@@ -270,7 +273,7 @@ the xray lines that are nearest in energy to point where you clicked. The list
 is sorted by their closeness in energy, and includes minor lines as well. For
 this reason, the list should be examined critically. The results are all within
 a given energy window away from the point clicked as defined by
-<code class="xref py py-func docutils literal"><span class="pre">get_xray_lines_near_energy()</span></code>.</p>
+<a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.misc.eds.html#hyperspy.misc.eds.utils.get_xray_lines_near_energy" title="(in HyperSpy v1.1.2)"><code class="xref py py-func docutils literal"><span class="pre">get_xray_lines_near_energy()</span></code></a>.</p>
 <p>Selecting a line in the list will add the element that the line belongs to,
 to the signal.</p>
 </div>
@@ -318,7 +321,7 @@ to the signal.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

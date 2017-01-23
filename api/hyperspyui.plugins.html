@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Core plugins API &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>Core plugins API &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="../index.html"/>
         <link rel="prev" title="hyperspyui.widgets package" href="hyperspyui.widgets.html"/> 
 
   
@@ -62,7 +65,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -97,7 +100,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="hyperspyui.html">API reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Core plugins API</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Core plugins API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.align">hyperspyui.plugins.align module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.axesconf">hyperspyui.plugins.axesconf module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.axesorderwidget">hyperspyui.plugins.axesorderwidget module</a></li>
@@ -113,7 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.imagerotation">hyperspyui.plugins.imagerotation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.linemeasure">hyperspyui.plugins.linemeasure module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.mirrorplot">hyperspyui.plugins.mirrorplot module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.moviesaver">hyperspyui.plugins.moviesaver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hyperspyui-plugins-moviesaver-module">hyperspyui.plugins.moviesaver module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.mva">hyperspyui.plugins.mva module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.plugin">hyperspyui.plugins.plugin module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.rebin">hyperspyui.plugins.rebin module</a></li>
@@ -145,7 +148,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -157,7 +160,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/hyperspyui.plugins.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/hyperspyui.plugins.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -420,6 +423,16 @@ self.ui.</p>
 <em class="property">class </em><code class="descclassname">hyperspyui.plugins.basicsignal.</code><code class="descname">BasicSignalPlugin</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
 <dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>signals=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>signals=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_actions">
 <code class="descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -430,28 +443,53 @@ self.ui.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_toolbars">
+<code class="descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.divide">
+<code class="descname">divide</code><span class="sig-paren">(</span><em>signals=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.divide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.histogram">
 <code class="descname">histogram</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.histogram" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.max">
-<code class="descname">max</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.max" title="Permalink to this definition">¶</a></dt>
+<code class="descname">max</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.max" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.mean">
-<code class="descname">mean</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.mean" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mean</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.mean" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.min">
-<code class="descname">min</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.min" title="Permalink to this definition">¶</a></dt>
+<code class="descname">min</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.multiply">
+<code class="descname">multiply</code><span class="sig-paren">(</span><em>signals=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.multiply" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.name">
 <code class="descname">name</code><em class="property"> = 'Basic signal tools'</em><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.stack">
+<code class="descname">stack</code><span class="sig-paren">(</span><em>signals=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.stack" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -461,17 +499,27 @@ self.ui.</p>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.std">
-<code class="descname">std</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.std" title="Permalink to this definition">¶</a></dt>
+<code class="descname">std</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.subtract">
+<code class="descname">subtract</code><span class="sig-paren">(</span><em>signals=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.subtract" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.sum">
-<code class="descname">sum</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.sum" title="Permalink to this definition">¶</a></dt>
+<code class="descname">sum</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.sum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.switch">
+<code class="descname">switch</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.switch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.var">
-<code class="descname">var</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.var" title="Permalink to this definition">¶</a></dt>
+<code class="descname">var</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.var" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -638,7 +686,7 @@ self.ui.</p>
 <dl class="class">
 <dt id="hyperspyui.plugins.basicspectrum.Namespace">
 <em class="property">class </em><code class="descclassname">hyperspyui.plugins.basicspectrum.</code><code class="descname">Namespace</code><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.Namespace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
 <dl class="function">
@@ -895,6 +943,11 @@ different tool.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="hyperspyui.plugins.fft.FFT_Plugin.decompose">
+<code class="descname">decompose</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.decompose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="hyperspyui.plugins.fft.FFT_Plugin.fft">
 <code class="descname">fft</code><span class="sig-paren">(</span><em>signals=None</em>, <em>inverse=False</em>, <em>on_complete=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.fft" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1024,21 +1077,21 @@ intensive.</p>
 <dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.gaussian">
 <code class="descname">gaussian</code><span class="sig-paren">(</span><em>sigma</em>, <em>signal=None</em>, <em>out=None</em>, <em>record=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.gaussian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply a gaussian smoothing filter to an image signal.</p>
-<p>Uses <cite>skimage.filters.gaussian_filter()</cite> for the actual processing.</p>
+<p>Uses <cite>skimage.filters.gaussian()</cite> for the actual processing.</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>sigma <span class="classifier-delimiter">:</span> <span class="classifier">{float}</span></dt>
-<dd>Smoothing factor in units of pixels, i.e a value around 1 is
+<dt>sigma</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">{float}</span><dd>Smoothing factor in units of pixels, i.e a value around 1 is
 a slight smoothing.</dd>
-<dt>signal <span class="classifier-delimiter">:</span> <span class="classifier">{Signal | None}</span></dt>
-<dd>Signal to operate on. If not, it will use the currently
+<dt>signal</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">{Signal | None}</span><dd>Signal to operate on. If not, it will use the currently
 selected one</dd>
-<dt>out <span class="classifier-delimiter">:</span> <span class="classifier">{Signal | None}</span></dt>
-<dd>Output signal</dd>
-<dt>record <span class="classifier-delimiter">:</span> <span class="classifier">{bool}</span></dt>
-<dd>Whether the operation should be recorded or not.</dd>
+<dt>out</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">{Signal | None}</span><dd>Output signal</dd>
+<dt>record</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">{bool}</span><dd>Whether the operation should be recorded or not.</dd>
 </dl>
-<p>Other args are passed to <cite>skimage.filters.gaussian_filter()</cite>.</p>
+<p>Other args are passed to <cite>skimage.filters.gaussian()</cite>.</p>
 </div></blockquote>
 </dd></dl>
 
@@ -1480,70 +1533,8 @@ different tool.</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-hyperspyui.plugins.moviesaver">
-<span id="hyperspyui-plugins-moviesaver-module"></span><h2>hyperspyui.plugins.moviesaver module<a class="headerlink" href="#module-hyperspyui.plugins.moviesaver" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="hyperspyui.plugins.moviesaver.MovieArgsPrompt">
-<em class="property">class </em><code class="descclassname">hyperspyui.plugins.moviesaver.</code><code class="descname">MovieArgsPrompt</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieArgsPrompt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QWidget</span></code></p>
-<dl class="method">
-<dt id="hyperspyui.plugins.moviesaver.MovieArgsPrompt.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieArgsPrompt.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver">
-<em class="property">class </em><code class="descclassname">hyperspyui.plugins.moviesaver.</code><code class="descname">MovieSaver</code><span class="sig-paren">(</span><em>main_window</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.create_actions">
-<code class="descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.create_menu">
-<code class="descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.create_toolbars">
-<code class="descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.name">
-<code class="descname">name</code><em class="property"> = 'Movie Saver'</em><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>wrapper=None</em>, <em>fps=None</em>, <em>fname=None</em>, <em>dpi=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.plugins.moviesaver.bin_">
-<code class="descclassname">hyperspyui.plugins.moviesaver.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.plugins.moviesaver.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.plugins.moviesaver.hex_">
-<code class="descclassname">hyperspyui.plugins.moviesaver.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.plugins.moviesaver.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.plugins.moviesaver.oct_">
-<code class="descclassname">hyperspyui.plugins.moviesaver.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.plugins.moviesaver.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.plugins.moviesaver.tr">
-<code class="descclassname">hyperspyui.plugins.moviesaver.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="hyperspyui-plugins-moviesaver-module">
+<h2>hyperspyui.plugins.moviesaver module<a class="headerlink" href="#hyperspyui-plugins-moviesaver-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-hyperspyui.plugins.mva">
 <span id="hyperspyui-plugins-mva-module"></span><h2>hyperspyui.plugins.mva module<a class="headerlink" href="#module-hyperspyui.plugins.mva" title="Permalink to this headline">¶</a></h2>
@@ -1556,12 +1547,32 @@ different tool.</p>
 <p>Implements MVA decomposition utilities.</p>
 <dl class="method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.bss">
-<code class="descname">bss</code><span class="sig-paren">(</span><em>signal=None</em>, <em>n_components=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bss</code><span class="sig-paren">(</span><em>signal=None</em>, <em>n_components=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition if neccessary, then plots the scree for the user
 to select the number of components to use for a blind source
 separation. The selection is made by clicking on the scree, which
 closes the scree and creates the model.</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.mva.MVA_Plugin.bss_model">
+<code class="descname">bss_model</code><span class="sig-paren">(</span><em>signal=None</em>, <em>n_components=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs decomposition if neccessary, then plots the scree for the user
+to select the number of components to use for a blind source
+separation model. The selection is made by clicking on the scree, which
+closes the scree and creates the model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hyperspyui.plugins.mva.MVA_Plugin.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the learning results from the signal.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hyperspyui.plugins.mva.MVA_Plugin.coc_values">
+<code class="descname">coc_values</code><em class="property"> = {'convert': 'Convert', 'copy': 'Copy'}</em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.coc_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.create_actions">
@@ -1599,7 +1610,7 @@ and creates the model.</p>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.pca">
-<code class="descname">pca</code><span class="sig-paren">(</span><em>signal=None</em>, <em>n_components=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.pca" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pca</code><span class="sig-paren">(</span><em>signal=None</em>, <em>n_components=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition, then plots the scree for the user to select
 the number of components to use for a decomposition model. The
 selection is made by clicking on the scree, which closes the scree
@@ -1608,7 +1619,7 @@ and creates the model.</p>
 
 <dl class="method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results">
-<code class="descname">plot_decomposition_results</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plot_decomposition_results</code><span class="sig-paren">(</span><em>signal=None</em>, <em>advanced=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition if necessary, then plots the decomposition
 results according to the hyperspy implementation.</p>
 </dd></dl>
@@ -1638,6 +1649,11 @@ results according to the hyperspy implementation.</p>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="hyperspyui.plugins.mva.make_advanced_dialog">
+<code class="descclassname">hyperspyui.plugins.mva.</code><code class="descname">make_advanced_dialog</code><span class="sig-paren">(</span><em>ui</em>, <em>algorithms=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.make_advanced_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="hyperspyui.plugins.mva.oct_">
 <code class="descclassname">hyperspyui.plugins.mva.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.plugins.mva.oct_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1655,7 +1671,7 @@ results according to the hyperspy implementation.</p>
 <dl class="class">
 <dt id="hyperspyui.plugins.plugin.Plugin">
 <em class="property">class </em><code class="descclassname">hyperspyui.plugins.plugin.</code><code class="descname">Plugin</code><span class="sig-paren">(</span><em>main_window</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="hyperspyui.plugins.plugin.Plugin.add_action">
 <code class="descname">add_action</code><span class="sig-paren">(</span><em>key</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.add_action" title="Permalink to this definition">¶</a></dt>
@@ -1963,8 +1979,13 @@ results according to the hyperspy implementation.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_annulus">
+<code class="descname">virtual_annulus</code><span class="sig-paren">(</span><em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_annulus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_aperture">
-<code class="descname">virtual_aperture</code><span class="sig-paren">(</span><em>signal=None</em>, <em>navigate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_aperture" title="Permalink to this definition">¶</a></dt>
+<code class="descname">virtual_aperture</code><span class="sig-paren">(</span><em>signal=None</em>, <em>annulus=False</em>, <em>navigate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_aperture" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2016,7 +2037,7 @@ results according to the hyperspy implementation.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

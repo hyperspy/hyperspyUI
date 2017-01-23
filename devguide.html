@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Developer guide &mdash; HyperSpyUI 0.6.1 documentation</title>
+  <title>Developer guide &mdash; HyperSpyUI 1.1.0+dev documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="HyperSpyUI 0.6.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
         <link rel="next" title="API reference" href="api/hyperspyui.html"/>
         <link rel="prev" title="Troubleshooting" href="troubleshooting.html"/> 
 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                1.1.0+dev
               </div>
             
           
@@ -94,7 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Developer guide</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#internal-console">Internal Console</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-editor-widget">Code editor widget</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#recording-code">Recording code</a></li>
@@ -128,7 +131,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -140,7 +143,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/devguide.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/devguide.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,19 +162,19 @@ the UI.</p>
 <p>One of the main components of the API is the
 <a class="reference internal" href="api/hyperspyui.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal"><span class="pre">MainWindow</span></code></a> class. This is the class of
 the main UI window, and can be considered the hub to reach all the loaded
-content, including signals and models, or <a class="reference internal" href="actions.html#actions"><span>Available actions</span></a>,
-<a class="reference internal" href="widgets.html#widgets-section"><span>Widgets</span></a> and <a class="reference internal" href="tools.html#tools-section"><span>Tools</span></a>.</p>
+content, including signals and models, or <a class="reference internal" href="actions.html#actions"><span class="std std-ref">Available actions</span></a>,
+<a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a> and <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a>.</p>
 <div class="section" id="internal-console">
 <span id="console"></span><h2>Internal Console<a class="headerlink" href="#internal-console" title="Permalink to this headline">¶</a></h2>
 <p>The internal console is a <a class="reference external" href="https://qtconsole.readthedocs.org/en/stable/">qtconsole</a> widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
 run any code that IPython can. To facilitate the typical use of the console,
-<a class="reference external" href="http://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal"><span class="pre">np</span></code>, and <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#module-hyperspy.api" title="(in HyperSpy v0.8.2)"><code class="xref py py-mod docutils literal"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal"><span class="pre">hs</span></code>. The current
+<a class="reference external" href="http://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal"><span class="pre">np</span></code>, and <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#module-hyperspy.api" title="(in HyperSpy v1.1.2)"><code class="xref py py-mod docutils literal"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal"><span class="pre">hs</span></code>. The current
 <a class="reference internal" href="api/hyperspyui.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal"><span class="pre">MainWindow</span></code></a> instance is also exported as
 <code class="docutils literal"><span class="pre">ui</span></code>, and the list of currently loaded hyperspy
 <code class="xref py py-class docutils literal"><span class="pre">Signal</span></code> instances is exported as <code class="docutils literal"><span class="pre">siglist</span></code>.</p>
 <p>If we want to inspect the original metadata of the currently selected signal,
 we can then run:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">get_selected_signal</span><span class="p">()</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">get_selected_signal</span><span class="p">()</span>
 
 <span class="gp">In [2]: </span><span class="n">s</span><span class="o">.</span><span class="n">original_metadata</span>
 <span class="go">Out[2]:</span>
@@ -193,16 +196,16 @@ we can then run:</p>
 <div class="section" id="code-editor-widget">
 <span id="code-editor"></span><h2>Code editor widget<a class="headerlink" href="#code-editor-widget" title="Permalink to this headline">¶</a></h2>
 <p>Code editor widgets allow you to edit Python code directly within the
-application. This can be useful for <a class="reference internal" href="#recording"><span>Recording code</span></a>, or for creating
-and modifying <a class="reference internal" href="#plugins-section"><span>Plugins</span></a> on the fly. An editor widget is opened
-by the <a class="reference internal" href="actions.html#new-editor"><span>New editor</span></a> action, when a python script is opened,
-or when recording is started via the <a class="reference internal" href="widgets.html#recorder-widget"><span>Recorder widget</span></a>.</p>
+application. This can be useful for <a class="reference internal" href="#recording"><span class="std std-ref">Recording code</span></a>, or for creating
+and modifying <a class="reference internal" href="#plugins-section"><span class="std std-ref">Plugins</span></a> on the fly. An editor widget is opened
+by the <a class="reference internal" href="actions.html#new-editor"><span class="std std-ref">New editor</span></a> action, when a python script is opened,
+or when recording is started via the <a class="reference internal" href="widgets.html#recorder-widget"><span class="std std-ref">Recorder widget</span></a>.</p>
 </div>
 <div class="section" id="recording-code">
 <span id="recording"></span><h2>Recording code<a class="headerlink" href="#recording-code" title="Permalink to this headline">¶</a></h2>
 <p>Most if not all actions that the UI perform can be recorded. To start
-recording, press the &#8216;Start&#8217; button in the <a class="reference internal" href="widgets.html#recorder-widget"><span>Recorder widget</span></a>. This will
-open up a new blank <a class="reference internal" href="#code-editor"><span>Code editor widget</span></a>, that will be populated with code
+recording, press the &#8216;Start&#8217; button in the <a class="reference internal" href="widgets.html#recorder-widget"><span class="std std-ref">Recorder widget</span></a>. This will
+open up a new blank <a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a>, that will be populated with code
 as actions are performed. The code can be edited while recording; the new
 code is simply appended at the end. Closing the widget will automatically
 stop the recording, but stopping the recording will leave the editor open.</p>
@@ -228,12 +231,12 @@ this is something that is used often, and does not change from session to
 session, this might become rather cumbersome. The easiest step then is to turn
 the code into a UI action, either as a menu item, or toolbar button. This is
 done by creating a new plugin. To ease the creation of a plugin, the
-<a class="reference internal" href="#code-editor"><span>Code editor widget</span></a> has a button &#8216;Make Plugin&#8217;.</p>
+<a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a> has a button &#8216;Make Plugin&#8217;.</p>
 <p>For example, here we&#8217;ve created a rather simple exmple for code to
 substract one signal from another (a little naive, as it doesn&#8217;t take data
 type into account):</p>
 <p>Raw code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
 <span class="n">s_sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">signal</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">signal</span>
 <span class="n">s_sub</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
@@ -249,31 +252,31 @@ toolbar buttons):</p>
 <p>After deciding what we want, we click &#8216;OK&#8217;, and a new editor appears with the
 following code:</p>
 <p>Raw code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">hyperspyui.plugins.plugin</span> <span class="kn">import</span> <span class="n">Plugin</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">hyperspy.api</span> <span class="kn">as</span> <span class="nn">hs</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hyperspyui.plugins.plugin</span> <span class="k">import</span> <span class="n">Plugin</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">hyperspy.api</span> <span class="k">as</span> <span class="nn">hs</span>
 
 
 <span class="k">class</span> <span class="nc">SimpleSubstraction</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Simple substraction&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Simple substraction&quot;</span>
 
     <span class="k">def</span> <span class="nf">create_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.default&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
-                        <span class="n">icon</span><span class="o">=</span><span class="s">&quot;substraction.svg&quot;</span><span class="p">,</span>
-                        <span class="n">tip</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
+                        <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;substraction.svg&quot;</span><span class="p">,</span>
+                        <span class="n">tip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">create_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_menuitem</span><span class="p">(</span><span class="s">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.default&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_menuitem</span><span class="p">(</span><span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">create_toolbars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_toolbar_button</span><span class="p">(</span>
-            <span class="s">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.default&#39;</span><span class="p">])</span>
+            <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ui</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span>
         <span class="n">siglist</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">hspy_signals</span>
-        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
         <span class="n">s_sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">signal</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">signal</span>
         <span class="n">s_sub</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
@@ -314,7 +317,7 @@ we should directly be able to find our new menu entry like this:</p>
 <p>The plugin manager widget shows a list of all the discovered plugins
 (and any that have been added manually), their locations, and allows
 to set whether they should be loaded or not. There&#8217;s also an &#8216;Edit&#8217; button
-which will open up the source code of the plugin in a new <a class="reference internal" href="#code-editor"><span>Code editor widget</span></a>.</p>
+which will open up the source code of the plugin in a new <a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a>.</p>
 <p>Unchecking a plugin will attempt to unload it, but the success of this
 depends on the plugin correctly implementing its
 <a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.unload" title="hyperspyui.plugins.plugin.Plugin.unload"><code class="xref py py-meth docutils literal"><span class="pre">unload()</span></code></a> routine, which might not always
@@ -369,7 +372,7 @@ fail to unload fully.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.1',
+            VERSION:'1.1.0+dev',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
