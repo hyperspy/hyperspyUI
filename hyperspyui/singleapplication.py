@@ -24,6 +24,7 @@ Created on Thu Nov 27 03:01:19 2014
 
 import sys
 import json
+import os
 from python_qt_binding import QtGui, QtCore, QtNetwork, QT_BINDING
 
 
@@ -40,6 +41,11 @@ class SingleApplication(QtGui.QApplication):
             self._running = False
             if not self._memory.create(1):
                 raise RuntimeError(self._memory.errorString())
+
+        # Set correct logo
+        base_path = os.path.abspath(os.path.dirname(__file__))
+        icon_path = os.path.join(base_path, 'images', 'hyperspy.svg')
+        QtGui.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
 
     def isRunning(self):
         return self._running
