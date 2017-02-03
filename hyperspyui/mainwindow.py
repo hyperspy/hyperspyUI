@@ -273,6 +273,9 @@ class MainWindow(MainWindowHyperspy):
         self.add_menuitem('Settings', self.actions['hspy_settings'])
         self.add_menuitem('Settings', self.actions['edit_settings'])
 
+        # Create Help menu, so it is searchable on Mac
+        self.menus['Help'] = mb.addMenu(tr("&Help"))
+
     def create_tools(self):
         super(MainWindow, self).create_tools()
         for tool_type in hyperspyui.tools.default_tools:
