@@ -102,6 +102,10 @@ class MainWindow(MainWindowHyperspy):
             self._old_stdout = self._old_stderr = None
         logger.info("Main window loaded!")
 
+        # Set the UI in front of other applications
+        self.show()
+        self.raise_()
+
     def handleSecondInstance(self, argv):
         """
         A second instance was launched and suppressed. Process the arguments
