@@ -35,7 +35,7 @@ run:
 
 .. code-block:: bash
 
-   python hyperspyui.desktop_integration
+   python -m hyperspyui.desktop_integration
 
 Append the ``--help`` flag for other options.
 
