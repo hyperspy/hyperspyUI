@@ -31,7 +31,15 @@ a GUI script ``hyperspyui``, which can be called to start the application, or
 alternatively it can be started by running ``python -m hyperspyui``.
 
 To get HyperSpyUI to integrate with your operating system after installation,
-you can run the script ``hyperspyui_install.py``. Currently, this only
+run:
+
+.. code-block:: bash
+
+   python -m hyperspyui.desktop_integration
+
+Append the ``--help`` flag for other options.
+
+Currently, this only
 integrates with Windows, but this is intended to be extend to Linux systems
 in the future (please consider contributing).
 
