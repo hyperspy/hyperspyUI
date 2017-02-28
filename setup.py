@@ -75,10 +75,6 @@ setup(
             'hyperspyui = hyperspyui.__main__:main',
          ]
     },
-    scripts=[
-        'bin/hyperspyui_install.py',
-        # 'bin/hyperspyui_reg_linux_extensions.sh',
-    ],
     keywords=[
     ],
     classifiers=[
