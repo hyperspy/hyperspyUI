@@ -101,8 +101,8 @@ class ImageRotation_Plugin(Plugin):
             k = angle // 90
             if k > 0:
                 if k == 1:  # 90 deg
-                    # Invert axes[1]
-                    s = (slice(None),)* axes[1] + (slice(None, None, -1),) + \
+                    # Invert axes[0]
+                    s = (slice(None),)* axes[0] + (slice(None, None, -1),) + \
                         (Ellipsis,)
                 elif k == 2:  # 180 deg
                     # Invert both axes
@@ -113,8 +113,8 @@ class ImageRotation_Plugin(Plugin):
                         (slice(None),)* adiff + (slice(None, None, -1),) + \
                         (Ellipsis,)
                 elif k == 3:  # 270 deg
-                    # Invert axes[0]
-                    s = (slice(None),)* axes[0] + (slice(None, None, -1),) + \
+                    # Invert axes[1]
+                    s = (slice(None),)* axes[1] + (slice(None, None, -1),) + \
                         (Ellipsis,)
                 data = signal.data[s]
             else:
