@@ -24,6 +24,7 @@ Created on Fri Dec 12 23:43:54 2014
 from hyperspyui.plugins.plugin import Plugin
 import scipy.fftpack
 import numpy as np
+import traits.api as traits
 
 from hyperspy.drawing.signal1d import Signal1DFigure
 from hyperspy.drawing.image import ImagePlot
@@ -146,7 +147,9 @@ class FFT_Plugin(Plugin):
                     if inverse:
                         axis.scale = 1 / (s_axis.size * s_axis.scale)
                     u = s_axis.units
-                    if u.endswith('-1'):
+                    if u is traits.Undefined:
+                        pass  # Leave unit as undefined
+                    elif u.endswith('-1'):
                         u = u[:-2]
                     else:
                         u += '-1'
@@ -211,7 +214,9 @@ class FFT_Plugin(Plugin):
                     shift = (axis.high_value - axis.low_value) / 2
                     axis.offset -= shift
                     u = s_axis.units
-                    if u.endswith('-1'):
+                    if u is traits.Undefined:
+                        pass  # Leave unit as undefined
+                    elif u.endswith('-1'):
                         u = u[:-2]
                     else:
                         u += '-1'
@@ -240,7 +245,9 @@ class FFT_Plugin(Plugin):
                     axis.offset += shift
                     axis.scale = 1 / (s_axis.size * s_axis.scale)
                     u = s_axis.units
-                    if u.endswith('-1'):
+                    if u is traits.Undefined:
+                        pass  # Leave unit as undefined
+                    elif u.endswith('-1'):
                         u = u[:-2]
                     else:
                         u += '-1'
@@ -261,7 +268,7 @@ class FFT_Plugin(Plugin):
                 fftsignals.append(ffts)
 
         n_ffts = np.product([d for s in signals
-                             for d in s.signal.axes_manager.navigation_shape])
+                             for d in s.axes_manager.navigation_shape])
         if inverse:
             label = tr('Performing inverse FFT')
             f = do_iffts()
