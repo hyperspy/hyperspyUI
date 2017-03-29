@@ -83,6 +83,7 @@ def main():
     QtCore.QCoreApplication.setApplicationVersion(hyperspyui.info.version)
 
     # First, clear all default settings!
+    # TODO: This will cause a concurrency issue with multiple launch
     Settings.clear_defaults()
     # Setup default for single/multi-instance
     settings = Settings(group="General")

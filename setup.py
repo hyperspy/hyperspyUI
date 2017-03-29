@@ -58,7 +58,11 @@ setup(
     extras_require={
         ':sys_platform == "win32"': [
             'pypiwin32',
-        ]
+        ],
+        'test': [
+            'pytest-qt',
+            'pytest-cov',
+        ],
     },
     package_data={
         'hyperspyui':
