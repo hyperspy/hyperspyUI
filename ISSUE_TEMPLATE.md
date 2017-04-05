@@ -22,3 +22,4 @@ A short description.
 ```
 
 < full logs can be posted to e.g. [gist](https://gist.github.com) >
+< check the documentation for instructions for how to obtain the log: http://hyperspy.org/hyperspyUI/troubleshooting.html#error-output >
