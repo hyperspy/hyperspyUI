@@ -41,7 +41,6 @@ import locale
 # TODO: Utilities to combine signals into stack and reverse
 # TODO: Make editor tabs drag&droppable + default to all in one
 # TODO: Make data type changer handle RGBX data types.
-# TODO: Metadata explorer (TreeView)
 # TODO: Variable explorer (Signal/Model etc.). 3rd party library?
 # TODO: Disable tools when no figure
 
