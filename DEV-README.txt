@@ -4,15 +4,15 @@ A guide for adding functionality for HyperSpyUI
 
 
 To add simple functionality to the UI, a full understanding of the UI framework
-should not be necessary. However, it it useful to understand how hyperspy 
-signals are wrapped by the SignalWrapper class, as this is resonsible for
+should not be necessary. However, it it useful to understand how HyperSpy 
+signals are wrapped by the SignalWrapper class, as this is responsible for
 tracking a signal's figures, and persisting certain properties across replots.
 That being said, otherwise it should be pretty straightforward to add 
 functionality to the UI. Other than that, see the API docs further down.
 
 Features can currently be implemented three ways:
  1) Actions:
-    Actions are a common name for something that is triggered as a reponse to
+    Actions are a common name for something that is triggered as a response to
     user input, e.g. clicking an entry in the menu, or clicking a button in 
     the toolbar. It is associated with a callback, and several attributes
     which can represent the action to the user. Once an action has been 
@@ -44,7 +44,7 @@ Features can currently be implemented three ways:
     Widgets are small windows that can either be docked in the sidebar, or 
     floating. Widgets added this way can be hidden, but can always be displayed
     via the Windows menu. If considering to add a widget this way, always think
-    through whether it should be a permanant widget, or a dialog that pops up
+    through whether it should be a permanent widget, or a dialog that pops up
     when an action is triggered. The distinction isn't always easy to make, but
     dialogs are better for single instance input events, or when it would be 
     too resource heavy to have it permanently active.
@@ -69,7 +69,7 @@ Plugins
 
 To create a plugin, subclass hyperspyui.plugins.plugin.Plugin, and overload
 the create_*() methods as appropriate to load and register your features.
-The different create functions should be pretty self explantory, but please use
+The different create functions should be pretty self explanatory, but please use
 the core plugins as examples if in doubt. As long as it works, and does not 
 interfere with other pluigns/features, it should be OK.
 
@@ -87,7 +87,7 @@ my_float_value = my_plugin.settings['my_float', float]
 Note, the type conversion is handled by QSettings, so consult its docs for
 expected behavior and supported types.
 
-The Settings class also has the utility fucntion get_or_prompt, which either
+The Settings class also has the utility function get_or_prompt, which either
 fetches a previously specified setting, or prompts the user for it. The prompt
 will then have a "Remember this choice" checkbox, which if checked will store
 the users selection in the specified setting key.
@@ -127,7 +127,7 @@ MainWindow.figures:
     List of all Matplotlib figures
 
 MainWindow.actions:
-    Dict acting as a central repository of actions. If addign an action, make
+    Dict acting as a central repository of actions. If adding an action, make
     sure that the action key is unique, preferably by prefixing all keys with
     e.g. your plugin name.
 
@@ -182,7 +182,7 @@ MainWindow.get_selected_component():
     choice.
 
 MainWindow.get_selected_plot():
-    Gets the currently active plot. This is differenc from gcf/gca, in that it
+    Gets the currently active plot. This is different from gcf/gca, in that it
     finds the selected signal, the active window, and tries to determine
     whether the window is either the navigation plot, signal plot, or some 
     other window. 
