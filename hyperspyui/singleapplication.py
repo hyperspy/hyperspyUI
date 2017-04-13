@@ -25,7 +25,10 @@ Created on Thu Nov 27 03:01:19 2014
 import sys
 import json
 import os
+import logging
 from python_qt_binding import QtGui, QtCore, QtNetwork, QT_BINDING
+
+_logger = logging.getLogger(__name__)
 
 
 class SingleApplication(QtGui.QApplication):
@@ -97,10 +100,14 @@ def get_app(key):
             if app.isRunning():
                 msg = json.dumps(sys.argv[1:])
                 app.sendMessage(msg)
+                _logger.debug('An existing instance of HyperSpyUI is running, '
+                              'sending arguments to it.')
                 sys.exit(1)     # An instance is already running
         else:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
+                _logger.debug('An existing instance of HyperSpyUI is running, '
+                              'bringing it to the front.')
                 sys.exit(1)     # An instance is already running
     elif QT_BINDING == 'pyside':
         from siding.singleinstance import QSingleApplication
