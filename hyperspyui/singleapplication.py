@@ -24,7 +24,11 @@ Created on Thu Nov 27 03:01:19 2014
 
 import sys
 import json
+import os
+import logging
 from python_qt_binding import QtGui, QtCore, QtNetwork, QT_BINDING
+
+_logger = logging.getLogger(__name__)
 
 
 class SingleApplication(QtGui.QApplication):
@@ -40,6 +44,11 @@ class SingleApplication(QtGui.QApplication):
             self._running = False
             if not self._memory.create(1):
                 raise RuntimeError(self._memory.errorString())
+
+        # Set correct logo
+        base_path = os.path.abspath(os.path.dirname(__file__))
+        icon_path = os.path.join(base_path, 'images', 'hyperspy.svg')
+        QtGui.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
 
     def isRunning(self):
         return self._running
@@ -91,10 +100,14 @@ def get_app(key):
             if app.isRunning():
                 msg = json.dumps(sys.argv[1:])
                 app.sendMessage(msg)
+                _logger.debug('An existing instance of HyperSpyUI is running, '
+                              'sending arguments to it.')
                 sys.exit(1)     # An instance is already running
         else:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
+                _logger.debug('An existing instance of HyperSpyUI is running, '
+                              'bringing it to the front.')
                 sys.exit(1)     # An instance is already running
     elif QT_BINDING == 'pyside':
         from siding.singleinstance import QSingleApplication

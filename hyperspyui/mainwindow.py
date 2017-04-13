@@ -27,6 +27,7 @@ import argparse
 import os
 import sys
 import json
+import webbrowser
 
 import numpy as np
 
@@ -101,6 +102,10 @@ class MainWindow(MainWindowHyperspy):
         else:
             self._old_stdout = self._old_stderr = None
         logger.info("Main window loaded!")
+
+        # Set the UI in front of other applications
+        self.show()
+        self.raise_()
 
     def handleSecondInstance(self, argv):
         """
@@ -181,6 +186,11 @@ class MainWindow(MainWindowHyperspy):
                         tip="Edit the HyperSpy package settings")
         self.add_action('edit_settings', "Edit settings", self.edit_settings,
                         tip="Edit the application and plugins settings")
+
+        # Help:
+        self.add_action('documentation', "Documentation",
+                        self.open_documentation,
+                        tip="Open the HyperSpyUI documentation in a browser.")
 
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
@@ -272,6 +282,10 @@ class MainWindow(MainWindowHyperspy):
         self.add_menuitem('Settings', self.actions['reset_layout'])
         self.add_menuitem('Settings', self.actions['hspy_settings'])
         self.add_menuitem('Settings', self.actions['edit_settings'])
+
+        # Create Help menu, so it is searchable on Mac
+        self.menus['Help'] = mb.addMenu(tr("&Help"))
+        self.add_menuitem('Help', self.actions['documentation'])
 
     def create_tools(self):
         super(MainWindow, self).create_tools()
@@ -443,3 +457,6 @@ class MainWindow(MainWindowHyperspy):
         if data_type.__module__ == 'numpy':
             dts = 'np.' + dts
         self.record_code("signal.change_dtype(%s)" % dts)
+
+    def open_documentation(self):
+        webbrowser.open('http://hyperspy.org/hyperspyUI/')
