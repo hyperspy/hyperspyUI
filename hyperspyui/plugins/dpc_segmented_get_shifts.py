@@ -1,19 +1,22 @@
 from hyperspyui.plugins.plugin import Plugin
-import numpy as np
-import hyperspy.api as hs
 
 
-class DpcFftMask(Plugin):
+class DpcSegmentedShifts(Plugin):
     name = "Beam shifts from segmented"
 
     def create_actions(self):
-        self.add_action(self.name + '.default', self.name, self.default,
-                        tip="")
+        self.add_action(
+                self.name + '.get_beam_shifts',
+                'Segmented detector to shifts',
+                self.get_beam_shifts,
+                tip="Calculate the beam shifts from a segmented STEM DPC "
+                    "dataset, requires the four outer segments.")
 
     def create_menu(self):
-        self.add_menuitem('Magnetic', self.ui.actions[self.name + '.default'])
+        self.add_menuitem(
+                'DPC', self.ui.actions[self.name + '.get_beam_shifts'])
 
-    def default(self):
+    def get_beam_shifts(self):
         ui = self.ui
         signals = [s.signal for s in ui.select_x_signals(
             4, ["ext 0", "ext 1", "ext 2", "ext 3"])]
