@@ -27,6 +27,7 @@ import argparse
 import os
 import sys
 import json
+import webbrowser
 
 import numpy as np
 
@@ -186,6 +187,11 @@ class MainWindow(MainWindowHyperspy):
         self.add_action('edit_settings', "Edit settings", self.edit_settings,
                         tip="Edit the application and plugins settings")
 
+        # Help:
+        self.add_action('documentation', "Documentation",
+                        self.open_documentation,
+                        tip="Open the HyperSpyUI documentation in a browser.")
+
         # --- Add signal type selection actions ---
         signal_type_ag = QActionGroup(self)
         signal_type_ag.setExclusive(True)
@@ -279,6 +285,7 @@ class MainWindow(MainWindowHyperspy):
 
         # Create Help menu, so it is searchable on Mac
         self.menus['Help'] = mb.addMenu(tr("&Help"))
+        self.add_menuitem('Help', self.actions['documentation'])
 
     def create_tools(self):
         super(MainWindow, self).create_tools()
@@ -450,3 +457,6 @@ class MainWindow(MainWindowHyperspy):
         if data_type.__module__ == 'numpy':
             dts = 'np.' + dts
         self.record_code("signal.change_dtype(%s)" % dts)
+
+    def open_documentation(self):
+        webbrowser.open('http://hyperspy.org/hyperspyUI/')
