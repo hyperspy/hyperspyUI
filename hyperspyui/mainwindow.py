@@ -74,7 +74,7 @@ class MainWindow(MainWindowHyperspy):
 
     load_complete = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, argv=None):
         # State variables
         self.signal_type_ag = None
         self.signal_datatype_ag = None
@@ -87,7 +87,7 @@ class MainWindow(MainWindowHyperspy):
                                  '/images/hyperspy.svg'))
 
         # Parse any command line options
-        self.parse_args()
+        self.parse_args(argv)
 
         # All good!
         self.set_status("Ready")
@@ -126,10 +126,10 @@ class MainWindow(MainWindowHyperspy):
             " " + QCoreApplication.applicationVersion())
         parser.add_argument('files', metavar='file', type=str, nargs='*',
                             help='data file to open.')
-        if argv:
-            args = parser.parse_args(argv)
-        else:
+        if argv is None:
             args = parser.parse_args()
+        else:
+            args = parser.parse_args(argv)
         files = args.files
 
         if len(files) > 0:
