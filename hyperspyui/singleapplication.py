@@ -79,13 +79,13 @@ class SingleApplicationWithMessaging(SingleApplication):
             socket = QtNetwork.QLocalSocket(self)
             socket.connectToServer(self._key, QtCore.QIODevice.WriteOnly)
             if not socket.waitForConnected(self._timeout):
-                print(socket.errorString())
+                _logger.error(socket.errorString())
                 return False
             if not isinstance(message, bytes):
                 message = message.encode('utf-8')
             socket.write(message)
             if not socket.waitForBytesWritten(self._timeout):
-                print(socket.errorString())
+                _logger.error(socket.errorString())
                 return False
             socket.disconnectFromServer()
             return True
