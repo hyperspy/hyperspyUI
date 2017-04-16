@@ -32,7 +32,7 @@ from hyperspy.misc.elements import elements as elements_db
 
 from hyperspyui.widgets.extendedqwidgets import FigureWidget, ExClickLabel
 from hyperspyui.widgets.periodictable import PeriodicTableWidget
-from hyperspyui.util import win2sig
+from hyperspyui.util import win2sig, block_signals
 
 
 def tr(text):
@@ -79,11 +79,10 @@ class ElementPickerWidget(FigureWidget):
             self.set_enabled(True)
 
         # Enable markers if plot has any
-        self.chk_markers.blockSignals(True)
-        markers = (hasattr(signal.signal, '_xray_markers') and
-                   bool(signal.signal._xray_markers))
-        self.chk_markers.setChecked(markers)
-        self.chk_markers.blockSignals(False)
+        with block_signals(self.chk_markers):
+            markers = (hasattr(signal.signal, '_xray_markers') and
+                       bool(signal.signal._xray_markers))
+            self.chk_markers.setChecked(markers)
 
         # Make sure we have the Sample node, and Sample.elements
         if not hasattr(signal.signal.metadata, 'Sample'):
