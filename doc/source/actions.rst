@@ -461,6 +461,15 @@ HyperSpy settings
 Edit the HyperSpy package settings.
 
 
+.. _edit-styles:
+
+Edit styles
+""""""""""""""""""""""""""""""""""""
+Shows a dialog for editing the palette and stylesheet of the application.
+See the Qt documentation for usage: http://doc.qt.io/qt-4.8/stylesheet.html
+and http://doc.qt.io/qt-4.8/qpalette.html.
+
+
 .. _edit-settings:
 
 Edit settings
