@@ -209,6 +209,10 @@ class StyleDialog(ExToolWindow):
             layout.itemAtPosition(row, 1).widget().hide()
 
     def _on_color_pick(self, key, color):
+        if self.cbo_mode.currentText() == 'basic':
+            # Other values should be auto-generated
+            self._palette = QPalette(self.pickers['basic']['Window'].color)
+
         self._palette.setColor(
             getattr(self._palette, key),
             color
