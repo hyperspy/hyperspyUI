@@ -7,7 +7,7 @@ Widgets
 
 .. _data-widget:
 
-Data view 
+Data view
 ------------------
 
 The data tree widget is a core component of the UI, as it lists all the
@@ -17,11 +17,11 @@ a model, and hiding/showing all the plots of a signal. While useful for
 normal signals, it is almost a necessity for managing models and their
 components. Each model and component are listed hierarchically in the tree
 view, and clicking the components shows an editor for manipulating the
-parameters of the component. Right clicking on the different models and 
+parameters of the component. Right clicking on the different models and
 components also allows acces to some actions that are unavailable elsewhere.
 
 For all models:
-    
+
     Plot
         Plot the model, or replot it if already plotted.
     Fit
@@ -36,7 +36,7 @@ For all models:
         Adds a component of the given type to the model
 
 Additional actions for :py:class:`hyperspy.models.EELSModel`:
-    
+
     Set low-loss
         Specify the corresponding low-loss signal for a core-loss signal.
     Enable fine structure
@@ -47,7 +47,7 @@ Additional actions for :py:class:`hyperspy.models.EELSModel`:
 Element picker
 ---------------------
 
-The element picker is a miniature periodic table. If an 
+The element picker is a miniature periodic table. If an
 :py:class:`~hyperspy.signals.EDSSpectrum` or
 :py:class:`~hyperspy.signals.EELSSpectrum` is selected it can be used to add
 elements to the signal. For EDS spectra, right clicking on the elements
@@ -96,7 +96,7 @@ Axes order
 
 
 .. _recorder-widget:
-    
+
 Recorder widget
 ------------------
 
@@ -116,7 +116,7 @@ The console widget is a `qtconsole`_ console widget running `IPython`_, and can
 run any code that IPython can. For details on how to successfully use it, see
 the :ref:`console` section.
 
-.. _qtconsole: https://qtconsole.readthedocs.org/en/stable/
+.. _qtconsole: https://qtconsole.readthedocs.io/en/stable/
 .. _IPython: http://ipython.org/
 
 .. image:: console_widget.png
