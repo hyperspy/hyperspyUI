@@ -199,20 +199,24 @@ class DpcPlugins(Plugin):
         spatial_std = 3
         bins = 200
 
-        if (s0_flat.std() > s1_flat.std()):
+        s0_flat_std = s0_flat.std()
+        s0_flat_mean = s0_flat.mean()
+        s1_flat_std = s1_flat.std()
+        s1_flat_mean = s1_flat.mean()
+        if (s0_flat_std > s1_flat_std):
             s0_range = (
-                s0_flat.mean() - s0_flat.std() * spatial_std,
-                s0_flat.mean() + s0_flat.std() * spatial_std)
+                s0_flat_mean - s0_flat_std * spatial_std,
+                s0_flat_mean + s0_flat_std * spatial_std)
             s1_range = (
-                s1_flat.mean() - s0_flat.std() * spatial_std,
-                s1_flat.mean() + s0_flat.std() * spatial_std)
+                s1_flat_mean - s0_flat_std * spatial_std,
+                s1_flat_mean + s0_flat_std * spatial_std)
         else:
             s0_range = (
-                s0_flat.mean() - s1_flat.std() * spatial_std,
-                s0_flat.mean() + s1_flat.std() * spatial_std)
+                s0_flat_mean - s1_flat_std * spatial_std,
+                s0_flat_mean + s1_flat_std * spatial_std)
             s1_range = (
-                s1_flat.mean() - s1_flat.std() * spatial_std,
-                s1_flat.mean() + s1_flat.std() * spatial_std)
+                s1_flat_mean - s1_flat_std * spatial_std,
+                s1_flat_mean + s1_flat_std * spatial_std)
 
         hist2d, xedges, yedges = np.histogram2d(
             s0_flat,
