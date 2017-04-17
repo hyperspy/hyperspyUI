@@ -52,6 +52,8 @@ for fformat in io_plugins:
         ["<glob pattern=\"*.{}\"/>".format(ext) for ext in extensions])
     if name == "HDF5":
         extstr += '<sub-class-of type="application/x-hdf"/>\n'
+    elif defext == "rpl":
+        extstr += '<sub-class-of type="text/plain"/>\n'
     mime = MIME.format(defext, name, extstr)
 
     TYPES.append("application/x-{}".format(defext))
