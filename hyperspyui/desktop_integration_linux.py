@@ -35,6 +35,8 @@ MIMEPATH = os.path.join(os.environ["XDG_DATA_HOME"], "mime")
 
 if not os.path.exists(MIMEPATH):
     os.makedirs(MIMEPATH)
+if not os.path.exists(os.path.join(MIMEPATH, "packages")):
+    os.makedirs(os.path.join(MIMEPATH, "packages"))
 
 for fformat in io_plugins:
     name = fformat.format_name
@@ -53,12 +55,14 @@ for fformat in io_plugins:
     mime = MIME.format(defext, name, extstr)
 
     TYPES.append("application/x-{}".format(defext))
-    fpath = os.path.join(MIMEPATH, "application", "hyperspy-{}.xml".format(defext))
+    fpath = os.path.join(
+        MIMEPATH, "packages", "application-hyperspy-{}.xml".format(defext))
     print("Writing {}".format(fpath))
     with open(fpath, "w") as f:
         f.write(mime)
     # Register
-subprocess.run(['update-mime-database', MIMEPATH])
+print("Updating mime database")
+subprocess.run(['update-mime-database',  MIMEPATH])
 if not os.environ.get('XDG_DATA_HOME'):
     os.environ['XDG_DATA_HOME'] = os.path.expanduser('~/.local/share')
 p = subprocess.run(["which", "hyperspyui"], stdout=subprocess.PIPE)
@@ -71,4 +75,5 @@ with open(os.path.join(apps_dir, "hyperspyui.desktop"), "w") as f:
     print("Writing hyperspyui.desktop to {}".format(apps_dir))
     f.write(DESKTOP.format(EXEC, ";".join(TYPES), _PKGDIR))
 
+print("Updating desktop database")
 subprocess.run(['update-desktop-database', apps_dir])
