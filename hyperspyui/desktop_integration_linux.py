@@ -47,6 +47,9 @@ for fformat in io_plugins:
     extstr = "\n".join(
         ["<glob pattern=\"*.{}\"/>".format(ext) for ext in extensions])
     mime = MIME.format(defext, name, extstr)
+    if name == "HDF5":
+        mime += '<sub-class-of type="application/x-hdf"/>'
+
     TYPES.append("application/x-{}".format(defext))
     fpath = os.path.join(MIMEPATH, "{}.xml".format(defext))
     print("Writing {}".format(fpath))
