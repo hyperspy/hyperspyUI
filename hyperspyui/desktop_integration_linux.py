@@ -9,7 +9,7 @@ DESKTOP = \
 Exec={} %F
 Name=HyperSpy UI
 Terminal=false
-MimeType={} # application/x-hdf;application/x-dm3;
+MimeType={}
 Icon={}/images/hyperspy.svg
 Type=Application
 X-MultipleArgs=true
@@ -29,14 +29,16 @@ MIME = \
 
 _PKGDIR = Path(__file__).resolve().parent
 TYPES = ["image/tiff"]
-MIMEPATH = os.path.join(_PKGDIR, "mime")
+if not os.environ.get('XDG_DATA_HOME'):
+    os.environ['XDG_DATA_HOME'] = os.path.expanduser('~/.local/share')
+MIMEPATH = os.path.join(os.environ["XDG_DATA_HOME"], "mime", "application")
 
 if not os.path.exists(MIMEPATH):
     os.makedirs(MIMEPATH)
 
 for fformat in io_plugins:
     name = fformat.format_name
-    if name in ["netCDF", "Signal2D", "Protoships", "TIFF"]:
+    if name in ["netCDF", "Signal2D", "Protochips", "TIFF"]:
         continue
     if name == "HDF5":
         extensions = set(["hspy", "hdf5"])
@@ -51,15 +53,12 @@ for fformat in io_plugins:
         mime += '<sub-class-of type="application/x-hdf"/>'
 
     TYPES.append("application/x-{}".format(defext))
-    fpath = os.path.join(MIMEPATH, "{}.xml".format(defext))
+    fpath = os.path.join(MIMEPATH, "hyperspy-{}.xml".format(defext))
     print("Writing {}".format(fpath))
     with open(fpath, "w") as f:
         f.write(mime)
     # Register
-    try:
-        subprocess.run(['xdg-mime', 'install', fpath], check=True)
-    except:
-        pass
+subprocess.run(['update-mime-database', MIMEPATH])
 if not os.environ.get('XDG_DATA_HOME'):
     os.environ['XDG_DATA_HOME'] = os.path.expanduser('~/.local/share')
 p = subprocess.run(["which", "hyperspyui"], stdout=subprocess.PIPE)
@@ -71,3 +70,5 @@ apps_dir = os.path.join(os.environ['XDG_DATA_HOME'], "applications/")
 with open(os.path.join(apps_dir, "hyperspyui.desktop"), "w") as f:
     print("Writing hyperspyui.desktop to {}".format(apps_dir))
     f.write(DESKTOP.format(EXEC, ";".join(TYPES), _PKGDIR))
+
+subprocess.run(['update-desktop-database', apps_dir])
