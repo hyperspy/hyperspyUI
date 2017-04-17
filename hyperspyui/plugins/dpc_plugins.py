@@ -85,7 +85,10 @@ class DpcPlugins(Plugin):
 
     def subtract_plane(self):
         ui = self.ui
-        signal = ui.select_x_signals(1, ["signal"]).signal
+        signal_wrapper = ui.select_x_signals(1, ["signal"])
+        if signal_wrapper is None:
+            return
+        signal = signal_wrapper.signal
         dialog = StringInputDialog("Percent of corner", "5")
         corner_percent = dialog.prompt_modal(rejection=None)
         if corner_percent is None:
