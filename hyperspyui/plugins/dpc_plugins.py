@@ -17,6 +17,12 @@ class DpcPlugins(Plugin):
                 tip="Calculate the beam shifts from a segmented STEM DPC "
                     "dataset, requires the four outer segments.")
         self.add_action(
+                'FFT filter beam shifts.fft_filter_shifts',
+                "FFT filter beam shift signal",
+                self.fft_filter_shifts,
+                tip="Do FFT filtering on a beam shift signal, to suppress "
+                    " high frequencies ")
+        self.add_action(
                 'Subtract plane from beamshifts.subtract_plane',
                 'Subtract plane from beamshifts',
                 self.subtract_plane,
@@ -33,18 +39,16 @@ class DpcPlugins(Plugin):
                 self.make_bivariate_histogram,
                 tip="Make a bivariate histogram from x and y beam shift "
                     "signals.")
-        self.add_action(
-                'FFT filter beam shifts.fft_filter_shifts',
-                "FFT filter beam shift signal",
-                self.fft_filter_shifts,
-                tip="Do FFT filtering on a beam shift signal, to suppress "
-                    " high frequencies ")
 
     def create_menu(self):
         self.add_menuitem(
                 'DPC',
                 self.ui.actions[
                     'Beam shifts from segmented.get_beam_shifts'])
+        self.add_menuitem(
+                'DPC',
+                self.ui.actions[
+                    'FFT filter beam shifts.fft_filter_shifts'])
         self.add_menuitem(
                 'DPC',
                 self.ui.actions[
@@ -57,10 +61,6 @@ class DpcPlugins(Plugin):
                 'DPC',
                 self.ui.actions[
                     'Make bivariate histogram.make_bivariate_histogram'])
-        self.add_menuitem(
-                'DPC',
-                self.ui.actions[
-                    'FFT filter beam shifts.fft_filter_shifts'])
 
     def get_beam_shifts(self):
         ui = self.ui
