@@ -62,16 +62,22 @@ class DpcPlugins(Plugin):
                 self.ui.actions[
                     'Make bivariate histogram.make_bivariate_histogram'])
 
-    def get_beam_shifts(self):
+    def get_beam_shifts(self, signal_list=None):
         ui = self.ui
-        signal_wrapper_list = ui.select_x_signals(
-            4, ["ext 0", "ext 1", "ext 2", "ext 3"])
-        if signal_wrapper_list is None:
-            return
-        s_ext0 = signal_wrapper_list[0].signal
-        s_ext1 = signal_wrapper_list[1].signal
-        s_ext2 = signal_wrapper_list[2].signal
-        s_ext3 = signal_wrapper_list[3].signal
+        if signal_list is None:
+            signal_wrapper_list = ui.select_x_signals(
+                4, ["ext 0", "ext 1", "ext 2", "ext 3"])
+            if signal_wrapper_list is None:
+                return
+            s_ext0 = signal_wrapper_list[0].signal
+            s_ext1 = signal_wrapper_list[1].signal
+            s_ext2 = signal_wrapper_list[2].signal
+            s_ext3 = signal_wrapper_list[3].signal
+        else:
+            s_ext0 = signal_list[0]
+            s_ext1 = signal_list[1]
+            s_ext2 = signal_list[2]
+            s_ext3 = signal_list[3]
         s_ext0.change_dtype('float64')
         s_ext1.change_dtype('float64')
         s_ext2.change_dtype('float64')
@@ -83,16 +89,18 @@ class DpcPlugins(Plugin):
         s_ext02.plot()
         s_ext13.plot()
 
-    def subtract_plane(self):
+    def subtract_plane(self, signal=None, corner_percent=None):
         ui = self.ui
-        signal_wrapper = ui.select_x_signals(1, ["signal"])
-        if signal_wrapper is None:
-            return
-        signal = signal_wrapper.signal
-        dialog = StringInputDialog("Percent of corner", "5")
-        corner_percent = dialog.prompt_modal(rejection=None)
+        if signal is None:
+            signal_wrapper = ui.select_x_signals(1, ["signal"])
+            if signal_wrapper is None:
+                return
+            signal = signal_wrapper.signal
         if corner_percent is None:
-            return
+            dialog = StringInputDialog("Percent of corner", "5")
+            corner_percent = dialog.prompt_modal(rejection=None)
+            if corner_percent is None:
+                return
         corner_size = float(corner_percent) * 0.01
         d_axis0_range = (
             signal.axes_manager[0].high_value -
@@ -145,15 +153,19 @@ class DpcPlugins(Plugin):
         distance = (plane_xyz * X.T).sum(axis=1) + p[3]
         return distance / np.linalg.norm(plane_xyz)
 
-    def make_color_image(self):
+    def make_color_image(self, signal_list=None):
         ui = self.ui
 
-        signal_wrapper_list = ui.select_x_signals(
-            2, ["Deflection X", "Deflection Y"])
-        if signal_wrapper_list is None:
-            return
-        signal0 = signal_wrapper_list[0].signal
-        signal1 = signal_wrapper_list[1].signal
+        if signal_list is None:
+            signal_wrapper_list = ui.select_x_signals(
+                2, ["Deflection X", "Deflection Y"])
+            if signal_wrapper_list is None:
+                return
+            signal0 = signal_wrapper_list[0].signal
+            signal1 = signal_wrapper_list[1].signal
+        else:
+            signal0 = signal_list[0]
+            signal1 = signal_list[1]
 
         signal_rgb = hs.signals.Signal1D(
             self._get_rgb_array(signal0, signal1) * 255)
@@ -189,14 +201,18 @@ class DpcPlugins(Plugin):
         rgb_array[:, :, 0] = color2
         return(rgb_array)
 
-    def make_bivariate_histogram(self):
+    def make_bivariate_histogram(self, signal_list=None):
         ui = self.ui
-        signal_wrapper_list = ui.select_x_signals(
-            2, ["Deflection X", "Deflection Y"])
-        if signal_wrapper_list is None:
-            return
-        signal0 = signal_wrapper_list[0].signal
-        signal1 = signal_wrapper_list[1].signal
+        if signal_list is None:
+            signal_wrapper_list = ui.select_x_signals(
+                2, ["Deflection X", "Deflection Y"])
+            if signal_wrapper_list is None:
+                return
+            signal0 = signal_wrapper_list[0].signal
+            signal1 = signal_wrapper_list[1].signal
+        else:
+            signal0 = signal_list[0]
+            signal1 = signal_list[1]
         s0_flat = signal0.data.flatten()
         s1_flat = signal1.data.flatten()
         spatial_std = 3
@@ -238,7 +254,9 @@ class DpcPlugins(Plugin):
 
         s.plot()
 
-    def fft_filter_shifts(self):
+    def fft_filter_shifts(
+            self, signal_list=None,
+            mask_radius=None, smoothing_factor=None):
         """
         Do FFT filtering of x and y beam shift signals by removing the high
         frequency contributions. This is useful for reducing the effects
@@ -262,14 +280,26 @@ class DpcPlugins(Plugin):
             which is subtracted from the original signal.
         """
         ui = self.ui
-        signals = [s.signal for s in ui.select_x_signals(
-            2, ["dif02", "dif13"])]
-        dialog = StringInputDialog("Mask radius:", "20")
-        mask_radius = dialog.prompt_modal(rejection=None)
+        if signal_list is None:
+            signal_wrapper_list = ui.select_x_signals(
+                2, ["Deflection X", "Deflection Y"])
+            if signal_wrapper_list is None:
+                return
+            s_dif02 = signal_wrapper_list[0].signal
+            s_dif13 = signal_wrapper_list[1].signal
+        else:
+            s_dif02 = signal_list[0]
+            s_dif13 = signal_list[1]
         if mask_radius is None:
-            return
-        s_dif02 = signals[0]
-        s_dif13 = signals[1]
+            dialog = StringInputDialog("Mask radius:", "20")
+            mask_radius = dialog.prompt_modal(rejection=None)
+            if mask_radius is None:
+                return
+        if smoothing_factor is None:
+            dialog = StringInputDialog("Smoothing factor:", "0.7")
+            smoothing_factor = dialog.prompt_modal(rejection=None)
+            if smoothing_factor is None:
+                return
         fft02 = np.fft.fftshift(np.fft.fft2(s_dif02.data))
         fft13 = np.fft.fftshift(np.fft.fft2(s_dif13.data))
         a, b = s_dif02.axes_manager[0].size / \
@@ -288,10 +318,6 @@ class DpcPlugins(Plugin):
         ifft13 = np.fft.ifft2(fft13)
         s_ifft02 = hs.signals.Signal2D(np.real(ifft02))
         s_ifft13 = hs.signals.Signal2D(np.real(ifft13))
-        dialog = StringInputDialog("Smoothing factor:", "0.7")
-        smoothing_factor = dialog.prompt_modal(rejection=None)
-        if smoothing_factor is None:
-            return
         s_ifft02.data *= float(smoothing_factor)
         s_ifft13.data *= float(smoothing_factor)
         s_dif02_filtered = s_dif02 - s_ifft02
