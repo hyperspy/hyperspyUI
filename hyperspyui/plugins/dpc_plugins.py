@@ -64,12 +64,14 @@ class DpcPlugins(Plugin):
 
     def get_beam_shifts(self):
         ui = self.ui
-        signals = [s.signal for s in ui.select_x_signals(
-            4, ["ext 0", "ext 1", "ext 2", "ext 3"])]
-        s_ext0 = signals[0]
-        s_ext1 = signals[1]
-        s_ext2 = signals[2]
-        s_ext3 = signals[3]
+        signal_wrapper_list = ui.select_x_signals(
+            4, ["ext 0", "ext 1", "ext 2", "ext 3"])
+        if signal_wrapper_list is None:
+            return
+        s_ext0 = signal_wrapper_list[0].signal
+        s_ext1 = signal_wrapper_list[1].signal
+        s_ext2 = signal_wrapper_list[2].signal
+        s_ext3 = signal_wrapper_list[3].signal
         s_ext0.change_dtype('float64')
         s_ext1.change_dtype('float64')
         s_ext2.change_dtype('float64')
@@ -145,6 +147,8 @@ class DpcPlugins(Plugin):
 
         signal_wrapper_list = ui.select_x_signals(
             2, ["Deflection X", "Deflection Y"])
+        if signal_wrapper_list is None:
+            return
         signal0 = signal_wrapper_list[0].signal
         signal1 = signal_wrapper_list[1].signal
 
@@ -186,6 +190,8 @@ class DpcPlugins(Plugin):
         ui = self.ui
         signal_wrapper_list = ui.select_x_signals(
             2, ["Deflection X", "Deflection Y"])
+        if signal_wrapper_list is None:
+            return
         signal0 = signal_wrapper_list[0].signal
         signal1 = signal_wrapper_list[1].signal
         s0_flat = signal0.data.flatten()
