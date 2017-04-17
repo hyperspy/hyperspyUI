@@ -31,7 +31,7 @@ _PKGDIR = Path(__file__).resolve().parent
 TYPES = ["image/tiff"]
 if not os.environ.get('XDG_DATA_HOME'):
     os.environ['XDG_DATA_HOME'] = os.path.expanduser('~/.local/share')
-MIMEPATH = os.path.join(os.environ["XDG_DATA_HOME"], "mime", "application")
+MIMEPATH = os.path.join(os.environ["XDG_DATA_HOME"], "mime")
 
 if not os.path.exists(MIMEPATH):
     os.makedirs(MIMEPATH)
@@ -48,12 +48,12 @@ for fformat in io_plugins:
         defext = fformat.file_extensions[fformat.default_extension]
     extstr = "\n".join(
         ["<glob pattern=\"*.{}\"/>".format(ext) for ext in extensions])
-    mime = MIME.format(defext, name, extstr)
     if name == "HDF5":
-        mime += '<sub-class-of type="application/x-hdf"/>'
+        extstr += '<sub-class-of type="application/x-hdf"/>\n'
+    mime = MIME.format(defext, name, extstr)
 
     TYPES.append("application/x-{}".format(defext))
-    fpath = os.path.join(MIMEPATH, "hyperspy-{}.xml".format(defext))
+    fpath = os.path.join(MIMEPATH, "application", "hyperspy-{}.xml".format(defext))
     print("Writing {}".format(fpath))
     with open(fpath, "w") as f:
         f.write(mime)
