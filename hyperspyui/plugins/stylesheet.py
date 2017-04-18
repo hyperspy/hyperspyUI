@@ -61,7 +61,7 @@ class StylePlugin(Plugin):
         palette = self.settings['_palette']
         if palette is not None:
             QApplication.setPalette(QPalette(palette))
-        QApplication.instance().setStyleSheet(self.settings['_style'])
+        QApplication.instance().setStyleSheet(self.settings['_style'] or '')
 
     def edit_dialog(self):
         if self.editor is not None:
@@ -158,7 +158,7 @@ class StyleDialog(ExToolWindow):
     def load(self):
         """Load palette and stylesheet from the plugin't settings"""
         self.editor.setPlainText(
-            self.plugin.settings['_style'],
+            self.plugin.settings['_style'] or '',
             'text/plain', 'utf8'
         )
         palette = self.plugin.settings['_palette']
