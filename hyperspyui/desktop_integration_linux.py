@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 import subprocess
 from hyperspy.io_plugins import io_plugins
@@ -105,4 +106,9 @@ def run_desktop_integration(
     subprocess.run(['update-desktop-database', APPS_DIR])
 
 if __name__ == "__main__":
-    run_desktop_integration()
+    if "linux" in sys.platform:
+        run_desktop_integration()
+    else:
+        raise Exception(
+            "This script only runs in Linux, current OS is {}.".format(
+                sys.platform))
