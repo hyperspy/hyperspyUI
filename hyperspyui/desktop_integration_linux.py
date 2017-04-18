@@ -4,7 +4,7 @@ import subprocess
 from hyperspy.io_plugins import io_plugins
 
 
-DESKTOP = \
+_DESKTOP = \
     """[Desktop Entry]
 Exec={} %F
 Name=HyperSpy UI
@@ -17,7 +17,7 @@ Categories=Science;Physics;DataVisualization;
 
 """
 
-MIME = \
+_MIME = \
     """<?xml version="1.0"?>
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
 <mime-type type="application/x-{}">
@@ -30,15 +30,15 @@ MIME = \
 _PKGDIR = Path(__file__).resolve().parent
 if not os.environ.get('XDG_DATA_HOME'):
     os.environ['XDG_DATA_HOME'] = os.path.expanduser('~/.local/share')
-MIMEPATH = os.path.join(os.environ["XDG_DATA_HOME"], "mime")
+_MIMEPATH = os.path.join(os.environ["XDG_DATA_HOME"], "mime")
 APPS_DIR = os.path.join(os.environ['XDG_DATA_HOME'], "applications/")
 
 
 def create_mime_file(hspy_format, types=None, update_db=False):
-    if not os.path.exists(MIMEPATH):
-        os.makedirs(MIMEPATH)
-    if not os.path.exists(os.path.join(MIMEPATH, "packages")):
-        os.makedirs(os.path.join(MIMEPATH, "packages"))
+    if not os.path.exists(_MIMEPATH):
+        os.makedirs(_MIMEPATH)
+    if not os.path.exists(os.path.join(_MIMEPATH, "packages")):
+        os.makedirs(os.path.join(_MIMEPATH, "packages"))
     name = hspy_format.format_name
     if name == "HDF5":
         extensions = set(["hspy", "hdf5"])
@@ -52,10 +52,10 @@ def create_mime_file(hspy_format, types=None, update_db=False):
         extstr += '<sub-class-of type="application/x-hdf"/>\n'
     elif defext in ("rpl", "msa", "dens"):
         extstr += '<sub-class-of type="text/plain"/>\n'
-    mime = MIME.format(defext, name, extstr)
+    mime = _MIME.format(defext, name, extstr)
 
     fpath = os.path.join(
-        MIMEPATH, "packages", "application-hyperspy-{}.xml".format(defext))
+        _MIMEPATH, "packages", "application-hyperspy-{}.xml".format(defext))
     print("Writing {}".format(fpath))
     with open(fpath, "w") as f:
         f.write(mime)
@@ -63,7 +63,7 @@ def create_mime_file(hspy_format, types=None, update_db=False):
         types.append("application/x-{}".format(defext))
     if update_db:
         print("Updating mime database")
-        subprocess.run(['update-mime-database',  MIMEPATH])
+        subprocess.run(['update-mime-database',  _MIMEPATH])
 
 
 def get_hyperspyui_exec_path():
@@ -78,7 +78,7 @@ def get_hyperspyui_exec_path():
 def write_desktop_file(types=""):
     with open(os.path.join(APPS_DIR, "hyperspyui.desktop"), "w") as f:
         print("Writing hyperspyui.desktop to {}".format(APPS_DIR))
-        f.write(DESKTOP.format(get_hyperspyui_exec_path(), ";".join(types)))
+        f.write(_DESKTOP.format(get_hyperspyui_exec_path(), ";".join(types)))
 
 
 def register_hspy_icon():
@@ -98,7 +98,7 @@ def run_desktop_integration(
         if hspy_format.format_name not in exclude_formats:
             create_mime_file(hspy_format=hspy_format, types=types)
     print("Updating mime database")
-    subprocess.run(['update-mime-database',  MIMEPATH])
+    subprocess.run(['update-mime-database',  _MIMEPATH])
     register_hspy_icon()
     write_desktop_file(types=types)
     print("Updating desktop database")
