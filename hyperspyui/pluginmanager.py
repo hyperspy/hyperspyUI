@@ -245,7 +245,7 @@ class PluginManager(object):
                 p.create_toolbars()
                 p.create_widgets()
         except Exception:
-            self.warn(sys._getframe().f_code.co_name, p.name)
+            self.warn(sys._getframe().f_code.co_name, plugin_type)
 
     def load_from_file(self, path):
         master = Plugin
