@@ -10,7 +10,7 @@ Exec={} %F
 Name=HyperSpy UI
 Terminal=false
 MimeType={}
-Icon={}/images/hyperspy.svg
+Icon=application-x-hspy
 Type=Application
 X-MultipleArgs=true
 Categories=Science;Physics;DataVisualization;
@@ -78,8 +78,18 @@ def get_hyperspyui_exec_path():
 def write_desktop_file(types=""):
     with open(os.path.join(APPS_DIR, "hyperspyui.desktop"), "w") as f:
         print("Writing hyperspyui.desktop to {}".format(APPS_DIR))
-        f.write(DESKTOP.format(get_hyperspyui_exec_path,
-                               ";".join(types), _PKGDIR))
+        f.write(DESKTOP.format(get_hyperspyui_exec_path(), ";".join(types)))
+
+
+def register_hspy_icon():
+    for size in (16, 22, 32, 48, 64, 128, 256):
+        print("Registering icon size {}".format(size))
+        subprocess.run(["xdg-icon-resource", "install",  "--context",
+                        "mimetypes",
+                        "--size", str(size),
+                        "{}/images/icon/hyperspy{}.png".format(_PKGDIR, size),
+                        "application-x-hspy"])
+
 
 def run_desktop_integration(
         exclude_formats=["netCDF", "Signal2D", "Protochips", "TIFF"]):
@@ -89,6 +99,7 @@ def run_desktop_integration(
             create_mime_file(hspy_format=hspy_format, types=types)
     print("Updating mime database")
     subprocess.run(['update-mime-database',  MIMEPATH])
+    register_hspy_icon()
     write_desktop_file(types=types)
     print("Updating desktop database")
     subprocess.run(['update-desktop-database', APPS_DIR])
