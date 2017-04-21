@@ -12,7 +12,7 @@ class Alignzlp(Plugin):
             '.default',
             self.name,
             self.default,
-            icon="C:/dev/hyperspyUI/hyperspyui/images/align_zero_loss.svg",
+            icon="align_zero_loss.svg",
             tip="")
 
     def create_menu(self):
