@@ -4,12 +4,15 @@
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="114.498px" height="114.497px" viewBox="0 0 114.498 114.497" enable-background="new 0 0 114.498 114.497"
 	 xml:space="preserve">
-<path d="M44.244,94.768c0.767,1.842,2.567,3.041,4.561,3.041h62.562c2.729,0,4.939-2.211,4.939-4.939V78.053
+<style type="text/css">
+	.st0{fill:#000000;}
+</style>
+<path class="st0" d="M44.244,94.768c0.767,1.842,2.567,3.041,4.561,3.041h62.562c2.729,0,4.939-2.211,4.939-4.939V78.053
 	c0-2.729-2.211-4.939-4.939-4.939c-2.729,0-4.94,2.211-4.94,4.939v9.877H60.673l22.623-22.773c1.813-1.824,1.923-4.732,0.252-6.688
 	L59.515,30.309h46.912v3.292c0,2.729,2.211,4.939,4.94,4.939s4.939-2.21,4.939-4.939V25.37c0-2.728-2.21-4.939-4.939-4.939H48.805
 	c-1.927,0-3.678,1.121-4.485,2.872s-0.521,3.81,0.728,5.275l28.035,32.848L45.301,89.389C43.895,90.803,43.479,92.926,44.244,94.768
 	z"/>
 <line fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" x1="5.749" y1="58.12" x2="43.865" y2="58.12"/>
-<text transform="matrix(1 0 0 1 11.749 46.7485)" font-family="'MyriadPro-Bold'" font-size="40">1</text>
-<text transform="matrix(1 0 0 1 12.749 91.8091)" font-family="'MyriadPro-Bold'" font-size="40">n</text>
+<text class="st0" transform="matrix(1 0 0 1 11.749 46.7485)" font-family="'MyriadPro-Bold'" font-size="40">1</text>
+<text class="st0" transform="matrix(1 0 0 1 12.749 91.8091)" font-family="'MyriadPro-Bold'" font-size="40">n</text>
 </svg>

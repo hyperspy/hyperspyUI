@@ -28,7 +28,7 @@ from QtGui import *
 
 from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.misc.rgb_tools import rgbx2regular_array
-from hyperspyui.util import win2fig, fig2image_plot
+from hyperspyui.util import win2fig, fig2image_plot, block_signals
 
 import numpy as np
 from matplotlib.colors import Normalize, SymLogNorm
@@ -90,33 +90,29 @@ class ContrastWidget(FigureWidget):
             self.enable()
             imin, imax = self._plot_minmax()
 
-            old = self.sl_level.blockSignals(True)
-            self.sl_level.setRange(imin, imax)
-            self.sl_level.setValue(p.vmin)
-            self.lbl_level.setText(self.LevelLabel + ": %.2G" % p.vmin)
-            self.sl_level.blockSignals(old)
+            with block_signals(self.sl_level):
+                self.sl_level.setRange(imin, imax)
+                self.sl_level.setValue(p.vmin)
+                self.lbl_level.setText(self.LevelLabel + ": %.2G" % p.vmin)
 
-            old = self.sl_window.blockSignals(True)
-            self.sl_window.setRange(0, imax - imin)
-            window = p.vmax - p.vmin
-            self.sl_window.setValue(window)
-            self.lbl_window.setText(self.WindowLabel + ": %.2G" % window)
-            self.sl_window.blockSignals(old)
+            with block_signals(self.sl_window):
+                self.sl_window.setRange(0, imax - imin)
+                window = p.vmax - p.vmin
+                self.sl_window.setValue(window)
+                self.lbl_window.setText(self.WindowLabel + ": %.2G" % window)
 
-            old = self.chk_auto.blockSignals(True)
-            auto = _auto_contrast(p)
-            state = QtCore.Qt.Checked if all(auto) else (
-                QtCore.Qt.PartiallyChecked if any(auto) else
-                QtCore.Qt.Unchecked)
-            self.chk_auto.setCheckState(state)
-            self.chk_auto.blockSignals(old)
+            with block_signals(self.chk_auto):
+                auto = _auto_contrast(p)
+                state = QtCore.Qt.Checked if all(auto) else (
+                    QtCore.Qt.PartiallyChecked if any(auto) else
+                    QtCore.Qt.Unchecked)
+                self.chk_auto.setCheckState(state)
 
             if p.ax.images:
-                old = self.chk_log.blockSignals(True)
-                self.chk_log.setEnabled(True)
-                norm = isinstance(p.ax.images[-1].norm, SymLogNorm)
-                self.chk_log.setChecked(norm)
-                self.chk_log.blockSignals(old)
+                with block_signals(self.chk_log):
+                    self.chk_log.setEnabled(True)
+                    norm = isinstance(p.ax.images[-1].norm, SymLogNorm)
+                    self.chk_log.setChecked(norm)
             else:
                 self.chk_log.setEnabled(False)
 

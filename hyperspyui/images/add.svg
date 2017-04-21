@@ -4,5 +4,8 @@
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="114.498px" height="114.497px" viewBox="0 0 114.498 114.497" enable-background="new 0 0 114.498 114.497"
 	 xml:space="preserve">
-<text transform="matrix(1 0 0 1 16.5308 94.731)" font-family="'MyriadPro-Regular'" font-size="140.0767">+</text>
+<style type="text/css">
+	.st0{fill:#000000;}
+</style>
+<text class="st0" transform="matrix(1 0 0 1 16.5308 94.731)" font-family="'MyriadPro-Regular'" font-size="140.0767">+</text>
 </svg>

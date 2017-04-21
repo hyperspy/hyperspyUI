@@ -34,7 +34,7 @@ The user interface is based on top of Qt_, and have four main components:
 
 .. image:: ui_overview.png
 
-.. _Qt: http://www.qt.io/
+.. _Qt: https://www.qt.io/
 
     #)  Menus: Most of the :ref:`actions <actions>` you can do have a menu
         entry.

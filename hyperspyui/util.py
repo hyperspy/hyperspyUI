@@ -39,6 +39,15 @@ def dummy_context_manager(*args, **kwargs):
     yield
 
 
+@contextmanager
+def block_signals(target):
+    old = target.blockSignals(True)
+    try:
+        yield
+    finally:
+        target.blockSignals(old)
+
+
 def lstrip(string, prefix):
     if string is not None:
         if string.startswith(prefix):
