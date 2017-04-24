@@ -58,10 +58,8 @@ class StylePlugin(Plugin):
         self.add_menuitem('Settings', self.ui.actions['edit_style'])
 
     def apply_styles(self):
-        palette = self.settings['_palette']
-        if palette is not None:
-            QApplication.setPalette(QPalette(palette))
-        QApplication.instance().setStyleSheet(self.settings['_style'] or '')
+        palette = self.settings['_palette'] or ''
+        QApplication.instance().setStyleSheet(palette)
 
     def edit_dialog(self):
         if self.editor is not None:
