@@ -62,7 +62,7 @@ class DpcPlugins(Plugin):
                 self.ui.actions[
                     'Make bivariate histogram.make_bivariate_histogram'])
 
-    def get_beam_shifts(self, signal_list=None):
+    def get_beam_shifts(self, signal_list=None, plot_output=True):
         ui = self.ui
         if signal_list is None:
             signal_wrapper_list = ui.select_x_signals(
@@ -86,10 +86,13 @@ class DpcPlugins(Plugin):
         s_ext13 = s_ext1 - s_ext3
         s_ext02.metadata.General.title = 'dif02'
         s_ext13.metadata.General.title = 'dif13'
-        s_ext02.plot()
-        s_ext13.plot()
+        if plot_output:
+            s_ext02.plot()
+            s_ext13.plot()
+        return s_ext02, s_ext13
 
-    def subtract_plane(self, signal=None, corner_percent=None):
+    def subtract_plane(
+            self, signal=None, corner_percent=None, plot_output=True):
         ui = self.ui
         if signal is None:
             signal_wrapper = ui.select_x_signals(1, ["signal"])
@@ -139,11 +142,13 @@ class DpcPlugins(Plugin):
         zz = (-p[0] * xx - p[1] * yy - p[3]) / p[2]
 
         new_signal = signal.deepcopy()
-        new_signal.data -= zz
+        new_signal.data = new_signal.data - zz
         new_signal.metadata = signal.metadata.deepcopy()
         new_name = new_signal.metadata.General.title + " plane subtracted"
         new_signal.metadata.General.title = new_name
-        new_signal.plot()
+        if plot_output:
+            new_signal.plot()
+        return new_signal
 
     def _residuals(self, params, signal, X):
         return self._f_min(X, params)
@@ -153,7 +158,7 @@ class DpcPlugins(Plugin):
         distance = (plane_xyz * X.T).sum(axis=1) + p[3]
         return distance / np.linalg.norm(plane_xyz)
 
-    def make_color_image(self, signal_list=None):
+    def make_color_image(self, signal_list=None, plot_output=True):
         ui = self.ui
 
         if signal_list is None:
@@ -174,7 +179,9 @@ class DpcPlugins(Plugin):
         signal_rgb.axes_manager = signal0.axes_manager.deepcopy()
         signal_rgb.metadata = signal0.metadata.deepcopy()
         signal_rgb.metadata.General.title = "Deflection color image"
-        signal_rgb.plot()
+        if plot_output:
+            signal_rgb.plot()
+        return signal_rgb
 
     def _get_color_channel(self, a_array, mu0, si0, mu1, si1, mu2, si2):
         color_array = np.zeros((a_array.shape[0], a_array.shape[1]))
@@ -201,7 +208,7 @@ class DpcPlugins(Plugin):
         rgb_array[:, :, 0] = color2
         return(rgb_array)
 
-    def make_bivariate_histogram(self, signal_list=None):
+    def make_bivariate_histogram(self, signal_list=None, plot_output=True):
         ui = self.ui
         if signal_list is None:
             signal_wrapper_list = ui.select_x_signals(
@@ -252,11 +259,13 @@ class DpcPlugins(Plugin):
         s.axes_manager[1].offset = yedges[0]
         s.axes_manager[1].scale = yedges[1] - yedges[0]
 
-        s.plot()
+        if plot_output:
+            s.plot()
+        return s
 
     def fft_filter_shifts(
             self, signal_list=None,
-            mask_radius=None, smoothing_factor=None):
+            mask_radius=None, smoothing_factor=None, plot_output=True):
         """
         Do FFT filtering of x and y beam shift signals by removing the high
         frequency contributions. This is useful for reducing the effects
@@ -328,5 +337,7 @@ class DpcPlugins(Plugin):
         name_13 = s_dif13_filtered.metadata.General.title + ' filtered'
         s_dif02_filtered.metadata.General.title = name_02
         s_dif13_filtered.metadata.General.title = name_13
-        s_dif02_filtered.plot()
-        s_dif13_filtered.plot()
+        if plot_output:
+            s_dif02_filtered.plot()
+            s_dif13_filtered.plot()
+        return s_dif02_filtered, s_dif13_filtered
