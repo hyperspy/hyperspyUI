@@ -4,29 +4,31 @@
 """
 Based off of:
 
-ZetCode PyQt4 tutorial 
+ZetCode PyQt4 tutorial
 
 This program creates a skeleton of
 a classic GUI application with a menubar,
-toolbar, statusbar and a central widget. 
+toolbar, statusbar and a central widget.
 
 author: Jan Bodnar
-website: zetcode.com 
+website: zetcode.com
 last edited: September 2011
 """
 
 import sys
 from PyQt4 import QtGui
-import tempfile, glob, os
+import tempfile
+import glob
+import os
 
 
 class Example(QtGui.QMainWindow):
-    
+
     def __init__(self):
         super(Example, self).__init__()
-        
+
         self.initUI()
-        
+
     def replaceSvgColor(self, filename, oldColor, newColor):
         '''
         Generate and return a temp svg filename with oldColor replaced
@@ -37,68 +39,66 @@ class Example(QtGui.QMainWindow):
         temp = tempfile.NamedTemporaryFile(delete=False)
         temp.write(svg_cnt.replace(oldColor, newColor))
         temp.close()
-        
+
         return temp.name
-        
-    
-    def initUI(self):     
-        stack = QtGui.QVBoxLayout()        
+
+    def initUI(self):
+        stack = QtGui.QVBoxLayout()
         widget = QtGui.QWidget()
-        
+
         color_list = []
-        color_list.append(('QtGui.QPalette.Window', 
+        color_list.append(('QtGui.QPalette.Window',
                            self.palette().color(QtGui.QPalette.Window)))
-        color_list.append(('QtGui.QPalette.Background', 
+        color_list.append(('QtGui.QPalette.Background',
                            self.palette().color(QtGui.QPalette.Background)))
-        color_list.append(('QtGui.QPalette.WindowText', 
+        color_list.append(('QtGui.QPalette.WindowText',
                            self.palette().color(QtGui.QPalette.WindowText)))
-        color_list.append(('QtGui.QPalette.Foreground', 
+        color_list.append(('QtGui.QPalette.Foreground',
                            self.palette().color(QtGui.QPalette.Foreground)))
-        color_list.append(('QtGui.QPalette.Base', 
+        color_list.append(('QtGui.QPalette.Base',
                            self.palette().color(QtGui.QPalette.Base)))
-        color_list.append(('QtGui.QPalette.AlternateBase', 
+        color_list.append(('QtGui.QPalette.AlternateBase',
                            self.palette().color(QtGui.QPalette.AlternateBase)))
-        color_list.append(('QtGui.QPalette.ToolTipBase', 
+        color_list.append(('QtGui.QPalette.ToolTipBase',
                            self.palette().color(QtGui.QPalette.ToolTipBase)))
-        color_list.append(('QtGui.QPalette.ToolTipText', 
+        color_list.append(('QtGui.QPalette.ToolTipText',
                            self.palette().color(QtGui.QPalette.ToolTipText)))
-        color_list.append(('QtGui.QPalette.Text', 
+        color_list.append(('QtGui.QPalette.Text',
                            self.palette().color(QtGui.QPalette.Text)))
-        color_list.append(('QtGui.QPalette.Button', 
+        color_list.append(('QtGui.QPalette.Button',
                            self.palette().color(QtGui.QPalette.Button)))
-        color_list.append(('QtGui.QPalette.ButtonText', 
+        color_list.append(('QtGui.QPalette.ButtonText',
                            self.palette().color(QtGui.QPalette.ButtonText)))
-        color_list.append(('QtGui.QPalette.BrightText', 
+        color_list.append(('QtGui.QPalette.BrightText',
                            self.palette().color(QtGui.QPalette.BrightText)))
-        
+
         textEdit = QtGui.QTextEdit()
         for n, c in color_list:
             textEdit.append(n + ':\t' + str(c.name()))
         stack.addWidget(textEdit)
-        
+
         # Change this to wherever your icons are stored
         icon_files = glob.glob("D:/UMD_Research/Software/hyperspyUI/"
-                               "hyperspyui/images/*.svg")        
-                        
+                               "hyperspyui/images/*.svg")
+
         widget.setLayout(stack)
         self.setCentralWidget(widget)
 
         toolbar1 = self.addToolBar('Bar1')
         toolbar2 = self.addToolBar('Bar2')
         toolbar3 = self.addToolBar('Bar3')
-        
-        ico_list = [''] * len(icon_files)      
-        action_list = [''] * len(icon_files)      
-        for i, f in enumerate(icon_files):        
-            ico_list[i] = QtGui.QIcon(self.replaceSvgColor(f, 
-                                                           '#000000', 
+
+        ico_list = [''] * len(icon_files)
+        action_list = [''] * len(icon_files)
+        for i, f in enumerate(icon_files):
+            ico_list[i] = QtGui.QIcon(self.replaceSvgColor(f,
+                                                           '#000000',
                                                            'red'))
             action_list[i] = QtGui.QAction(ico_list[i], 'Exit', self)
             action_list[i].setStatusTip(os.path.basename(f))
-            
 
             # add to toolbars
-            if i/float(len(icon_files)) <= 0.33:            
+            if i/float(len(icon_files)) <= 0.33:
                 toolbar1.addAction(action_list[i])
             elif i/float(len(icon_files)) <= 0.66:
                 toolbar2.addAction(action_list[i])
@@ -117,21 +117,19 @@ class Example(QtGui.QMainWindow):
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(action_list[8])
-        
+
         self.setGeometry(50, 30, 650, 350)
-        self.setWindowTitle('Icon color testing')    
+        self.setWindowTitle('Icon color testing')
         self.show()
 
         self.statusBar().showMessage("Ready")
 
-        
-        
+
 def main():
-    
     app = QtGui.QApplication(sys.argv)
     _ = Example()
     sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
-    main()    
+    main()

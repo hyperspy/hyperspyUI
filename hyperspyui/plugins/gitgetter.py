@@ -31,6 +31,8 @@ import imp
 from functools import partial
 from io import StringIO
 
+from hyperspyui.util import block_signals
+
 
 def check_git_repo(package_name):
     """
@@ -335,10 +337,8 @@ class VersionSelectionDialog(QDialog):
         try:
             checkout_branch(branch, stream)
         except ValueError:
-            old = cbo.blockSignals
-            cbo.blockSignals = True
-            cbo.setCurrentIndex(self._prev_indices[cbo])
-            cbo.blockSignals = old
+            with block_signals(cbo):
+                cbo.setCurrentIndex(self._prev_indices[cbo])
         finally:
             diag = getattr(stream, 'dialog', None)
             if diag is not None:

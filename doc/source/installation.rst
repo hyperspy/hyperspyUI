@@ -43,7 +43,7 @@ Currently, this only
 integrates with Windows, but this is intended to be extend to Linux systems
 in the future (please consider contributing).
 
-.. _PyPI: https://pypi.python.org/pypi/hyperspyui/
+.. _PyPI: https://pypi.python.org/pypi/hyperspyUI
 
 
 Getting Qt
@@ -56,4 +56,4 @@ include WinPython_, Conda_ and Canopy_.
 .. _Conda: https://github.com/conda/conda
 .. _Canopy:
 
-.. _Qt: http://www.qt.io/
+.. _Qt: https://www.qt.io/
