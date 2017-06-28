@@ -22,9 +22,9 @@ Created on Wed Oct 29 16:49:48 2014
 """
 
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.misc.rgb_tools import rgbx2regular_array

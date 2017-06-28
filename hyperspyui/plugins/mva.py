@@ -24,9 +24,9 @@ Created on Fri Dec 12 23:44:01 2014
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from hyperspy.learn.mva import LearningResults
 from hyperspyui.util import win2sig, fig2win, Namespace

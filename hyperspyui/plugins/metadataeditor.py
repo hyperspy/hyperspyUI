@@ -19,9 +19,9 @@
 from functools import partial
 from collections import OrderedDict
 
-from python_qt_binding import QtGui, QtCore, QtSvg
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtSvg
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow

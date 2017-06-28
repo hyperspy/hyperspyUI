@@ -22,9 +22,9 @@ Created on Mon Nov 17 14:16:41 2014
 """
 
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 import types
 

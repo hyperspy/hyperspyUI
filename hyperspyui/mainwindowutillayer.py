@@ -27,9 +27,9 @@ import os
 import inspect
 from functools import partial
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 from hyperspyui.advancedaction import AdvancedAction
@@ -155,7 +155,7 @@ class MainWindowUtils(MainWindowBase):
             self.addToolBar(Qt.LeftToolBarArea, tb)
             self.toolbars[category] = tb
 
-        if not isinstance(action, QAction):
+        if not isinstance(action, QtWidgets.QAction):
             action = self.actions[action]
         tb.addAction(action)
 
@@ -186,7 +186,7 @@ class MainWindowUtils(MainWindowBase):
                 self.menuBar().insertMenu(self.windowmenu.menuAction(), m)
             self.menus[category] = m
 
-        if not isinstance(action, QAction):
+        if not isinstance(action, QtWidgets.QAction):
             action = self.actions[action]
         m.addAction(action)
 

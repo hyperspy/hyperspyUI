@@ -71,7 +71,7 @@ def _get_logfile():
 
 
 def main():
-    from python_qt_binding import QtGui, QtCore, QT_BINDING
+    from qtpy import QtGui, QtCore, API, QtWidgets
     import hyperspyui.info
     from hyperspyui.singleapplication import get_app
     from hyperspyui.settings import Settings
@@ -90,7 +90,7 @@ def main():
     settings.set_default('allow_multiple_instances', False)
     if settings['allow_multiple_instances', bool]:
         # Using multiple instances, get a new application
-        app = QtGui.QApplication(sys.argv)
+        app = QtWidgets.QApplication(sys.argv)
     else:
         # Make sure we only have a single instance
         app = get_app('hyperspyui')
@@ -105,7 +105,7 @@ def main():
         # Create and display the splash screen
         splash_pix = QtGui.QPixmap(
             os.path.dirname(__file__) + './images/splash.png')
-        splash = QtGui.QSplashScreen(splash_pix,
+        splash = QtWidgets.QSplashScreen(splash_pix,
                                      QtCore.Qt.WindowStaysOnTopHint)
         splash.setMask(splash_pix.mask())
         splash.show()
@@ -117,9 +117,9 @@ def main():
 
         form = MainWindow()
         if not settings['allow_multiple_instances', bool]:
-            if QT_BINDING == 'pyqt':
+            if "pyqt" in API:
                 app.messageAvailable.connect(form.handleSecondInstance)
-            elif QT_BINDING == 'pyside':
+            elif API == 'pyside':
                 app.messageReceived.connect(form.handleSecondInstance)
         form.showMaximized()
 

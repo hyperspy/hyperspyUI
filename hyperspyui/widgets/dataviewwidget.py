@@ -23,9 +23,9 @@ Created on Tue Nov 04 16:32:55 2014
 
 import os
 
-from python_qt_binding import QtGui, QtCore, QtSvg
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtSvg, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from functools import partial
 import traits.api as t
@@ -321,13 +321,13 @@ class DataViewWidget(QWidget):
             model = item.parent().data(NameCol, Qt.UserRole)
 
             # Fit action
-            ac = QAction(tr("&Fit component"), self.tree)
+            ac = QtWidgets.QAction(tr("&Fit component"), self.tree)
             f = partial(model.fit_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)
 
             # Configure action
-            ac = QAction(tr("&Configure"), self.tree)
+            ac = QtWidgets.QAction(tr("&Configure"), self.tree)
             f = partial(self.edit_traits, comp)
             ac.triggered.connect(f)
             cm.addAction(ac)
@@ -335,7 +335,7 @@ class DataViewWidget(QWidget):
             cm.addSeparator()
 
             # Remove action
-            ac = QAction(tr("&Delete"), self.tree)
+            ac = QtWidgets.QAction(tr("&Delete"), self.tree)
             f = partial(model.remove_component, comp)
             self.connect(ac, SIGNAL('triggered()'), f)
             cm.addAction(ac)

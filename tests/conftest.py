@@ -8,7 +8,7 @@ import hyperspyui
 
 import pytest
 
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 QCoreApplication = QtCore.QCoreApplication
 QSettings = QtCore.QSettings

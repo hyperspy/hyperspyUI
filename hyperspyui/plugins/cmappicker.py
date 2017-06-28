@@ -28,9 +28,9 @@ from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
 from hyperspyui.util import win2fig, fig2image_plot
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 
 def tr(text):
@@ -142,7 +142,7 @@ class CMapPickerWidget(FigureWidget):
 
     def _on_figure_change(self, figure):
         super(CMapPickerWidget, self)._on_figure_change(figure)
-        if isinstance(figure, QMdiSubWindow):
+        if isinstance(figure, QtWidgets.QMdiSubWindow):
             figure = win2fig(figure)
 
         signals = self.parent().signals

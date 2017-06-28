@@ -33,9 +33,9 @@ import hyperspy.signals
 
 from hyperspyui.threaded import ProgressThreaded
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 
 def tr(text):

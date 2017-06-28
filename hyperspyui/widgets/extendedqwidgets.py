@@ -21,9 +21,10 @@ Created on Fri Nov 21 22:11:04 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from  qtpy import QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
+from qtpy.QtWidgets import *
 
 import numpy as np
 

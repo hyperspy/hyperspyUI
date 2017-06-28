@@ -33,7 +33,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 """
 
-from python_qt_binding import QtCore, QtGui
+from qtpy import QtCore, QtGui
 
 
 class FlowLayout(QtGui.QLayout):

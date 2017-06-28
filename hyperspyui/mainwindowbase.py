@@ -31,9 +31,9 @@ import warnings
 import sys
 import logging
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from .widgets.consolewidget import ConsoleWidget
 import hyperspyui.mdi_mpl_backend
@@ -107,7 +107,7 @@ def normalpriority():
         os.nice(-os.nice(0))
 
 
-class MainWindowBase(QMainWindow):
+class MainWindowBase(QtWidgets.QMainWindow):
 
     """
     Base layer in application stack. Should handle the connection to our custom
@@ -268,11 +268,11 @@ class MainWindowBase(QMainWindow):
         logger.debug("Creating plugin actions")
         self.plugin_manager.create_actions()
 
-        self.selectable_tools = QActionGroup(self)
+        self.selectable_tools = QtWidgets.QActionGroup(self)
         self.selectable_tools.setExclusive(True)
 
         # Nested docking action
-        ac_nested = QAction(tr("Nested docking"), self)
+        ac_nested = QtWidgets.QAction(tr("Nested docking"), self)
         ac_nested.setStatusTip(tr("Allow nested widget docking"))
         ac_nested.setCheckable(True)
         ac_nested.setChecked(self.isDockNestingEnabled())
@@ -281,14 +281,14 @@ class MainWindowBase(QMainWindow):
         self.actions['nested_docking'] = ac_nested
 
         # Tile windows action
-        ac_tile = QAction(tr("Tile"), self)
+        ac_tile = QtWidgets.QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
         self.connect(ac_tile, SIGNAL('triggered()'),
                      self.main_frame.tileSubWindows)
         self.actions['tile_windows'] = ac_tile
 
         # Cascade windows action
-        ac_cascade = QAction(tr("Cascade"), self)
+        ac_cascade = QtWidgets.QAction(tr("Cascade"), self)
         ac_cascade.setStatusTip(
             tr("Arranges all figures in a cascade pattern"))
         self.connect(ac_cascade, SIGNAL('triggered()'),
@@ -296,14 +296,14 @@ class MainWindowBase(QMainWindow):
         self.actions['cascade_windows'] = ac_cascade
 
         # Close all figures action
-        ac_close_figs = QAction(tr("Close all"), self)
+        ac_close_figs = QtWidgets.QAction(tr("Close all"), self)
         ac_close_figs.setStatusTip(tr("Closes all matplotlib figures"))
         self.connect(ac_close_figs, SIGNAL('triggered()'),
                      lambda: matplotlib.pyplot.close("all"))
         self.actions['close_all_windows'] = ac_close_figs
 
         # Reset geometry action
-        ac_reset_layout = QAction(tr("Reset layout"), self)
+        ac_reset_layout = QtWidgets.QAction(tr("Reset layout"), self)
         ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and "
                                         "widgets"))
         self.connect(ac_reset_layout, SIGNAL('triggered()'),

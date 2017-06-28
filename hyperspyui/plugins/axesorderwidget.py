@@ -23,7 +23,7 @@ Created on Tue Apr 28 11:00:55 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore
+from qtpy import QtGui, QtCore
 import collections
 
 from hyperspyui.util import win2sig

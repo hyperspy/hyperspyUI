@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from hyperspyui.widgets.signallist import SignalList
 

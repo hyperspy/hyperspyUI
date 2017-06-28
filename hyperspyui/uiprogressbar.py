@@ -28,7 +28,7 @@ from __future__ import division, absolute_import
 import sys
 from time import time
 
-from QtCore import QObject, Signal, SIGNAL
+from qtpy.QtCore import QObject, Signal, SIGNAL
 
 import hyperspy.external.progressbar
 from tqdm import tqdm

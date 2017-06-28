@@ -18,9 +18,9 @@
 
 from hyperspyui.plugins.plugin import Plugin
 import numpy as np
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from hyperspyui.tools import SelectionTool
 from hyperspyui.util import SignalTypeFilter

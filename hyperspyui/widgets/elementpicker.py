@@ -23,9 +23,9 @@ Created on Fri Nov 21 22:22:33 2014
 
 from functools import partial
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 import hyperspy.signals
 from hyperspy.misc.elements import elements as elements_db

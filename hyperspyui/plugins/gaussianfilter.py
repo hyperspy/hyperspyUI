@@ -22,7 +22,7 @@ from skimage.filters import gaussian
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
-from python_qt_binding import QtGui, QtCore
+from qtpy import QtGui, QtCore
 
 
 def tr(text):

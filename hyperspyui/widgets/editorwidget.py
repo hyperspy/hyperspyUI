@@ -21,9 +21,9 @@ Created on Sat Feb 21 17:55:01 2015
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 import os
 
@@ -207,12 +207,12 @@ class EditorWidget(ExToolWindow):
 
         self.create_controls(path)
 
-        self.save_action = QAction(self)
+        self.save_action = QtWidgets.QAction(self)
         self.save_action.setShortcut(QKeySequence.Save)
         self.save_action.triggered.connect(self.save)
         self.addAction(self.save_action)
 
-        self.run_action = QAction(self)
+        self.run_action = QtWidgets.QAction(self)
         self.run_action.setShortcut(QKeySequence(Qt.Key_F5))
         self.run_action.triggered.connect(self.run)
         self.addAction(self.run_action)

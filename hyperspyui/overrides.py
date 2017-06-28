@@ -22,7 +22,7 @@ Created on Fri Dec 19 03:43:51 2014
 """
 
 
-from python_qt_binding import QtCore
+from qtpy import QtCore
 import hyperspy.drawing.utils
 
 orig_on_figure_window_close = hyperspy.drawing.utils.on_figure_window_close

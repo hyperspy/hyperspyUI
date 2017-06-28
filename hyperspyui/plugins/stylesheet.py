@@ -21,9 +21,9 @@ from hyperspyui.plugins.plugin import Plugin
 from functools import partial
 from collections import OrderedDict
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from pyqode.core import api
 from pyqode.core import modes
@@ -138,7 +138,7 @@ class StyleDialog(ExToolWindow):
                     i += 1
         self.create_controls()
 
-        self.save_action = QAction(self)
+        self.save_action = QtWidgets.QAction(self)
         self.save_action.setShortcut(QKeySequence.Save)
         self.save_action.triggered.connect(self.save)
         self.addAction(self.save_action)

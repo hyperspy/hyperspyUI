@@ -22,15 +22,15 @@ Created on Wed Jul 29 18:09:56 2015
 """
 
 
-from python_qt_binding import QtGui, QtCore, QtSvg
-from QtCore import *
-from QtGui import *
-from QtSvg import *
+from qtpy import QtGui, QtCore, QtSvg, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
+from qtpy.QtSvg import *
 
 import re
 
 
-class SmartColorSVGIconEngine(QIconEngineV2):
+class SmartColorSVGIconEngine(QIconEngine):
     """
     This class is basically a port to Python from the code for Qt's
     QSvgIconEnginePlugin. On top of this has been added the ability to exchange

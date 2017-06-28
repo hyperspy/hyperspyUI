@@ -23,9 +23,9 @@ Created on Mon May 04 17:30:36 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore, QtWebKit, QtNetwork
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWebKit, QtNetwork
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 from QtWebKit import *
 from QtNetwork import *
 

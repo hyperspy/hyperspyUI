@@ -22,9 +22,9 @@ Created on Mon Oct 27 23:09:55 2014
 """
 
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from hyperspyui.bindinglist import BindingList
 

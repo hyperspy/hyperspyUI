@@ -42,9 +42,9 @@ from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
 from hyperspyui.log import logger
 import hyperspyui.tools
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 import hyperspy.utils.plot
 import hyperspy.signals
@@ -193,7 +193,7 @@ class MainWindow(MainWindowHyperspy):
                         tip="Open the HyperSpyUI documentation in a browser.")
 
         # --- Add signal type selection actions ---
-        signal_type_ag = QActionGroup(self)
+        signal_type_ag = QtWidgets.QActionGroup(self)
         signal_type_ag.setExclusive(True)
         for st in self.signal_types.keys():
             f = partial(self.set_signal_type, st)
@@ -203,7 +203,7 @@ class MainWindow(MainWindowHyperspy):
         self.signal_type_ag = signal_type_ag
 
         # --- Add signal data type selection actions ---
-        signal_datatype_ag = QActionGroup(self)
+        signal_datatype_ag = QtWidgets.QActionGroup(self)
         signal_datatype_ag.setExclusive(True)
         import numpy as np
         for t in [np.bool, np.bool8, np.byte, np.complex, np.complex64,

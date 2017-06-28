@@ -21,9 +21,9 @@ Created on Wed Jan 20 02:43:41 2016
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 
 class StringInputDialog(QDialog):

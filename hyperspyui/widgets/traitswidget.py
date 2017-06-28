@@ -23,9 +23,9 @@ Created on Wed Jan 07 20:01:34 2015
 
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 
 class TraitsWidget(FigureWidget):

@@ -35,7 +35,7 @@ mpl15 = mplversionstring.startswith('1.5')
 if mpl13:
     from matplotlib.backends.qt4_compat import QtCore, QtGui, _getSaveFileName, __version__
 else: # mpl14 or mpl15, or higher
-    from matplotlib.backends.qt_compat import QtCore, QtGui, _getSaveFileName, __version__
+    from matplotlib.backends.qt_compat import QtCore, QtGui, QtWidgets, _getSaveFileName, __version__
 
 if mpl13:
     from matplotlib.backends.backend_qt4 import (QtCore, QtGui, FigureManagerQT, FigureCanvasQT,
@@ -148,7 +148,7 @@ def new_figure_manager_given_figure(num, figure):
     return manager
 
 
-class FigureWindow(QtGui.QMdiSubWindow):
+class FigureWindow(QtWidgets.QMdiSubWindow):
 
     """
     A basic MDI sub-window, but with a closing signal, and an activate QAction,
@@ -156,11 +156,11 @@ class FigureWindow(QtGui.QMdiSubWindow):
     Windows-menu). An exclusive, static action group makes sure only one
     window can be active at the time. If you want to split the windows into
     different groups that can be treated separately, you will need to create
-    your own QActionGroups.
+    your own QtWidgets.QActionGroups.
     """
     closing = QtCore.Signal()
 
-    activeFigureActionGroup = QtGui.QActionGroup(None)
+    activeFigureActionGroup = QtWidgets.QActionGroup(None)
     activeFigureActionGroup.setExclusive(True)
 
     def __init__(self, *args, **kwargs):
@@ -181,7 +181,7 @@ class FigureWindow(QtGui.QMdiSubWindow):
         """
         if self._activate_action is not None:
             return self._activate_action
-        self._activate_action = QtGui.QAction(self.windowTitle(), self)
+        self._activate_action = QtWidgets.QAction(self.windowTitle(), self)
         self._activate_action.setCheckable(True)
         self._activate_action.triggered.connect(self._activate_triggered)
         self.activeFigureActionGroup.addAction(self._activate_action)
@@ -309,7 +309,7 @@ class FigureManagerMdi(FigureManagerBase):
     def destroy(self, *args):
         _on_destroy(self.window)
         # check for qApp first, as PySide deletes it in its atexit handler
-        if QtGui.QApplication.instance() is None:
+        if QtWidgets.QApplication.instance() is None:
             return
         if self.window._destroying:
             return

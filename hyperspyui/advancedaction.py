@@ -22,12 +22,12 @@ Created on Sun Aug 21 19:59:04 2016
 """
 
 
-from python_qt_binding import QtGui, QtCore
+from qtpy import QtGui, QtCore, QtWidgets
 
 
 # QAction.trigger/activate are not virtual, so cannot simply override.
 # Instead, we shadow/wrap the triggered signal used by our python code
-class AdvancedAction(QtGui.QAction):
+class AdvancedAction(QtWidgets.QAction):
     # The overloaded signal can take an optional argument `advanced`
     _triggered = QtCore.Signal([], [bool], [bool, bool])
 
@@ -40,10 +40,10 @@ class AdvancedAction(QtGui.QAction):
         return self._triggered
 
     def _trigger(self, checked):
-        mods = QtGui.QApplication.keyboardModifiers()
+        mods = QtWidgets.QApplication.keyboardModifiers()
         advanced = mods & QtCore.Qt.AltModifier == QtCore.Qt.AltModifier
         self._triggered[bool, bool].emit(checked, advanced)
         self._triggered[bool].emit(checked)
         self._triggered.emit()
 
-AdvancedAction.__init__.__doc__ = QtGui.QAction.__init__.__doc__
+AdvancedAction.__init__.__doc__ = QtWidgets.QAction.__init__.__doc__

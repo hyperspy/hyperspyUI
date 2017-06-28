@@ -45,9 +45,9 @@ uiprogressbar.takeover_progressbar()    # Enable hooks
 from . import hooksignal
 hooksignal.hook_signal()
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 from hyperspyui.signalwrapper import SignalWrapper
 from hyperspyui.bindinglist import BindingList
 from hyperspyui.log import logger

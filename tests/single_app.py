@@ -1,6 +1,6 @@
 import sys
 from hyperspyui.singleapplication import get_app
-from python_qt_binding import QT_BINDING
+from qtpy import API
 
 key = 'test_single_app'
 
@@ -16,9 +16,9 @@ except SystemExit:
     print('Exiting early!')
     raise
 
-if QT_BINDING == 'pyqt':
+if "pyqt" in API:
     app.messageAvailable.connect(handle_second_instance)
-elif QT_BINDING == 'pyside':
+elif API == 'pyside':
     app.messageReceived.connect(handle_second_instance)
 
 print('Loaded app')

@@ -24,9 +24,9 @@ Created on Sun Mar 01 03:24:48 2015
 import sys
 import os
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from .extendedqwidgets import ExToolWindow
 from .editorwidget import EditorWidget

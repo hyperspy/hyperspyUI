@@ -21,9 +21,9 @@ Created on Fri Nov 21 19:31:50 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 from functools import partial
 from hyperspyui._elements import elements

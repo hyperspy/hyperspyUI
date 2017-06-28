@@ -26,16 +26,16 @@ import sys
 import json
 import os
 import logging
-from python_qt_binding import QtGui, QtCore, QtNetwork, QT_BINDING
+from qtpy import QtGui, QtCore, QtNetwork, API, QtWidgets
 
 _logger = logging.getLogger(__name__)
 
 
-class SingleApplication(QtGui.QApplication):
-    messageAvailable = QtCore.pyqtSignal(object)
+class SingleApplication(QtWidgets.QApplication):
+    messageAvailable = QtCore.Signal(object)
 
     def __init__(self, argv, key):
-        QtGui.QApplication.__init__(self, argv)
+        QtWidgets.QApplication.__init__(self, argv)
         self._memory = QtCore.QSharedMemory(self)
         self._memory.setKey(key)
         if self._memory.attach():
@@ -48,7 +48,7 @@ class SingleApplication(QtGui.QApplication):
         # Set correct logo
         base_path = os.path.abspath(os.path.dirname(__file__))
         icon_path = os.path.join(base_path, 'images', 'hyperspy.svg')
-        QtGui.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
+        QtWidgets.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
 
     def isRunning(self):
         return self._running
@@ -94,7 +94,7 @@ class SingleApplicationWithMessaging(SingleApplication):
 
 def get_app(key):
     # send commandline args as message
-    if QT_BINDING == 'pyqt':
+    if "pyqt" in API:
         if len(sys.argv) > 1:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
@@ -109,11 +109,11 @@ def get_app(key):
                 _logger.debug('An existing instance of HyperSpyUI is running, '
                               'bringing it to the front.')
                 sys.exit(1)     # An instance is already running
-    elif QT_BINDING == 'pyside':
+    elif API == 'pyside':
         from siding.singleinstance import QSingleApplication
         app = QSingleApplication(sys.argv)
         msg = json.dumps(sys.argv[1:])
         app.ensure_single(message=msg)
     else:
-        app = QtGui.QApplication(sys.argv)
+        app = QtWidgets.QApplication(sys.argv)
     return app

@@ -16,7 +16,7 @@ last edited: September 2011
 """
 
 import sys
-from PyQt4 import QtGui
+from qtpy import QtGui, QtWidgets
 import tempfile
 import glob
 import os
@@ -94,7 +94,7 @@ class Example(QtGui.QMainWindow):
             ico_list[i] = QtGui.QIcon(self.replaceSvgColor(f,
                                                            '#000000',
                                                            'red'))
-            action_list[i] = QtGui.QAction(ico_list[i], 'Exit', self)
+            action_list[i] = QtWidgets.QAction(ico_list[i], 'Exit', self)
             action_list[i].setStatusTip(os.path.basename(f))
 
             # add to toolbars
@@ -126,7 +126,7 @@ class Example(QtGui.QMainWindow):
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     _ = Example()
     sys.exit(app.exec_())
 

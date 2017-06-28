@@ -22,9 +22,9 @@ import matplotlib.animation as animation
 import os
 import sys
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtGui, QtCore
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 
 
 def tr(text):
