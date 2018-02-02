@@ -23,9 +23,7 @@ Created on Wed Jan 07 20:01:34 2015
 
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtWidgets
 
 
 class TraitsWidget(FigureWidget):
@@ -87,8 +85,8 @@ class TraitsWidget(FigureWidget):
         self.clear_editor()
         # Fix resizing
         sp = traits_dialog.sizePolicy()
-        sp.setVerticalPolicy(QSizePolicy.Fixed)
-        sp.setHorizontalPolicy(QSizePolicy.Expanding)
+        sp.setVerticalPolicy(QtWidgets.QSizePolicy.Fixed)
+        sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Expanding)
         traits_dialog.layout().setSizeConstraint(QLayout.SetDefaultConstraint)
         traits_dialog.setSizePolicy(sp)
 

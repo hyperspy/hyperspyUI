@@ -22,9 +22,8 @@ Created on Wed Oct 29 16:49:48 2014
 """
 
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtCore import SIGNAL
 
 from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.misc.rgb_tools import rgbx2regular_array
@@ -35,7 +34,7 @@ from matplotlib.colors import Normalize, SymLogNorm
 
 
 def tr(text):
-    return QCoreApplication.translate("ContrastWidget", text)
+    return QtCore.QCoreApplication.translate("ContrastWidget", text)
 
 
 def _auto_contrast(plot):
@@ -64,7 +63,7 @@ class ContrastWidget(FigureWidget):
 
     def _on_figure_change(self, figure):
         super(ContrastWidget, self)._on_figure_change(figure)
-        if isinstance(figure, QMdiSubWindow):
+        if isinstance(figure, QtWidgets.QMdiSubWindow):
             figure = win2fig(figure)
 
         signals = self.parent().signals
@@ -174,17 +173,17 @@ class ContrastWidget(FigureWidget):
         self.sl_window.setValue(imax - imin)   # Will trigger events
 
     def create_controls(self):
-        self.sl_level = ExDoubleSlider(self, Qt.Horizontal)
+        self.sl_level = ExDoubleSlider(self, QtCore.Qt.Horizontal)
         self.lbl_level = ExClickLabel(self.LevelLabel + ": 0.0")
-        self.sl_window = ExDoubleSlider(self, Qt.Horizontal)
+        self.sl_window = ExDoubleSlider(self, QtCore.Qt.Horizontal)
         self.lbl_window = ExClickLabel(self.WindowLabel + ": 0.0")
 
         for sl in [self.sl_level, self.sl_window]:
             sl.setRange(0.0, 1.0)
             sl.setValue(0.0)
 
-        self.chk_auto = QCheckBox(tr("Auto"), self)
-        self.chk_log = QCheckBox(tr("Log"), self)
+        self.chk_auto = QtWidgets.QCheckBox(tr("Auto"), self)
+        self.chk_log = QtWidgets.QCheckBox(tr("Log"), self)
 
         self.lbl_level.clicked.connect(self.reset_level)
         self.lbl_window.clicked.connect(self.reset_window)
@@ -193,16 +192,16 @@ class ContrastWidget(FigureWidget):
         self.connect(self.chk_auto, SIGNAL('stateChanged(int)'), self.auto)
         self.connect(self.chk_log, SIGNAL('toggled(bool)'), self.log_changed)
 
-        hbox = QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.chk_auto)
         hbox.addWidget(self.chk_log)
-        vbox = QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         for w in [self.sl_level, self.lbl_level,
                   self.sl_window, self.lbl_window]:
             vbox.addWidget(w)
         vbox.addLayout(hbox)
 
-        wrap = QWidget()
+        wrap = QtWidgets.QWidget()
         wrap.setLayout(vbox)
         height = vbox.sizeHint().height()
         wrap.setFixedHeight(height)

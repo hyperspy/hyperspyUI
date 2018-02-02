@@ -22,9 +22,10 @@ Created on Wed Jan 21 14:49:08 2015
 """
 
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore
+from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, 
+                            QFormLayout, QDoubleSpinBox, QGroupBox, QSpinBox,
+                            QRadioButton)
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
@@ -35,7 +36,7 @@ from hyperspyui.signalwrapper import SignalWrapper
 
 
 def tr(text):
-    return QCoreApplication.translate("ImageRotation", text)
+    return QtCore.QCoreApplication.translate("ImageRotation", text)
 
 
 class ImageRotation_Plugin(Plugin):

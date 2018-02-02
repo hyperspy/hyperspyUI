@@ -29,12 +29,11 @@ from hyperspyui.widgets.extendedqwidgets import FigureWidget
 from hyperspyui.util import win2fig, fig2image_plot
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtCore import Qt
 
 
 def tr(text):
-    return QCoreApplication.translate("ColorMapPickerPlugi", text)
+    return QtCore.QCoreApplication.translate("ColorMapPickerPlugi", text)
 
 
 class CMapPickerPlugin(Plugin):
@@ -72,7 +71,7 @@ cmaps = [('Uniform',        ['viridis', 'inferno', 'plasma', 'magma']),
                              'gist_rainbow', 'hsv', 'flag', 'prism'])]
 
 
-class CMapDelegate(QItemDelegate):
+class CMapDelegate(QtWidgets.QItemDelegate):
     """
     Delegate responsible for drawing a the entries in the colormap combobox.
 
@@ -92,20 +91,20 @@ class CMapDelegate(QItemDelegate):
         width = line.shape[0]
         data = line[:, [2, 1, 0, 3]]
         data = np.tile(data, (height, 1, 1))
-        im = QImage(data.data, width, height, QImage.Format_ARGB32)
+        im = QtGui.QImage(data.data, width, height, QtGui.QImage.Format_ARGB32)
         im.ndarray = data
-        return QPixmap.fromImage(im)
+        return QtGui.QPixmap.fromImage(im)
 
     def paint(self, painter, option, index):
 
         kind = index.data(Qt.AccessibleDescriptionRole)
         if kind == "parent":
-            option.state |= QStyle.State_Enabled
+            option.state |= QtWidgets.QStyle.State_Enabled
         else:
             option.textElideMode = Qt.ElideNone
             rect = option.rect
-            rect = QRect(rect.x()+self.cmap_shift, rect.y(),
-                         rect.width()-self.cmap_shift, rect.height())
+            rect = QtWidgets.QRect(rect.x()+self.cmap_shift, rect.y(),
+                                   rect.width()-self.cmap_shift, rect.height())
             option.rect.setLeft(option.rect.x() + 10)
         super(CMapDelegate, self).paint(painter, option, index)
 
@@ -118,7 +117,7 @@ class CMapDelegate(QItemDelegate):
             painter.drawPixmap(rect, pixmap)
 
     def sizeHint(self, option, index):
-        return QSize(self.width_, self.height_)
+        return QtCore.QSize(self.width_, self.height_)
 
     def drawFocus(self, painter, option, rect):
         super(CMapDelegate, self).drawFocus(painter, option, rect)
@@ -171,7 +170,7 @@ class CMapPickerWidget(FigureWidget):
 
     @staticmethod
     def make_parent_item(text):
-        item = QStandardItem(text)
+        item = QtGui.QStandardItem(text)
         item.setFlags(item.flags() & ~(Qt.ItemIsEnabled | Qt.ItemIsSelectable))
         item.setData("parent", Qt.AccessibleDescriptionRole)
 
@@ -182,7 +181,7 @@ class CMapPickerWidget(FigureWidget):
         return item
 
     def create_controls(self):
-        self.cbo = QComboBox()
+        self.cbo = QtWidgets.QComboBox()
         self.cbo.setItemDelegate(CMapDelegate(256, 18, 80, self.cbo))
         for group, maps in cmaps:
             self.cbo.model().appendRow(self.make_parent_item(group))
@@ -190,10 +189,10 @@ class CMapPickerWidget(FigureWidget):
                 self.cbo.addItem(cm)
         self.cbo.currentIndexChanged[str].connect(
             self._on_select)
-        vbox = QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(self.cbo)
 
-        wrap = QWidget()
+        wrap = QtWidgets.QWidget()
         wrap.setLayout(vbox)
         height = vbox.sizeHint().height()
         wrap.setFixedHeight(height)

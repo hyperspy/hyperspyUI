@@ -19,9 +19,9 @@
 from functools import partial
 from collections import OrderedDict
 
-from qtpy import QtGui, QtCore, QtSvg
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import QDialogButtonBox
+from qtpy.QtCore import Qt, QModelIndex
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
@@ -29,7 +29,7 @@ from hyperspy.misc.utils import DictionaryTreeBrowser
 
 
 def tr(text):
-    return QCoreApplication.translate("MetadataEditor", text)
+    return QtCore.QCoreApplication.translate("MetadataEditor", text)
 
 
 class MetadataEditor(Plugin):
@@ -61,7 +61,7 @@ class MetadataEditor(Plugin):
             diag = ExToolWindow(parent=self.ui)
             sw = self.ui.lut_signalwrapper[signal]
             diag.setWindowTitle(tr("Metadata of %s") % sw.name)
-            vbox = QVBoxLayout()
+            vbox = QtWidgets.QVBoxLayout()
             tw = MetadataTreeWidget(signal)
             vbox.addWidget(tw)
             btns = QDialogButtonBox(QDialogButtonBox.Ok)
@@ -73,7 +73,7 @@ class MetadataEditor(Plugin):
             self.editors[signal] = diag
 
 
-class MetadataTreeWidget(QTreeView):
+class MetadataTreeWidget(QtWidgets.QTreeView):
 
     def __init__(self, signal, parent=None):
         super(MetadataTreeWidget, self).__init__(parent)
@@ -144,7 +144,7 @@ class MetadataNode:
         return False
 
 
-class MetadataModel(QAbstractItemModel):
+class MetadataModel(QtCore.QAbstractItemModel):
 
     def __init__(self, signal, parent=None):
         super(MetadataModel, self).__init__(parent=parent)

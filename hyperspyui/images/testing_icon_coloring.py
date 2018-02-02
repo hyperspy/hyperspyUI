@@ -17,6 +17,8 @@ last edited: September 2011
 
 import sys
 from qtpy import QtGui, QtWidgets
+from qtpy.QtGui import QPalette
+
 import tempfile
 import glob
 import os

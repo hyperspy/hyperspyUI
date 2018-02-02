@@ -24,8 +24,7 @@ Created on Tue Nov 04 16:32:55 2014
 import os
 
 from qtpy import QtGui, QtCore, QtSvg, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtCore import Qt, SIGNAL
 
 from functools import partial
 import traits.api as t
@@ -35,7 +34,7 @@ from hyperspyui.util import create_add_component_actions, win2sig
 
 
 def tr(text):
-    return QCoreApplication.translate("DataViewWidget", text)
+    return QtCore.QCoreApplication.translate("DataViewWidget", text)
 
 
 NameCol = 1
@@ -55,7 +54,7 @@ class ComponentEditorHandler(tu.Handler):
                 pass
 
 
-class VisbilityDelegate(QStyledItemDelegate):
+class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
 
     def __init__(self, parent=None, icons=None):
         if icons is None or len(icons) < 1:
@@ -64,14 +63,14 @@ class VisbilityDelegate(QStyledItemDelegate):
             for fn in [path + "/../images/visibility_on.svg",
                        path + "/../images/visibility_off.svg"]:
                 renderer = QtSvg.QSvgRenderer(fn)
-                pm = QPixmap(12, 12)
+                pm = QtGui.QPixmap(12, 12)
                 pm.fill(Qt.transparent)
-                painter = QPainter(pm)
+                painter = QtGui.QPainter(pm)
                 renderer.render(painter)
                 icons.append(pm)
             icons = tuple(icons)
         elif len(icons) < 2:
-            icons = tuple(icons) + (QPixmap(),)
+            icons = tuple(icons) + (QtGui.QPixmap(),)
         else:
             icons = tuple(icons)
         self.icons = icons
@@ -79,8 +78,8 @@ class VisbilityDelegate(QStyledItemDelegate):
         super(VisbilityDelegate, self).__init__(parent)
 
     def iconPos(self, icon, option):
-        return QPoint(option.rect.right() - icon.width() - self.margin,
-                      option.rect.center().y() - icon.height()/2)
+        return QtCore.QPoint(option.rect.right() - icon.width() - self.margin,
+                             option.rect.center().y() - icon.height()/2)
 
     def sizeHint(self, option, index):
         size = super(VisbilityDelegate, self).sizeHint(option, index)
@@ -95,7 +94,7 @@ class VisbilityDelegate(QStyledItemDelegate):
         return size
 
     def paint(self, painter, option, index):
-        if option.state & QStyle.State_Selected:
+        if option.state & QtWidgets.QStyle.State_Selected:
             painter.fillRect(option.rect, option.palette.highlight())
         if Qt.Checked == index.data(Qt.CheckStateRole):
             icon = self.icons[0]
@@ -106,13 +105,13 @@ class VisbilityDelegate(QStyledItemDelegate):
         painter.drawPixmap(self.iconPos(icon, option), icon)
 
 
-class HyperspyItem(QTreeWidgetItem):
+class HyperspyItem(QtWidgets.QTreeWidgetItem):
 
     def __init__(self, parent, itemtype, hspy_item):
         super(HyperspyItem, self).__init__(parent, itemtype)
         self.hspy_item = hspy_item
         self.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable |
-                      Qt.ItemIsEnabled)
+                Qt.ItemIsEnabled)
         self.setText(NameCol, hspy_item.name)
 
     def data(self, column, role):
@@ -161,7 +160,7 @@ class HyperspyItem(QTreeWidgetItem):
                         setActiveSubWindow(p)
 
 
-class DataViewWidget(QWidget):
+class DataViewWidget(QtWidgets.QWidget):
 
     """
     A custom QTreeWidget, that handles the Signal-Model-Component hierarchy.
@@ -171,42 +170,42 @@ class DataViewWidget(QWidget):
     """
 
     # Enums
-    SignalType = QTreeWidgetItem.UserType
-    ModelType = QTreeWidgetItem.UserType + 1
-    ComponentType = QTreeWidgetItem.UserType + 2
+    SignalType = QtWidgets.QTreeWidgetItem.UserType
+    ModelType = QtWidgets.QTreeWidgetItem.UserType + 1
+    ComponentType = QtWidgets.QTreeWidgetItem.UserType + 2
 
     def __init__(self, main_window, parent=None):
         super(DataViewWidget, self).__init__(parent)
         self.main_window = main_window
-        self.tree = QTreeWidget(self)
+        self.tree = QtWidgets.QTreeWidget(self)
         self.tree.header().close()
         self.lut = {}
         self.editor_visible = True
         self.tree.setColumnCount(2)
-        self.editor = QVBoxLayout()
+        self.editor = QtWidgets.QVBoxLayout()
         self.editor_bottom_padding = 20
 
-        vbox = QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(self.tree)
         vbox.addLayout(self.editor)
         vbox.setContentsMargins(0, 0, 0, 0)
         self.setLayout(vbox)
         sp = self.sizePolicy()
-        sp.setVerticalPolicy(QSizePolicy.Expanding)
+        sp.setVerticalPolicy(QtWidgets.QSizePolicy.Expanding)
         self.setSizePolicy(sp)
         sp = self.tree.sizePolicy()
-        sp.setVerticalPolicy(QSizePolicy.Expanding)
+        sp.setVerticalPolicy(QtWidgets.QSizePolicy.Expanding)
         self.tree.setSizePolicy(sp)
 
         self.tree.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.connect(self.tree, SIGNAL('customContextMenuRequested(QPoint)'),
+        self.connect(self.tree, SIGNAL('customContextMenuRequested(QtCore.QPoint)'),
                      self.onCustomContextMenu)
         self.tree.currentItemChanged.connect(self.currentItemChanged)
         self.tree.itemDoubleClicked.connect(self.itemDoubleClicked)
 
         self.tree.setItemDelegateForColumn(VisibilityCol,
                                            VisbilityDelegate(self.tree))
-        self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.tree.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
     def _add(self, item, itemtype, parent=None):
         """
@@ -215,7 +214,7 @@ class DataViewWidget(QWidget):
         """
         if parent is None:
             parent = self.tree
-        elif not isinstance(parent, QTreeWidgetItem):
+        elif not isinstance(parent, QtWidgets.QTreeWidgetItem):
             parent = self.lut[parent]
         twi = HyperspyItem(parent, itemtype, item)
         if itemtype == self.SignalType:
@@ -239,7 +238,7 @@ class DataViewWidget(QWidget):
     def set_traits_editor(self, traits_dialog):
         self.clear_editor()
         sp = traits_dialog.sizePolicy()
-        sp.setVerticalPolicy(QSizePolicy.Fixed)
+        sp.setVerticalPolicy(QtWidgets.QSizePolicy.Fixed)
         traits_dialog.setSizePolicy(sp)
         self.editor.addWidget(traits_dialog)
         self.editor.addSpacing(self.editor_bottom_padding)
@@ -294,7 +293,7 @@ class DataViewWidget(QWidget):
         item = self.tree.itemAt(point)
         if not item:
             return
-        cm = QMenu(self.tree)
+        cm = QtWidgets.QMenu(self.tree)
         if item.type() == self.SignalType:
             sig = item.data(NameCol, Qt.UserRole)
 

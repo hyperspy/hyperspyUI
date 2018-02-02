@@ -21,42 +21,42 @@ Created on Wed Jan 20 02:43:41 2016
 @author: Vidar Tonaas Fauske
 """
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import QDialogButtonBox
 
 
-class StringInputDialog(QDialog):
+class StringInputDialog(QtWidgets.QDialog):
 
     def __init__(self, prompt="", default="", parent=None):
         super(StringInputDialog, self).__init__(parent=parent)
         self.setWindowTitle("Input prompt")
-        self.setWindowFlags(Qt.Tool)
+        self.setWindowFlags(QtCore.Qt.Tool)
 
-        frm = QFormLayout()
-        self.edit = QLineEdit(default)
+        frm = QtWidgets.QFormLayout()
+        self.edit = QtWidgets.QLineEdit(default)
         frm.addRow(prompt, self.edit)
 
-        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                Qt.Horizontal, self)
+        btns = QDialogButtonBox(
+                QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
+                QtCore.Qt.Horizontal, self)
         btns.accepted.connect(self.accept)
         btns.rejected.connect(self.reject)
 
-        box = QVBoxLayout(self)
+        box = QtWidgets.QVBoxLayout(self)
         box.addLayout(frm)
         box.addWidget(btns)
         self.setLayout(box)
 
     def prompt_modal(self, rejection=None):
         dr = self.exec_()
-        if dr == QDialog.Accepted:
+        if dr == QtWidgets.QDialog.Accepted:
             return self.edit.text()
         else:
             return rejection
 
     def _on_completed(self, result):
         (callback, rejection) = self._on_completed_info
-        if result == QDialog.Accepted:
+        if result == QtWidgets.QDialog.Accepted:
             value = self.edit.text()
         else:
             value = rejection

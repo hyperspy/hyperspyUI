@@ -21,8 +21,8 @@ Created on Sat Dec 27 14:21:00 2014
 @author: Vidar Tonaas Fauske
 """
 
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtCore import QSettings
+from qtpy.QtWidgets import QMessageBox
 
 from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 

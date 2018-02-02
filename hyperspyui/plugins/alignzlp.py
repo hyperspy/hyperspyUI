@@ -1,6 +1,4 @@
 from hyperspyui.plugins.plugin import Plugin
-import numpy as np
-import hyperspy.api as hs
 
 
 class Alignzlp(Plugin):

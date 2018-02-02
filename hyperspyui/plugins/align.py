@@ -18,9 +18,9 @@
 
 from hyperspyui.plugins.plugin import Plugin
 import numpy as np
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import QDialogButtonBox
+
 
 from hyperspyui.tools import SelectionTool
 from hyperspyui.util import SignalTypeFilter
@@ -336,9 +336,9 @@ class ManualAlignDialog(ExToolWindow):
 
     def create_controls(self):
         self.setWindowTitle("Align signal")
-        form = QFormLayout()
-        self.num_x = QSpinBox()
-        self.num_y = QSpinBox()
+        form = QtWidgets.QFormLayout()
+        self.num_x = QtWidgets.QSpinBox()
+        self.num_y = QtWidgets.QSpinBox()
         self.num_x.valueChanged.connect(self.update_x)
         self.num_y.valueChanged.connect(self.update_y)
         dims = self.signal.axes_manager.signal_shape
@@ -348,10 +348,10 @@ class ManualAlignDialog(ExToolWindow):
         self.num_y.setMinimum(-dims[1])
         form.addRow("X:", self.num_x)
         form.addRow("Y:", self.num_y)
-        vbox = QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(form)
         btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                Qt.Horizontal, self)
+                                QtCore.Qt.Horizontal, self)
         btns.accepted.connect(self.accept)
         btns.rejected.connect(self.reject)
         vbox.addWidget(btns)

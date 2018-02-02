@@ -21,7 +21,7 @@ Created on Mon Nov 17 11:35:52 2014
 @author: Vidar Tonaas Fauske
 """
 
-from qtpy import QtCore, QtGui, QtWidgets
+from qtpy import QtCore, QtWidgets
 from collections import OrderedDict
 
 

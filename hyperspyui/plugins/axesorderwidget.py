@@ -23,7 +23,7 @@ Created on Tue Apr 28 11:00:55 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtGui, QtCore
+from qtpy import QtGui, QtCore, QtWidgets
 import collections
 
 from hyperspyui.util import win2sig
@@ -111,7 +111,7 @@ class AxesOrderWidget(FigureWidget):
         for ax in signal.signal.axes_manager._get_axes_in_natural_order():
             rep = '%s axis, size: %i' % (ax._get_name(), ax.size)
             p = self.lst_nav if ax.navigate else self.lst_sig
-            i = QtGui.QListWidgetItem(rep)
+            i = QtWidgets.QListWidgetItem(rep)
             i.setData(QtCore.Qt.UserRole, ax)
             p.addItem(i)
 
@@ -207,10 +207,10 @@ class AxesOrderWidget(FigureWidget):
         self.lst_sig = AxesListWidget(self)
 
         sp = self.lst_sig.sizePolicy()
-        sp.setVerticalPolicy(QtGui.QSizePolicy.Fixed)
+        sp.setVerticalPolicy(QtWidgets.QSizePolicy.Fixed)
         self.lst_sig.setSizePolicy(sp)
         sp = self.lst_nav.sizePolicy()
-        sp.setVerticalPolicy(QtGui.QSizePolicy.Fixed)
+        sp.setVerticalPolicy(QtWidgets.QSizePolicy.Fixed)
         self.lst_nav.setSizePolicy(sp)
 
         self.btn_down.clicked.connect(self._move_down)
@@ -239,9 +239,9 @@ class AxesOrderWidget(FigureWidget):
         self.setWidget(w)
 
 
-class AxesListWidget(QtGui.QListWidget):
-    inserted = QtCore.Signal(int, int, QtGui.QListWidget)
-    moved = QtCore.Signal(QtGui.QListWidgetItem, int, QtGui.QListWidget)
+class AxesListWidget(QtWidgets.QListWidget):
+    inserted = QtCore.Signal(int, int, QtWidgets.QListWidget)
+    moved = QtCore.Signal(QtWidgets.QListWidgetItem, int, QtWidgets.QListWidget)
 
     last_drop = None
 

@@ -28,8 +28,8 @@ import inspect
 from functools import partial
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtCore import Qt
+from qtpy.QtWidgets import QDialogButtonBox
 
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 from hyperspyui.advancedaction import AdvancedAction
@@ -150,7 +150,7 @@ class MainWindowUtils(MainWindowBase):
         if category in self.toolbars:
             tb = self.toolbars[category]
         else:
-            tb = QToolBar(tr(category) + tr(" toolbar"), self)
+            tb = QtWidgets.QToolBar(tr(category) + tr(" toolbar"), self)
             tb.setObjectName(category + "_toolbar")
             self.addToolBar(Qt.LeftToolBarArea, tb)
             self.toolbars[category] = tb
@@ -182,7 +182,7 @@ class MainWindowUtils(MainWindowBase):
             if self.windowmenu is None:
                 m = self.menuBar().addMenu(label)
             else:
-                m = QMenu(label)
+                m = QtWidgets.QMenu(label)
                 self.menuBar().insertMenu(self.windowmenu.menuAction(), m)
             self.menus[category] = m
 
@@ -248,10 +248,10 @@ class MainWindowUtils(MainWindowBase):
         """
         if floating is None:
             floating = self.settings['default_widget_floating', bool]
-        if isinstance(widget, QDockWidget):
+        if isinstance(widget, QtWidgets.QDockWidget):
             d = widget
         else:
-            d = QDockWidget(self)
+            d = QtWidgets.QDockWidget(self)
             d.setWidget(widget)
             d.setWindowTitle(widget.windowTitle())
         if not d.objectName():
@@ -282,7 +282,7 @@ class MainWindowUtils(MainWindowBase):
                 current palette. If a QIcon is passed directly, it is also
                 sent through `SmartColorSVGIconEngine`.
         """
-        if not isinstance(icon, QIcon):
+        if not isinstance(icon, QtGui.QIcon):
             if isinstance(icon, str) and not os.path.isfile(icon):
                 sugg = os.path.dirname(__file__) + '/images/' + icon
                 if os.path.isfile(sugg):
@@ -293,12 +293,12 @@ class MainWindowUtils(MainWindowBase):
                     icon.endswith('svg.gz')):
                 ie = SmartColorSVGIconEngine()
                 path = icon
-                icon = QIcon(ie)
+                icon = QtGui.QIcon(ie)
                 icon.addFile(path)
             else:
-                icon = QIcon(icon)
+                icon = QtGui.QIcon(icon)
         else:
-            icon = QIcon(SmartColorSVGIconEngine(icon))
+            icon = QtGui.QIcon(SmartColorSVGIconEngine(icon))
         return icon
 
     def prompt_files(self, extension_filter=None, path=None, exists=True,
@@ -310,11 +310,11 @@ class MainWindowUtils(MainWindowBase):
             def_filter = extension_filter.split(';;', maxsplit=1)[0]
 
         if exists:
-            filenames = QFileDialog.getOpenFileNames(
+            filenames = QtWidgets.QFileDialog.getOpenFileNames(
                 self, title, path, extension_filter)
         else:
 
-            filenames = QFileDialog.getSaveFileName(
+            filenames = QtWidgets.QFileDialog.getSaveFileName(
                 self, title, path, extension_filter, def_filter)
         # Pyside returns tuple, PyQt not
         if isinstance(filenames, tuple):
@@ -383,7 +383,7 @@ class MainWindowUtils(MainWindowBase):
         """
         Show a dialog with the passed widget and OK and cancel buttons.
         """
-        diag = QDialog(self)
+        diag = QtWidgets.QDialog(self)
         diag.setWindowTitle(title)
         diag.setWindowFlags(Qt.Tool)
 
@@ -392,7 +392,7 @@ class MainWindowUtils(MainWindowBase):
         btns.accepted.connect(diag.accept)
         btns.rejected.connect(diag.reject)
 
-        box = QVBoxLayout(diag)
+        box = QtWidgets.QVBoxLayout(diag)
         box.addWidget(widget)
         box.addWidget(btns)
         diag.setLayout(box)

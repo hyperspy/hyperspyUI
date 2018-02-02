@@ -24,19 +24,20 @@ Created on Sun Mar 01 03:24:48 2015
 import sys
 import os
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore
+from qtpy.QtCore import Qt, QModelIndex
+from qtpy.QtWidgets import (QDialogButtonBox, QTableView, QHeaderView,
+                            QPushButton, QVBoxLayout)
 
 from .extendedqwidgets import ExToolWindow
 from .editorwidget import EditorWidget
 
 
 def tr(text):
-    return QCoreApplication.translate("PluginManagerWidget", text)
+    return QtCore.QCoreApplication.translate("PluginManagerWidget", text)
 
 
-class PluginsModel(QAbstractItemModel):
+class PluginsModel(QtCore.QAbstractItemModel):
 
     EnabledColumn = 0
     NameColumn = 1
@@ -114,10 +115,10 @@ class PluginsModel(QAbstractItemModel):
                     return tr("Path")
         return None
 
-    def rowCount(self, parent=QModelIndex()):
+    def rowCount(self, parent=QtCore.QModelIndex()):
         return len(self._plugin_data)
 
-    def columnCount(self, parent=QModelIndex()):
+    def columnCount(self, parent=QtCore.QModelIndex()):
         return 3
 
 

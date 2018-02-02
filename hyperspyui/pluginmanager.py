@@ -27,7 +27,6 @@ import glob
 import importlib
 import warnings
 import traceback
-import logging
 
 from hyperspyui.log import logger
 from hyperspyui.plugins.plugin import Plugin

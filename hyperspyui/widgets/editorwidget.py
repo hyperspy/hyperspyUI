@@ -22,8 +22,9 @@ Created on Sat Feb 21 17:55:01 2015
 """
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtWidgets import (QDialogButtonBox, QCheckBox, QLineEdit, 
+                            QPushButton, QHBoxLayout, QVBoxLayout, QFormLayout,
+                            )
 
 import os
 
@@ -40,7 +41,7 @@ import hyperspyui.plugincreator as pc
 
 
 def tr(text):
-    return QCoreApplication.translate("EditorWidget", text)
+    return QtCore.QCoreApplication.translate("EditorWidget", text)
 
 
 class NameCategoryPrompt(ExToolWindow):
@@ -65,7 +66,7 @@ class NameCategoryPrompt(ExToolWindow):
         self.btn_browse_icon.setEnabled(icon)
 
     def browse_icon(self):
-        formats = QImageReader.supportedImageFormats()
+        formats = QtGui.QImageReader.supportedImageFormats()
         formats = [str(f, encoding='ascii') for f in formats]
         # Add one filter that takes all supported:
         type_filter = tr("Supported formats")
@@ -73,10 +74,10 @@ class NameCategoryPrompt(ExToolWindow):
         # Add all as individual options
         type_filter += ';;' + tr("All files") + \
             ' (*.*) ;;*.' + ';;*.'.join(formats)
-        path = QFileDialog.getOpenFileName(self,
-                                           tr("Pick icon"),
-                                           os.path.dirname(self.ui.cur_dir),
-                                           type_filter)
+        path = QtWidgets.QFileDialog.getOpenFileName(self,
+            tr("Pick icon"),
+            os.path.dirname(self.ui.cur_dir),
+            type_filter)
         if isinstance(path, tuple):    # Pyside returns tuple, PyQt not
             path = path[0]
         if path is None:
@@ -97,7 +98,7 @@ class NameCategoryPrompt(ExToolWindow):
         self.txt_iconpath.setEnabled(False)
         self.btn_browse_icon.setEnabled(False)
         btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                Qt.Horizontal)
+                                QtCore.Qt.Horizontal)
 
         self.chk_menu.toggled.connect(self.checks_changed)
         self.chk_toolbar.toggled.connect(self.checks_changed)
@@ -208,12 +209,12 @@ class EditorWidget(ExToolWindow):
         self.create_controls(path)
 
         self.save_action = QtWidgets.QAction(self)
-        self.save_action.setShortcut(QKeySequence.Save)
+        self.save_action.setShortcut(QtGui.QKeySequence.Save)
         self.save_action.triggered.connect(self.save)
         self.addAction(self.save_action)
 
         self.run_action = QtWidgets.QAction(self)
-        self.run_action.setShortcut(QKeySequence(Qt.Key_F5))
+        self.run_action.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_F5))
         self.run_action.triggered.connect(self.run)
         self.addAction(self.run_action)
 
@@ -242,7 +243,7 @@ class EditorWidget(ExToolWindow):
         text = self.editor.toPlainText()
         if len(text) > 0 and text[-1] == '\n':
             prev_cursor = self.editor.textCursor()
-            self.editor.moveCursor(QTextCursor.End)
+            self.editor.moveCursor(QtGui.QTextCursor.End)
             self.editor.insertPlainText(code)
             self.editor.setTextCursor(prev_cursor)
         else:
@@ -251,7 +252,7 @@ class EditorWidget(ExToolWindow):
     def make_plugin(self):
         diag = NameCategoryPrompt(self.ui, self)
         dr = diag.exec_()
-        if dr == QDialog.Accepted:
+        if dr == QtWidgets.QDialog.Accepted:
             if diag.chk_icon.isChecked():
                 icon = diag.txt_iconpath.text()
             else:
@@ -274,7 +275,7 @@ class EditorWidget(ExToolWindow):
                                     '.py')
             e = EditorWidget(self.ui, self.ui, path)
             e.append_code(code)
-            e.editor.moveCursor(QTextCursor.Start)
+            e.editor.moveCursor(QtGui.QTextCursor.Start)
             e.editor.ensureCursorVisible()
             self.ui.editors.append(e)   # We have to keep an instance!
             e.finished.connect(lambda: self.ui.editors.remove(e))
@@ -289,9 +290,9 @@ class EditorWidget(ExToolWindow):
 
     def save(self):
         if not os.path.isfile(self.editor.file.path):
-            path = QFileDialog.getSaveFileName(self,
-                                               tr("Choose destination path"),
-                                               self.editor.file.path)[0]
+            path = QtWidgets.QFileDialog.getSaveFileName(self,
+                tr("Choose destination path"),
+                self.editor.file.path)[0]
             if not path:
                 return False
             self.editor.file._path = path
@@ -313,9 +314,9 @@ class EditorWidget(ExToolWindow):
         # Default size to fit right margin
         def_sz = super(EditorWidget, self).sizeHint()
         if hasattr(self, 'editor'):
-            font = QFont(self.editor.font_name, self.editor.font_size +
-                         self.editor.zoom_level)
-            metrics = QFontMetricsF(font)
+            font = QtGui.QFont(self.editor.font_name, self.editor.font_size +
+                               self.editor.zoom_level)
+            metrics = QtGui.QFontMetricsF(font)
             pos = 80
             cm = self.layout().contentsMargins()
             # TODO: Currently uses manual, magic number. Do properly!

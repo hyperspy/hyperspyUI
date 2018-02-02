@@ -22,9 +22,8 @@ Created on Mon Nov 17 14:16:41 2014
 """
 
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtCore import SIGNAL
 
 import types
 
@@ -32,10 +31,10 @@ from hyperspyui.exceptions import ProcessCanceled
 
 
 def tr(text):
-    return QCoreApplication.translate("Threaded", text)
+    return QtCore.QCoreApplication.translate("Threaded", text)
 
 
-class Worker(QObject):
+class Worker(QtCore.QObject):
     progress = QtCore.Signal(int)
     finished = QtCore.Signal()
     error = QtCore.Signal(str)
@@ -62,7 +61,7 @@ class Worker(QObject):
             raise
 
 
-class Threaded(QObject):
+class Threaded(QtCore.QObject):
 
     """
     Executes a user provided function in a new thread, and pops up a
@@ -83,7 +82,7 @@ class Threaded(QObject):
         super(Threaded, self).__init__(parent)
 
         # Create thread/objects
-        self.thread = QThread()
+        self.thread = QtCore.QThread()
         worker = Worker(run)
         worker.moveToThread(self.thread)
         Threaded.add_to_pool(self)
@@ -126,7 +125,7 @@ class ProgressThreaded(Threaded):
         self.generator_N = generator_N
 
         # Create progress bar.
-        progressbar = QProgressDialog(parent)
+        progressbar = QtWidgets.QProgressDialog(parent)
         if isinstance(run, types.GeneratorType):
             progressbar.setMinimum(0)
             if generator_N is None:

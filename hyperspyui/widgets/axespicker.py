@@ -17,7 +17,8 @@
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from qtpy import QtGui, QtCore
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtWidgets import QDialogButtonBox
 
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
@@ -45,17 +46,17 @@ class AxesPickerDialog(ExToolWindow):
             return [i.data(QtCore.Qt.UserRole) for i in sel]
 
     def create_controls(self):
-        self.list = QtGui.QListWidget()
+        self.list = QtWidgets.QListWidget()
         for ax in self.signal.axes_manager._get_axes_in_natural_order():
             rep = '%s axis, size: %i' % (ax._get_name(), ax.size)
-            item = QtGui.QListWidgetItem(rep, self.list)
+            item = QtWidgets.QListWidgetItem(rep, self.list)
             item.setData(QtCore.Qt.UserRole, ax)
             self.list.addItem(item)
         if not self.single:
             self.list.setSelectionMode(
                 QtGui.QAbstractItemView.ExtendedSelection)
-        btns = QtGui.QDialogButtonBox(
-            QtGui.QDialogButtonBox.Ok | QtGui.QDialogButtonBox.Cancel,
+        btns = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
             QtCore.Qt.Horizontal)
 
         btns.accepted.connect(self.accept)

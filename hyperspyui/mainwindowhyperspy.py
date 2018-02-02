@@ -25,7 +25,6 @@ import os
 import gc
 import re
 import numpy as np
-import logging
 import warnings
 import traceback
 import sys
@@ -45,9 +44,10 @@ uiprogressbar.takeover_progressbar()    # Enable hooks
 from . import hooksignal
 hooksignal.hook_signal()
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtCore import SIGNAL
+from qtpy.QtWidgets import QMessageBox, QLabel
+
 from hyperspyui.signalwrapper import SignalWrapper
 from hyperspyui.bindinglist import BindingList
 from hyperspyui.log import logger
@@ -67,14 +67,14 @@ overrides.override_hyperspy()           # Enable hyperspy overrides
 glob_escape = re.compile(r'([\[\]])')
 
 
-class TrackEventFilter(QObject):
+class TrackEventFilter(QtCore.QObject):
     """Qt Event filter for tracking the mouse position in the application.
     """
 
-    track = Signal(QPoint)
+    track = SIGNAL(QtCore.QPoint)
 
     def eventFilter(self, receiver, event):
-        if(event.type() == QEvent.MouseMove):
+        if(event.type() == QtCore.QEvent.MouseMove):
             self.track.emit(event.globalPos())
         # Call Base Class Method to Continue Normal Event Processing
         return False
@@ -153,7 +153,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         Trigger a GC one second after calling this.
         """
         del removed
-        QTimer.singleShot(1000, gc.collect)
+        QtCore.QTimer.singleShot(1000, gc.collect)
 
     def create_widgetbar(self):
         # Add DataViewWidget to widget bar:
@@ -195,7 +195,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         # position with an event filter
         self.main_frame.subWindowActivated.connect(
             self._connect_figure_2_statusbar)
-        app = QApplication.instance()
+        app = QtWidgets.QApplication.instance()
         self.tracker = TrackEventFilter()
         self.tracker.track.connect(self._on_track)
         app.installEventFilter(self.tracker)
@@ -650,7 +650,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     # --------- Hyperspy progress bars ----------
 
-    cancel_progressbar = Signal(int)
+    cancel_progressbar = SIGNAL(int)
 
     def on_progressbar_wanted(self, pid, maxval, label):
         logger.debug("Progressbar wanted. ID: %d", pid)
@@ -658,7 +658,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             progressbar = self.progressbars[pid]
             progressbar.setValue(0)
         else:
-            progressbar = QProgressDialog(self)
+            progressbar = QtCore.QProgressDialog(self)
             progressbar.setMinimumDuration(2000)
             progressbar.setMinimum(0)
         progressbar.setMaximum(maxval)
@@ -674,7 +674,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                     self.cancel_progressbar.emit(pid)
 
             progressbar.canceled.connect(cancel)
-            progressbar.setWindowModality(Qt.WindowModal)
+            progressbar.setWindowModality(QtCore.Qt.WindowModal)
 
             self.progressbars[pid] = progressbar
 

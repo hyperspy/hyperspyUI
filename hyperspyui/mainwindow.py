@@ -43,8 +43,7 @@ from hyperspyui.log import logger
 import hyperspyui.tools
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtCore import Qt
 
 import hyperspy.utils.plot
 import hyperspy.signals
@@ -72,7 +71,7 @@ class MainWindow(MainWindowHyperspy):
          ('Dielectric Function', hyperspy.signals.DielectricFunction),
          ])
 
-    load_complete = Signal()
+    load_complete = QtCore.Signal()
 
     def __init__(self, parent=None, argv=None):
         # State variables
@@ -83,8 +82,8 @@ class MainWindow(MainWindowHyperspy):
         super(MainWindow, self).__init__(parent)
 
         # Set window icon
-        self.setWindowIcon(QIcon(os.path.dirname(__file__) +
-                                 '/images/hyperspy.svg'))
+        self.setWindowIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__),
+                                       'images', 'hyperspy.svg')))
 
         # Parse any command line options
         self.parse_args(argv)
@@ -122,8 +121,8 @@ class MainWindow(MainWindowHyperspy):
         'argv'.
         """
         parser = argparse.ArgumentParser(
-            description=QCoreApplication.applicationName() +
-            " " + QCoreApplication.applicationVersion())
+            description=QtCore.QCoreApplication.applicationName() +
+            " " + QtCore.QCoreApplication.applicationVersion())
         parser.add_argument('files', metavar='file', type=str, nargs='*',
                             help='data file to open.')
         if argv is None:
@@ -140,33 +139,33 @@ class MainWindow(MainWindowHyperspy):
 
         # Files:
         self.add_action('open', "&Open", self.load,
-                        shortcut=QKeySequence.Open,
+                        shortcut=QtGui.QKeySequence.Open,
                         icon='open.svg',
                         tip="Open existing file(s)")
         self.add_action('open_stack', "Open S&tack", self.load_stack,
                         tip="Open files and combine into one signal (stacked)")
         self.add_action('close', "&Close", self.close_signal,
-                        shortcut=QKeySequence.Close,
+                        shortcut=QtGui.QKeySequence.Close,
                         icon='close_window.svg',
                         selection_callback=self.select_signal,
                         tip="Close the selected signal(s)")
         self.add_action('new_editor', "&New editor", self.new_editor,
-                        shortcut=QKeySequence.New,
+                        shortcut=QtGui.QKeySequence.New,
                         tip="Opens a new code editor")
 
-        close_all_key = QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
-                                     Qt.CTRL + Qt.ALT + Qt.Key_W)
+        close_all_key = QtGui.QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
+                                           Qt.CTRL + Qt.ALT + Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key,
                         icon='close_windows.svg',
                         tip="Close all signals")
         self.add_action('exit', "E&xit", self.close,
-                        shortcut=QKeySequence.Quit,
+                        shortcut=QtGui.QKeySequence.Quit,
                         tip="Exits the application")
 
         # I/O:
         self.add_action('save', "&Save", self.save,
-                        shortcut=QKeySequence.Save,
+                        shortcut=QtGui.QKeySequence.Save,
                         icon='save.svg',
                         selection_callback=self.select_signal,
                         tip="Save the selected signal(s)")
@@ -364,7 +363,7 @@ class MainWindow(MainWindowHyperspy):
                                titles=titles, wrap_col=wrap_col)
         diag = self.show_okcancel_dialog("Select signals", w, True)
         signals = None
-        if diag.result() == QDialog.Accepted:
+        if diag.result() == QtWidgets.QDialog.Accepted:
             signals = w.get_selected()
         w.unbind()
         return signals

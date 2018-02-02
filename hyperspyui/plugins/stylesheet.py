@@ -22,8 +22,11 @@ from functools import partial
 from collections import OrderedDict
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy.QtWidgets import (QApplication, QPushButton, QLabel, QGroupBox,
+                            QHBoxLayout, QVBoxLayout, QComboBox)
+
+from qtpy.QtGui import QPalette
+
 
 from pyqode.core import api
 from pyqode.core import modes
@@ -36,7 +39,7 @@ from hyperspyui.util import block_signals
 
 
 def tr(text):
-    return QCoreApplication.translate("Style", text)
+    return QtCore.QCoreApplication.translate("Style", text)
 
 
 class StylePlugin(Plugin):
@@ -139,7 +142,7 @@ class StyleDialog(ExToolWindow):
         self.create_controls()
 
         self.save_action = QtWidgets.QAction(self)
-        self.save_action.setShortcut(QKeySequence.Save)
+        self.save_action.setShortcut(QtGui.QKeySequence.Save)
         self.save_action.triggered.connect(self.save)
         self.addAction(self.save_action)
 
@@ -223,7 +226,7 @@ class StyleDialog(ExToolWindow):
 
     def create_palette_colors(self):
         """Create the controls for editing the palette"""
-        layout = QGridLayout()
+        layout = QtWidgets.QGridLayout()
 
         # Create combobox simple/extended/full
         cbo = QComboBox()

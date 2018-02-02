@@ -33,13 +33,11 @@ import hyperspy.signals
 
 from hyperspyui.threaded import ProgressThreaded
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore
 
 
 def tr(text):
-    return QCoreApplication.translate("FFT", text)
+    return QtCore.QCoreApplication.translate("FFT", text)
 
 
 class FFT_Plugin(Plugin):

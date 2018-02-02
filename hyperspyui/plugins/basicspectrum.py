@@ -23,12 +23,9 @@ Created on Sun Mar 01 15:20:55 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
 
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
-from hyperspyui.threaded import Threaded
 from hyperspyui.util import SignalTypeFilter
 from hyperspyui.tools import SignalFigureTool
 
@@ -41,7 +38,7 @@ from functools import partial
 
 
 def tr(text):
-    return QCoreApplication.translate("BasicSpectrumPlugin", text)
+    return QtCore.QCoreApplication.translate("BasicSpectrumPlugin", text)
 
 
 class Namespace:
@@ -311,7 +308,7 @@ class BasicSpectrumPlugin(Plugin):
 
 
 class ElementPickerTool(SignalFigureTool):
-    picked = Signal(str)
+    picked = QtCore.Signal(str)
 
     def __init__(self, windows=None):
         super(ElementPickerTool, self).__init__(windows)
@@ -347,7 +344,7 @@ class ElementPickerTool(SignalFigureTool):
         from hyperspy.misc.eds.utils import get_xray_lines_near_energy
         lines = get_xray_lines_near_energy(energy)
         if lines:
-            m = QMenu()
+            m = QtWidgets.QMenu()
             for line in lines:
                 m.addAction(line, partial(self.on_pick_line, line))
             m.exec_(QCursor.pos())

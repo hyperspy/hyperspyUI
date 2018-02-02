@@ -18,11 +18,12 @@
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
-
-from hyperspyui.widgets.extendedqwidgets import ExToolWindow
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import QDialogButtonBox
+from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, 
+                            QFormLayout, QDialog, QMessageBox, QLabel, QWidget,
+                            QComboBox, QTextEdit)
+from qtpy.QtCore import Qt
 
 import os
 import re
@@ -79,7 +80,7 @@ try:
         except git.cmd.GitCommandNotFound:
             if prompt:
                 ext_filt = '*.exe' if os.name == 'NT' else None
-                path = QFileDialog.getOpenFileName(
+                path = QtWidgets.QFileDialog.getOpenFileName(
                     parent, tr('Specify git executable'),
                     git.Git.GIT_PYTHON_GIT_EXECUTABLE, ext_filt)
                 # Pyside returns tuple, PyQt not
@@ -292,7 +293,7 @@ class GitSelector(Plugin):
             diag = self.ui.show_okcancel_dialog("Updates available", w)
             if diag.result() == QDialog.Accepted:
                 for chk in w.children():
-                    if isinstance(chk, QCheckBox):
+                    if isinstance(chk, QtWidgets.QCheckBox):
                         name = chk.text()
                         if available[name]:
                             name += '==' + available[name]
@@ -413,7 +414,7 @@ class VisualLogStream(StringIO):
             StringIO.write(self, s)
             self._ensure_dialog()
             self.dialog.output.setPlainText(self.getvalue())
-            QApplication.processEvents()
+            QtWidgets.QApplication.processEvents()
 
 
 class PipOutput(QDialog):

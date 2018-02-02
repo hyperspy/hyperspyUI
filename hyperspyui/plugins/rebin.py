@@ -23,15 +23,13 @@ Created on Wed Jan 07 23:37:51 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtGui, QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
 
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 
 def tr(text):
-    return QCoreApplication.translate("Rebin", text)
+    return QtCore.QCoreApplication.translate("Rebin", text)
 
 
 class RebinPlugin(Plugin):
@@ -104,7 +102,7 @@ class RebinDialog(ExToolWindow):
         self.plugin.rebin(factors, self.signal)
 
     def validate(self):
-        style = QApplication.style()
+        style = QtWidgets.QApplication.style()
         tmpIcon = style.standardIcon(style.SP_MessageBoxWarning, None, self)
         s = self.signal
         for ax in s.signal.axes_manager._get_axes_in_natural_order():
@@ -116,12 +114,12 @@ class RebinDialog(ExToolWindow):
                     # No warning icon yet
                     iconSize = spin.height()
                     pm = tmpIcon.pixmap(iconSize, iconSize)
-                    lbl = QLabel()
+                    lbl = QtWidgets.QLabel()
                     lbl.setPixmap(pm)
                     lbl.setToolTip(tr("Not a factor of shape. Input data " +
                                       "will be trimmed before binning."))
                     sp = lbl.sizePolicy()
-                    sp.setHorizontalPolicy(QSizePolicy.Maximum)
+                    sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Maximum)
                     lbl.setSizePolicy(sp)
                     hbox.insertWidget(0, lbl)
             else:
@@ -133,22 +131,22 @@ class RebinDialog(ExToolWindow):
     def create_controls(self):
         self.spins = {}
         self.hboxes = {}
-        form = QFormLayout()
+        form = QtWidgets.QFormLayout()
         for ax in self.signal.signal.axes_manager._get_axes_in_natural_order():
-            spin = QSpinBox(self)
+            spin = QtWidgets.QSpinBox(self)
             spin.setValue(1)
             spin.setMinimum(1)
             spin.valueChanged.connect(self.validate)
             self.spins[ax.name] = spin
-            hbox = QHBoxLayout()
+            hbox = QtWidgets.QHBoxLayout()
             hbox.addWidget(spin)
             form.addRow(ax.name, hbox)
             self.hboxes[ax.name] = hbox
         self.form = form
-        self.btn_rebin = QPushButton(tr("Rebin"))
+        self.btn_rebin = QtWidgets.QPushButton(tr("Rebin"))
         self.btn_rebin.clicked.connect(self.rebin)
 
-        vbox = QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(form)
         vbox.addWidget(self.btn_rebin)
 

@@ -29,11 +29,9 @@ matplotlib.interactive(True)
 import os
 import warnings
 import sys
-import logging
 
-from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import *
-from qtpy.QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtCore import Qt, SIGNAL
 
 from .widgets.consolewidget import ConsoleWidget
 import hyperspyui.mdi_mpl_backend
@@ -53,7 +51,7 @@ sys.excepthook = myexcepthook
 
 
 def tr(text):
-    return QCoreApplication.translate("MainWindow", text)
+    return QtCore.QCoreApplication.translate("MainWindow", text)
 
 
 def lowpriority():
@@ -181,7 +179,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def toolbar_button_size(self, value):
         self.settings['toolbar_button_size'] = value
         self.setIconSize(
-            QSize(self.toolbar_button_size, self.toolbar_button_size))
+            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
 
     @property
     def cur_dir(self):
@@ -209,8 +207,8 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def handleSecondInstance(self, argv):
         # overload if needed
-        self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized |
-                            QtCore.Qt.WindowActive)
+        self.setWindowState(self.windowState() & ~Qt.WindowMinimized |
+                            Qt.WindowActive)
         self.activateWindow()
 
     def closeEvent(self, event):
@@ -231,8 +229,8 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def create_ui(self):
         self.setIconSize(
-            QSize(self.toolbar_button_size, self.toolbar_button_size))
-        self.main_frame = QMdiArea()
+            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
+        self.main_frame = QtWidgets.QMdiArea()
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
@@ -471,7 +469,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
         self.console = control
 
-        self._console_dock = QDockWidget()
+        self._console_dock = QtWidgets.QDockWidget()
         self._console_dock.setObjectName('console_widget')
         self._console_dock.setWidget(control)
         self._console_dock.setWindowTitle("Console")

@@ -21,19 +21,16 @@ Created on Fri Nov 21 22:11:04 2014
 @author: Vidar Tonaas Fauske
 """
 
-from  qtpy import QtCore
-from qtpy.QtCore import *
-from qtpy.QtGui import *
-from qtpy.QtWidgets import *
+from qtpy import QtCore, QtWidgets
 
 import numpy as np
 
 
 def tr(text):
-    return QCoreApplication.translate("ExtendedQWidgets", text)
+    return QtCore.QCoreApplication.translate("ExtendedQWidgets", text)
 
 
-class ExToolWindow(QDialog):
+class ExToolWindow(QtWidgets.QDialog):
 
     """
     QDialog with Qt.Tool window flags.
@@ -41,10 +38,10 @@ class ExToolWindow(QDialog):
 
     def __init__(self, parent=None):
         super(ExToolWindow, self).__init__(parent)
-        self.setWindowFlags(Qt.Tool)
+        self.setWindowFlags(QtCore.Qt.Tool)
 
 
-class FigureWidget(QDockWidget):
+class FigureWidget(QtWidgets.QDockWidget):
 
     def __init__(self, main_window, parent=None):
         super(FigureWidget, self).__init__(parent)
@@ -84,26 +81,26 @@ class FigureWidget(QDockWidget):
             self._on_figure_change(self._last_window)
 
 
-class ExClickLabel(QLabel):
+class ExClickLabel(QtWidgets.QLabel):
 
     """
     QLabel with 'clicked()' signal.
     """
-    clicked = Signal()
+    clicked = QtCore.Signal()
 
     def mouseReleaseEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == QtCore.Qt.LeftButton:
             self.clicked.emit()
         super(ExClickLabel, self).mouseReleaseEvent(event)
 
 
-class ExMessageBox(QMessageBox):
+class ExMessageBox(QtWidgets.QMessageBox):
 
     def isChecked(self):
         cb = self.checkBox()
         if cb is None:
             raise AttributeError
-        return cb.checkState() == Qt.Checked
+        return cb.checkState() == QtCore.Qt.Checked
 
     def setCheckBox(self, cb):
         try:
@@ -115,7 +112,7 @@ class ExMessageBox(QMessageBox):
             self._checkBox = cb
             if cb is not None:
                 cb.blockSignals(True)
-                self.addButton(cb, QMessageBox.ResetRole)
+                self.addButton(cb, QtWidgets.QMessageBox.ResetRole)
 
     def checkBox(self):
         try:
@@ -132,11 +129,11 @@ class ExRememberPrompt(ExMessageBox):
 
     def __init__(self, *args, **kwargs):
         super(ExRememberPrompt, self).__init__(*args, **kwargs)
-        cb = QCheckBox(tr("Remember this choice"))
+        cb = QtWidgets.QCheckBox(tr("Remember this choice"))
         self.setCheckBox(cb)
 
 
-class ExDoubleSlider(QSlider):
+class ExDoubleSlider(QtWidgets.QSlider):
 
     """
     QSlider with double values instead of int values.
@@ -150,7 +147,7 @@ class ExDoubleSlider(QSlider):
             super(ExDoubleSlider, self).__init__(orientation, parent)
         self.steps = 1000
         self._range = (0.0, 1.0)
-        self.connect(self, SIGNAL('valueChanged(int)'), self._on_change)
+        self.connect(self, QtCore.SIGNAL('valueChanged(int)'), self._on_change)
 
     def setRange(self, vmin, vmax):
         if isinstance(vmin, (np.complex64, np.complex128)):
