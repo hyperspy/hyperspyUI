@@ -22,37 +22,22 @@ Created on Fri Oct 31 14:22:53 2014
 """
 
 import os
+from distutils.version import LooseVersion
 
-import matplotlib.backends.backend_qt4agg
+import matplotlib
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_bases import FigureManagerBase
-from matplotlib import __version__ as mplversionstring
+from matplotlib.backends import backend_qt4agg
 
-mpl13 = mplversionstring.startswith('1.3')
-mpl14 = mplversionstring.startswith('1.4')
-mpl15 = mplversionstring.startswith('1.5')
+from qtpy import QtCore, QtGui, QtWidgets
 
-if mpl13:
-    from matplotlib.backends.qt4_compat import QtCore, QtGui, _getSaveFileName, __version__
-else: # mpl14 or mpl15, or higher
-    from matplotlib.backends.qt_compat import QtCore, QtGui, QtWidgets, _getSaveFileName, __version__
-
-if mpl13:
-    from matplotlib.backends.backend_qt4 import (QtCore, QtGui, FigureManagerQT, FigureCanvasQT,
-                                                 show, draw_if_interactive, backend_version,
-                                                 NavigationToolbar2QT)
-else: # mpl14 or mpl15, or higher
-    from matplotlib.backends.backend_qt5 import (SPECIAL_KEYS, SUPER, ALT, CTRL,
-                                                 SHIFT, MODIFIER_KEYS, fn_name, cursord,
-                                                 draw_if_interactive, _create_qApp, show, TimerQT,
-                                                 FigureManagerQT,
-                                                 SubplotToolQt, error_msg_qt, exception_handler)
 
 # FigureCanvas definition
-if mpl13:
-    FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg
+if LooseVersion(matplotlib.__version__) >= LooseVersion('1.4.0'):
+    FigureCanvas = backend_qt4agg.FigureCanvasQTAgg
 else:  # mpl14 or mpl15, or higher
-    FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
+    FigureCanvas = backend_qt4agg.FigureCanvas
+
 
 # =================
 # Event managers
@@ -133,7 +118,7 @@ def new_figure_manager(num, *args, **kwargs):
     Create a new figure manager instance. MPL backend function.
     """
     FigureClass = kwargs.pop(
-        'FigureClass', matplotlib.backends.backend_qt4agg.Figure)
+        'FigureClass', matplotlib.figure.Figure)
     thisFig = FigureClass(*args, **kwargs)
     return new_figure_manager_given_figure(num, thisFig)
 
@@ -329,6 +314,7 @@ class FigureManagerMdi(FigureManagerBase):
 
     def set_window_title(self, title):
         self.window.setWindowTitle(title)
+
 
 # Definition for MPL backend:
 FigureManager = FigureManagerMdi

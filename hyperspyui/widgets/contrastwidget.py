@@ -115,7 +115,6 @@ class ContrastWidget(FigureWidget):
                 self.chk_log.setEnabled(False)
 
     def level_changed(self, value):
-        print('level changed!')
         self.lbl_level.setText(self.LevelLabel + ": %.2G" % value)
         p = self._cur_plot
         if p is not None:
@@ -126,7 +125,6 @@ class ContrastWidget(FigureWidget):
             p.update()
 
     def window_changed(self, value):
-        print('window changed!')
         self.lbl_window.setText(self.WindowLabel + ": %.2G" % value)
         p = self._cur_plot
         if p is not None:
