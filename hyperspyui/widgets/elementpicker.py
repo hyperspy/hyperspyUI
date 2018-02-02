@@ -360,7 +360,7 @@ class ElementPickerWidget(FigureWidget):
                 continue
             w.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
             f = partial(self.element_context, w)
-            self.connect(w, QtCore.SIGNAL('customContextMenuRequested(QtCore.QPoint)'), f)
+            w.customContextMenuRequested[QtCore.QPoint].connect(f)
 
         self.chk_markers = QtWidgets.QCheckBox(tr("Markers"))
         self.chk_markers.toggled[bool].connect(self._on_toggle_markers)

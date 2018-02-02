@@ -31,7 +31,7 @@ import warnings
 import sys
 
 from qtpy import QtCore, QtWidgets
-from qtpy.QtCore import Qt, SIGNAL
+from qtpy.QtCore import Qt
 
 from .widgets.consolewidget import ConsoleWidget
 import hyperspyui.mdi_mpl_backend
@@ -274,38 +274,33 @@ class MainWindowBase(QtWidgets.QMainWindow):
         ac_nested.setStatusTip(tr("Allow nested widget docking"))
         ac_nested.setCheckable(True)
         ac_nested.setChecked(self.isDockNestingEnabled())
-        self.connect(ac_nested, SIGNAL('triggered(bool)'),
-                     self.setDockNestingEnabled)
+        ac_nested.triggered[bool].connect(self.setDockNestingEnabled)
         self.actions['nested_docking'] = ac_nested
 
         # Tile windows action
         ac_tile = QtWidgets.QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
-        self.connect(ac_tile, SIGNAL('triggered()'),
-                     self.main_frame.tileSubWindows)
+        ac_tile.triggered.connect(self.main_frame.tileSubWindows)
         self.actions['tile_windows'] = ac_tile
 
         # Cascade windows action
         ac_cascade = QtWidgets.QAction(tr("Cascade"), self)
         ac_cascade.setStatusTip(
             tr("Arranges all figures in a cascade pattern"))
-        self.connect(ac_cascade, SIGNAL('triggered()'),
-                     self.main_frame.cascadeSubWindows)
+        ac_cascade.triggered.connect(self.main_frame.cascadeSubWindows)
         self.actions['cascade_windows'] = ac_cascade
 
         # Close all figures action
         ac_close_figs = QtWidgets.QAction(tr("Close all"), self)
         ac_close_figs.setStatusTip(tr("Closes all matplotlib figures"))
-        self.connect(ac_close_figs, SIGNAL('triggered()'),
-                     lambda: matplotlib.pyplot.close("all"))
+        ac_close_figs.triggered.connect(lambda: matplotlib.pyplot.close("all"))
         self.actions['close_all_windows'] = ac_close_figs
 
         # Reset geometry action
         ac_reset_layout = QtWidgets.QAction(tr("Reset layout"), self)
         ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and "
                                         "widgets"))
-        self.connect(ac_reset_layout, SIGNAL('triggered()'),
-                     self.reset_geometry)
+        ac_reset_layout.triggered.connect(self.reset_geometry)
         self.actions['reset_layout'] = ac_reset_layout
 
     def create_menu(self):

@@ -23,7 +23,6 @@ Created on Mon Nov 17 14:16:41 2014
 
 
 from qtpy import QtCore, QtWidgets
-from qtpy.QtCore import SIGNAL
 
 import types
 
@@ -155,11 +154,10 @@ class ProgressThreaded(Threaded):
         else:
             super(ProgressThreaded, self).__init__(parent, run, finished)
 
-        self.connect(self.thread, SIGNAL('started()'), self.display)
-        self.connect(self.worker, SIGNAL('finished()'), self.close)
-        self.connect(self.worker, SIGNAL('error()'), self.close)
-        self.connect(
-            self.worker, SIGNAL('progress(int)'), progressbar.setValue)
+        self.thread.started.connect(self.display)
+        self.worker.finished.connect(self.close)
+        self.worker.error.connect(self.close)
+        self.worker.progress[int].connect(progressbar.setValue)
         self.progressbar = progressbar
 
     def display(self):

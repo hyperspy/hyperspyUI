@@ -23,7 +23,6 @@ Created on Wed Oct 29 16:49:48 2014
 
 
 from qtpy import QtCore, QtWidgets
-from qtpy.QtCore import SIGNAL
 
 from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
 from hyperspy.misc.rgb_tools import rgbx2regular_array
@@ -116,6 +115,7 @@ class ContrastWidget(FigureWidget):
                 self.chk_log.setEnabled(False)
 
     def level_changed(self, value):
+        print('level changed!')
         self.lbl_level.setText(self.LevelLabel + ": %.2G" % value)
         p = self._cur_plot
         if p is not None:
@@ -126,6 +126,7 @@ class ContrastWidget(FigureWidget):
             p.update()
 
     def window_changed(self, value):
+        print('window changed!')
         self.lbl_window.setText(self.WindowLabel + ": %.2G" % value)
         p = self._cur_plot
         if p is not None:
@@ -185,12 +186,13 @@ class ContrastWidget(FigureWidget):
         self.chk_auto = QtWidgets.QCheckBox(tr("Auto"), self)
         self.chk_log = QtWidgets.QCheckBox(tr("Log"), self)
 
+        # Test level/window working?
         self.lbl_level.clicked.connect(self.reset_level)
         self.lbl_window.clicked.connect(self.reset_window)
         self.sl_level.valueChanged[float].connect(self.level_changed)
         self.sl_window.valueChanged[float].connect(self.window_changed)
-        self.connect(self.chk_auto, SIGNAL('stateChanged(int)'), self.auto)
-        self.connect(self.chk_log, SIGNAL('toggled(bool)'), self.log_changed)
+        self.chk_auto.stateChanged[int].connect(self.auto)
+        self.chk_log.toggled[bool].connect(self.log_changed)
 
         hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.chk_auto)

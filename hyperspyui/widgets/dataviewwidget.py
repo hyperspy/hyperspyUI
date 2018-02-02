@@ -24,7 +24,7 @@ Created on Tue Nov 04 16:32:55 2014
 import os
 
 from qtpy import QtGui, QtCore, QtSvg, QtWidgets
-from qtpy.QtCore import Qt, SIGNAL
+from qtpy.QtCore import Qt, Signal
 
 from functools import partial
 import traits.api as t
@@ -198,8 +198,7 @@ class DataViewWidget(QtWidgets.QWidget):
         self.tree.setSizePolicy(sp)
 
         self.tree.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.connect(self.tree, SIGNAL('customContextMenuRequested(QtCore.QPoint)'),
-                     self.onCustomContextMenu)
+        self.tree.customContextMenuRequested[QtCore.QPoint].connect(self.onCustomContextMenu)
         self.tree.currentItemChanged.connect(self.currentItemChanged)
         self.tree.itemDoubleClicked.connect(self.itemDoubleClicked)
 
@@ -322,7 +321,7 @@ class DataViewWidget(QtWidgets.QWidget):
             # Fit action
             ac = QtWidgets.QAction(tr("&Fit component"), self.tree)
             f = partial(model.fit_component, comp)
-            self.connect(ac, SIGNAL('triggered()'), f)
+            ac.triggered.connect(f)
             cm.addAction(ac)
 
             # Configure action
@@ -336,7 +335,7 @@ class DataViewWidget(QtWidgets.QWidget):
             # Remove action
             ac = QtWidgets.QAction(tr("&Delete"), self.tree)
             f = partial(model.remove_component, comp)
-            self.connect(ac, SIGNAL('triggered()'), f)
+            ac.triggered.connect(f)
             cm.addAction(ac)
         cm.exec_(self.tree.mapToGlobal(point))
 

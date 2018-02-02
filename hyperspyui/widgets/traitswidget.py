@@ -87,7 +87,8 @@ class TraitsWidget(FigureWidget):
         sp = traits_dialog.sizePolicy()
         sp.setVerticalPolicy(QtWidgets.QSizePolicy.Fixed)
         sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Expanding)
-        traits_dialog.layout().setSizeConstraint(QLayout.SetDefaultConstraint)
+        traits_dialog.layout().setSizeConstraint(
+                QtWidgets.QLayout.SetDefaultConstraint)
         traits_dialog.setSizePolicy(sp)
 
         # Set widget

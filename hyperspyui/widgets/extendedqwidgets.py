@@ -147,7 +147,7 @@ class ExDoubleSlider(QtWidgets.QSlider):
             super(ExDoubleSlider, self).__init__(orientation, parent)
         self.steps = 1000
         self._range = (0.0, 1.0)
-        self.connect(self, QtCore.SIGNAL('valueChanged(int)'), self._on_change)
+        self.valueChanged.connect(self._on_change)
 
     def setRange(self, vmin, vmax):
         if isinstance(vmin, (np.complex64, np.complex128)):

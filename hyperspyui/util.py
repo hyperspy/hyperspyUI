@@ -199,7 +199,7 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
         f = partial(callback, t)
         ac = QtWidgets.QAction(prefix + name + postfix, parent)
         ac.setStatusTip(tr("Add a component of type ") + name)
-        ac.connect(ac, QtCore.SIGNAL('triggered()'), f)
+        ac.triggered.connect(f)
         actions[ac_name] = ac
     return actions
 

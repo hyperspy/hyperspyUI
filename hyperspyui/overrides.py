@@ -44,9 +44,7 @@ def _on_figure_window_close(figure, function):
     if function not in figure._on_window_close:
         figure._on_window_close.append(function)
 
-    # PyQt
-    # In PyQt window.connect supports multiple funtions
-    window.connect(window, QtCore.SIGNAL('closing()'), function)
+    window.closing.connect(function)
 
 
 def override_hyperspy():
