@@ -28,7 +28,7 @@ from __future__ import division, absolute_import
 import sys
 from time import time
 
-from qtpy.QtCore import QObject, Signal, SIGNAL
+from qtpy.QtCore import QObject, Signal
 
 import hyperspy.external.progressbar
 from tqdm import tqdm
@@ -38,14 +38,20 @@ from hyperspyui.exceptions import ProcessCanceled
 # Create signal object which will handle all events
 signaler = QObject()
 signaler.created = Signal(object)
-signaler.progress = Signal((object, int), (object, int, str))
+#signaler.created = Signal(object)
+signaler.progress = Signal(int, str)
+#signaler.progress = Signal((object, int), (object, int, str))
 signaler.finished = Signal(int)
+#signaler.finished = Signal(int)
 signaler.cancel = Signal(int)
+#signaler.cancel = Signal(int)
+
 # This is necessary as it bugs out if not (it's a daisy chained event)
 
 
 def _on_cancel(pid):
-    signaler.emit(SIGNAL('cancel(int)'), pid)
+    signaler.cancel[int].emit(pid)
+#    signaler.emit(SIGNAL('cancel(int)'), pid)
 signaler.on_cancel = _on_cancel
 
 # Hook function
@@ -115,16 +121,18 @@ class UIProgressBar(tqdm):
         self.signal_set = False
 
         global signaler
-        signaler.connect(signaler, SIGNAL('cancel(int)'),
-                         self.cancel)
+        signaler.cancel[int].connect(self.cancel)
+#        signaler.connect(signaler, SIGNAL('cancel(int)'),
+#                         self.cancel)
 
         self.currval = 0
         self.finished = False
         self.start_time = None
         self.seconds_elapsed = 0
 
-        signaler.emit(SIGNAL('created(int, int, QString)'), self.id,
-                      self.total, "")
+        signaler.created[int, int, str].emit(self.id, self.total, "")
+#        signaler.emit(SIGNAL('created(int, int, QString)'), self.id,
+#                      self.total, "")
 
     def cancel(self, pid):
         """
@@ -247,8 +255,9 @@ class UIProgressBar(tqdm):
                     1 / self.avg_time if self.avg_time else None)
 
                 global signaler
-                signaler.emit(SIGNAL('progress(int, int, QString)'),
-                              self.id, self.n, txt)
+                signaler.progress[int, int, str].emit(self.id, self.n, txt)
+#                signaler.emit(SIGNAL('progress(int, int, QString)'),
+#                              self.id, self.n, txt)
 
                 # If no `miniters` was specified, adjust automatically to the
                 # maximum iteration rate seen so far.
@@ -285,4 +294,5 @@ class UIProgressBar(tqdm):
         Used to tell the progress is finished. Called by hyperspy side.
         """
         global signaler
-        signaler.emit(SIGNAL('finished(int)'), self.id)
+        signaler.finished[int].emit(self.id)
+#        signaler.emit(SIGNAL('finished(int)'), self.id)

@@ -106,7 +106,7 @@ def main():
         splash_pix = QtGui.QPixmap(
             os.path.dirname(__file__) + './images/splash.png')
         splash = QtWidgets.QSplashScreen(splash_pix,
-                                     QtCore.Qt.WindowStaysOnTopHint)
+                                         QtCore.Qt.WindowStaysOnTopHint)
         splash.setMask(splash_pix.mask())
         splash.show()
         app.processEvents()

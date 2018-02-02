@@ -45,7 +45,7 @@ from . import hooksignal
 hooksignal.hook_signal()
 
 from qtpy import QtCore, QtWidgets
-from qtpy.QtCore import SIGNAL
+from qtpy.QtCore import Signal
 from qtpy.QtWidgets import QMessageBox, QLabel
 
 from hyperspyui.signalwrapper import SignalWrapper
@@ -71,7 +71,7 @@ class TrackEventFilter(QtCore.QObject):
     """Qt Event filter for tracking the mouse position in the application.
     """
 
-    track = SIGNAL(QtCore.QPoint)
+    track = Signal(QtCore.QPoint)
 
     def eventFilter(self, receiver, event):
         if(event.type() == QtCore.QEvent.MouseMove):
@@ -131,15 +131,20 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         # Connect UIProgressBar for graphical hyperspy progress
         s = uiprogressbar.signaler
-        s.connect(s, SIGNAL('created(int, int, QString)'),
-                  self.on_progressbar_wanted)
-        s.connect(s, SIGNAL('progress(int, int)'),
-                  self.on_progressbar_update)
-        s.connect(s, SIGNAL('progress(int, int, QString)'),
-                  self.on_progressbar_update)
-        s.connect(s, SIGNAL('finished(int)'),
-                  self.on_progressbar_finished)
-        self.cancel_progressbar.connect(s.on_cancel)
+#        s.created.connect(self.on_progressbar_wanted)
+#        s.created[int, int, str].connect(self.on_progressbar_wanted)
+#        s.connect(s, Signal('created(int, int, QString)'),
+#                  self.on_progressbar_wanted)
+#        s.progress[int, int].connect(self.on_progressbar_update)
+#        s.connect(s, Signal('progress(int, int)'),
+#                  self.on_progressbar_update)
+#        s.progress[int, int, str].connect(self.on_progressbar_update)
+#        s.connect(s, Signal('progress(int, int, QString)'),
+#                  self.on_progressbar_update)
+#        s.finished[int].connect(self.on_progressbar_finished)
+#        s.connect(s, Signal('finished(int)'),
+#                  self.on_progressbar_finished)
+#        self.cancel_progressbar.connect(s.on_cancel)
 
         # Connect to Signal.plot events
         hooksignal.connect_plotting(self.on_signal_plotting)
@@ -650,7 +655,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     # --------- Hyperspy progress bars ----------
 
-    cancel_progressbar = SIGNAL(int)
+    cancel_progressbar = Signal(int)
 
     def on_progressbar_wanted(self, pid, maxval, label):
         logger.debug("Progressbar wanted. ID: %d", pid)

@@ -23,7 +23,10 @@ Created on Tue Apr 28 11:00:55 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtGui, QtCore, QtWidgets
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import (QLabel, QPushButton, QToolButton, QVBoxLayout,
+                            QHBoxLayout, QWidget)
+
 import collections
 
 from hyperspyui.util import win2sig
@@ -197,13 +200,13 @@ class AxesOrderWidget(FigureWidget):
         self.plugin.flip_axes(axes)
 
     def create_controls(self):
-        self.lbl_nav = QtGui.QLabel(tr("Navigate"), self)
+        self.lbl_nav = QLabel(tr("Navigate"), self)
         self.lst_nav = AxesListWidget(self)
-        self.btn_up = QtGui.QToolButton(self)
+        self.btn_up = QToolButton(self)
         self.btn_up.setArrowType(QtCore.Qt.UpArrow)
-        self.btn_down = QtGui.QToolButton(self)
+        self.btn_down = QToolButton(self)
         self.btn_down.setArrowType(QtCore.Qt.DownArrow)
-        self.lbl_sig = QtGui.QLabel(tr("Signal"), self)
+        self.lbl_sig = QLabel(tr("Signal"), self)
         self.lst_sig = AxesListWidget(self)
 
         sp = self.lst_sig.sizePolicy()
@@ -220,13 +223,13 @@ class AxesOrderWidget(FigureWidget):
         self.lst_nav.moved.connect(self._list_move)
         self.lst_sig.moved.connect(self._list_move)
 
-        self.btn_flip = QtGui.QPushButton(tr("Reverse axes"))
+        self.btn_flip = QPushButton(tr("Reverse axes"))
         self.btn_flip.clicked.connect(self._flip_clicked)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QVBoxLayout()
         vbox.addWidget(self.lbl_nav)
         vbox.addWidget(self.lst_nav)
-        hbox = QtGui.QHBoxLayout()
+        hbox = QHBoxLayout()
         hbox.addWidget(self.btn_up)
         hbox.addWidget(self.btn_down)
         vbox.addLayout(hbox)
@@ -234,7 +237,7 @@ class AxesOrderWidget(FigureWidget):
         vbox.addWidget(self.lst_sig)
         vbox.addWidget(self.btn_flip)
 
-        w = QtGui.QWidget()
+        w = QWidget()
         w.setLayout(vbox)
         self.setWidget(w)
 
@@ -248,8 +251,8 @@ class AxesListWidget(QtWidgets.QListWidget):
     def __init__(self, type, parent=None):
         super(AxesListWidget, self).__init__(parent)
         self.setIconSize(QtCore.QSize(124, 124))
-        self.setDragDropMode(QtGui.QAbstractItemView.DragDrop)
-        self.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
+        self.setDragDropMode(QtWidgets.QAbstractItemView.DragDrop)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.setAcceptDrops(True)
         m = self.model()
         m.rowsInserted.connect(self._on_rows_inserted)
