@@ -187,8 +187,8 @@ class ContrastWidget(FigureWidget):
         # Test level/window working?
         self.lbl_level.clicked.connect(self.reset_level)
         self.lbl_window.clicked.connect(self.reset_window)
-        self.sl_level.valueChanged[float].connect(self.level_changed)
-        self.sl_window.valueChanged[float].connect(self.window_changed)
+        self.sl_level.double_valueChanged.connect(self.level_changed)
+        self.sl_window.double_valueChanged.connect(self.window_changed)
         self.chk_auto.stateChanged[int].connect(self.auto)
         self.chk_log.toggled[bool].connect(self.log_changed)
 

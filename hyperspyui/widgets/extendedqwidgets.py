@@ -138,7 +138,7 @@ class ExDoubleSlider(QtWidgets.QSlider):
     """
     QSlider with double values instead of int values.
     """
-    valueChanged = QtCore.Signal(float)
+    double_valueChanged = QtCore.Signal(float)
 
     def __init__(self, parent=None, orientation=None):
         if orientation is None:
@@ -178,4 +178,4 @@ class ExDoubleSlider(QtWidgets.QSlider):
 
     def _on_change(self, intval):
         dblval = self._int2dbl(intval)
-        self.valueChanged.emit(dblval)
+        self.double_valueChanged.emit(dblval)
