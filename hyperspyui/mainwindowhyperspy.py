@@ -126,6 +126,10 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         self.create_statusbar()
 
+        # Disable hyperspy_ipywidgets_gui
+        if hyperspy.api.preferences.GUIs.enable_ipywidgets_gui:
+            hyperspy.api.preferences.GUIs.enable_ipywidgets_gui = False
+
         # Enable drag and drop
         self.setAcceptDrops(True)
 
