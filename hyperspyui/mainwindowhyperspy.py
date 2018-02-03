@@ -131,20 +131,10 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         # Connect UIProgressBar for graphical hyperspy progress
         s = uiprogressbar.signaler
-#        s.created.connect(self.on_progressbar_wanted)
-#        s.created[int, int, str].connect(self.on_progressbar_wanted)
-#        s.connect(s, Signal('created(int, int, QString)'),
-#                  self.on_progressbar_wanted)
-#        s.progress[int, int].connect(self.on_progressbar_update)
-#        s.connect(s, Signal('progress(int, int)'),
-#                  self.on_progressbar_update)
-#        s.progress[int, int, str].connect(self.on_progressbar_update)
-#        s.connect(s, Signal('progress(int, int, QString)'),
-#                  self.on_progressbar_update)
-#        s.finished[int].connect(self.on_progressbar_finished)
-#        s.connect(s, Signal('finished(int)'),
-#                  self.on_progressbar_finished)
-#        self.cancel_progressbar.connect(s.on_cancel)
+        s.created[int, int, str].connect(self.on_progressbar_wanted)
+        s.progress[int, int, str].connect(self.on_progressbar_update)
+        s.finished[int].connect(self.on_progressbar_finished)
+        self.cancel_progressbar.connect(s.on_cancel)
 
         # Connect to Signal.plot events
         hooksignal.connect_plotting(self.on_signal_plotting)
@@ -597,7 +587,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
     def get_signal_filepath_suggestion(self, signal, default_ext=None):
         if default_ext is None:
             default_ext = hyperspy.defaults_parser.preferences.General.\
-                         default_file_format
+                default_file_format
         # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, or self.cur_dir if not
         if signal.signal.metadata.has_item('General.original_filename'):
@@ -663,7 +653,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             progressbar = self.progressbars[pid]
             progressbar.setValue(0)
         else:
-            progressbar = QtCore.QProgressDialog(self)
+            progressbar = QtWidgets.QProgressDialog(self)
             progressbar.setMinimumDuration(2000)
             progressbar.setMinimum(0)
         progressbar.setMaximum(maxval)
