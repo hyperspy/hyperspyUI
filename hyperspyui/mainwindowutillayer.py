@@ -238,7 +238,7 @@ class MainWindowUtils(MainWindowBase):
     def add_widget(self, widget, floating=None):
         """
         Add the passed 'widget' to the main window. If the widget is not a
-        QDockWidget, it will be wrapped in one. The QDockWidget is returned.
+        QDockWidget, it will be wrapped into one. The QDockWidget is returned.
         The widget is also added to the window menu self.windowmenu, so that
         it's visibility can be toggled.
 

@@ -464,8 +464,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
         self.console = control
 
-        self._console_dock = QtWidgets.QDockWidget()
+        self._console_dock = QtWidgets.QDockWidget("Console")
         self._console_dock.setObjectName('console_widget')
         self._console_dock.setWidget(control)
-        self._console_dock.setWindowTitle("Console")
         self.addDockWidget(Qt.BottomDockWidgetArea, self._console_dock)

@@ -83,7 +83,7 @@ class MainWindow(MainWindowHyperspy):
 
         # Set window icon
         self.setWindowIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__),
-                                       'images', 'hyperspy.svg')))
+                                                    'images', 'hyperspy.svg')))
 
         # Parse any command line options
         self.parse_args(argv)
@@ -105,6 +105,9 @@ class MainWindow(MainWindowHyperspy):
         # Set the UI in front of other applications
         self.show()
         self.raise_()
+        # Workaround to bring the floating console to the front with pyqt5
+        if self._console_dock.isFloating():
+            self._console_dock.setFloating(True)
 
     def handleSecondInstance(self, argv):
         """
