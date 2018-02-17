@@ -608,7 +608,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         fn = signal.name
         if os.name == 'nt':
             fn = fn.replace("<", "[").replace(">", "]")
-            fn = re.sub("[:\"|\?\*]", '', fn)
+            fn = re.sub(r"[:\"|\?\*]", '', fn)
         # Build suggestion and return
         path_suggestion = os.path.sep.join((base, fn))
         path_suggestion = os.path.extsep.join((path_suggestion, ext))
