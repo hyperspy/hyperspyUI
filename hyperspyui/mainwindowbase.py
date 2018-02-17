@@ -30,16 +30,11 @@ import os
 import warnings
 import sys
 
-from qtpy import QtCore, QtWidgets
-from qtpy.QtCore import Qt
-
-from .widgets.consolewidget import ConsoleWidget
-import hyperspyui.mdi_mpl_backend
-from .pluginmanager import PluginManager
-from hyperspyui.settings import Settings
-from hyperspyui.widgets.settingsdialog import SettingsDialog
 from hyperspyui.exceptions import ProcessCanceled
 from hyperspyui.log import logger
+
+from qtpy import QtCore, QtWidgets
+from qtpy.QtCore import Qt
 
 
 def myexcepthook(exctype, value, traceback):
@@ -117,6 +112,11 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def __init__(self, parent=None):
         super(MainWindowBase, self).__init__(parent)
+
+        # Do the import here to update the splash
+
+        import hyperspyui.mdi_mpl_backend
+        from hyperspyui.settings import Settings
 
         # Setup settings:
         self.settings = Settings(self, 'General')
@@ -235,26 +235,27 @@ class MainWindowBase(QtWidgets.QMainWindow):
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
 
-        logger.debug("Initializing plugins")
+        self.set_splash("Initializing plugins")
         self.init_plugins()
 
-        logger.debug("Creating default actions")
+        self.set_splash("Creating default actions")
         self.create_default_actions()   # Goes before menu/toolbar/widgetbar
 
         # Needs to go before menu, so console can be in menu
-        logger.debug("Creating console")
+        self.set_splash("Creating console")
         self.create_console()
         # This needs to happen before the widgetbar and toolbar
-        logger.debug("Creating menus")
+        self.set_splash("Creating menus")
         self.create_menu()
-        logger.debug("Creating toolbars")
+        self.set_splash("Creating toolbars")
         self.create_toolbars()
-        logger.debug("Creating widgets")
+        self.set_splash("Creating widgets")
         self.create_widgetbar()
 
         self.setCentralWidget(self.main_frame)
 
     def init_plugins(self):
+        from .pluginmanager import PluginManager
         self.plugin_manager = PluginManager(self)
         self.plugin_manager.init_plugins()
 
@@ -263,7 +264,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         Create default actions that can be used for e.g. toolbars and menus,
         or triggered manually.
         """
-        logger.debug("Creating plugin actions")
+        self.set_splash("Creating plugin actions")
         self.plugin_manager.create_actions()
 
         self.selectable_tools = QtWidgets.QActionGroup(self)
@@ -346,6 +347,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         """
         Shows a dialog for editing the application and plugins settings.
         """
+        from hyperspyui.widgets.settingsdialog import SettingsDialog
         d = SettingsDialog(self, self)
         d.settings_changed.connect(self.on_settings_changed)
         d.exec_()
@@ -444,6 +446,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         # We could inherit QAction, and have it reroute when it triggers,
         # and then drop route when it finishes, however this will not catch
         # interactive dialogs and such.
+        from .widgets.consolewidget import ConsoleWidget
         c = self._get_console_config()
         self.settings.set_default('console_completion_type', 'droplist')
         valid_completions = ConsoleWidget.gui_completion.values

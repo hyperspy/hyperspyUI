@@ -71,16 +71,16 @@ def _get_logfile():
 
 
 def main():
-    from qtpy import QtGui, QtCore, API, QtWidgets
+    from qtpy.QtCore import QCoreApplication
+    from qtpy.QtWidgets import QApplication
+    from qtpy import API
     import hyperspyui.info
-    from hyperspyui.singleapplication import get_app
     from hyperspyui.settings import Settings
-    from hyperspyui.util import dummy_context_manager
 
     # Need to set early to make QSettings accessible
-    QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
-    QtCore.QCoreApplication.setOrganizationName("Hyperspy")
-    QtCore.QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+    QCoreApplication.setApplicationName("HyperSpyUI")
+    QCoreApplication.setOrganizationName("Hyperspy")
+    QCoreApplication.setApplicationVersion(hyperspyui.info.version)
 
     # First, clear all default settings!
     # TODO: This will cause a concurrency issue with multiple launch
@@ -90,29 +90,21 @@ def main():
     settings.set_default('allow_multiple_instances', False)
     if settings['allow_multiple_instances', bool]:
         # Using multiple instances, get a new application
-        app = QtWidgets.QApplication(sys.argv)
+        app = QApplication(sys.argv)
     else:
         # Make sure we only have a single instance
+        from hyperspyui.singleapplication import get_app
         app = get_app('hyperspyui')
 
     log_file = _get_logfile()
     if log_file:
         sys.stdout = sys.stderr = log_file
     else:
+        from hyperspyui.util import dummy_context_manager
         log_file = dummy_context_manager()
 
     with log_file:
-        # Create and display the splash screen
-        splash_pix = QtGui.QPixmap(
-            os.path.dirname(__file__) + './images/splash.png')
-        splash = QtWidgets.QSplashScreen(splash_pix,
-                                         QtCore.Qt.WindowStaysOnTopHint)
-        splash.setMask(splash_pix.mask())
-        splash.show()
-        app.processEvents()
-
-        # Need to have import here, as it can take some time, so should happen
-        # after displaying splash
+        # Need to have import here, since QApplication needs to be called first
         from hyperspyui.mainwindow import MainWindow
 
         form = MainWindow()
@@ -123,7 +115,7 @@ def main():
                 app.messageReceived.connect(form.handleSecondInstance)
         form.showMaximized()
 
-        splash.finish(form)
+        form.splash.hide()
         form.load_complete.emit()
         # Ensure logging is OK
         import hyperspy.api as hs

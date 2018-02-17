@@ -29,14 +29,6 @@ import warnings
 import traceback
 import sys
 
-# Hyperspy uses traitsui, set proper backend
-from traits.etsconfig.api import ETSConfig
-try:
-    ETSConfig.toolkit = 'qt4'
-except ValueError:
-    if 'sphinx' not in sys.modules:
-        raise
-
 from .mainwindowutillayer import MainWindowActionRecorder, tr
 
 from . import uiprogressbar
@@ -56,9 +48,7 @@ from hyperspyui.widgets.editorwidget import EditorWidget
 import hyperspyui.util
 from hyperspyui.mdi_mpl_backend import FigureCanvas
 
-import hyperspy.io
 import hyperspy.defaults_parser
-from hyperspy.io_plugins import io_plugins
 
 from . import overrides
 overrides.override_hyperspy()           # Enable hyperspy overrides
@@ -404,12 +394,15 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         return s
 
     def get_selected_signals(self):
-        return [s.signal for s in self.get_selected_wrappers()]
+        try:
+            return [s.signal for s in self.get_selected_wrappers()]
+        except AttributeError:
+            logger.info("No signal available.")
 
     def get_selected_signal(self):
         sw = self.get_selected_wrapper()
         if sw is None:
-            return None
+            logger.info("No signal available.")
         else:
             return sw.signal
 
@@ -439,6 +432,9 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         active window.
         """
         s = self.get_selected_wrapper()
+        if s is None:
+            logger.info("No plot available.")
+            return
         w = self.main_frame.activeSubWindow()
         if w is s.navigator_plot:
             selected = "navigation"
@@ -469,6 +465,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     @staticmethod
     def get_accepted_extensions():
+        from hyperspy.io_plugins import io_plugins
         extensions = set([extensions.lower() for plugin in io_plugins
                           for extensions in plugin.file_extensions])
         return extensions
@@ -502,6 +499,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         hyperspy.io.load and wraps them and adds them to self.signals.
         """
 
+        import hyperspy.io
         if filenames is None:
             extensions = self.get_accepted_extensions()
             type_choices = ';;'.join(["*." + e for e in extensions])

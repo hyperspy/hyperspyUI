@@ -31,7 +31,28 @@ import webbrowser
 
 import numpy as np
 
-# Should go before any MPL imports:
+# Hyperspy uses traitsui, set proper backend
+from traits.etsconfig.api import ETSConfig
+try:
+    ETSConfig.toolkit = 'qt4'
+except ValueError:
+    if 'sphinx' not in sys.modules:
+        raise
+
+from qtpy import QtGui
+from qtpy.QtWidgets import QApplication, QSplashScreen
+from qtpy.QtGui import QColor, QPixmap
+from qtpy.QtCore import Qt
+splash_pix = QPixmap(os.path.join(
+    os.path.dirname(__file__), 'images', 'splash.png'))
+SPLASH = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+SPLASH.show()
+SPLASH.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
+                   Qt.AlignAbsolute, QColor(Qt.white))
+QApplication.processEvents()
+
+from qtpy import QtCore, QtWidgets
+
 from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
@@ -41,12 +62,6 @@ from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
 from hyperspyui.log import logger
 import hyperspyui.tools
-
-from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtCore import Qt
-
-import hyperspy.utils.plot
-import hyperspy.signals
 
 
 class MainWindow(MainWindowHyperspy):
@@ -59,25 +74,17 @@ class MainWindow(MainWindowHyperspy):
     that it is accessible from the console's 'ui' variable.
     """
 
-    signal_types = OrderedDict(
-        [('Signal', hyperspy.signal.BaseSignal),
-         ('1D Signal', hyperspy.signals.Signal1D),
-         ('2D Signal', hyperspy.signals.Signal2D),
-         ('EELS', hyperspy.signals.EELSSpectrum),
-         ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
-         ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
-         ('Complex Signal 1D', hyperspy.signals.ComplexSignal1D),
-         ('Complex Signal 2D', hyperspy.signals.ComplexSignal2D),
-         ('Dielectric Function', hyperspy.signals.DielectricFunction),
-         ])
-
     load_complete = QtCore.Signal()
 
     def __init__(self, parent=None, argv=None):
+        self.splash = SPLASH
+
         # State variables
         self.signal_type_ag = None
         self.signal_datatype_ag = None
         self._plugin_manager_widget = None
+
+        self._load_signal_types()
 
         super(MainWindow, self).__init__(parent)
 
@@ -108,6 +115,32 @@ class MainWindow(MainWindowHyperspy):
         # Workaround to bring the floating console to the front with pyqt5
         if self._console_dock.isFloating():
             self._console_dock.setFloating(True)
+
+    def set_splash(self, message):
+        """Set splash message"""
+        if self.splash is None:
+            return
+        if message:
+            logger.debug(message)
+        self.splash.show()
+        self.splash.showMessage(message, Qt.AlignBottom | Qt.AlignCenter |
+                                Qt.AlignAbsolute, QColor(Qt.white))
+        QApplication.processEvents()
+
+    def _load_signal_types(self):
+        self.set_splash('Loading HyperSpy signals...')
+        import hyperspy.signals
+        self.signal_types = OrderedDict(
+            [('Signal', hyperspy.signal.BaseSignal),
+             ('1D Signal', hyperspy.signals.Signal1D),
+             ('2D Signal', hyperspy.signals.Signal2D),
+             ('EELS', hyperspy.signals.EELSSpectrum),
+             ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
+             ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
+             ('Complex Signal 1D', hyperspy.signals.ComplexSignal1D),
+             ('Complex Signal 2D', hyperspy.signals.ComplexSignal2D),
+             ('Dielectric Function', hyperspy.signals.DielectricFunction),
+             ])
 
     def handleSecondInstance(self, argv):
         """
@@ -412,6 +445,7 @@ class MainWindow(MainWindowHyperspy):
 
         self.setUpdatesEnabled(False)
         try:
+            import hyperspy.signals
             if signal_type in ['2D Signal', 'Complex Signal 2D']:
                 if not isinstance(signal.signal,
                                   (hyperspy.signals.Signal2D,
