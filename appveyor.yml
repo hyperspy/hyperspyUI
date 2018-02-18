@@ -9,7 +9,12 @@ environment:
       PYTHON_MAJOR: 3
       PYTHON_ARCH: "64"
       CONDA_PY: "35"
-      CONDA_NPY: "19"
+
+    - PYTHON: "C:\\Miniconda36-x64"
+      PYTHON_VERSION: "3.6.x"
+      PYTHON_MAJOR: 3
+      PYTHON_ARCH: "64"
+      CONDA_PY: "36"
 
 cache:
   - '%PYTHON%\pkgs'
