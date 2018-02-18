@@ -33,7 +33,7 @@ import sys
 from hyperspyui.exceptions import ProcessCanceled
 from hyperspyui.log import logger
 
-from qtpy import QtCore, QtWidgets
+from qtpy import QtCore, QtWidgets, API
 from qtpy.QtCore import Qt
 
 
@@ -370,6 +370,17 @@ class MainWindowBase(QtWidgets.QMainWindow):
                     self.active_tool.get_name(), e))
         self.active_tool = tool
         tool.connect_windows(self.figures)
+
+    def setUpdatesEnabled(self, value, force_setting=False):
+        """
+        pyqt5 doesn't seem to suffer from screen flickering and it is not 
+        necessary to disable and enable updating. Better to leave the update on
+        for plotting purposes.
+        """
+        if API == 'pyqt5':
+            return
+        else:
+            super(MainWindowBase, self).setUpdatesEnabled(value)
 
     # --------- Figure management ---------
 

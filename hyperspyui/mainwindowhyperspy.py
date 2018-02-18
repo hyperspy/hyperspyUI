@@ -689,7 +689,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def on_console_executing(self, source):
         super(MainWindowHyperspy, self).on_console_executing(source)
-#        self.setUpdatesEnabled(False)
+        self.setUpdatesEnabled(False)
         for s in self.signals:
             s.keep_on_close = True
 
@@ -698,7 +698,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         for s in self.signals:
             s.update_figures()
             s.keep_on_close = False
-#        self.setUpdatesEnabled(True)
+        self.setUpdatesEnabled(True)
 
     def _get_console_exec(self):
         ex = super(MainWindowHyperspy, self)._get_console_exec()

@@ -91,6 +91,9 @@ class SignalWrapper(Actionable):
         self._replotargs = (args, kwargs)
         self.mainwindow.main_frame.subWindowActivated.emit(
             self.mainwindow.main_frame.activeSubWindow())
+        # Redraw plot needed for pyqt5
+        if self.signal._plot and self.signal._plot.signal_plot:
+            self.signal._plot.signal_plot.figure.canvas.draw_idle()
 
     def _replot(self):
         if self.signal._plot is not None:
@@ -188,6 +191,9 @@ class SignalWrapper(Actionable):
                 if self._sig_geom is not None and self.signal_plot is not None:
                     self.signal_plot.restoreGeometry(self._sig_geom)
                 self._sig_geom = None
+
+            # Redraw plot needed for pyqt5
+            self.signal._plot.signal_plot.figure.canvas.draw_idle()
 
         if atleast_one_changed:
             self.mainwindow.check_action_selections()
