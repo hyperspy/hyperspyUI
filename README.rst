@@ -55,7 +55,7 @@ Due to a dependency on pyqt version 4 (version 5 is not currently supported), to
   
     pip install hyperspyui
 
-    conda install -c menpo pyqt
+    conda install -c menpo pyqt=4
 
 And run it with:
 
