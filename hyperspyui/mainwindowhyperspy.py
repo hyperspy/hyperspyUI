@@ -591,8 +591,13 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def get_signal_filepath_suggestion(self, signal, default_ext=None):
         if default_ext is None:
-            default_ext = hyperspy.defaults_parser.preferences.General.\
-                         default_file_format
+            try:
+                # hspy < 1.3
+                default_ext = hyperspy.defaults_parser.preferences.General.\
+                             default_file_format
+            except AttributeError:
+                # hspy >= 1.3
+                default_ext = 'hspy'
         # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, or self.cur_dir if not
         if signal.signal.metadata.has_item('General.original_filename'):
