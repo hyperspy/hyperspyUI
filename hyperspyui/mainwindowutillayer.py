@@ -34,6 +34,8 @@ from QtGui import *
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 from hyperspyui.advancedaction import AdvancedAction
 
+from hyperspyui.log import logger as _logger
+
 from hyperspyui import hooktraitsui
 
 hooktraitsui.hook_traitsui()
@@ -337,6 +339,11 @@ class MainWindowUtils(MainWindowBase):
         base, tail = os.path.split(f)
         fn, ext = os.path.splitext(tail)
 
+        # Clean filename of any illegal characters:
+        fn = "".join([c for c in fn if
+                      c.isalpha() or c.isdigit() or c == ' '
+                      or c == '_' or c == '-']).rstrip()
+
         # If no directory in filename, use self.cur_dir's dirname
         if base is None or base == "":
             base = os.path.dirname(self.cur_dir)
@@ -359,6 +366,7 @@ class MainWindowUtils(MainWindowBase):
             if figure is None:
                 return
         path_suggestion = self.get_figure_filepath_suggestion(figure)
+        _logger.debug('path_suggestion: {}'.format(path_suggestion))
         canvas = figure.widget()
 
         # Build type selection string
