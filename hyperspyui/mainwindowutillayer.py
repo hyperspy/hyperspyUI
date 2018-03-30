@@ -338,11 +338,20 @@ class MainWindowUtils(MainWindowBase):
         # Analyze suggested filename
         base, tail = os.path.split(f)
         fn, ext = os.path.splitext(tail)
+        _logger.debug('fn before cleaning is: {}'.format(fn))
 
-        # Clean filename of any illegal characters:
-        fn = "".join([c for c in fn if
-                      c.isalpha() or c.isdigit() or c == ' '
-                      or c == '_' or c == '-']).rstrip()
+        # Only allow standard ascii characters, removing
+        # the reserved ones that are not allowed
+        # Using the method from github.com/PerAkeMattias/goldfinch
+        characters = ''.join(chr(i) for i in range(255))
+        reserved_characters = '<>:"/\|?*'
+        for character in reserved_characters:
+            characters = characters.replace(character, "")
+
+        fn = ''.join(char for char in fn if char in characters)
+        fn = fn.replace('\n', '')
+
+        _logger.debug('fn after cleaning is: {}'.format(fn))
 
         # If no directory in filename, use self.cur_dir's dirname
         if base is None or base == "":
@@ -366,7 +375,6 @@ class MainWindowUtils(MainWindowBase):
             if figure is None:
                 return
         path_suggestion = self.get_figure_filepath_suggestion(figure)
-        _logger.debug('path_suggestion: {}'.format(path_suggestion))
         canvas = figure.widget()
 
         # Build type selection string
