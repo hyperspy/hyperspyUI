@@ -23,6 +23,43 @@ While the UI tries to create a simple and intuitive interface to HyperSpy, it
 still retains the raw power of HyperSpy via the UI’s built in IPython console,
 which runs on the same Python kernel as the UI.
 
+
+Installation
+=============
+There are several ways to install HyperSpyUI. The application itself is rather
+simple to install, but its dependencies can be a bit more tricky.
+
+Bundle Installer
+----------------
+If you're on Windows, the quickest way to get set up is to download and install
+the HyperSpyUI bundle installer. The bundled WinPython_ distribution includes
+all the dependencies of the program, and the installer also helps create
+program shortucts and register common microscopy file formats with the
+application.
+
+The bundle installer can also be used if you already have installed a WinPython
+distribution (e.g. via the `HyperSpy bundle`_), and just want to add HyperSpyUI
+and its dependencies, although it might not support older versions.
+
+.. _WinPython: http://winpython.github.io/
+.. _HyperSpy bundle: http://hyperspy.org/download.html
+
+Installation via pip and conda
+------------------------------
+If you want to install HyperSpyUI with pyqt5, you will need to install the 
+lastest version or pyface (>= 6.0.0) and traitsui (>= 5.2.0).
+
+.. code-block:: bash
+
+    conda install hyperspy
+    pip install hyperspyui
+
+And run it from the command prompt with:
+
+.. code-block:: bash
+
+    python -m hyperspyui
+
 For further information, see the full documentation_.
 
 .. _HyperSpy: http://hyperspy.org

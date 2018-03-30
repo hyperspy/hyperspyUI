@@ -54,7 +54,6 @@ QApplication.processEvents()
 from qtpy import QtCore, QtWidgets
 
 from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
-
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.editorwidget import EditorWidget
@@ -86,6 +85,7 @@ class MainWindow(MainWindowHyperspy):
 
         self._load_signal_types()
 
+        print('here')
         super(MainWindow, self).__init__(parent)
 
         # Set window icon
