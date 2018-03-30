@@ -24,6 +24,8 @@ Created on Tue Nov 25 02:10:29 2014
 import os
 import sys
 import locale
+from contextlib import contextmanager
+
 
 # TODO: Make sure tools are disconnected when closing signal!
 
@@ -100,7 +102,9 @@ def main():
     if log_file:
         sys.stdout = sys.stderr = log_file
     else:
-        from hyperspyui.util import dummy_context_manager
+        @contextmanager
+        def dummy_context_manager(*args, **kwargs):
+            yield
         log_file = dummy_context_manager()
 
     with log_file:

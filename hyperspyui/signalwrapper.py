@@ -192,9 +192,6 @@ class SignalWrapper(Actionable):
                     self.signal_plot.restoreGeometry(self._sig_geom)
                 self._sig_geom = None
 
-            # Redraw plot needed for pyqt5
-            self.signal._plot.signal_plot.figure.canvas.draw_idle()
-
         if atleast_one_changed:
             self.mainwindow.check_action_selections()
 

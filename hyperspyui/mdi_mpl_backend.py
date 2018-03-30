@@ -27,15 +27,24 @@ from distutils.version import LooseVersion
 import matplotlib
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_bases import FigureManagerBase
-from matplotlib.backends import backend_qt4agg
 
-from qtpy import QtCore, QtGui, QtWidgets
+from qtpy import API, QtCore, QtGui, QtWidgets
 
 
 # FigureCanvas definition
-if LooseVersion(matplotlib.__version__) >= LooseVersion('1.4.0'):
-    FigureCanvas = backend_qt4agg.FigureCanvasQTAgg
-else:  # mpl14 or mpl15, or higher
+if LooseVersion(matplotlib.__version__) >= LooseVersion('2.1.0'):
+    # qt4 and qt5 are the same in matplotlib >= 2.1.0
+    from matplotlib.backends import backend_qt5agg
+    FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
+elif LooseVersion(matplotlib.__version__) >= LooseVersion('2.0.0'):
+    if API == 'pyqt5':
+        from matplotlib.backends import backend_qt5agg
+        FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
+    else:
+        from matplotlib.backends import backend_qt4agg
+        FigureCanvas = backend_qt4agg.FigureCanvasQTAgg
+else:  # < 2.0.0
+    from matplotlib.backends import backend_qt4agg
     FigureCanvas = backend_qt4agg.FigureCanvas
 
 

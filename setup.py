@@ -37,23 +37,25 @@ setup(
     license='GPLv3',
     packages=find_packages(exclude=['tests*',
                                     'hyperspyui.plugins.user_plugins']),
-    requires=['hyperspy (>= 1.1.1)',
+    requires=['hyperspy (>= 1.3.0)',
               'matplotlib (>= 1.3)',
-              'python_qt_binding',
               'pyqode.python (>= 2.6.0)',
               'autopep8',
+              'pyface', #  (>=6.0.0) for pyqt5
               'traits',
-              'traitsui',
+              'traitsui',  # (>=5.2.0) for pyqt5
               'qtconsole',
+              'qtpy',
               ],
-    install_requires=['hyperspy >= 1.1.1',
+    install_requires=['hyperspy >= 1.3.0',
                       'matplotlib >= 1.3',
-                      'python_qt_binding',
                       'pyqode.python >= 2.6.0',
+                      'pyface',  # >=6.0.0 for pyqt5
                       'autopep8',
                       'traits',
-                      'traitsui',
+                      'traitsui',  # >=5.2.0 for pyqt5
                       'qtconsole',
+                      'qtpy',
                       ],
     extras_require={
         ':sys_platform == "win32"': [
