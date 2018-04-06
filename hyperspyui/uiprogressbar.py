@@ -45,7 +45,7 @@ class Signaler(QObject):
     cancel = Signal(int)
     # This is necessary as it bugs out if not (it's a daisy chained event)
 
-    def _on_cancel(pid):
+    def _on_cancel(self, pid):
         signaler.cancel.emit(pid)
     on_cancel = _on_cancel
 

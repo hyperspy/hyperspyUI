@@ -26,7 +26,6 @@ import matplotlib
 matplotlib.use('module://hyperspyui.mdi_mpl_backend')
 matplotlib.interactive(True)
 
-import os
 import warnings
 import sys
 
@@ -371,17 +370,6 @@ class MainWindowBase(QtWidgets.QMainWindow):
         self.active_tool = tool
         tool.connect_windows(self.figures)
 
-    def setUpdatesEnabled(self, value, force_setting=False):
-        """
-        pyqt5 doesn't seem to suffer from screen flickering and it is not 
-        necessary to disable and enable updating. Better to leave the update on
-        for plotting purposes.
-        """
-        if API == 'pyqt5':
-            return
-        else:
-            super(MainWindowBase, self).setUpdatesEnabled(value)
-
     # --------- Figure management ---------
 
     # --------- MPL Events ---------
@@ -416,7 +404,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     # --------- End MPL Events ---------
 
     def on_subwin_activated(self, mdi_figure):
-        if mdi_figure and os.environ['QT_API'] == 'pyside':
+        if mdi_figure and API == 'pyside':
             mdi_figure.activateAction().setChecked(True)
         self.check_action_selections(mdi_figure)
 

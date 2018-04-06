@@ -73,9 +73,10 @@ def _get_logfile():
 
 
 def main():
-    from qtpy.QtCore import QCoreApplication
+    from qtpy.QtCore import QCoreApplication, Qt
     from qtpy.QtWidgets import QApplication
     from qtpy import API
+
     import hyperspyui.info
     from hyperspyui.settings import Settings
 
@@ -98,6 +99,20 @@ def main():
         from hyperspyui.singleapplication import get_app
         app = get_app('hyperspyui')
 
+    def get_splash():
+        from qtpy.QtWidgets import QApplication, QSplashScreen
+        from qtpy.QtGui import QColor, QPixmap
+        splash_pix = QPixmap(os.path.join(
+            os.path.dirname(__file__), 'images', 'splash.png'))
+        splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+        splash.show()
+        splash.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
+                           Qt.AlignAbsolute, QColor(Qt.white))
+        QApplication.processEvents()
+        return splash
+
+    splash = get_splash()
+
     log_file = _get_logfile()
     if log_file:
         sys.stdout = sys.stderr = log_file
@@ -111,7 +126,7 @@ def main():
         # Need to have import here, since QApplication needs to be called first
         from hyperspyui.mainwindow import MainWindow
 
-        form = MainWindow()
+        form = MainWindow(splash=splash)
         if not settings['allow_multiple_instances', bool]:
             if "pyqt" in API:
                 app.messageAvailable.connect(form.handleSecondInstance)
@@ -126,6 +141,7 @@ def main():
         hs.set_log_level(LOGLEVEL)
 
         app.exec_()
+
 
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')

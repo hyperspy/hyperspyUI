@@ -160,7 +160,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
     def __init__(self, *args, **kwargs):
         super(FigureWindow, self).__init__(*args, **kwargs)
         self._activate_action = None
-        if os.environ['QT_API'] != 'pyside':
+        if API != 'pyside':
             self.windowStateChanged.connect(self._windowStateChanged)
 
     def closeEvent(self, event):

@@ -22,7 +22,7 @@ Created on Sun Aug 21 19:59:04 2016
 """
 
 
-from qtpy import QtGui, QtCore, QtWidgets
+from qtpy import QtCore, QtWidgets
 
 
 # QAction.trigger/activate are not virtual, so cannot simply override.
@@ -33,6 +33,7 @@ class AdvancedAction(QtWidgets.QAction):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # not working on pyside, not tested on pyside2 because of pyface issue
         super().triggered[bool].connect(self._trigger)
 
     @property

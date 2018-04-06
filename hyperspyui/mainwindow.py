@@ -39,19 +39,8 @@ except ValueError:
     if 'sphinx' not in sys.modules:
         raise
 
-from qtpy import QtGui
-from qtpy.QtWidgets import QApplication, QSplashScreen
-from qtpy.QtGui import QColor, QPixmap
+from qtpy import QtGui, QtCore, QtWidgets
 from qtpy.QtCore import Qt
-splash_pix = QPixmap(os.path.join(
-    os.path.dirname(__file__), 'images', 'splash.png'))
-SPLASH = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-SPLASH.show()
-SPLASH.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
-                   Qt.AlignAbsolute, QColor(Qt.white))
-QApplication.processEvents()
-
-from qtpy import QtCore, QtWidgets
 
 from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
@@ -75,8 +64,8 @@ class MainWindow(MainWindowHyperspy):
 
     load_complete = QtCore.Signal()
 
-    def __init__(self, parent=None, argv=None):
-        self.splash = SPLASH
+    def __init__(self, splash, parent=None, argv=None):
+        self.splash = splash
 
         # State variables
         self.signal_type_ag = None
@@ -85,7 +74,6 @@ class MainWindow(MainWindowHyperspy):
 
         self._load_signal_types()
 
-        print('here')
         super(MainWindow, self).__init__(parent)
 
         # Set window icon
@@ -124,8 +112,8 @@ class MainWindow(MainWindowHyperspy):
             logger.debug(message)
         self.splash.show()
         self.splash.showMessage(message, Qt.AlignBottom | Qt.AlignCenter |
-                                Qt.AlignAbsolute, QColor(Qt.white))
-        QApplication.processEvents()
+                                Qt.AlignAbsolute, QtGui.QColor(Qt.white))
+        QtWidgets.QApplication.processEvents()
 
     def _load_signal_types(self):
         self.set_splash('Loading HyperSpy signals...')
