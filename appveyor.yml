@@ -25,6 +25,7 @@ install:
   - 'SET "PATH=%PYTHON%\\Scripts;%PATH%"'
   # Install most deps by conda
   - '%CMD_IN_ENV% conda config --add channels conda-forge'
+  - '%CMD_IN_ENV% conda update -y conda'
   - '%CMD_IN_ENV% conda install -q -y hyperspy'
   # Install our package:
   - '%CMD_IN_ENV% python -m pip install --upgrade pip'
