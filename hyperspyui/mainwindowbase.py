@@ -31,6 +31,7 @@ import sys
 
 from hyperspyui.exceptions import ProcessCanceled
 from hyperspyui.log import logger
+from hyperspyui.widgets.consolewidget import ConsoleWidget
 
 from qtpy import QtCore, QtWidgets, API
 from qtpy.QtCore import Qt
@@ -445,7 +446,6 @@ class MainWindowBase(QtWidgets.QMainWindow):
         # We could inherit QAction, and have it reroute when it triggers,
         # and then drop route when it finishes, however this will not catch
         # interactive dialogs and such.
-        from .widgets.consolewidget import ConsoleWidget
         c = self._get_console_config()
         self.settings.set_default('console_completion_type', 'droplist')
         valid_completions = ConsoleWidget.gui_completion.values

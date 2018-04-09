@@ -72,8 +72,22 @@ def _get_logfile():
     return log_file
 
 
+def get_splash():
+    from qtpy.QtCore import Qt
+    from qtpy.QtWidgets import QApplication, QSplashScreen
+    from qtpy.QtGui import QColor, QPixmap
+    splash_pix = QPixmap(os.path.join(
+        os.path.dirname(__file__), 'images', 'splash.png'))
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.show()
+    splash.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
+                       Qt.AlignAbsolute, QColor(Qt.white))
+    QApplication.processEvents()
+    return splash
+
+
 def main():
-    from qtpy.QtCore import QCoreApplication, Qt
+    from qtpy.QtCore import QCoreApplication
     from qtpy.QtWidgets import QApplication
     from qtpy import API
 
@@ -98,18 +112,6 @@ def main():
         # Make sure we only have a single instance
         from hyperspyui.singleapplication import get_app
         app = get_app('hyperspyui')
-
-    def get_splash():
-        from qtpy.QtWidgets import QApplication, QSplashScreen
-        from qtpy.QtGui import QColor, QPixmap
-        splash_pix = QPixmap(os.path.join(
-            os.path.dirname(__file__), 'images', 'splash.png'))
-        splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
-        splash.show()
-        splash.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
-                           Qt.AlignAbsolute, QColor(Qt.white))
-        QApplication.processEvents()
-        return splash
 
     splash = get_splash()
 
