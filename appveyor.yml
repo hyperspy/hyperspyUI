@@ -33,7 +33,8 @@ install:
   - "%CMD_IN_ENV% pip install https://github.com/enthought/pyface/archive/master.zip"
   - "%CMD_IN_ENV% pip install https://github.com/enthought/traitsui/archive/master.zip"
 
-  - '%CMD_IN_ENV% pip install pypiwin32'
+  # Try to run twice as workaround for permission error...
+  - '%CMD_IN_ENV% pip install pypiwin32 || pip install pypiwin32'
   - '%CMD_IN_ENV% pip install -e ".[test]"'
 
 build: off
