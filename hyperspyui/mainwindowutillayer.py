@@ -340,16 +340,11 @@ class MainWindowUtils(MainWindowBase):
         fn, ext = os.path.splitext(tail)
         _logger.debug('fn before cleaning is: {}'.format(fn))
 
-        # Only allow standard ascii characters, removing
-        # the reserved ones that are not allowed
-        # Using the method from github.com/PerAkeMattias/goldfinch
-        characters = ''.join(chr(i) for i in range(255))
+        # Remove illegal characters and newlines from filename:
         reserved_characters = '<>:"/\|?*'
-        for character in reserved_characters:
-            characters = characters.replace(character, "")
-
-        fn = ''.join(char for char in fn if char in characters)
-        fn = fn.replace('\n', '')
+        for c in reserved_characters:
+            fn = fn.replace(c, '')
+        fn = fn.replace('\n', ' ')
 
         _logger.debug('fn after cleaning is: {}'.format(fn))
 
