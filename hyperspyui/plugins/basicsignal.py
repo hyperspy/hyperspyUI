@@ -26,15 +26,13 @@ import sys
 from hyperspyui.plugins.plugin import Plugin
 from hyperspy.utils import stack as stack_signals
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore, QtWidgets
 
 from hyperspyui.widgets.axespicker import AxesPickerDialog
 
 
 def tr(text):
-    return QCoreApplication.translate("BasicSignalPlugin", text)
+    return QtCore.QCoreApplication.translate("BasicSignalPlugin", text)
 
 
 class BasicSignalPlugin(Plugin):
@@ -252,7 +250,7 @@ class BasicSignalPlugin(Plugin):
         diag = AxesPickerDialog(self.ui, signal, single)
         diag.setWindowTitle("Select axes to operate on")
         dr = diag.exec_()
-        if dr == QtGui.QDialog.Accepted:
+        if dr == QtWidgets.QDialog.Accepted:
             return diag.selected_axes
         return None
 

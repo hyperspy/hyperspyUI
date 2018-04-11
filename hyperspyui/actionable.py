@@ -21,7 +21,7 @@ Created on Mon Nov 17 11:35:52 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtCore, QtGui
+from qtpy import QtCore, QtWidgets
 from collections import OrderedDict
 
 
@@ -38,12 +38,12 @@ class Actionable(QtCore.QObject):
         self.sep_counter = 0
 
     def add_action(self, key, title, on_trig):
-        ac = QtGui.QAction(title, self)  # TODO: tr()?
-        self.connect(ac, QtCore.SIGNAL('triggered()'), on_trig)
+        ac = QtWidgets.QAction(title, self)  # TODO: tr()?
+        ac.triggered.connect(on_trig)
         self.actions[key] = ac
 
     def add_separator(self):
         self.sep_counter += 1
-        ac = QtGui.QAction(self)
+        ac = QtWidgets.QAction(self)
         ac.setSeparator(True)
         self.actions[self.sep_counter] = ac

@@ -21,7 +21,7 @@ Created on Sat Feb 21 12:03:33 2015
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 from .plugincreator import create_plugin_code
 

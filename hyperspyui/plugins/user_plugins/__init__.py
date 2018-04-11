@@ -7,7 +7,7 @@ Created on Fri Dec 12 23:57:20 2014
 
 import os
 import glob
-modules = glob.glob(os.path.dirname(__file__) + "/*.py")
+modules = glob.glob(os.path.join(os.path.dirname(__file__), "*.py"))
 # modules.extend(glob.glob(os.path.dirname(__file__)+"/*.py?"))
 # TODO: In release form, we should support compiled plugins in pyc/pyo format
 __all__ = [os.path.splitext(os.path.basename(f))[0] for f in modules

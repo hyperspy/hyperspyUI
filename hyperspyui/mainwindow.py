@@ -31,9 +31,18 @@ import webbrowser
 
 import numpy as np
 
-# Should go before any MPL imports:
-from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
+# Hyperspy uses traitsui, set proper backend
+from traits.etsconfig.api import ETSConfig
+try:
+    ETSConfig.toolkit = 'qt4'
+except ValueError:
+    if 'sphinx' not in sys.modules:
+        raise
 
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy.QtCore import Qt
+
+from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
 from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.editorwidget import EditorWidget
@@ -41,13 +50,6 @@ from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
 from hyperspyui.log import logger
 import hyperspyui.tools
-
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
-
-import hyperspy.utils.plot
-import hyperspy.signals
 
 
 class MainWindow(MainWindowHyperspy):
@@ -60,31 +62,23 @@ class MainWindow(MainWindowHyperspy):
     that it is accessible from the console's 'ui' variable.
     """
 
-    signal_types = OrderedDict(
-        [('Signal', hyperspy.signal.BaseSignal),
-         ('1D Signal', hyperspy.signals.Signal1D),
-         ('2D Signal', hyperspy.signals.Signal2D),
-         ('EELS', hyperspy.signals.EELSSpectrum),
-         ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
-         ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
-         ('Complex Signal 1D', hyperspy.signals.ComplexSignal1D),
-         ('Complex Signal 2D', hyperspy.signals.ComplexSignal2D),
-         ('Dielectric Function', hyperspy.signals.DielectricFunction),
-         ])
+    load_complete = QtCore.Signal()
 
-    load_complete = Signal()
+    def __init__(self, splash, parent=None, argv=None):
+        self.splash = splash
 
-    def __init__(self, parent=None, argv=None):
         # State variables
         self.signal_type_ag = None
         self.signal_datatype_ag = None
         self._plugin_manager_widget = None
 
+        self._load_signal_types()
+
         super(MainWindow, self).__init__(parent)
 
         # Set window icon
-        self.setWindowIcon(QIcon(os.path.dirname(__file__) +
-                                 '/images/hyperspy.svg'))
+        self.setWindowIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__),
+                                                    'images', 'hyperspy.svg')))
 
         # Parse any command line options
         self.parse_args(argv)
@@ -106,6 +100,35 @@ class MainWindow(MainWindowHyperspy):
         # Set the UI in front of other applications
         self.show()
         self.raise_()
+        # Workaround to bring the floating console to the front with pyqt5
+        if self._console_dock.isFloating():
+            self._console_dock.setFloating(True)
+
+    def set_splash(self, message):
+        """Set splash message"""
+        if self.splash is None:
+            return
+        if message:
+            logger.debug(message)
+        self.splash.show()
+        self.splash.showMessage(message, Qt.AlignBottom | Qt.AlignCenter |
+                                Qt.AlignAbsolute, QtGui.QColor(Qt.white))
+        QtWidgets.QApplication.processEvents()
+
+    def _load_signal_types(self):
+        self.set_splash('Loading HyperSpy signals...')
+        import hyperspy.signals
+        self.signal_types = OrderedDict(
+            [('Signal', hyperspy.signal.BaseSignal),
+             ('1D Signal', hyperspy.signals.Signal1D),
+             ('2D Signal', hyperspy.signals.Signal2D),
+             ('EELS', hyperspy.signals.EELSSpectrum),
+             ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
+             ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
+             ('Complex Signal 1D', hyperspy.signals.ComplexSignal1D),
+             ('Complex Signal 2D', hyperspy.signals.ComplexSignal2D),
+             ('Dielectric Function', hyperspy.signals.DielectricFunction),
+             ])
 
     def handleSecondInstance(self, argv):
         """
@@ -122,8 +145,8 @@ class MainWindow(MainWindowHyperspy):
         'argv'.
         """
         parser = argparse.ArgumentParser(
-            description=QCoreApplication.applicationName() +
-            " " + QCoreApplication.applicationVersion())
+            description=QtCore.QCoreApplication.applicationName() +
+            " " + QtCore.QCoreApplication.applicationVersion())
         parser.add_argument('files', metavar='file', type=str, nargs='*',
                             help='data file to open.')
         if argv is None:
@@ -140,33 +163,33 @@ class MainWindow(MainWindowHyperspy):
 
         # Files:
         self.add_action('open', "&Open", self.load,
-                        shortcut=QKeySequence.Open,
+                        shortcut=QtGui.QKeySequence.Open,
                         icon='open.svg',
                         tip="Open existing file(s)")
         self.add_action('open_stack', "Open S&tack", self.load_stack,
                         tip="Open files and combine into one signal (stacked)")
         self.add_action('close', "&Close", self.close_signal,
-                        shortcut=QKeySequence.Close,
+                        shortcut=QtGui.QKeySequence.Close,
                         icon='close_window.svg',
                         selection_callback=self.select_signal,
                         tip="Close the selected signal(s)")
         self.add_action('new_editor', "&New editor", self.new_editor,
-                        shortcut=QKeySequence.New,
+                        shortcut=QtGui.QKeySequence.New,
                         tip="Opens a new code editor")
 
-        close_all_key = QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
-                                     Qt.CTRL + Qt.ALT + Qt.Key_W)
+        close_all_key = QtGui.QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
+                                           Qt.CTRL + Qt.ALT + Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key,
                         icon='close_windows.svg',
                         tip="Close all signals")
         self.add_action('exit', "E&xit", self.close,
-                        shortcut=QKeySequence.Quit,
+                        shortcut=QtGui.QKeySequence.Quit,
                         tip="Exits the application")
 
         # I/O:
         self.add_action('save', "&Save", self.save,
-                        shortcut=QKeySequence.Save,
+                        shortcut=QtGui.QKeySequence.Save,
                         icon='save.svg',
                         selection_callback=self.select_signal,
                         tip="Save the selected signal(s)")
@@ -193,7 +216,7 @@ class MainWindow(MainWindowHyperspy):
                         tip="Open the HyperSpyUI documentation in a browser.")
 
         # --- Add signal type selection actions ---
-        signal_type_ag = QActionGroup(self)
+        signal_type_ag = QtWidgets.QActionGroup(self)
         signal_type_ag.setExclusive(True)
         for st in self.signal_types.keys():
             f = partial(self.set_signal_type, st)
@@ -203,7 +226,7 @@ class MainWindow(MainWindowHyperspy):
         self.signal_type_ag = signal_type_ag
 
         # --- Add signal data type selection actions ---
-        signal_datatype_ag = QActionGroup(self)
+        signal_datatype_ag = QtWidgets.QActionGroup(self)
         signal_datatype_ag.setExclusive(True)
         import numpy as np
         for t in [np.bool, np.bool8, np.byte, np.complex, np.complex64,
@@ -364,7 +387,7 @@ class MainWindow(MainWindowHyperspy):
                                titles=titles, wrap_col=wrap_col)
         diag = self.show_okcancel_dialog("Select signals", w, True)
         signals = None
-        if diag.result() == QDialog.Accepted:
+        if diag.result() == QtWidgets.QDialog.Accepted:
             signals = w.get_selected()
         w.unbind()
         return signals
@@ -410,6 +433,7 @@ class MainWindow(MainWindowHyperspy):
 
         self.setUpdatesEnabled(False)
         try:
+            import hyperspy.signals
             if signal_type in ['2D Signal', 'Complex Signal 2D']:
                 if not isinstance(signal.signal,
                                   (hyperspy.signals.Signal2D,

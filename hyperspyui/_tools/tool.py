@@ -21,7 +21,7 @@ Created on Sun Dec 07 03:48:36 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 
 class Tool(QtCore.QObject):

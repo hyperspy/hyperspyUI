@@ -22,37 +22,31 @@ Created on Fri Oct 31 14:22:53 2014
 """
 
 import os
+from distutils.version import LooseVersion
 
-import matplotlib.backends.backend_qt4agg
+import matplotlib
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_bases import FigureManagerBase
-from matplotlib import __version__ as mplversionstring
 
-mpl13 = mplversionstring.startswith('1.3')
-mpl14 = mplversionstring.startswith('1.4')
-mpl15 = mplversionstring.startswith('1.5')
+from qtpy import API, QtCore, QtGui, QtWidgets
 
-if mpl13:
-    from matplotlib.backends.qt4_compat import QtCore, QtGui, _getSaveFileName, __version__
-else: # mpl14 or mpl15, or higher
-    from matplotlib.backends.qt_compat import QtCore, QtGui, _getSaveFileName, __version__
-
-if mpl13:
-    from matplotlib.backends.backend_qt4 import (QtCore, QtGui, FigureManagerQT, FigureCanvasQT,
-                                                 show, draw_if_interactive, backend_version,
-                                                 NavigationToolbar2QT)
-else: # mpl14 or mpl15, or higher
-    from matplotlib.backends.backend_qt5 import (SPECIAL_KEYS, SUPER, ALT, CTRL,
-                                                 SHIFT, MODIFIER_KEYS, fn_name, cursord,
-                                                 draw_if_interactive, _create_qApp, show, TimerQT,
-                                                 FigureManagerQT,
-                                                 SubplotToolQt, error_msg_qt, exception_handler)
 
 # FigureCanvas definition
-if mpl13:
-    FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvasQTAgg
-else:  # mpl14 or mpl15, or higher
-    FigureCanvas = matplotlib.backends.backend_qt4agg.FigureCanvas
+if LooseVersion(matplotlib.__version__) >= LooseVersion('2.1.0'):
+    # qt4 and qt5 are the same in matplotlib >= 2.1.0
+    from matplotlib.backends import backend_qt5agg
+    FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
+elif LooseVersion(matplotlib.__version__) >= LooseVersion('2.0.0'):
+    if API == 'pyqt5':
+        from matplotlib.backends import backend_qt5agg
+        FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
+    else:
+        from matplotlib.backends import backend_qt4agg
+        FigureCanvas = backend_qt4agg.FigureCanvasQTAgg
+else:  # < 2.0.0
+    from matplotlib.backends import backend_qt4agg
+    FigureCanvas = backend_qt4agg.FigureCanvas
+
 
 # =================
 # Event managers
@@ -133,7 +127,7 @@ def new_figure_manager(num, *args, **kwargs):
     Create a new figure manager instance. MPL backend function.
     """
     FigureClass = kwargs.pop(
-        'FigureClass', matplotlib.backends.backend_qt4agg.Figure)
+        'FigureClass', matplotlib.figure.Figure)
     thisFig = FigureClass(*args, **kwargs)
     return new_figure_manager_given_figure(num, thisFig)
 
@@ -148,7 +142,7 @@ def new_figure_manager_given_figure(num, figure):
     return manager
 
 
-class FigureWindow(QtGui.QMdiSubWindow):
+class FigureWindow(QtWidgets.QMdiSubWindow):
 
     """
     A basic MDI sub-window, but with a closing signal, and an activate QAction,
@@ -156,17 +150,17 @@ class FigureWindow(QtGui.QMdiSubWindow):
     Windows-menu). An exclusive, static action group makes sure only one
     window can be active at the time. If you want to split the windows into
     different groups that can be treated separately, you will need to create
-    your own QActionGroups.
+    your own QtWidgets.QActionGroups.
     """
     closing = QtCore.Signal()
 
-    activeFigureActionGroup = QtGui.QActionGroup(None)
+    activeFigureActionGroup = QtWidgets.QActionGroup(None)
     activeFigureActionGroup.setExclusive(True)
 
     def __init__(self, *args, **kwargs):
         super(FigureWindow, self).__init__(*args, **kwargs)
         self._activate_action = None
-        if os.environ['QT_API'] != 'pyside':
+        if API != 'pyside':
             self.windowStateChanged.connect(self._windowStateChanged)
 
     def closeEvent(self, event):
@@ -181,7 +175,7 @@ class FigureWindow(QtGui.QMdiSubWindow):
         """
         if self._activate_action is not None:
             return self._activate_action
-        self._activate_action = QtGui.QAction(self.windowTitle(), self)
+        self._activate_action = QtWidgets.QAction(self.windowTitle(), self)
         self._activate_action.setCheckable(True)
         self._activate_action.triggered.connect(self._activate_triggered)
         self.activeFigureActionGroup.addAction(self._activate_action)
@@ -309,7 +303,7 @@ class FigureManagerMdi(FigureManagerBase):
     def destroy(self, *args):
         _on_destroy(self.window)
         # check for qApp first, as PySide deletes it in its atexit handler
-        if QtGui.QApplication.instance() is None:
+        if QtWidgets.QApplication.instance() is None:
             return
         if self.window._destroying:
             return
@@ -329,6 +323,7 @@ class FigureManagerMdi(FigureManagerBase):
 
     def set_window_title(self, title):
         self.window.setWindowTitle(title)
+
 
 # Definition for MPL backend:
 FigureManager = FigureManagerMdi

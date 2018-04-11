@@ -23,9 +23,7 @@ Created on Fri Nov 21 22:22:33 2014
 
 from functools import partial
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore, QtWidgets
 
 import hyperspy.signals
 from hyperspy.misc.elements import elements as elements_db
@@ -36,7 +34,7 @@ from hyperspyui.util import win2sig, block_signals
 
 
 def tr(text):
-    return QCoreApplication.translate("ElementPickerWidget", text)
+    return QtCore.QCoreApplication.translate("ElementPickerWidget", text)
 
 edstypes = (hyperspy.signals.EDSSEMSpectrum, hyperspy.signals.EDSTEMSpectrum)
 
@@ -47,7 +45,7 @@ class ElementPickerWidget(FigureWidget):
     Tool window for picking elements of an interactive periodic table.
     Takes a signal in the constructor, and a parent control.
     """
-    element_toggled = Signal(str)
+    element_toggled = QtCore.Signal(str)
 
     def __init__(self, main_window, parent):
         super(ElementPickerWidget, self).__init__(main_window, parent)
@@ -338,7 +336,7 @@ class ElementPickerWidget(FigureWidget):
     def element_context(self, widget, point):
         if not self.isEDS():
             return
-        cm = QMenu()
+        cm = QtWidgets.QMenu()
         element = widget.text()
         active, possible = self._get_element_subshells(element)
         for ss in possible:
@@ -360,23 +358,23 @@ class ElementPickerWidget(FigureWidget):
         for w in self.table.children():
             if not isinstance(w, ExClickLabel):
                 continue
-            w.setContextMenuPolicy(Qt.CustomContextMenu)
+            w.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
             f = partial(self.element_context, w)
-            self.connect(w, SIGNAL('customContextMenuRequested(QPoint)'), f)
+            w.customContextMenuRequested[QtCore.QPoint].connect(f)
 
-        self.chk_markers = QCheckBox(tr("Markers"))
+        self.chk_markers = QtWidgets.QCheckBox(tr("Markers"))
         self.chk_markers.toggled[bool].connect(self._on_toggle_markers)
-        self.map_btn = QPushButton(tr("Map"))
+        self.map_btn = QtWidgets.QPushButton(tr("Map"))
         self.map_btn.clicked.connect(self.make_map)
 
-        vbox = QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(self.table)
 
-        hbox = QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.chk_markers)
         hbox.addWidget(self.map_btn)
         vbox.addLayout(hbox)
 
-        w = QWidget()
+        w = QtWidgets.QWidget()
         w.setLayout(vbox)
         self.setWidget(w)

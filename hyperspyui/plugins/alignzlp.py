@@ -1,6 +1,4 @@
 from hyperspyui.plugins.plugin import Plugin
-import numpy as np
-import hyperspy.api as hs
 
 
 class Alignzlp(Plugin):
@@ -25,6 +23,5 @@ class Alignzlp(Plugin):
 
     def default(self):
         ui = self.ui
-        siglist = ui.hspy_signals
         s = ui.get_selected_signal()
         s.align_zero_loss_peak()

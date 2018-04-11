@@ -22,13 +22,12 @@ import matplotlib.animation as animation
 import os
 import sys
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import QLineEdit, QCheckBox
 
 
 def tr(text):
-    return QCoreApplication.translate("MovieSaver", text)
+    return QtCore.QCoreApplication.translate("MovieSaver", text)
 
 
 # =============================================================================
@@ -80,7 +79,7 @@ class MovieSaver(Plugin):
         fname += os.path.extsep + "mp4"
         dlg.edt_fname.setText(fname)
         dlg_w = self.ui.show_okcancel_dialog(tr("Save movie"), dlg)
-        if dlg_w.result() == QDialog.Accepted:
+        if dlg_w.result() == QtWidgets.QDialog.Accepted:
             # Setup writer:
             fps = dlg.num_fps.value()
             codec = dlg.edt_codec.text()
@@ -130,7 +129,7 @@ class MovieSaver(Plugin):
             try:
                 with writer.saving(fig, fname, dpi):
                     for idx in signal.axes_manager:
-                        QApplication.processEvents()
+                        QtWidgets.QApplication.processEvents()
                         writer.grab_frame()
             finally:
                 # Reset figure props:
@@ -143,21 +142,21 @@ class MovieSaver(Plugin):
                 fig.canvas.draw()
 
 
-class MovieArgsPrompt(QWidget):
+class MovieArgsPrompt(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super(MovieArgsPrompt, self).__init__(parent)
         self.create_controls()
 
     def create_controls(self):
-        self.num_fps = QDoubleSpinBox()
+        self.num_fps = QtWidgets.QDoubleSpinBox()
         self.num_fps.setValue(15.0)
         self.num_fps.setMinimum(0.001)
 
         self.edt_fname = QLineEdit()
-        self.btn_browse = QPushButton("...")
+        self.btn_browse = QtWidgets.QPushButton("...")
 
-        self.num_dpi = QSpinBox()
+        self.num_dpi = QtWidgets.QSpinBox()
         self.num_dpi.setValue(72)
         self.num_dpi.setMinimum(1)
         self.num_dpi.setMaximum(10000)
@@ -182,13 +181,13 @@ class MovieArgsPrompt(QWidget):
             self.chk_verbose.setToolTip("Verbose output does not work with " +
                                         "internal console.")
 
-        frm = QFormLayout()
+        frm = QtWidgets.QFormLayout()
         frm.addRow(tr("FPS:"), self.num_fps)
         frm.addRow(tr("DPI:"), self.num_dpi)
         frm.addRow(tr("Codec:"), self.edt_codec)
         frm.addRow(tr("Extra args:"), self.edt_extra)
         frm.addRow(self.chk_axes, self.chk_colorbar)
-        hbox = QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.edt_fname)
         hbox.addWidget(self.btn_browse)
         frm.addRow(tr("File:"), hbox)

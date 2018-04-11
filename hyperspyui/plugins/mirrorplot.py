@@ -23,15 +23,14 @@ Created on Sun Mar 01 15:18:30 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore
+from qtpy.QtWidgets import QMessageBox
 
 import hyperspy.utils.plot
 
 
 def tr(text):
-    return QCoreApplication.translate("MirrorPlotPlugin", text)
+    return QtCore.QCoreApplication.translate("MirrorPlotPlugin", text)
 
 
 class MirrorPlotPlugin(Plugin):

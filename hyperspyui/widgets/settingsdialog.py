@@ -23,9 +23,12 @@ Created on Sun Mar 01 18:26:38 2015
 
 from functools import partial
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore
+from qtpy.QtCore import QSettings
+from qtpy.QtWidgets import (QDialogButtonBox, QVBoxLayout, QLineEdit, QWidget,
+                            QCheckBox, QDoubleSpinBox, QSpinBox, QComboBox,
+                            QMessageBox, QAbstractButton,
+                            QTabWidget, QFormLayout)
 
 from .extendedqwidgets import ExToolWindow
 from hyperspyui.settings import Settings
@@ -34,11 +37,11 @@ import numpy as np
 
 
 def tr(text):
-    return QCoreApplication.translate("PluginManagerWidget", text)
+    return QtCore.QCoreApplication.translate("PluginManagerWidget", text)
 
 
 class SettingsDialog(ExToolWindow):
-    settings_changed = Signal(dict)
+    settings_changed = QtCore.Signal(dict)
 
     def __init__(self, main_window, parent=None):
         """
@@ -70,7 +73,7 @@ class SettingsDialog(ExToolWindow):
             v = widget.text()
         elif isinstance(widget, QCheckBox):
             if widget.isTristate() and \
-                    widget.checkState() == Qt.PartiallyChecked:
+                    widget.checkState() == QtCore.Qt.PartiallyChecked:
                 v = None
             else:
                 v = "true" if widget.isChecked() else "false"
@@ -274,7 +277,7 @@ class SettingsDialog(ExToolWindow):
         btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Apply |
                                 QDialogButtonBox.Cancel |
                                 QDialogButtonBox.Reset,
-                                Qt.Horizontal, self)
+                                QtCore.Qt.Horizontal, self)
         btns.accepted.connect(self._on_accept)
         btns.rejected.connect(self.reject)
         btns.clicked[QAbstractButton].connect(self._on_click)
