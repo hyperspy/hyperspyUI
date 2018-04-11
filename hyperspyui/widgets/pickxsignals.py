@@ -16,19 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtWidgets
 
 from hyperspyui.widgets.signallist import SignalList
 
 
-class PickXSignalsWidget(QWidget):
+class PickXSignalsWidget(QtWidgets.QWidget):
 
     def __init__(self, signal_wrappers, x, parent=None, titles=None,
                  wrap_col=4):
         super(PickXSignalsWidget, self).__init__(parent)
-        grid = QGridLayout()
+        grid = QtWidgets.QGridLayout()
         self.pickers = []
         self._x = x
         self._sws = signal_wrappers
@@ -42,7 +40,7 @@ class PickXSignalsWidget(QWidget):
 
         for i in range(x):
             picker = SignalList(signal_wrappers, self, False)
-            grid.addWidget(QLabel(titles[i]), 2*(i // wrap_col),
+            grid.addWidget(QtWidgets.QLabel(titles[i]), 2*(i // wrap_col),
                            i % wrap_col)
             grid.addWidget(picker, 1 + 2*(i // wrap_col), i % wrap_col)
             self.pickers.append(picker)

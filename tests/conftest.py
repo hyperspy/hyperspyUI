@@ -1,14 +1,14 @@
 
-import sys
 import os
 import tempfile
 import shutil
 
 import hyperspyui
+from hyperspyui.__main__ import get_splash
 
 import pytest
 
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 QCoreApplication = QtCore.QCoreApplication
 QSettings = QtCore.QSettings
@@ -49,7 +49,7 @@ def pytest_unconfigure(config):
 def mainwindow(qapp):
     from hyperspyui.mainwindow import MainWindow
 
-    window = MainWindow(argv=[])
+    window = MainWindow(get_splash(), argv=[])
     yield window
     qapp.processEvents()
     window.close()

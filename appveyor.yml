@@ -9,7 +9,12 @@ environment:
       PYTHON_MAJOR: 3
       PYTHON_ARCH: "64"
       CONDA_PY: "35"
-      CONDA_NPY: "19"
+
+    - PYTHON: "C:\\Miniconda36-x64"
+      PYTHON_VERSION: "3.6.x"
+      PYTHON_MAJOR: 3
+      PYTHON_ARCH: "64"
+      CONDA_PY: "36"
 
 cache:
   - '%PYTHON%\pkgs'
@@ -20,10 +25,16 @@ install:
   - 'SET "PATH=%PYTHON%\\Scripts;%PATH%"'
   # Install most deps by conda
   - '%CMD_IN_ENV% conda config --add channels conda-forge'
+  - '%CMD_IN_ENV% conda update -y conda'
   - '%CMD_IN_ENV% conda install -q -y hyperspy'
   # Install our package:
   - '%CMD_IN_ENV% python -m pip install --upgrade pip'
-  - '%CMD_IN_ENV% pip install pypiwin32'
+  # Remove when pyface 6.0.0 and traitsui 5.2.0 are released
+  - "%CMD_IN_ENV% pip install https://github.com/enthought/pyface/archive/master.zip"
+  - "%CMD_IN_ENV% pip install https://github.com/enthought/traitsui/archive/master.zip"
+
+  # Try to run twice as workaround for permission error...
+  - '%CMD_IN_ENV% pip install pypiwin32 || pip install pypiwin32'
   - '%CMD_IN_ENV% pip install -e ".[test]"'
 
 build: off

@@ -21,9 +21,8 @@ Created on Fri Nov 21 19:31:50 2014
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtCore import Qt
 
 from functools import partial
 from hyperspyui._elements import elements
@@ -31,11 +30,11 @@ from .extendedqwidgets import ExClickLabel
 
 
 def tr(text):
-    return QCoreApplication.translate("PeriodicTable", text)
+    return QtCore.QCoreApplication.translate("PeriodicTable", text)
 
 
-class PeriodicTableWidget(QWidget):
-    element_toggled = Signal(str)
+class PeriodicTableWidget(QtWidgets.QWidget):
+    element_toggled = QtCore.Signal(str)
 
     def __init__(self, parent=None):
         super(PeriodicTableWidget, self).__init__(parent)
@@ -52,7 +51,7 @@ class PeriodicTableWidget(QWidget):
             j = 0
             for e in row:
                 if isinstance(e, tuple):
-                    w = QLabel(e[1], self)
+                    w = QtWidgets.QLabel(e[1], self)
                     grid.addWidget(w, i, j, 1, e[0], Qt.AlignRight)
                     j += e[0]
                 elif isinstance(e, dict):
@@ -118,10 +117,10 @@ class PeriodicTableWidget(QWidget):
         self.element_toggled.emit(value['id'])
 
     def sizeHint(self):
-        return QSize(310, 140)
+        return QtCore.QSize(310, 140)
 
     def create_controls(self):
-        grid = QGridLayout(self)
+        grid = QtWidgets.QGridLayout(self)
         grid.setSpacing(0)
         grid.setContentsMargins(0, 0, 0, 0)
         self.parse_elements(grid)

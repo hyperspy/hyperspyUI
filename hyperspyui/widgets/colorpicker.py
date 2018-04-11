@@ -17,10 +17,10 @@
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from python_qt_binding import QtGui, QtCore
+from qtpy import QtGui, QtCore, QtWidgets
 
 
-class ColorButton(QtGui.QPushButton):
+class ColorButton(QtWidgets.QPushButton):
 
     colorChanged = QtCore.Signal([QtGui.QColor])
 

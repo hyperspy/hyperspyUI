@@ -22,7 +22,7 @@ Created on Tue Nov 04 16:25:54 2014
 """
 
 
-from python_qt_binding import QtCore, QtGui
+from qtpy import QtCore
 #from hyperspy.model import Model
 import hyperspy.models.eelsmodel
 from .actionable import Actionable

@@ -16,13 +16,14 @@ last edited: September 2011
 """
 
 import sys
-from PyQt4 import QtGui
+from qtpy import QtGui, QtWidgets
+
 import tempfile
 import glob
 import os
 
 
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(Example, self).__init__()
@@ -37,14 +38,14 @@ class Example(QtGui.QMainWindow):
         svg_file = open(filename, 'r')
         svg_cnt = svg_file.read()
         temp = tempfile.NamedTemporaryFile(delete=False)
-        temp.write(svg_cnt.replace(oldColor, newColor))
+        temp.write(svg_cnt.replace(oldColor, newColor).encode('utf-8'))
         temp.close()
 
         return temp.name
 
     def initUI(self):
-        stack = QtGui.QVBoxLayout()
-        widget = QtGui.QWidget()
+        stack = QtWidgets.QVBoxLayout()
+        widget = QtWidgets.QWidget()
 
         color_list = []
         color_list.append(('QtGui.QPalette.Window',
@@ -72,14 +73,13 @@ class Example(QtGui.QMainWindow):
         color_list.append(('QtGui.QPalette.BrightText',
                            self.palette().color(QtGui.QPalette.BrightText)))
 
-        textEdit = QtGui.QTextEdit()
+        textEdit = QtWidgets.QTextEdit()
         for n, c in color_list:
             textEdit.append(n + ':\t' + str(c.name()))
         stack.addWidget(textEdit)
 
         # Change this to wherever your icons are stored
-        icon_files = glob.glob("D:/UMD_Research/Software/hyperspyUI/"
-                               "hyperspyui/images/*.svg")
+        icon_files = glob.glob("*.svg")
 
         widget.setLayout(stack)
         self.setCentralWidget(widget)
@@ -94,7 +94,7 @@ class Example(QtGui.QMainWindow):
             ico_list[i] = QtGui.QIcon(self.replaceSvgColor(f,
                                                            '#000000',
                                                            'red'))
-            action_list[i] = QtGui.QAction(ico_list[i], 'Exit', self)
+            action_list[i] = QtWidgets.QAction(ico_list[i], 'Exit', self)
             action_list[i].setStatusTip(os.path.basename(f))
 
             # add to toolbars
@@ -126,7 +126,7 @@ class Example(QtGui.QMainWindow):
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     _ = Example()
     sys.exit(app.exec_())
 

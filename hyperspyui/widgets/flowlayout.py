@@ -33,7 +33,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 """
 
-from python_qt_binding import QtCore, QtGui
+from qtpy import QtCore, QtGui, QtWidgets
 
 
 class FlowLayout(QtGui.QLayout):
@@ -54,14 +54,14 @@ class FlowLayout(QtGui.QLayout):
             return self._hSpace
         else:
             return self._smartSpacing(
-                QtGui.QStyle.PM_LayoutHorizontalSpacing)
+                QtWidgets.QStyle.PM_LayoutHorizontalSpacing)
 
     def verticalSpacing(self):
         if self._vSpace >= 0:
             return self._vSpace
         else:
             return self._smartSpacing(
-                QtGui.QStyle.PM_LayoutVerticalSpacing)
+                QtWidgets.QStyle.PM_LayoutVerticalSpacing)
 
     def expandingDirections(self):
         return QtCore.Qt.Orientation(0)
@@ -116,14 +116,14 @@ class FlowLayout(QtGui.QLayout):
             spaceX = self.horizontalSpacing()
             if spaceX == -1:
                 spaceX = w.style().layoutSpacing(
-                    QtGui.QSizePolicy.PushButton,
-                    QtGui.QSizePolicy.PushButton,
+                    QtWidgets.QSizePolicy.PushButton,
+                    QtWidgets.QSizePolicy.PushButton,
                     QtCore.Qt.Horizontal)
             spaceY = self.verticalSpacing()
             if spaceY == -1:
                 spaceY = w.style().layoutSpacing(
-                    QtGui.QSizePolicy.PushButton,
-                    QtGui.QSizePolicy.PushButton,
+                    QtWidgets.QSizePolicy.PushButton,
+                    QtWidgets.QSizePolicy.PushButton,
                     QtCore.Qt.Vertical)
             nextX = x + item.sizeHint().width() + spaceX
             if (nextX - spaceX > effectiveRect.right() and

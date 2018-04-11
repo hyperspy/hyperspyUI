@@ -46,18 +46,15 @@ and its dependencies, although it might not support older versions.
 
 Installation via pip and conda
 ------------------------------
-Due to a dependency on pyqt version 4 (version 5 is not currently supported), to install in a fresh anaconda environment, please use the following commands. Run each line separately, waiting for the previous line to finish. The "activate UI" line must be used before starting hyperspyui in any new terminal or command window.
+If you want to install HyperSpyUI with pyqt5, you will need to install the 
+lastest version or pyface (>= 6.0.0) and traitsui (>= 5.2.0).
 
 .. code-block:: bash
 
-    conda create --name UI python=3.5 numpy hyperspy
-    activate UI
-  
+    conda install hyperspy
     pip install hyperspyui
 
-    conda install -c menpo pyqt
-
-And run it with:
+And run it from the command prompt with:
 
 .. code-block:: bash
 

@@ -22,7 +22,7 @@ Created on Fri Oct 24 18:27:15 2014
 """
 
 from .util import fig2win
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 from .modelwrapper import ModelWrapper
 from .actionable import Actionable
@@ -91,6 +91,9 @@ class SignalWrapper(Actionable):
         self._replotargs = (args, kwargs)
         self.mainwindow.main_frame.subWindowActivated.emit(
             self.mainwindow.main_frame.activeSubWindow())
+        # Redraw plot needed for pyqt5
+        if self.signal._plot and self.signal._plot.signal_plot:
+            self.signal._plot.signal_plot.figure.canvas.draw_idle()
 
     def _replot(self):
         if self.signal._plot is not None:

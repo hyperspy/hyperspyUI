@@ -21,7 +21,7 @@ Created on Fri Apr 17 00:03:50 2015
 @author: Vidar Tonaas Fauske
 """
 
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
                                       SquareWidget, VerticalLineWidget)

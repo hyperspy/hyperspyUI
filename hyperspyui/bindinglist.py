@@ -22,9 +22,7 @@ Created on Mon Oct 27 23:17:25 2014
 """
 
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtWidgets
 
 
 class BindingList(list):
@@ -62,7 +60,7 @@ class BindingList(list):
 #            cb = {'ap': target.append, 'in': target.insert,
 #                  'ex': target.append, 're': target.removeOne,
 #                  'po': target.removeAt}
-        elif isinstance(target, QListWidget):
+        elif isinstance(target, QtWidgets.QListWidget):
             def qlr(value):
                 target.takeItem(self.index(value))
             cb = {'ap': target.addItem, 'in': target.insertItem,

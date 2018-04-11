@@ -23,14 +23,11 @@ Created on Mon May 04 17:30:36 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore, QtWebKit, QtNetwork
-from QtCore import *
-from QtGui import *
-from QtWebKit import *
-from QtNetwork import *
+from qtpy import QtCore, QtNetwork, QtWidgets, QtWebEngineWidgets
+    
 
 try:
-    assert(QSslSocket.supportsSsl())
+    assert(QtNetwork.QSslSocket.supportsSsl())
 except NameError as AssertionError:
     raise ImportError("Current platform doesn't support SSL. EELSDB plugin"
                       " disabled.")
@@ -62,12 +59,12 @@ class EELSDBPlugin(Plugin):
         self.add_menuitem('EELS', self.ui.actions[self.name + '.browse'])
 
     def _make_request(self, url):
-        request = QNetworkRequest()
-        request.setUrl(QUrl(url))
+        request = QtNetwork.QNetworkRequest()
+        request.setUrl(QtCore.QUrl(url))
         return request
 
     def load_blocking(self, view, *args):
-        loop = QEventLoop()
+        loop = QtCore.QEventLoop()
         view.loadFinished.connect(loop.quit)
 
         def unravel():
@@ -79,10 +76,10 @@ class EELSDBPlugin(Plugin):
         loop.exec_()
 
     def _on_link(self, url):
-        su = url.toString(QUrl.RemoveQuery)
+        su = url.toString(QtCore.QUrl.RemoveQuery)
         if "/spectra/" in su:
-            view = QWebView(self.ui)
-            wp = QWebPage()
+            view = QtWebEngineWidgets.QWebEngineView(self.ui)
+            wp = QtWebEngineWidgets.QWebEnginePage()
             am = self.view.page().networkAccessManager()
             wp.setNetworkAccessManager(am)
             view.setPage(wp)
@@ -128,20 +125,21 @@ class EELSDBPlugin(Plugin):
         if self.window is None:
             self.window = ExToolWindow(self.ui)
             self.window.setWindowTitle("EELSDB")
-            vbox = QVBoxLayout()
+            vbox = QtWidgets.QVBoxLayout()
             self.window.setLayout(vbox)
-            view = QWebView(self.ui)
+            view = QtWebEngineWidgets.QWebEngineView(self.ui)
             self.view = view
             vbox.addWidget(view)
             self.window.resize(self.view.sizeHint())
         # Load spectra browser
-        browse_url = QUrl("https://eelsdb.eu/spectra")
+        browse_url = QtCore.QUrl("https://eelsdb.eu/spectra")
         self.load_blocking(self.view, browse_url)
         # Remove header/footer
         frame = self.view.page().mainFrame()
         frame.findFirstElement(".footer").removeFromDocument()
         for el in frame.findAllElements(".navbar"):
             el.removeFromDocument()
-        self.view.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+        self.view.page().setLinkDelegationPolicy(
+                QtWebEngineWidgets.QWebEnginePage.DelegateAllLinks)
         self.view.linkClicked.connect(self._on_link)
         self.window.show()

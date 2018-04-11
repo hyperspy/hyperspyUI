@@ -22,7 +22,7 @@ Created on Sun Dec 07 01:48:00 2014
 """
 
 import collections
-from python_qt_binding import QtCore
+from qtpy import QtCore
 
 from .tool import Tool
 

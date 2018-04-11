@@ -2,7 +2,7 @@
 """
 List of elements
 
-Data processed from wikipedia\s periodic table template page (fall 2014)
+Data processed from wikipedia's periodic table template page (fall 2014)
 """
 
 elements = [[

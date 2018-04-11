@@ -24,9 +24,8 @@ Created on Fri Dec 12 23:44:01 2014
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import QDialog, QDialogButtonBox, QLineEdit, QLabel
 
 from hyperspy.learn.mva import LearningResults
 from hyperspyui.util import win2sig, fig2win, Namespace
@@ -35,7 +34,7 @@ from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 
 def tr(text):
-    return QCoreApplication.translate("MVA", text)
+    return QtCore.QCoreApplication.translate("MVA", text)
 
 
 def align_yaxis(ax1, v1, ax2, v2):
@@ -57,10 +56,10 @@ def make_advanced_dialog(ui, algorithms=None):
 
     diag.setWindowTitle("Decomposition parameters")
 
-    vbox = QVBoxLayout()
+    vbox = QtWidgets.QVBoxLayout()
     if algorithms:
         lbl_algo = QLabel(tr("Choose algorithm:"))
-        cbo_algo = QComboBox()
+        cbo_algo = QLineEdit.QComboBox()
         cbo_algo.addItems(algorithms)
 
         vbox.addWidget(lbl_algo)
@@ -74,7 +73,7 @@ def make_advanced_dialog(ui, algorithms=None):
         vbox.addWidget(txt_comp)
 
     btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                            Qt.Horizontal)
+                            QtCore.Qt.Horizontal)
     btns.accepted.connect(diag.accept)
     btns.rejected.connect(diag.reject)
     vbox.addWidget(btns)
@@ -226,7 +225,7 @@ class MVA_Plugin(Plugin):
             ns.s = self._do_decomposition(ns.s, algorithm=algorithm)
 
         def on_error(message=None):
-            em = QErrorMessage(self.ui)
+            em = QtWidgets.QErrorMessage(self.ui)
             msg = tr("An error occurred during decomposition")
             if message:
                 msg += ":\n" + message

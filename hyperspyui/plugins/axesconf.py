@@ -63,4 +63,4 @@ class AxesConf(Plugin):
         Creates the taitsui dialog. The TraitsWidget captures and displays it.
         """
         sig = win2sig(window)
-        sig.signal.axes_manager.show()
+        sig.signal.axes_manager.gui()

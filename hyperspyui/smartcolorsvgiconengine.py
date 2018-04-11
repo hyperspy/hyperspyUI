@@ -22,15 +22,13 @@ Created on Wed Jul 29 18:09:56 2015
 """
 
 
-from python_qt_binding import QtGui, QtCore, QtSvg
-from QtCore import *
-from QtGui import *
-from QtSvg import *
+from qtpy import QtGui, QtCore, QtSvg, QtWidgets
+from qtpy.QtGui import QPalette
 
 import re
 
 
-class SmartColorSVGIconEngine(QIconEngineV2):
+class SmartColorSVGIconEngine(QtGui.QIconEngine):
     """
     This class is basically a port to Python from the code for Qt's
     QSvgIconEnginePlugin. On top of this has been added the ability to exchange
@@ -55,7 +53,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         self._addedPixmaps = {}
         self._svgFiles = {}
         self._svgBuffers = {}
-        self.default_key = (QIcon.Normal, QIcon.Off)
+        self.default_key = (QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.custom_color_replacements = {}
         self._automatic_color_replacements = {}
         self.use_qt_disabled = use_qt_disabled
@@ -66,7 +64,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         """Sets `_automatic_color_replacements` attribute from application
         palette. Updates `_palette_key` to the cacheKey of the used palette.
         """
-        palette = QApplication.palette()
+        palette = QtWidgets.QApplication.palette()
         foreground = palette.color(QPalette.Active, QPalette.WindowText)
         background = palette.color(QPalette.Active, QPalette.Window)
         disabled_foreground = palette.color(QPalette.Disabled,
@@ -119,7 +117,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         for old, new in color_table[color_key].items():
             re_exp = re.compile(re.escape(old), re.IGNORECASE)
             svg_cnt = re_exp.sub(new, svg_cnt)
-        out = QByteArray(svg_cnt)
+        out = QtCore.QByteArray(svg_cnt)
         return out
 
     def _loadDataForModeAndState(self, renderer, mode, state):
@@ -131,10 +129,10 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         elif self.default_key in self._svgBuffers:
             buf = self._svgBuffers[self.default_key]
         else:
-            buf = QByteArray()
+            buf = QtCore.QByteArray()
 
         if buf:
-            buf = qUncompress(buf)
+            buf = QtCore.qUncompress(buf)
             renderer.load(buf)
         else:
             # If no buffer is available, load from file
@@ -143,7 +141,7 @@ class SmartColorSVGIconEngine(QIconEngineV2):
                 renderer.load(self._replace_in_stream(svgFile))
             elif self.default_key in self._svgFiles:
                 svgFile = self._svgFiles[self.default_key]
-                if mode == QIcon.Disabled:
+                if mode == QtGui.QIcon.Disabled:
                     renderer.load(self._replace_in_stream(svgFile, 'disabled'))
                 else:
                     renderer.load(self._replace_in_stream(svgFile))
@@ -159,16 +157,16 @@ class SmartColorSVGIconEngine(QIconEngineV2):
 
         pm = self.pixmap(size, mode, state)
         if pm is None:
-            return QSize()
+            return QtCore.QSize()
         return pm.size()
 
     def pixmap(self, size, mode, state):
         # Check if the palette has changed (if so invalidate cache)
-        if self._palette_key != QApplication.palette().cacheKey():
-            QPixmapCache.clear()
+        if self._palette_key != QtWidgets.QApplication.palette().cacheKey():
+            QtGui.QPixmapCache.clear()
             self._set_replacements_from_palette()
         pmckey = self._make_cache_key(size, mode, state)
-        pm = QPixmapCache.find(pmckey)
+        pm = QtGui.QPixmapCache.find(pmckey)
         if pm:
             return pm
 
@@ -177,30 +175,30 @@ class SmartColorSVGIconEngine(QIconEngineV2):
             if pm is not None and pm.size() == size:
                 return pm
 
-        renderer = QSvgRenderer()
+        renderer = QtSvg.QSvgRenderer()
         self._loadDataForModeAndState(renderer, mode, state)
         if not renderer.isValid():
-            return QPixmap()
+            return QtGui.QPixmap()
 
         actualSize = renderer.defaultSize()
         if actualSize is not None:
-            actualSize.scale(size, Qt.KeepAspectRatio)
+            actualSize.scale(size, QtCore.Qt.KeepAspectRatio)
 
-        img = QImage(actualSize, QImage.Format_ARGB32_Premultiplied)
+        img = QtGui.QImage(actualSize, QtGui.QImage.Format_ARGB32_Premultiplied)
         img.fill(0x00000000)
-        p = QPainter(img)
+        p = QtGui.QPainter(img)
         renderer.render(p)
         p.end()
-        pm = QPixmap.fromImage(img)
-        opt = QStyleOption()
-        opt.palette = QApplication.palette()
-        if self.use_qt_disabled or mode != QIcon.Disabled:
-            generated = QApplication.style().generatedIconPixmap(mode, pm, opt)
+        pm = QtGui.QPixmap.fromImage(img)
+        opt = QtWidgets.QStyleOption()
+        opt.palette = QtWidgets.QApplication.palette()
+        if self.use_qt_disabled or mode != QtGui.QIcon.Disabled:
+            generated = QtWidgets.QApplication.style().generatedIconPixmap(mode, pm, opt)
             if generated is not None:
                 pm = generated
 
         if pm is not None:
-            QPixmapCache.insert(pmckey, pm)
+            QtGui.QPixmapCache.insert(pmckey, pm)
 
         return pm
 
@@ -211,15 +209,15 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         if fileName:
             abs = fileName
             if fileName[0] != ':':
-                abs = QFileInfo(fileName).absoluteFilePath()
+                abs = QtCore.QFileInfo(fileName).absoluteFilePath()
             al = abs.lower()
             if (al.endswith(".svg") or al.endswith(".svgz") or
                     al.endswith(".svg.gz")):
-                renderer = QSvgRenderer(abs)
+                renderer = QtSvg.QSvgRenderer(abs)
                 if renderer.isValid():
                     self._svgFiles[(mode, state)] = abs
             else:
-                pm = QPixmap(abs)
+                pm = QtGui.QPixmap(abs)
                 if pm is not None:
                     self.addPixmap(pm, mode, state)
 
@@ -233,33 +231,33 @@ class SmartColorSVGIconEngine(QIconEngineV2):
 
         self._svgBuffers = {}    # QHash<int, QByteArray>
 
-        if ds_in.version() >= QDataStream.Qt_4_4:
+        if ds_in.version() >= QtCore.QDataStream.Qt_4_4:
             nfiles = ds_in.readInt()
             fileNames = {}
             for i in range(nfiles):
                 fileNames[i] = ds_in.readString()
             isCompressed = ds_in.readBool()
             key = ds_in.readInt()
-            self._svgBuffers[key] = QByteArray()
+            self._svgBuffers[key] = QtCore.QByteArray()
             ds_in >> self._svgBuffers[key]
             if not isCompressed:
                 for key, v in self._svgBuffers.items():
-                    self._svgBuffers[key] = qCompress(v)
+                    self._svgBuffers[key] = QtCore.qCompress(v)
             hasAddedPixmaps = ds_in.readInt()
             if hasAddedPixmaps:
                 npixmaps = ds_in.readInt()
                 self._addedPixmaps = {}
                 for i in range(npixmaps):
-                    pm = QPixmap()
+                    pm = QtGui.QPixmap()
                     ds_in >> pm
                     self._addedPixmaps[i] = pm
         else:
-            pixmap = QPixmap()
-            data = QByteArray()
+            pixmap = QtGui.QPixmap()
+            data = QtCore.QByteArray()
 
             ds_in >> data
             if not data.isEmpty():
-                data = qUncompress(data)
+                data = QtCore.qUncompress(data)
                 if not data.isEmpty():
                     self._svgBuffers[self.default_key] = data
             num_entries = ds_in.readInt()
@@ -275,18 +273,18 @@ class SmartColorSVGIconEngine(QIconEngineV2):
         return True
 
     def write(self, ds_out):
-        if out.version() >= QDataStream.Qt_4_4:
+        if out.version() >= QtCore.QDataStream.Qt_4_4:
             isCompressed = 1
             if self._svgBuffers:
                 svgBuffers = self._svgBuffers
             else:
                 svgBuffers = {}     # QHash<int, QByteArray>
             for key, v in self._svgFiles.items():
-                buf = QByteArray()
-                f = QFile(v)
-                if f.open(QIODevice.ReadOnly):
+                buf = QtCore.QByteArray()
+                f = QtCore.QFile(v)
+                if f.open(QtCore.QIODevice.ReadOnly):
                     buf = f.readAll()
-                buf = qCompress(buf)
+                buf = QtCore.qCompress(buf)
                 svgBuffers[key] = buf
             out << self._svgFiles << isCompressed << svgBuffers
             if self._addedPixmaps:
@@ -294,16 +292,16 @@ class SmartColorSVGIconEngine(QIconEngineV2):
             else:
                 out << 0
         else:
-            buf = QByteArray()
+            buf = QtCore.QByteArray()
             if self._svgBuffers:
                 buf = self._svgBuffers[self.default_key]
             if buf.isEmpty():
                 svgFile = self._svgFiles[self.default_key]
                 if not svgFile.isEmpty():
-                    f = QFile(svgFile)
-                    if f.open(QIODevice.ReadOnly):
+                    f = QtCore.QFile(svgFile)
+                    if f.open(QtCore.QIODevice.ReadOnly):
                         buf = f.readAll()
-            buf = qCompress(buf)
+            buf = QtCore.qCompress(buf)
             out << buf
             # 4.3 has buggy handling of added pixmaps, so don't write any
             out << 0

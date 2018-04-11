@@ -24,6 +24,8 @@ Created on Tue Nov 25 02:10:29 2014
 import os
 import sys
 import locale
+from contextlib import contextmanager
+
 
 # TODO: Make sure tools are disconnected when closing signal!
 
@@ -70,17 +72,32 @@ def _get_logfile():
     return log_file
 
 
+def get_splash():
+    from qtpy.QtCore import Qt
+    from qtpy.QtWidgets import QApplication, QSplashScreen
+    from qtpy.QtGui import QColor, QPixmap
+    splash_pix = QPixmap(os.path.join(
+        os.path.dirname(__file__), 'images', 'splash.png'))
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.show()
+    splash.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
+                       Qt.AlignAbsolute, QColor(Qt.white))
+    QApplication.processEvents()
+    return splash
+
+
 def main():
-    from python_qt_binding import QtGui, QtCore, QT_BINDING
+    from qtpy.QtCore import QCoreApplication
+    from qtpy.QtWidgets import QApplication
+    from qtpy import API
+
     import hyperspyui.info
-    from hyperspyui.singleapplication import get_app
     from hyperspyui.settings import Settings
-    from hyperspyui.util import dummy_context_manager
 
     # Need to set early to make QSettings accessible
-    QtCore.QCoreApplication.setApplicationName("HyperSpyUI")
-    QtCore.QCoreApplication.setOrganizationName("Hyperspy")
-    QtCore.QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+    QCoreApplication.setApplicationName("HyperSpyUI")
+    QCoreApplication.setOrganizationName("Hyperspy")
+    QCoreApplication.setApplicationVersion(hyperspyui.info.version)
 
     # First, clear all default settings!
     # TODO: This will cause a concurrency issue with multiple launch
@@ -90,46 +107,43 @@ def main():
     settings.set_default('allow_multiple_instances', False)
     if settings['allow_multiple_instances', bool]:
         # Using multiple instances, get a new application
-        app = QtGui.QApplication(sys.argv)
+        app = QApplication(sys.argv)
     else:
         # Make sure we only have a single instance
+        from hyperspyui.singleapplication import get_app
         app = get_app('hyperspyui')
+
+    splash = get_splash()
 
     log_file = _get_logfile()
     if log_file:
         sys.stdout = sys.stderr = log_file
     else:
+        @contextmanager
+        def dummy_context_manager(*args, **kwargs):
+            yield
         log_file = dummy_context_manager()
 
     with log_file:
-        # Create and display the splash screen
-        splash_pix = QtGui.QPixmap(
-            os.path.dirname(__file__) + './images/splash.png')
-        splash = QtGui.QSplashScreen(splash_pix,
-                                     QtCore.Qt.WindowStaysOnTopHint)
-        splash.setMask(splash_pix.mask())
-        splash.show()
-        app.processEvents()
-
-        # Need to have import here, as it can take some time, so should happen
-        # after displaying splash
+        # Need to have import here, since QApplication needs to be called first
         from hyperspyui.mainwindow import MainWindow
 
-        form = MainWindow()
+        form = MainWindow(splash=splash)
         if not settings['allow_multiple_instances', bool]:
-            if QT_BINDING == 'pyqt':
+            if "pyqt" in API:
                 app.messageAvailable.connect(form.handleSecondInstance)
-            elif QT_BINDING == 'pyside':
+            elif API == 'pyside':
                 app.messageReceived.connect(form.handleSecondInstance)
         form.showMaximized()
 
-        splash.finish(form)
+        form.splash.hide()
         form.load_complete.emit()
         # Ensure logging is OK
         import hyperspy.api as hs
         hs.set_log_level(LOGLEVEL)
 
         app.exec_()
+
 
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')

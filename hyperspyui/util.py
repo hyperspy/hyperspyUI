@@ -25,7 +25,7 @@ Created on Mon Oct 27 18:47:05 2014
 import hyperspy.components1d
 from hyperspy.misc.utils import slugify
 from functools import partial
-from python_qt_binding import QtGui, QtCore, QtSvg
+from qtpy import QtGui, QtCore, QtSvg, QtWidgets
 import os
 from contextlib import contextmanager
 
@@ -56,7 +56,7 @@ def lstrip(string, prefix):
 
 def debug_trace():
     '''Set a tracepoint in the Python debugger that works with Qt'''
-    from PyQt4.QtCore import pyqtRemoveInputHook
+    from qtpy.QtCore import pyqtRemoveInputHook
     from pdb import set_trace
     pyqtRemoveInputHook()
     set_trace()
@@ -197,9 +197,9 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
             continue
         ac_name = 'add_component_' + name
         f = partial(callback, t)
-        ac = QtGui.QAction(prefix + name + postfix, parent)
+        ac = QtWidgets.QAction(prefix + name + postfix, parent)
         ac.setStatusTip(tr("Add a component of type ") + name)
-        ac.connect(ac, QtCore.SIGNAL('triggered()'), f)
+        ac.triggered.connect(f)
         actions[ac_name] = ac
     return actions
 

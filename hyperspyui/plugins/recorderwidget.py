@@ -23,19 +23,19 @@ Created on Sun Feb 22 18:46:40 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
+from qtpy import QtCore, QtWidgets
+from qtpy.QtWidgets import (QPushButton, QVBoxLayout, QWidget, QHBoxLayout,
+                            QCheckBox)
 
 from hyperspyui.recorder import Recorder
 from hyperspyui.widgets.editorwidget import EditorWidget
 
 
 def tr(text):
-    return QCoreApplication.translate("RecorderWidget", text)
+    return QtCore.QCoreApplication.translate("RecorderWidget", text)
 
 
-class RecorderWidget(QDockWidget):
+class RecorderWidget(QtWidgets.QDockWidget):
 
     def __init__(self, main_window, parent=None):
         super(RecorderWidget, self).__init__(parent)

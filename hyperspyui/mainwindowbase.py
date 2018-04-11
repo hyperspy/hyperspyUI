@@ -26,22 +26,15 @@ import matplotlib
 matplotlib.use('module://hyperspyui.mdi_mpl_backend')
 matplotlib.interactive(True)
 
-import os
 import warnings
 import sys
-import logging
 
-from python_qt_binding import QtGui, QtCore
-from QtCore import *
-from QtGui import *
-
-from .widgets.consolewidget import ConsoleWidget
-import hyperspyui.mdi_mpl_backend
-from .pluginmanager import PluginManager
-from hyperspyui.settings import Settings
-from hyperspyui.widgets.settingsdialog import SettingsDialog
 from hyperspyui.exceptions import ProcessCanceled
 from hyperspyui.log import logger
+from hyperspyui.widgets.consolewidget import ConsoleWidget
+
+from qtpy import QtCore, QtWidgets, API
+from qtpy.QtCore import Qt
 
 
 def myexcepthook(exctype, value, traceback):
@@ -53,7 +46,7 @@ sys.excepthook = myexcepthook
 
 
 def tr(text):
-    return QCoreApplication.translate("MainWindow", text)
+    return QtCore.QCoreApplication.translate("MainWindow", text)
 
 
 def lowpriority():
@@ -107,7 +100,7 @@ def normalpriority():
         os.nice(-os.nice(0))
 
 
-class MainWindowBase(QMainWindow):
+class MainWindowBase(QtWidgets.QMainWindow):
 
     """
     Base layer in application stack. Should handle the connection to our custom
@@ -119,6 +112,11 @@ class MainWindowBase(QMainWindow):
 
     def __init__(self, parent=None):
         super(MainWindowBase, self).__init__(parent)
+
+        # Do the import here to update the splash
+
+        import hyperspyui.mdi_mpl_backend
+        from hyperspyui.settings import Settings
 
         # Setup settings:
         self.settings = Settings(self, 'General')
@@ -181,7 +179,7 @@ class MainWindowBase(QMainWindow):
     def toolbar_button_size(self, value):
         self.settings['toolbar_button_size'] = value
         self.setIconSize(
-            QSize(self.toolbar_button_size, self.toolbar_button_size))
+            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
 
     @property
     def cur_dir(self):
@@ -209,8 +207,8 @@ class MainWindowBase(QMainWindow):
 
     def handleSecondInstance(self, argv):
         # overload if needed
-        self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized |
-                            QtCore.Qt.WindowActive)
+        self.setWindowState(self.windowState() & ~Qt.WindowMinimized |
+                            Qt.WindowActive)
         self.activateWindow()
 
     def closeEvent(self, event):
@@ -231,32 +229,33 @@ class MainWindowBase(QMainWindow):
 
     def create_ui(self):
         self.setIconSize(
-            QSize(self.toolbar_button_size, self.toolbar_button_size))
-        self.main_frame = QMdiArea()
+            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
+        self.main_frame = QtWidgets.QMdiArea()
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
 
-        logger.debug("Initializing plugins")
+        self.set_splash("Initializing plugins")
         self.init_plugins()
 
-        logger.debug("Creating default actions")
+        self.set_splash("Creating default actions")
         self.create_default_actions()   # Goes before menu/toolbar/widgetbar
 
         # Needs to go before menu, so console can be in menu
-        logger.debug("Creating console")
+        self.set_splash("Creating console")
         self.create_console()
         # This needs to happen before the widgetbar and toolbar
-        logger.debug("Creating menus")
+        self.set_splash("Creating menus")
         self.create_menu()
-        logger.debug("Creating toolbars")
+        self.set_splash("Creating toolbars")
         self.create_toolbars()
-        logger.debug("Creating widgets")
+        self.set_splash("Creating widgets")
         self.create_widgetbar()
 
         self.setCentralWidget(self.main_frame)
 
     def init_plugins(self):
+        from .pluginmanager import PluginManager
         self.plugin_manager = PluginManager(self)
         self.plugin_manager.init_plugins()
 
@@ -265,49 +264,44 @@ class MainWindowBase(QMainWindow):
         Create default actions that can be used for e.g. toolbars and menus,
         or triggered manually.
         """
-        logger.debug("Creating plugin actions")
+        self.set_splash("Creating plugin actions")
         self.plugin_manager.create_actions()
 
-        self.selectable_tools = QActionGroup(self)
+        self.selectable_tools = QtWidgets.QActionGroup(self)
         self.selectable_tools.setExclusive(True)
 
         # Nested docking action
-        ac_nested = QAction(tr("Nested docking"), self)
+        ac_nested = QtWidgets.QAction(tr("Nested docking"), self)
         ac_nested.setStatusTip(tr("Allow nested widget docking"))
         ac_nested.setCheckable(True)
         ac_nested.setChecked(self.isDockNestingEnabled())
-        self.connect(ac_nested, SIGNAL('triggered(bool)'),
-                     self.setDockNestingEnabled)
+        ac_nested.triggered[bool].connect(self.setDockNestingEnabled)
         self.actions['nested_docking'] = ac_nested
 
         # Tile windows action
-        ac_tile = QAction(tr("Tile"), self)
+        ac_tile = QtWidgets.QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
-        self.connect(ac_tile, SIGNAL('triggered()'),
-                     self.main_frame.tileSubWindows)
+        ac_tile.triggered.connect(self.main_frame.tileSubWindows)
         self.actions['tile_windows'] = ac_tile
 
         # Cascade windows action
-        ac_cascade = QAction(tr("Cascade"), self)
+        ac_cascade = QtWidgets.QAction(tr("Cascade"), self)
         ac_cascade.setStatusTip(
             tr("Arranges all figures in a cascade pattern"))
-        self.connect(ac_cascade, SIGNAL('triggered()'),
-                     self.main_frame.cascadeSubWindows)
+        ac_cascade.triggered.connect(self.main_frame.cascadeSubWindows)
         self.actions['cascade_windows'] = ac_cascade
 
         # Close all figures action
-        ac_close_figs = QAction(tr("Close all"), self)
+        ac_close_figs = QtWidgets.QAction(tr("Close all"), self)
         ac_close_figs.setStatusTip(tr("Closes all matplotlib figures"))
-        self.connect(ac_close_figs, SIGNAL('triggered()'),
-                     lambda: matplotlib.pyplot.close("all"))
+        ac_close_figs.triggered.connect(lambda: matplotlib.pyplot.close("all"))
         self.actions['close_all_windows'] = ac_close_figs
 
         # Reset geometry action
-        ac_reset_layout = QAction(tr("Reset layout"), self)
+        ac_reset_layout = QtWidgets.QAction(tr("Reset layout"), self)
         ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and "
                                         "widgets"))
-        self.connect(ac_reset_layout, SIGNAL('triggered()'),
-                     self.reset_geometry)
+        ac_reset_layout.triggered.connect(self.reset_geometry)
         self.actions['reset_layout'] = ac_reset_layout
 
     def create_menu(self):
@@ -353,6 +347,7 @@ class MainWindowBase(QMainWindow):
         """
         Shows a dialog for editing the application and plugins settings.
         """
+        from hyperspyui.widgets.settingsdialog import SettingsDialog
         d = SettingsDialog(self, self)
         d.settings_changed.connect(self.on_settings_changed)
         d.exec_()
@@ -410,7 +405,7 @@ class MainWindowBase(QMainWindow):
     # --------- End MPL Events ---------
 
     def on_subwin_activated(self, mdi_figure):
-        if mdi_figure and os.environ['QT_API'] == 'pyside':
+        if mdi_figure and API == 'pyside':
             mdi_figure.activateAction().setChecked(True)
         self.check_action_selections(mdi_figure)
 
@@ -471,8 +466,7 @@ class MainWindowBase(QMainWindow):
 
         self.console = control
 
-        self._console_dock = QDockWidget()
+        self._console_dock = QtWidgets.QDockWidget("Console")
         self._console_dock.setObjectName('console_widget')
         self._console_dock.setWidget(control)
-        self._console_dock.setWindowTitle("Console")
         self.addDockWidget(Qt.BottomDockWidgetArea, self._console_dock)
