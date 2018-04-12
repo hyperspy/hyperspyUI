@@ -34,6 +34,8 @@ from qtpy.QtWidgets import QDialogButtonBox
 from hyperspyui.smartcolorsvgiconengine import SmartColorSVGIconEngine
 from hyperspyui.advancedaction import AdvancedAction
 
+from hyperspyui.log import logger as _logger
+
 from hyperspyui import hooktraitsui
 
 hooktraitsui.hook_traitsui()
@@ -336,6 +338,15 @@ class MainWindowUtils(MainWindowBase):
         # Analyze suggested filename
         base, tail = os.path.split(f)
         fn, ext = os.path.splitext(tail)
+        _logger.debug('fn before cleaning is: {}'.format(fn))
+
+        # Remove illegal characters and newlines from filename:
+        reserved_characters = r'<>:"/\|?*'
+        for c in reserved_characters:
+            fn = fn.replace(c, '')
+        fn = fn.replace('\n', ' ')
+
+        _logger.debug('fn after cleaning is: {}'.format(fn))
 
         # If no directory in filename, use self.cur_dir's dirname
         if base is None or base == "":
