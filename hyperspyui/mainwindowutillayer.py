@@ -341,7 +341,7 @@ class MainWindowUtils(MainWindowBase):
         _logger.debug('fn before cleaning is: {}'.format(fn))
 
         # Remove illegal characters and newlines from filename:
-        reserved_characters = '<>:"/\|?*'
+        reserved_characters = r'<>:"/\|?*'
         for c in reserved_characters:
             fn = fn.replace(c, '')
         fn = fn.replace('\n', ' ')
