@@ -29,9 +29,6 @@ install:
   - '%CMD_IN_ENV% conda install -q -y hyperspy'
   # Install our package:
   - '%CMD_IN_ENV% python -m pip install --upgrade pip'
-  # Remove when pyface 6.0.0 and traitsui 5.2.0 are released
-  - "%CMD_IN_ENV% pip install https://github.com/enthought/pyface/archive/master.zip"
-  - "%CMD_IN_ENV% pip install https://github.com/enthought/traitsui/archive/master.zip"
 
   # Try to run twice as workaround for permission error...
   - '%CMD_IN_ENV% pip install pypiwin32 || pip install pypiwin32'
