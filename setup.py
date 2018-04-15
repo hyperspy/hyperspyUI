@@ -41,19 +41,19 @@ setup(
               'matplotlib (>= 1.3)',
               'pyqode.python (>= 2.6.0)',
               'autopep8',
-              'pyface', #  (>=6.0.0) for pyqt5
+              'pyface (>=6.0.0)',
               'traits',
-              'traitsui',  # (>=5.2.0) for pyqt5
+              'traitsui (>=6.0.0)',
               'qtconsole',
               'qtpy',
               ],
     install_requires=['hyperspy >= 1.1.1',
                       'matplotlib >= 1.3',
                       'pyqode.python >= 2.6.0',
-                      'pyface',  # >=6.0.0 for pyqt5
+                      'pyface >= 6.0.0',
                       'autopep8',
                       'traits',
-                      'traitsui',  # >=5.2.0 for pyqt5
+                      'traitsui >= 6.0.0',
                       'qtconsole',
                       'qtpy',
                       ],

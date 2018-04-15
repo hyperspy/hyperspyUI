@@ -46,8 +46,8 @@ and its dependencies, although it might not support older versions.
 
 Installation via pip and conda
 ------------------------------
-If you want to install HyperSpyUI with pyqt5, you will need to install the 
-lastest version or pyface (>= 6.0.0) and traitsui (>= 5.2.0).
+
+HyperSpyUI requires pyqt4 or pyqt5.
 
 .. code-block:: bash
 
