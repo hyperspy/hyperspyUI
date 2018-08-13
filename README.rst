@@ -54,7 +54,22 @@ lastest version or pyface (>= 6.0.0) and traitsui (>= 5.2.0).
     conda install hyperspy
     pip install hyperspyui
 
-And run it from the command prompt with:
+
+Note
+----
+(As of August 2018) Due to a lingering known issue_, the latest
+version of HyperSpyUI available through `pip` is not compatible with the
+updated pyface and traisui components. In order to get a working installation
+(which might have other bugs present), you will need to install the development
+version until this message is removed. You can do this via:
+   
+.. code-block:: bash
+
+    pip uninstall hyperspyui # only if you have an existing hyperspyui version installed
+    pip install git+git://github.com/hyperspy/hyperspyUI.git  
+   
+
+After installation, you can run HyperSpyUI from the command prompt with:
 
 .. code-block:: bash
 
@@ -64,3 +79,4 @@ For further information, see the full documentation_.
 
 .. _HyperSpy: http://hyperspy.org
 .. _documentation: http://hyperspy.org/hyperspyUI/
+.. _issue: https://github.com/hyperspy/hyperspyUI/pull/157
