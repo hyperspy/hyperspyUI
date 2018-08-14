@@ -150,10 +150,10 @@ class PluginManagerWidget(ExToolWindow):
         self.model = PluginsModel(self.plugin_manager)
         table.setModel(self.model)
         h = table.horizontalHeader()
-        h.setResizeMode(QHeaderView.ResizeToContents)
+        h.setSectionResizeMode(QHeaderView.ResizeToContents)
         table.setHorizontalHeader(h)
         h = table.verticalHeader()
-        h.setResizeMode(QHeaderView.ResizeToContents)
+        h.setSectionResizeMode(QHeaderView.ResizeToContents)
         table.setVerticalHeader(h)
         self.table = table
         width = 80
