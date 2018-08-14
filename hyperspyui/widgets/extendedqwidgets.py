@@ -128,7 +128,7 @@ class ExRememberPrompt(ExMessageBox):
 
     def __init__(self, *args, **kwargs):
         super(ExRememberPrompt, self).__init__(*args, **kwargs)
-        self.cb = QtWidgets.QCheckBox(tr("Remember this choice"))
+        self.cb = QtWidgets.QCheckBox(tr("Remember this choice"), self)
         self.setCheckBox(self.cb)
 
 
