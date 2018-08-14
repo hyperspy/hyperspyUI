@@ -53,6 +53,11 @@ class SingleApplication(QtWidgets.QApplication):
     def isRunning(self):
         return self._running
 
+    def detach_shared_memory(self):
+        _logger.debug('Detaching shared memory.')
+        if not self._memory.detach():
+            _logger.debug('Shared memory could not be detached properly.')
+
 
 class SingleApplicationWithMessaging(SingleApplication):
 

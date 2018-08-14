@@ -4,13 +4,14 @@ import tempfile
 import shutil
 
 import hyperspyui
+from hyperspyui.singleapplication import SingleApplication
 from hyperspyui.__main__ import get_splash
 
 import pytest
 
 from qtpy import QtCore
 
-QCoreApplication = QtCore.QCoreApplication
+QCoreApplication = SingleApplication
 QSettings = QtCore.QSettings
 
 QCoreApplication.setApplicationName("HyperSpyUI-tests")

@@ -12,6 +12,7 @@ def handle_second_instance(argv):
 
 try:
     app = get_app(key)
+    app.detach_shared_memory()
 except SystemExit:
     print('Exiting early!')
     raise
