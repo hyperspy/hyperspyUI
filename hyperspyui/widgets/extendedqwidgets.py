@@ -97,10 +97,9 @@ class ExClickLabel(QtWidgets.QLabel):
 class ExMessageBox(QtWidgets.QMessageBox):
 
     def isChecked(self):
-        cb = self.checkBox()
-        if cb is None:
+        if self.cb is None:
             raise AttributeError
-        return cb.checkState() == QtCore.Qt.Checked
+        return self.cb.isChecked()
 
     def setCheckBox(self, cb):
         try:
@@ -129,8 +128,8 @@ class ExRememberPrompt(ExMessageBox):
 
     def __init__(self, *args, **kwargs):
         super(ExRememberPrompt, self).__init__(*args, **kwargs)
-        cb = QtWidgets.QCheckBox(tr("Remember this choice"))
-        self.setCheckBox(cb)
+        self.cb = QtWidgets.QCheckBox(tr("Remember this choice"))
+        self.setCheckBox(self.cb)
 
 
 class ExDoubleSlider(QtWidgets.QSlider):
