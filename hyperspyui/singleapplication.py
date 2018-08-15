@@ -49,9 +49,15 @@ class SingleApplication(QtWidgets.QApplication):
         base_path = os.path.abspath(os.path.dirname(__file__))
         icon_path = os.path.join(base_path, 'images', 'hyperspy.svg')
         QtWidgets.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
+        self.aboutToQuit.connect(self.detach_shared_memory)
 
     def isRunning(self):
         return self._running
+
+    def detach_shared_memory(self):
+        _logger.debug('Detaching shared memory.')
+        if not self._memory.detach():
+            _logger.debug('Shared memory could not be detached properly.')
 
 
 class SingleApplicationWithMessaging(SingleApplication):
