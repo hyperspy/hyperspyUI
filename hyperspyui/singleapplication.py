@@ -49,6 +49,7 @@ class SingleApplication(QtWidgets.QApplication):
         base_path = os.path.abspath(os.path.dirname(__file__))
         icon_path = os.path.join(base_path, 'images', 'hyperspy.svg')
         QtWidgets.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
+        self.aboutToQuit.connect(self.detach_shared_memory)
 
     def isRunning(self):
         return self._running

@@ -214,12 +214,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         self.settings['_geometry'] = self.saveGeometry()
         self.settings['_windowState'] = self.saveState()
-        super(MainWindowBase, self).closeEvent(event)
-        try:
-            QtWidgets.QApplication.instance().detach_shared_memory()
-        except AttributeError:
-            # in case QApplication is not a SingleApplication instance.
-            pass
+        return super(MainWindowBase, self).closeEvent(event)
 
     def reset_geometry(self):
         self.settings.restore_key_default('_geometry')
