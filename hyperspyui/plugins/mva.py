@@ -116,6 +116,10 @@ class MVA_Plugin(Plugin):
                         icon='bss.svg',
                         tip=tr("Run Blind Source Separation"),
                         selection_callback=self.selection_rules)
+        self.add_action('nmf', tr("NMF"), self.nmf,
+                        icon='nmf.svg',
+                        tip=tr("Run Non-negative Matrix Factorization"),
+                        selection_callback=self.selection_rules)
         self.add_action('bss_model', tr("BSS model"), self.bss_model,
                         icon='bss.svg',
                         tip=tr("Create a Blind Source Separation "
@@ -130,12 +134,14 @@ class MVA_Plugin(Plugin):
                           self.ui.actions['plot_decomposition_results'])
         self.add_menuitem('Decomposition', self.ui.actions['pca'])
         self.add_menuitem('Decomposition', self.ui.actions['bss'])
+        self.add_menuitem('Decomposition', self.ui.actions['nmf'])
         self.add_menuitem('Decomposition', self.ui.actions['bss_model'])
         self.add_menuitem('Decomposition', self.ui.actions['clear'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Decomposition", self.ui.actions['pca'])
         self.add_toolbar_button("Decomposition", self.ui.actions['bss'])
+        self.add_toolbar_button("Decomposition", self.ui.actions['nmf'])
 
     def selection_rules(self, win, action):
         """
@@ -200,9 +206,22 @@ class MVA_Plugin(Plugin):
         else:
             s.blind_source_separation(n_components)
 
+    def _do_nmf(self, s, n_components, algorithm=None):
+        """
+        Perform NMF decomposition
+        """
+        s.decomposition(algorithm=algorithm, output_dimension=n_components)
+
+
     def get_bss_results(self, signal):
         factors = signal.get_bss_factors()
         loadings = signal.get_bss_loadings()
+        factors.axes_manager._axes[0] = loadings.axes_manager._axes[0]
+        return loadings, factors
+
+    def get_decomposition_results(self, signal):
+        factors = signal.get_decomposition_factors()
+        loadings = signal.get_decomposition_loadings()
         factors.axes_manager._axes[0] = loadings.axes_manager._axes[0]
         return loadings, factors
 
@@ -253,6 +272,14 @@ class MVA_Plugin(Plugin):
             o.metadata.add_dictionary(ns.s.metadata.as_dictionary())
             f.metadata.General.title = ns.signal.name + "[BSS-Factors]"
             o.metadata.General.title = ns.signal.name + "[BSS-Loadings]"
+            f.plot()
+            o.plot()
+        elif ns.model == 'nmf':
+            self._do_nmf(ns.s, n_components=n_components, algorithm='nmf')
+            f, o = self.get_decomposition_results(ns.s)
+            o.metadata.add_dictionary(ns.s.metadata.as_dictionary())
+            f.metadata.General.title = ns.signal.name + "[NMF-Factors]"
+            o.metadata.General.title = ns.signal.name + "[NMF-Loadings]"
             f.plot()
             o.plot()
         elif ns.model == 'bss_model':
@@ -364,6 +391,22 @@ class MVA_Plugin(Plugin):
                 self.do_after_scree(model, signal, n_components)
         else:
             self.do_after_scree('bss', signal, n_components)
+
+    def nmf(self, signal=None, n_components=None, advanced=False):
+        """
+        Performs decomposition if neccessary, then plots the scree for the user
+        to select the number of components to use for a non-negative matrix
+        factorization. The selection is made by clicking on the scree, which
+        closes the scree and proceeds with the factorization.
+        """
+        if advanced:
+            diag = make_advanced_dialog(self.ui)
+            dr = diag.exec_()
+            if dr == QDialog.Accepted:
+                self.do_after_scree(
+                    'nmf', signal, n_components=diag.components())
+        else:
+            self.do_after_scree('nmf', signal, n_components)
 
     def bss_model(self, signal=None, n_components=None, advanced=False):
         """
