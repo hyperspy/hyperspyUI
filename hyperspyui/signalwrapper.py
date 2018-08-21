@@ -97,7 +97,7 @@ class SignalWrapper(Actionable):
 
     def _replot(self):
         if self.signal._plot is not None:
-            if self.signal._plot.is_active() is True:
+            if self.signal._plot.is_active:
                 self.replot()
 
     def replot(self):

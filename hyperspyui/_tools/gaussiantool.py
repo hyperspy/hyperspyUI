@@ -62,7 +62,7 @@ class GaussianTool(FigureTool):
         if wrapper is None:
             return
         m = wrapper.model
-        if m._plot.is_active():
+        if m._plot.is_active:
             self._old_plot_comp[wrapper] = m._plot_components
             m.enable_plot_components()
             for c in m:
