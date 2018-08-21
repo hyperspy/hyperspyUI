@@ -272,8 +272,7 @@ class ElementPickerWidget(FigureWidget):
         else:
             if self.isEDS():
                 for m in reversed(s._plot.signal_plot.ax_markers):
-                    s._plot.signal_plot.ax_markers.remove(m)
-                    m.close()
+                    m.close(render_figure=False)
                 if hasattr(s, '_xray_markers'):
                     s._xray_markers.clear()
 
