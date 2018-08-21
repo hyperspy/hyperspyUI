@@ -47,7 +47,7 @@ setup(
               'qtconsole',
               'qtpy',
               ],
-    install_requires=['hyperspy >= 1.1.1',
+    install_requires=['hyperspy >= 1.3.2',
                       'matplotlib >= 1.3',
                       'pyqode.python >= 2.6.0',
                       'pyface',  # >=6.0.0 for pyqt5
