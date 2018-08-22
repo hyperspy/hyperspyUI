@@ -103,8 +103,8 @@ class CMapDelegate(QtWidgets.QItemDelegate):
         else:
             option.textElideMode = Qt.ElideNone
             rect = option.rect
-            rect = QtWidgets.QRect(rect.x()+self.cmap_shift, rect.y(),
-                                   rect.width()-self.cmap_shift, rect.height())
+            rect = QtCore.QRect(rect.x()+self.cmap_shift, rect.y(),
+                                rect.width()-self.cmap_shift, rect.height())
             option.rect.setLeft(option.rect.x() + 10)
         super(CMapDelegate, self).paint(painter, option, index)
 
