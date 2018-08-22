@@ -33,10 +33,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 """
 
-from qtpy import QtCore, QtGui, QtWidgets
+from qtpy import QtCore, QtWidgets
 
 
-class FlowLayout(QtGui.QLayout):
+class FlowLayout(QtWidgets.QLayout):
     def __init__(self, margin=-1, hSpacing=-1, vSpacing=-1, parent=None):
         super(FlowLayout, self).__init__(parent)
         self._hSpace = hSpacing
