@@ -126,7 +126,7 @@ class LineTool(SignalFigureTool):
         new_widget = not self.is_on()
         if self.ndim == 1:
             self.widget.position = (x,)
-            self.widget.size = axes[0].scale
+            self.widget.size = np.array([0])
             self.widget.set_on(True)
             span = self.widget.span
             span.buttonDown = True
@@ -135,7 +135,7 @@ class LineTool(SignalFigureTool):
                                         span.move_right)
         else:
             self.widget.position = np.array(((x, y), (x, y)))
-            self.widget.size = np.min([ax.scale for ax in axes])
+            self.widget.size = np.array([0])
             self.widget.picked = True
             self.widget.func = Line2DWidget.FUNC_B | Line2DWidget.FUNC_RESIZE
             self.widget._drag_start = [x, y]
@@ -174,7 +174,7 @@ class LineTool(SignalFigureTool):
     def cancel(self):
         if self.widget.is_on():
             self.widget.set_on(False)
-            self.widget.size = 1    # Prevents flickering
+            self.widget.size = np.array([0])    # Prevents flickering
         if self._on_change in self.widget.events.changed.connected:
             self.widget.events.changed.disconnect(self._on_change)
         self.axes = None

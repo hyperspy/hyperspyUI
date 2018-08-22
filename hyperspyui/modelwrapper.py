@@ -118,7 +118,7 @@ class ModelWrapper(Actionable):
         # This is a non-blocking call, which means the normal keep_on_close +
         # update_figures won't work. To make sure we keep our figures,
         # we force a plot first if it is not active already.
-        if not self.model.signal._plot.is_active():
+        if not self.model.signal._plot.is_active:
             self.plot()
         self.model.fit_component(component)
         self.record_code("model.fit_component(%s)" % component.name)
