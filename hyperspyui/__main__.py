@@ -87,17 +87,29 @@ def get_splash():
 
 
 def main():
-    from qtpy.QtCore import QCoreApplication
+    from qtpy.QtCore import Qt, QCoreApplication
     from qtpy.QtWidgets import QApplication
     from qtpy import API
 
     import hyperspyui.info
     from hyperspyui.settings import Settings
 
+    # QtWebEngineWidgets must be imported before a QCoreApplication instance 
+    # is created (used in eelsdb plugin)
+    # Avoid a bug in Qt: https://bugreports.qt.io/browse/QTBUG-46720
+    from qtpy import QtWebEngineWidgets
+
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
     QCoreApplication.setOrganizationName("Hyperspy")
     QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+    # To avoid the warning: 
+    # Qt WebEngine seems to be initialized from a plugin. Please set 
+    # Qt::AA_ShareOpenGLContexts using QCoreApplication::setAttribute before
+    # constructing QGuiApplication.
+    # Only available for pyqt>=5.4
+    if hasattr(Qt, "AA_ShareOpenGLContexts"):
+        QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
     # First, clear all default settings!
     # TODO: This will cause a concurrency issue with multiple launch
