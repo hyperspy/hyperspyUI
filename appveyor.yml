@@ -16,15 +16,15 @@ install:
   # Ensure python scripts are from right version:
   - 'SET "PATH=%PYTHON%\\Scripts;%PATH%"'
   # Install most deps by conda
-  - '%CMD_IN_ENV% conda config --add channels conda-forge'
-  - '%CMD_IN_ENV% conda update -y conda'
-  - '%CMD_IN_ENV% conda install -q -y hyperspy'
+  - 'conda config --add channels conda-forge'
+  - 'conda update -y conda'
+  - 'conda install -q -y hyperspy'
   # Install our package:
-  - '%CMD_IN_ENV% python -m pip install --upgrade pip'
+  - 'python -m pip install --upgrade pip'
 
   # Try to run twice as workaround for permission error...
-  - '%CMD_IN_ENV% pip install pypiwin32 || pip install pypiwin32'
-  - '%CMD_IN_ENV% pip install -e ".[test]"'
+  - 'pip install pypiwin32 || pip install pypiwin32'
+  - 'pip install -e ".[test]"'
 
 build: off
 
@@ -32,6 +32,13 @@ build: off
 # to run your custom scripts instead of automatic tests
 test_script:
   - '%CMD_IN_ENV% py.test -l --cov-report html --cov=hyperspyui'
+
+after_test:
+  - python setup.py bdist_wheel
+
+artifacts:
+  - path: dist\*.whl
+    name: wheels
 
 on_success:
   - '%CMD_IN_ENV% conda clean -y --tarballs'

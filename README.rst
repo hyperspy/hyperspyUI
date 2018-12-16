@@ -25,7 +25,7 @@ which runs on the same Python kernel as the UI.
 
 
 Installation
-=============
+============
 There are several ways to install HyperSpyUI. The application itself is rather
 simple to install, but its dependencies can be a bit more tricky.
 
@@ -58,7 +58,16 @@ need to have C compiler on your system to install some of the dependencies.
 .. code-block:: bash
 
     pip install hyperspyui
-   
+
+If pyqt is not installed, run:
+
+.. code-block:: bash
+
+    pip install PyQt5
+
+
+Run HyperSpyUI
+==============
 
 After installation, you can run HyperSpyUI from the command prompt with:
 
