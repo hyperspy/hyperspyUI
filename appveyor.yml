@@ -18,7 +18,7 @@ install:
   # Install most deps by conda
   - 'conda config --add channels conda-forge'
   - 'conda update -y conda'
-  - 'conda install -q -y hyperspy'
+  - 'conda install -q -y hyperspy wheel'
   # Install our package:
   - 'python -m pip install --upgrade pip'
 
@@ -31,14 +31,14 @@ build: off
 
 # to run your custom scripts instead of automatic tests
 test_script:
-  - '%CMD_IN_ENV% py.test -l --cov-report html --cov=hyperspyui'
+  - 'pytest -l --cov-report html --cov=hyperspyui'
 
 after_test:
   - python setup.py bdist_wheel
 
 artifacts:
   - path: dist\*.whl
-    name: wheels
+    name: wheel
 
 on_success:
   - '%CMD_IN_ENV% conda clean -y --tarballs'
