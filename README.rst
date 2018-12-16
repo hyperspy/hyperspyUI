@@ -29,44 +29,35 @@ Installation
 There are several ways to install HyperSpyUI. The application itself is rather
 simple to install, but its dependencies can be a bit more tricky.
 
-Bundle Installer
-----------------
+Bundle Installer on Windows
+---------------------------
 If you're on Windows, the quickest way to get set up is to download and install
-the HyperSpyUI bundle installer. The bundled WinPython_ distribution includes
-all the dependencies of the program, and the installer also helps create
-program shortucts and register common microscopy file formats with the
-application.
+the `HyperSpy bundle`_ installer, which includes HyperSpyUI.
 
-The bundle installer can also be used if you already have installed a WinPython
-distribution (e.g. via the `HyperSpy bundle`_), and just want to add HyperSpyUI
-and its dependencies, although it might not support older versions.
+.. _HyperSpy bundle: https://github.com/hyperspy/hyperspy-bundle
 
-.. _WinPython: http://winpython.github.io/
-.. _HyperSpy bundle: http://hyperspy.org/download.html
+Anaconda/Miniconda on Mac or Linux
+----------------------------------
 
-Installation via pip and conda
-------------------------------
-If you want to install HyperSpyUI with pyqt5, you will need to install the 
-lastest version or pyface (>= 6.0.0) and traitsui (>= 5.2.0).
+Download and install the `Miniconda`_ distribution and run the following command 
+in the anaconda prompt: 
 
 .. code-block:: bash
 
-    conda install hyperspy
+    conda install -c conda-forge hyperspy
     pip install hyperspyui
 
+.. _Miniconda: https://conda.io/miniconda.html
 
-Note
-----
-(As of August 2018) Due to a lingering known issue_, the latest
-version of HyperSpyUI available through `pip` is not compatible with the
-updated pyface and traisui components. In order to get a working installation
-(which might have other bugs present), you will need to install the development
-version until this message is removed. You can do this via:
-   
+Installation via pip
+--------------------
+
+HyperSpyUI can be intall from pip. Depending on your python distribution you may 
+need to have C compiler on your system to install some of the dependencies.
+
 .. code-block:: bash
 
-    pip uninstall hyperspyui # only if you have an existing hyperspyui version installed
-    pip install git+git://github.com/hyperspy/hyperspyUI.git  
+    pip install hyperspyui
    
 
 After installation, you can run HyperSpyUI from the command prompt with:
@@ -79,4 +70,3 @@ For further information, see the full documentation_.
 
 .. _HyperSpy: http://hyperspy.org
 .. _documentation: http://hyperspy.org/hyperspyUI/
-.. _issue: https://github.com/hyperspy/hyperspyUI/pull/157
