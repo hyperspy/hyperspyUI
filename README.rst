@@ -1,13 +1,16 @@
 HyperSpyUI
 ==========
 
-|pypi_version|_
+|pypi_version|_ |AppVeyor|_
 
 .. |pypi_downloads| image:: http://img.shields.io/pypi/dm/hyperspyui.svg?style=flat
 .. _pypi_downloads: https://pypi.python.org/pypi/hyperspyui
 
 .. |pypi_version| image:: http://img.shields.io/pypi/v/hyperspyui.svg?style=flat
 .. _pypi_version: https://pypi.python.org/pypi/hyperspyui
+
+.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/m4rsiqxdj89n7x9i/branch/master?svg=true
+.. _AppVeyor: https://ci.appveyor.com/project/hyperspy/hyperspyui/branch/master
 
 HyperSpyUI tries to bring a streamlined user interface to the powerful
 multi-dimensional analysis capabilities of HyperSpy_. HyperSpy is an open
