@@ -3,42 +3,44 @@ skip_branch_with_pr: true
 
 # environment variables
 environment:
+
+  global:
+    DEPS: "hyperspy-gui-traitsui"
+    TEST_DEPS: "pytest pytest-qt pytest-cov"
+
   matrix:
     - PYTHON: "C:\\Miniconda35-x64"
     - PYTHON: "C:\\Miniconda36-x64"
     - PYTHON: "C:\\Miniconda37-x64"
-
 cache:
   - '%PYTHON%\pkgs'
 
 # scripts that run after cloning repository
 install:
   # Ensure python scripts are from right version:
-  - 'SET "PATH=%PYTHON%\\Scripts;%PATH%"'
+  - 'SET "PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"'
   # Install most deps by conda
   - 'conda config --add channels conda-forge'
   - 'conda update -y conda'
-  - 'conda install -q -y hyperspy wheel'
-  # Install our package:
-  - 'python -m pip install --upgrade pip'
+  - 'conda install -q -y %DEPS% %TEST_DEPS%'
 
   # Try to run twice as workaround for permission error...
   - 'pip install pypiwin32 || pip install pypiwin32'
-  - 'pip install -e ".[test]"'
+  # Install our package
+  - 'pip install .'
 
 build: off
-
 
 # to run your custom scripts instead of automatic tests
 test_script:
   - 'pytest -l --cov-report html --cov=hyperspyui'
 
 after_test:
-  - python setup.py bdist_wheel
+  - 'python setup.py bdist_wheel'
 
 artifacts:
   - path: dist\*.whl
     name: wheel
 
 on_success:
-  - '%CMD_IN_ENV% conda clean -y --tarballs'
+  - 'conda clean -y --tarballs'
