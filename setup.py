@@ -38,6 +38,7 @@ setup(
     packages=find_packages(exclude=['tests*',
                                     'hyperspyui.plugins.user_plugins']),
     requires=['hyperspy (>= 1.4.1)',
+              'hyperspy-gui-traitsui (>= 1.1.1)',
               'matplotlib (>= 1.3)',
               'pyqode.python (>= 2.6.0)',
               'autopep8',
@@ -48,6 +49,7 @@ setup(
               'qtpy',
               ],
     install_requires=['hyperspy >= 1.4.1',
+                      'hyperspy-gui-traitsui >= 1.1.1',
                       'matplotlib >= 1.3',
                       'pyqode.python >= 2.6.0',
                       'pyface >=6.0.0',
@@ -84,9 +86,9 @@ setup(
     keywords=[
     ],
     classifiers=[
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3 :: Only",
         "Environment :: MacOS X",
         "Environment :: Win32 (MS Windows)",

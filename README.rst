@@ -27,7 +27,8 @@ which runs on the same Python kernel as the UI.
 Installation
 ============
 There are several ways to install HyperSpyUI. The application itself is rather
-simple to install, but its dependencies can be a bit more tricky.
+simple to install, but its dependencies can be a bit more tricky. From version 
+1.1, HyperSpyUI supports both PyQt4 and PyQt5.
 
 Bundle Installer on Windows
 ---------------------------
