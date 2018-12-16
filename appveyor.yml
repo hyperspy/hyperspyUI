@@ -5,16 +5,8 @@ skip_branch_with_pr: true
 environment:
   matrix:
     - PYTHON: "C:\\Miniconda35-x64"
-      PYTHON_VERSION: "3.5.x"
-      PYTHON_MAJOR: 3
-      PYTHON_ARCH: "64"
-      CONDA_PY: "35"
-
     - PYTHON: "C:\\Miniconda36-x64"
-      PYTHON_VERSION: "3.6.x"
-      PYTHON_MAJOR: 3
-      PYTHON_ARCH: "64"
-      CONDA_PY: "36"
+    - PYTHON: "C:\\Miniconda37-x64"
 
 cache:
   - '%PYTHON%\pkgs'

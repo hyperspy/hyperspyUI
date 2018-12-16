@@ -37,7 +37,7 @@ setup(
     license='GPLv3',
     packages=find_packages(exclude=['tests*',
                                     'hyperspyui.plugins.user_plugins']),
-    requires=['hyperspy (>= 1.1.1)',
+    requires=['hyperspy (>= 1.4.1)',
               'matplotlib (>= 1.3)',
               'pyqode.python (>= 2.6.0)',
               'autopep8',
@@ -47,7 +47,7 @@ setup(
               'qtconsole',
               'qtpy',
               ],
-    install_requires=['hyperspy >= 1.3.2',
+    install_requires=['hyperspy >= 1.4.1',
                       'matplotlib >= 1.3',
                       'pyqode.python >= 2.6.0',
                       'pyface',  # >=6.0.0 for pyqt5
