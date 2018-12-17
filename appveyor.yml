@@ -5,13 +5,13 @@ skip_branch_with_pr: true
 environment:
 
   global:
-    DEPS: "hyperspy-gui-traitsui"
+    DEPS: "hyperspy-gui-traitsui qtpy pyqode.python"
     TEST_DEPS: "pytest pytest-qt pytest-cov"
 
   matrix:
     - PYTHON: "C:\\Miniconda35-x64"
     - PYTHON: "C:\\Miniconda36-x64"
-    - PYTHON: "C:\\Miniconda37-x64"
+    #- PYTHON: "C:\\Miniconda37-x64"
 cache:
   - '%PYTHON%\pkgs'
 
@@ -27,7 +27,7 @@ install:
   # Try to run twice as workaround for permission error...
   - 'pip install pypiwin32 || pip install pypiwin32'
   # Install our package
-  - 'pip install .'
+  - 'pip install -e .[test]'
 
 build: off
 
