@@ -5,10 +5,11 @@ skip_branch_with_pr: true
 environment:
 
   global:
-    DEPS: "hyperspy-base hyperspy-gui-traitsui qtpy pyqode.python"
+    DEPS: "hyperspy-gui-traitsui qtpy pyqode.python"
     TEST_DEPS: "pytest pytest-qt pytest-cov"
 
   matrix:
+    - PY_VERSION: 3.5
     - PY_VERSION: 3.6
     - PY_VERSION: 3.7
 
