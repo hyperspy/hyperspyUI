@@ -33,10 +33,11 @@ before_install:
     fi
   - chmod +x miniconda.sh;
     ./miniconda.sh -b -p $HOME/miniconda;
-    export "PATH=$HOME/miniconda/bin:$PATH";
     hash -r;
 
 install:
+  - source $HOME/miniconda/bin/activate root;
+  - conda update -yq conda
   - conda create -n testenv --yes python=$PYTHON;
     source activate testenv;
     conda install -y -c conda-forge $DEPS $TEST_DEPS;
