@@ -5,29 +5,30 @@ skip_branch_with_pr: true
 environment:
 
   global:
-    DEPS: "hyperspy-gui-traitsui qtpy pyqode.python"
+    DEPS: "hyperspy-base hyperspy-gui-traitsui qtpy pyqode.python"
     TEST_DEPS: "pytest pytest-qt pytest-cov"
 
   matrix:
-    - PYTHON: "C:\\Miniconda35-x64"
-    - PYTHON: "C:\\Miniconda36-x64"
-    #- PYTHON: "C:\\Miniconda37-x64"
-cache:
-  - '%PYTHON%\pkgs'
+    - PY_VERSION: 3.6
+    - PY_VERSION: 3.7
 
 # scripts that run after cloning repository
 install:
-  # Ensure python scripts are from right version:
-  - 'SET "PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"'
-  # Install most deps by conda
-  - 'conda config --add channels conda-forge'
-  - 'conda update -y conda'
-  - 'conda install -q -y %DEPS% %TEST_DEPS%'
+  # Activate miniconda root environment
+  - "C:\\Miniconda37-x64\\Scripts\\activate.bat"
 
-  # Try to run twice as workaround for permission error...
-  - 'pip install pypiwin32 || pip install pypiwin32'
+  # Setup miniconda environment.
+  - ps: Add-AppveyorMessage "Setup miniconda environment..."
+  - "conda update -y conda"
+  - 'conda config --add channels conda-forge'
+  - "conda create -y -n testenv python=%PY_VERSION%"
+  - "activate testenv"
+
+  # Install the dependencies of hyperspyUI.
+  - 'conda install -yq %DEPS% %TEST_DEPS%'
+
   # Install our package
-  - 'pip install -e .[test]'
+  - 'pip install -e .'
 
 build: off
 
@@ -42,5 +43,3 @@ artifacts:
   - path: dist\*.whl
     name: wheel
 
-on_success:
-  - 'conda clean -y --tarballs'
