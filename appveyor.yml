@@ -20,7 +20,9 @@ install:
 
   # Setup miniconda environment.
   - ps: Add-AppveyorMessage "Setup miniconda environment..."
-  - "conda update -y conda"
+  # Disable update conda until the following issue is solved
+  # https://github.com/conda/conda/issues/7144
+  # - "conda update -y conda"
   - 'conda config --add channels conda-forge'
   - "conda create -y -n testenv python=%PY_VERSION%"
   - "activate testenv"
