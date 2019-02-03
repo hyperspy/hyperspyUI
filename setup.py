@@ -50,7 +50,7 @@ setup(
                       ],
     extras_require={
         ':sys_platform == "win32"': [
-            'pypiwin32',
+            'pywin32',
         ],
         'test': [
             'pytest-qt',
