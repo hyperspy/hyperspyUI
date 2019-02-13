@@ -1,56 +1,62 @@
 language: python
-sudo: required
-dist: trusty
 
-python:
-  - "3.6"
-  - "3.5"
+env:
+  global:
+    - DEPS="hyperspy-gui-traitsui qtpy pyqode.python"
+    - TEST_DEPS="pytest pytest-qt"
 
-cache:
-  pip: true
+addons:
+  apt:
+    packages: herbstluftwm
 
-install:
+matrix:
+  include:
+  - env: export PYTHON=3.7
+  - env: export PYTHON=3.6
+  - env: export PYTHON=3.5
+  - env: export PYTHON=3.7
+    os: osx
+    language: generic
+  - env: export PYTHON=3.6
+    os: osx
+    language: generic
+    if: tag IS present
+  - env: export PYTHON=3.5
+    os: osx
+    language: generic
+    if: tag IS present
 
-install:
-  - sudo apt-get update
-
-  # Xvfb / window manager
-  - sudo apt-get install -y xvfb herbstluftwm
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
-    else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+before_install:
+  - if [ $TRAVIS_OS_NAME = osx ]; then
+      curl "https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh" -o miniconda.sh;
+    else wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
     fi
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  # Useful for debugging any issues with conda
-  - conda info -a
-  - conda config --add channels conda-forge
+  - chmod +x miniconda.sh;
+    ./miniconda.sh -b -p $HOME/miniconda;
+    hash -r;
 
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION hyperspy
-  - source activate test-environment
-
-  # Travis needs to update pip/setuptools
-  - pip install --upgrade setuptools pip
-  - pip install -e ".[test]"
+install:
+  - source $HOME/miniconda/bin/activate root;
+  - conda update -yq conda
+  - conda create -n testenv --yes python=$PYTHON;
+    source activate testenv;
+    conda install -y -c conda-forge $DEPS $TEST_DEPS;
+  - pip install -e .
 
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - "herbstluftwm &"
-  - sleep 1
+  # configure a headless display
+  - |
+    if [ $TRAVIS_OS_NAME = linux ]; then
+      export DISPLAY=:99.0
+      sh -e /etc/init.d/xvfb start
+      sleep 1
+      herbstluftwm &
+      sleep 1
+    else
+      ( sudo Xvfb :99 -ac -screen 0 1024x768x8; echo ok ) &
+      sleep 1
+    fi
 
-# command to run tests
 script:
-  - py.test -l --cov-report html --cov=hyperspyui
-  # Check that docs compile and link correctly:
-  #- cd doc
-  #- make linkcheck
-  #- make html
-  #- cd ..
+  - python -c 'import matplotlib.pyplot as plt; print(plt.get_backend())';
+  - pytest;
