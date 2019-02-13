@@ -257,6 +257,8 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def init_plugins(self):
         from .pluginmanager import PluginManager
         self.plugin_manager = PluginManager(self)
+        # Disable Version selector plugin until it is fixed
+        self.plugin_manager.enabled_store['Version selector'] = False
         self.plugin_manager.init_plugins()
 
     def create_default_actions(self):
