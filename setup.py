@@ -37,29 +37,20 @@ setup(
     license='GPLv3',
     packages=find_packages(exclude=['tests*',
                                     'hyperspyui.plugins.user_plugins']),
-    requires=['hyperspy (>= 1.1.1)',
-              'matplotlib (>= 1.3)',
-              'pyqode.python (>= 2.6.0)',
-              'autopep8',
-              'pyface', #  (>=6.0.0) for pyqt5
-              'traits',
-              'traitsui',  # (>=5.2.0) for pyqt5
-              'qtconsole',
-              'qtpy',
-              ],
-    install_requires=['hyperspy >= 1.3.2',
+    install_requires=['hyperspy >= 1.4.1',
+                      'hyperspy-gui-traitsui >= 1.1.1',
                       'matplotlib >= 1.3',
                       'pyqode.python >= 2.6.0',
-                      'pyface',  # >=6.0.0 for pyqt5
+                      'pyface >=6.0.0',
                       'autopep8',
                       'traits',
-                      'traitsui',  # >=5.2.0 for pyqt5
+                      'traitsui >=5.2.0',
                       'qtconsole',
                       'qtpy',
                       ],
     extras_require={
         ':sys_platform == "win32"': [
-            'pypiwin32',
+            'pywin32',
         ],
         'test': [
             'pytest-qt',
@@ -84,9 +75,9 @@ setup(
     keywords=[
     ],
     classifiers=[
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3 :: Only",
         "Environment :: MacOS X",
         "Environment :: Win32 (MS Windows)",

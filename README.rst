@@ -1,13 +1,16 @@
 HyperSpyUI
 ==========
 
-|pypi_version|_
+|pypi_version|_ |AppVeyor|_
 
 .. |pypi_downloads| image:: http://img.shields.io/pypi/dm/hyperspyui.svg?style=flat
 .. _pypi_downloads: https://pypi.python.org/pypi/hyperspyui
 
 .. |pypi_version| image:: http://img.shields.io/pypi/v/hyperspyui.svg?style=flat
 .. _pypi_version: https://pypi.python.org/pypi/hyperspyui
+
+.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/m4rsiqxdj89n7x9i/branch/master?svg=true
+.. _AppVeyor: https://ci.appveyor.com/project/hyperspy/hyperspyui/branch/master
 
 HyperSpyUI tries to bring a streamlined user interface to the powerful
 multi-dimensional analysis capabilities of HyperSpy_. HyperSpy is an open
@@ -25,49 +28,50 @@ which runs on the same Python kernel as the UI.
 
 
 Installation
-=============
+============
 There are several ways to install HyperSpyUI. The application itself is rather
-simple to install, but its dependencies can be a bit more tricky.
+simple to install, but its dependencies can be a bit more tricky. From version 
+1.1, HyperSpyUI supports both PyQt4 and PyQt5.
 
-Bundle Installer
-----------------
+Bundle Installer on Windows
+---------------------------
 If you're on Windows, the quickest way to get set up is to download and install
-the HyperSpyUI bundle installer. The bundled WinPython_ distribution includes
-all the dependencies of the program, and the installer also helps create
-program shortucts and register common microscopy file formats with the
-application.
+the `HyperSpy bundle`_ installer, which includes HyperSpyUI.
 
-The bundle installer can also be used if you already have installed a WinPython
-distribution (e.g. via the `HyperSpy bundle`_), and just want to add HyperSpyUI
-and its dependencies, although it might not support older versions.
+.. _HyperSpy bundle: https://github.com/hyperspy/hyperspy-bundle
 
-.. _WinPython: http://winpython.github.io/
-.. _HyperSpy bundle: http://hyperspy.org/download.html
+Anaconda/Miniconda on Mac or Linux
+----------------------------------
 
-Installation via pip and conda
-------------------------------
-If you want to install HyperSpyUI with pyqt5, you will need to install the 
-lastest version or pyface (>= 6.0.0) and traitsui (>= 5.2.0).
+Download and install the `Miniconda`_ distribution and run the following command 
+in the anaconda prompt: 
 
 .. code-block:: bash
 
-    conda install hyperspy
+    conda install -c conda-forge hyperspy
     pip install hyperspyui
 
+.. _Miniconda: https://conda.io/miniconda.html
 
-Note
-----
-(As of August 2018) Due to a lingering known issue_, the latest
-version of HyperSpyUI available through `pip` is not compatible with the
-updated pyface and traisui components. In order to get a working installation
-(which might have other bugs present), you will need to install the development
-version until this message is removed. You can do this via:
-   
+Installation via pip
+--------------------
+
+HyperSpyUI can be intall from pip. Depending on your python distribution you may 
+need to have C compiler on your system to install some of the dependencies.
+
 .. code-block:: bash
 
-    pip uninstall hyperspyui # only if you have an existing hyperspyui version installed
-    pip install git+git://github.com/hyperspy/hyperspyUI.git  
-   
+    pip install hyperspyui
+
+If pyqt is not installed, run:
+
+.. code-block:: bash
+
+    pip install PyQt5
+
+
+Run HyperSpyUI
+==============
 
 After installation, you can run HyperSpyUI from the command prompt with:
 
@@ -79,4 +83,3 @@ For further information, see the full documentation_.
 
 .. _HyperSpy: http://hyperspy.org
 .. _documentation: http://hyperspy.org/hyperspyUI/
-.. _issue: https://github.com/hyperspy/hyperspyUI/pull/157

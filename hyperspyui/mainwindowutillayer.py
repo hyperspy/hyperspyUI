@@ -99,7 +99,7 @@ class MainWindowUtils(MainWindowBase):
 
     def _wire_action(self, ac, key, callback, selection_callback):
         try:
-            keywords = inspect.getargspec(callback).args
+            keywords = inspect.getfullargspec(callback).args
         except TypeError:
             keywords = None
         if keywords and 'advanced' in keywords:
