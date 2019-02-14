@@ -23,7 +23,7 @@ Created on Mon Nov 17 11:58:16 2014
 @author: Vidar Tonaas Fauske
 """
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 import hyperspyui.info
 
@@ -35,8 +35,8 @@ setup(
     author_email='vidartf+hyperspyui@gmail.com',
     url='http://github.com/hyperspy/hyperspyUI/',
     license='GPLv3',
-    packages=find_packages(exclude=['tests*',
-                                    'hyperspyui.plugins.user_plugins']),
+    packages=find_namespace_packages(exclude=[
+            'doc', 'bin', 'doc.*', 'hyperspyui.plugins.user_plugins']),
     install_requires=['hyperspy >= 1.4.1',
                       'hyperspy-gui-traitsui >= 1.1.1',
                       'matplotlib >= 1.3',
