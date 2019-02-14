@@ -98,7 +98,7 @@ def main():
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
     QCoreApplication.setOrganizationName("Hyperspy")
-    QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+    QCoreApplication.setApplicationVersion(hyperspyui.info.__version__)
 
     # First, clear all default settings!
     # TODO: This will cause a concurrency issue with multiple launch
