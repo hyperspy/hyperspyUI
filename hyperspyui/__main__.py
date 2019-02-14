@@ -87,13 +87,14 @@ def get_splash():
 
 
 def main():
-    from qtpy.QtCore import QCoreApplication
+    from qtpy.QtCore import Qt, QCoreApplication
     from qtpy.QtWidgets import QApplication
     from qtpy import API
 
     import hyperspyui.info
     from hyperspyui.settings import Settings
 
+    QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
     QCoreApplication.setOrganizationName("Hyperspy")
