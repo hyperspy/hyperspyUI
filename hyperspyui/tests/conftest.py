@@ -15,7 +15,7 @@ QSettings = QtCore.QSettings
 
 QCoreApplication.setApplicationName("HyperSpyUI-tests")
 QCoreApplication.setOrganizationName("Hyperspy")
-QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+QCoreApplication.setApplicationVersion(hyperspyui.info.__version__)
 
 QSettings.setDefaultFormat(QSettings.IniFormat)
 

@@ -29,7 +29,7 @@ import hyperspyui.info
 
 setup(
     name='hyperspyUI',
-    version=hyperspyui.info.version,
+    version=hyperspyui.__version__,
     description='Hyperspy Graphical User Interface',
     author='Vidar Tonaas Fauske',
     author_email='vidartf+hyperspyui@gmail.com',
