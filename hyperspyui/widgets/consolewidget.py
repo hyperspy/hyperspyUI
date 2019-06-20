@@ -43,7 +43,7 @@ class ConsoleWidget(RichJupyterWidget):
 
         # Set the kernel data
         self.kernel = kernel_manager.kernel
-        self.kernel.gui = 'qt4'
+        self.kernel.gui = 'qt'
 
         kernel_client = kernel_manager.client()
         kernel_client.start_channels()
