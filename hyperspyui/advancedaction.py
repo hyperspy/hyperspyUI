@@ -47,4 +47,11 @@ class AdvancedAction(QtWidgets.QAction):
         self._triggered[bool].emit(checked)
         self._triggered.emit()
 
+    def setIcon(self, icon):
+        # We need to keep a reference to the icon object if not it will be
+        # garbage collected
+        # See https://www.riverbankcomputing.com/pipermail/pyqt/2019-March/041459.html
+        self.icon = icon
+        super().setIcon(icon)
+
 AdvancedAction.__init__.__doc__ = QtWidgets.QAction.__init__.__doc__
