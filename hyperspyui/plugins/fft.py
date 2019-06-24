@@ -20,20 +20,17 @@ Created on Fri Dec 12 23:43:54 2014
 
 @author: Vidar Tonaas Fauske
 """
-
-from hyperspyui.plugins.plugin import Plugin
 import scipy.fftpack
-import numpy as np
-import traits.api as traits
+
+from qtpy import QtCore
+from qtpy.QtWidgets import QMessageBox
 
 from hyperspy.drawing.signal1d import Signal1DFigure
 from hyperspy.drawing.image import ImagePlot
-from hyperspy.axes import AxesManager
 import hyperspy.signals
 
+from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.threaded import ProgressThreaded
-
-from qtpy import QtCore
 
 
 def tr(text):
@@ -57,22 +54,10 @@ class FFT_Plugin(Plugin):
                         "navigator",
                         selection_callback=self.ui.select_signal)
 
-        self.add_action('nfft', "Signal FFT", self.nfft,
-                        icon='nfft.svg',
-                        tip="Perform a fast fourier transform on the " +
-                            "entire signal",
-                        selection_callback=self.ui.select_signal)
-
         self.add_action('ifft', "Inverse FFT", self.ifft,
                         icon='ifft.svg',
                         tip="Perform an inverse fast fourier transform on " +
                             "the active part of the signal",
-                        selection_callback=self.ui.select_signal)
-
-        self.add_action('infft', "Inverse Signal FFT", self.infft,
-                        icon='infft.svg',
-                        tip="Perform an inverse fast fourier transform on" +
-                        " the entire signal",
                         selection_callback=self.ui.select_signal)
 
         self.add_action('decompose', "FFT Magnitude/Phase", self.decompose,
@@ -84,83 +69,47 @@ class FFT_Plugin(Plugin):
     def create_menu(self):
         self.add_menuitem("Math", self.ui.actions['fft'])
         self.add_menuitem("Math", self.ui.actions['live_fft'])
-        self.add_menuitem("Math", self.ui.actions['nfft'])
         self.add_menuitem("Math", self.ui.actions['ifft'])
-        self.add_menuitem("Math", self.ui.actions['infft'])
         self.add_menuitem("Math", self.ui.actions['decompose'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Math", self.ui.actions['fft'])
         self.add_toolbar_button("Math", self.ui.actions['live_fft'])
-        self.add_toolbar_button("Math", self.ui.actions['nfft'])
         self.add_toolbar_button("Math", self.ui.actions['ifft'])
-        self.add_toolbar_button("Math", self.ui.actions['infft'])
 
-    def fft(self, signals=None, inverse=False, on_complete=None):
+    def fft(self, signals=None, shift=True, power_spectrum=True, inverse=False,
+            on_complete=None):
         if signals is None:
             signals = self.ui.get_selected_signals()
-        # Make sure we can iterate
         if isinstance(signals, hyperspy.signal.BaseSignal):
             signals = (signals,)
 
         fftsignals = []
 
+        def do_ffts():
+            for i, signal in enumerate(signals):
+                if inverse:
+                    fft = signal.ifft(shift=shift)
+                else:
+                    fft = signal.fft(shift=shift)
+                fftsignals.append(fft)
+                yield i + 1
+
         def on_ffts_complete():
             for fs in fftsignals:
-                fs.plot()
+                fs.plot(power_spectrum=power_spectrum)
                 sw = self.ui.lut_signalwrapper[fs]
                 if on_complete is not None:
                     on_complete(sw)
-
-        def do_ffts():
-            for i, s in enumerate(signals):
-                if inverse:
-                    fftdata = scipy.fftpack.ifftshift(s())
-                    fftdata = scipy.fftpack.ifftn(fftdata)
-                    fftdata = np.abs(fftdata)
-                else:
-                    fftdata = scipy.fftpack.fftn(s())
-                    fftdata = scipy.fftpack.fftshift(fftdata)
-
-                ffts = s.__class__(
-                    fftdata,
-                    axes=s.axes_manager._get_signal_axes_dicts(),
-                    metadata=s.metadata.as_dictionary(),)
-                ffts.axes_manager._set_axis_attribute_values("navigate", False)
-                indstr = ' ' + str(s.axes_manager.indices) \
-                    if len(s.axes_manager.indices) > 0 else ''
-                invstr = "Inverse " if inverse else ""
-                ffts.metadata.General.title = invstr + 'FFT of ' + \
-                    ffts.metadata.General.title + indstr
-
-                for i in range(ffts.axes_manager.signal_dimension):
-                    axis = ffts.axes_manager.signal_axes[i]
-                    s_axis = s.axes_manager.signal_axes[i]
-                    if not inverse:
-                        axis.scale = 1 / (s_axis.size * s_axis.scale)
-                    shift = (axis.high_value - axis.low_value) / 2
-                    if inverse:
-                        shift = -shift
-                    axis.offset -= shift
-                    if inverse:
-                        axis.scale = 1 / (s_axis.size * s_axis.scale)
-                    u = s_axis.units
-                    if u is traits.Undefined:
-                        pass  # Leave unit as undefined
-                    elif u.endswith('-1'):
-                        u = u[:-2]
-                    else:
-                        u += '-1'
-                    axis.units = u
-                fftsignals.append(ffts)
-                yield i + 1
 
         if len(signals) > 1:
             if inverse:
                 label = tr('Performing inverse FFT')
             else:
                 label = tr('Performing FFT')
-            t = ProgressThreaded(self.ui, do_ffts(), on_ffts_complete,
+            t = ProgressThreaded(self.ui,
+                                 do_ffts(),
+                                 on_ffts_complete,
                                  label=label,
                                  generator_N=len(signals))
             t.run()
@@ -169,123 +118,9 @@ class FFT_Plugin(Plugin):
                 pass
             on_ffts_complete()
 
-    def nfft(self, signals=None, inverse=False):
-        if signals is None:
-            signals = self.ui.get_selected_signals()
-            if signals is None:
-                return
-        # Make sure we can iterate
-        if isinstance(signals, hyperspy.signal.BaseSignal):
-            signals = (signals,)
-
-        if len(signals) < 1:
-            return
-
-        fftsignals = []
-
-        def on_ftts_complete():
-            for fs in fftsignals:
-                fs.plot()
-
-        def do_ffts():
-            j = 0
-            for s in signals:
-                ffts = s.deepcopy()
-                if ffts.data.itemsize <= 4:
-                    ffts.change_dtype(np.complex64)
-                else:
-                    ffts.change_dtype(np.complex128)
-
-                am = AxesManager(s.axes_manager._get_axes_dicts())
-                for idx in am:
-                    fftdata = s.data[am._getitem_tuple]
-                    fftdata = scipy.fftpack.fftn(fftdata)
-                    fftdata = scipy.fftpack.fftshift(fftdata)
-                    ffts.data[am._getitem_tuple] = fftdata
-                    j += 1
-                    yield j
-
-                for i in range(ffts.axes_manager.signal_dimension):
-                    axis = ffts.axes_manager.signal_axes[i]
-                    s_axis = s.axes_manager.signal_axes[i]
-                    axis.scale = 1 / (s_axis.size * s_axis.scale)
-                    shift = (axis.high_value - axis.low_value) / 2
-                    axis.offset -= shift
-                    u = s_axis.units
-                    if u is traits.Undefined:
-                        pass  # Leave unit as undefined
-                    elif u.endswith('-1'):
-                        u = u[:-2]
-                    else:
-                        u += '-1'
-                    axis.units = u
-                indstr = ' ' + str(s.axes_manager.indices) \
-                    if len(s.axes_manager.indices) > 0 else ''
-                ffts.metadata.General.title = 'FFT of ' + \
-                    ffts.metadata.General.title + indstr
-                fftsignals.append(ffts)
-
-        def do_iffts():
-            j = 0
-            for s in signals:
-                ffts = s.deepcopy()
-                if ffts.data.itemsize <= 4:
-                    ffts.change_dtype(np.float32)
-                else:
-                    ffts.change_dtype(np.float64)
-
-                am = AxesManager(s.axes_manager._get_axes_dicts())
-
-                for i in range(ffts.axes_manager.signal_dimension):
-                    axis = ffts.axes_manager.signal_axes[i]
-                    s_axis = s.axes_manager.signal_axes[i]
-                    shift = (axis.high_value - axis.low_value) / 2
-                    axis.offset += shift
-                    axis.scale = 1 / (s_axis.size * s_axis.scale)
-                    u = s_axis.units
-                    if u is traits.Undefined:
-                        pass  # Leave unit as undefined
-                    elif u.endswith('-1'):
-                        u = u[:-2]
-                    else:
-                        u += '-1'
-                    axis.units = u
-
-                for idx in am:
-                    fftdata = s.data[am._getitem_tuple]
-                    fftdata = scipy.fftpack.ifftshift(fftdata)
-                    fftdata = scipy.fftpack.ifftn(fftdata)
-                    fftdata = np.abs(fftdata)
-                    ffts.data[am._getitem_tuple] = fftdata
-                    j += 1
-                    yield j
-                indstr = ' ' + str(s.axes_manager.indices) \
-                    if len(s.axes_manager.indices) > 0 else ''
-                ffts.metadata.General.title = 'Inverse FFT of ' + \
-                    ffts.metadata.General.title + indstr
-                fftsignals.append(ffts)
-
-        n_ffts = np.product([d for s in signals
-                             for d in s.axes_manager.navigation_shape])
-        if inverse:
-            label = tr('Performing inverse FFT')
-            f = do_iffts()
-        else:
-            label = tr('Performing FFT')
-            f = do_ffts()
-        t = ProgressThreaded(self.ui, f, on_ftts_complete,
-                             label=label,
-                             cancellable=True,
-                             generator_N=n_ffts)
-        t.run()
-
     def live_fft(self, signals=None):
         """
-        The live FFT produces the exact same results as the nfft, except nfft
-        calculates the FFTs over all signal dimensions and stores the result in
-        a new signal. The live FFT dynamically calculates the FFT as the user
-        navigates. In other words, nfft is memory intensive, live is cpu
-        intensive.
+        The live FFT dynamically calculates the FFT as the user navigates.
         """
         if signals is None:
             signals = self.ui.get_selected_signals()
@@ -329,15 +164,15 @@ class FFT_Plugin(Plugin):
     def ifft(self, signals=None):
         return self.fft(signals, inverse=True)
 
-    def infft(self, signals=None):
-        return self.nfft(signals, inverse=True)
-
     def decompose(self, signal=None):
         if signal is None:
             signal = self.ui.get_selected_signal()
-        s_magnitude = signal._deepcopy_with_new_data(
-            np.sqrt(np.real(signal.data)**2 + np.imag(signal.data)**2))
-        s_phase = signal._deepcopy_with_new_data(
-            np.arctan2(np.imag(signal.data), np.real(signal.data)))
-        s_magnitude.plot()
-        s_phase.plot()
+        if not isinstance(signal,
+                          hyperspy._signals.complex_signal.ComplexSignal):
+            mb = QMessageBox()
+            mb.setIcon(QMessageBox.Information)
+            mb.setText("A complex signal is required")
+            mb.setStandardButtons(QMessageBox.Ok)
+            mb.exec_()
+        signal.real.plot()
+        signal.phase.plot()
