@@ -27,7 +27,7 @@ from qtpy.QtWidgets import QMessageBox
 
 from hyperspy.drawing.signal1d import Signal1DFigure
 from hyperspy.drawing.image import ImagePlot
-import hyperspy.signals
+import hyperspy.api as hs
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.threaded import ProgressThreaded
@@ -81,7 +81,7 @@ class FFT_Plugin(Plugin):
             on_complete=None):
         if signals is None:
             signals = self.ui.get_selected_signals()
-        if isinstance(signals, hyperspy.signal.BaseSignal):
+        if isinstance(signals, hs.signals.BaseSignal):
             signals = (signals,)
 
         fftsignals = []
@@ -110,15 +110,16 @@ class FFT_Plugin(Plugin):
             t = ProgressThreaded(self.ui,
                                  do_ffts(),
                                  on_ffts_complete,
-                                 label=label,
-                                 generator_N=len(signals))
+                                 label=label,)
+                                 # This breaks the progress bar...
+                                 # generator_N=len(signals))
             t.run()
         else:
             for i in do_ffts():
                 pass
             on_ffts_complete()
 
-    def live_fft(self, signals=None):
+    def live_fft(self, signals=None, shift=True, power_spectrum=True):
         """
         The live FFT dynamically calculates the FFT as the user navigates.
         """
@@ -127,39 +128,85 @@ class FFT_Plugin(Plugin):
             if signals is None:
                 return
         # Make sure we can iterate
-        if isinstance(signals, hyperspy.signal.BaseSignal):
+        if isinstance(signals, hs.signals.BaseSignal):
             signals = (signals,)
 
         if len(signals) < 1:
             return
 
-        def setup_live(fft_wrapper):
-            s = signals[setup_live.i]
-            setup_live.i += 1
+        s = signals[0]
 
-            def data_function(axes_manager=None):
-                fftdata = scipy.fftpack.fftn(s(axes_manager=axes_manager))
-                fftdata = scipy.fftpack.fftshift(fftdata)
-                return fftdata
-            fs = fft_wrapper.signal
-            sigp = fs._plot.signal_plot
-            if isinstance(sigp, Signal1DFigure):
-                sigp.ax_lines[0].axes_manager = s.axes_manager
-                sigp.ax_lines[0].data_function = data_function
-                sigp.ax_lines[1].axes_manager = s.axes_manager
-                sigp.ax_lines[1].data_function = data_function
-            elif isinstance(sigp, ImagePlot):
-                sigp.axes_manager = s.axes_manager
-                sigp.data_function = data_function
+        if isinstance(s, hs.signals.Signal2D):
+            extent = s.axes_manager.signal_extent
+            left = (extent[1] - extent[0]) / 4 + extent[0]
+            right = 3 * (extent[1] - extent[0]) / 4 + extent[0]
+            top = (extent[3] - extent[2]) / 4 + extent[2]
+            bottom = 3 * (extent[3] - extent[2]) / 4 + extent[2]
+            roi = hs.roi.RectangularROI(left, top, right, bottom)
+        elif isinstance(s, hs.signals.Signal1D):
+            extent = s.axes_manager.signal_extent
+            half_range = (extent[1] - extent[0]) / 4
+            roi = hs.roi.SpanROI(half_range + extent[0],
+                                 3 * half_range + extent[0])
+        else:
+            mb = QMessageBox(QMessageBox.Information,
+                             tr("Live FFT"),
+                             tr("Only Signal2D and Signal1D are supported."),
+                             QMessageBox.Ok)
+            mb.exec_()
 
-            s.axes_manager.events.indices_changed.connect(sigp.update, [])
+        roi.add_widget(s)
+        roi_signal = roi.interactive(s, recompute_out_event=False)
+        s_roi_fft = hs.interactive(roi_signal.fft,
+                                   event=roi.events.changed,
+                                   recompute_out_event=False,
+                                   shift=shift)
 
-            def on_closing():
-                s.axes_manager.events.indices_changed.disconnect(sigp.update)
-            fft_wrapper.closing.connect(on_closing)
+        s_roi_fft.plot(power_spectrum=power_spectrum)
 
-        setup_live.i = 0
-        self.fft(signals, on_complete=setup_live)
+    # def live_fft(self, signals=None):
+    #     # Old broken version
+    #     """
+    #     The live FFT dynamically calculates the FFT as the user navigates.
+    #     """
+    #     if signals is None:
+    #         signals = self.ui.get_selected_signals()
+    #         if signals is None:
+    #             return
+    #     # Make sure we can iterate
+    #     if isinstance(signals, hs.signals.BaseSignal):
+    #         signals = (signals,)
+    #
+    #     if len(signals) < 1:
+    #         return
+    #
+    #     def setup_live(fft_wrapper):
+    #         s = signals[setup_live.i]
+    #         setup_live.i += 1
+    #
+    #         def data_function(axes_manager=None):
+    #             fftdata = scipy.fftpack.fftn(s(axes_manager=axes_manager))
+    #             fftdata = scipy.fftpack.fftshift(fftdata)
+    #             return fftdata
+    #         fs = fft_wrapper.signal
+    #         sigp = fs._plot.signal_plot
+    #         if isinstance(sigp, Signal1DFigure):
+    #             sigp.ax_lines[0].axes_manager = s.axes_manager
+    #             sigp.ax_lines[0].data_function = data_function
+    #             sigp.ax_lines[1].axes_manager = s.axes_manager
+    #             sigp.ax_lines[1].data_function = data_function
+    #         elif isinstance(sigp, ImagePlot):
+    #             sigp.axes_manager = s.axes_manager
+    #             sigp.data_function = data_function
+    #
+    #         s.axes_manager.events.indices_changed.connect(sigp.update, [])
+    #
+    #         def on_closing():
+    #             s.axes_manager.events.indices_changed.disconnect(sigp.update)
+    #         fft_wrapper.closing.connect(on_closing)
+    #
+    #     setup_live.i = 0
+    #     self.fft(signals, on_complete=setup_live)
 
     def ifft(self, signals=None):
         return self.fft(signals, inverse=True)
