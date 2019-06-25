@@ -60,17 +60,26 @@ class FFT_Plugin(Plugin):
                             "the active part of the signal",
                         selection_callback=self.ui.select_signal)
 
-        self.add_action('decompose', "FFT Magnitude/Phase", self.decompose,
+        self.add_action('get_real_image', "Real and imaginary",
+                        self.get_real_image,
                         icon=None,
                         tip="Decompose a fast fourier transformation result " +
-                        "into its magnitude and phase.",
+                        "into its real and imaginary part.",
+                        selection_callback=self.ui.select_signal)
+
+        self.add_action('get_amplitude_phase', "Amplitude and phase",
+                        self.get_amplitude_phase,
+                        icon=None,
+                        tip="Decompose a fast fourier transformation result " +
+                        "into its amplitude and phase.",
                         selection_callback=self.ui.select_signal)
 
     def create_menu(self):
         self.add_menuitem("Math", self.ui.actions['fft'])
         self.add_menuitem("Math", self.ui.actions['live_fft'])
         self.add_menuitem("Math", self.ui.actions['ifft'])
-        self.add_menuitem("Math", self.ui.actions['decompose'])
+        self.add_menuitem("Math", self.ui.actions['get_real_image'])
+        self.add_menuitem("Math", self.ui.actions['get_amplitude_phase'])
 
     def create_toolbars(self):
         self.add_toolbar_button("Math", self.ui.actions['fft'])
@@ -211,15 +220,28 @@ class FFT_Plugin(Plugin):
     def ifft(self, signals=None):
         return self.fft(signals, inverse=True)
 
-    def decompose(self, signal=None):
+    def get_real_image(self, signal=None):
         if signal is None:
             signal = self.ui.get_selected_signal()
         if not isinstance(signal,
-                          hyperspy._signals.complex_signal.ComplexSignal):
-            mb = QMessageBox()
-            mb.setIcon(QMessageBox.Information)
-            mb.setText("A complex signal is required")
-            mb.setStandardButtons(QMessageBox.Ok)
+                          hs.signals.ComplexSignal):
+            mb = QMessageBox(QMessageBox.Information,
+                             tr("Real and imaginary"),
+                             tr("A complex signal is required."),
+                             QMessageBox.Ok)
             mb.exec_()
         signal.real.plot()
+        signal.imag.plot()
+
+    def get_amplitude_phase(self, signal=None):
+        if signal is None:
+            signal = self.ui.get_selected_signal()
+        if not isinstance(signal,
+                          hs.signals.ComplexSignal):
+            mb = QMessageBox(QMessageBox.Information,
+                             tr("Amplitude and phase"),
+                             tr("A complex signal is required."),
+                             QMessageBox.Ok)
+            mb.exec_()
+        signal.amplitude.plot()
         signal.phase.plot()
