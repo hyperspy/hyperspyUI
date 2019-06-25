@@ -23,43 +23,34 @@ Created on Mon Nov 17 11:58:16 2014
 @author: Vidar Tonaas Fauske
 """
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 import hyperspyui.info
 
 setup(
     name='hyperspyUI',
-    version=hyperspyui.info.version,
+    version=hyperspyui.__version__,
     description='Hyperspy Graphical User Interface',
     author='Vidar Tonaas Fauske',
     author_email='vidartf+hyperspyui@gmail.com',
     url='http://github.com/hyperspy/hyperspyUI/',
     license='GPLv3',
-    packages=find_packages(exclude=['tests*',
-                                    'hyperspyui.plugins.user_plugins']),
-    requires=['hyperspy (>= 1.1.1, != 1.4.1)',
-              'matplotlib (>= 1.3)',
-              'pyqode.python (>= 2.6.0)',
-              'autopep8',
-              'pyface', #  (>=6.0.0) for pyqt5
-              'traits',
-              'traitsui',  # (>=5.2.0) for pyqt5
-              'qtconsole',
-              'qtpy (>=1.0.2)',
-              ],
-    install_requires=['hyperspy >= 1.3.2, != 1.4.1',
+    packages=find_namespace_packages(exclude=[
+            'doc', 'bin', 'doc.*', 'hyperspyui.plugins.user_plugins']),
+    install_requires=['hyperspy >= 1.4.1',
+                      'hyperspy-gui-traitsui >= 1.1.1',
                       'matplotlib >= 1.3',
                       'pyqode.python >= 2.6.0',
-                      'pyface',  # >=6.0.0 for pyqt5
+                      'pyface >=6.0.0',
                       'autopep8',
                       'traits',
-                      'traitsui',  # >=5.2.0 for pyqt5
+                      'traitsui >=5.2.0',
                       'qtconsole',
                       'qtpy',
                       ],
     extras_require={
         ':sys_platform == "win32"': [
-            'pypiwin32',
+            'pywin32',
         ],
         'test': [
             'pytest-qt',
@@ -84,9 +75,9 @@ setup(
     keywords=[
     ],
     classifiers=[
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3 :: Only",
         "Environment :: MacOS X",
         "Environment :: Win32 (MS Windows)",

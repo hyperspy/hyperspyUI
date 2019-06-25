@@ -102,7 +102,7 @@ def main():
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
     QCoreApplication.setOrganizationName("Hyperspy")
-    QCoreApplication.setApplicationVersion(hyperspyui.info.version)
+    QCoreApplication.setApplicationVersion(hyperspyui.info.__version__)
     # To avoid the warning: 
     # Qt WebEngine seems to be initialized from a plugin. Please set 
     # Qt::AA_ShareOpenGLContexts using QCoreApplication::setAttribute before

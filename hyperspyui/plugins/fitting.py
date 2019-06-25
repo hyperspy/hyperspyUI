@@ -61,7 +61,7 @@ class FittingPlugin(Plugin):
             if i != i_ax:
                 slices[i] = a.index
 
-        y = signal.data[slices]
+        y = signal.data[tuple(slices)]
         x = axes[0].axis[slices[i_ax]]
 
         # TODO: If in signal dim, iterate through navigation space

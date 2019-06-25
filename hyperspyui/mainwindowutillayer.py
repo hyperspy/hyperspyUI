@@ -86,11 +86,9 @@ class MainWindowUtils(MainWindowBase):
         self.statusBar().showMessage(msg)
 
     def _make_action(self, label, icon, shortcut, tip):
-        if icon is None:
-            ac = AdvancedAction(tr(label), self)
-        else:
-            icon = self.make_icon(icon)
-            ac = AdvancedAction(icon, tr(label), self)
+        ac = AdvancedAction(tr(label), self)
+        if icon:
+            ac.setIcon(self.make_icon(icon))
         if shortcut is not None:
             ac.setShortcut(shortcut)
         if tip is not None:
@@ -99,7 +97,7 @@ class MainWindowUtils(MainWindowBase):
 
     def _wire_action(self, ac, key, callback, selection_callback):
         try:
-            keywords = inspect.getargspec(callback).args
+            keywords = inspect.getfullargspec(callback).args
         except TypeError:
             keywords = None
         if keywords and 'advanced' in keywords:
