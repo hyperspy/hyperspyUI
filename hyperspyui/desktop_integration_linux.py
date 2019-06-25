@@ -92,7 +92,7 @@ def register_hspy_icon():
                         "application-x-hspy"])
 
 
-def run_desktop_integration(
+def run_desktop_integration_linux(args,
         exclude_formats=["netCDF", "Signal2D", "Protochips", "TIFF"]):
     types = ["image/tiff"]
     for hspy_format in io_plugins:
@@ -104,11 +104,3 @@ def run_desktop_integration(
     write_desktop_file(types=types)
     print("Updating desktop database")
     subprocess.run(['update-desktop-database', APPS_DIR])
-
-if __name__ == "__main__":
-    if "linux" in sys.platform:
-        run_desktop_integration()
-    else:
-        raise Exception(
-            "This script only runs in Linux, current OS is {}.".format(
-                sys.platform))
