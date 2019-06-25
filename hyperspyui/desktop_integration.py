@@ -6,15 +6,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-remove', action="store_true", help='uninstall flag')
 parser.add_argument('-no-shortcuts', action="store_true",
                     help='(Windows only) do not create shortcuts')
-parser.add_argument('-filetypes', dest='filetypes', nargs='*',
-                    default=['hdf5', 'msa', 'dens', 'blo'],
-                    help='filetypes to register with HyperspyUI')
 
 args = parser.parse_args()
-filetypes = args.filetypes
-for i, f in enumerate(filetypes):
-    if not 'a'.startswith('.'):
-        filetypes[i] = '.' + f
 
 
 if __name__ == "__main__":

@@ -26,6 +26,10 @@ import os
 import platform
 import subprocess
 
+from hyperspy.io_plugins import io_plugins
+
+
+
 def run_desktop_integration_windows(args):
     try:
         create_shortcut
@@ -113,6 +117,17 @@ def run_desktop_integration_windows(args):
                                     '"%s"' % script_path,
                                     sys.prefix,
                                     icon_path)
+        
+        exclude_formats = [
+            "netCDF", # old HyperSpy format.
+            "Signal2D", # don't register it to open standard images
+            "Protochips", # extension is csv
+            ]
+        filetypes = []
+        for hspy_format in io_plugins:
+            if hspy_format.format_name not in exclude_formats:
+                defext = hspy_format.file_extensions[hspy_format.default_extension]
+                filetypes.append("." + defext)
 
         if filetypes:
             d = dirname
