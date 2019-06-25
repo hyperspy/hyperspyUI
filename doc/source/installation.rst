@@ -25,8 +25,15 @@ and its dependencies, although it might not support older versions.
 Install via `pip`
 -----------------
 
-HyperSpyUI is on PyPI_, so simply running the command ``pip install hyperspyui``
-should download and install HyperSpyUI and its dependencies. The package defines
+HyperSpyUI is on PyPI_, so simply run the command
+
+.. code-block:: bash
+
+   pip install PyQt5 PyQtWebEngine
+   pip install hyperspyui
+
+
+which will download and install HyperSpyUI and its dependencies. The package defines
 a GUI script ``hyperspyui``, which can be called to start the application, or
 alternatively it can be started by running ``python -m hyperspyui``.
 

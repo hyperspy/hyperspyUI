@@ -67,7 +67,7 @@ If pyqt is not installed, run:
 
 .. code-block:: bash
 
-    pip install PyQt5
+    pip install PyQt5 PyQtWebEngine
 
 
 Run HyperSpyUI
