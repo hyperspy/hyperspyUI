@@ -1,4 +1,4 @@
-
+import sys
 import argparse
 
 parser = argparse.ArgumentParser(
@@ -13,10 +13,10 @@ args = parser.parse_args()
 if __name__ == "__main__":
     if "linux" in sys.platform:
         from hyperspyui.desktop_integration_linux import run_desktop_integration_linux
-        run_linux_desktop_integration(args)
+        run_desktop_integration_linux(args)
     elif platform.system().lower() == 'windows':
         from hyperspyui.desktop_integration_windows import run_desktop_integration_windows
-        run_windows_desktop_integration(args)
+        run_desktop_integration_windows(args)
     else:
         raise NotImplementedError(
             "Desktop integration is currently only available for Linux and Microsoft Windows. Current OS is {}.".format( sys.platform))
