@@ -20,13 +20,10 @@ Created on Fri Dec 12 23:43:54 2014
 
 @author: Vidar Tonaas Fauske
 """
-import scipy.fftpack
 
 from qtpy import QtCore
 from qtpy.QtWidgets import QMessageBox
 
-from hyperspy.drawing.signal1d import Signal1DFigure
-from hyperspy.drawing.image import ImagePlot
 import hyperspy.api as hs
 
 from hyperspyui.plugins.plugin import Plugin
@@ -172,50 +169,6 @@ class FFT_Plugin(Plugin):
                                    shift=shift)
 
         s_roi_fft.plot(power_spectrum=power_spectrum)
-
-    # def live_fft(self, signals=None):
-    #     # Old broken version
-    #     """
-    #     The live FFT dynamically calculates the FFT as the user navigates.
-    #     """
-    #     if signals is None:
-    #         signals = self.ui.get_selected_signals()
-    #         if signals is None:
-    #             return
-    #     # Make sure we can iterate
-    #     if isinstance(signals, hs.signals.BaseSignal):
-    #         signals = (signals,)
-    #
-    #     if len(signals) < 1:
-    #         return
-    #
-    #     def setup_live(fft_wrapper):
-    #         s = signals[setup_live.i]
-    #         setup_live.i += 1
-    #
-    #         def data_function(axes_manager=None):
-    #             fftdata = scipy.fftpack.fftn(s(axes_manager=axes_manager))
-    #             fftdata = scipy.fftpack.fftshift(fftdata)
-    #             return fftdata
-    #         fs = fft_wrapper.signal
-    #         sigp = fs._plot.signal_plot
-    #         if isinstance(sigp, Signal1DFigure):
-    #             sigp.ax_lines[0].axes_manager = s.axes_manager
-    #             sigp.ax_lines[0].data_function = data_function
-    #             sigp.ax_lines[1].axes_manager = s.axes_manager
-    #             sigp.ax_lines[1].data_function = data_function
-    #         elif isinstance(sigp, ImagePlot):
-    #             sigp.axes_manager = s.axes_manager
-    #             sigp.data_function = data_function
-    #
-    #         s.axes_manager.events.indices_changed.connect(sigp.update, [])
-    #
-    #         def on_closing():
-    #             s.axes_manager.events.indices_changed.disconnect(sigp.update)
-    #         fft_wrapper.closing.connect(on_closing)
-    #
-    #     setup_live.i = 0
-    #     self.fft(signals, on_complete=setup_live)
 
     def ifft(self, signals=None):
         return self.fft(signals, inverse=True)
