@@ -3,8 +3,8 @@ import argparse
 
 parser = argparse.ArgumentParser(
     description='Install HyperspyUI into the OS')
-parser.add_argument('-remove', action="store_true", help='uninstall flag')
-parser.add_argument('-no-shortcuts', action="store_true",
+parser.add_argument('--remove', action="store_true", help='uninstall flag')
+parser.add_argument('--no-shortcuts', action="store_true",
                     help='(Windows only) do not create shortcuts')
 
 args = parser.parse_args()
