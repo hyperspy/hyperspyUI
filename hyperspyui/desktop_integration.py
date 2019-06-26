@@ -11,10 +11,10 @@ args = parser.parse_args()
 
 
 if __name__ == "__main__":
-    if "linux" in sys.platform:
+    if sys.platform.startswith("linux"):
         from hyperspyui.desktop_integration_linux import run_desktop_integration_linux
         run_desktop_integration_linux(args)
-    elif platform.system().lower() == 'windows':
+    elif sys.platform == 'win32':
         from hyperspyui.desktop_integration_windows import run_desktop_integration_windows
         run_desktop_integration_windows(args)
     else:
