@@ -9,18 +9,7 @@ Bundle Installer
 -----------------
 
 If you're on Windows, the quickest way to get set up is to download and install
-the HyperSpyUI bundle installer. The bundled WinPython_ distribution includes
-all the dependencies of the program, and the installer also helps create
-program shortucts and register common microscopy file formats with the
-application.
-
-The bundle installer can also be used if you already have installed a WinPython
-distribution (e.g. via the `HyperSpy bundle`_), and just want to add HyperSpyUI
-and its dependencies, although it might not support older versions.
-
-.. _WinPython: http://winpython.github.io/
-.. _HyperSpy bundle: http://hyperspy.org/download.html
-
+the `HyperSpy Bundle installer <https://github.com/hyperspy/hyperspy-bundle>`_ that includes HyperSpyUI.
 
 Install via `pip`
 -----------------
@@ -40,7 +29,7 @@ run:
 Append the ``--help`` flag for other options.
 
 Currently, this only
-integrates with Windows, but this is intended to be extend to Linux systems
+integrates with Windows and Linux, but this is intended to be extend to MacOS systems
 in the future (please consider contributing).
 
 .. _PyPI: https://pypi.python.org/pypi/hyperspyUI
