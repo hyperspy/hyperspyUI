@@ -135,15 +135,11 @@ class EELSDBPlugin(Plugin):
         # Load spectra browser
         browse_url = QtCore.QUrl("https://eelsdb.eu/spectra")
         self.load_blocking(self.view, browse_url)
-        # Remove header/footer
-        # frame = self.view.page().mainFrame()
-        # frame.findFirstElement(".footer").removeFromDocument()
-        # for el in frame.findAllElements(".navbar"):
-        #     el.removeFromDocument()
         if not WEBENGINE:
             self.view.page().setLinkDelegationPolicy(
                     QWebEnginePage.DelegateAllLinks)
         try:
+            # TODO: downloading spectra is currently broken
             self.view.linkClicked.connect(self._on_link)
         except AttributeError:
             pass
