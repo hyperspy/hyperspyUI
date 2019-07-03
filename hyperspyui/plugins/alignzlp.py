@@ -1,4 +1,6 @@
+import hyperspy.signals
 from hyperspyui.plugins.plugin import Plugin
+from hyperspyui.util import SignalTypeFilter
 from hyperspyui.widgets.signallist import SignalList
 from hyperspyui.log import logger
 from qtpy.QtWidgets import QDialog
@@ -14,7 +16,9 @@ class Alignzlp(Plugin):
             self.name,
             self.default,
             icon="align_zero_loss.svg",
-            tip="")
+            tip="Align the zero loss peak of an EELS spectrum image",
+            selection_callback=SignalTypeFilter(
+                hyperspy.signals.Signal1D, self.ui))
 
     def create_menu(self):
         self.add_menuitem('EELS', self.ui.actions[self.name + '.default'])
@@ -30,7 +34,8 @@ class Alignzlp(Plugin):
         logger.debug('Align zero loss peak of ' + str(s))
         title = s.metadata.General.title
 
-        signal_list = [sig for sig in ui.signals if sig.signal is not s]
+        signal_list = [
+            sig for sig in ui.signals if sig.signal is not s and type(sig) == hyperspy.signals.EELSSpectrum]
         picker = SignalList(items=signal_list, parent=ui, multiselect=True)
         diag = ui.show_okcancel_dialog("Select signals to align with {}".format(
             title), picker, modal=True)
