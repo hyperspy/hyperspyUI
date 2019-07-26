@@ -23,12 +23,13 @@ Created on Mon May 04 17:30:36 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtCore, QtNetwork, QtWidgets, QtWebEngineWidgets
-    
+from qtpy import QtCore, QtNetwork, QtWidgets
+from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, WEBENGINE
+
 
 try:
     assert(QtNetwork.QSslSocket.supportsSsl())
-except NameError as AssertionError:
+except NameError:
     raise ImportError("Current platform doesn't support SSL. EELSDB plugin"
                       " disabled.")
 
@@ -78,8 +79,8 @@ class EELSDBPlugin(Plugin):
     def _on_link(self, url):
         su = url.toString(QtCore.QUrl.RemoveQuery)
         if "/spectra/" in su:
-            view = QtWebEngineWidgets.QWebEngineView(self.ui)
-            wp = QtWebEngineWidgets.QWebEnginePage()
+            view = QWebEngineView(self.ui)
+            wp = QWebEnginePage()
             am = self.view.page().networkAccessManager()
             wp.setNetworkAccessManager(am)
             view.setPage(wp)
@@ -127,19 +128,19 @@ class EELSDBPlugin(Plugin):
             self.window.setWindowTitle("EELSDB")
             vbox = QtWidgets.QVBoxLayout()
             self.window.setLayout(vbox)
-            view = QtWebEngineWidgets.QWebEngineView(self.ui)
+            view = QWebEngineView(self.ui)
             self.view = view
             vbox.addWidget(view)
             self.window.resize(self.view.sizeHint())
         # Load spectra browser
         browse_url = QtCore.QUrl("https://eelsdb.eu/spectra")
         self.load_blocking(self.view, browse_url)
-        # Remove header/footer
-        frame = self.view.page().mainFrame()
-        frame.findFirstElement(".footer").removeFromDocument()
-        for el in frame.findAllElements(".navbar"):
-            el.removeFromDocument()
-        self.view.page().setLinkDelegationPolicy(
-                QtWebEngineWidgets.QWebEnginePage.DelegateAllLinks)
-        self.view.linkClicked.connect(self._on_link)
+        if not WEBENGINE:
+            self.view.page().setLinkDelegationPolicy(
+                    QWebEnginePage.DelegateAllLinks)
+        try:
+            # TODO: downloading spectra is currently broken
+            self.view.linkClicked.connect(self._on_link)
+        except AttributeError:
+            pass
         self.window.show()

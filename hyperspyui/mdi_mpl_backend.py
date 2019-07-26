@@ -27,7 +27,7 @@ from distutils.version import LooseVersion
 import matplotlib
 from matplotlib._pylab_helpers import Gcf
 from matplotlib.backend_bases import FigureManagerBase
-
+from matplotlib.figure import Figure
 from qtpy import API, QtCore, QtGui, QtWidgets
 
 
@@ -47,6 +47,13 @@ else:  # < 2.0.0
     from matplotlib.backends import backend_qt4agg
     FigureCanvas = backend_qt4agg.FigureCanvas
 
+
+# Workaround issue with matplotlib interactive backend and ipython integration
+# https://github.com/matplotlib/matplotlib/issues/14426
+# issue introduced in https://github.com/matplotlib/matplotlib/pull/12637
+# The dummy `FigureCanvas(Figure())` initialise ipython/matplotlib support when
+# creating the dummy figure which makes everyone happy!
+FigureCanvas(Figure())
 
 # =================
 # Event managers

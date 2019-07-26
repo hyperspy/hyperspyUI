@@ -76,10 +76,20 @@ def get_hyperspyui_exec_path():
     return hspyui_exec_path
 
 
+def remove_desktop_file():
+    fpath = os.path.join(APPS_DIR, "hyperspyui.desktop")
+    if os.path.isfile(fpath):
+        os.remove(fpath)
+        print(fpath + " removed.")
+    else:
+        print("The file hyperspyui.desktop was not found at the default location %s" % fpath)
+        print("Nothing done.")
+
 def write_desktop_file(types=""):
     with open(os.path.join(APPS_DIR, "hyperspyui.desktop"), "w") as f:
         print("Writing hyperspyui.desktop to {}".format(APPS_DIR))
         f.write(_DESKTOP.format(get_hyperspyui_exec_path(), ";".join(types)))
+
 
 
 def register_hspy_icon():
@@ -92,23 +102,18 @@ def register_hspy_icon():
                         "application-x-hspy"])
 
 
-def run_desktop_integration(
-        exclude_formats=["netCDF", "Signal2D", "Protochips", "TIFF"]):
-    types = ["image/tiff"]
-    for hspy_format in io_plugins:
-        if hspy_format.format_name not in exclude_formats:
-            create_mime_file(hspy_format=hspy_format, types=types)
-    print("Updating mime database")
-    subprocess.run(['update-mime-database',  _MIMEPATH])
-    register_hspy_icon()
-    write_desktop_file(types=types)
-    print("Updating desktop database")
-    subprocess.run(['update-desktop-database', APPS_DIR])
-
-if __name__ == "__main__":
-    if "linux" in sys.platform:
-        run_desktop_integration()
+def run_desktop_integration_linux(args,):
+    if args.remove:
+        remove_desktop_file()
     else:
-        raise Exception(
-            "This script only runs in Linux, current OS is {}.".format(
-                sys.platform))
+        exclude_formats=["netCDF", "Signal2D", "Protochips", "TIFF"]
+        types = ["image/tiff"]
+        for hspy_format in io_plugins:
+            if hspy_format.format_name not in exclude_formats:
+                create_mime_file(hspy_format=hspy_format, types=types)
+        print("Updating mime database")
+        subprocess.run(['update-mime-database',  _MIMEPATH])
+        register_hspy_icon()
+        write_desktop_file(types=types)
+        print("Updating desktop database")
+        subprocess.run(['update-desktop-database', APPS_DIR])

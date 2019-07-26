@@ -86,11 +86,9 @@ class MainWindowUtils(MainWindowBase):
         self.statusBar().showMessage(msg)
 
     def _make_action(self, label, icon, shortcut, tip):
-        if icon is None:
-            ac = AdvancedAction(tr(label), self)
-        else:
-            icon = self.make_icon(icon)
-            ac = AdvancedAction(icon, tr(label), self)
+        ac = AdvancedAction(tr(label), self)
+        if icon:
+            ac.setIcon(self.make_icon(icon))
         if shortcut is not None:
             ac.setShortcut(shortcut)
         if tip is not None:
