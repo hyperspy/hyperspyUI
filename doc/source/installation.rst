@@ -55,7 +55,7 @@ run:
 Append the ``--help`` flag for other options.
 
 Currently, this only
-integrates with Windows, but this is intended to be extend to Linux systems
+integrates with Windows and Linux, but this is intended to be extend to MacOS systems
 in the future (please consider contributing).
 
 .. _PyPI: https://pypi.python.org/pypi/hyperspyUI
