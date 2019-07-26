@@ -18,7 +18,7 @@ class Alignzlp(Plugin):
             icon="align_zero_loss.svg",
             tip="Align the zero loss peak of an EELS spectrum image",
             selection_callback=SignalTypeFilter(
-                hyperspy.signals.Signal1D, self.ui))
+                hyperspy.signals.EELSSpectrum, self.ui))
 
     def create_menu(self):
         self.add_menuitem('EELS', self.ui.actions[self.name + '.default'])
@@ -35,15 +35,18 @@ class Alignzlp(Plugin):
         title = s.metadata.General.title
 
         signal_list = [
-            sig for sig in ui.signals if sig.signal is not s and type(sig) == hyperspy.signals.EELSSpectrum]
-        picker = SignalList(items=signal_list, parent=ui, multiselect=True)
-        diag = ui.show_okcancel_dialog("Select signals to align with {}".format(
-            title), picker, modal=True)
-        if diag.result() != QDialog.Accepted:
-            return
-        signals = picker.get_selected() or []
-        signals = [sig.signal for sig in signals]
+            sig for sig in ui.signals if (
+                sig.signal is not s and
+                isinstance(sig.signal, hyperspy.signals.EELSSpectrum))]
+        also_align = []
+        if len(signal_list) > 0:
+            picker = SignalList(items=signal_list, parent=ui, multiselect=True)
+            diag = ui.show_okcancel_dialog("Select signals to align with {}".format(
+                title), picker, modal=True)
+            if diag.result() != QDialog.Accepted:
+                return
+            also_align = [sig.signal for sig in picker.get_selected()]
         logger.debug(
-            'Also aligning the following signals\n' + str(signals))
-        s.align_zero_loss_peak(also_align=signals)
+            'Also aligning the following signals\n' + str(also_align))
+        s.align_zero_loss_peak(also_align=also_align)
         logger.debug('ZLP alignment complete')
