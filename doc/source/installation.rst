@@ -9,13 +9,38 @@ Bundle Installer
 -----------------
 
 If you're on Windows, the quickest way to get set up is to download and install
-the `HyperSpy Bundle installer <https://github.com/hyperspy/hyperspy-bundle>`_ that includes HyperSpyUI.
+the `HyperSpy bundle`_ installer.
+
+.. _HyperSpy bundle: http://hyperspy.org/download.html
+
+
+Install via `conda`
+------------------
+
+HyperSpyUI can also be installed in an Anaconda_ or Miniconda_ distribution
+using ``conda``:
+
+.. code-block:: bash
+
+   conda install -c conda-forge hyperspyui
+
+
+.. _Anaconda: https://www.anaconda.com/distribution/
+.. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+
 
 Install via `pip`
 -----------------
 
-HyperSpyUI is on PyPI_, so simply running the command ``pip install hyperspyui``
-should download and install HyperSpyUI and its dependencies. The package defines
+HyperSpyUI is on PyPI_, so simply run the command
+
+.. code-block:: bash
+
+   pip install PyQt5 PyQtWebEngine
+   pip install hyperspyui
+
+
+which will download and install HyperSpyUI and its dependencies. The package defines
 a GUI script ``hyperspyui``, which can be called to start the application, or
 alternatively it can be started by running ``python -m hyperspyui``.
 
@@ -25,6 +50,7 @@ run:
 .. code-block:: bash
 
    python -m hyperspyui.desktop_integration
+
 
 Append the ``--help`` flag for other options.
 
@@ -43,6 +69,5 @@ HyperSpyUI on a distribution which offers ready-made Qt packages. Examples
 include WinPython_, Conda_ and Canopy_.
 
 .. _Conda: https://github.com/conda/conda
-.. _Canopy:
-
+.. _Canopy: https://assets.enthought.com/downloads/
 .. _Qt: https://www.qt.io/
