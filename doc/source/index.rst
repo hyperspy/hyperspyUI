@@ -48,6 +48,7 @@ User guide
     :maxdepth: 2
 
     installation.rst
+    what_is_new.rst
     quickstart.rst
     actions.rst
     tools.rst
