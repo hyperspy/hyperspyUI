@@ -257,9 +257,14 @@ class GitSelector(Plugin):
 
         Parameters
         ----------
-            silent: bool
-                If not silent (default), a message box will appear if no
-                updates are available, with a message to that fact.
+        silent: bool
+            If not silent (default), a message box will appear if no
+            updates are available, with a message to that fact.
+
+        Returns
+        -------
+        None.
+
         """
         self._check_git()
         available = {}

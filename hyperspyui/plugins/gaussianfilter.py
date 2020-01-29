@@ -70,22 +70,23 @@ class GaussianFilter(Plugin):
                  *args, **kwargs):
         """
         Apply a gaussian smoothing filter to an image signal.
-
-        Uses `skimage.filters.gaussian()` for the actual processing.
+        Uses py:func:`skimage.filters.gaussian` for the actual processing.
 
         Parameters
         ----------
-            sigma : {float}
-                Smoothing factor in units of pixels, i.e a value around 1 is
-                a slight smoothing.
-            signal : {Signal | None}
-                Signal to operate on. If not, it will use the currently
-                selected one
-            out : {Signal | None}
-                Output signal
-            record : {bool}
-                Whether the operation should be recorded or not.
-            Other args are passed to `skimage.filters.gaussian()`.
+        sigma : {float}
+            Smoothing factor in units of pixels, i.e a value around 1 is
+            a slight smoothing.
+        signal : {Signal | None}
+            Signal to operate on. If not, it will use the currently
+            selected one
+        out : {Signal | None}
+            Output signal
+        record : {bool}
+            Whether the operation should be recorded or not.
+        **kwargs : dict
+            Other keyword arguments are passed to 
+            py:func:`skimage.filters.gaussian`.
         """
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()

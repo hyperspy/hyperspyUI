@@ -272,15 +272,14 @@ class MainWindowUtils(MainWindowBase):
 
         Parameters
         ----------
-            icon: {string | QIcon}
-                If icon is a path, it loads the file. If the path does not
-                correspond to a valid file, it is checked if it is a valid
-                path relative to the 'images' folder of the package.
-
-                After loading, SVG files will be run through
-                `SmartColorSVGIconEngine` to adapt suitable icons to the
-                current palette. If a QIcon is passed directly, it is also
-                sent through `SmartColorSVGIconEngine`.
+        icon : {string | QIcon}
+            If icon is a path, it loads the file. If the path does not
+            correspond to a valid file, it is checked if it is a valid
+            path relative to the 'images' folder of the package.
+            After loading, SVG files will be run through
+            `SmartColorSVGIconEngine` to adapt suitable icons to the
+            current palette. If a QIcon is passed directly, it is also
+            sent through `SmartColorSVGIconEngine`.
         """
         if not isinstance(icon, QtGui.QIcon):
             if isinstance(icon, str) and not os.path.isfile(icon):
