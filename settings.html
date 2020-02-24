@@ -8,48 +8,45 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Settings &mdash; HyperSpyUI 1.1.0+dev documentation</title>
+  <title>Settings &mdash; HyperSpyUI 1.2.0.dev documentation</title>
   
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
-        <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>
-        <link rel="prev" title="Widgets" href="widgets.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Widgets" href="widgets.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +55,7 @@
 
           
             
-            <img src="_static/header_logo.png" class="logo" />
+            <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                1.1.0+dev
+                1.2.0.dev
               </div>
             
           
@@ -87,8 +84,13 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html#changelog">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
@@ -134,6 +136,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 
             
@@ -145,34 +148,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">HyperSpyUI</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HyperSpyUI</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Settings</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Settings</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/settings.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -181,10 +204,10 @@
   <div class="section" id="settings">
 <span id="settings-section"></span><h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h1>
 <p>This section documents all the settings of the application and the core plugins.
-To edit the settings use the the <a class="reference internal" href="actions.html#edit-settings"><span class="std std-ref">Edit settings</span></a> action from the &#8216;Settings&#8217;
+To edit the settings use the the <a class="reference internal" href="actions.html#edit-settings"><span class="std std-ref">Edit settings</span></a> action from the ‘Settings’
 menu. This will show a
-<a class="reference internal" href="api/hyperspyui.widgets.html#hyperspyui.widgets.settingsdialog.SettingsDialog" title="hyperspyui.widgets.settingsdialog.SettingsDialog"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.settingsdialog.SettingsDialog</span></code></a>, which lists all
-the settings that have been stored or registered. It also has a &#8216;Reset&#8217; button
+<a class="reference internal" href="api/hyperspyui.widgets.html#hyperspyui.widgets.settingsdialog.SettingsDialog" title="hyperspyui.widgets.settingsdialog.SettingsDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.settingsdialog.SettingsDialog</span></code></a>, which lists all
+the settings that have been stored or registered. It also has a ‘Reset’ button
 to reset all the settings to their default values.</p>
 <p>The settiings are grouped by category and/or plugin name, as reflected in the
 listing below.</p>
@@ -199,15 +222,15 @@ true, many concurrent instances of the application can run, but with this settin
 any attempts to open a file directly from the operating system will spawn a new
 instance of the application in which that file is opened.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Concurrent applications instances will share their settings, as they are
+<p class="admonition-title">Note</p>
+<p>Concurrent applications instances will share their settings, as they are
 written and read on demand.</p>
 </div>
 </div>
 <div class="section" id="console-completion-type">
 <span id="output-to-console"></span><h3>Console completion type<a class="headerlink" href="#console-completion-type" title="Permalink to this headline">¶</a></h3>
 <p>Set which completer to use for the qtconsole. See
-<code class="xref py py-attr docutils literal"><span class="pre">qtconsole.console_widget.ConsoleWidget.gui_completion</span></code> for
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">qtconsole.console_widget.ConsoleWidget.gui_completion</span></code> for
 details on this setting.</p>
 </div>
 <div class="section" id="default-widget-floating">
@@ -237,8 +260,8 @@ creating a log for sharing in <cite>e.g.</cite> a bug report.</p>
 <p>Specify the size of the toolbar buttons in units of pixels. Depending on your
 display resolution the default size might be too big or too small.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you&#8217;re running out of space for the toolbars, it is possible (and
+<p class="admonition-title">Note</p>
+<p>If you’re running out of space for the toolbars, it is possible (and
 recommended) to rearrange them into several columns. Simply drag and
 drop the toolbars using the small handles on the top/left. It is also
 possible to arrange the toolbars along the top row of the application
@@ -269,14 +292,14 @@ filter to apply before alignment to reduce the effect of noise.</p>
 <div class="section" id="parameters-to-hyperspy">
 <h3>Parameters to hyperspy<a class="headerlink" href="#parameters-to-hyperspy" title="Permalink to this headline">¶</a></h3>
 <p>The other settings are direct options for the parameters to pass to
-<code class="xref py py-meth docutils literal"><span class="pre">hyperspy.signal.Signal2DTools.estimate_shift2D()</span></code>.</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">hyperspy.signal.Signal2DTools.estimate_shift2D()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="basic-signal-tools">
 <h2>Basic signal tools<a class="headerlink" href="#basic-signal-tools" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="histogram-bins-method">
 <h3>Histogram bins method<a class="headerlink" href="#histogram-bins-method" title="Permalink to this headline">¶</a></h3>
-<p>What to pass for the <code class="docutils literal"><span class="pre">bins</span></code> parameter to
+<p>What to pass for the <code class="docutils literal notranslate"><span class="pre">bins</span></code> parameter to
 :py:meth:hyperspy.signal.get_histogram`.</p>
 </div>
 </div>
@@ -284,7 +307,7 @@ filter to apply before alignment to reduce the effect of noise.</p>
 <h2>Gaussian filter / Image rotation<a class="headerlink" href="#gaussian-filter-image-rotation" title="Permalink to this headline">¶</a></h2>
 <p>These plugins only store the values of their respective dialog boxes, so
 changing these only affects the settings for the next time the dialog
-launches. Can be useful in order to turn of the &#8216;preview&#8217; feature in the
+launches. Can be useful in order to turn of the ‘preview’ feature in the
 rotation dialog before attempting to rotate a very large signal.</p>
 </div>
 <div class="section" id="mva">
@@ -321,15 +344,16 @@ this setting.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="widgets.html" class="btn btn-neutral" title="Widgets" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="widgets.html" class="btn btn-neutral float-left" title="Widgets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -338,11 +362,11 @@ this setting.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske.
+        &copy; Copyright 2016, Vidar Tonaas Fauske
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -355,36 +379,15 @@ this setting.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.1.0+dev',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

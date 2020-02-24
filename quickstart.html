@@ -8,48 +8,45 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart Guide &mdash; HyperSpyUI 1.1.0+dev documentation</title>
+  <title>Quickstart Guide &mdash; HyperSpyUI 1.2.0.dev documentation</title>
   
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
-        <link rel="next" title="Available actions" href="actions.html"/>
-        <link rel="prev" title="Installation" href="installation.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Available actions" href="actions.html" />
+    <link rel="prev" title="What’s new" href="what_is_new.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +55,7 @@
 
           
             
-            <img src="_static/header_logo.png" class="logo" />
+            <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                1.1.0+dev
+                1.2.0.dev
               </div>
             
           
@@ -87,8 +84,13 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html#changelog">Changelog</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#launch">Launch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
@@ -107,6 +109,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 
             
@@ -118,34 +121,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">HyperSpyUI</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HyperSpyUI</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Quickstart Guide</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Quickstart Guide</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -160,32 +183,32 @@
 If it was installed into the OS, a shortcut might have been created on your
 desktop, and running the shortcut should then be enough to start the program.</p>
 <p>If you do not have a shortcut, the app can typically be started by running
-the command <code class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hyperspyui</span></code>. This assumes that the python
+the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hyperspyui</span></code>. This assumes that the python
 command is available from wherever you are running it. If that is not the case,
 figure out the full path to the python executable, and run it as above
-<code class="docutils literal"><span class="pre">&lt;full</span> <span class="pre">path&gt;/python</span> <span class="pre">-m</span> <span class="pre">hyperspyui</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">&lt;full</span> <span class="pre">path&gt;/python</span> <span class="pre">-m</span> <span class="pre">hyperspyui</span></code>.</p>
 <p>The final option is to fully explicit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">full</span> <span class="n">path</span> <span class="n">to</span> <span class="n">python</span><span class="o">&gt;/</span><span class="n">python</span> <span class="s2">&quot;&lt;full path to hyperspyui&gt;/__main__.py&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">full</span> <span class="n">path</span> <span class="n">to</span> <span class="n">python</span><span class="o">&gt;/</span><span class="n">python</span> <span class="s2">&quot;&lt;full path to hyperspyui&gt;/__main__.py&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The user interface is based on top of <a class="reference external" href="http://www.qt.io/">Qt</a>, and have four main components:</p>
+<p>The user interface is based on top of <a class="reference external" href="https://www.qt.io/">Qt</a>, and have four main components:</p>
 <img alt="_images/ui_overview.png" src="_images/ui_overview.png" />
 <blockquote>
 <div><ol class="arabic simple">
-<li>Menus: Most of the <a class="reference internal" href="actions.html#actions"><span class="std std-ref">actions</span></a> you can do have a menu
-entry.</li>
-<li>Toolbars: Several <a class="reference internal" href="actions.html#actions"><span class="std std-ref">actions</span></a> have their own button on a
-toolbar, and all interactive <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a> are here as well.</li>
-<li><a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a>: These are small panels or windows that can be
+<li><p>Menus: Most of the <a class="reference internal" href="actions.html#actions"><span class="std std-ref">actions</span></a> you can do have a menu
+entry.</p></li>
+<li><p>Toolbars: Several <a class="reference internal" href="actions.html#actions"><span class="std std-ref">actions</span></a> have their own button on a
+toolbar, and all interactive <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a> are here as well.</p></li>
+<li><p><a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a>: These are small panels or windows that can be
 moved, and are always open unless explicitly closed. Their content
 and behavior can vary widely, and includes the <a class="reference internal" href="widgets.html#data-widget"><span class="std std-ref">Data view</span></a>
-and the <a class="reference internal" href="widgets.html#console-widget"><span class="std std-ref">Console widget</span></a>.</li>
-<li>Figures: The final component are the figures and plots that are
+and the <a class="reference internal" href="widgets.html#console-widget"><span class="std std-ref">Console widget</span></a>.</p></li>
+<li><p>Figures: The final component are the figures and plots that are
 generated. These include all <a class="reference external" href="http://matplotlib.org/">matplotlib</a> figures, but the ones created
-by HyperSpy are the most interesting ones.</li>
+by HyperSpy are the most interesting ones.</p></li>
 </ol>
 </div></blockquote>
 </div>
@@ -205,23 +228,24 @@ check your <a class="reference internal" href="troubleshooting.html#error-output
 <p>Once the signal is loaded, you are ready to start inspecing and manipulating
 your data. See the following sections for a more detailed explanation of
 what can be done, or simply start playing around! It normally takes quite
-a conscious effort to overwrite existing data (&#8220;save&#8221; action, pick existing
-file name, confirm &#8220;yes I want to overwrite&#8221; dialog), so you should feel
+a conscious effort to overwrite existing data (“save” action, pick existing
+file name, confirm “yes I want to overwrite” dialog), so you should feel
 confident in playing around!</p>
 </div>
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="actions.html" class="btn btn-neutral float-right" title="Available actions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="actions.html" class="btn btn-neutral float-right" title="Available actions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="what_is_new.html" class="btn btn-neutral float-left" title="What’s new" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -230,11 +254,11 @@ confident in playing around!</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske.
+        &copy; Copyright 2016, Vidar Tonaas Fauske
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -247,36 +271,15 @@ confident in playing around!</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.1.0+dev',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

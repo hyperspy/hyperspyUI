@@ -68,14 +68,6 @@ hyperspyui.info module
     :undoc-members:
     :show-inheritance:
 
-hyperspyui.launch module
-------------------------
-
-.. automodule:: hyperspyui.launch
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 hyperspyui.mainwindow module
 ----------------------------
 

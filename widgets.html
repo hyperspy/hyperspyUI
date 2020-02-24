@@ -8,48 +8,45 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Widgets &mdash; HyperSpyUI 1.1.0+dev documentation</title>
+  <title>Widgets &mdash; HyperSpyUI 1.2.0.dev documentation</title>
   
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
-        <link rel="next" title="Settings" href="settings.html"/>
-        <link rel="prev" title="Tools" href="tools.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="Tools" href="tools.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +55,7 @@
 
           
             
-            <img src="_static/header_logo.png" class="logo" />
+            <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                1.1.0+dev
+                1.2.0.dev
               </div>
             
           
@@ -87,8 +84,13 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html#changelog">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
@@ -112,6 +114,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 
             
@@ -123,34 +126,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">HyperSpyUI</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HyperSpyUI</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Widgets</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Widgets</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/widgets.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -171,59 +194,59 @@ parameters of the component. Right clicking on the different models and
 components also allows acces to some actions that are unavailable elsewhere.</p>
 <p>For all models:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>Plot</dt>
-<dd>Plot the model, or replot it if already plotted.</dd>
-<dt>Fit</dt>
-<dd>Fit the currently active spectrum</dd>
-<dt>Multifit</dt>
-<dd>Fit all the spectra in the current signal</dd>
-<dt>Set signal range</dt>
-<dd>Constrict the signal range used for the fitting routines</dd>
-<dt>Delete</dt>
-<dd>Delete the model</dd>
-<dt>Add component</dt>
-<dd>Adds a component of the given type to the model</dd>
+<div><dl class="simple">
+<dt>Plot</dt><dd><p>Plot the model, or replot it if already plotted.</p>
+</dd>
+<dt>Fit</dt><dd><p>Fit the currently active spectrum</p>
+</dd>
+<dt>Multifit</dt><dd><p>Fit all the spectra in the current signal</p>
+</dd>
+<dt>Set signal range</dt><dd><p>Constrict the signal range used for the fitting routines</p>
+</dd>
+<dt>Delete</dt><dd><p>Delete the model</p>
+</dd>
+<dt>Add component</dt><dd><p>Adds a component of the given type to the model</p>
+</dd>
 </dl>
 </div></blockquote>
-<p>Additional actions for <code class="xref py py-class docutils literal"><span class="pre">hyperspy.models.EELSModel</span></code>:</p>
+<p>Additional actions for <code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspy.models.EELSModel</span></code>:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>Set low-loss</dt>
-<dd>Specify the corresponding low-loss signal for a core-loss signal.</dd>
-<dt>Enable fine structure</dt>
-<dd>See <code class="xref py py-meth docutils literal"><span class="pre">hyperspy.models.EELSModel.enable_fine_structure()</span></code> for
-details on what this does.</dd>
+<div><dl class="simple">
+<dt>Set low-loss</dt><dd><p>Specify the corresponding low-loss signal for a core-loss signal.</p>
+</dd>
+<dt>Enable fine structure</dt><dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">hyperspy.models.EELSModel.enable_fine_structure()</span></code> for
+details on what this does.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
 <div class="section" id="element-picker">
 <h2>Element picker<a class="headerlink" href="#element-picker" title="Permalink to this headline">¶</a></h2>
 <p>The element picker is a miniature periodic table. If an
-<code class="xref py py-class docutils literal"><span class="pre">EDSSpectrum</span></code> or
-<code class="xref py py-class docutils literal"><span class="pre">EELSSpectrum</span></code> is selected it can be used to add
+<code class="xref py py-class docutils literal notranslate"><span class="pre">EDSSpectrum</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">EELSSpectrum</span></code> is selected it can be used to add
 elements to the signal. For EDS spectra, right clicking on the elements
 will allow the selection of specific xray lines to add. The different EDX lines
-can be indicated on the plot by checking the &#8216;Markers&#8217; checkbox, and
-integrated intensity maps of the α-lines can be created by clicking the &#8216;Maps&#8217;
-button (see <code class="xref py py-class docutils literal"><span class="pre">get_lines_intensity</span></code>
+can be indicated on the plot by checking the ‘Markers’ checkbox, and
+integrated intensity maps of the α-lines can be created by clicking the ‘Maps’
+button (see <code class="xref py py-class docutils literal notranslate"><span class="pre">get_lines_intensity</span></code>
 for details).</p>
 <img alt="_images/element_picker.png" src="_images/element_picker.png" />
 </div>
 <div class="section" id="contrast-control">
 <h2>Contrast control<a class="headerlink" href="#contrast-control" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference internal" href="api/hyperspyui.widgets.html#hyperspyui.widgets.contrastwidget.ContrastWidget" title="hyperspyui.widgets.contrastwidget.ContrastWidget"><code class="xref py py-class docutils literal"><span class="pre">ContrastWidget</span></code></a>
-type widget for adjusting the contrast response of image plots. The &#8216;Level&#8217;
-slider specifies the lower cut-off intensity, and the &#8216;Window&#8217; slider controls
-the width of the intensity window starting at <code class="docutils literal"><span class="pre">level</span></code>. The &#8216;Auto&#8217; option
-uses the automatic settings of <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.drawing.html#hyperspy.drawing.image.ImagePlot" title="(in HyperSpy v1.1.2)"><code class="xref py py-class docutils literal"><span class="pre">hyperspy.drawing.image.ImagePlot</span></code></a>.</p>
-<p>By selecting &#8216;Log&#8217; a logarithmic transform is applied to the image cotrast.
+<p>A <a class="reference internal" href="api/hyperspyui.widgets.html#hyperspyui.widgets.contrastwidget.ContrastWidget" title="hyperspyui.widgets.contrastwidget.ContrastWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContrastWidget</span></code></a>
+type widget for adjusting the contrast response of image plots. The ‘Level’
+slider specifies the lower cut-off intensity, and the ‘Window’ slider controls
+the width of the intensity window starting at <code class="docutils literal notranslate"><span class="pre">level</span></code>. The ‘Auto’ option
+uses the automatic settings of <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.drawing.image.html#hyperspy.drawing.image.ImagePlot" title="(in HyperSpy v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspy.drawing.image.ImagePlot</span></code></a>.</p>
+<p>By selecting ‘Log’ a logarithmic transform is applied to the image cotrast.
 This only affects the plot, and leaves the data untouched.</p>
 <img alt="_images/contrast_control.png" src="_images/contrast_control.png" />
 </div>
 <div class="section" id="colormap-picker">
 <h2>Colormap picker<a class="headerlink" href="#colormap-picker" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.cmappicker.CMapPickerWidget" title="hyperspyui.plugins.cmappicker.CMapPickerWidget"><code class="xref py py-class docutils literal"><span class="pre">CMapPickerWidget</span></code></a> type widget for
+<p>A <a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.cmappicker.CMapPickerWidget" title="hyperspyui.plugins.cmappicker.CMapPickerWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">CMapPickerWidget</span></code></a> type widget for
 changing the colormap of image plots. The dropdown shows all the colormaps
 available in matplotlib, grouped by category. It also shows a preview of
 the colorscale alongside the name.</p>
@@ -244,7 +267,7 @@ See <a class="reference internal" href="devguide.html#recording"><span class="st
 </div>
 <div class="section" id="console-widget">
 <span id="id2"></span><h2>Console widget<a class="headerlink" href="#console-widget" title="Permalink to this headline">¶</a></h2>
-<p>The console widget is a <a class="reference external" href="https://qtconsole.readthedocs.org/en/stable/">qtconsole</a> console widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
+<p>The console widget is a <a class="reference external" href="https://qtconsole.readthedocs.io/en/stable/">qtconsole</a> console widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
 run any code that IPython can. For details on how to successfully use it, see
 the <a class="reference internal" href="devguide.html#console"><span class="std std-ref">Internal Console</span></a> section.</p>
 <img alt="_images/console_widget.png" src="_images/console_widget.png" />
@@ -253,15 +276,16 @@ the <a class="reference internal" href="devguide.html#console"><span class="std 
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="settings.html" class="btn btn-neutral float-right" title="Settings" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="settings.html" class="btn btn-neutral float-right" title="Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tools.html" class="btn btn-neutral" title="Tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tools.html" class="btn btn-neutral float-left" title="Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -270,11 +294,11 @@ the <a class="reference internal" href="devguide.html#console"><span class="std 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske.
+        &copy; Copyright 2016, Vidar Tonaas Fauske
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -287,36 +311,15 @@ the <a class="reference internal" href="devguide.html#console"><span class="std 
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.1.0+dev',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
