@@ -24,6 +24,7 @@ class DmAnnotations(Plugin):
                         plot_drift=True):
         """
         Plot a hyperspy signal with the markers from digital micrograph enabled
+
         Parameters
         ----------
         signal : Signal

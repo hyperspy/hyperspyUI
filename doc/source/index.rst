@@ -27,7 +27,7 @@ as HyperSpy, the integration is seamless.
 
 
 Development status
-----------------------
+------------------
 
 Currently, the development of HyperSpyUI is focused on strengthening its
 back-bone and making sure that it is as easy as possible to add new features
@@ -42,7 +42,7 @@ mature Qt framework, and should therefore be robust.
 
 
 User guide
----------------------
+----------
 
 .. toctree::
     :maxdepth: 2
@@ -58,7 +58,7 @@ User guide
 
 
 Developer guide
----------------------
+---------------
 
 While the UI doesn't easily lend itself to being used as a library, understanding
 the UI API is of importance for anybody that want to add plugins, or simply
@@ -74,10 +74,10 @@ want to execute some code in the :ref:`console`.
 
     api/hyperspyui.rst
     api/hyperspyui.plugins.rst
-
+    api/modules.rst
 
 Indices and tables
----------------------
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

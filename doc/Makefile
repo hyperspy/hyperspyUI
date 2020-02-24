@@ -193,11 +193,12 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 gh-pages:
-    git checkout gh-pages
-    rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
-    git checkout master -- $(GH_PAGES_SOURCES)
-    make html
-    mv -fv $(BUILDDIR)/html/* ./
-    rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
-    git add -A
-    git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
+	git checkout gh-pages
+	rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
+	git checkout master -- $(GH_PAGES_SOURCES)
+	make html
+	mv -fv $(BUILDDIR)/html/* ./
+	rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
+	git add -A
+	git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
+
