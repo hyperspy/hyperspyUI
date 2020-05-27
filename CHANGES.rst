@@ -4,6 +4,26 @@ What's new
 Current Version
 ===============
 
+v1.1.2
+++++++
+
+This is a maintenance release and the main highlights are:
+
+* Fix issue with embedded console on windows and python 3.8.
+* Fix issue with jupyter_client v6.0 and ipykernel <5.2.
+* Documentation improvement.
+
+For a detailed list of all the changes
+see `the commits in the GITHUB milestones 1.1.2
+<https://github.com/hyperspy/hyperspyUI/milestone/7?closed=1>`_.
+
+
+Changelog
+*********
+
+Previous Versions
+=================
+
 v1.1.1
 ++++++
 
@@ -17,13 +37,6 @@ This is a maintenance release and the main highlights are:
 For a detailed list of all the changes
 see `the commits in the GITHUB milestones 1.1.1
 <https://github.com/hyperspy/hyperspyUI/milestone/6?closed=1>`_.
-
-
-Changelog
-*********
-
-Previous Versions
-=================
 
 
 v1.1.0
