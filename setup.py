@@ -46,6 +46,7 @@ setup(
                       'traits',
                       'traitsui >=5.2.0',
                       'qtconsole',
+                      'ipykernel >=5.2.0',
                       'qtpy',
                       ],
     extras_require={
