@@ -21,4 +21,4 @@ Created on Thu Nov 27 01:38:42 2014
 @author: Vidar Tonaas Fauske
 """
 
-__version__ = '1.1.2'
+__version__ = '1.2.0dev'
