@@ -43,15 +43,15 @@ the `HyperSpy bundle`_ installer, which includes HyperSpyUI.
 Anaconda/Miniconda on Mac or Linux
 ----------------------------------
 
-Download and install the `Miniconda`_ distribution and run the following command 
+Download and install the `Miniconda`_ or `Anaconda`_ distribution and run the following command 
 in the anaconda prompt: 
 
 .. code-block:: bash
 
-    conda install -c conda-forge hyperspy
-    pip install hyperspyui
+    conda install -c conda-forge hyperspyui
 
-.. _Miniconda: https://conda.io/miniconda.html
+.. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+.. _Anaconda: https://www.anaconda.com/products/individual
 
 Installation via pip
 --------------------
@@ -77,7 +77,14 @@ After installation, you can run HyperSpyUI from the command prompt with:
 
 .. code-block:: bash
 
+    hyperspyui
+    
+or 
+
+.. code-block:: bash
+
     python -m hyperspyui
+
 
 For further information, see the full documentation_.
 
