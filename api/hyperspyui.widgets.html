@@ -8,49 +8,45 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>hyperspyui.widgets package &mdash; HyperSpyUI 1.1.0+dev documentation</title>
+  <title>hyperspyui.widgets package &mdash; HyperSpyUI 1.1.2 documentation</title>
   
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="../index.html"/>
-        <link rel="up" title="API reference" href="hyperspyui.html"/>
-        <link rel="next" title="Core plugins API" href="hyperspyui.plugins.html"/>
-        <link rel="prev" title="hyperspyui._tools package" href="hyperspyui._tools.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Core plugins API" href="hyperspyui.plugins.html" />
+    <link rel="prev" title="hyperspyui._tools package" href="hyperspyui._tools.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +55,7 @@
 
           
             
-            <img src="../_static/header_logo.png" class="logo" />
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -67,7 +63,7 @@
             
             
               <div class="version">
-                1.1.0+dev
+                1.1.2
               </div>
             
           
@@ -88,8 +84,13 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -130,7 +131,6 @@
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui.hooksignal">hyperspyui.hooksignal module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui.hooktraitsui">hyperspyui.hooktraitsui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui.info">hyperspyui.info module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#hyperspyui-launch-module">hyperspyui.launch module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui.mainwindow">hyperspyui.mainwindow module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui.mainwindowbase">hyperspyui.mainwindowbase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui.mainwindowhyperspy">hyperspyui.mainwindowhyperspy module</a></li>
@@ -153,6 +153,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
 </ul>
 
             
@@ -164,36 +165,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">HyperSpyUI</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="hyperspyui.html">API reference</a> &raquo;</li>
-      
-    <li>hyperspyui.widgets package</li>
+        
+      <li>hyperspyui.widgets package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/api/hyperspyui.widgets.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -205,18 +226,18 @@
 <span id="hyperspyui-widgets-consolewidget-module"></span><h2>hyperspyui.widgets.consolewidget module<a class="headerlink" href="#module-hyperspyui.widgets.consolewidget" title="Permalink to this headline">¶</a></h2>
 <p>Created on Tue Nov 04 16:04:17 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.consolewidget.ConsoleWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.consolewidget.</code><code class="descname">ConsoleWidget</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.consolewidget.ConsoleWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">qtconsole.rich_jupyter_widget.RichJupyterWidget</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.consolewidget.</code><code class="sig-name descname">ConsoleWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.consolewidget.ConsoleWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qtconsole.rich_jupyter_widget.RichJupyterWidget</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.consolewidget.ConsoleWidget.ex">
-<code class="descname">ex</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.consolewidget.ConsoleWidget.ex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.consolewidget.ConsoleWidget.ex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.consolewidget.ConsoleWidget.push">
-<code class="descname">push</code><span class="sig-paren">(</span><em>variables</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.consolewidget.ConsoleWidget.push" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">push</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variables</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.consolewidget.ConsoleWidget.push" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -226,90 +247,75 @@
 <span id="hyperspyui-widgets-contrastwidget-module"></span><h2>hyperspyui.widgets.contrastwidget module<a class="headerlink" href="#module-hyperspyui.widgets.contrastwidget" title="Permalink to this headline">¶</a></h2>
 <p>Created on Wed Oct 29 16:49:48 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.contrastwidget.</code><code class="descname">ContrastWidget</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent</em>, <em>figure=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
-<dl class="attribute">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">ContrastWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel">
-<code class="descname">LevelLabel</code><em class="property"> = 'Level'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">LevelLabel</code><em class="property"> = 'Level'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel">
-<code class="descname">WindowLabel</code><em class="property"> = 'Window'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">WindowLabel</code><em class="property"> = 'Window'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.auto">
-<code class="descname">auto</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.auto" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">auto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.auto" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.disable">
-<code class="descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.disable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.disable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.enable">
-<code class="descname">enable</code><span class="sig-paren">(</span><em>enabled=True</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.enable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.enable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed">
-<code class="descname">level_changed</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">level_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed">
-<code class="descname">log_changed</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">log_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level">
-<code class="descname">reset_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reset_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window">
-<code class="descname">reset_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reset_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig">
-<code class="descname">update_controls_from_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update_controls_from_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed">
-<code class="descname">window_changed</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">window_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.contrastwidget.bin_">
-<code class="descclassname">hyperspyui.widgets.contrastwidget.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.contrastwidget.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.contrastwidget.hex_">
-<code class="descclassname">hyperspyui.widgets.contrastwidget.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.contrastwidget.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.contrastwidget.oct_">
-<code class="descclassname">hyperspyui.widgets.contrastwidget.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.contrastwidget.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.contrastwidget.tr">
-<code class="descclassname">hyperspyui.widgets.contrastwidget.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -317,191 +323,196 @@
 <span id="hyperspyui-widgets-dataviewwidget-module"></span><h2>hyperspyui.widgets.dataviewwidget module<a class="headerlink" href="#module-hyperspyui.widgets.dataviewwidget" title="Permalink to this headline">¶</a></h2>
 <p>Created on Tue Nov 04 16:32:55 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.dataviewwidget.ComponentEditorHandler">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">ComponentEditorHandler</code><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">traitsui.handler.Handler</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="sig-name descname">ComponentEditorHandler</code><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">traitsui.handler.Handler</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.ComponentEditorHandler.setattr">
-<code class="descname">setattr</code><span class="sig-paren">(</span><em>info</em>, <em>object</em>, <em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler.setattr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">setattr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">info</span></em>, <em class="sig-param"><span class="n">object</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler.setattr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the user setting a specified object trait’s value.</p>
+<p>This method is called when an editor attempts to set a new value for
+a specified object trait attribute. Use this method to control what
+happens when a trait editor tries to set an attribute value. For
+example, you can use this method to record a history of changes, in
+order to implement an “undo” mechanism. No result is returned. The
+default implementation simply calls the built-in setattr() function.
+If you override this method, make sure that it actually sets the
+attribute, either by calling the parent method or by setting the
+attribute directly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<em>UIInfo instance</em>) – The UIInfo for the current UI</p></li>
+<li><p><strong>object</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><em>object</em></a>) – The object whose attribute is being set</p></li>
+<li><p><strong>name</strong> (<em>string</em>) – The name of the attribute being set</p></li>
+<li><p><strong>value</strong> – The value to which the attribute is being set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">DataViewWidget</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QWidget</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="sig-name descname">DataViewWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
 <p>A custom QTreeWidget, that handles the Signal-Model-Component hierarchy.
 The relationships are displayed in a tree structure, and helps keep track
 of the relationships between them. Also makes handeling several Models per
 Signal easier.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.ComponentType">
-<code class="descname">ComponentType</code><em class="property"> = 1002</em><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.ComponentType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ComponentType</code><em class="property"> = 1002</em><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.ComponentType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.ModelType">
-<code class="descname">ModelType</code><em class="property"> = 1001</em><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.ModelType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ModelType</code><em class="property"> = 1001</em><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.ModelType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.SignalType">
-<code class="descname">SignalType</code><em class="property"> = 1000</em><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.SignalType" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">SignalType</code><em class="property"> = 1000</em><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.SignalType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>object</em>, <em>type</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.add_component">
-<code class="descname">add_component</code><span class="sig-paren">(</span><em>component</em>, <em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_component" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_component</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">component</span></em>, <em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_component" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.add_model">
-<code class="descname">add_model</code><span class="sig-paren">(</span><em>model</em>, <em>signal=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_model" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.add_signal">
-<code class="descname">add_signal</code><span class="sig-paren">(</span><em>signal</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_signal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_signal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.clear_editor">
-<code class="descname">clear_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.clear_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clear_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.clear_editor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.currentItemChanged">
-<code class="descname">currentItemChanged</code><span class="sig-paren">(</span><em>current</em>, <em>previous</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.currentItemChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">currentItemChanged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">current</span></em>, <em class="sig-param"><span class="n">previous</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.currentItemChanged" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.edit_traits">
-<code class="descname">edit_traits</code><span class="sig-paren">(</span><em>comp</em>, <em>buttons=True</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.edit_traits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">edit_traits</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">comp</span></em>, <em class="sig-param"><span class="n">buttons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.edit_traits" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_component">
-<code class="descname">get_selected_component</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_component" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_selected_component</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_component" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_model">
-<code class="descname">get_selected_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_selected_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the first selected Model. Any selected Signals/Components
 will select their Model child/parent.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrapper">
-<code class="descname">get_selected_wrapper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrapper" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_selected_wrapper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the first selected Signal. Any selected Models or Components
 will select their Signal parent.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrappers">
-<code class="descname">get_selected_wrappers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrappers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_selected_wrappers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrappers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of all selected signals. Any selected Models or
 Components will select their Signal parent.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.itemDoubleClicked">
-<code class="descname">itemDoubleClicked</code><span class="sig-paren">(</span><em>item</em>, <em>column</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.itemDoubleClicked" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">itemDoubleClicked</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em>, <em class="sig-param"><span class="n">column</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.itemDoubleClicked" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent">
-<code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">keyPressEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QKeyEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.onCustomContextMenu">
-<code class="descname">onCustomContextMenu</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.onCustomContextMenu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">onCustomContextMenu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">point</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.onCustomContextMenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays the context menu for whatever is under the supplied point.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.on_mdiwin_activated">
-<code class="descname">on_mdiwin_activated</code><span class="sig-paren">(</span><em>mdi_figure</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.on_mdiwin_activated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Can be connected to an MdiArea&#8217;s subWindowActivated signal to sync
+<code class="sig-name descname">on_mdiwin_activated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mdi_figure</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.on_mdiwin_activated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be connected to an MdiArea’s subWindowActivated signal to sync
 the selected signal.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.remove">
-<code class="descname">remove</code><span class="sig-paren">(</span><em>object</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.remove" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.remove" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.DataViewWidget.set_traits_editor">
-<code class="descname">set_traits_editor</code><span class="sig-paren">(</span><em>traits_dialog</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.set_traits_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_traits_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">traits_dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.set_traits_editor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.dataviewwidget.HyperspyItem">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">HyperspyItem</code><span class="sig-paren">(</span><em>parent</em>, <em>itemtype</em>, <em>hspy_item</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QTreeWidgetItem</span></code></p>
-<dl class="method">
-<dt id="hyperspyui.widgets.dataviewwidget.HyperspyItem.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>column</em>, <em>role</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem.data" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="sig-name descname">HyperspyItem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">itemtype</span></em>, <em class="sig-param"><span class="n">hspy_item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTreeWidgetItem</span></code></p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">HyperspyItem.data(self, int, int) -&gt; Any</code></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="hyperspyui.widgets.dataviewwidget.HyperspyItem.setData">
-<code class="descname">setData</code><span class="sig-paren">(</span><em>column</em>, <em>role</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem.setData" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">HyperspyItem.setData(self, int, int, Any)</code></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">VisbilityDelegate</code><span class="sig-paren">(</span><em>parent=None</em>, <em>icons=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QStyledItemDelegate</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="sig-name descname">VisbilityDelegate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">icons</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QStyledItemDelegate</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate.iconPos">
-<code class="descname">iconPos</code><span class="sig-paren">(</span><em>icon</em>, <em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.iconPos" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">iconPos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">icon</span></em>, <em class="sig-param"><span class="n">option</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.iconPos" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint">
-<code class="descname">paint</code><span class="sig-paren">(</span><em>painter</em>, <em>option</em>, <em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPainter</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint">
-<code class="descname">sizeHint</code><span class="sig-paren">(</span><em>option</em>, <em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.dataviewwidget.bin_">
-<code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.dataviewwidget.hex_">
-<code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.dataviewwidget.oct_">
-<code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.dataviewwidget.tr">
-<code class="descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.dataviewwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -509,122 +520,107 @@ the selected signal.</p>
 <span id="hyperspyui-widgets-editorwidget-module"></span><h2>hyperspyui.widgets.editorwidget module<a class="headerlink" href="#module-hyperspyui.widgets.editorwidget" title="Permalink to this headline">¶</a></h2>
 <p>Created on Sat Feb 21 17:55:01 2015</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">ConsoleCodeCalltipsMode</code><span class="sig-paren">(</span><em>editor</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pyqode.python.modes.calltips.CalltipsMode</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">ConsoleCodeCalltipsMode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">editor</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyqode.python.modes.calltips.CalltipsMode</span></code></p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">ConsoleCodeCheckerMode</code><span class="sig-paren">(</span><em>editor</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pyqode.core.modes.checker.CheckerMode</span></code></p>
-<p>Runs pyflakes on you code while you&#8217;re typing</p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">ConsoleCodeCheckerMode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">editor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyqode.core.modes.checker.CheckerMode</span></code></p>
+<p>Runs pyflakes on you code while you’re typing</p>
 <p>This checker mode runs pyflakes on the fly to check your python syntax.</p>
 <p>Works the same as FrostedCheckerMode, except it is aware of
-HyperspyUI&#8217;s &#8220;globals&#8221;.</p>
+HyperspyUI’s “globals”.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">EditorWidget</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent=None</em>, <em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">EditorWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.append_code">
-<code class="descname">append_code</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.append_code" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">append_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.append_code" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.code_title">
-<code class="descname">code_title</code><em class="property"> = 'Code Editor'</em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.code_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">code_title</code><em class="property"> = 'Code Editor'</em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.code_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.is_plugin">
-<code class="descname">is_plugin</code><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.is_plugin" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">is_plugin</code><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.is_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.make_plugin">
-<code class="descname">make_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.make_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">make_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.make_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.plugin_title">
-<code class="descname">plugin_title</code><em class="property"> = 'Plugin Editor'</em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.plugin_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plugin_title</code><em class="property"> = 'Plugin Editor'</em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.plugin_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.register_plugin">
-<code class="descname">register_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.register_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.register_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.run">
-<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.save">
-<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.sizeHint">
-<code class="descname">sizeHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">NameCategoryPrompt</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">NameCategoryPrompt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon">
-<code class="descname">browse_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">browse_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed">
-<code class="descname">checks_changed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checks_changed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.editorwidget.bin_">
-<code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.editorwidget.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.editorwidget.hex_">
-<code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.editorwidget.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.editorwidget.oct_">
-<code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.editorwidget.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.editorwidget.tr">
-<code class="descclassname">hyperspyui.widgets.editorwidget.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -632,87 +628,72 @@ HyperspyUI&#8217;s &#8220;globals&#8221;.</p>
 <span id="hyperspyui-widgets-elementpicker-module"></span><h2>hyperspyui.widgets.elementpicker module<a class="headerlink" href="#module-hyperspyui.widgets.elementpicker" title="Permalink to this headline">¶</a></h2>
 <p>Created on Fri Nov 21 22:22:33 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.elementpicker.</code><code class="descname">ElementPickerWidget</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.elementpicker.</code><code class="sig-name descname">ElementPickerWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
 <p>Tool window for picking elements of an interactive periodic table.
 Takes a signal in the constructor, and a parent control.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create UI controls.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context">
-<code class="descname">element_context</code><span class="sig-paren">(</span><em>widget</em>, <em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">element_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em>, <em class="sig-param"><span class="n">point</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled">
-<code class="descname">element_toggled</code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">element_toggled</code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS">
-<code class="descname">isEDS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">isEDS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS">
-<code class="descname">isEELS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">isEELS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map">
-<code class="descname">make_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">make_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make integrated intensity maps for the defines elements. Currently
 only implemented for EDS signals.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.markers">
-<code class="descname">markers</code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.markers" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">markers</code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.markers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element">
-<code class="descname">set_element</code><span class="sig-paren">(</span><em>element</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the state of element in table and adds/removes in signal if
 necessary</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled">
-<code class="descname">set_enabled</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_enabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal">
-<code class="descname">set_signal</code><span class="sig-paren">(</span><em>signal</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_signal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.elementpicker.bin_">
-<code class="descclassname">hyperspyui.widgets.elementpicker.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.elementpicker.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.elementpicker.hex_">
-<code class="descclassname">hyperspyui.widgets.elementpicker.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.elementpicker.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.elementpicker.oct_">
-<code class="descclassname">hyperspyui.widgets.elementpicker.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.elementpicker.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.elementpicker.tr">
-<code class="descclassname">hyperspyui.widgets.elementpicker.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.elementpicker.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -720,126 +701,111 @@ necessary</p>
 <span id="hyperspyui-widgets-extendedqwidgets-module"></span><h2>hyperspyui.widgets.extendedqwidgets module<a class="headerlink" href="#module-hyperspyui.widgets.extendedqwidgets" title="Permalink to this headline">¶</a></h2>
 <p>Created on Fri Nov 21 22:11:04 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExClickLabel">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">ExClickLabel</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QLabel</span></code></p>
-<p>QLabel with &#8216;clicked()&#8217; signal.</p>
-<dl class="attribute">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExClickLabel</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QLabel</span></code></p>
+<p>QLabel with ‘clicked()’ signal.</p>
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked">
-<code class="descname">clicked</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clicked</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent">
-<code class="descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QMouseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">ExDoubleSlider</code><span class="sig-paren">(</span><em>parent=None</em>, <em>orientation=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QSlider</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExDoubleSlider</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">orientation</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QSlider</span></code></p>
 <p>QSlider with double values instead of int values.</p>
-<dl class="method">
-<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setRange">
-<code class="descname">setRange</code><span class="sig-paren">(</span><em>vmin</em>, <em>vmax</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setRange" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.double_valueChanged">
+<code class="sig-name descname">double_valueChanged</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.double_valueChanged" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ExDoubleSlider.setRange(self, int, int)</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue">
-<code class="descname">setValue</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value">
-<code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.valueChanged">
-<code class="descname">valueChanged</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.valueChanged" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">ExMessageBox</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QMessageBox</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExMessageBox</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMessageBox</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox">
-<code class="descname">checkBox</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkBox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QCheckBox<a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.isChecked">
-<code class="descname">isChecked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.isChecked" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">isChecked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.isChecked" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox">
-<code class="descname">setCheckBox</code><span class="sig-paren">(</span><em>cb</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setCheckBox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCheckBox</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExRememberPrompt">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">ExRememberPrompt</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExRememberPrompt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="hyperspyui.widgets.extendedqwidgets.ExMessageBox"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExMessageBox</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExRememberPrompt</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExRememberPrompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="hyperspyui.widgets.extendedqwidgets.ExMessageBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExMessageBox</span></code></a></p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.extendedqwidgets.ExToolWindow">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">ExToolWindow</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDialog</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExToolWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
 <p>QDialog with Qt.Tool window flags.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">FigureWidget</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDockWidget</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">FigureWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget.connect_">
-<code class="descname">connect_</code><span class="sig-paren">(</span><em>action=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.connect_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">connect_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.connect_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connects the widget to its update trigger, which is either a supplied
 action, or by default, the subWindowActivated of the MainWindow.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget.disconnect">
-<code class="descname">disconnect</code><span class="sig-paren">(</span><em>action=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.disconnect" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.disconnect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disconnects an update trigger connected with connect().</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget.on_visibility">
-<code class="descname">on_visibility</code><span class="sig-paren">(</span><em>visible</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.on_visibility" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_visibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visible</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.on_visibility" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.extendedqwidgets.bin_">
-<code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.extendedqwidgets.hex_">
-<code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.extendedqwidgets.oct_">
-<code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.extendedqwidgets.tr">
-<code class="descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -847,226 +813,182 @@ action, or by default, the subWindowActivated of the MainWindow.</p>
 <span id="hyperspyui-widgets-periodictable-module"></span><h2>hyperspyui.widgets.periodictable module<a class="headerlink" href="#module-hyperspyui.widgets.periodictable" title="Permalink to this headline">¶</a></h2>
 <p>Created on Fri Nov 21 19:31:50 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.periodictable.</code><code class="descname">PeriodicTableWidget</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QWidget</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.periodictable.</code><code class="sig-name descname">PeriodicTableWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_element">
-<code class="descname">disable_element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">disable_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_element" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_elements">
-<code class="descname">disable_elements</code><span class="sig-paren">(</span><em>elements</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">disable_elements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elements</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_elements" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.element_toggled">
-<code class="descname">element_toggled</code><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.element_toggled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">element_toggled</code><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.element_toggled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_element">
-<code class="descname">enable_element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">enable_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_element" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_elements">
-<code class="descname">enable_elements</code><span class="sig-paren">(</span><em>elements</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">enable_elements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elements</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_elements" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.on_element_click">
-<code class="descname">on_element_click</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.on_element_click" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_element_click</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.on_element_click" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.parse_elements">
-<code class="descname">parse_elements</code><span class="sig-paren">(</span><em>grid</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.parse_elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parse_elements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.parse_elements" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.set_element">
-<code class="descname">set_element</code><span class="sig-paren">(</span><em>element</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.set_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.set_element" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.set_elements">
-<code class="descname">set_elements</code><span class="sig-paren">(</span><em>elements</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.set_elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_elements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elements</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.set_elements" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.sizeHint">
-<code class="descname">sizeHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.periodictable.PeriodicTableWidget.toggle_element">
-<code class="descname">toggle_element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.toggle_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">toggle_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.PeriodicTableWidget.toggle_element" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.periodictable.bin_">
-<code class="descclassname">hyperspyui.widgets.periodictable.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.periodictable.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.periodictable.hex_">
-<code class="descclassname">hyperspyui.widgets.periodictable.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.periodictable.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.periodictable.oct_">
-<code class="descclassname">hyperspyui.widgets.periodictable.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.periodictable.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.periodictable.tr">
-<code class="descclassname">hyperspyui.widgets.periodictable.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.periodictable.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.periodictable.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="section" id="module-hyperspyui.widgets.pickxsignals">
 <span id="hyperspyui-widgets-pickxsignals-module"></span><h2>hyperspyui.widgets.pickxsignals module<a class="headerlink" href="#module-hyperspyui.widgets.pickxsignals" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.pickxsignals.PickXSignalsWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.pickxsignals.</code><code class="descname">PickXSignalsWidget</code><span class="sig-paren">(</span><em>signal_wrappers</em>, <em>x</em>, <em>parent=None</em>, <em>titles=None</em>, <em>wrap_col=4</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pickxsignals.PickXSignalsWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QWidget</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.pickxsignals.</code><code class="sig-name descname">PickXSignalsWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal_wrappers</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">titles</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wrap_col</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pickxsignals.PickXSignalsWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.pickxsignals.PickXSignalsWidget.get_selected">
-<code class="descname">get_selected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pickxsignals.PickXSignalsWidget.get_selected" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_selected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pickxsignals.PickXSignalsWidget.get_selected" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pickxsignals.PickXSignalsWidget.unbind">
-<code class="descname">unbind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pickxsignals.PickXSignalsWidget.unbind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">unbind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pickxsignals.PickXSignalsWidget.unbind" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.pickxsignals.bin_">
-<code class="descclassname">hyperspyui.widgets.pickxsignals.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.pickxsignals.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.pickxsignals.hex_">
-<code class="descclassname">hyperspyui.widgets.pickxsignals.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.pickxsignals.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.pickxsignals.oct_">
-<code class="descclassname">hyperspyui.widgets.pickxsignals.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.pickxsignals.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 <div class="section" id="module-hyperspyui.widgets.pluginmanagerwidget">
 <span id="hyperspyui-widgets-pluginmanagerwidget-module"></span><h2>hyperspyui.widgets.pluginmanagerwidget module<a class="headerlink" href="#module-hyperspyui.widgets.pluginmanagerwidget" title="Permalink to this headline">¶</a></h2>
 <p>Created on Sun Mar 01 03:24:48 2015</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="descname">PluginManagerWidget</code><span class="sig-paren">(</span><em>plugin_manager</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="sig-name descname">PluginManagerWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin_manager</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.edit_plugin">
-<code class="descname">edit_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.edit_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">edit_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.edit_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="descname">PluginsModel</code><span class="sig-paren">(</span><em>plugin_manager</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtCore.QAbstractItemModel</span></code></p>
-<dl class="attribute">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="sig-name descname">PluginsModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin_manager</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractItemModel</span></code></p>
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.EnabledColumn">
-<code class="descname">EnabledColumn</code><em class="property"> = 0</em><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.EnabledColumn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">EnabledColumn</code><em class="property"> = 0</em><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.EnabledColumn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.NameColumn">
-<code class="descname">NameColumn</code><em class="property"> = 1</em><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.NameColumn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">NameColumn</code><em class="property"> = 1</em><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.NameColumn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.PathColumn">
-<code class="descname">PathColumn</code><em class="property"> = 2</em><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.PathColumn" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">PathColumn</code><em class="property"> = 2</em><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.PathColumn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.columnCount">
-<code class="descname">columnCount</code><span class="sig-paren">(</span><em>parent=&lt;PyQt4.QtCore.QModelIndex object at 0x000001C7EFA9F898&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.columnCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>index</em>, <em>role=0</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">Qt.DisplayRole</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.flags">
-<code class="descname">flags</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.flags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; Qt.ItemFlags<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.flags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.headerData">
-<code class="descname">headerData</code><span class="sig-paren">(</span><em>section</em>, <em>orientation</em>, <em>role=0</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.headerData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">int</em>, <em class="sig-param">Qt.Orientation</em>, <em class="sig-param">role: int = Qt.DisplayRole</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.headerData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.index">
-<code class="descname">index</code><span class="sig-paren">(</span><em>row</em>, <em>column</em>, <em>parent=&lt;PyQt4.QtCore.QModelIndex object at 0x000001C7EFA9F7B8&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.index" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">PluginsModel.index(self, int, int, parent: QModelIndex = QModelIndex()) -&gt; QModelIndex</code></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.parent">
-<code class="descname">parent</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.parent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QModelIndex<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>parent(self) -&gt; QObject</p>
+</dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.rowCount">
-<code class="descname">rowCount</code><span class="sig-paren">(</span><em>parent=&lt;PyQt4.QtCore.QModelIndex object at 0x000001C7EFA9F828&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.rowCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.PluginsModel.setData">
-<code class="descname">setData</code><span class="sig-paren">(</span><em>index</em>, <em>value</em>, <em>role=2</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.setData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">Any</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">Qt.EditRole</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.setData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.pluginmanagerwidget.bin_">
-<code class="descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.pluginmanagerwidget.hex_">
-<code class="descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.pluginmanagerwidget.oct_">
-<code class="descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.pluginmanagerwidget.tr">
-<code class="descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.pluginmanagerwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.pluginmanagerwidget.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1074,55 +996,40 @@ action, or by default, the subWindowActivated of the MainWindow.</p>
 <span id="hyperspyui-widgets-settingsdialog-module"></span><h2>hyperspyui.widgets.settingsdialog module<a class="headerlink" href="#module-hyperspyui.widgets.settingsdialog" title="Permalink to this headline">¶</a></h2>
 <p>Created on Sun Mar 01 18:26:38 2015</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.settingsdialog.SettingsDialog">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.settingsdialog.</code><code class="descname">SettingsDialog</code><span class="sig-paren">(</span><em>main_window</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="attribute">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.settingsdialog.</code><code class="sig-name descname">SettingsDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.settingsdialog.SettingsDialog.apply_btn">
-<code class="descname">apply_btn</code><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.apply_btn" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">apply_btn</code><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.apply_btn" title="Permalink to this definition">¶</a></dt>
 <dd><p>The apply button.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.settingsdialog.SettingsDialog.apply_changes">
-<code class="descname">apply_changes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.apply_changes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">apply_changes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.apply_changes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies changes performed since dialog creation or last apply,
 whichever is most recent. Fires settings_changed Signal as long as
 there has been any changes.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.settingsdialog.SettingsDialog.create_controls">
-<code class="descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create UI controls.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="hyperspyui.widgets.settingsdialog.SettingsDialog.settings_changed">
-<code class="descname">settings_changed</code><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.settings_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">settings_changed</code><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.SettingsDialog.settings_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="hyperspyui.widgets.settingsdialog.bin_">
-<code class="descclassname">hyperspyui.widgets.settingsdialog.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.settingsdialog.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.settingsdialog.hex_">
-<code class="descclassname">hyperspyui.widgets.settingsdialog.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.settingsdialog.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.settingsdialog.oct_">
-<code class="descclassname">hyperspyui.widgets.settingsdialog.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.settingsdialog.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="hyperspyui.widgets.settingsdialog.tr">
-<code class="descclassname">hyperspyui.widgets.settingsdialog.</code><code class="descname">tr</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">hyperspyui.widgets.settingsdialog.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.settingsdialog.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1130,159 +1037,117 @@ there has been any changes.</p>
 <span id="hyperspyui-widgets-signallist-module"></span><h2>hyperspyui.widgets.signallist module<a class="headerlink" href="#module-hyperspyui.widgets.signallist" title="Permalink to this headline">¶</a></h2>
 <p>Created on Mon Oct 27 23:09:55 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.signallist.SignalList">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.signallist.</code><code class="descname">SignalList</code><span class="sig-paren">(</span><em>items=None</em>, <em>parent=None</em>, <em>multiselect=True</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QListWidget</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.signallist.</code><code class="sig-name descname">SignalList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">multiselect</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QListWidget</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.addItem">
-<code class="descname">addItem</code><span class="sig-paren">(</span><em>object</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.addItem" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">addItem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QListWidgetItem</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.addItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>addItem(self, str)</p>
+</dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.addItems">
-<code class="descname">addItems</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.addItems" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">addItems</code><span class="sig-paren">(</span><em class="sig-param">self, Iterable[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.addItems" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.bind">
-<code class="descname">bind</code><span class="sig-paren">(</span><em>blist</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.bind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">bind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blist</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.bind" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.get_selected">
-<code class="descname">get_selected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.get_selected" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_selected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.get_selected" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.insertItem">
-<code class="descname">insertItem</code><span class="sig-paren">(</span><em>index</em>, <em>object</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.insertItem" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">insertItem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em>, <em class="sig-param"><span class="n">QListWidgetItem</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.insertItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>insertItem(self, int, str)</p>
+</dd></dl>
 
-<dl class="attribute">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.multiselect">
-<code class="descname">multiselect</code><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.multiselect" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">multiselect</code><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.multiselect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.signal">
-<code class="descname">signal</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.signal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.signallist.SignalList.unbind">
-<code class="descname">unbind</code><span class="sig-paren">(</span><em>blist</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.unbind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">unbind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blist</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.signallist.SignalList.unbind" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.signallist.bin_">
-<code class="descclassname">hyperspyui.widgets.signallist.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.signallist.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.signallist.hex_">
-<code class="descclassname">hyperspyui.widgets.signallist.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.signallist.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.signallist.oct_">
-<code class="descclassname">hyperspyui.widgets.signallist.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.signallist.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 <div class="section" id="module-hyperspyui.widgets.stringinput">
 <span id="hyperspyui-widgets-stringinput-module"></span><h2>hyperspyui.widgets.stringinput module<a class="headerlink" href="#module-hyperspyui.widgets.stringinput" title="Permalink to this headline">¶</a></h2>
 <p>Created on Wed Jan 20 02:43:41 2016</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.stringinput.StringInputDialog">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.stringinput.</code><code class="descname">StringInputDialog</code><span class="sig-paren">(</span><em>prompt=''</em>, <em>default=''</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.stringinput.StringInputDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDialog</span></code></p>
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.stringinput.</code><code class="sig-name descname">StringInputDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prompt</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.stringinput.StringInputDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<dl class="py method">
 <dt id="hyperspyui.widgets.stringinput.StringInputDialog.prompt_modal">
-<code class="descname">prompt_modal</code><span class="sig-paren">(</span><em>rejection=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.stringinput.StringInputDialog.prompt_modal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">prompt_modal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rejection</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.stringinput.StringInputDialog.prompt_modal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.stringinput.StringInputDialog.prompt_modeless">
-<code class="descname">prompt_modeless</code><span class="sig-paren">(</span><em>callback</em>, <em>rejection=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.stringinput.StringInputDialog.prompt_modeless" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">prompt_modeless</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span></em>, <em class="sig-param"><span class="n">rejection</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.stringinput.StringInputDialog.prompt_modeless" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.stringinput.bin_">
-<code class="descclassname">hyperspyui.widgets.stringinput.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.stringinput.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.stringinput.hex_">
-<code class="descclassname">hyperspyui.widgets.stringinput.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.stringinput.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.stringinput.oct_">
-<code class="descclassname">hyperspyui.widgets.stringinput.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.stringinput.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 <div class="section" id="module-hyperspyui.widgets.traitswidget">
 <span id="hyperspyui-widgets-traitswidget-module"></span><h2>hyperspyui.widgets.traitswidget module<a class="headerlink" href="#module-hyperspyui.widgets.traitswidget" title="Permalink to this headline">¶</a></h2>
 <p>Created on Wed Jan 07 20:01:34 2015</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="class">
+<dl class="py class">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget">
-<em class="property">class </em><code class="descclassname">hyperspyui.widgets.traitswidget.</code><code class="descname">TraitsWidget</code><span class="sig-paren">(</span><em>main_window</em>, <em>cb_make_dialog</em>, <em>cb_check=None</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.traitswidget.</code><code class="sig-name descname">TraitsWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">cb_make_dialog</span></em>, <em class="sig-param"><span class="n">cb_check</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
 <p>DockWidget for TraitsUI dialogs. The default behavior is to update the
 dialog when the active subwindow changes or when the widget becomes visible
 (updates are supressed when widget is hidden). This is done by capturing
 the traitsui dialog as it is created (see code in mainwindowbase).</p>
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor">
-<code class="descname">clear_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clear_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Empties out the dockwidget.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor">
-<code class="descname">set_traits_editor</code><span class="sig-paren">(</span><em>traits_dialog</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_traits_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">traits_dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a traitsui dialog has been captured.</p>
 </dd></dl>
 
 </dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.traitswidget.bin_">
-<code class="descclassname">hyperspyui.widgets.traitswidget.</code><code class="descname">bin_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.traitswidget.bin_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.traitswidget.hex_">
-<code class="descclassname">hyperspyui.widgets.traitswidget.</code><code class="descname">hex_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.traitswidget.hex_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperspyui.widgets.traitswidget.oct_">
-<code class="descclassname">hyperspyui.widgets.traitswidget.</code><code class="descname">oct_</code><span class="sig-paren">(</span><em>QTextStream</em><span class="sig-paren">)</span> &rarr; QTextStream<a class="headerlink" href="#hyperspyui.widgets.traitswidget.oct_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="hyperspyui.plugins.html" class="btn btn-neutral float-right" title="Core plugins API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hyperspyui.plugins.html" class="btn btn-neutral float-right" title="Core plugins API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="hyperspyui._tools.html" class="btn btn-neutral" title="hyperspyui._tools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="hyperspyui._tools.html" class="btn btn-neutral float-left" title="hyperspyui._tools package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1291,11 +1156,11 @@ the traitsui dialog as it is created (see code in mainwindowbase).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske.
+        &copy; Copyright 2016, Vidar Tonaas Fauske
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1308,36 +1173,15 @@ the traitsui dialog as it is created (see code in mainwindowbase).</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.1.0+dev',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

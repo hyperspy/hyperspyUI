@@ -89,7 +89,7 @@ Change the data type use to store the signal data internally. See
 the `numpy docs`_ for details. The operation is performed by
 :py:meth:`~hyperspy.signal.Signal.change_dtype`.
 
-.. _numpy docs: http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype
+.. _numpy docs: https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype
 
 
 .. _manual-alignment:
@@ -274,7 +274,7 @@ Browse EELSDB
 """"""""""""""""""""""""""""""""""""
 Browse the EELSDB_ online database of standard EEL spectra.
 
-.. _EELSDB: http://eelsdb.eu
+.. _EELSDB: https://eelsdb.eu/
 
 
 
@@ -440,7 +440,7 @@ Check for updates
 Checks for updates to HyperSpy and HyperSpyUI. If the packages are not source
 installs, it checks for a new version on `PyPI`_.
 
-.. _PyPI: https://pypi.python.org/pypi/hyperspyui/
+.. _PyPI: https://pypi.python.org/pypi/hyperspyUI
 
 
 Plugin manager
@@ -459,6 +459,15 @@ Resets layout of toolbars and widgets.
 HyperSpy settings
 """"""""""""""""""""""""""""""""""""
 Edit the HyperSpy package settings.
+
+
+.. _edit-styles:
+
+Edit styles
+""""""""""""""""""""""""""""""""""""
+Shows a dialog for editing the palette and stylesheet of the application.
+See the Qt documentation for usage: http://doc.qt.io/qt-4.8/stylesheet.html
+and http://doc.qt.io/qt-4.8/qpalette.html.
 
 
 .. _edit-settings:

@@ -8,47 +8,44 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HyperSpyUI - A Graphical interface for HyperSpy &mdash; HyperSpyUI 1.1.0+dev documentation</title>
+  <title>HyperSpyUI - A Graphical interface for HyperSpy &mdash; HyperSpyUI 1.1.2 documentation</title>
   
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="#"/>
-        <link rel="next" title="Installation" href="installation.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -57,7 +54,7 @@
 
           
             
-            <img src="_static/header_logo.png" class="logo" />
+            <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -65,7 +62,7 @@
             
             
               <div class="version">
-                1.1.0+dev
+                1.1.2
               </div>
             
           
@@ -86,8 +83,13 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html#changelog">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
@@ -101,6 +103,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 
             
@@ -112,34 +115,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">HyperSpyUI</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">HyperSpyUI</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>HyperSpyUI - A Graphical interface for HyperSpy</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>HyperSpyUI - A Graphical interface for HyperSpy</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -156,7 +179,7 @@ that operate on an individual signal to multidimensional arrays, as well as
 providing easy access to analytical tools that exploit the multidimensionality
 of the dataset.</p>
 <p>While the UI tries to create a simple and intuitive interface to HyperSpy,
-it still retains the raw power of HyperSpy via the UI&#8217;s built in IPython
+it still retains the raw power of HyperSpy via the UI’s built in IPython
 console. As HyperSpyUI is made in Python, the same programming language
 as HyperSpy, the integration is seamless.</p>
 <div class="section" id="development-status">
@@ -164,8 +187,8 @@ as HyperSpy, the integration is seamless.</p>
 <p>Currently, the development of HyperSpyUI is focused on strengthening its
 back-bone and making sure that it is as easy as possible to add new features
 to the UI. There is also an ongoing efort to add easy, intuitive access
-to as many of HyperSpy&#8217;s features as possible.</p>
-<p>HyperSpy itself is stated to be in a &#8220;perpetual beta&#8221;. As such, the UI will
+to as many of HyperSpy’s features as possible.</p>
+<p>HyperSpy itself is stated to be in a “perpetual beta”. As such, the UI will
 never be more stable than the underlying drivetrain, however, that should only
 affect the analytical capabilities. The application itself is based on the
 mature Qt framework, and should therefore be robust.</p>
@@ -176,7 +199,16 @@ mature Qt framework, and should therefore be robust.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#bundle-installer">Bundle Installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-via-conda">Install via <cite>conda</cite></a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-via-pip">Install via <cite>pip</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="what_is_new.html#current-version">Current Version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html#changelog">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="what_is_new.html#previous-versions">Previous Versions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a><ul>
@@ -237,7 +269,7 @@ mature Qt framework, and should therefore be robust.</p>
 </div>
 <div class="section" id="developer-guide">
 <h2>Developer guide<a class="headerlink" href="#developer-guide" title="Permalink to this headline">¶</a></h2>
-<p>While the UI doesn&#8217;t easily lend itself to being used as a library, understanding
+<p>While the UI doesn’t easily lend itself to being used as a library, understanding
 the UI API is of importance for anybody that want to add plugins, or simply
 want to execute some code in the <a class="reference internal" href="devguide.html#console"><span class="std std-ref">Internal Console</span></a>.</p>
 <div class="toctree-wrapper compound">
@@ -256,27 +288,29 @@ want to execute some code in the <a class="reference internal" href="devguide.ht
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -286,11 +320,11 @@ want to execute some code in the <a class="reference internal" href="devguide.ht
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske.
+        &copy; Copyright 2016, Vidar Tonaas Fauske
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -303,36 +337,15 @@ want to execute some code in the <a class="reference internal" href="devguide.ht
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.1.0+dev',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -8,48 +8,45 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Developer guide &mdash; HyperSpyUI 1.1.0+dev documentation</title>
+  <title>Developer guide &mdash; HyperSpyUI 1.1.2 documentation</title>
   
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="HyperSpyUI 1.1.0+dev documentation" href="index.html"/>
-        <link rel="next" title="API reference" href="api/hyperspyui.html"/>
-        <link rel="prev" title="Troubleshooting" href="troubleshooting.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API reference" href="api/hyperspyui.html" />
+    <link rel="prev" title="Troubleshooting" href="troubleshooting.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +55,7 @@
 
           
             
-            <img src="_static/header_logo.png" class="logo" />
+            <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                1.1.0+dev
+                1.1.2
               </div>
             
           
@@ -87,8 +84,13 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_new.html#changelog">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Tools</a></li>
@@ -109,6 +111,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/hyperspyui.plugins.html">Core plugins API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 
             
@@ -120,34 +123,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">HyperSpyUI</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HyperSpyUI</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Developer guide</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Developer guide</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/devguide.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -160,21 +183,21 @@ with the UI. This can be relevant for tasks from gaining access to the loaded
 signals in the console, to writing plugins that extended the functionality of
 the UI.</p>
 <p>One of the main components of the API is the
-<a class="reference internal" href="api/hyperspyui.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal"><span class="pre">MainWindow</span></code></a> class. This is the class of
+<a class="reference internal" href="api/hyperspyui.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> class. This is the class of
 the main UI window, and can be considered the hub to reach all the loaded
 content, including signals and models, or <a class="reference internal" href="actions.html#actions"><span class="std std-ref">Available actions</span></a>,
 <a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a> and <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a>.</p>
 <div class="section" id="internal-console">
 <span id="console"></span><h2>Internal Console<a class="headerlink" href="#internal-console" title="Permalink to this headline">¶</a></h2>
-<p>The internal console is a <a class="reference external" href="https://qtconsole.readthedocs.org/en/stable/">qtconsole</a> widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
+<p>The internal console is a <a class="reference external" href="https://qtconsole.readthedocs.io/en/stable/">qtconsole</a> widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
 run any code that IPython can. To facilitate the typical use of the console,
-<a class="reference external" href="http://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal"><span class="pre">np</span></code>, and <a class="reference external" href="http://hyperspy.org/hyperspy-doc/current/api/hyperspy.html#module-hyperspy.api" title="(in HyperSpy v1.1.2)"><code class="xref py py-mod docutils literal"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal"><span class="pre">hs</span></code>. The current
-<a class="reference internal" href="api/hyperspyui.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal"><span class="pre">MainWindow</span></code></a> instance is also exported as
-<code class="docutils literal"><span class="pre">ui</span></code>, and the list of currently loaded hyperspy
-<code class="xref py py-class docutils literal"><span class="pre">Signal</span></code> instances is exported as <code class="docutils literal"><span class="pre">siglist</span></code>.</p>
+<a class="reference external" href="http://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal notranslate"><span class="pre">np</span></code>, and <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.api.html#module-hyperspy.api" title="(in HyperSpy v1.5.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal notranslate"><span class="pre">hs</span></code>. The current
+<a class="reference internal" href="api/hyperspyui.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> instance is also exported as
+<code class="docutils literal notranslate"><span class="pre">ui</span></code>, and the list of currently loaded hyperspy
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code> instances is exported as <code class="docutils literal notranslate"><span class="pre">siglist</span></code>.</p>
 <p>If we want to inspect the original metadata of the currently selected signal,
 we can then run:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">get_selected_signal</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">get_selected_signal</span><span class="p">()</span>
 
 <span class="gp">In [2]: </span><span class="n">s</span><span class="o">.</span><span class="n">original_metadata</span>
 <span class="go">Out[2]:</span>
@@ -204,7 +227,7 @@ or when recording is started via the <a class="reference internal" href="widgets
 <div class="section" id="recording-code">
 <span id="recording"></span><h2>Recording code<a class="headerlink" href="#recording-code" title="Permalink to this headline">¶</a></h2>
 <p>Most if not all actions that the UI perform can be recorded. To start
-recording, press the &#8216;Start&#8217; button in the <a class="reference internal" href="widgets.html#recorder-widget"><span class="std std-ref">Recorder widget</span></a>. This will
+recording, press the ‘Start’ button in the <a class="reference internal" href="widgets.html#recorder-widget"><span class="std std-ref">Recorder widget</span></a>. This will
 open up a new blank <a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a>, that will be populated with code
 as actions are performed. The code can be edited while recording; the new
 code is simply appended at the end. Closing the widget will automatically
@@ -215,8 +238,8 @@ on it as well. This can be very useful if you <cite>e.g.</cite> need to crop bot
 core-loss and a low-loss spectrum, as they will be cropped to exactly the
 same region.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">While most of the code that is recorded tries to infer as much about its
+<p class="admonition-title">Note</p>
+<p>While most of the code that is recorded tries to infer as much about its
 context as possible, it is not magical, so some manual adaptation of
 the recorded code might be needed. Typically, signal names need to be
 adjusted so that the right signals are used for different steps in a
@@ -231,28 +254,28 @@ this is something that is used often, and does not change from session to
 session, this might become rather cumbersome. The easiest step then is to turn
 the code into a UI action, either as a menu item, or toolbar button. This is
 done by creating a new plugin. To ease the creation of a plugin, the
-<a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a> has a button &#8216;Make Plugin&#8217;.</p>
-<p>For example, here we&#8217;ve created a rather simple exmple for code to
-substract one signal from another (a little naive, as it doesn&#8217;t take data
+<a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a> has a button ‘Make Plugin’.</p>
+<p>For example, here we’ve created a rather simple exmple for code to
+substract one signal from another (a little naive, as it doesn’t take data
 type into account):</p>
 <p>Raw code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
 <span class="n">s_sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">signal</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">signal</span>
 <span class="n">s_sub</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In editor:</p>
 <img alt="_images/plugin_code_in.png" src="_images/plugin_code_in.png" />
-<p>Clicking the &#8216;Make plugin&#8217; button, we&#8217;re presented with a dialog, asking
+<p>Clicking the ‘Make plugin’ button, we’re presented with a dialog, asking
 what the plugin should be called, whether we want to add it as a menu
 entry and/or toolbar button, which catgory it should go in (read: which menu
 and toolbar it goes into), and if it should have an icon (recommended for
 toolbar buttons):</p>
 <img alt="_images/plugin_wizard.png" src="_images/plugin_wizard.png" />
-<p>After deciding what we want, we click &#8216;OK&#8217;, and a new editor appears with the
+<p>After deciding what we want, we click ‘OK’, and a new editor appears with the
 following code:</p>
 <p>Raw code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hyperspyui.plugins.plugin</span> <span class="k">import</span> <span class="n">Plugin</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hyperspyui.plugins.plugin</span> <span class="kn">import</span> <span class="n">Plugin</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">hyperspy.api</span> <span class="k">as</span> <span class="nn">hs</span>
 
@@ -284,29 +307,29 @@ following code:</p>
 <p>In editor:</p>
 <img alt="_images/plugin_code_out.png" src="_images/plugin_code_out.png" />
 <p>As can be seen, it has created a bare-bones plugin class, with a single action
-called <code class="docutils literal"><span class="pre">default</span></code>. It also imports hyperspy and numpy, and sets the
-variables <code class="docutils literal"><span class="pre">ui</span></code> and <code class="docutils literal"><span class="pre">siglist</span></code> such that the code works directly as in the
+called <code class="docutils literal notranslate"><span class="pre">default</span></code>. It also imports hyperspy and numpy, and sets the
+variables <code class="docutils literal notranslate"><span class="pre">ui</span></code> and <code class="docutils literal notranslate"><span class="pre">siglist</span></code> such that the code works directly as in the
 console. Our action is crated in
-<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.create_actions" title="hyperspyui.plugins.plugin.Plugin.create_actions"><code class="xref py py-meth docutils literal"><span class="pre">create_actions()</span></code></a>,
+<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.create_actions" title="hyperspyui.plugins.plugin.Plugin.create_actions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_actions()</span></code></a>,
 added as a menu item in
-<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.create_menu" title="hyperspyui.plugins.plugin.Plugin.create_menu"><code class="xref py py-meth docutils literal"><span class="pre">create_menu()</span></code></a>,
+<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.create_menu" title="hyperspyui.plugins.plugin.Plugin.create_menu"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_menu()</span></code></a>,
 and as a toolbar button in
-<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.create_toolbars" title="hyperspyui.plugins.plugin.Plugin.create_toolbars"><code class="xref py py-meth docutils literal"><span class="pre">create_toolbars()</span></code></a>.</p>
+<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.create_toolbars" title="hyperspyui.plugins.plugin.Plugin.create_toolbars"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_toolbars()</span></code></a>.</p>
 <p>So now that we have the code for a plugin, all that remains is to register it.
-This we do by clicking the button &#8216;Register Plugin&#8217; which has now replaced the
-buttons &#8216;Run&#8217; and &#8216;Make Plugin&#8217; (since they don&#8217;t make sense for a plugin).
+This we do by clicking the button ‘Register Plugin’ which has now replaced the
+buttons ‘Run’ and ‘Make Plugin’ (since they don’t make sense for a plugin).
 Now, as we have yet to save our code, we will at this point be asked to save
 the plugin script, as only saved files can be loaded as plugins. If we only
 want this plugin for the current session, we can save it anywhere. The next
 time we start the application, it will then not be loaded unless we manually
 register it again. However, if we want it to be loaded automatically every
-time we start the application, we need to save it in the &#8216;plugins&#8217; directory
-(default location when the &#8216;Register Plugin&#8217; button is pressed).</p>
+time we start the application, we need to save it in the ‘plugins’ directory
+(default location when the ‘Register Plugin’ button is pressed).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you are on the development version of HyperSpyUI, and don&#8217;t want to
+<p class="admonition-title">Note</p>
+<p>If you are on the development version of HyperSpyUI, and don’t want to
 commit your plugin, you can also save it to the sub folder
-&#8216;user_plugins&#8217;, which is added to the .gitignore file.</p>
+‘user_plugins’, which is added to the .gitignore file.</p>
 </div>
 <p>Once the plugin has been registered, it will automatically be loaded, and so
 we should directly be able to find our new menu entry like this:</p>
@@ -316,15 +339,15 @@ we should directly be able to find our new menu entry like this:</p>
 <span id="id1"></span><h2>Plugin manager widget<a class="headerlink" href="#plugin-manager-widget" title="Permalink to this headline">¶</a></h2>
 <p>The plugin manager widget shows a list of all the discovered plugins
 (and any that have been added manually), their locations, and allows
-to set whether they should be loaded or not. There&#8217;s also an &#8216;Edit&#8217; button
+to set whether they should be loaded or not. There’s also an ‘Edit’ button
 which will open up the source code of the plugin in a new <a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a>.</p>
 <p>Unchecking a plugin will attempt to unload it, but the success of this
 depends on the plugin correctly implementing its
-<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.unload" title="hyperspyui.plugins.plugin.Plugin.unload"><code class="xref py py-meth docutils literal"><span class="pre">unload()</span></code></a> routine, which might not always
+<a class="reference internal" href="api/hyperspyui.plugins.html#hyperspyui.plugins.plugin.Plugin.unload" title="hyperspyui.plugins.plugin.Plugin.unload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unload()</span></code></a> routine, which might not always
 be the case.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The unloading will only be partial if references to its content
+<p class="admonition-title">Note</p>
+<p>The unloading will only be partial if references to its content
 remain elsewhere in the program, so for this reason many core plugins will
 fail to unload fully.</p>
 </div>
@@ -333,15 +356,16 @@ fail to unload fully.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api/hyperspyui.html" class="btn btn-neutral float-right" title="API reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api/hyperspyui.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="troubleshooting.html" class="btn btn-neutral" title="Troubleshooting" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -350,11 +374,11 @@ fail to unload fully.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske.
+        &copy; Copyright 2016, Vidar Tonaas Fauske
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -367,36 +391,15 @@ fail to unload fully.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.1.0+dev',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
