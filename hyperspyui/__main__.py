@@ -21,7 +21,9 @@ Created on Tue Nov 25 02:10:29 2014
 @author: Vidar Tonaas Fauske
 """
 
+from distutils.version import LooseVersion
 import os
+import platform
 import sys
 import locale
 from contextlib import contextmanager
@@ -87,14 +89,22 @@ def get_splash():
 
 
 def main():
-    from qtpy.QtCore import Qt, QCoreApplication
+    from qtpy.QtCore import Qt, QCoreApplication, qVersion
     from qtpy.QtWidgets import QApplication
     from qtpy import API
+
+    # Fixes issues with Big Sur
+    # https://bugreports.qt.io/browse/QTBUG-87014, fixed in qt 5.15.2
+    if (sys.platform == 'darwin' and
+            LooseVersion(platform.mac_ver()[0]) >= LooseVersion("10.16") and
+            LooseVersion(qVersion()) < LooseVersion("5.15.2") and
+            "QT_MAC_WANTS_LAYER" not in os.environ):
+        os.environ["QT_MAC_WANTS_LAYER"] = "1"
 
     import hyperspyui.info
     from hyperspyui.settings import Settings
 
-    # QtWebEngineWidgets must be imported before a QCoreApplication instance 
+    # QtWebEngineWidgets must be imported before a QCoreApplication instance
     # is created (used in eelsdb plugin)
     # Avoid a bug in Qt: https://bugreports.qt.io/browse/QTBUG-46720
     from qtpy import QtWebEngineWidgets
@@ -103,8 +113,8 @@ def main():
     QCoreApplication.setApplicationName("HyperSpyUI")
     QCoreApplication.setOrganizationName("Hyperspy")
     QCoreApplication.setApplicationVersion(hyperspyui.info.__version__)
-    # To avoid the warning: 
-    # Qt WebEngine seems to be initialized from a plugin. Please set 
+    # To avoid the warning:
+    # Qt WebEngine seems to be initialized from a plugin. Please set
     # Qt::AA_ShareOpenGLContexts using QCoreApplication::setAttribute before
     # constructing QGuiApplication.
     # Only available for pyqt>=5.4
