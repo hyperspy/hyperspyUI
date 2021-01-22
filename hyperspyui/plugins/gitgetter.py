@@ -28,7 +28,7 @@ from qtpy.QtCore import Qt
 import os
 import re
 from collections import OrderedDict
-import imp
+import importlib
 from functools import partial
 from io import StringIO
 
@@ -40,9 +40,9 @@ def check_git_repo(package_name):
     Try to determine if the package "package_name" is installed as a source
     install from a git folder.
     """
-    pkg_path = imp.find_module(package_name)[1]
+    pkg_path = os.path.dname(importlib.util.find_spec(package_name).origin)
     while pkg_path:
-        if os.path.exists(pkg_path + os.path.sep + '.git'):
+        if os.path.exists(os.path.join(pkg_path, '.git')):
             return True
         pkg_path, dummy = os.path.split(pkg_path)
         if not dummy:

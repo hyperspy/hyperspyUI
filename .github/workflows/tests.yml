@@ -1,0 +1,57 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  run_test_site:
+    name: py${{ matrix.PYTHON_VERSION }}${{ matrix.LABEL }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      HYPERSPY_DEV: false
+      DISPLAY: :0
+    strategy:
+      fail-fast: false
+      matrix:
+        PYTHON_VERSION: [3.6, 3.7]
+        include:
+          - PYTHON_VERSION: 3.8
+            HYPERSPY_DEV: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: ${{ matrix.PYTHON_VERSION }}
+
+      - name: Display version
+        run: |
+          python --version
+          pip --version
+
+      - name: Install Dependencies
+        run: |
+          pip install PyQt5 PyQtWebEngine
+          sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0
+
+      - name: Start xvfb
+        run: |
+          sudo /usr/bin/Xvfb $DISPLAY -screen 0 1280x1024x24 & 
+
+      - name: Install
+        shell: bash
+        run: |
+          pip install --upgrade -e .[tests]
+
+      - name: Install HyperSpy (RELEASE_next_minor)
+        shell: bash
+        if: "contains( matrix.HYPERSPY_DEV, 'true')"
+        run: |
+          pip install https://github.com/hyperspy/hyperspy/archive/RELEASE_next_minor.zip
+
+      - name: Run test suite
+        run: |
+          pytest --pyargs hyperspyui
+

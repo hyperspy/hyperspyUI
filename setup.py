@@ -25,11 +25,11 @@ Created on Mon Nov 17 11:58:16 2014
 
 from setuptools import setup, find_namespace_packages
 
-import hyperspyui.info
+from hyperspyui.version import __version__
 
 setup(
     name='hyperspyUI',
-    version=hyperspyui.__version__,
+    version=__version__,
     description='Hyperspy Graphical User Interface',
     author='Vidar Tonaas Fauske',
     author_email='vidartf+hyperspyui@gmail.com',
@@ -53,9 +53,10 @@ setup(
         ':sys_platform == "win32"': [
             'pywin32',
         ],
-        'test': [
+        'tests': [
             'pytest-qt',
             'pytest-cov',
+            'pytest-timeout',
         ],
     },
     package_data={

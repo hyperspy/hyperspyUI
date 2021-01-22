@@ -22,4 +22,4 @@ Created on Mon Nov 17 12:30:07 2014
 """
 
 
-from hyperspyui.info import __version__
+from hyperspyui.version import __version__
