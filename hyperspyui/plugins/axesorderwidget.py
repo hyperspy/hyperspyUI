@@ -52,7 +52,7 @@ class AxesOrderPlugin(Plugin):
         if signal is None:
             signal = self.ui.get_selected_signal()
         self.record_code("<p>.flip_axes(axes=%s)" % axes)
-        if not isinstance(axes, collections.Iterable):
+        if not isinstance(axes, collections.abc.Iterable):
             axes = (axes,)
         replot = False
         for axis in axes:

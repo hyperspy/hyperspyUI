@@ -101,7 +101,7 @@ def main():
             "QT_MAC_WANTS_LAYER" not in os.environ):
         os.environ["QT_MAC_WANTS_LAYER"] = "1"
 
-    import hyperspyui.info
+    from hyperspyui.version import __version__
     from hyperspyui.settings import Settings
 
     # QtWebEngineWidgets must be imported before a QCoreApplication instance
@@ -112,7 +112,7 @@ def main():
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
     QCoreApplication.setOrganizationName("Hyperspy")
-    QCoreApplication.setApplicationVersion(hyperspyui.info.__version__)
+    QCoreApplication.setApplicationVersion(__version__)
     # To avoid the warning:
     # Qt WebEngine seems to be initialized from a plugin. Please set
     # Qt::AA_ShareOpenGLContexts using QCoreApplication::setAttribute before

@@ -84,7 +84,7 @@ class FigureTool(Tool):
     def _iter_windows(windows):
         if windows is None:
             return ()
-        if not isinstance(windows, collections.Iterable):
+        if not isinstance(windows, collections.abc.Iterable):
             windows = (windows,)
         return windows
 
