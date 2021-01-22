@@ -92,4 +92,6 @@ setup(
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Physics",
     ],
+    long_description_content_type="text/x-rst",
+    long_description=open('README.rst').read(),
     )
