@@ -1,8 +1,11 @@
-What's new
-**********
 
-Current Version
-===============
+Changelog
+*********
+
+v1.2.0.dev0 (UNRELEASED)
+++++++++++++++++++++++++
+* Fix doc warning add workflow to publish the code on tag.
+
 
 v1.1.3
 ++++++
@@ -30,12 +33,6 @@ For a detailed list of all the changes
 see `the commits in the GITHUB milestones 1.1.2
 <https://github.com/hyperspy/hyperspyUI/milestone/7?closed=1>`_.
 
-
-Changelog
-*********
-
-Previous Versions
-=================
 
 v1.1.1
 ++++++
