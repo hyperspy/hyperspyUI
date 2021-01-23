@@ -23,7 +23,6 @@ from hyperspyui.version import __version__
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
-sys.path.append(os.path.abspath('../sphinxext'))
 
 # -- General configuration ------------------------------------------------
 
@@ -39,8 +38,9 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
-    'ipython_console_highlighting',
+    'sphinx_toggleprompt',
     'sphinx.ext.napoleon',
+    'IPython.sphinxext.ipython_console_highlighting',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,7 +76,7 @@ release = __version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+#=language = None
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -305,3 +305,17 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', None),
     'pyqt': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
     }
+
+
+def run_apidoc(_):
+    from sphinx.ext.apidoc import main
+
+    cur_dir = os.path.normpath(os.path.dirname(__file__))
+    output_path = os.path.join(cur_dir, 'api')
+    modules = os.path.normpath(os.path.join(cur_dir, "../../hyperspyui"))
+    exclude_pattern = "../../hyperspyui/tests"
+    main(['-e', '-f', '-P', '-o', output_path, modules, exclude_pattern])
+
+
+def setup(app):
+    app.connect('builder-inited', run_apidoc)

@@ -43,7 +43,7 @@ def _init_asyncio_patch():
 
     ref: https://github.com/tornadoweb/tornado/issues/2608
     FIXME: if/when tornado supports the defaults in asyncio,
-           remove and bump tornado requirement for py38
+    remove and bump tornado requirement for py38
     """
     if sys.platform.startswith("win") and sys.version_info >= (3, 8):
         import asyncio
