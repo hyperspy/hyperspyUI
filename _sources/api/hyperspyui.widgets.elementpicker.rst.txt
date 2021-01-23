@@ -1,0 +1,8 @@
+hyperspyui.widgets.elementpicker module
+=======================================
+
+.. automodule:: hyperspyui.widgets.elementpicker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

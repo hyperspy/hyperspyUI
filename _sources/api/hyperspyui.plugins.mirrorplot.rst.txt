@@ -1,0 +1,8 @@
+hyperspyui.plugins.mirrorplot module
+====================================
+
+.. automodule:: hyperspyui.plugins.mirrorplot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

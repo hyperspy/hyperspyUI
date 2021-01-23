@@ -1,0 +1,8 @@
+hyperspyui.plugins.moviesaver module
+====================================
+
+.. automodule:: hyperspyui.plugins.moviesaver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

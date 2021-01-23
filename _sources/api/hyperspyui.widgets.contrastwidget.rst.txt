@@ -1,0 +1,8 @@
+hyperspyui.widgets.contrastwidget module
+========================================
+
+.. automodule:: hyperspyui.widgets.contrastwidget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

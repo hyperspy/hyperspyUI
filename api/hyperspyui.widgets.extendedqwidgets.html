@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hyperspyui.widgets.extendedqwidgets module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hyperspyui.widgets.flowlayout module" href="hyperspyui.widgets.flowlayout.html" />
+    <link rel="prev" title="hyperspyui.widgets.elementpicker module" href="hyperspyui.widgets.elementpicker.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+            
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.html">hyperspyui._tools package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="hyperspyui.widgets.html">hyperspyui.widgets package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="hyperspyui.widgets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hyperspyui.widgets.html#module-hyperspyui.widgets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+          <li><a href="hyperspyui.widgets.html">hyperspyui.widgets package</a> &raquo;</li>
+        
+      <li>hyperspyui.widgets.extendedqwidgets module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/hyperspyui.widgets.extendedqwidgets.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-hyperspyui.widgets.extendedqwidgets">
+<span id="hyperspyui-widgets-extendedqwidgets-module"></span><h1>hyperspyui.widgets.extendedqwidgets module<a class="headerlink" href="#module-hyperspyui.widgets.extendedqwidgets" title="Permalink to this headline">¶</a></h1>
+<p>Created on Fri Nov 21 22:11:04 2014</p>
+<p>&#64;author: Vidar Tonaas Fauske</p>
+<dl class="py class">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExClickLabel">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExClickLabel</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QLabel</span></code></p>
+<p>QLabel with ‘clicked()’ signal.</p>
+<dl class="py attribute">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked">
+<code class="sig-name descname">clicked</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent">
+<code class="sig-name descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QMouseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExDoubleSlider</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">orientation</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QSlider</span></code></p>
+<p>QSlider with double values instead of int values.</p>
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._int2dbl">
+<code class="sig-name descname">_int2dbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intval</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._int2dbl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._on_change">
+<code class="sig-name descname">_on_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intval</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._on_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.double_valueChanged">
+<code class="sig-name descname">double_valueChanged</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.double_valueChanged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ExDoubleSlider.setRange(self, int, int)</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue">
+<code class="sig-name descname">setValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value">
+<code class="sig-name descname">value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExMessageBox</code><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMessageBox</span></code></p>
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox">
+<code class="sig-name descname">checkBox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QCheckBox<a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.isChecked">
+<code class="sig-name descname">isChecked</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.isChecked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox">
+<code class="sig-name descname">setCheckBox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCheckBox</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExRememberPrompt">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExRememberPrompt</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExRememberPrompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="hyperspyui.widgets.extendedqwidgets.ExMessageBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExMessageBox</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.widgets.extendedqwidgets.ExToolWindow">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">ExToolWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>QDialog with Qt.Tool window flags.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">FigureWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p>
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget._on_figure_change">
+<code class="sig-name descname">_on_figure_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a connected update triggers. If the window is valid, it
+sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
+window is invalid, it clears the widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget.connect_">
+<code class="sig-name descname">connect_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.connect_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the widget to its update trigger, which is either a supplied
+action, or by default, the subWindowActivated of the MainWindow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget.disconnect">
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects an update trigger connected with connect().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.extendedqwidgets.FigureWidget.on_visibility">
+<code class="sig-name descname">on_visibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visible</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget.on_visibility" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="hyperspyui.widgets.extendedqwidgets.tr">
+<code class="sig-prename descclassname">hyperspyui.widgets.extendedqwidgets.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.tr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hyperspyui.widgets.flowlayout.html" class="btn btn-neutral float-right" title="hyperspyui.widgets.flowlayout module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui.widgets.elementpicker.html" class="btn btn-neutral float-left" title="hyperspyui.widgets.elementpicker module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

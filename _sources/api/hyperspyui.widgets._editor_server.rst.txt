@@ -1,0 +1,8 @@
+hyperspyui.widgets.\_editor\_server module
+==========================================
+
+.. automodule:: hyperspyui.widgets._editor_server
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

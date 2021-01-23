@@ -1,0 +1,8 @@
+hyperspyui.plugins.plotutils module
+===================================
+
+.. automodule:: hyperspyui.plugins.plotutils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

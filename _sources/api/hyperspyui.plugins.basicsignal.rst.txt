@@ -1,0 +1,8 @@
+hyperspyui.plugins.basicsignal module
+=====================================
+
+.. automodule:: hyperspyui.plugins.basicsignal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.plugins.stylesheet module
+====================================
+
+.. automodule:: hyperspyui.plugins.stylesheet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

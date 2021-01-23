@@ -1,0 +1,8 @@
+hyperspyui.signalwrapper module
+===============================
+
+.. automodule:: hyperspyui.signalwrapper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

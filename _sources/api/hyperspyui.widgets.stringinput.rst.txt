@@ -1,0 +1,8 @@
+hyperspyui.widgets.stringinput module
+=====================================
+
+.. automodule:: hyperspyui.widgets.stringinput
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

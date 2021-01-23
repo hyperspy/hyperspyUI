@@ -1,0 +1,8 @@
+hyperspyui.pluginmanager module
+===============================
+
+.. automodule:: hyperspyui.pluginmanager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

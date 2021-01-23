@@ -1,0 +1,8 @@
+hyperspyui.widgets.extendedqwidgets module
+==========================================
+
+.. automodule:: hyperspyui.widgets.extendedqwidgets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

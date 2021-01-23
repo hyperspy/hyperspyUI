@@ -1,0 +1,8 @@
+hyperspyui.plugins.eelsdb module
+================================
+
+.. automodule:: hyperspyui.plugins.eelsdb
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.widgets.dataviewwidget module
+========================================
+
+.. automodule:: hyperspyui.widgets.dataviewwidget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.plugins.gaussianfilter module
+========================================
+
+.. automodule:: hyperspyui.plugins.gaussianfilter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

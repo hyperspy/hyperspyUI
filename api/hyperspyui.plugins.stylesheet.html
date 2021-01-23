@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hyperspyui.plugins.stylesheet module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hyperspyui.plugins.tightlayout module" href="hyperspyui.plugins.tightlayout.html" />
+    <link rel="prev" title="hyperspyui.plugins.segmentation module" href="hyperspyui.plugins.segmentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+            
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.plugins.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.plugins.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.align.html">hyperspyui.plugins.align module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.alignzlp.html">hyperspyui.plugins.alignzlp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesconf.html">hyperspyui.plugins.axesconf module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesorderwidget.html">hyperspyui.plugins.axesorderwidget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicsignal.html">hyperspyui.plugins.basicsignal module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicspectrum.html">hyperspyui.plugins.basicspectrum module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.cmappicker.html">hyperspyui.plugins.cmappicker module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.croptool.html">hyperspyui.plugins.croptool module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.dataastext.html">hyperspyui.plugins.dataastext module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.dmannotations.html">hyperspyui.plugins.dmannotations module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.eelsdb.html">hyperspyui.plugins.eelsdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fft.html">hyperspyui.plugins.fft module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fitting.html">hyperspyui.plugins.fitting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gaussianfilter.html">hyperspyui.plugins.gaussianfilter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gitgetter.html">hyperspyui.plugins.gitgetter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.imagerotation.html">hyperspyui.plugins.imagerotation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.linemeasure.html">hyperspyui.plugins.linemeasure module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.metadataeditor.html">hyperspyui.plugins.metadataeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.mirrorplot.html">hyperspyui.plugins.mirrorplot module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.moviesaver.html">hyperspyui.plugins.moviesaver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.mva.html">hyperspyui.plugins.mva module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.plotutils.html">hyperspyui.plugins.plotutils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.plugin.html">hyperspyui.plugins.plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.rebin.html">hyperspyui.plugins.rebin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.recorderwidget.html">hyperspyui.plugins.recorderwidget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.segmentation.html">hyperspyui.plugins.segmentation module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.plugins.stylesheet module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.tightlayout.html">hyperspyui.plugins.tightlayout module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.virtual_aperture.html">hyperspyui.plugins.virtual_aperture module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.plugins.html#module-hyperspyui.plugins">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+          <li><a href="hyperspyui.plugins.html">hyperspyui.plugins package</a> &raquo;</li>
+        
+      <li>hyperspyui.plugins.stylesheet module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/hyperspyui.plugins.stylesheet.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-hyperspyui.plugins.stylesheet">
+<span id="hyperspyui-plugins-stylesheet-module"></span><h1>hyperspyui.plugins.stylesheet module<a class="headerlink" href="#module-hyperspyui.plugins.stylesheet" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="hyperspyui.plugins.stylesheet.AutoIndentMode">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">AutoIndentMode</code><a class="headerlink" href="#hyperspyui.plugins.stylesheet.AutoIndentMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyqode.core.modes.autoindent.AutoIndentMode</span></code></p>
+<p>Provides automatic stylesheet-specific auto indentation.</p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.AutoIndentMode._get_indent">
+<code class="sig-name descname">_get_indent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cursor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.AutoIndentMode._get_indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the indentation text (a series of spaces or tabs)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cursor</strong> – QTextCursor</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple (text before new line, text after new line)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">StyleDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin</span></em>, <em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
+<p>A dialog for editing Qt palette and stylesheet.</p>
+<p>Edits and sets Qt’s application wide palette and stylesheet.
+See <a class="reference external" href="http://doc.qt.io/qt-4.8/stylesheet.html">http://doc.qt.io/qt-4.8/stylesheet.html</a>,
+and <a class="reference external" href="http://doc.qt.io/qt-4.8/qpalette.html">http://doc.qt.io/qt-4.8/qpalette.html</a>
+for documentation of the effects of various settings, and
+the style sheet syntax.</p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog._clear_styles">
+<code class="sig-name descname">_clear_styles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._clear_styles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset style inputs to default values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog._on_cbo_change">
+<code class="sig-name descname">_on_cbo_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._on_cbo_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback for when palette-mode selection changes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog._on_color_pick">
+<code class="sig-name descname">_on_color_pick</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._on_color_pick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback when a palette color has been picked</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog._setvis_palette_entry">
+<code class="sig-name descname">_setvis_palette_entry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._setvis_palette_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show/hide specific palette entries</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.apply">
+<code class="sig-name descname">apply</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply current palette and stylesheet application wide</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.create_controls">
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.create_controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the editor’s controls</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.create_palette_colors">
+<code class="sig-name descname">create_palette_colors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.create_palette_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the controls for editing the palette</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load palette and stylesheet from the plugin’t settings</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.pairs">
+<code class="sig-name descname">pairs</code><em class="property"> = [('Window', 'WindowText'), ('Base', 'Text'), ('Button', 'ButtonText'), ('ToolTipBase', 'ToolTipText'), ('Highlight', 'HighlightedText'), ('Light', 'Midlight'), ('Mid', 'Dark'), ('Link', 'LinkVisited')]</em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.pairs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.palette_entries">
+<code class="sig-name descname">palette_entries</code><em class="property"> = {'basic': ('Window', 'WindowText'), 'extended': ('Base', 'Text', 'ToolTipBase', 'ToolTipText', 'Button', 'ButtonText'), 'full': ('Highlight', 'HighlightedText', 'BrightText', 'Light', 'Midlight', 'Mid', 'Dark', 'Shadow', 'Link', 'LinkVisited', 'NoRole')}</em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.palette_entries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store the palette and stylesheet to the plugin’s settings</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StyleDialog.update_palette_controls">
+<code class="sig-name descname">update_palette_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.update_palette_controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update palette controls from internal QPalette</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.plugins.stylesheet.StylePlugin">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">StylePlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StylePlugin.apply_styles">
+<code class="sig-name descname">apply_styles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.apply_styles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StylePlugin.create_actions">
+<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.create_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StylePlugin.create_menu">
+<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.create_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.stylesheet.StylePlugin.edit_dialog">
+<code class="sig-name descname">edit_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.edit_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.plugins.stylesheet.StylePlugin.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Style'</em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="hyperspyui.plugins.stylesheet.tr">
+<code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.tr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hyperspyui.plugins.tightlayout.html" class="btn btn-neutral float-right" title="hyperspyui.plugins.tightlayout module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui.plugins.segmentation.html" class="btn btn-neutral float-left" title="hyperspyui.plugins.segmentation module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

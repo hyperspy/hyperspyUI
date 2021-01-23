@@ -1,0 +1,8 @@
+hyperspyui.hooksignal module
+============================
+
+.. automodule:: hyperspyui.hooksignal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

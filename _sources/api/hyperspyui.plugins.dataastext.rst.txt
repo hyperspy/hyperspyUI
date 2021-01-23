@@ -1,0 +1,8 @@
+hyperspyui.plugins.dataastext module
+====================================
+
+.. automodule:: hyperspyui.plugins.dataastext
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

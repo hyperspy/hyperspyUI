@@ -1,0 +1,8 @@
+hyperspyui.plugins.mva module
+=============================
+
+.. automodule:: hyperspyui.plugins.mva
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

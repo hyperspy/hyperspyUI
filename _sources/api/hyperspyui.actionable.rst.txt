@@ -1,0 +1,8 @@
+hyperspyui.actionable module
+============================
+
+.. automodule:: hyperspyui.actionable
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

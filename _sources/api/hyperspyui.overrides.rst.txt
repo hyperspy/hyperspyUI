@@ -1,0 +1,8 @@
+hyperspyui.overrides module
+===========================
+
+.. automodule:: hyperspyui.overrides
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

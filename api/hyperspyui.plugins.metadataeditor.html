@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hyperspyui.plugins.metadataeditor module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hyperspyui.plugins.mirrorplot module" href="hyperspyui.plugins.mirrorplot.html" />
+    <link rel="prev" title="hyperspyui.plugins.linemeasure module" href="hyperspyui.plugins.linemeasure.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+            
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.plugins.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.plugins.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.align.html">hyperspyui.plugins.align module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.alignzlp.html">hyperspyui.plugins.alignzlp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesconf.html">hyperspyui.plugins.axesconf module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesorderwidget.html">hyperspyui.plugins.axesorderwidget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicsignal.html">hyperspyui.plugins.basicsignal module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicspectrum.html">hyperspyui.plugins.basicspectrum module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.cmappicker.html">hyperspyui.plugins.cmappicker module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.croptool.html">hyperspyui.plugins.croptool module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.dataastext.html">hyperspyui.plugins.dataastext module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.dmannotations.html">hyperspyui.plugins.dmannotations module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.eelsdb.html">hyperspyui.plugins.eelsdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fft.html">hyperspyui.plugins.fft module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fitting.html">hyperspyui.plugins.fitting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gaussianfilter.html">hyperspyui.plugins.gaussianfilter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gitgetter.html">hyperspyui.plugins.gitgetter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.imagerotation.html">hyperspyui.plugins.imagerotation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.linemeasure.html">hyperspyui.plugins.linemeasure module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.plugins.metadataeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.mirrorplot.html">hyperspyui.plugins.mirrorplot module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.moviesaver.html">hyperspyui.plugins.moviesaver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.mva.html">hyperspyui.plugins.mva module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.plotutils.html">hyperspyui.plugins.plotutils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.plugin.html">hyperspyui.plugins.plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.rebin.html">hyperspyui.plugins.rebin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.recorderwidget.html">hyperspyui.plugins.recorderwidget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.segmentation.html">hyperspyui.plugins.segmentation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.stylesheet.html">hyperspyui.plugins.stylesheet module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.tightlayout.html">hyperspyui.plugins.tightlayout module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.virtual_aperture.html">hyperspyui.plugins.virtual_aperture module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.plugins.html#module-hyperspyui.plugins">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+          <li><a href="hyperspyui.plugins.html">hyperspyui.plugins package</a> &raquo;</li>
+        
+      <li>hyperspyui.plugins.metadataeditor module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/hyperspyui.plugins.metadataeditor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-hyperspyui.plugins.metadataeditor">
+<span id="hyperspyui-plugins-metadataeditor-module"></span><h1>hyperspyui.plugins.metadataeditor module<a class="headerlink" href="#module-hyperspyui.plugins.metadataeditor" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataEditor">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.metadataeditor.</code><code class="sig-name descname">MetadataEditor</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataEditor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataEditor._on_close">
+<code class="sig-name descname">_on_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataEditor._on_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataEditor.create_actions">
+<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataEditor.create_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataEditor.create_menu">
+<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataEditor.create_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataEditor.edit_metadata">
+<code class="sig-name descname">edit_metadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataEditor.edit_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataEditor.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Metadata Editor'</em><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataEditor.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.metadataeditor.</code><code class="sig-name descname">MetadataModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractItemModel</span></code></p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.columnCount">
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.data">
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">Qt.ItemDataRole.DisplayRole</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.flags">
+<code class="sig-name descname">flags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; Qt.ItemFlags<a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.flags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.headerData">
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">int</em>, <em class="sig-param">Qt.Orientation</em>, <em class="sig-param">role: int = Qt.ItemDataRole.DisplayRole</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.headerData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">MetadataModel.index(self, int, int, parent: QModelIndex = QModelIndex()) -&gt; QModelIndex</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.parent">
+<code class="sig-name descname">parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QModelIndex<a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>parent(self) -&gt; QObject</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.rowCount">
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataModel.setData">
+<code class="sig-name descname">setData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">Any</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">Qt.ItemDataRole.EditRole</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataModel.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataNode">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.metadataeditor.</code><code class="sig-name descname">MetadataNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">ref</span></em>, <em class="sig-param"><span class="n">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataNode._createNode">
+<code class="sig-name descname">_createNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">ref</span></em>, <em class="sig-param"><span class="n">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataNode._createNode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataNode._getChildren">
+<code class="sig-name descname">_getChildren</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataNode._getChildren" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataNode.edit_value">
+<code class="sig-name descname">edit_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataNode.edit_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataNode.index">
+<em class="property">property </em><code class="sig-name descname">index</code><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataNode.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataNode.subnodes">
+<em class="property">property </em><code class="sig-name descname">subnodes</code><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataNode.subnodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataTreeWidget">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.metadataeditor.</code><code class="sig-name descname">MetadataTreeWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataTreeWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTreeView</span></code></p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.metadataeditor.MetadataTreeWidget.sizeHint">
+<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.plugins.metadataeditor.MetadataTreeWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="hyperspyui.plugins.metadataeditor.tr">
+<code class="sig-prename descclassname">hyperspyui.plugins.metadataeditor.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.metadataeditor.tr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hyperspyui.plugins.mirrorplot.html" class="btn btn-neutral float-right" title="hyperspyui.plugins.mirrorplot module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui.plugins.linemeasure.html" class="btn btn-neutral float-left" title="hyperspyui.plugins.linemeasure module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

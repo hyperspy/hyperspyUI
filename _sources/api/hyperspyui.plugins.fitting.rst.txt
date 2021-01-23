@@ -1,0 +1,8 @@
+hyperspyui.plugins.fitting module
+=================================
+
+.. automodule:: hyperspyui.plugins.fitting
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

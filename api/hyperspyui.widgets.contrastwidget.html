@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hyperspyui.widgets.contrastwidget module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hyperspyui.widgets.dataviewwidget module" href="hyperspyui.widgets.dataviewwidget.html" />
+    <link rel="prev" title="hyperspyui.widgets.consolewidget module" href="hyperspyui.widgets.consolewidget.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+            
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.html">hyperspyui._tools package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="hyperspyui.widgets.html">hyperspyui.widgets package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="hyperspyui.widgets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hyperspyui.widgets.html#module-hyperspyui.widgets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+          <li><a href="hyperspyui.widgets.html">hyperspyui.widgets package</a> &raquo;</li>
+        
+      <li>hyperspyui.widgets.contrastwidget module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/hyperspyui.widgets.contrastwidget.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-hyperspyui.widgets.contrastwidget">
+<span id="hyperspyui-widgets-contrastwidget-module"></span><h1>hyperspyui.widgets.contrastwidget module<a class="headerlink" href="#module-hyperspyui.widgets.contrastwidget" title="Permalink to this headline">¶</a></h1>
+<p>Created on Wed Oct 29 16:49:48 2014</p>
+<p>&#64;author: Vidar Tonaas Fauske</p>
+<dl class="py class">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">ContrastWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
+<dl class="py attribute">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel">
+<code class="sig-name descname">LevelLabel</code><em class="property"> = 'Level'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel">
+<code class="sig-name descname">WindowLabel</code><em class="property"> = 'Window'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget._on_figure_change">
+<code class="sig-name descname">_on_figure_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figure</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a connected update triggers. If the window is valid, it
+sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
+window is invalid, it clears the widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget._plot_minmax">
+<code class="sig-name descname">_plot_minmax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget._plot_minmax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.auto">
+<code class="sig-name descname">auto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.auto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls">
+<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.disable">
+<code class="sig-name descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.enable">
+<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.enable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed">
+<code class="sig-name descname">level_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed">
+<code class="sig-name descname">log_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level">
+<code class="sig-name descname">reset_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window">
+<code class="sig-name descname">reset_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig">
+<code class="sig-name descname">update_controls_from_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed">
+<code class="sig-name descname">window_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="hyperspyui.widgets.contrastwidget._auto_contrast">
+<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">_auto_contrast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget._auto_contrast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="hyperspyui.widgets.contrastwidget._set_auto_contrast">
+<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">_set_auto_contrast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot</span></em>, <em class="sig-param"><span class="n">auto</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget._set_auto_contrast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="hyperspyui.widgets.contrastwidget.tr">
+<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.tr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hyperspyui.widgets.dataviewwidget.html" class="btn btn-neutral float-right" title="hyperspyui.widgets.dataviewwidget module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui.widgets.consolewidget.html" class="btn btn-neutral float-left" title="hyperspyui.widgets.consolewidget module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

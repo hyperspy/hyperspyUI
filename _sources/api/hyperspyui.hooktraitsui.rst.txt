@@ -1,0 +1,8 @@
+hyperspyui.hooktraitsui module
+==============================
+
+.. automodule:: hyperspyui.hooktraitsui
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

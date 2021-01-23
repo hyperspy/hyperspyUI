@@ -1,0 +1,8 @@
+hyperspyui.mainwindow module
+============================
+
+.. automodule:: hyperspyui.mainwindow
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

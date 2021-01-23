@@ -1,0 +1,8 @@
+hyperspyui.advancedaction module
+================================
+
+.. automodule:: hyperspyui.advancedaction
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

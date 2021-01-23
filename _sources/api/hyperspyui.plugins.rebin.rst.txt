@@ -1,0 +1,8 @@
+hyperspyui.plugins.rebin module
+===============================
+
+.. automodule:: hyperspyui.plugins.rebin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.exceptions module
+============================
+
+.. automodule:: hyperspyui.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

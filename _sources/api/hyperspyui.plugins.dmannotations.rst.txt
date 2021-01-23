@@ -1,0 +1,8 @@
+hyperspyui.plugins.dmannotations module
+=======================================
+
+.. automodule:: hyperspyui.plugins.dmannotations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.\_tools.multiselectiontool module
+============================================
+
+.. automodule:: hyperspyui._tools.multiselectiontool
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

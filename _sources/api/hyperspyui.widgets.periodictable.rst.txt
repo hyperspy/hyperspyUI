@@ -1,0 +1,8 @@
+hyperspyui.widgets.periodictable module
+=======================================
+
+.. automodule:: hyperspyui.widgets.periodictable
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

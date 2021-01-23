@@ -1,0 +1,8 @@
+hyperspyui.plugins.cmappicker module
+====================================
+
+.. automodule:: hyperspyui.plugins.cmappicker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.desktop\_integration\_linux module
+=============================================
+
+.. automodule:: hyperspyui.desktop_integration_linux
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

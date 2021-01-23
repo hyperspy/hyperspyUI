@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hyperspyui.smartcolorsvgiconengine module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hyperspyui.threaded module" href="hyperspyui.threaded.html" />
+    <link rel="prev" title="hyperspyui.singleapplication module" href="hyperspyui.singleapplication.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+            
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.__main__.html">hyperspyui.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._elements.html">hyperspyui._elements module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.actionable.html">hyperspyui.actionable module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.advancedaction.html">hyperspyui.advancedaction module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.bindinglist.html">hyperspyui.bindinglist module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.desktop_integration.html">hyperspyui.desktop_integration module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.desktop_integration_linux.html">hyperspyui.desktop_integration_linux module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.desktop_integration_windows.html">hyperspyui.desktop_integration_windows module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.exceptions.html">hyperspyui.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooksignal.html">hyperspyui.hooksignal module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooktraitsui.html">hyperspyui.hooktraitsui module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.log.html">hyperspyui.log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindow.html">hyperspyui.mainwindow module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowbase.html">hyperspyui.mainwindowbase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html">hyperspyui.mainwindowhyperspy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowutillayer.html">hyperspyui.mainwindowutillayer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mdi_mpl_backend.html">hyperspyui.mdi_mpl_backend module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.modelwrapper.html">hyperspyui.modelwrapper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.overrides.html">hyperspyui.overrides module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugincreator.html">hyperspyui.plugincreator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.pluginmanager.html">hyperspyui.pluginmanager module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.recorder.html">hyperspyui.recorder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.settings.html">hyperspyui.settings module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.signalwrapper.html">hyperspyui.signalwrapper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.singleapplication.html">hyperspyui.singleapplication module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.smartcolorsvgiconengine module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.threaded.html">hyperspyui.threaded module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.tools.html">hyperspyui.tools module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.uiprogressbar.html">hyperspyui.uiprogressbar module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.util.html">hyperspyui.util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.version.html">hyperspyui.version module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+      <li>hyperspyui.smartcolorsvgiconengine module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/hyperspyui.smartcolorsvgiconengine.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-hyperspyui.smartcolorsvgiconengine">
+<span id="hyperspyui-smartcolorsvgiconengine-module"></span><h1>hyperspyui.smartcolorsvgiconengine module<a class="headerlink" href="#module-hyperspyui.smartcolorsvgiconengine" title="Permalink to this headline">¶</a></h1>
+<p>Created on Wed Jul 29 18:09:56 2015</p>
+<p>&#64;author: vidarton</p>
+<dl class="py class">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.smartcolorsvgiconengine.</code><code class="sig-name descname">SmartColorSVGIconEngine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_qt_disabled</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">other</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtGui.QIconEngine</span></code></p>
+<p>This class is basically a port to Python from the code for Qt’s
+QSvgIconEnginePlugin. On top of this has been added the ability to exchange
+colors in the icons. It’s also possible in the future to do more advanced
+XML pro-processing. Note: Some of the more esoteric uses of QIcon might
+not be fully tested for yet.</p>
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._loadDataForModeAndState">
+<code class="sig-name descname">_loadDataForModeAndState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">renderer</span></em>, <em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._loadDataForModeAndState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load SVG data to renderer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._make_cache_key">
+<code class="sig-name descname">_make_cache_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._make_cache_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a unique, reproducable key to store/lookup icons in the pixmap
+cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._replace_in_stream">
+<code class="sig-name descname">_replace_in_stream</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">color_key</span><span class="o">=</span><span class="default_value">'default'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._replace_in_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens supplied SVG file, parses the file replacing colors according
+to the dictionary <cite>color_replacements</cite>. Returns a QByteArray of the
+processed content.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._set_replacements_from_palette">
+<code class="sig-name descname">_set_replacements_from_palette</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._set_replacements_from_palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets <cite>_automatic_color_replacements</cite> attribute from application
+palette. Updates <cite>_palette_key</cite> to the cacheKey of the used palette.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.actualSize">
+<code class="sig-name descname">actualSize</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QSize</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.actualSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addFile">
+<code class="sig-name descname">addFile</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">str</em>, <em class="sig-param">QSize</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addPixmap">
+<code class="sig-name descname">addPixmap</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QPixmap</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addPixmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QIconEngine<a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.key">
+<code class="sig-name descname">key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.paint">
+<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QPainter</em>, <em class="sig-param">QRect</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.paint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.pixmap">
+<code class="sig-name descname">pixmap</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QSize</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span> &#x2192; QPixmap<a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.pixmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDataStream</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.serial_gen">
+<code class="sig-name descname">serial_gen</code><em class="property"> = 0</em><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.serial_gen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDataStream</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hyperspyui.threaded.html" class="btn btn-neutral float-right" title="hyperspyui.threaded module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui.singleapplication.html" class="btn btn-neutral float-left" title="hyperspyui.singleapplication module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

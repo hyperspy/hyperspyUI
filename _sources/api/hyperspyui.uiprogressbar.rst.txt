@@ -1,0 +1,8 @@
+hyperspyui.uiprogressbar module
+===============================
+
+.. automodule:: hyperspyui.uiprogressbar
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

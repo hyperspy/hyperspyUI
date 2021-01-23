@@ -1,0 +1,8 @@
+hyperspyui.plugins.alignzlp module
+==================================
+
+.. automodule:: hyperspyui.plugins.alignzlp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

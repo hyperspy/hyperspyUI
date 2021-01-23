@@ -1,0 +1,11 @@
+hyperspyui.plugins.user\_plugins package
+========================================
+
+Module contents
+---------------
+
+.. automodule:: hyperspyui.plugins.user_plugins
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

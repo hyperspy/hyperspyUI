@@ -1,42 +1,46 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Core plugins API &mdash; HyperSpyUI 1.1.2 documentation</title>
+  <title>hyperspyui.plugins package &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="hyperspyui" href="modules.html" />
-    <link rel="prev" title="hyperspyui.widgets package" href="hyperspyui.widgets.html" /> 
+    <link rel="next" title="hyperspyui.plugins.user_plugins package" href="hyperspyui.plugins.user_plugins.html" />
+    <link rel="prev" title="hyperspyui._tools.zoompan module" href="hyperspyui._tools.zoompan.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -63,7 +67,7 @@
             
             
               <div class="version">
-                1.1.2
+                1.1.3
               </div>
             
           
@@ -80,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -102,31 +107,45 @@
 <li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.html">API reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Core plugins API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.align">hyperspyui.plugins.align module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.axesconf">hyperspyui.plugins.axesconf module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.axesorderwidget">hyperspyui.plugins.axesorderwidget module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.basicsignal">hyperspyui.plugins.basicsignal module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.basicspectrum">hyperspyui.plugins.basicspectrum module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.cmappicker">hyperspyui.plugins.cmappicker module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.croptool">hyperspyui.plugins.croptool module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.eelsdb">hyperspyui.plugins.eelsdb module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.fft">hyperspyui.plugins.fft module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.fitting">hyperspyui.plugins.fitting module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.gaussianfilter">hyperspyui.plugins.gaussianfilter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.gitgetter">hyperspyui.plugins.gitgetter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.imagerotation">hyperspyui.plugins.imagerotation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.linemeasure">hyperspyui.plugins.linemeasure module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.mirrorplot">hyperspyui.plugins.mirrorplot module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.moviesaver">hyperspyui.plugins.moviesaver module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.mva">hyperspyui.plugins.mva module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.plugin">hyperspyui.plugins.plugin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.rebin">hyperspyui.plugins.rebin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.recorderwidget">hyperspyui.plugins.recorderwidget module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.segmentation">hyperspyui.plugins.segmentation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.tightlayout">hyperspyui.plugins.tightlayout module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins.virtual_aperture">hyperspyui.plugins.virtual_aperture module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hyperspyui.plugins package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.user_plugins.html">hyperspyui.plugins.user_plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.align.html">hyperspyui.plugins.align module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.alignzlp.html">hyperspyui.plugins.alignzlp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesconf.html">hyperspyui.plugins.axesconf module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesorderwidget.html">hyperspyui.plugins.axesorderwidget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicsignal.html">hyperspyui.plugins.basicsignal module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicspectrum.html">hyperspyui.plugins.basicspectrum module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.cmappicker.html">hyperspyui.plugins.cmappicker module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.croptool.html">hyperspyui.plugins.croptool module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.dataastext.html">hyperspyui.plugins.dataastext module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.dmannotations.html">hyperspyui.plugins.dmannotations module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.eelsdb.html">hyperspyui.plugins.eelsdb module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fft.html">hyperspyui.plugins.fft module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fitting.html">hyperspyui.plugins.fitting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gaussianfilter.html">hyperspyui.plugins.gaussianfilter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gitgetter.html">hyperspyui.plugins.gitgetter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.imagerotation.html">hyperspyui.plugins.imagerotation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.linemeasure.html">hyperspyui.plugins.linemeasure module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.metadataeditor.html">hyperspyui.plugins.metadataeditor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.mirrorplot.html">hyperspyui.plugins.mirrorplot module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.moviesaver.html">hyperspyui.plugins.moviesaver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.mva.html">hyperspyui.plugins.mva module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.plotutils.html">hyperspyui.plugins.plotutils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.plugin.html">hyperspyui.plugins.plugin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.rebin.html">hyperspyui.plugins.rebin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.recorderwidget.html">hyperspyui.plugins.recorderwidget module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.segmentation.html">hyperspyui.plugins.segmentation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.stylesheet.html">hyperspyui.plugins.stylesheet module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.tightlayout.html">hyperspyui.plugins.tightlayout module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.virtual_aperture.html">hyperspyui.plugins.virtual_aperture module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-hyperspyui.plugins">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
@@ -135,6 +154,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -169,18 +189,22 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Core plugins API</li>
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+      <li>hyperspyui.plugins package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/api/hyperspyui.plugins.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -194,1720 +218,59 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="core-plugins-api">
-<h1>Core plugins API<a class="headerlink" href="#core-plugins-api" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-hyperspyui.plugins.align">
-<span id="hyperspyui-plugins-align-module"></span><h2>hyperspyui.plugins.align module<a class="headerlink" href="#module-hyperspyui.plugins.align" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.align.AlignPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.align.</code><code class="sig-name descname">AlignPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.align_1D">
-<code class="sig-name descname">align_1D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.align_1D" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.align_2D">
-<code class="sig-name descname">align_2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.align_2D" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.align_XD">
-<code class="sig-name descname">align_XD</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.align_XD" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.align_horizontal">
-<code class="sig-name descname">align_horizontal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.align_horizontal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.align_vertical">
-<code class="sig-name descname">align_vertical</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.align_vertical" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.AlignPlugin.manual_align">
-<code class="sig-name descname">manual_align</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.manual_align" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.align.AlignPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Align'</em><a class="headerlink" href="#hyperspyui.plugins.align.AlignPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.align.</code><code class="sig-name descname">ManualAlignDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog.cancel">
-<code class="sig-name descname">cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog.cancel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog.close">
-<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog.ok">
-<code class="sig-name descname">ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog.ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Callback when dialog is closed by OK-button.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog.update_x">
-<code class="sig-name descname">update_x</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog.update_x" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.align.ManualAlignDialog.update_y">
-<code class="sig-name descname">update_y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.align.ManualAlignDialog.update_y" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.axesconf">
-<span id="hyperspyui-plugins-axesconf-module"></span><h2>hyperspyui.plugins.axesconf module<a class="headerlink" href="#module-hyperspyui.plugins.axesconf" title="Permalink to this headline">¶</a></h2>
-<p>Created on Wed Jan 07 19:56:18 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.axesconf.AxesConf">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.axesconf.</code><code class="sig-name descname">AxesConf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesconf.AxesConf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<p>Makes a widget that allows the configuration of the signal axes. The widget
-captures and displays the traitsui dialog shown by
-signal.axes_manager.show().</p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesconf.AxesConf.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesconf.AxesConf.create_widgets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the TraitsWidget (inherits QDockWidget), and adds it to
-self.ui.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesconf.AxesConf.make_traits_dialog">
-<code class="sig-name descname">make_traits_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesconf.AxesConf.make_traits_dialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the taitsui dialog. The TraitsWidget captures and displays it.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.axesconf.AxesConf.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Axes Configuration'</em><a class="headerlink" href="#hyperspyui.plugins.axesconf.AxesConf.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesconf.AxesConf.valid_window">
-<code class="sig-name descname">valid_window</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesconf.AxesConf.valid_window" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check whether the window belongs to a signalwrapper.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.axesorderwidget">
-<span id="hyperspyui-plugins-axesorderwidget-module"></span><h2>hyperspyui.plugins.axesorderwidget module<a class="headerlink" href="#module-hyperspyui.plugins.axesorderwidget" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Apr 28 11:00:55 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.axesorderwidget.</code><code class="sig-name descname">AxesListWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QListWidget</span></code></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.decodeMimeData">
-<code class="sig-name descname">decodeMimeData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.decodeMimeData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.dropEvent">
-<code class="sig-name descname">dropEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDropEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.dropEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.inserted">
-<code class="sig-name descname">inserted</code><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.inserted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.last_drop">
-<code class="sig-name descname">last_drop</code><em class="property"> = None</em><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.last_drop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.minimumSizeHint">
-<code class="sig-name descname">minimumSizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.minimumSizeHint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.moved">
-<code class="sig-name descname">moved</code><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.moved" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesListWidget.sizeHint">
-<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesListWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.axesorderwidget.</code><code class="sig-name descname">AxesOrderPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.create_widgets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.flip_axes">
-<code class="sig-name descname">flip_axes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axes</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.flip_axes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Axes order widget'</em><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.rollaxis">
-<code class="sig-name descname">rollaxis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axis</span></em>, <em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderPlugin.rollaxis" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.axesorderwidget.</code><code class="sig-name descname">AxesOrderWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.axesorderwidget.AxesOrderWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.AxesOrderWidget.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.axesorderwidget.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.axesorderwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesorderwidget.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.basicsignal">
-<span id="hyperspyui-plugins-basicsignal-module"></span><h2>hyperspyui.plugins.basicsignal module<a class="headerlink" href="#module-hyperspyui.plugins.basicsignal" title="Permalink to this headline">¶</a></h2>
-<p>Created on Sun Mar 01 15:20:55 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.basicsignal.</code><code class="sig-name descname">BasicSignalPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.add">
-<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.copy">
-<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.copy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.divide">
-<code class="sig-name descname">divide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.divide" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.histogram">
-<code class="sig-name descname">histogram</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.histogram" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.max">
-<code class="sig-name descname">max</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.max" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.mean">
-<code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.mean" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.min">
-<code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.min" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.multiply">
-<code class="sig-name descname">multiply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.multiply" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Basic signal tools'</em><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.split">
-<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.split" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.stack">
-<code class="sig-name descname">stack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.stack" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.statistics">
-<code class="sig-name descname">statistics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.statistics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.std">
-<code class="sig-name descname">std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.std" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.subtract">
-<code class="sig-name descname">subtract</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.subtract" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.sum">
-<code class="sig-name descname">sum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.sum" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.switch">
-<code class="sig-name descname">switch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.switch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicsignal.BasicSignalPlugin.var">
-<code class="sig-name descname">var</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.BasicSignalPlugin.var" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.basicsignal.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.basicsignal.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicsignal.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.basicspectrum">
-<span id="hyperspyui-plugins-basicspectrum-module"></span><h2>hyperspyui.plugins.basicspectrum module<a class="headerlink" href="#module-hyperspyui.plugins.basicspectrum" title="Permalink to this headline">¶</a></h2>
-<p>Created on Sun Mar 01 15:20:55 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.basicspectrum.</code><code class="sig-name descname">BasicSpectrumPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.adjust_component_position">
-<code class="sig-name descname">adjust_component_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.adjust_component_position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add widgets to adjust the position of the components in the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.create_widgets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.estimate_thickness">
-<code class="sig-name descname">estimate_thickness</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.estimate_thickness" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.filter_butterworth">
-<code class="sig-name descname">filter_butterworth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.filter_butterworth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.fourier_ratio">
-<code class="sig-name descname">fourier_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.fourier_ratio" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.hanning_taper">
-<code class="sig-name descname">hanning_taper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.hanning_taper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Basic spectrum tools'</em><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.pick_element">
-<code class="sig-name descname">pick_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.pick_element" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.plot_components">
-<code class="sig-name descname">plot_components</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.plot_components" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot the function of each component together with the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.remove_background">
-<code class="sig-name descname">remove_background</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.remove_background" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.smooth_lowess">
-<code class="sig-name descname">smooth_lowess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.smooth_lowess" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.smooth_savitzky_golay">
-<code class="sig-name descname">smooth_savitzky_golay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.smooth_savitzky_golay" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.smooth_tv">
-<code class="sig-name descname">smooth_tv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin.smooth_tv" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.basicspectrum.</code><code class="sig-name descname">ElementPickerTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.html#hyperspyui._tools.signalfiguretool.SignalFigureTool" title="hyperspyui._tools.signalfiguretool.SignalFigureTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.signalfiguretool.SignalFigureTool</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.get_category">
-<code class="sig-name descname">get_category</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.get_category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.get_icon">
-<code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.get_icon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.get_name">
-<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.get_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.is_selectable">
-<code class="sig-name descname">is_selectable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.is_selectable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.on_mouseup">
-<code class="sig-name descname">on_mouseup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.on_mouseup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.on_pick_line">
-<code class="sig-name descname">on_pick_line</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.on_pick_line" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.basicspectrum.ElementPickerTool.picked">
-<code class="sig-name descname">picked</code><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool.picked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.basicspectrum.Namespace">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.basicspectrum.</code><code class="sig-name descname">Namespace</code><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.Namespace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.basicspectrum.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.basicspectrum.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.cmappicker">
-<span id="hyperspyui-plugins-cmappicker-module"></span><h2>hyperspyui.plugins.cmappicker module<a class="headerlink" href="#module-hyperspyui.plugins.cmappicker" title="Permalink to this headline">¶</a></h2>
-<p>Created on Wed Jan 20 22:32:58 2016</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.cmappicker.CMapDelegate">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">CMapDelegate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">cmap_shift</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QItemDelegate</span></code></p>
-<p>Delegate responsible for drawing a the entries in the colormap combobox.</p>
-<p>In addition to drawing a preview of the colormap, it also allows for
-parent elements to be added (group headings). The colormaps will be
-prepended by a set amount to prevent overlapping with the text.</p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapDelegate.drawFocus">
-<code class="sig-name descname">drawFocus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPainter</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QRect</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.drawFocus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapDelegate.paint">
-<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPainter</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.paint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapDelegate.sizeHint">
-<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.sizeHint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">CMapPickerPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin.change_cmap">
-<code class="sig-name descname">change_cmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmap</span></em>, <em class="sig-param"><span class="n">mpl_axes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.change_cmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.create_widgets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Color map picker'</em><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">CMapPickerWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.disable">
-<code class="sig-name descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.disable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.enable">
-<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.enable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.make_parent_item">
-<em class="property">static </em><code class="sig-name descname">make_parent_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.make_parent_item" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.update_controls_from_fig">
-<code class="sig-name descname">update_controls_from_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.cmappicker.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.croptool">
-<span id="hyperspyui-plugins-croptool-module"></span><h2>hyperspyui.plugins.croptool module<a class="headerlink" href="#module-hyperspyui.plugins.croptool" title="Permalink to this headline">¶</a></h2>
-<p>Created on Sun Dec 07 02:03:23 2014</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.croptool.CropTool">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.croptool.</code><code class="sig-name descname">CropTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">category</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">icon</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropTool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.html#hyperspyui._tools.selectiontool.SelectionTool" title="hyperspyui._tools.selectiontool.SelectionTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.selectiontool.SelectionTool</span></code></a></p>
-<p>Tool to crop signal interactively. Simply click and drag in a figure to
-create an ROI, and then press enter to apply cropping operation, or ESC to
-abort cropping. The cropping can also be aborted simply by selecting a
-different tool.</p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.croptool.CropTool.get_icon">
-<code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropTool.get_icon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.croptool.CropTool.get_name">
-<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropTool.get_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.croptool.CropTool.make_cursor">
-<code class="sig-name descname">make_cursor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropTool.make_cursor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize the cursor for this instance. Is called in constructor.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.croptool.CropToolPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.croptool.</code><code class="sig-name descname">CropToolPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropToolPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.croptool.CropToolPlugin.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropToolPlugin.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.croptool.CropToolPlugin.crop">
-<code class="sig-name descname">crop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">axes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.croptool.CropToolPlugin.crop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.croptool.CropToolPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Crop tool'</em><a class="headerlink" href="#hyperspyui.plugins.croptool.CropToolPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.eelsdb">
-<span id="hyperspyui-plugins-eelsdb-module"></span><h2>hyperspyui.plugins.eelsdb module<a class="headerlink" href="#module-hyperspyui.plugins.eelsdb" title="Permalink to this headline">¶</a></h2>
-<p>Created on Mon May 04 17:30:36 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.eelsdb.</code><code class="sig-name descname">EELSDBPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.default">
-<code class="sig-name descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.download" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.load_blocking">
-<code class="sig-name descname">load_blocking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">view</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.load_blocking" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'EELSDB Plugin'</em><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.fft">
-<span id="hyperspyui-plugins-fft-module"></span><h2>hyperspyui.plugins.fft module<a class="headerlink" href="#module-hyperspyui.plugins.fft" title="Permalink to this headline">¶</a></h2>
-<p>Created on Fri Dec 12 23:43:54 2014</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.fft.</code><code class="sig-name descname">FFT_Plugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.fft">
-<code class="sig-name descname">fft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shift</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">power_spectrum</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">inverse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">on_complete</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.fft" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.get_amplitude_phase">
-<code class="sig-name descname">get_amplitude_phase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.get_amplitude_phase" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.get_real_image">
-<code class="sig-name descname">get_real_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.get_real_image" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.ifft">
-<code class="sig-name descname">ifft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.ifft" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.live_fft">
-<code class="sig-name descname">live_fft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shift</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">power_spectrum</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.live_fft" title="Permalink to this definition">¶</a></dt>
-<dd><p>The live FFT dynamically calculates the FFT as the user navigates.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.fft.FFT_Plugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'FFT'</em><a class="headerlink" href="#hyperspyui.plugins.fft.FFT_Plugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.fft.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.fft.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fft.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.fitting">
-<span id="hyperspyui-plugins-fitting-module"></span><h2>hyperspyui.plugins.fitting module<a class="headerlink" href="#module-hyperspyui.plugins.fitting" title="Permalink to this headline">¶</a></h2>
-<p>Created on Fri Apr 17 00:23:43 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.fitting.FittingPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.fitting.</code><code class="sig-name descname">FittingPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.FittingPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.fitting.FittingPlugin.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.FittingPlugin.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.fitting.FittingPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Fitting plugin'</em><a class="headerlink" href="#hyperspyui.plugins.fitting.FittingPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fitting.FittingPlugin.regression">
-<code class="sig-name descname">regression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">axes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.FittingPlugin.regression" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.fitting.RegressionTool">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.fitting.</code><code class="sig-name descname">RegressionTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.RegressionTool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.html#hyperspyui._tools.selectiontool.SelectionTool" title="hyperspyui._tools.selectiontool.SelectionTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.selectiontool.SelectionTool</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.fitting.RegressionTool.get_icon">
-<code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.RegressionTool.get_icon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fitting.RegressionTool.get_name">
-<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.RegressionTool.get_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.fitting.RegressionTool.on_keyup">
-<code class="sig-name descname">on_keyup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.fitting.RegressionTool.on_keyup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.gaussianfilter">
-<span id="hyperspyui-plugins-gaussianfilter-module"></span><h2>hyperspyui.plugins.gaussianfilter module<a class="headerlink" href="#module-hyperspyui.plugins.gaussianfilter" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.gaussianfilter.</code><code class="sig-name descname">GaussianFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.gaussian">
-<code class="sig-name descname">gaussian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sigma</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">record</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.gaussian" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply a gaussian smoothing filter to an image signal.
-Uses py:func:<cite>skimage.filters.gaussian</cite> for the actual processing.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sigma</strong> (<em>{float}</em>) – Smoothing factor in units of pixels, i.e a value around 1 is
-a slight smoothing.</p></li>
-<li><p><strong>signal</strong> (<em>{Signal | None}</em>) – Signal to operate on. If not, it will use the currently
-selected one</p></li>
-<li><p><strong>out</strong> (<em>{Signal | None}</em>) – Output signal</p></li>
-<li><p><strong>record</strong> (<em>{bool}</em>) – Whether the operation should be recorded or not.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Other keyword arguments are passed to
-py:func:<cite>skimage.filters.gaussian</cite>.</p></li>
+  <div class="section" id="hyperspyui-plugins-package">
+<h1>hyperspyui.plugins package<a class="headerlink" href="#hyperspyui-plugins-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.user_plugins.html">hyperspyui.plugins.user_plugins package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.plugins.user_plugins.html#module-hyperspyui.plugins.user_plugins">Module contents</a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Gaussian Filter'</em><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.on_dialog_accept">
-<code class="sig-name descname">on_dialog_accept</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.on_dialog_accept" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.selection_rules">
-<code class="sig-name descname">selection_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.selection_rules" title="Permalink to this definition">¶</a></dt>
-<dd><p>Callback to determine if filter is valid for the passed window.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilter.show_dialog">
-<code class="sig-name descname">show_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.show_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.gaussianfilter.</code><code class="sig-name descname">GaussianFilterDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">plugin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.close_new">
-<code class="sig-name descname">close_new</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.close_new" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.connect">
-<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.connect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create UI controls.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.disconnect">
-<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.disconnect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.ok">
-<code class="sig-name descname">ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.ok" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.set_preview">
-<code class="sig-name descname">set_preview</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.set_preview" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.undo">
-<code class="sig-name descname">undo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.undo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>update(self, QRect)
-update(self, QRegion)
-update(self, int, int, int, int)</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gaussianfilter.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.gaussianfilter.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+</li>
+</ul>
 </div>
-<div class="section" id="module-hyperspyui.plugins.gitgetter">
-<span id="hyperspyui-plugins-gitgetter-module"></span><h2>hyperspyui.plugins.gitgetter module<a class="headerlink" href="#module-hyperspyui.plugins.gitgetter" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.gitgetter.GitSelector">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">GitSelector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.GitSelector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.GitSelector.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.GitSelector.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.GitSelector.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.GitSelector.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.gitgetter.GitSelector.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Version selector'</em><a class="headerlink" href="#hyperspyui.plugins.gitgetter.GitSelector.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.GitSelector.show_dialog">
-<code class="sig-name descname">show_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.GitSelector.show_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.GitSelector.update_check">
-<code class="sig-name descname">update_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">silent</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.GitSelector.update_check" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks for updates to hyperspy and hyperspyUI.</p>
-<p>If the packages are not source installs, it checks for a new version on
-PyPI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>silent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If not silent (default), a message box will appear if no
-updates are available, with a message to that fact.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.gitgetter.PipOutput">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">PipOutput</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.PipOutput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.PipOutput.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.PipOutput.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.PipOutput.sizeHint">
-<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.plugins.gitgetter.PipOutput.sizeHint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.gitgetter.VersionSelectionDialog">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">VersionSelectionDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.VersionSelectionDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.VersionSelectionDialog.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.VersionSelectionDialog.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.gitgetter.VisualLogStream">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">VisualLogStream</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buf</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.VisualLogStream" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.StringIO</span></code></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.VisualLogStream.isatty">
-<code class="sig-name descname">isatty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.VisualLogStream.isatty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return whether this is an ‘interactive’ stream.</p>
-<p>Return False if it can’t be determined.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.gitgetter.VisualLogStream.write">
-<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.VisualLogStream.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write string to file.</p>
-<p>Returns the number of characters written, which is always equal to
-the length of the string.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.check_git_cmd">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">check_git_cmd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prompt</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.check_git_cmd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if we have git.exe. If not prompt for its location (if <cite>prompt</cite>
-is True).</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.check_git_repo">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">check_git_repo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.check_git_repo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Try to determine if the package “package_name” is installed as a source
-install from a git folder.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.checkout_branch">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">checkout_branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">branch</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.checkout_branch" title="Permalink to this definition">¶</a></dt>
-<dd><p>If <cite>branch</cite> is a string, assume it is archive url. Try to install by pip.
-Otherwise <cite>branch</cite> is assumed by a branch object from the <cite>git</cite> package,
-which will be attempted to be checked out.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.get_branches">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">get_branches</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_name</span></em>, <em class="sig-param"><span class="n">url</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.get_branches" title="Permalink to this definition">¶</a></dt>
-<dd><p>Either get git branches, or fetch branches from github.com</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.get_git_branches">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">get_git_branches</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_name</span></em>, <em class="sig-param"><span class="n">fetch</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.get_git_branches" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get both local and remote branches for the local git repo of
-<cite>package_name</cite>. Ensure that the package has a local repo by calling
-<cite>check_git_repo</cite> first.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.get_github_branches">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">get_github_branches</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">repo_url</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.get_github_branches" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of branches for the github repo at given URL.</p>
-<p>The branches are returned in the form of an ordered dictionary, with branch
-names as keys, and source zip URL as value.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.gitgetter.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.gitgetter.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gitgetter.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
-<div class="section" id="module-hyperspyui.plugins.imagerotation">
-<span id="hyperspyui-plugins-imagerotation-module"></span><h2>hyperspyui.plugins.imagerotation module<a class="headerlink" href="#module-hyperspyui.plugins.imagerotation" title="Permalink to this headline">¶</a></h2>
-<p>Created on Wed Jan 21 14:49:08 2015</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.align.html">hyperspyui.plugins.align module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.alignzlp.html">hyperspyui.plugins.alignzlp module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.axesconf.html">hyperspyui.plugins.axesconf module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.axesorderwidget.html">hyperspyui.plugins.axesorderwidget module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.basicsignal.html">hyperspyui.plugins.basicsignal module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.basicspectrum.html">hyperspyui.plugins.basicspectrum module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.cmappicker.html">hyperspyui.plugins.cmappicker module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.croptool.html">hyperspyui.plugins.croptool module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.dataastext.html">hyperspyui.plugins.dataastext module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.dmannotations.html">hyperspyui.plugins.dmannotations module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.eelsdb.html">hyperspyui.plugins.eelsdb module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.fft.html">hyperspyui.plugins.fft module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.fitting.html">hyperspyui.plugins.fitting module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.gaussianfilter.html">hyperspyui.plugins.gaussianfilter module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.gitgetter.html">hyperspyui.plugins.gitgetter module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.imagerotation.html">hyperspyui.plugins.imagerotation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.linemeasure.html">hyperspyui.plugins.linemeasure module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.metadataeditor.html">hyperspyui.plugins.metadataeditor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.mirrorplot.html">hyperspyui.plugins.mirrorplot module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.moviesaver.html">hyperspyui.plugins.moviesaver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.mva.html">hyperspyui.plugins.mva module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.plotutils.html">hyperspyui.plugins.plotutils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.plugin.html">hyperspyui.plugins.plugin module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.rebin.html">hyperspyui.plugins.rebin module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.recorderwidget.html">hyperspyui.plugins.recorderwidget module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.segmentation.html">hyperspyui.plugins.segmentation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.stylesheet.html">hyperspyui.plugins.stylesheet module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.tightlayout.html">hyperspyui.plugins.tightlayout module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.virtual_aperture.html">hyperspyui.plugins.virtual_aperture module</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-hyperspyui.plugins">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperspyui.plugins" title="Permalink to this headline">¶</a></h2>
+<p>Created on Fri Dec 12 23:57:20 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.imagerotation.</code><code class="sig-name descname">ImageRotationDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">axes</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">plugin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.close_new">
-<code class="sig-name descname">close_new</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.close_new" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.connect">
-<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.connect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.connect_update_plot">
-<code class="sig-name descname">connect_update_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">disconnect</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.connect_update_plot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create UI controls.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.disconnect">
-<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.disconnect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.ok">
-<code class="sig-name descname">ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.ok" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.set_preview">
-<code class="sig-name descname">set_preview</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.set_preview" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotationDialog.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotationDialog.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>update(self, QRect)
-update(self, QRegion)
-update(self, int, int, int, int)</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.imagerotation.</code><code class="sig-name descname">ImageRotation_Plugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Image Rotation'</em><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.on_dialog_accept">
-<code class="sig-name descname">on_dialog_accept</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.on_dialog_accept" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.rotate_signal">
-<code class="sig-name descname">rotate_signal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angle</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reshape</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">record</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.rotate_signal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.selection_rules">
-<code class="sig-name descname">selection_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.selection_rules" title="Permalink to this definition">¶</a></dt>
-<dd><p>Callback to determine if rotation is valid for the passed window.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.imagerotation.ImageRotation_Plugin.show_rotate_dialog">
-<code class="sig-name descname">show_rotate_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.ImageRotation_Plugin.show_rotate_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.imagerotation.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.imagerotation.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.imagerotation.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.linemeasure">
-<span id="hyperspyui-plugins-linemeasure-module"></span><h2>hyperspyui.plugins.linemeasure module<a class="headerlink" href="#module-hyperspyui.plugins.linemeasure" title="Permalink to this headline">¶</a></h2>
-<p>Created on Thu Jul 30 11:35:49 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasure">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.linemeasure.</code><code class="sig-name descname">LineMeasure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasure.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasure.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasure.measure">
-<code class="sig-name descname">measure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">roi</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasure.measure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasure.name">
-<code class="sig-name descname">name</code><em class="property"> = 'LineMeasure'</em><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasure.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasureTool">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.linemeasure.</code><code class="sig-name descname">LineMeasureTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasureTool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.html#hyperspyui._tools.linetool.LineTool" title="hyperspyui._tools.linetool.LineTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.linetool.LineTool</span></code></a></p>
-<p>Tool to crop signal interactively. Simply click and drag in a figure to
-create an ROI, and then press enter to apply cropping operation, or ESC to
-abort cropping. The cropping can also be aborted simply by selecting a
-different tool.</p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasureTool.get_icon">
-<code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasureTool.get_icon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.linemeasure.LineMeasureTool.get_name">
-<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.linemeasure.LineMeasureTool.get_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.mirrorplot">
-<span id="hyperspyui-plugins-mirrorplot-module"></span><h2>hyperspyui.plugins.mirrorplot module<a class="headerlink" href="#module-hyperspyui.plugins.mirrorplot" title="Permalink to this headline">¶</a></h2>
-<p>Created on Sun Mar 01 15:18:30 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.mirrorplot.</code><code class="sig-name descname">MirrorPlotPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.mirror_navi">
-<code class="sig-name descname">mirror_navi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uisignals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shared_nav</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.mirror_navi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Mirror plot'</em><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.share_navi">
-<code class="sig-name descname">share_navi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uisignals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.MirrorPlotPlugin.share_navi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.mirrorplot.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.mirrorplot.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mirrorplot.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.moviesaver">
-<span id="hyperspyui-plugins-moviesaver-module"></span><h2>hyperspyui.plugins.moviesaver module<a class="headerlink" href="#module-hyperspyui.plugins.moviesaver" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.moviesaver.MovieArgsPrompt">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.moviesaver.</code><code class="sig-name descname">MovieArgsPrompt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieArgsPrompt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.moviesaver.MovieArgsPrompt.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieArgsPrompt.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.moviesaver.</code><code class="sig-name descname">MovieSaver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Movie Saver'</em><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.moviesaver.MovieSaver.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wrapper</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fps</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fname</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.MovieSaver.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.moviesaver.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.moviesaver.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.moviesaver.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.mva">
-<span id="hyperspyui-plugins-mva-module"></span><h2>hyperspyui.plugins.mva module<a class="headerlink" href="#module-hyperspyui.plugins.mva" title="Permalink to this headline">¶</a></h2>
-<p>Created on Fri Dec 12 23:44:01 2014</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">MVA_Plugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<p>Implements MVA decomposition utilities.</p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.bss">
-<code class="sig-name descname">bss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs decomposition if neccessary, then plots the scree for the user
-to select the number of components to use for a blind source
-separation. The selection is made by clicking on the scree, which
-closes the scree and creates the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.bss_model">
-<code class="sig-name descname">bss_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs decomposition if neccessary, then plots the scree for the user
-to select the number of components to use for a blind source
-separation model. The selection is made by clicking on the scree, which
-closes the scree and creates the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.clear">
-<code class="sig-name descname">clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears the learning results from the signal.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.coc_values">
-<code class="sig-name descname">coc_values</code><em class="property"> = {'convert': 'Convert', 'copy': 'Copy'}</em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.coc_values" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.do_after_scree">
-<code class="sig-name descname">do_after_scree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.do_after_scree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs decomposition, then plots the scree for the user to select
-the number of components to use for a decomposition model. The
-selection is made by clicking on the scree, which closes the scree
-and creates the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.get_bss_results">
-<code class="sig-name descname">get_bss_results</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.get_bss_results" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'MVA'</em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.pca">
-<code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.pca" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs decomposition, then plots the scree for the user to select
-the number of components to use for a decomposition model. The
-selection is made by clicking on the scree, which closes the scree
-and creates the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results">
-<code class="sig-name descname">plot_decomposition_results</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs decomposition if necessary, then plots the decomposition
-results according to the hyperspy implementation.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.mva.MVA_Plugin.selection_rules">
-<code class="sig-name descname">selection_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.selection_rules" title="Permalink to this definition">¶</a></dt>
-<dd><p>Callback to determine if action is valid for the passed window.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.mva.align_yaxis">
-<code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">align_yaxis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax1</span></em>, <em class="sig-param"><span class="n">v1</span></em>, <em class="sig-param"><span class="n">ax2</span></em>, <em class="sig-param"><span class="n">v2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.align_yaxis" title="Permalink to this definition">¶</a></dt>
-<dd><p>adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.mva.make_advanced_dialog">
-<code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">make_advanced_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">algorithms</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.make_advanced_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.mva.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.plugin">
-<span id="hyperspyui-plugins-plugin-module"></span><h2>hyperspyui.plugins.plugin module<a class="headerlink" href="#module-hyperspyui.plugins.plugin" title="Permalink to this headline">¶</a></h2>
-<p>Created on Fri Dec 12 23:44:26 2014</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.plugin.Plugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.plugin.</code><code class="sig-name descname">Plugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.add_action">
-<code class="sig-name descname">add_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.add_action" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.add_menuitem">
-<code class="sig-name descname">add_menuitem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">category</span></em>, <em class="sig-param"><span class="n">action</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.add_menuitem" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.add_tool">
-<code class="sig-name descname">add_tool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tool</span></em>, <em class="sig-param"><span class="n">selection_callback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.add_tool" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.add_toolbar_button">
-<code class="sig-name descname">add_toolbar_button</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">category</span></em>, <em class="sig-param"><span class="n">action</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.add_toolbar_button" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.add_widget">
-<code class="sig-name descname">add_widget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.add_widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.create_widgets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.plugin.Plugin.name">
-<code class="sig-name descname">name</code><em class="property"> = None</em><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.open_dialog">
-<code class="sig-name descname">open_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dialog</span></em>, <em class="sig-param"><span class="n">modal</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">delete_on_close</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.open_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.record_code">
-<code class="sig-name descname">record_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.record_code" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.plugin.Plugin.unload">
-<code class="sig-name descname">unload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.plugin.Plugin.unload" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.rebin">
-<span id="hyperspyui-plugins-rebin-module"></span><h2>hyperspyui.plugins.rebin module<a class="headerlink" href="#module-hyperspyui.plugins.rebin" title="Permalink to this headline">¶</a></h2>
-<p>Created on Wed Jan 07 23:37:51 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.rebin.RebinDialog">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.rebin.</code><code class="sig-name descname">RebinDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">plugin</span></em>, <em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinDialog.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinDialog.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinDialog.rebin">
-<code class="sig-name descname">rebin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinDialog.rebin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinDialog.validate">
-<code class="sig-name descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinDialog.validate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.rebin.RebinPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.rebin.</code><code class="sig-name descname">RebinPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinPlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinPlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.rebin.RebinPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Rebin'</em><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinPlugin.rebin">
-<code class="sig-name descname">rebin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">factors</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinPlugin.rebin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.rebin.RebinPlugin.rebin_dialog">
-<code class="sig-name descname">rebin_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.RebinPlugin.rebin_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.rebin.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.rebin.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.rebin.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.recorderwidget">
-<span id="hyperspyui-plugins-recorderwidget-module"></span><h2>hyperspyui.plugins.recorderwidget module<a class="headerlink" href="#module-hyperspyui.plugins.recorderwidget" title="Permalink to this headline">¶</a></h2>
-<p>Created on Sun Feb 22 18:46:40 2015</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
-<dl class="py class">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.recorderwidget.</code><code class="sig-name descname">RecorderWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidget.create_controls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidget.disconnect_editor">
-<code class="sig-name descname">disconnect_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">editor</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidget.disconnect_editor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidget.start_recording">
-<code class="sig-name descname">start_recording</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidget.start_recording" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidget.stop_recording">
-<code class="sig-name descname">stop_recording</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">disconnect</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidget.stop_recording" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidget.update_filter">
-<code class="sig-name descname">update_filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidget.update_filter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidgetPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.recorderwidget.</code><code class="sig-name descname">RecorderWidgetPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidgetPlugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidgetPlugin.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidgetPlugin.create_widgets" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.recorderwidget.RecorderWidgetPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Recorder Widget'</em><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.RecorderWidgetPlugin.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="hyperspyui.plugins.recorderwidget.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.recorderwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.recorderwidget.tr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.segmentation">
-<span id="hyperspyui-plugins-segmentation-module"></span><h2>hyperspyui.plugins.segmentation module<a class="headerlink" href="#module-hyperspyui.plugins.segmentation" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.segmentation.Segmentation">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.segmentation.</code><code class="sig-name descname">Segmentation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.segmentation.Segmentation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.segmentation.Segmentation.create_tools">
-<code class="sig-name descname">create_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.segmentation.Segmentation.create_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.segmentation.Segmentation.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Segmentation'</em><a class="headerlink" href="#hyperspyui.plugins.segmentation.Segmentation.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.segmentation.Segmentation.segment">
-<code class="sig-name descname">segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">rois</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.segmentation.Segmentation.segment" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.segmentation.Segmentation.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.segmentation.Segmentation.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.tightlayout">
-<span id="hyperspyui-plugins-tightlayout-module"></span><h2>hyperspyui.plugins.tightlayout module<a class="headerlink" href="#module-hyperspyui.plugins.tightlayout" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.tightlayout.Tightlayout">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.tightlayout.</code><code class="sig-name descname">Tightlayout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.tightlayout.Tightlayout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.tightlayout.Tightlayout.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.tightlayout.Tightlayout.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.tightlayout.Tightlayout.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.tightlayout.Tightlayout.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.tightlayout.Tightlayout.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.tightlayout.Tightlayout.create_toolbars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.tightlayout.Tightlayout.default">
-<code class="sig-name descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.tightlayout.Tightlayout.default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.tightlayout.Tightlayout.name">
-<code class="sig-name descname">name</code><em class="property"> = 'TightLayout'</em><a class="headerlink" href="#hyperspyui.plugins.tightlayout.Tightlayout.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-hyperspyui.plugins.virtual_aperture">
-<span id="hyperspyui-plugins-virtual-aperture-module"></span><h2>hyperspyui.plugins.virtual_aperture module<a class="headerlink" href="#module-hyperspyui.plugins.virtual_aperture" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.virtual_aperture.</code><code class="sig-name descname">VirtualBfDf</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
-<dl class="py method">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.create_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.create_menu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Virtual BF/DF'</em><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_annulus">
-<code class="sig-name descname">virtual_annulus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_annulus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_aperture">
-<code class="sig-name descname">virtual_aperture</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">annulus</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">navigate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_aperture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_navigator">
-<code class="sig-name descname">virtual_navigator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.virtual_aperture.VirtualBfDf.virtual_navigator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </div>
 </div>
 
@@ -1916,29 +279,29 @@ results according to the hyperspy implementation.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="modules.html" class="btn btn-neutral float-right" title="hyperspyui" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="hyperspyui.widgets.html" class="btn btn-neutral float-left" title="hyperspyui.widgets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="hyperspyui.plugins.user_plugins.html" class="btn btn-neutral float-right" title="hyperspyui.plugins.user_plugins package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui._tools.zoompan.html" class="btn btn-neutral float-left" title="hyperspyui._tools.zoompan module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Vidar Tonaas Fauske
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1946,7 +309,6 @@ results according to the hyperspy implementation.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

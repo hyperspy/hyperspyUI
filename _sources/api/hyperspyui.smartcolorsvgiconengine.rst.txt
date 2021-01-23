@@ -1,0 +1,8 @@
+hyperspyui.smartcolorsvgiconengine module
+=========================================
+
+.. automodule:: hyperspyui.smartcolorsvgiconengine
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

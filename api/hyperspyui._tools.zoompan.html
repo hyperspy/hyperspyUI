@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hyperspyui._tools.zoompan module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hyperspyui.plugins package" href="hyperspyui.plugins.html" />
+    <link rel="prev" title="hyperspyui._tools.tool module" href="hyperspyui._tools.tool.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HyperSpyUI
+          
+
+          
+            
+            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../widgets.html">Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide.html">Developer guide</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="hyperspyui.html">hyperspyui package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="hyperspyui._tools.html">hyperspyui._tools package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="hyperspyui._tools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hyperspyui._tools.html#module-hyperspyui._tools">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.html">hyperspyui.widgets package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.html#module-hyperspyui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HyperSpyUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
+        
+          <li><a href="hyperspyui._tools.html">hyperspyui._tools package</a> &raquo;</li>
+        
+      <li>hyperspyui._tools.zoompan module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/hyperspyui._tools.zoompan.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-hyperspyui._tools.zoompan">
+<span id="hyperspyui-tools-zoompan-module"></span><h1>hyperspyui._tools.zoompan module<a class="headerlink" href="#module-hyperspyui._tools.zoompan" title="Permalink to this headline">¶</a></h1>
+<p>Created on Sun Dec 07 02:03:23 2014</p>
+<p>&#64;author: Vidar Tonaas Fauske</p>
+<dl class="py class">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool">
+<em class="property">class </em><code class="sig-prename descclassname">hyperspyui._tools.zoompan.</code><code class="sig-name descname">ZoomPanTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool" title="hyperspyui._tools.figuretool.FigureTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.figuretool.FigureTool</span></code></a></p>
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.connect_windows">
+<code class="sig-name descname">connect_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.connect_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the tool to the windows that are passed. This means that it
+connects to the appropriate MPL events of each window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.disconnect_windows">
+<code class="sig-name descname">disconnect_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.disconnect_windows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.get_category">
+<code class="sig-name descname">get_category</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.get_category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.get_icon">
+<code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.get_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.is_selectable">
+<code class="sig-name descname">is_selectable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.is_selectable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.make_cursor">
+<code class="sig-name descname">make_cursor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.make_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the cursor for this instance. Is called in constructor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.on_mousedown">
+<code class="sig-name descname">on_mousedown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.on_mousedown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.on_mousemove">
+<code class="sig-name descname">on_mousemove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.on_mousemove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.on_mouseup">
+<code class="sig-name descname">on_mouseup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.on_mouseup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui._tools.zoompan.ZoomPanTool.on_scroll">
+<code class="sig-name descname">on_scroll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.zoompan.ZoomPanTool.on_scroll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hyperspyui.plugins.html" class="btn btn-neutral float-right" title="hyperspyui.plugins package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hyperspyui._tools.tool.html" class="btn btn-neutral float-left" title="hyperspyui._tools.tool module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2016, Vidar Tonaas Fauske.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

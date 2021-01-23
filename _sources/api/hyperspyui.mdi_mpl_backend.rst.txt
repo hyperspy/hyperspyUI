@@ -1,0 +1,8 @@
+hyperspyui.mdi\_mpl\_backend module
+===================================
+
+.. automodule:: hyperspyui.mdi_mpl_backend
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

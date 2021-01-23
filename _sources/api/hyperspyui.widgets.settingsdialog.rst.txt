@@ -1,0 +1,8 @@
+hyperspyui.widgets.settingsdialog module
+========================================
+
+.. automodule:: hyperspyui.widgets.settingsdialog
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

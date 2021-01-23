@@ -1,0 +1,8 @@
+hyperspyui.\_tools.hometool module
+==================================
+
+.. automodule:: hyperspyui._tools.hometool
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

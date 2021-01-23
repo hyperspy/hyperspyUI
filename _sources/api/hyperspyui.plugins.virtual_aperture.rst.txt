@@ -1,0 +1,8 @@
+hyperspyui.plugins.virtual\_aperture module
+===========================================
+
+.. automodule:: hyperspyui.plugins.virtual_aperture
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

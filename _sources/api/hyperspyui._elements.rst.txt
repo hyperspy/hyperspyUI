@@ -1,0 +1,8 @@
+hyperspyui.\_elements module
+============================
+
+.. automodule:: hyperspyui._elements
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

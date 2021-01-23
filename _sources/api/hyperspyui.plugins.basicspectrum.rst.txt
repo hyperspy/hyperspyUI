@@ -1,0 +1,8 @@
+hyperspyui.plugins.basicspectrum module
+=======================================
+
+.. automodule:: hyperspyui.plugins.basicspectrum
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

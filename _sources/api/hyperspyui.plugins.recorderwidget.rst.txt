@@ -1,0 +1,8 @@
+hyperspyui.plugins.recorderwidget module
+========================================
+
+.. automodule:: hyperspyui.plugins.recorderwidget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

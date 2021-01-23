@@ -1,0 +1,8 @@
+hyperspyui.\_tools.gaussiantool module
+======================================
+
+.. automodule:: hyperspyui._tools.gaussiantool
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

@@ -1,0 +1,8 @@
+hyperspyui.widgets.pickxsignals module
+======================================
+
+.. automodule:: hyperspyui.widgets.pickxsignals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

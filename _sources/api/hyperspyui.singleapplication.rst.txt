@@ -1,0 +1,8 @@
+hyperspyui.singleapplication module
+===================================
+
+.. automodule:: hyperspyui.singleapplication
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

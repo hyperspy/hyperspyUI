@@ -1,0 +1,8 @@
+hyperspyui.widgets.signallist module
+====================================
+
+.. automodule:: hyperspyui.widgets.signallist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
