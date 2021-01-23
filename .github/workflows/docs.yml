@@ -1,0 +1,35 @@
+name: Documentation
+
+on: [push, pull_request]
+
+jobs:
+  build_doc:
+    name: Build doc
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: 3.8
+
+      - name: Install
+        run: |
+          pip install PyQt5 PyQtWebEngine
+          pip install -e .[build-doc]
+
+      - name: Build doc
+        run: |
+          cd doc && make html
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./doc/build/*
+
+      - uses: peaceiris/actions-gh-pages@v3
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: doc/build/html
