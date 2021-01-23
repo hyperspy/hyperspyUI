@@ -1,16 +1,19 @@
 HyperSpyUI
 ==========
 
-|pypi_version|_ |AppVeyor|_
+|pypi_version|_ |anaconda_cloud|_ |tests|_ |python_version|_
 
-.. |pypi_downloads| image:: http://img.shields.io/pypi/dm/hyperspyui.svg?style=flat
-.. _pypi_downloads: https://pypi.python.org/pypi/hyperspyui
-
-.. |pypi_version| image:: http://img.shields.io/pypi/v/hyperspyui.svg?style=flat
+.. |pypi_version| image:: http://img.shields.io/pypi/v/hyperspyui.svg
 .. _pypi_version: https://pypi.python.org/pypi/hyperspyui
 
-.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/m4rsiqxdj89n7x9i/branch/master?svg=true
-.. _AppVeyor: https://ci.appveyor.com/project/hyperspy/hyperspyui/branch/master
+.. |anaconda_cloud| image:: https://anaconda.org/conda-forge/hyperspyui/badges/version.svg
+.. _anaconda_cloud: https://anaconda.org/conda-forge/hyperspyui
+
+.. |tests| image:: https://github.com/hyperspy/hyperspyUI/workflows/Tests/badge.svg
+.. _tests: https://github.com/hyperspy/hyperspyUI/actions
+
+.. |python_version| image:: https://img.shields.io/pypi/pyversions/hyperspyui.svg?style=flat
+.. _python_version: https://pypi.python.org/pypi/hyperspyui
 
 HyperSpyUI tries to bring a streamlined user interface to the powerful
 multi-dimensional analysis capabilities of HyperSpy_. HyperSpy is an open
@@ -25,6 +28,11 @@ of the dataset.
 While the UI tries to create a simple and intuitive interface to HyperSpy, it
 still retains the raw power of HyperSpy via the UI’s built in IPython console,
 which runs on the same Python kernel as the UI.
+
+Documentation
+=============
+
+For an introduction to HyperSpyUI, see the documentation_.
 
 
 Installation

@@ -4,6 +4,19 @@ What's new
 Current Version
 ===============
 
+v1.1.3
+++++++
+
+This is a maintenance release and the main highlights are:
+
+* Fix issue with qt 5.12 on MacOS Big Sur
+* Run test suite on Github Actions
+* Add Release workflow on Github Actions
+
+For a detailed list of all the changes
+see `the commits in the GITHUB milestones 1.1.3
+<https://github.com/hyperspy/hyperspyUI/milestone/8?closed=1>`_.
+
 v1.1.2
 ++++++
 
