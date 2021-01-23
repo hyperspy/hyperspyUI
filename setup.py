@@ -58,6 +58,11 @@ setup(
             'pytest-cov',
             'pytest-timeout',
         ],
+        'build-doc':[
+            'sphinx>=1.7',
+            'sphinx_rtd_theme',
+            'sphinx-toggleprompt',
+        ],
     },
     package_data={
         'hyperspyui':

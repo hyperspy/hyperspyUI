@@ -23,7 +23,6 @@ from hyperspyui.version import __version__
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
-sys.path.append(os.path.abspath('../sphinxext'))
 
 # -- General configuration ------------------------------------------------
 
@@ -39,8 +38,9 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
-    'ipython_console_highlighting',
+    'sphinx_toggleprompt',
     'sphinx.ext.napoleon',
+    'IPython.sphinxext.ipython_console_highlighting',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,7 +76,7 @@ release = __version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+#=language = None
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:

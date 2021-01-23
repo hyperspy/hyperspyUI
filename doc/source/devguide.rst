@@ -34,7 +34,7 @@ numpy_ is pre-loaded as ``np``, and :py:mod:`hyperspy.api` as ``hs``. The curren
 If we want to inspect the original metadata of the currently selected signal,
 we can then run:
 
-.. sourcecode:: ipython
+.. code-block:: ipython
 
     In [1]: s = ui.get_selected_signal()
 
