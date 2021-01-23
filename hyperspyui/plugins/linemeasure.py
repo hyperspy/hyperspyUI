@@ -25,7 +25,7 @@ import os
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspy.roi import BaseInteractiveROI
-from hyperspyui.tools import LineTool
+from hyperspyui._tools.linetool import LineTool
 
 
 class LineMeasure(Plugin):
