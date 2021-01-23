@@ -305,3 +305,17 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', None),
     'pyqt': ('https://www.riverbankcomputing.com/static/Docs/PyQt5/', None),
     }
+
+
+def run_apidoc(_):
+    from sphinx.ext.apidoc import main
+
+    cur_dir = os.path.normpath(os.path.dirname(__file__))
+    output_path = os.path.join(cur_dir, 'api')
+    modules = os.path.normpath(os.path.join(cur_dir, "../../hyperspyui"))
+    exclude_pattern = "../../hyperspyui/tests"
+    main(['-e', '-f', '-P', '-o', output_path, modules, exclude_pattern])
+
+
+def setup(app):
+    app.connect('builder-inited', run_apidoc)
