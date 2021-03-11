@@ -37,9 +37,9 @@ setup(
     license='GPLv3',
     packages=find_namespace_packages(exclude=[
             'doc', 'bin', 'doc.*', 'hyperspyui.plugins.user_plugins']),
-    install_requires=['hyperspy >= 1.4.1',
-                      'hyperspy-gui-traitsui >= 1.1.1',
-                      'matplotlib >= 1.3',
+    install_requires=['hyperspy >= 1.6.1',
+                      'hyperspy-gui-traitsui >= 1.3.1',
+                      'matplotlib >= 3.0.3',
                       'pyqode.python >= 2.6.0',
                       'pyface >=6.0.0',
                       'autopep8',
