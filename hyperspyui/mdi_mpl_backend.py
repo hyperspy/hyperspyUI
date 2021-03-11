@@ -230,15 +230,22 @@ class FigureManagerMdi(FigureManagerBase):
     """
 
     def __init__(self, canvas, num):
+        self.window = FigureWindow()
         FigureManagerBase.__init__(self, canvas, num)
         self.canvas = canvas
-        self.window = FigureWindow()
         self.window.closing.connect(canvas.close_event)
         self.window.closing.connect(self._widgetclosed)
 
         self.window.setWindowTitle("Figure %d" % num)
-        image = os.path.join(matplotlib.rcParams['datapath'],
-                             'images', 'matplotlib.png')
+        try:
+            datapath = matplotlib.get_data_path()
+        except AttributeError:
+            # get_data_path was added in matplotlib 3.2.1
+            # Remove this try, except block once we drop support for
+            # matplotlib <3.2.1
+            datapath = matplotlib.rcParams['datapath']
+
+        image = os.path.join(datapath, 'images', 'matplotlib.png')
         self.window.setWindowIcon(QtGui.QIcon(image))
 
         # Give the keyboard focus to the figure instead of the
