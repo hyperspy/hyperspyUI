@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui._tools.figuretool module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui._tools.figuretool module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -201,54 +200,54 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui._tools.figuretool.FigureTool">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui._tools.figuretool.</code><code class="sig-name descname">FigureTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui._tools.figuretool.</span></code><code class="sig-name descname"><span class="pre">FigureTool</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool" title="hyperspyui._tools.tool.Tool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.tool.Tool</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool._iter_windows">
-<em class="property">static </em><code class="sig-name descname">_iter_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool._iter_windows" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_iter_windows</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool._iter_windows" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool._wire">
-<code class="sig-name descname">_wire</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">canvas</span></em>, <em class="sig-param"><span class="n">local_key</span></em>, <em class="sig-param"><span class="n">mpl_key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool._wire" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_wire</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mpl_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool._wire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect an MPL event to an instance method, if the method is defined
 on the current instance. The local method is defined by ‘local_key’.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool.connect_windows">
-<code class="sig-name descname">connect_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.connect_windows" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">connect_windows</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.connect_windows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connects the tool to the windows that are passed. This means that it
 connects to the appropriate MPL events of each window.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool.disconnect_windows">
-<code class="sig-name descname">disconnect_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.disconnect_windows" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">disconnect_windows</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.disconnect_windows" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool.get_cursor">
-<code class="sig-name descname">get_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.get_cursor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_cursor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.get_cursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the cursor for the supplied widget. Is applied when a widget is
 connected to the Tool.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool.get_pixel_size">
-<code class="sig-name descname">get_pixel_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.get_pixel_size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_pixel_size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.get_pixel_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the point size in data units</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool.get_window">
-<code class="sig-name descname">get_window</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.get_window" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_window</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.get_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the window for the event</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.figuretool.FigureTool.make_cursor">
-<code class="sig-name descname">make_cursor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.make_cursor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">make_cursor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.figuretool.FigureTool.make_cursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the cursor for this instance. Is called in constructor.</p>
 </dd></dl>
 

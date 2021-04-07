@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.plugins.stylesheet module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.plugins.stylesheet module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -221,12 +220,12 @@
 <span id="hyperspyui-plugins-stylesheet-module"></span><h1>hyperspyui.plugins.stylesheet module<a class="headerlink" href="#module-hyperspyui.plugins.stylesheet" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="hyperspyui.plugins.stylesheet.AutoIndentMode">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">AutoIndentMode</code><a class="headerlink" href="#hyperspyui.plugins.stylesheet.AutoIndentMode" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.stylesheet.</span></code><code class="sig-name descname"><span class="pre">AutoIndentMode</span></code><a class="headerlink" href="#hyperspyui.plugins.stylesheet.AutoIndentMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyqode.core.modes.autoindent.AutoIndentMode</span></code></p>
 <p>Provides automatic stylesheet-specific auto indentation.</p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.AutoIndentMode._get_indent">
-<code class="sig-name descname">_get_indent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cursor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.AutoIndentMode._get_indent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_get_indent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.AutoIndentMode._get_indent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the indentation text (a series of spaces or tabs)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -242,7 +241,7 @@
 
 <dl class="py class">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">StyleDialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin</span></em>, <em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.stylesheet.</span></code><code class="sig-name descname"><span class="pre">StyleDialog</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
 <p>A dialog for editing Qt palette and stylesheet.</p>
 <p>Edits and sets Qt’s application wide palette and stylesheet.
@@ -252,71 +251,71 @@ for documentation of the effects of various settings, and
 the style sheet syntax.</p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog._clear_styles">
-<code class="sig-name descname">_clear_styles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._clear_styles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_clear_styles</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._clear_styles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset style inputs to default values</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog._on_cbo_change">
-<code class="sig-name descname">_on_cbo_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._on_cbo_change" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_cbo_change</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._on_cbo_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback for when palette-mode selection changes</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog._on_color_pick">
-<code class="sig-name descname">_on_color_pick</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._on_color_pick" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_color_pick</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._on_color_pick" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback when a palette color has been picked</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog._setvis_palette_entry">
-<code class="sig-name descname">_setvis_palette_entry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._setvis_palette_entry" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_setvis_palette_entry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog._setvis_palette_entry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show/hide specific palette entries</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.apply">
-<code class="sig-name descname">apply</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.apply" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">apply</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply current palette and stylesheet application wide</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_controls</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build the editor’s controls</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.create_palette_colors">
-<code class="sig-name descname">create_palette_colors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.create_palette_colors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_palette_colors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.create_palette_colors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the controls for editing the palette</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load palette and stylesheet from the plugin’t settings</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.pairs">
-<code class="sig-name descname">pairs</code><em class="property"> = [('Window', 'WindowText'), ('Base', 'Text'), ('Button', 'ButtonText'), ('ToolTipBase', 'ToolTipText'), ('Highlight', 'HighlightedText'), ('Light', 'Midlight'), ('Mid', 'Dark'), ('Link', 'LinkVisited')]</em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.pairs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pairs</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('Window',</span> <span class="pre">'WindowText'),</span> <span class="pre">('Base',</span> <span class="pre">'Text'),</span> <span class="pre">('Button',</span> <span class="pre">'ButtonText'),</span> <span class="pre">('ToolTipBase',</span> <span class="pre">'ToolTipText'),</span> <span class="pre">('Highlight',</span> <span class="pre">'HighlightedText'),</span> <span class="pre">('Light',</span> <span class="pre">'Midlight'),</span> <span class="pre">('Mid',</span> <span class="pre">'Dark'),</span> <span class="pre">('Link',</span> <span class="pre">'LinkVisited')]</span></em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.pairs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.palette_entries">
-<code class="sig-name descname">palette_entries</code><em class="property"> = {'basic': ('Window', 'WindowText'), 'extended': ('Base', 'Text', 'ToolTipBase', 'ToolTipText', 'Button', 'ButtonText'), 'full': ('Highlight', 'HighlightedText', 'BrightText', 'Light', 'Midlight', 'Mid', 'Dark', 'Shadow', 'Link', 'LinkVisited', 'NoRole')}</em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.palette_entries" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">palette_entries</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'basic':</span> <span class="pre">('Window',</span> <span class="pre">'WindowText'),</span> <span class="pre">'extended':</span> <span class="pre">('Base',</span> <span class="pre">'Text',</span> <span class="pre">'ToolTipBase',</span> <span class="pre">'ToolTipText',</span> <span class="pre">'Button',</span> <span class="pre">'ButtonText'),</span> <span class="pre">'full':</span> <span class="pre">('Highlight',</span> <span class="pre">'HighlightedText',</span> <span class="pre">'BrightText',</span> <span class="pre">'Light',</span> <span class="pre">'Midlight',</span> <span class="pre">'Mid',</span> <span class="pre">'Dark',</span> <span class="pre">'Shadow',</span> <span class="pre">'Link',</span> <span class="pre">'LinkVisited',</span> <span class="pre">'NoRole')}</span></em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.palette_entries" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store the palette and stylesheet to the plugin’s settings</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StyleDialog.update_palette_controls">
-<code class="sig-name descname">update_palette_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.update_palette_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_palette_controls</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StyleDialog.update_palette_controls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update palette controls from internal QPalette</p>
 </dd></dl>
 
@@ -324,38 +323,38 @@ the style sheet syntax.</p>
 
 <dl class="py class">
 <dt id="hyperspyui.plugins.stylesheet.StylePlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">StylePlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.stylesheet.</span></code><code class="sig-name descname"><span class="pre">StylePlugin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StylePlugin.apply_styles">
-<code class="sig-name descname">apply_styles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.apply_styles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">apply_styles</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.apply_styles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StylePlugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.create_actions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_actions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.create_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StylePlugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.create_menu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_menu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.create_menu" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.stylesheet.StylePlugin.edit_dialog">
-<code class="sig-name descname">edit_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.edit_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">edit_dialog</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.edit_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.plugins.stylesheet.StylePlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Style'</em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Style'</span></em><a class="headerlink" href="#hyperspyui.plugins.stylesheet.StylePlugin.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.plugins.stylesheet.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.stylesheet.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.stylesheet.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.stylesheet.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

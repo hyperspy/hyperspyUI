@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.plugins.eelsdb module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.plugins.eelsdb module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -217,8 +216,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hyperspyui-plugins-eelsdb-module">
-<h1>hyperspyui.plugins.eelsdb module<a class="headerlink" href="#hyperspyui-plugins-eelsdb-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-hyperspyui.plugins.eelsdb">
+<span id="hyperspyui-plugins-eelsdb-module"></span><h1>hyperspyui.plugins.eelsdb module<a class="headerlink" href="#module-hyperspyui.plugins.eelsdb" title="Permalink to this headline">¶</a></h1>
+<p>Created on Mon May 04 17:30:36 2015</p>
+<p>&#64;author: Vidar Tonaas Fauske</p>
+<dl class="py class">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.eelsdb.</span></code><code class="sig-name descname"><span class="pre">EELSDBPlugin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin._make_request">
+<code class="sig-name descname"><span class="pre">_make_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin._make_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin._on_link">
+<code class="sig-name descname"><span class="pre">_on_link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin._on_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.create_actions">
+<code class="sig-name descname"><span class="pre">create_actions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.create_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.create_menu">
+<code class="sig-name descname"><span class="pre">create_menu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.create_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.default">
+<code class="sig-name descname"><span class="pre">default</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.download">
+<code class="sig-name descname"><span class="pre">download</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.download" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.load_blocking">
+<code class="sig-name descname"><span class="pre">load_blocking</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">view</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.load_blocking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="hyperspyui.plugins.eelsdb.EELSDBPlugin.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'EELSDB</span> <span class="pre">Plugin'</span></em><a class="headerlink" href="#hyperspyui.plugins.eelsdb.EELSDBPlugin.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.hooksignal module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.hooksignal module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -223,11 +222,11 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.hooksignal.HookedSignal">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">HookedSignal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">HookedSignal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.6.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspy.signal.BaseSignal</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.hooksignal.HookedSignal.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the signal at the current coordinates.</p>
 <p>For multidimensional datasets an optional figure,
 the “navigator”, with a cursor to navigate that data is
@@ -291,7 +290,7 @@ the value is always set to <code class="docutils literal notranslate"><span clas
 <li><p><strong>plot_markers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>default True</em>) – Plot markers added using s.add_marker(marker, permanent=True).
 Note, a large number of markers might lead to very slow plotting.</p></li>
 <li><p><strong>navigator_kwds</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Only for image navigator, additional keyword arguments for
-<a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.3.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
+<a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.4.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
 <li><p><strong>norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – The function used to normalize the data prior to plotting.
 Allowable strings are: <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>, <code class="docutils literal notranslate"><span class="pre">'log'</span></code>.
 (default value is <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>).
@@ -303,7 +302,7 @@ corresponding horizontal or vertical axis limits are set to their
 maxima and the axis limits will reset when the data or the
 navigation indices are changed. Default is ‘v’.</p></li>
 <li><p><strong>**kwargs</strong> – Only when plotting an image: additional (optional) keyword
-arguments for <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.3.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
+arguments for <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.4.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -313,17 +312,17 @@ arguments for <a class="reference external" href="https://matplotlib.org/api/_as
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal._on_plotted">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">_on_plotted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal._on_plotted" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">_on_plotted</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal._on_plotted" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal._on_plotting">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">_on_plotting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal._on_plotting" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">_on_plotting</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal._on_plotting" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal.connect_plotted">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">connect_plotted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span></em>, <em class="sig-param"><span class="n">userdata</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.connect_plotted" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">connect_plotted</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.connect_plotted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call to subscribe to Signal plot events. ‘callback’ is called on the event.
 The Signal being plotted is passed as the first argument, then follows the
 arguments passed to plot(). If userdata is not None is is passed as a
@@ -333,7 +332,7 @@ after the plot call is executed.</p>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal.connect_plotting">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">connect_plotting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.connect_plotting" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">connect_plotting</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.connect_plotting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call to subscribe to Signal plot events. ‘callback’ is called on the event.
 The Signal being plotted is passed as the first argument, then follows the
 arguments passed to plot(). Plotting event are called just before the plot
@@ -342,25 +341,25 @@ call is executed.</p>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal.dehook_signal">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">dehook_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.dehook_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">dehook_signal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.dehook_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call this function to remove hooks from Signal</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal.disconnect_plotted">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">disconnect_plotted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.disconnect_plotted" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">disconnect_plotted</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.disconnect_plotted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal.disconnect_plotting">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">disconnect_plotting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.disconnect_plotting" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">disconnect_plotting</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.disconnect_plotting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.hooksignal.hook_signal">
-<code class="sig-prename descclassname">hyperspyui.hooksignal.</code><code class="sig-name descname">hook_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.hook_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></code><code class="sig-name descname"><span class="pre">hook_signal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.hook_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call this function to enable hooks of Signal</p>
 </dd></dl>
 

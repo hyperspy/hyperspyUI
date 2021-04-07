@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.widgets.elementpicker module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.widgets.elementpicker module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -201,18 +200,18 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.elementpicker.</code><code class="sig-name descname">ElementPickerWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.elementpicker.</span></code><code class="sig-name descname"><span class="pre">ElementPickerWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
 <p>Tool window for picking elements of an interactive periodic table.
 Takes a signal in the constructor, and a parent control.</p>
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._get_element_subshells">
-<code class="sig-name descname">_get_element_subshells</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em>, <em class="sig-param"><span class="n">include_pre_edges</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._get_element_subshells" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_get_element_subshells</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_pre_edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._get_element_subshells" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._on_figure_change">
-<code class="sig-name descname">_on_figure_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figure</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_figure_change</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a connected update triggers. If the window is valid, it
 sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
 window is invalid, it clears the widget.</p>
@@ -220,21 +219,21 @@ window is invalid, it clears the widget.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._on_toggle_markers">
-<code class="sig-name descname">_on_toggle_markers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._on_toggle_markers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_toggle_markers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._on_toggle_markers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggles peak markers on the plot, i.e. adds/removes markers for all
 elements added on signal.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._set_elements">
-<code class="sig-name descname">_set_elements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elements</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._set_elements" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_set_elements</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._set_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the table elements to passed parameter. Does not modify elements
 in signal! That is handled by the _toggle_element* functions</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element">
-<code class="sig-name descname">_toggle_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_toggle_element</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes sure the element is toggled correctly for both EDS and EELS.
 Dependent on hyperspy implementation, as there are currently no
 remove_element functions.</p>
@@ -242,79 +241,79 @@ remove_element functions.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eds">
-<code class="sig-name descname">_toggle_element_eds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eds" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_toggle_element_eds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eels">
-<code class="sig-name descname">_toggle_element_eels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_toggle_element_eels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_subshell">
-<code class="sig-name descname">_toggle_subshell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subshell</span></em>, <em class="sig-param"><span class="n">checked</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_subshell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_toggle_subshell</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subshell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checked</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_subshell" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_controls</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create UI controls.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context">
-<code class="sig-name descname">element_context</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em>, <em class="sig-param"><span class="n">point</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">element_context</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled">
-<code class="sig-name descname">element_toggled</code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">element_toggled</span></code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS">
-<code class="sig-name descname">isEDS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">isEDS</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS">
-<code class="sig-name descname">isEELS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">isEELS</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map">
-<code class="sig-name descname">make_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">make_map</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make integrated intensity maps for the defines elements. Currently
 only implemented for EDS signals.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.markers">
-<em class="property">property </em><code class="sig-name descname">markers</code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.markers" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">markers</span></code><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.markers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element">
-<code class="sig-name descname">set_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_element</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the state of element in table and adds/removes in signal if
 necessary</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled">
-<code class="sig-name descname">set_enabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_enabled</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal">
-<code class="sig-name descname">set_signal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_signal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.widgets.elementpicker.tr">
-<code class="sig-prename descclassname">hyperspyui.widgets.elementpicker.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.elementpicker.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.elementpicker.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

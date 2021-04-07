@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.plugins.cmappicker module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.plugins.cmappicker module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -223,7 +222,7 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.plugins.cmappicker.CMapDelegate">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">CMapDelegate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">cmap_shift</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.cmappicker.</span></code><code class="sig-name descname"><span class="pre">CMapDelegate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_shift</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QItemDelegate</span></code></p>
 <p>Delegate responsible for drawing a the entries in the colormap combobox.</p>
 <p>In addition to drawing a preview of the colormap, it also allows for
@@ -231,54 +230,54 @@ parent elements to be added (group headings). The colormaps will be
 prepended by a set amount to prevent overlapping with the text.</p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapDelegate._create_pixmap">
-<em class="property">static </em><code class="sig-name descname">_create_pixmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate._create_pixmap" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_create_pixmap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate._create_pixmap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapDelegate.drawFocus">
-<code class="sig-name descname">drawFocus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPainter</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QRect</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.drawFocus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">drawFocus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QPainter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QRect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.drawFocus" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapDelegate.paint">
-<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPainter</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.paint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">paint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QPainter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.paint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapDelegate.sizeHint">
-<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QStyleOptionViewItem</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.sizeHint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sizeHint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QSize</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapDelegate.sizeHint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">CMapPickerPlugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.cmappicker.</span></code><code class="sig-name descname"><span class="pre">CMapPickerPlugin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin.change_cmap">
-<code class="sig-name descname">change_cmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmap</span></em>, <em class="sig-param"><span class="n">mpl_axes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.change_cmap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">change_cmap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mpl_axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.change_cmap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin.create_widgets">
-<code class="sig-name descname">create_widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.create_widgets" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_widgets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.create_widgets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerPlugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'Color map picker'</em><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Color</span> <span class="pre">map</span> <span class="pre">picker'</span></em><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerPlugin.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">CMapPickerWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.cmappicker.</span></code><code class="sig-name descname"><span class="pre">CMapPickerWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget._on_figure_change">
-<code class="sig-name descname">_on_figure_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figure</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_figure_change</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a connected update triggers. If the window is valid, it
 sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
 window is invalid, it clears the widget.</p>
@@ -286,39 +285,39 @@ window is invalid, it clears the widget.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget._on_select">
-<code class="sig-name descname">_on_select</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmap</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget._on_select" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget._on_select" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_controls</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.disable">
-<code class="sig-name descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.disable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">disable</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.disable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.enable">
-<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.enable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">enable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.enable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.make_parent_item">
-<em class="property">static </em><code class="sig-name descname">make_parent_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.make_parent_item" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">make_parent_item</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.make_parent_item" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.cmappicker.CMapPickerWidget.update_controls_from_fig">
-<code class="sig-name descname">update_controls_from_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_controls_from_fig</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.CMapPickerWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.plugins.cmappicker.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.cmappicker.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.cmappicker.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.cmappicker.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

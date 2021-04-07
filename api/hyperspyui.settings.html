@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.settings module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.settings module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -223,29 +222,29 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.settings.Settings">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.settings.</code><code class="sig-name descname">Settings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.settings.</span></code><code class="sig-name descname"><span class="pre">Settings</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings._get_groups">
-<code class="sig-name descname">_get_groups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings._get_groups" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_get_groups</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings._get_groups" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.clear_defaults">
-<em class="property">static </em><code class="sig-name descname">clear_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.clear_defaults" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">clear_defaults</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.clear_defaults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear all settings in defaults group. Should only be run once during
 application start, as it will undo any defaults that have been set.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.get_enum_hint">
-<code class="sig-name descname">get_enum_hint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.get_enum_hint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_enum_hint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.get_enum_hint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the possible enum hint values if set, otherwise None.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.get_or_prompt">
-<code class="sig-name descname">get_or_prompt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">options</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'Prompt'</span></em>, <em class="sig-param"><span class="n">descr</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.get_or_prompt" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_or_prompt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Prompt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.get_or_prompt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the setting specified by key. If it is not set, prompts the user
 to select one option out of several. The prompt includes a checkbox to
 remember the answer (“Remember this setting”).</p>
@@ -255,31 +254,31 @@ ordered list of option values, and labels.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.read">
-<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">settings</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.read" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.restore_from_defaults">
-<em class="property">static </em><code class="sig-name descname">restore_from_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.restore_from_defaults" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">restore_from_defaults</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.restore_from_defaults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears all settings (except “defaults” group) and restores all settings
 from the defaults group.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.restore_key_default">
-<code class="sig-name descname">restore_key_default</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.restore_key_default" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">restore_key_default</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.restore_key_default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore a given setting to its default value.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.set_default">
-<code class="sig-name descname">set_default</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.set_default" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_default</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.set_default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets default value by writing into defaults group.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.set_enum_hint">
-<code class="sig-name descname">set_enum_hint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.set_enum_hint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_enum_hint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.set_enum_hint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicate possible values for a setting.</p>
 <p>The <cite>options</cite> are not strictly enforced, but can be used to indicate
 valid values to the user. A typical usecase is to allow the use of a
@@ -288,7 +287,7 @@ combobox in a dialog to pick a value.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.settings.Settings.write">
-<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">settings</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.write" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.settings.Settings.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

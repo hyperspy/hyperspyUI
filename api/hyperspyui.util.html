@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.util module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.util module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -223,49 +222,49 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.util.AttributeDict">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">AttributeDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">AttributeDict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <p>A dict subclass that exposes its items as attributes.</p>
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.delattr">
-<em class="property">static </em><code class="sig-name descname">delattr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.delattr" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">delattr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.delattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.from_mapping">
-<em class="property">classmethod </em><code class="sig-name descname">from_mapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.from_mapping" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_mapping</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.from_mapping" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.from_object">
-<em class="property">classmethod </em><code class="sig-name descname">from_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.from_object" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.from_object" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.from_sequence">
-<em class="property">classmethod </em><code class="sig-name descname">from_sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seq</span></em>, <em class="sig-param"><span class="n">names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.from_sequence" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_sequence</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.from_sequence" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.getattr">
-<em class="property">static </em><code class="sig-name descname">getattr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.getattr" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getattr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.getattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.hasattr">
-<em class="property">static </em><code class="sig-name descname">hasattr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.hasattr" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">hasattr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.hasattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.util.AttributeDict.setattr">
-<em class="property">static </em><code class="sig-name descname">setattr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.setattr" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setattr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict.setattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="hyperspyui.util.Namespace">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">Namespace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.Namespace" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">Namespace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.Namespace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#hyperspyui.util.AttributeDict" title="hyperspyui.util.AttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.util.AttributeDict</span></code></a></p>
 <p>A dict subclass that exposes its items as attributes.</p>
 <p>Warning: Namespace instances do not have direct access to the
@@ -274,80 +273,80 @@ dict methods.</p>
 
 <dl class="py class">
 <dt id="hyperspyui.util.SignalTypeFilter">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">SignalTypeFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal_type</span></em>, <em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">space</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.SignalTypeFilter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">SignalTypeFilter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.SignalTypeFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.block_signals">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">block_signals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.block_signals" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">block_signals</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.block_signals" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.create_add_component_actions">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">create_add_component_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">callback</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">postfix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.create_add_component_actions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">create_add_component_actions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postfix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.create_add_component_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.crosshair_cursor">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">crosshair_cursor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.crosshair_cursor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">crosshair_cursor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.crosshair_cursor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.debug_trace">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">debug_trace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.debug_trace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">debug_trace</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.debug_trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a tracepoint in the Python debugger that works with Qt</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.dict_rlu">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">dict_rlu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.dict_rlu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">dict_rlu</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.dict_rlu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reverse dictionary lookup.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.dummy_context_manager">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">dummy_context_manager</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.dummy_context_manager" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">dummy_context_manager</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.dummy_context_manager" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.fig2image_plot">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">fig2image_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fig</span></em>, <em class="sig-param"><span class="n">signals</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.fig2image_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">fig2image_plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.fig2image_plot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.fig2sig">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">fig2sig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fig</span></em>, <em class="sig-param"><span class="n">signals</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.fig2sig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">fig2sig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.fig2sig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.fig2win">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">fig2win</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fig</span></em>, <em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.fig2win" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">fig2win</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.fig2win" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.load_cursor">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">load_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">hotX</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">hotY</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.load_cursor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">load_cursor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.load_cursor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.lstrip">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">lstrip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">prefix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.lstrip" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">lstrip</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.lstrip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.tr">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.win2fig">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">win2fig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.win2fig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">win2fig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.win2fig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.util.win2sig">
-<code class="sig-prename descclassname">hyperspyui.util.</code><code class="sig-name descname">win2sig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plotting_signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.win2sig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></code><code class="sig-name descname"><span class="pre">win2sig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotting_signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.win2sig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.widgets.editorwidget module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.widgets.editorwidget module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -201,18 +200,18 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">ConsoleCodeCalltipsMode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">editor</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.editorwidget.</span></code><code class="sig-name descname"><span class="pre">ConsoleCodeCalltipsMode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">editor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyqode.python.modes.calltips.CalltipsMode</span></code></p>
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode._request_calltip">
-<code class="sig-name descname">_request_calltip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">line</span></em>, <em class="sig-param"><span class="n">col</span></em>, <em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">encoding</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode._request_calltip" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_request_calltip</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode._request_calltip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">ConsoleCodeCheckerMode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">editor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.editorwidget.</span></code><code class="sig-name descname"><span class="pre">ConsoleCodeCheckerMode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">editor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyqode.core.modes.checker.CheckerMode</span></code></p>
 <p>Runs pyflakes on you code while you’re typing</p>
 <p>This checker mode runs pyflakes on the fly to check your python syntax.</p>
@@ -220,7 +219,7 @@
 HyperspyUI’s “globals”.</p>
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._on_work_finished">
-<code class="sig-name descname">_on_work_finished</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._on_work_finished" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_work_finished</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._on_work_finished" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -234,7 +233,7 @@ HyperspyUI’s “globals”.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._request">
-<code class="sig-name descname">_request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._request" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_request</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Requests a checking of the editor content.</p>
 </dd></dl>
 
@@ -242,89 +241,89 @@ HyperspyUI’s “globals”.</p>
 
 <dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">EditorWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.editorwidget.</span></code><code class="sig-name descname"><span class="pre">EditorWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.append_code">
-<code class="sig-name descname">append_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.append_code" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">append_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.append_code" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.code_title">
-<code class="sig-name descname">code_title</code><em class="property"> = 'Code Editor'</em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.code_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">code_title</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Code</span> <span class="pre">Editor'</span></em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.code_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_controls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.is_plugin">
-<em class="property">property </em><code class="sig-name descname">is_plugin</code><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.is_plugin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_plugin</span></code><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.is_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.make_plugin">
-<code class="sig-name descname">make_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.make_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">make_plugin</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.make_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.plugin_title">
-<code class="sig-name descname">plugin_title</code><em class="property"> = 'Plugin Editor'</em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.plugin_title" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">plugin_title</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Plugin</span> <span class="pre">Editor'</span></em><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.plugin_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.register_plugin">
-<code class="sig-name descname">register_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.register_plugin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">register_plugin</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.register_plugin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.EditorWidget.sizeHint">
-<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sizeHint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QSize</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.EditorWidget.sizeHint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">NameCategoryPrompt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.editorwidget.</span></code><code class="sig-name descname"><span class="pre">NameCategoryPrompt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon">
-<code class="sig-name descname">browse_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">browse_icon</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed">
-<code class="sig-name descname">checks_changed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">checks_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_controls</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.widgets.editorwidget.tr">
-<code class="sig-prename descclassname">hyperspyui.widgets.editorwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.editorwidget.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.editorwidget.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

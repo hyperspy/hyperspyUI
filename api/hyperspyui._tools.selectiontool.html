@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui._tools.selectiontool module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui._tools.selectiontool module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -201,7 +200,7 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui._tools.selectiontool.</code><code class="sig-name descname">SelectionTool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">category</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">icon</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui._tools.selectiontool.</span></code><code class="sig-name descname"><span class="pre">SelectionTool</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool" title="hyperspyui._tools.signalfiguretool.SignalFigureTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui._tools.signalfiguretool.SignalFigureTool</span></code></a></p>
 <p>Tool to select a ROI on a  signal interactively. Simply click and drag in a
 figure to create an ROI, and then press enter to indicate that the
@@ -209,88 +208,88 @@ selection is complete, or ESC to cancel. The selection can also be aborted
 by simply selecting a different tool.</p>
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.accept">
-<code class="sig-name descname">accept</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.accept" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">accept</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.accept" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.accepted">
-<code class="sig-name descname">accepted</code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.accepted" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">accepted</span></code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.accepted" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.cancel">
-<code class="sig-name descname">cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.cancel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">cancel</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.cancel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.cancelled">
-<code class="sig-name descname">cancelled</code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.cancelled" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">cancelled</span></code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.cancelled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.disconnect_windows">
-<code class="sig-name descname">disconnect_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">windows</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.disconnect_windows" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">disconnect_windows</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.disconnect_windows" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.get_category">
-<code class="sig-name descname">get_category</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.get_category" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_category</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.get_category" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.get_icon">
-<code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.get_icon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_icon</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.get_icon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.get_name">
-<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.get_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.get_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.in_ax">
-<code class="sig-name descname">in_ax</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.in_ax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">in_ax</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.in_ax" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.is_on">
-<code class="sig-name descname">is_on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.is_on" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_on</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.is_on" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.is_selectable">
-<code class="sig-name descname">is_selectable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.is_selectable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_selectable</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.is_selectable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.make_cursor">
-<code class="sig-name descname">make_cursor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.make_cursor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">make_cursor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.make_cursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the cursor for this instance. Is called in constructor.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.ndim">
-<em class="property">property </em><code class="sig-name descname">ndim</code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.ndim" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ndim</span></code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.ndim" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.on_keyup">
-<code class="sig-name descname">on_keyup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.on_keyup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">on_keyup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.on_keyup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.on_mousedown">
-<code class="sig-name descname">on_mousedown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.on_mousedown" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">on_mousedown</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.on_mousedown" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.updated">
-<code class="sig-name descname">updated</code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.updated" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">updated</span></code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.updated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui._tools.selectiontool.SelectionTool.widget">
-<em class="property">property </em><code class="sig-name descname">widget</code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.widget" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">widget</span></code><a class="headerlink" href="#hyperspyui._tools.selectiontool.SelectionTool.widget" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

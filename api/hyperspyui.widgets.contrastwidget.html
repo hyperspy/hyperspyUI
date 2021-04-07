@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.widgets.contrastwidget module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.widgets.contrastwidget module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -201,21 +200,21 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">ContrastWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.contrastwidget.</span></code><code class="sig-name descname"><span class="pre">ContrastWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
 <dl class="py attribute">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel">
-<code class="sig-name descname">LevelLabel</code><em class="property"> = 'Level'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">LevelLabel</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Level'</span></em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.LevelLabel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel">
-<code class="sig-name descname">WindowLabel</code><em class="property"> = 'Window'</em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">WindowLabel</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Window'</span></em><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.WindowLabel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget._on_figure_change">
-<code class="sig-name descname">_on_figure_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figure</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_figure_change</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a connected update triggers. If the window is valid, it
 sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
 window is invalid, it clears the widget.</p>
@@ -223,74 +222,74 @@ window is invalid, it clears the widget.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget._plot_minmax">
-<code class="sig-name descname">_plot_minmax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget._plot_minmax" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_plot_minmax</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget._plot_minmax" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.auto">
-<code class="sig-name descname">auto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.auto" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">auto</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.auto" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls">
-<code class="sig-name descname">create_controls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_controls</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.create_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.disable">
-<code class="sig-name descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.disable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">disable</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.disable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.enable">
-<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enabled</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.enable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">enable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.enable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed">
-<code class="sig-name descname">level_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">level_changed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.level_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed">
-<code class="sig-name descname">log_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">log_changed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.log_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level">
-<code class="sig-name descname">reset_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reset_level</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_level" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window">
-<code class="sig-name descname">reset_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reset_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.reset_window" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig">
-<code class="sig-name descname">update_controls_from_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_controls_from_fig</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.update_controls_from_fig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed">
-<code class="sig-name descname">window_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">window_changed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.ContrastWidget.window_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.widgets.contrastwidget._auto_contrast">
-<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">_auto_contrast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget._auto_contrast" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.contrastwidget.</span></code><code class="sig-name descname"><span class="pre">_auto_contrast</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget._auto_contrast" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.widgets.contrastwidget._set_auto_contrast">
-<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">_set_auto_contrast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plot</span></em>, <em class="sig-param"><span class="n">auto</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget._set_auto_contrast" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.contrastwidget.</span></code><code class="sig-name descname"><span class="pre">_set_auto_contrast</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget._set_auto_contrast" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.widgets.contrastwidget.tr">
-<code class="sig-prename descclassname">hyperspyui.widgets.contrastwidget.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.contrastwidget.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.contrastwidget.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

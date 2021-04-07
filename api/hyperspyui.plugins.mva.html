@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.plugins.mva module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.plugins.mva module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -223,31 +222,31 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">MVA_Plugin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.mva.</span></code><code class="sig-name descname"><span class="pre">MVA_Plugin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
 <p>Implements MVA decomposition utilities.</p>
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._decompose_threaded">
-<code class="sig-name descname">_decompose_threaded</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">callback</span></em>, <em class="sig-param"><span class="n">label</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">algorithm</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ns</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._decompose_threaded" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_decompose_threaded</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._decompose_threaded" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._do_bss">
-<code class="sig-name descname">_do_bss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em>, <em class="sig-param"><span class="n">n_components</span></em>, <em class="sig-param"><span class="n">algorithm</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._do_bss" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_do_bss</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._do_bss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes sure we have BSS results. If results already are available, it
 will only recalculate if the <cite>force</cite> parameter is True.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._do_decomposition">
-<code class="sig-name descname">_do_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">algorithm</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._do_decomposition" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_do_decomposition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._do_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes sure we have decomposition results. If results already are
 available, it will only recalculate if the <cite>force</cite> parameter is True.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._get_signal">
-<code class="sig-name descname">_get_signal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._get_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_get_signal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._get_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a valid signal. If the signal is none, it ues the currently
 selected one. If the signal type is not float, it either converts it,
 or gets a copy of the correct type, depending on the ‘convert_copy’
@@ -256,22 +255,22 @@ setting.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._perform_model">
-<code class="sig-name descname">_perform_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">n_components</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._perform_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_perform_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._perform_model" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._record">
-<code class="sig-name descname">_record</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">autosig</span></em>, <em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">n_components</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._record" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_record</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">autosig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._record" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin._show_scree">
-<code class="sig-name descname">_show_scree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ns</span></em>, <em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._show_scree" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_show_scree</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin._show_scree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.bss">
-<code class="sig-name descname">bss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bss</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition if neccessary, then plots the scree for the user
 to select the number of components to use for a blind source
 separation. The selection is made by clicking on the scree, which
@@ -280,7 +279,7 @@ closes the scree and creates the model.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.bss_model">
-<code class="sig-name descname">bss_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bss_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.bss_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition if neccessary, then plots the scree for the user
 to select the number of components to use for a blind source
 separation model. The selection is made by clicking on the scree, which
@@ -289,33 +288,33 @@ closes the scree and creates the model.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.clear">
-<code class="sig-name descname">clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.clear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears the learning results from the signal.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.coc_values">
-<code class="sig-name descname">coc_values</code><em class="property"> = {'convert': 'Convert', 'copy': 'Copy'}</em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.coc_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">coc_values</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'convert':</span> <span class="pre">'Convert',</span> <span class="pre">'copy':</span> <span class="pre">'Copy'}</span></em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.coc_values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.create_actions">
-<code class="sig-name descname">create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_actions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_actions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.create_menu">
-<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_menu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_menu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_menu" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.create_toolbars">
-<code class="sig-name descname">create_toolbars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">create_toolbars</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.create_toolbars" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.do_after_scree">
-<code class="sig-name descname">do_after_scree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.do_after_scree" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">do_after_scree</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.do_after_scree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition, then plots the scree for the user to select
 the number of components to use for a decomposition model. The
 selection is made by clicking on the scree, which closes the scree
@@ -324,17 +323,17 @@ and creates the model.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.get_bss_results">
-<code class="sig-name descname">get_bss_results</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.get_bss_results" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_bss_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.get_bss_results" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.name">
-<code class="sig-name descname">name</code><em class="property"> = 'MVA'</em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'MVA'</span></em><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.pca">
-<code class="sig-name descname">pca</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_components</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.pca" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pca</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.pca" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition, then plots the scree for the user to select
 the number of components to use for a decomposition model. The
 selection is made by clicking on the scree, which closes the scree
@@ -343,14 +342,14 @@ and creates the model.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results">
-<code class="sig-name descname">plot_decomposition_results</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">advanced</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">plot_decomposition_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">advanced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.plot_decomposition_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs decomposition if necessary, then plots the decomposition
 results according to the hyperspy implementation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.plugins.mva.MVA_Plugin.selection_rules">
-<code class="sig-name descname">selection_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">action</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.selection_rules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">selection_rules</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.MVA_Plugin.selection_rules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback to determine if action is valid for the passed window.</p>
 </dd></dl>
 
@@ -358,18 +357,18 @@ results according to the hyperspy implementation.</p>
 
 <dl class="py function">
 <dt id="hyperspyui.plugins.mva.align_yaxis">
-<code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">align_yaxis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax1</span></em>, <em class="sig-param"><span class="n">v1</span></em>, <em class="sig-param"><span class="n">ax2</span></em>, <em class="sig-param"><span class="n">v2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.align_yaxis" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.mva.</span></code><code class="sig-name descname"><span class="pre">align_yaxis</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.align_yaxis" title="Permalink to this definition">¶</a></dt>
 <dd><p>adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.plugins.mva.make_advanced_dialog">
-<code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">make_advanced_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ui</span></em>, <em class="sig-param"><span class="n">algorithms</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.make_advanced_dialog" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.mva.</span></code><code class="sig-name descname"><span class="pre">make_advanced_dialog</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.make_advanced_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="hyperspyui.plugins.mva.tr">
-<code class="sig-prename descclassname">hyperspyui.plugins.mva.</code><code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.tr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.mva.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.mva.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

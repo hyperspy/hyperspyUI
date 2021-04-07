@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.widgets.traitswidget module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.widgets.traitswidget module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -201,7 +200,7 @@
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.widgets.traitswidget.</code><code class="sig-name descname">TraitsWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">cb_make_dialog</span></em>, <em class="sig-param"><span class="n">cb_check</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.traitswidget.</span></code><code class="sig-name descname"><span class="pre">TraitsWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb_make_dialog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.FigureWidget</span></code></a></p>
 <p>DockWidget for TraitsUI dialogs. The default behavior is to update the
 dialog when the active subwindow changes or when the widget becomes visible
@@ -209,12 +208,12 @@ dialog when the active subwindow changes or when the widget becomes visible
 the traitsui dialog as it is created (see code in mainwindowbase).</p>
 <dl class="py method">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget._check">
-<code class="sig-name descname">_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget._check" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget._check" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget._on_figure_change">
-<code class="sig-name descname">_on_figure_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_on_figure_change</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget._on_figure_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a connected update triggers. If the window is valid, it
 sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
 window is invalid, it clears the widget.</p>
@@ -222,13 +221,13 @@ window is invalid, it clears the widget.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor">
-<code class="sig-name descname">clear_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clear_editor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Empties out the dockwidget.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor">
-<code class="sig-name descname">set_traits_editor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">traits_dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_traits_editor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traits_dialog</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a traitsui dialog has been captured.</p>
 </dd></dl>
 

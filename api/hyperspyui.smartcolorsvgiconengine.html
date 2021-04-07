@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>hyperspyui.smartcolorsvgiconengine module &mdash; HyperSpyUI 1.1.3 documentation</title>
+  <title>hyperspyui.smartcolorsvgiconengine module &mdash; HyperSpyUI 1.1.4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.1.4
               </div>
             
           
@@ -94,8 +94,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">What’s new</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html#changelog">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../actions.html">Available actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
@@ -223,7 +222,7 @@
 <p>&#64;author: vidarton</p>
 <dl class="py class">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine">
-<em class="property">class </em><code class="sig-prename descclassname">hyperspyui.smartcolorsvgiconengine.</code><code class="sig-name descname">SmartColorSVGIconEngine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_qt_disabled</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">other</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.smartcolorsvgiconengine.</span></code><code class="sig-name descname"><span class="pre">SmartColorSVGIconEngine</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_qt_disabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtGui.QIconEngine</span></code></p>
 <p>This class is basically a port to Python from the code for Qt’s
 QSvgIconEnginePlugin. On top of this has been added the ability to exchange
@@ -232,20 +231,20 @@ XML pro-processing. Note: Some of the more esoteric uses of QIcon might
 not be fully tested for yet.</p>
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._loadDataForModeAndState">
-<code class="sig-name descname">_loadDataForModeAndState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">renderer</span></em>, <em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._loadDataForModeAndState" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_loadDataForModeAndState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">renderer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._loadDataForModeAndState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load SVG data to renderer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._make_cache_key">
-<code class="sig-name descname">_make_cache_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._make_cache_key" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_make_cache_key</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._make_cache_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a unique, reproducable key to store/lookup icons in the pixmap
 cache.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._replace_in_stream">
-<code class="sig-name descname">_replace_in_stream</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">color_key</span><span class="o">=</span><span class="default_value">'default'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._replace_in_stream" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_replace_in_stream</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._replace_in_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Opens supplied SVG file, parses the file replacing colors according
 to the dictionary <cite>color_replacements</cite>. Returns a QByteArray of the
 processed content.</p>
@@ -253,59 +252,59 @@ processed content.</p>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._set_replacements_from_palette">
-<code class="sig-name descname">_set_replacements_from_palette</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._set_replacements_from_palette" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_set_replacements_from_palette</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine._set_replacements_from_palette" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets <cite>_automatic_color_replacements</cite> attribute from application
 palette. Updates <cite>_palette_key</cite> to the cacheKey of the used palette.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.actualSize">
-<code class="sig-name descname">actualSize</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QSize</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.actualSize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">actualSize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">QSize</span></em>, <em class="sig-param"><span class="pre">QIcon.Mode</span></em>, <em class="sig-param"><span class="pre">QIcon.State</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QSize</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.actualSize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addFile">
-<code class="sig-name descname">addFile</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">str</em>, <em class="sig-param">QSize</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addFile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">str</span></em>, <em class="sig-param"><span class="pre">QSize</span></em>, <em class="sig-param"><span class="pre">QIcon.Mode</span></em>, <em class="sig-param"><span class="pre">QIcon.State</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addFile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addPixmap">
-<code class="sig-name descname">addPixmap</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QPixmap</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addPixmap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addPixmap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">QPixmap</span></em>, <em class="sig-param"><span class="pre">QIcon.Mode</span></em>, <em class="sig-param"><span class="pre">QIcon.State</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.addPixmap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.clone">
-<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QIconEngine<a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.clone" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">clone</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QIconEngine</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.clone" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.key">
-<code class="sig-name descname">key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.key" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">key</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.paint">
-<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QPainter</em>, <em class="sig-param">QRect</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.paint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">paint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">QPainter</span></em>, <em class="sig-param"><span class="pre">QRect</span></em>, <em class="sig-param"><span class="pre">QIcon.Mode</span></em>, <em class="sig-param"><span class="pre">QIcon.State</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.paint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.pixmap">
-<code class="sig-name descname">pixmap</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QSize</em>, <em class="sig-param">QIcon.Mode</em>, <em class="sig-param">QIcon.State</em><span class="sig-paren">)</span> &#x2192; QPixmap<a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.pixmap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pixmap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">QSize</span></em>, <em class="sig-param"><span class="pre">QIcon.Mode</span></em>, <em class="sig-param"><span class="pre">QIcon.State</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">QPixmap</span><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.pixmap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.read">
-<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDataStream</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.read" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QDataStream</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.serial_gen">
-<code class="sig-name descname">serial_gen</code><em class="property"> = 0</em><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.serial_gen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">serial_gen</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.serial_gen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.write">
-<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDataStream</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.write" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QDataStream</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a><a class="headerlink" href="#hyperspyui.smartcolorsvgiconengine.SmartColorSVGIconEngine.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
