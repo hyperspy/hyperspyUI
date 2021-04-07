@@ -2,8 +2,8 @@
 Changelog
 *********
 
-v1.2.0.dev0 (UNRELEASED)
-++++++++++++++++++++++++
+v1.1.4
+++++++
 * Fix doc warning add workflow to publish the code on tag.
 * Add support for matplotlib 3.4.0 and increase hyperspy, matplotlib minimum requirement
 
