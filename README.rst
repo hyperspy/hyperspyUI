@@ -41,23 +41,24 @@ There are several ways to install HyperSpyUI. The application itself is rather
 simple to install, but its dependencies can be a bit more tricky. From version 
 1.1, HyperSpyUI supports both PyQt4 and PyQt5.
 
-Bundle Installer on Windows
----------------------------
-If you're on Windows, the quickest way to get set up is to download and install
+HyperSpy Bundle Installer
+-------------------------
+The quickest way to get set up is to download and install
 the `HyperSpy bundle`_ installer, which includes HyperSpyUI.
 
 .. _HyperSpy bundle: https://github.com/hyperspy/hyperspy-bundle
 
-Anaconda/Miniconda on Mac or Linux
-----------------------------------
+Anaconda/Miniconda/Miniforge
+----------------------------
 
-Download and install the `Miniconda`_ or `Anaconda`_ distribution and run the following command 
-in the anaconda prompt: 
+Download and install the `Miniforge`_ (`Miniconda`_ or `Anaconda`_) distribution
+and run the following command in the anaconda prompt: 
 
 .. code-block:: bash
 
     conda install -c conda-forge hyperspyui
 
+.. _Miniforge: https://github.com/conda-forge/miniforge#download
 .. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
 .. _Anaconda: https://www.anaconda.com/products/individual
 
@@ -96,5 +97,5 @@ or
 
 For further information, see the full documentation_.
 
-.. _HyperSpy: http://hyperspy.org
-.. _documentation: http://hyperspy.org/hyperspyUI/
+.. _HyperSpy: https://hyperspy.org
+.. _documentation: https://hyperspy.org/hyperspyUI/
