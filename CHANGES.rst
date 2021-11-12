@@ -7,6 +7,7 @@ v1.2.0.dev0 (UNRELEASED)
 * Fix doc warning add workflow to publish the code on tag (`#198 <https://github.com/hyperspy/hyperspyUI/pull/198>`_)
 * Add support for matplotlib 3.4.0 and increase hyperspy, matplotlib minimum requirement (`#199 <https://github.com/hyperspy/hyperspyUI/pull/199>`_)
 * Fix checking animation writer availability (`#201 <https://github.com/hyperspy/hyperspyUI/pull/201>`_)
+* Drop support for python 3.6 (`#202 <https://github.com/hyperspy/hyperspyUI/pull/202>`_)
 
 v1.1.3
 ++++++
