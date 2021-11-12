@@ -34,7 +34,7 @@ def tr(text):
 # Check that we have a valid writer
 writer = mpl.rcParams['animation.writer']
 writers = animation.writers
-if writer in writers.avail:
+if writers.is_available(writer):
     writer = writers[writer]()
 else:
     import warnings
