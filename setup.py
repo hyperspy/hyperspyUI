@@ -37,6 +37,7 @@ setup(
     license='GPLv3',
     packages=find_namespace_packages(exclude=[
             'doc', 'bin', 'doc.*', 'hyperspyui.plugins.user_plugins']),
+    python_requires='~=3.7',
     install_requires=['hyperspy >= 1.6.1',
                       'hyperspy-gui-traitsui >= 1.3.1',
                       'matplotlib >= 3.0.3',
@@ -82,9 +83,10 @@ setup(
     keywords=[
     ],
     classifiers=[
-        "Programming Language :: Python :: 3.6",
+
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
         "Environment :: MacOS X",
         "Environment :: Win32 (MS Windows)",

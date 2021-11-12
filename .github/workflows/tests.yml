@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        PYTHON_VERSION: [3.6, 3.7]
+        PYTHON_VERSION: [3.7, 3.9]
         include:
           - PYTHON_VERSION: 3.8
             HYPERSPY_DEV: true
