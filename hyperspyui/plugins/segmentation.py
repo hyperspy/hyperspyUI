@@ -74,7 +74,7 @@ class Segmentation(Plugin):
         self.map[hist] = (signal, s_out)
 
     def _make_gray(self, data):
-        data = data.astype(np.float) - np.nanmin(data)
+        data = data.astype(float) - np.nanmin(data)
         data /= np.nanmax(data)
         return (255 * plt_cm.gray(data)).astype('uint8')
 

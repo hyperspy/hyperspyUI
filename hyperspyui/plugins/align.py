@@ -305,7 +305,7 @@ class ManualAlignDialog(ExToolWindow):
                 self._orig_data = signal.data.copy()
         if self.shifts is None:
             self.shifts = np.zeros((signal.axes_manager.navigation_size, 2),
-                                   dtype=np.int)
+                                   dtype=int)
         index = np.ravel_multi_index(signal.axes_manager.indices,
                                      signal.axes_manager.navigation_shape)
         with signal.unfolded(unfold_signal=False):
@@ -324,7 +324,7 @@ class ManualAlignDialog(ExToolWindow):
                 self._orig_data = signal.data.copy()
         if self.shifts is None:
             self.shifts = np.zeros((signal.axes_manager.navigation_size, 2),
-                                   dtype=np.int)
+                                   dtype=int)
         index = np.ravel_multi_index(signal.axes_manager.indices,
                                      signal.axes_manager.navigation_shape)
         with signal.unfolded(unfold_signal=False):

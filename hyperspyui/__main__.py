@@ -52,7 +52,7 @@ from contextlib import contextmanager
 import logging
 logging.basicConfig()
 # Note that this might be overriden during hyperspy import
-LOGLEVEL = logging.DEBUG
+LOGLEVEL = logging.INFO
 logging.getLogger('hyperspy').setLevel(LOGLEVEL)
 logging.getLogger('hyperspyui').setLevel(LOGLEVEL)
 
