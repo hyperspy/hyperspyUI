@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
   build_doc:
+    permissions:
+      contents: write
     name: Build doc
     runs-on: ubuntu-latest
     env:
