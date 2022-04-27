@@ -2,6 +2,9 @@
 Changelog
 *********
 
+v1.2.0 (UNRELEASED)
++++++++++++++++++++
+
 v1.1.5 (2022-04-27)
 +++++++++++++++++++
 * Fix numpy deprecation warning (`#203 <https://github.com/hyperspy/hyperspyUI/pull/203>`_)
