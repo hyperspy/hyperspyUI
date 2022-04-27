@@ -150,16 +150,17 @@ class ExDoubleSlider(QtWidgets.QSlider):
 
     def setRange(self, vmin, vmax):
         if isinstance(vmin, (np.complex64, np.complex128)):
-            vmin = np.abs(vmin)
+            vmin = abs(vmin)
         if isinstance(vmax, (np.complex64, np.complex128)):
-            vmax = np.abs(vmax)
+            vmax = abs(vmax)
         self._range = (vmin, vmax)
         return super(ExDoubleSlider, self).setRange(0, self.steps)
 
     def setValue(self, value):
         vmin, vmax = self._range
+        value = float(value)
         if isinstance(value, (np.complex64, np.complex128)):
-            value = np.abs(value)
+            value = abs(value)
         try:
             v = int((value - vmin) * self.steps / (vmax - vmin))
         except (ZeroDivisionError, OverflowError, ValueError):

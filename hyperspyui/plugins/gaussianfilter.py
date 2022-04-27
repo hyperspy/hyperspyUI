@@ -101,9 +101,9 @@ class GaussianFilter(Plugin):
                             axm._axes.index(axm.signal_axes[1]))
 
         s_out = out or signal.deepcopy()
-        if out is None and not np.issubdtype(s_out.data.dtype, np.float):
-            s_out.change_dtype(np.float)
-        if signal.data.dtype is np.float:
+        if out is None and not np.issubdtype(s_out.data.dtype, float):
+            s_out.change_dtype(float)
+        if np.issubdtype(signal.data.dtype, float):
             vmin, vmax = np.nanmin(signal.data), np.nanmax(signal.data)
         else:
             vmin, vmax = (None, None)

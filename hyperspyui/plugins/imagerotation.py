@@ -129,7 +129,7 @@ class ImageRotation_Plugin(Plugin):
                     bkgr = np.ones_like(signal.data) * cval
                     fa, la = min(axes), max(axes)
                     fd, ld = np.shape(data)[fa], np.shape(data)[la]
-                    crop = np.abs(ld - fd) // 2
+                    crop = abs(ld - fd) // 2
                     if fd < ld:  # Expand first, crop last
                         s = (slice(None),) * fa + (slice(0, fd),) + \
                             (slice(None),) * (la - fa - 1) + \

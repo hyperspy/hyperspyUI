@@ -181,8 +181,8 @@ class GaussianTool(FigureTool):
         if self.span is None:
             self.dragging = False
             invtrans = ax.transData.inverted()
-            minspan = 3 * np.abs(invtrans.transform((1, 0)) -
-                                 invtrans.transform((0, 0)))[0]
+            minspan = 3 * abs(invtrans.transform((1, 0)) -
+                              invtrans.transform((0, 0)))[0]
             self.span = SpanSelector(ax, self.on_spanselect, 'horizontal',
                                      minspan=minspan)
             event2 = self.drag_data[4]

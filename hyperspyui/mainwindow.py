@@ -464,13 +464,13 @@ class MainWindow(MainWindowHyperspy):
             return    # TODO: Show dialog and prompt
         if not clip:
             old_type = signal.data.dtype
-            if np.issubdtype(data_type, np.integer):
+            if np.issubdtype(data_type, int):
                 info = np.iinfo(data_type)
-            elif np.issubdtype(data_type, np.float):
+            elif np.issubdtype(data_type, float):
                 info = np.finfo(data_type)
-            if np.issubdtype(old_type, np.integer):
+            if np.issubdtype(old_type, int):
                 old_info = np.iinfo(old_type)
-            elif np.issubdtype(old_type, np.float):
+            elif np.issubdtype(old_type, float):
                 old_info = np.finfo(old_type)
             if old_info.max > info.max:
                 signal.data *= float(info.max) / np.nanmax(signal.data)
