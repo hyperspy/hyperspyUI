@@ -1,78 +1,39 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>hyperspyui.hooktraitsui module &mdash; HyperSpyUI 1.1.4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>hyperspyui.hooktraitsui module &mdash; HyperSpyUI 1.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/toggleprompt.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="hyperspyui.log module" href="hyperspyui.log.html" />
     <link rel="prev" title="hyperspyui.hooksignal module" href="hyperspyui.hooksignal.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> HyperSpyUI
-          
-
-          
-            
             <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.1.4
+                1.1.5
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +41,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
@@ -149,129 +99,87 @@
 <li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">HyperSpyUI</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-        
       <li>hyperspyui.hooktraitsui module</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/api/hyperspyui.hooktraitsui.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-hyperspyui.hooktraitsui">
-<span id="hyperspyui-hooktraitsui-module"></span><h1>hyperspyui.hooktraitsui module<a class="headerlink" href="#module-hyperspyui.hooktraitsui" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-hyperspyui.hooktraitsui">
+<span id="hyperspyui-hooktraitsui-module"></span><h1>hyperspyui.hooktraitsui module<a class="headerlink" href="#module-hyperspyui.hooktraitsui" title="Permalink to this headline"></a></h1>
 <p>Created on Sun Nov 23 17:10:41 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
-<dt id="hyperspyui.hooktraitsui.HookedDialog">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">HookedDialog</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.HookedDialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">HookedDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">traitsui.qt4.ui_base._StickyDialog</span></code></p>
 <dl class="py method">
-<dt id="hyperspyui.hooktraitsui.HookedDialog.closeEvent">
-<code class="sig-name descname"><span class="pre">closeEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.HookedDialog.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog.closeEvent" title="Permalink to this definition"></a></dt>
 <dd><p>Reimplemented to check when the clicks the window close button.
 (Note that QDialog doesn’t get a close event when the dialog is closed
 in any other way.)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.hooktraitsui.HookedDialog.deleteLater">
-<code class="sig-name descname"><span class="pre">deleteLater</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog.deleteLater" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.HookedDialog.deleteLater">
+<span class="sig-name descname"><span class="pre">deleteLater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog.deleteLater" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui._cb">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">_cb</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cbs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._cb" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui._cb">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">_cb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cbs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._cb" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui._on_closed">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">_on_closed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_closed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui._on_closed">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">_on_closed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_closed" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui._on_closing">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">_on_closing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_closing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui._on_closing">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">_on_closing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_closing" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui._on_created">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">_on_created</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_created" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui._on_created">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">_on_created</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_created" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui._on_creating">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">_on_creating</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_creating" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui._on_creating">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">_on_creating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_creating" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui._on_destroyed">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">_on_destroyed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_destroyed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui._on_destroyed">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">_on_destroyed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui._on_destroyed" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.connect_closed">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">connect_closed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_closed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.connect_closed">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">connect_closed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_closed" title="Permalink to this definition"></a></dt>
 <dd><p>Call to subscribe to traitsui dialog closing events. ‘callback’ is called
 on the event, with the ‘userdata’ as it’s first parameter if it is not
 None; otherwise this parameter is not included in the parameter list.
@@ -282,8 +190,8 @@ event)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.connect_closing">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">connect_closing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_closing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.connect_closing">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">connect_closing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_closing" title="Permalink to this definition"></a></dt>
 <dd><p>Call to subscribe to traitsui dialog closing events. ‘callback’ is called
 on the event, with the ‘userdata’ as it’s first parameter if it is not
 None; otherwise this parameter is not included in the parameter list.
@@ -293,8 +201,8 @@ fired if the dialog is deleted before it is closed. (See destroyed event)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.connect_created">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">connect_created</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_created" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.connect_created">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">connect_created</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_created" title="Permalink to this definition"></a></dt>
 <dd><p>Call to subscribe to traitsui dialog created events. ‘callback’ is called
 on the event, with the ‘userdata’ as it’s first parameter if it is not
 None; otherwise this parameter is not included in the parameter list.
@@ -304,8 +212,8 @@ just after the dialog is actually created.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.connect_creating">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">connect_creating</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_creating" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.connect_creating">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">connect_creating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_creating" title="Permalink to this definition"></a></dt>
 <dd><p>Call to subscribe to traitsui dialog creating events. ‘callback’ is called
 on the event, with the ‘userdata’ as it’s first parameter if it is not
 None; otherwise this parameter is not included in the parameter list.
@@ -315,8 +223,8 @@ just before the dialog is actually created.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.connect_destroyed">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">connect_destroyed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_destroyed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.connect_destroyed">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">connect_destroyed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.connect_destroyed" title="Permalink to this definition"></a></dt>
 <dd><p>Call to subscribe to traitsui dialog destroyed events. ‘callback’ is called
 on  the event, with the ‘userdata’ as it’s first parameter if it is not
 None; otherwise this parameter is not included in the parameter list.
@@ -324,95 +232,78 @@ The only other parameter is the dialog reference.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.dehook_traitsui">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">dehook_traitsui</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.dehook_traitsui" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.dehook_traitsui">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">dehook_traitsui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.dehook_traitsui" title="Permalink to this definition"></a></dt>
 <dd><p>Call this function to remove hooks from traitsui</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.disconnect_closed">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">disconnect_closed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_closed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.disconnect_closed">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">disconnect_closed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_closed" title="Permalink to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.disconnect_closing">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">disconnect_closing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_closing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.disconnect_closing">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">disconnect_closing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_closing" title="Permalink to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.disconnect_created">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">disconnect_created</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_created" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.disconnect_created">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">disconnect_created</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_created" title="Permalink to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.disconnect_creating">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">disconnect_creating</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_creating" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.disconnect_creating">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">disconnect_creating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_creating" title="Permalink to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.disconnect_destroyed">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">disconnect_destroyed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_destroyed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.disconnect_destroyed">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">disconnect_destroyed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.disconnect_destroyed" title="Permalink to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.hooktraitsui.hook_traitsui">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></code><code class="sig-name descname"><span class="pre">hook_traitsui</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.hook_traitsui" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.hooktraitsui.hook_traitsui">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">hook_traitsui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.hook_traitsui" title="Permalink to this definition"></a></dt>
 <dd><p>Call this function to enable hooking of traitsui events</p>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="hyperspyui.log.html" class="btn btn-neutral float-right" title="hyperspyui.log module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="hyperspyui.hooksignal.html" class="btn btn-neutral float-left" title="hyperspyui.hooksignal module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hyperspyui.log.html" class="btn btn-neutral float-right" title="hyperspyui.log module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2016, Vidar Tonaas Fauske.
-
-    </p>
+    <p>&#169; Copyright 2016, Vidar Tonaas Fauske.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

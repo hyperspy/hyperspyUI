@@ -1,78 +1,39 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>hyperspyui.modelwrapper module &mdash; HyperSpyUI 1.1.4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>hyperspyui.modelwrapper module &mdash; HyperSpyUI 1.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/toggleprompt.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="hyperspyui.overrides module" href="hyperspyui.overrides.html" />
     <link rel="prev" title="hyperspyui.mdi_mpl_backend module" href="hyperspyui.mdi_mpl_backend.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> HyperSpyUI
-          
-
-          
-            
             <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.1.4
+                1.1.5
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +41,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
@@ -149,228 +99,169 @@
 <li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">HyperSpyUI</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-        
       <li>hyperspyui.modelwrapper module</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/api/hyperspyui.modelwrapper.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-hyperspyui.modelwrapper">
-<span id="hyperspyui-modelwrapper-module"></span><h1>hyperspyui.modelwrapper module<a class="headerlink" href="#module-hyperspyui.modelwrapper" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-hyperspyui.modelwrapper">
+<span id="hyperspyui-modelwrapper-module"></span><h1>hyperspyui.modelwrapper module<a class="headerlink" href="#module-hyperspyui.modelwrapper" title="Permalink to this headline"></a></h1>
 <p>Created on Tue Nov 04 16:25:54 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
-<dt id="hyperspyui.modelwrapper.ModelWrapper">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.modelwrapper.</span></code><code class="sig-name descname"><span class="pre">ModelWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_wrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.modelwrapper.</span></span><span class="sig-name descname"><span class="pre">ModelWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_wrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.actionable.html#hyperspyui.actionable.Actionable" title="hyperspyui.actionable.Actionable"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.actionable.Actionable</span></code></a></p>
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper._args_for_record">
-<code class="sig-name descname"><span class="pre">_args_for_record</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper._args_for_record" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper._args_for_record">
+<span class="sig-name descname"><span class="pre">_args_for_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper._args_for_record" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.add_component">
-<code class="sig-name descname"><span class="pre">add_component</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.add_component" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.add_component">
+<span class="sig-name descname"><span class="pre">add_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.add_component" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.added">
-<code class="sig-name descname"><span class="pre">added</span></code><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.added" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.added">
+<span class="sig-name descname"><span class="pre">added</span></span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.added" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.component_added">
-<code class="sig-name descname"><span class="pre">component_added</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.component_added" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.component_added">
+<span class="sig-name descname"><span class="pre">component_added</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.component_added" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.component_removed">
-<code class="sig-name descname"><span class="pre">component_removed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.component_removed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.component_removed">
+<span class="sig-name descname"><span class="pre">component_removed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.component_removed" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.fit">
-<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.fit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.fit" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.fit_component">
-<code class="sig-name descname"><span class="pre">fit_component</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.fit_component" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.fit_component">
+<span class="sig-name descname"><span class="pre">fit_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.fit_component" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.multifit">
-<code class="sig-name descname"><span class="pre">multifit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.multifit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.multifit">
+<span class="sig-name descname"><span class="pre">multifit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.multifit" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.plot">
-<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.plot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.plot" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.record_code">
-<code class="sig-name descname"><span class="pre">record_code</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.record_code" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.record_code">
+<span class="sig-name descname"><span class="pre">record_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.record_code" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.remove_component">
-<code class="sig-name descname"><span class="pre">remove_component</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.remove_component" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.remove_component">
+<span class="sig-name descname"><span class="pre">remove_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.remove_component" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.removed">
-<code class="sig-name descname"><span class="pre">removed</span></code><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.removed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.removed">
+<span class="sig-name descname"><span class="pre">removed</span></span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.removed" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.set_lowloss">
-<code class="sig-name descname"><span class="pre">set_lowloss</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.set_lowloss" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.set_lowloss">
+<span class="sig-name descname"><span class="pre">set_lowloss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.set_lowloss" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.set_signal_range">
-<code class="sig-name descname"><span class="pre">set_signal_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.set_signal_range" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.set_signal_range">
+<span class="sig-name descname"><span class="pre">set_signal_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.set_signal_range" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.smartfit">
-<code class="sig-name descname"><span class="pre">smartfit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.smartfit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.smartfit">
+<span class="sig-name descname"><span class="pre">smartfit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.smartfit" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.toggle_fine_structure">
-<code class="sig-name descname"><span class="pre">toggle_fine_structure</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.toggle_fine_structure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.toggle_fine_structure">
+<span class="sig-name descname"><span class="pre">toggle_fine_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.toggle_fine_structure" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.update_components">
-<code class="sig-name descname"><span class="pre">update_components</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.update_components" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.update_components">
+<span class="sig-name descname"><span class="pre">update_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.update_components" title="Permalink to this definition"></a></dt>
 <dd><p>Updates internal compoenent list to match model’s list (called e.g.
 after console execute and in constructor)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.modelwrapper.ModelWrapper.update_plot">
-<code class="sig-name descname"><span class="pre">update_plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.update_plot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.ModelWrapper.update_plot">
+<span class="sig-name descname"><span class="pre">update_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.ModelWrapper.update_plot" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt id="hyperspyui.modelwrapper.tr">
-<code class="sig-prename descclassname"><span class="pre">hyperspyui.modelwrapper.</span></code><code class="sig-name descname"><span class="pre">tr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.tr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.modelwrapper.tr">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.modelwrapper.</span></span><span class="sig-name descname"><span class="pre">tr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.modelwrapper.tr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="hyperspyui.overrides.html" class="btn btn-neutral float-right" title="hyperspyui.overrides module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="hyperspyui.mdi_mpl_backend.html" class="btn btn-neutral float-left" title="hyperspyui.mdi_mpl_backend module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hyperspyui.overrides.html" class="btn btn-neutral float-right" title="hyperspyui.overrides module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2016, Vidar Tonaas Fauske.
-
-    </p>
+    <p>&#169; Copyright 2016, Vidar Tonaas Fauske.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

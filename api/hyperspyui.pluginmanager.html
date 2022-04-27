@@ -1,78 +1,39 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>hyperspyui.pluginmanager module &mdash; HyperSpyUI 1.1.4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>hyperspyui.pluginmanager module &mdash; HyperSpyUI 1.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/toggleprompt.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="hyperspyui.recorder module" href="hyperspyui.recorder.html" />
     <link rel="prev" title="hyperspyui.plugincreator module" href="hyperspyui.plugincreator.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> HyperSpyUI
-          
-
-          
-            
             <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.1.4
+                1.1.5
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +41,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../what_is_new.html">Changelog</a></li>
@@ -149,198 +99,156 @@
 <li class="toctree-l1"><a class="reference internal" href="modules.html">hyperspyui</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">HyperSpyUI</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-        
       <li>hyperspyui.pluginmanager module</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/api/hyperspyui.pluginmanager.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-hyperspyui.pluginmanager">
-<span id="hyperspyui-pluginmanager-module"></span><h1>hyperspyui.pluginmanager module<a class="headerlink" href="#module-hyperspyui.pluginmanager" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-hyperspyui.pluginmanager">
+<span id="hyperspyui-pluginmanager-module"></span><h1>hyperspyui.pluginmanager module<a class="headerlink" href="#module-hyperspyui.pluginmanager" title="Permalink to this headline"></a></h1>
 <p>Created on Sat Dec 13 00:41:15 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
-<dt id="hyperspyui.pluginmanager.PluginManager">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.pluginmanager.</span></code><code class="sig-name descname"><span class="pre">PluginManager</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.pluginmanager.</span></span><span class="sig-name descname"><span class="pre">PluginManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager._import_plugin_from_path">
-<code class="sig-name descname"><span class="pre">_import_plugin_from_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager._import_plugin_from_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager._import_plugin_from_path">
+<span class="sig-name descname"><span class="pre">_import_plugin_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager._import_plugin_from_path" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager._inheritors">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_inheritors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager._inheritors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager._inheritors">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_inheritors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager._inheritors" title="Permalink to this definition"></a></dt>
 <dd><p>Return all defined classes that inherit from ‘klass’.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager._load_if_enabled">
-<code class="sig-name descname"><span class="pre">_load_if_enabled</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager._load_if_enabled" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager._load_if_enabled">
+<span class="sig-name descname"><span class="pre">_load_if_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager._load_if_enabled" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.create_actions">
-<code class="sig-name descname"><span class="pre">create_actions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_actions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.create_actions">
+<span class="sig-name descname"><span class="pre">create_actions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_actions" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.create_menu">
-<code class="sig-name descname"><span class="pre">create_menu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_menu" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.create_menu">
+<span class="sig-name descname"><span class="pre">create_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_menu" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.create_toolbars">
-<code class="sig-name descname"><span class="pre">create_toolbars</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_toolbars" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.create_toolbars">
+<span class="sig-name descname"><span class="pre">create_toolbars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_toolbars" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.create_tools">
-<code class="sig-name descname"><span class="pre">create_tools</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_tools" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.create_tools">
+<span class="sig-name descname"><span class="pre">create_tools</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_tools" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.create_widgets">
-<code class="sig-name descname"><span class="pre">create_widgets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_widgets" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.create_widgets">
+<span class="sig-name descname"><span class="pre">create_widgets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.create_widgets" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.disable_plugin">
-<code class="sig-name descname"><span class="pre">disable_plugin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.disable_plugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.disable_plugin">
+<span class="sig-name descname"><span class="pre">disable_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.disable_plugin" title="Permalink to this definition"></a></dt>
 <dd><p>Disable plugin functionality. Also unloads plugin.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.discover">
-<code class="sig-name descname"><span class="pre">discover</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.discover" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.discover">
+<span class="sig-name descname"><span class="pre">discover</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.discover" title="Permalink to this definition"></a></dt>
 <dd><p>Auto-discover all plugins defined in plugin directory.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.enable_plugin">
-<code class="sig-name descname"><span class="pre">enable_plugin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.enable_plugin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.enable_plugin">
+<span class="sig-name descname"><span class="pre">enable_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.enable_plugin" title="Permalink to this definition"></a></dt>
 <dd><p>Enable/disable plugin functionality. Also loads/unloads plugin. If
 enabling and the plugin is already loaded, this will reload the plugin.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.enabled">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">enabled</span></code><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.enabled" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enabled</span></span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.enabled" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a read-only dictionary showing the enabled/disabled state
 of all plugins.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.init_plugins">
-<code class="sig-name descname"><span class="pre">init_plugins</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.init_plugins" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.init_plugins">
+<span class="sig-name descname"><span class="pre">init_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.init_plugins" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.load">
-<code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.load" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.load" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.load_from_file">
-<code class="sig-name descname"><span class="pre">load_from_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.load_from_file" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.load_from_file">
+<span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.load_from_file" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.reload">
-<code class="sig-name descname"><span class="pre">reload</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.reload" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.reload">
+<span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.reload" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.unload">
-<code class="sig-name descname"><span class="pre">unload</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.unload" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.unload">
+<span class="sig-name descname"><span class="pre">unload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.unload" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.PluginManager.warn">
-<code class="sig-name descname"><span class="pre">warn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">f_name</span></em>, <em class="sig-param"><span class="pre">p_name</span></em>, <em class="sig-param"><span class="pre">category=&lt;class</span> <span class="pre">'RuntimeWarning'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.warn" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.PluginManager.warn">
+<span class="sig-name descname"><span class="pre">warn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category=&lt;class</span> <span class="pre">'RuntimeWarning'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.pluginmanager.PluginManager.warn" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="hyperspyui.pluginmanager.ReadOnlyDict">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">hyperspyui.pluginmanager.</span></code><code class="sig-name descname"><span class="pre">ReadOnlyDict</span></code><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.ReadOnlyDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.pluginmanager.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyDict</span></span><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <dl class="py attribute">
-<dt id="hyperspyui.pluginmanager.ReadOnlyDict._readonly">
-<code class="sig-name descname"><span class="pre">_readonly</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict._readonly" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.ReadOnlyDict._readonly">
+<span class="sig-name descname"><span class="pre">_readonly</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict._readonly" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.ReadOnlyDict.pop">
-<code class="sig-name descname"><span class="pre">pop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">k</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">d</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">v,</span> <span class="pre">remove</span> <span class="pre">specified</span> <span class="pre">key</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">the</span> <span class="pre">corresponding</span> <span class="pre">value.</span><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict.pop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.ReadOnlyDict.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">v,</span> <span class="pre">remove</span> <span class="pre">specified</span> <span class="pre">key</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">the</span> <span class="pre">corresponding</span> <span class="pre">value.</span></span></span><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict.pop" title="Permalink to this definition"></a></dt>
 <dd><p>If key is not found, d is returned if given, otherwise KeyError is raised</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="hyperspyui.pluginmanager.ReadOnlyDict.update">
-<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">E</span></em>, <span class="optional">]</span><em class="sig-param"><span class="pre">**F</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None.</span>&#160; <span class="pre">Update</span> <span class="pre">D</span> <span class="pre">from</span> <span class="pre">dict/iterable</span> <span class="pre">E</span> <span class="pre">and</span> <span class="pre">F.</span><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="hyperspyui.pluginmanager.ReadOnlyDict.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <span class="optional">]</span><em class="sig-param"><span class="n"><span class="pre">**F</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None.</span>&#160; <span class="pre">Update</span> <span class="pre">D</span> <span class="pre">from</span> <span class="pre">dict/iterable</span> <span class="pre">E</span> <span class="pre">and</span> <span class="pre">F.</span></span></span><a class="headerlink" href="#hyperspyui.pluginmanager.ReadOnlyDict.update" title="Permalink to this definition"></a></dt>
 <dd><p>If E is present and has a .keys() method, then does:  for k in E: D[k] = E[k]
 If E is present and lacks a .keys() method, then does:  for k, v in E: D[k] = v
 In either case, this is followed by: for k in F:  D[k] = F[k]</p>
@@ -348,54 +256,37 @@ In either case, this is followed by: for k in F:  D[k] = F[k]</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="hyperspyui.recorder.html" class="btn btn-neutral float-right" title="hyperspyui.recorder module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="hyperspyui.plugincreator.html" class="btn btn-neutral float-left" title="hyperspyui.plugincreator module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hyperspyui.recorder.html" class="btn btn-neutral float-right" title="hyperspyui.recorder module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2016, Vidar Tonaas Fauske.
-
-    </p>
+    <p>&#169; Copyright 2016, Vidar Tonaas Fauske.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

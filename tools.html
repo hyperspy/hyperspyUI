@@ -1,78 +1,39 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Tools &mdash; HyperSpyUI 1.1.4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Tools &mdash; HyperSpyUI 1.1.5 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/toggleprompt.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Widgets" href="widgets.html" />
     <link rel="prev" title="Available actions" href="actions.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> HyperSpyUI
-          
-
-          
-            
             <img src="_static/header_logo.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                1.1.4
+                1.1.5
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +41,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what_is_new.html">Changelog</a></li>
@@ -135,108 +85,67 @@
 <li class="toctree-l1"><a class="reference internal" href="api/modules.html">hyperspyui</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">HyperSpyUI</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Tools</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/tools.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="tools">
-<span id="tools-section"></span><h1>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="tools">
+<span id="tools-section"></span><h1>Tools<a class="headerlink" href="#tools" title="Permalink to this headline"></a></h1>
 <p>Tools are different from actions, in that they listen for mouse or keyboard
 input on the figures. For example a click-and-drag manouver to specify a
 region of interest (ROI). Most tools need to be selected to work, as they
 need exclusive access to the input, but some will simply listen for a a key
 press in all figures.</p>
-<div class="section" id="plot-tools">
-<h2>Plot tools<a class="headerlink" href="#plot-tools" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="pan-zoom-tool">
-<h3>Pan/Zoom tool<a class="headerlink" href="#pan-zoom-tool" title="Permalink to this headline">¶</a></h3>
+<section id="plot-tools">
+<h2>Plot tools<a class="headerlink" href="#plot-tools" title="Permalink to this headline"></a></h2>
+<section id="pan-zoom-tool">
+<h3>Pan/Zoom tool<a class="headerlink" href="#pan-zoom-tool" title="Permalink to this headline"></a></h3>
 <p>Use the pan/zoom tool to zoom and pan the matplotlib figure plots. Zooming
 can be done either by the mouse wheel, or by clicking and dragging with the
 right mouse button. To pan, click and drag with the left mouse button.</p>
-</div>
-<div class="section" id="home-tool">
-<h3>Home tool<a class="headerlink" href="#home-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="home-tool">
+<h3>Home tool<a class="headerlink" href="#home-tool" title="Permalink to this headline"></a></h3>
 <p>Use this tool to reset the pan and zoom of the figure. Either click the button
 while the plot in question is active, or press ‘5’ on the keyboard/numpad.</p>
-</div>
-<div class="section" id="pointer-tool">
-<h3>Pointer tool<a class="headerlink" href="#pointer-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="pointer-tool">
+<h3>Pointer tool<a class="headerlink" href="#pointer-tool" title="Permalink to this headline"></a></h3>
 <p>If you’ve used any other tool that is looking for mouse clicks in a figure,
 select this tool to return to a standard cursor.</p>
-</div>
-</div>
-<div class="section" id="signal-tools">
-<h2>Signal tools<a class="headerlink" href="#signal-tools" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="crop-tool">
-<h3>Crop tool<a class="headerlink" href="#crop-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="signal-tools">
+<h2>Signal tools<a class="headerlink" href="#signal-tools" title="Permalink to this headline"></a></h2>
+<section id="crop-tool">
+<h3>Crop tool<a class="headerlink" href="#crop-tool" title="Permalink to this headline"></a></h3>
 <p>Use the crop tool by clicking and dragging on a signal figure to define an
 ROI. The ROI can be moved and resized afterwards. Once you are satisfied with
 the selection, press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to crop the signal to only include the selected
 area.</p>
-</div>
-<div class="section" id="alignment-tool">
-<span id="id1"></span><h3>Alignment tool<a class="headerlink" href="#alignment-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="alignment-tool">
+<span id="id1"></span><h3>Alignment tool<a class="headerlink" href="#alignment-tool" title="Permalink to this headline"></a></h3>
 <p>The alignment tool algins a signal by a registration algorithm. To use it,
 click and drag to define an ROI which contains one or more features that
 can be used for alignment. The smaller the area, the speedier it operates.</p>
@@ -252,22 +161,22 @@ to perform an initial coarse-alignment.</p>
 </div>
 <p>A variety of settings for this tool is available in the
 <a class="reference internal" href="settings.html#alignment-settings"><span class="std std-ref">Align</span></a>.</p>
-</div>
-<div class="section" id="align-horizontal-tool">
-<span id="alignment-horz"></span><h3>Align horizontal tool<a class="headerlink" href="#align-horizontal-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="align-horizontal-tool">
+<span id="alignment-horz"></span><h3>Align horizontal tool<a class="headerlink" href="#align-horizontal-tool" title="Permalink to this headline"></a></h3>
 <p>Similar to <a class="reference internal" href="#alignment-tool"><span class="std std-ref">Alignment tool</span></a>, but is restricted to aligning images in
 the horizontal direction only.</p>
-</div>
-<div class="section" id="align-vertical-tool">
-<span id="alignment-vert"></span><h3>Align vertical tool<a class="headerlink" href="#align-vertical-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="align-vertical-tool">
+<span id="alignment-vert"></span><h3>Align vertical tool<a class="headerlink" href="#align-vertical-tool" title="Permalink to this headline"></a></h3>
 <p>Similar to <a class="reference internal" href="#alignment-tool"><span class="std std-ref">Alignment tool</span></a>, but is restricted to aligning images in
 the vertical direction only.</p>
-</div>
-</div>
-<div class="section" id="spectrum-tools">
-<h2>Spectrum tools<a class="headerlink" href="#spectrum-tools" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="gaussian-tool">
-<h3>Gaussian tool<a class="headerlink" href="#gaussian-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="spectrum-tools">
+<h2>Spectrum tools<a class="headerlink" href="#spectrum-tools" title="Permalink to this headline"></a></h2>
+<section id="gaussian-tool">
+<h3>Gaussian tool<a class="headerlink" href="#gaussian-tool" title="Permalink to this headline"></a></h3>
 <p>The gaussian tool allows for quick addition and removal of gaussians to a
 one-dimensional model. There are two ways to add a gaussian with this tool:</p>
 <blockquote>
@@ -285,77 +194,60 @@ to the currently selected model of the signal. If no model exists, a model will
 be added. The <a class="reference internal" href="actions.html#plot-components"><span class="std std-ref">Plot components</span></a> option will also be turned on.</p>
 <p>Additionally, right-clicking on a gaussian component with this tool will remove
 that gaussian from the model.</p>
-</div>
-<div class="section" id="regression-tool">
-<h3>Regression tool<a class="headerlink" href="#regression-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="regression-tool">
+<h3>Regression tool<a class="headerlink" href="#regression-tool" title="Permalink to this headline"></a></h3>
 <p>A simple click and drag regression tool for one-dimenional plots. It will
 add a regression line and regression result directly on the plot. Replot
 the signal to remove.</p>
-</div>
-</div>
-<div class="section" id="eds-tools">
-<h2>EDS tools<a class="headerlink" href="#eds-tools" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="element-picker-tool">
-<h3>Element picker tool<a class="headerlink" href="#element-picker-tool" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="eds-tools">
+<h2>EDS tools<a class="headerlink" href="#eds-tools" title="Permalink to this headline"></a></h2>
+<section id="element-picker-tool">
+<h3>Element picker tool<a class="headerlink" href="#element-picker-tool" title="Permalink to this headline"></a></h3>
 <p>The element picker tool allows you to click anywhere in an
 <code class="xref py py-class docutils literal notranslate"><span class="pre">EDSSpectrum</span></code>, and a list will pop up showing
 the xray lines that are nearest in energy to point where you clicked. The list
 is sorted by their closeness in energy, and includes minor lines as well. For
 this reason, the list should be examined critically. The results are all within
 a given energy window away from the point clicked as defined by
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.misc.eds.utils.html#hyperspy.misc.eds.utils.get_xray_lines_near_energy" title="(in HyperSpy v1.6.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_xray_lines_near_energy()</span></code></a>.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.misc.eds.utils.html#hyperspy.misc.eds.utils.get_xray_lines_near_energy" title="(in HyperSpy v1.7.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_xray_lines_near_energy()</span></code></a>.</p>
 <p>Selecting a line in the list will add the element that the line belongs to,
 to the signal.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="widgets.html" class="btn btn-neutral float-right" title="Widgets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="actions.html" class="btn btn-neutral float-left" title="Available actions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="widgets.html" class="btn btn-neutral float-right" title="Widgets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2016, Vidar Tonaas Fauske.
-
-    </p>
+    <p>&#169; Copyright 2016, Vidar Tonaas Fauske.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
