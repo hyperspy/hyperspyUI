@@ -31,14 +31,22 @@ jobs:
           python --version
           pip --version
 
+      - name: 'Install Ubuntu packages for Qt'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install qt5-default
+          sudo apt-get install libxkbcommon-x11-0
+          sudo apt-get install libxcb-icccm4
+          sudo apt-get install libxcb-image0
+          sudo apt-get install libxcb-keysyms1
+          sudo apt-get install libxcb-randr0
+          sudo apt-get install libxcb-render-util0
+          sudo apt-get install libxcb-xinerama0
+
       - name: Install Dependencies
         run: |
-          pip install PyQt5 PyQtWebEngine
-          sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0
-
-      - name: Start xvfb
-        run: |
-          sudo /usr/bin/Xvfb $DISPLAY -screen 0 1280x1024x24 & 
+          pip install pyqt5 PyQtWebEngine
 
       - name: Install
         shell: bash
@@ -53,5 +61,6 @@ jobs:
 
       - name: Run test suite
         run: |
-          pytest --pyargs hyperspyui
+          sudo apt-get install xvfb
+          xvfb-run pytest --pyargs hyperspyui
 

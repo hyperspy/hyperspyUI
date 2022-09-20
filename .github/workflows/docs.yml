@@ -18,23 +18,32 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install
+      - name: 'Install Ubuntu packages for Qt'
+        shell: bash
         run: |
-          pip install PyQt5 PyQtWebEngine
-          pip install -e .[build-doc]
+          sudo apt-get update
+          sudo apt-get install qt5-default
+          sudo apt-get install libxkbcommon-x11-0
+          sudo apt-get install libxcb-icccm4
+          sudo apt-get install libxcb-image0
+          sudo apt-get install libxcb-keysyms1
+          sudo apt-get install libxcb-randr0
+          sudo apt-get install libxcb-render-util0
+          sudo apt-get install libxcb-xinerama0
 
       - name: Install Dependencies
         run: |
           pip install PyQt5 PyQtWebEngine
-          sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0
 
-      - name: Start xvfb
+      - name: Install
         run: |
-          sudo /usr/bin/Xvfb $DISPLAY -screen 0 1280x1024x24 & 
+          pip install -e .[build-doc]
 
       - name: Build doc
         run: |
-          cd doc && make html
+          sudo apt-get install xvfb
+          cd doc
+          xvfb-run make html
 
       - uses: actions/upload-artifact@v2
         with:
