@@ -25,7 +25,12 @@ Created on Wed Oct 29 16:49:48 2014
 from qtpy import QtCore, QtWidgets
 
 from .extendedqwidgets import FigureWidget, ExDoubleSlider, ExClickLabel
-from hyperspy.misc.rgb_tools import rgbx2regular_array
+try:
+    # HyperSpy >=2.0
+    from rsciio.utils.rgb_tools import rgbx2regular_array
+except:
+    # HyperSpy <2.0
+    from hyperspy.misc.rgb_tools import rgbx2regular_array
 from hyperspyui.util import win2fig, fig2image_plot, block_signals
 
 import numpy as np

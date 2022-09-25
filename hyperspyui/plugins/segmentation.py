@@ -22,7 +22,12 @@ import numpy as np
 from hyperspy.signals import Signal1D, Signal2D
 from hyperspyui.tools import MultiSelectionTool
 from hyperspyui.util import win2sig
-from hyperspy.misc.rgb_tools import regular_array2rgbx
+try:
+    # HyperSpy >=2.0
+    from rsciio.utils.rgb_tools import regular_array2rgbx
+except:
+    # HyperSpy <2.0
+    from hyperspy.misc.rgb_tools import regular_array2rgbx
 
 import matplotlib.cm as plt_cm
 
