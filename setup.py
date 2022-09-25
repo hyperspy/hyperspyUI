@@ -43,6 +43,7 @@ setup(
                       'matplotlib >= 3.0.3',
                       'pyqode.python >= 2.6.0',
                       'pyface >=6.0.0',
+                      'pyflakes <2.5', # for pyqode.python
                       'autopep8',
                       'traits',
                       'traitsui >=5.2.0',
@@ -60,7 +61,7 @@ setup(
             'pytest-timeout',
         ],
         'build-doc':[
-            'sphinx>=1.7',
+            'sphinx >=1.7,!=5.2.0.post0', # https://github.com/sphinx-doc/sphinx/issues/10860
             'sphinx_rtd_theme',
             'sphinx-toggleprompt',
         ],
