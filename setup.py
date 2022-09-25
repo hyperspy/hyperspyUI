@@ -50,7 +50,7 @@ setup(
         'autopep8',
         'traits',
         'traitsui >=5.2.0',
-        'qtconsole',
+        'qtconsole >=5.2.0',
         'ipykernel >=5.2.0',
         'qtpy',
         ],

@@ -22,13 +22,8 @@ Created on Tue Nov 04 16:04:17 2014
 """
 import sys
 
-try:
-    from qtconsole.rich_jupyter_widget import RichJupyterWidget
-    from qtconsole.inprocess import QtInProcessKernelManager
-except ImportError:
-    from IPython.qt.console.rich_ipython_widget import RichIPythonWidget as \
-        RichJupyterWidget
-    from IPython.qt.inprocess import QtInProcessKernelManager
+from qtconsole.rich_jupyter_widget import RichJupyterWidget
+from qtconsole.inprocess import QtInProcessKernelManager
 from IPython.lib import guisupport
 
 
@@ -105,6 +100,6 @@ class ConsoleWidget(RichJupyterWidget):
         if not hidden:
             self.executing.emit(source)
         msg_id = self.kernel_client.execute(source, hidden)
-        self._request_info['execute'][
-            msg_id] = self._ExecutionRequest(msg_id, 'user')
+        self._request_info['execute'][msg_id] = self._ExecutionRequest(
+            msg_id, 'user', hidden)
         self._hidden = hidden
