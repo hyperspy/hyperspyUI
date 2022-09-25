@@ -61,7 +61,7 @@ setup(
             'pytest-timeout',
         ],
         'build-doc':[
-            'sphinx>=1.7',
+            'sphinx >=1.7,!=5.2.0.post0', # https://github.com/sphinx-doc/sphinx/issues/10860
             'sphinx_rtd_theme',
             'sphinx-toggleprompt',
         ],
