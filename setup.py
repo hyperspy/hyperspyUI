@@ -40,9 +40,10 @@ setup(
     python_requires='~=3.7',
     install_requires=[
         # Add rosettasciio when it is released
-        'hyperspy >= 1.6.1',
+        'hyperspy >= 1.7.2',
         'hyperspy-gui-traitsui >= 1.3.1',
         'matplotlib >= 3.0.3',
+        'packaging',
         'pyqode.python >= 2.6.0',
         'pyface >=6.0.0',
         'pyflakes <2.5', # for pyqode.python

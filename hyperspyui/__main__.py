@@ -21,7 +21,7 @@ Created on Tue Nov 25 02:10:29 2014
 @author: Vidar Tonaas Fauske
 """
 
-from distutils.version import LooseVersion
+from packaging.version import Version
 import os
 import platform
 import sys
@@ -96,8 +96,8 @@ def main():
     # Fixes issues with Big Sur
     # https://bugreports.qt.io/browse/QTBUG-87014, fixed in qt 5.15.2
     if (sys.platform == 'darwin' and
-            LooseVersion(platform.mac_ver()[0]) >= LooseVersion("10.16") and
-            LooseVersion(qVersion()) < LooseVersion("5.15.2") and
+            Version(platform.mac_ver()[0]) >= Version("10.16") and
+            Version(qVersion()) < Version("5.15.2") and
             "QT_MAC_WANTS_LAYER" not in os.environ):
         os.environ["QT_MAC_WANTS_LAYER"] = "1"
 
