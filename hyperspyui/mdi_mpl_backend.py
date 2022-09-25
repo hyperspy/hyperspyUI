@@ -22,30 +22,15 @@ Created on Fri Oct 31 14:22:53 2014
 """
 
 import os
-from distutils.version import LooseVersion
 
 import matplotlib
-from matplotlib._pylab_helpers import Gcf
+from matplotlib.backends import backend_qt5agg
 from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.figure import Figure
 from qtpy import API, QtCore, QtGui, QtWidgets
 
 
-# FigureCanvas definition
-if LooseVersion(matplotlib.__version__) >= LooseVersion('2.1.0'):
-    # qt4 and qt5 are the same in matplotlib >= 2.1.0
-    from matplotlib.backends import backend_qt5agg
-    FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
-elif LooseVersion(matplotlib.__version__) >= LooseVersion('2.0.0'):
-    if API == 'pyqt5':
-        from matplotlib.backends import backend_qt5agg
-        FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
-    else:
-        from matplotlib.backends import backend_qt4agg
-        FigureCanvas = backend_qt4agg.FigureCanvasQTAgg
-else:  # < 2.0.0
-    from matplotlib.backends import backend_qt4agg
-    FigureCanvas = backend_qt4agg.FigureCanvas
+FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
 
 
 # Workaround issue with matplotlib interactive backend and ipython integration
@@ -233,7 +218,7 @@ class FigureManagerMdi(FigureManagerBase):
         self.window = FigureWindow()
         FigureManagerBase.__init__(self, canvas, num)
         self.canvas = canvas
-        self.window.closing.connect(canvas.close_event)
+        self.window.closing.connect(canvas.close)
         self.window.closing.connect(self._widgetclosed)
 
         self.window.setWindowTitle("Figure %d" % num)
@@ -299,13 +284,6 @@ class FigureManagerMdi(FigureManagerBase):
     def _widgetclosed(self):
         if self.window is None or self.window._destroying:
             return
-        try:
-            Gcf.destroy(self.num)
-        except AttributeError:
-            pass
-            # It seems that when the python session is killed,
-            # Gcf can get destroyed before the Gcf.destroy
-            # line is run, leading to a useless AttributeError.
 
     def resize(self, width, height):
         'set the canvas size in pixels'
