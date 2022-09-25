@@ -44,7 +44,6 @@ from qtpy.QtCore import Qt
 
 from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
-from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.editorwidget import EditorWidget
 from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
@@ -324,8 +323,6 @@ class MainWindow(MainWindowHyperspy):
 
     def create_widgetbar(self):
         super(MainWindow, self).create_widgetbar()
-
-        self.add_widget(ContrastWidget(self, self))
 
     # ---------------------------------------
     # Events

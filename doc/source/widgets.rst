@@ -63,16 +63,7 @@ for details).
 Contrast control
 ---------------------
 
-A :py:class:`~hyperspyui.widgets.contrastwidget.ContrastWidget`
-type widget for adjusting the contrast response of image plots. The 'Level'
-slider specifies the lower cut-off intensity, and the 'Window' slider controls
-the width of the intensity window starting at ``level``. The 'Auto' option
-uses the automatic settings of :py:class:`hyperspy.drawing.image.ImagePlot`.
-
-By selecting 'Log' a logarithmic transform is applied to the image cotrast.
-This only affects the plot, and leaves the data untouched.
-
-.. image:: contrast_control.png
+Use HyperSpy contrast adjustment tool by pressing the ``h`` key.
 
 
 Colormap picker
