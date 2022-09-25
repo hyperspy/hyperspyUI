@@ -3,7 +3,7 @@ HyperSpyUI
 
 |pypi_version|_ |anaconda_cloud|_ |tests|_ |python_version|_
 
-.. |pypi_version| image:: http://img.shields.io/pypi/v/hyperspyui.svg
+.. |pypi_version| image:: https://img.shields.io/pypi/v/hyperspyui.svg
 .. _pypi_version: https://pypi.python.org/pypi/hyperspyui
 
 .. |anaconda_cloud| image:: https://anaconda.org/conda-forge/hyperspyui/badges/version.svg
@@ -38,7 +38,7 @@ For an introduction to HyperSpyUI, see the documentation_.
 Installation
 ============
 There are several ways to install HyperSpyUI. The application itself is rather
-simple to install, but its dependencies can be a bit more tricky. From version 
+simple to install, but its dependencies can be a bit more tricky. From version
 1.1, HyperSpyUI supports both PyQt4 and PyQt5.
 
 HyperSpy Bundle Installer
@@ -52,7 +52,7 @@ Anaconda/Miniconda/Miniforge
 ----------------------------
 
 Download and install the `Miniforge`_ (`Miniconda`_ or `Anaconda`_) distribution
-and run the following command in the anaconda prompt: 
+and run the following command in the anaconda prompt:
 
 .. code-block:: bash
 
@@ -65,7 +65,7 @@ and run the following command in the anaconda prompt:
 Installation via pip
 --------------------
 
-HyperSpyUI can be intall from pip. Depending on your python distribution you may 
+HyperSpyUI can be intall from pip. Depending on your python distribution you may
 need to have C compiler on your system to install some of the dependencies.
 
 .. code-block:: bash
@@ -87,8 +87,8 @@ After installation, you can run HyperSpyUI from the command prompt with:
 .. code-block:: bash
 
     hyperspyui
-    
-or 
+
+or
 
 .. code-block:: bash
 

@@ -483,4 +483,4 @@ class MainWindow(MainWindowHyperspy):
         self.record_code("signal.change_dtype(%s)" % dts)
 
     def open_documentation(self):
-        webbrowser.open('http://hyperspy.org/hyperspyUI/')
+        webbrowser.open('https://hyperspy.org/hyperspyUI/')
