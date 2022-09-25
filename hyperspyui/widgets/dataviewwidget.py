@@ -24,7 +24,7 @@ Created on Tue Nov 04 16:32:55 2014
 import os
 
 from qtpy import QtGui, QtCore, QtSvg, QtWidgets
-from qtpy.QtCore import Qt, Signal
+from qtpy.QtCore import Qt
 
 from functools import partial
 import traits.api as t
@@ -78,8 +78,8 @@ class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
         super(VisbilityDelegate, self).__init__(parent)
 
     def iconPos(self, icon, option):
-        return QtCore.QPoint(option.rect.right() - icon.width() - self.margin,
-                             option.rect.center().y() - icon.height()/2)
+        return QtCore.QPoint(int(option.rect.right() - icon.width() - self.margin),
+                             int(option.rect.center().y() - icon.height()/2))
 
     def sizeHint(self, option, index):
         size = super(VisbilityDelegate, self).sizeHint(option, index)

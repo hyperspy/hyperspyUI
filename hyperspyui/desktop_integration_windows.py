@@ -23,11 +23,14 @@ Created on Sun Apr 12 17:43:47 2015
 
 import sys
 import os
-import platform
 import subprocess
 
-from hyperspy.io_plugins import io_plugins
-
+try:
+    # HyperSpy >=2.0
+    from rsciio import IO_PLUGINS
+except:
+    # HyperSpy <2.0
+    from hyperspy.io_plugins import io_plugins as IO_PLUGINS
 
 
 def run_desktop_integration_windows(args):
@@ -103,7 +106,7 @@ def run_desktop_integration_windows(args):
                                     '"%s"' % script_path,
                                     sys.prefix,
                                     icon_path)
-            except IOError as e:
+            except IOError:
                 # Try again with user folders
                 desktop_path = get_special_folder_path(
                     "CSIDL_DESKTOPDIRECTORY")
@@ -117,16 +120,20 @@ def run_desktop_integration_windows(args):
                                     '"%s"' % script_path,
                                     sys.prefix,
                                     icon_path)
-        
+
         exclude_formats = [
             "netCDF", # old HyperSpy format.
             "Signal2D", # don't register it to open standard images
             "Protochips", # extension is csv
             ]
         filetypes = []
-        for hspy_format in io_plugins:
-            if hspy_format.format_name not in exclude_formats:
-                defext = hspy_format.file_extensions[hspy_format.default_extension]
+        for plugin in IO_PLUGINS:
+            # Try first with attribute (HyperSpy <2.0), fallback with dictionary (RosettaSciIO)
+            format_name = getattr(plugin, 'format_name', plugin['name'])
+            file_extensions = getattr(plugin, 'file_extensions', plugin['file_extensions'])
+            default_extension = getattr(plugin, 'default_extension', plugin['default_extension'])
+            if format_name not in exclude_formats:
+                defext = file_extensions[default_extension]
                 filetypes.append("." + defext)
 
         if filetypes:

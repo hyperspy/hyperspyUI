@@ -11,8 +11,9 @@ import matplotlib.pyplot as plt
 
 
 def test_new_figure(qapp):
-    plt.figure()
+    fig = plt.figure()
     plt.plot(range(10))
+    plt.close(fig)
 
 
 def test_new_figure_callback(qapp):

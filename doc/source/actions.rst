@@ -426,7 +426,7 @@ HyperSpyUI verions are internally compatible, or even compatible with your
 version of Python. As this can prevent you from starting the application
 afterwards, you might end up having to reinstall it.
 
-.. _pip: http://pip.pypa.io/
+.. _pip: https://pip.pypa.io/
 
 .. note::
 
@@ -466,8 +466,8 @@ Edit the HyperSpy package settings.
 Edit styles
 """"""""""""""""""""""""""""""""""""
 Shows a dialog for editing the palette and stylesheet of the application.
-See the Qt documentation for usage: http://doc.qt.io/qt-4.8/stylesheet.html
-and http://doc.qt.io/qt-4.8/qpalette.html.
+See the Qt documentation for usage: https://doc.qt.io/qt-5/stylesheet-reference.html
+and https://doc.qt.io/qt-5/qpalette.html.
 
 
 .. _edit-settings:
@@ -498,4 +498,3 @@ Arranges all figures in a cascade pattern.
 Close all (windows)
 """"""""""""""""""""""""""""""""""""
 Closes all matplotlib figures.
-

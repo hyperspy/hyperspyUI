@@ -38,19 +38,22 @@ setup(
     packages=find_namespace_packages(exclude=[
             'doc', 'bin', 'doc.*', 'hyperspyui.plugins.user_plugins']),
     python_requires='~=3.7',
-    install_requires=['hyperspy >= 1.6.1',
-                      'hyperspy-gui-traitsui >= 1.3.1',
-                      'matplotlib >= 3.0.3',
-                      'pyqode.python >= 2.6.0',
-                      'pyface >=6.0.0',
-                      'pyflakes <2.5', # for pyqode.python
-                      'autopep8',
-                      'traits',
-                      'traitsui >=5.2.0',
-                      'qtconsole',
-                      'ipykernel >=5.2.0',
-                      'qtpy',
-                      ],
+    install_requires=[
+        # Add rosettasciio when it is released
+        'hyperspy >= 1.7.2',
+        'hyperspy-gui-traitsui >= 1.3.1',
+        'matplotlib >= 3.0.3',
+        'packaging',
+        'pyqode.python >= 2.6.0',
+        'pyface >=6.0.0',
+        'pyflakes <2.5', # for pyqode.python
+        'autopep8',
+        'traits',
+        'traitsui >=5.2.0',
+        'qtconsole >=5.2.0',
+        'ipykernel >=5.2.0',
+        'qtpy',
+        ],
     extras_require={
         ':sys_platform == "win32"': [
             'pywin32',

@@ -2,7 +2,7 @@
 import pytest
 
 
-@pytest.mark.timeout(60)
+@pytest.mark.timeout(30)
 def test_main_window(mainwindow):
     mainwindow.show()
     mainwindow.load_complete.emit()

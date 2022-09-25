@@ -44,7 +44,6 @@ from qtpy.QtCore import Qt
 
 from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
 from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
-from hyperspyui.widgets.contrastwidget import ContrastWidget
 from hyperspyui.widgets.editorwidget import EditorWidget
 from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
@@ -64,7 +63,7 @@ class MainWindow(MainWindowHyperspy):
 
     load_complete = QtCore.Signal()
 
-    def __init__(self, splash, parent=None, argv=None):
+    def __init__(self, splash=None, parent=None, argv=None):
         self.splash = splash
 
         # State variables
@@ -229,9 +228,9 @@ class MainWindow(MainWindowHyperspy):
         signal_datatype_ag = QtWidgets.QActionGroup(self)
         signal_datatype_ag.setExclusive(True)
         import numpy as np
-        for t in [np.bool, np.bool8, np.byte, np.complex, np.complex64,
-                  np.complex128, np.float, np.float16, np.float32, np.float64,
-                  np.int, np.int8, np.int16, np.int32, np.int64, np.long,
+        for t in [bool, np.bool8, np.byte, complex, np.complex64,
+                  np.complex128, float, np.float16, np.float32, np.float64,
+                  int, np.int8, np.int16, np.int32, np.int64, np.compat.long,
                   np.uint, np.uint8, np.uint16, np.uint32, np.uint64, 'Custom'
                   ]:
             f = partial(self.set_signal_dtype, t)
@@ -324,8 +323,6 @@ class MainWindow(MainWindowHyperspy):
 
     def create_widgetbar(self):
         super(MainWindow, self).create_widgetbar()
-
-        self.add_widget(ContrastWidget(self, self))
 
     # ---------------------------------------
     # Events
@@ -483,4 +480,4 @@ class MainWindow(MainWindowHyperspy):
         self.record_code("signal.change_dtype(%s)" % dts)
 
     def open_documentation(self):
-        webbrowser.open('http://hyperspy.org/hyperspyUI/')
+        webbrowser.open('https://hyperspy.org/hyperspyUI/')

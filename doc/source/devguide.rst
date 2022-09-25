@@ -28,8 +28,8 @@ numpy_ is pre-loaded as ``np``, and :py:mod:`hyperspy.api` as ``hs``. The curren
 :py:class:`~hyperspy.signals.Signal` instances is exported as ``siglist``.
 
 .. _qtconsole: https://qtconsole.readthedocs.io/en/stable/
-.. _IPython: http://ipython.org/
-.. _numpy: http://www.numpy.org/
+.. _IPython: https://ipython.org/
+.. _numpy: https://www.numpy.org/
 
 If we want to inspect the original metadata of the currently selected signal,
 we can then run:

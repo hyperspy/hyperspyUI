@@ -461,9 +461,16 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     @staticmethod
     def get_accepted_extensions():
-        from hyperspy.io_plugins import io_plugins
-        extensions = set([extensions.lower() for plugin in io_plugins
-                          for extensions in plugin.file_extensions])
+        try:
+            # HyperSpy >=2.0
+            from rsciio import IO_PLUGINS
+        except:
+            # HyperSpy <2.0
+            from hyperspy.io_plugins import io_plugins as IO_PLUGINS
+
+        extensions = set([extensions.lower() for plugin in IO_PLUGINS
+                          # Try first with attribute (HyperSpy <2.0), fallback with dictionary (RosettaSciIO)
+                          for extensions in getattr(plugin, 'file_extensions', plugin['file_extensions'])])
         return extensions
 
     def load_stack(self, filenames=None, stack_axis=None):
