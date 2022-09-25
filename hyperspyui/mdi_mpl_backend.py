@@ -27,6 +27,7 @@ import matplotlib
 from matplotlib.backends import backend_qt5agg
 from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 from qtpy import API, QtCore, QtGui, QtWidgets
 
 
@@ -218,7 +219,6 @@ class FigureManagerMdi(FigureManagerBase):
         self.window = FigureWindow()
         FigureManagerBase.__init__(self, canvas, num)
         self.canvas = canvas
-        self.window.closing.connect(canvas.close)
         self.window.closing.connect(self._widgetclosed)
 
         self.window.setWindowTitle("Figure %d" % num)
@@ -284,6 +284,7 @@ class FigureManagerMdi(FigureManagerBase):
     def _widgetclosed(self):
         if self.window is None or self.window._destroying:
             return
+        plt.close(self.canvas.figure)
 
     def resize(self, width, height):
         'set the canvas size in pixels'

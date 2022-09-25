@@ -64,7 +64,7 @@ class MainWindow(MainWindowHyperspy):
 
     load_complete = QtCore.Signal()
 
-    def __init__(self, splash, parent=None, argv=None):
+    def __init__(self, splash=None, parent=None, argv=None):
         self.splash = splash
 
         # State variables
