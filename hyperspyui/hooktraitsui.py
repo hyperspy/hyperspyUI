@@ -39,18 +39,18 @@ class HookedDialog(orig_type):
 
     def __init__(self, ui, parent, *args, **kwargs):
         _on_creating(self, ui, parent)
-        super(HookedDialog, self).__init__(ui, parent, *args, **kwargs)
+        super().__init__(ui, parent, *args, **kwargs)
         _on_created(self, ui, parent)
 
     def closeEvent(self, e):
         _on_closing(self, e)
-        super(HookedDialog, self).closeEvent(e)
+        super().closeEvent(e)
         if e.isAccepted():
             _on_closed(self)
 
     def deleteLater(self):
         _on_destroyed(self)
-        super(HookedDialog, self).deleteLater()
+        super().deleteLater()
 
 
 def hook_traitsui():

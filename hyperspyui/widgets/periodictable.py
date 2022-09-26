@@ -37,7 +37,7 @@ class PeriodicTableWidget(QtWidgets.QWidget):
     element_toggled = QtCore.Signal(str)
 
     def __init__(self, parent=None):
-        super(PeriodicTableWidget, self).__init__(parent)
+        super().__init__(parent)
         self.elements = {}
         self.toggled = {}
         self.style_off = "* { background-color: rgba(0,0,0,20); padding: 0px}"

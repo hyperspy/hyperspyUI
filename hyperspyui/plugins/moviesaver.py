@@ -145,7 +145,7 @@ class MovieSaver(Plugin):
 class MovieArgsPrompt(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
-        super(MovieArgsPrompt, self).__init__(parent)
+        super().__init__(parent)
         self.create_controls()
 
     def create_controls(self):

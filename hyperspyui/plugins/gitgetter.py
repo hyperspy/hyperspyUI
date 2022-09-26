@@ -20,7 +20,7 @@ from hyperspyui.plugins.plugin import Plugin
 
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import QDialogButtonBox
-from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, 
+from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout,
                             QFormLayout, QDialog, QMessageBox, QLabel, QWidget,
                             QComboBox, QTextEdit)
 from qtpy.QtCore import Qt
@@ -152,15 +152,13 @@ def checkout_branch(branch, stream=None):
 
         class WrapDownloadProgressBar(pip.download.DownloadProgressBar):
             def __init__(self, *args, **kwargs):
-                super(WrapDownloadProgressBar, self).__init__(
-                    *args, **kwargs)
+                super().__init__(*args, **kwargs)
                 self.file = stream
 
         class WrapDownloadProgressBarSpinner(
                 pip.download.DownloadProgressSpinner):
             def __init__(self, *args, **kwargs):
-                super(WrapDownloadProgressBarSpinner, self).__init__(
-                    *args, **kwargs)
+                super().__init__(*args, **kwargs)
                 self.file = stream
         ic = pip.commands.InstallCommand()
         ic.log_streams = (stream, stream)
@@ -198,7 +196,7 @@ class GitSelector(Plugin):
     name = "Version selector"
 
     def __init__(self, main_window):
-        super(GitSelector, self).__init__(main_window)
+        super().__init__(main_window)
         self.settings.set_default('check_for_updates_on_start', True)
         self.settings.set_default('check_for_git_updates', False)
         self.packages = {
@@ -331,7 +329,7 @@ class GitSelector(Plugin):
 class VersionSelectionDialog(QDialog):
 
     def __init__(self, plugin, parent=None):
-        super(VersionSelectionDialog, self).__init__(parent)
+        super().__init__(parent)
         self.plugin = plugin
         self.packages = plugin.packages
         self._prev_indices = {}
@@ -389,7 +387,7 @@ class VersionSelectionDialog(QDialog):
 
 class VisualLogStream(StringIO):
     def __init__(self, parent=None, buf=''):
-        StringIO.__init__(self, buf)
+        super().__init__(self, buf)
         self.parent = parent
         self.dialog = None
         self.ignore = ['\x1b[?25l', '\x1b[?25h', '']
@@ -416,7 +414,7 @@ class VisualLogStream(StringIO):
                 self.truncate(pos+1)
                 self.seek(pos+1)
         else:
-            StringIO.write(self, s)
+            super().write(self, s)
             self._ensure_dialog()
             self.dialog.output.setPlainText(self.getvalue())
             QtWidgets.QApplication.processEvents()
@@ -425,11 +423,11 @@ class VisualLogStream(StringIO):
 class PipOutput(QDialog):
 
     def __init__(self, parent=None):
-        super(PipOutput, self).__init__(parent)
+        super().__init__(parent)
         self.create_controls()
 
     def sizeHint(self):
-        def_sz = super(PipOutput, self).sizeHint()
+        def_sz = super().sizeHint()
         def_sz.setWidth(500)
         return def_sz
 

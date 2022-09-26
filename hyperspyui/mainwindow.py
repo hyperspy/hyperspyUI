@@ -73,7 +73,7 @@ class MainWindow(MainWindowHyperspy):
 
         self._load_signal_types()
 
-        super(MainWindow, self).__init__(parent)
+        super().__init__(parent)
 
         # Set window icon
         self.setWindowIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__),
@@ -134,7 +134,7 @@ class MainWindow(MainWindowHyperspy):
         A second instance was launched and suppressed. Process the arguments
         that were passed to the new instance.
         """
-        super(MainWindow, self).handleSecondInstance(argv)
+        super().handleSecondInstance(argv)
         argv = json.loads(argv)
         self.parse_args(argv)
 
@@ -158,7 +158,7 @@ class MainWindow(MainWindowHyperspy):
             self.load(files)
 
     def create_default_actions(self):
-        super(MainWindow, self).create_default_actions()
+        super().create_default_actions()
 
         # Files:
         self.add_action('open', "&Open", self.load,
@@ -288,7 +288,7 @@ class MainWindow(MainWindowHyperspy):
             componentmenu.addAction(self.actions[acname])
 
         # Create Windows menu
-        super(MainWindow, self).create_menu()
+        super().create_menu()
 
         self.menus['File'].addSeparator()
         self.add_menuitem('File', self.actions['close_all'])
@@ -310,7 +310,7 @@ class MainWindow(MainWindowHyperspy):
         self.add_menuitem('Help', self.actions['documentation'])
 
     def create_tools(self):
-        super(MainWindow, self).create_tools()
+        super().create_tools()
         for tool_type in hyperspyui.tools.default_tools:
             self.add_tool(tool_type)
 
@@ -319,10 +319,10 @@ class MainWindow(MainWindowHyperspy):
         self.add_toolbar_button("Files", self.actions['close'])
         self.add_toolbar_button("Files", self.actions['save'])
 
-        super(MainWindow, self).create_toolbars()
+        super().create_toolbars()
 
     def create_widgetbar(self):
-        super(MainWindow, self).create_widgetbar()
+        super().create_widgetbar()
 
     # ---------------------------------------
     # Events
@@ -336,7 +336,7 @@ class MainWindow(MainWindowHyperspy):
             action.setEnabled(True)
 
     def on_subwin_activated(self, mdi_figure):
-        super(MainWindow, self).on_subwin_activated(mdi_figure)
+        super().on_subwin_activated(mdi_figure)
         s = win2sig(mdi_figure, self.signals, self._plotting_signal)
         if s is None:
             for ac in self.signal_type_ag.actions():
@@ -359,7 +359,7 @@ class MainWindow(MainWindowHyperspy):
 
     def on_settings_changed(self):
         # Redirect streams (wait until the end to not affect during load)
-        super(MainWindow, self).on_settings_changed()
+        super().on_settings_changed()
         if self.settings['output_to_console', bool]:
             if self._old_stdout is None:
                 self._old_stdout = sys.stdout

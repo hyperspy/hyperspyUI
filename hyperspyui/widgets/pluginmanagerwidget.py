@@ -44,7 +44,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
     PathColumn = 2
 
     def __init__(self, plugin_manager, parent=None):
-        super(PluginsModel, self).__init__(parent)
+        super().__init__(parent)
         self.plugin_manager = plugin_manager
         self._update_data()
 
@@ -125,7 +125,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
 class PluginManagerWidget(ExToolWindow):
 
     def __init__(self, plugin_manager, parent=None):
-        super(PluginManagerWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.setWindowTitle(tr("Plugin manager"))
         self.plugin_manager = plugin_manager

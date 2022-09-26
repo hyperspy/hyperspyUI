@@ -23,7 +23,7 @@ Created on Wed Jan 21 14:49:08 2015
 
 
 from qtpy import QtCore
-from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, 
+from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout,
                             QFormLayout, QDoubleSpinBox, QGroupBox, QSpinBox,
                             QRadioButton)
 
@@ -223,7 +223,7 @@ class ImageRotation_Plugin(Plugin):
 class ImageRotationDialog(ExToolWindow):
 
     def __init__(self, signal, axes, parent, plugin):
-        super(ImageRotationDialog, self).__init__(parent)
+        super().__init__(parent)
         self.ui = parent
         self.create_controls()
         self.accepted.connect(self.ok)

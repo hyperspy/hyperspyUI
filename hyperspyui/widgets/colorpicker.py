@@ -25,7 +25,7 @@ class ColorButton(QtWidgets.QPushButton):
     colorChanged = QtCore.Signal([QtGui.QColor])
 
     def __init__(self, color=None, parent=None):
-        super(ColorButton, self).__init__(parent)
+        super().__init__(parent)
         self.setMinimumWidth(50)
         if color is None:
             color = QtGui.QColor('gray')
@@ -48,7 +48,7 @@ class ColorButton(QtWidgets.QPushButton):
             self.color = color
 
     def paintEvent(self, event):
-        super(ColorButton, self).paintEvent(event)
+        super().paintEvent(event)
         padding = 5
 
         rect = event.rect()

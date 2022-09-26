@@ -22,7 +22,7 @@ Created on Sat Feb 21 17:55:01 2015
 """
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtWidgets import (QDialogButtonBox, QCheckBox, QLineEdit, 
+from qtpy.QtWidgets import (QDialogButtonBox, QCheckBox, QLineEdit,
                             QPushButton, QHBoxLayout, QVBoxLayout, QFormLayout,
                             )
 
@@ -47,7 +47,7 @@ def tr(text):
 class NameCategoryPrompt(ExToolWindow):
 
     def __init__(self, main_window, parent=None):
-        super(NameCategoryPrompt, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowTitle(tr("Plugin properties"))
         self.ui = main_window
         self.create_controls()
@@ -149,7 +149,7 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
             self.editor.backend.send_request(
                 self._worker, request_data, on_receive=self._on_work_finished)
             self._finished = False
-        except NotRunning:
+        except:
             # retry later
             QtCore.QTimer.singleShot(100, self._request)
 
@@ -173,14 +173,13 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
 
     def __init__(self, editor):
         self.myeditor = editor
-        super(ConsoleCodeCheckerMode, self).__init__(run_pyflakes,
-                                                     delay=1200)
+        super().__init__(run_pyflakes, delay=1200)
 
 
 class ConsoleCodeCalltipsMode(pymodes.CalltipsMode):
 
     def __init__(self, editor, *args, **kwargs):
-        super(ConsoleCodeCalltipsMode, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.myeditor = editor
 
     def _request_calltip(self, source, line, col, fn, encoding):
@@ -200,7 +199,7 @@ class EditorWidget(ExToolWindow):
     plugin_title = tr("Plugin Editor")
 
     def __init__(self, main_window, parent=None, path=None):
-        super(EditorWidget, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowTitle(self.code_title)
         self.ui = main_window
         self._is_plugin = False
@@ -312,7 +311,7 @@ class EditorWidget(ExToolWindow):
 
     def sizeHint(self):
         # Default size to fit right margin
-        def_sz = super(EditorWidget, self).sizeHint()
+        def_sz = super().sizeHint()
         if hasattr(self, 'editor'):
             font = QtGui.QFont(self.editor.font_name, self.editor.font_size +
                                self.editor.zoom_level)

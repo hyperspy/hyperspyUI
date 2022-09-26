@@ -30,7 +30,7 @@ from .tool import Tool
 class FigureTool(Tool):
 
     def __init__(self, windows=None):
-        super(FigureTool, self).__init__()
+        super().__init__()
         self.cids = {}
         self.cursor = self.make_cursor()
         if self.single_action() is not None:

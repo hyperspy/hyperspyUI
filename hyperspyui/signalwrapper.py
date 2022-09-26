@@ -36,7 +36,7 @@ class SignalWrapper(Actionable):
     _untitled_counter = 0
 
     def __init__(self, signal, mainwindow, name=None):
-        super(SignalWrapper, self).__init__()
+        super().__init__()
         self.signal = signal
         # Override replot on Signal instance
         self._old_replot = signal._replot

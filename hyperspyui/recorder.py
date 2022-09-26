@@ -30,7 +30,7 @@ class Recorder(QtCore.QObject):
     record = QtCore.Signal(str)
 
     def __init__(self):
-        super(Recorder, self).__init__()
+        super().__init__()
 
         self.steps = list()
         self.pause_recording = False

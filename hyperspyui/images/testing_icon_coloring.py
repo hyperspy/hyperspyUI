@@ -26,7 +26,7 @@ import os
 class Example(QtWidgets.QMainWindow):
 
     def __init__(self):
-        super(Example, self).__init__()
+        super().__init__()
 
         self.initUI()
 

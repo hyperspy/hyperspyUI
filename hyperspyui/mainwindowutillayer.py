@@ -52,7 +52,7 @@ class MainWindowUtils(MainWindowBase):
         hooktraitsui.connect_created(self.on_traits_dialog)
         hooktraitsui.connect_destroyed(self.on_traits_destroyed)
 
-        super(MainWindowUtils, self).__init__(parent)
+        super().__init__(parent)
 
 
     # --------- traitsui Events ---------
@@ -422,13 +422,13 @@ class MainWindowActionRecorder(MainWindowUtils):
 
     def __init__(self, parent=None):
         self.recorders = []
-        super(MainWindowActionRecorder, self).__init__(parent)
+        super().__init__(parent)
 
     def _wire_action(self, ac, key, callback, selection_callback):
         # Connect monitor
         ac.triggered.connect(partial(self.record_action, key))
         # Wire as normal
-        super(MainWindowActionRecorder, self)._wire_action(
+        super()._wire_action(
             ac, key, callback, selection_callback)
 
     def record_action(self, key):
@@ -440,5 +440,5 @@ class MainWindowActionRecorder(MainWindowUtils):
             r.add_code(code)
 
     def on_console_executing(self, source):
-        super(MainWindowActionRecorder, self).on_console_executing(source)
+        super().on_console_executing(source)
         self.record_code(source)

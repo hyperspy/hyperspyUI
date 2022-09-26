@@ -49,7 +49,7 @@ class SelectionTool(SignalFigureTool):
 
     def __init__(self, windows=None, name=None, category=None, icon=None,
                  description=None):
-        super(SelectionTool, self).__init__(windows)
+        super().__init__(windows)
         self.widget2d_r = RectangleWidget(None)
         self.widget2d_r.set_on(False)
         self.widget1d_r = RangeWidget(None)
@@ -201,5 +201,5 @@ class SelectionTool(SignalFigureTool):
         self.cancelled.emit()
 
     def disconnect_windows(self, windows):
-        super(SelectionTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         self.cancel()

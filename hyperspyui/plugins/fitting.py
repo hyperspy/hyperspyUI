@@ -88,7 +88,7 @@ class RegressionTool(SelectionTool):
     """
 
     def __init__(self, *args, **kwargs):
-        super(RegressionTool, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.valid_dimensions = [1]
 
     def on_keyup(self, event):
@@ -96,7 +96,7 @@ class RegressionTool(SelectionTool):
             # TODO: Delete regression
             pass
         else:
-            super(RegressionTool, self).on_keyup(event)
+            super().on_keyup(event)
 
     def get_name(self):
         return "Regression tool"

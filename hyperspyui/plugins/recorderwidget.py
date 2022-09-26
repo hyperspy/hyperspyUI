@@ -38,7 +38,7 @@ def tr(text):
 class RecorderWidget(QtWidgets.QDockWidget):
 
     def __init__(self, main_window, parent=None):
-        super(RecorderWidget, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowTitle(tr("Recorder"))
         self.ui = main_window
         self.create_controls()

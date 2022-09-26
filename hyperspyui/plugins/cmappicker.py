@@ -81,7 +81,7 @@ class CMapDelegate(QtWidgets.QItemDelegate):
     """
 
     def __init__(self, width, height, cmap_shift, *args, **kwargs):
-        super(CMapDelegate, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.width_ = width
         self.height_ = height
         self.cmap_shift = cmap_shift
@@ -106,7 +106,7 @@ class CMapDelegate(QtWidgets.QItemDelegate):
             rect = QtCore.QRect(rect.x()+self.cmap_shift, rect.y(),
                                 rect.width()-self.cmap_shift, rect.height())
             option.rect.setLeft(option.rect.x() + 10)
-        super(CMapDelegate, self).paint(painter, option, index)
+        super().paint(painter, option, index)
 
         if kind != "parent":
             cmap = plt.get_cmap(index.data().strip())
@@ -120,13 +120,13 @@ class CMapDelegate(QtWidgets.QItemDelegate):
         return QtCore.QSize(self.width_, self.height_)
 
     def drawFocus(self, painter, option, rect):
-        super(CMapDelegate, self).drawFocus(painter, option, rect)
+        super().drawFocus(painter, option, rect)
 
 
 class CMapPickerWidget(FigureWidget):
 
     def __init__(self, main_window, parent, figure=None):
-        super(CMapPickerWidget, self).__init__(main_window, parent)
+        super().__init__(main_window, parent)
         self.setWindowTitle(tr("Colormap Picker"))
         self.create_controls()
 
@@ -140,7 +140,7 @@ class CMapPickerWidget(FigureWidget):
             im.figure.canvas.draw()
 
     def _on_figure_change(self, figure):
-        super(CMapPickerWidget, self)._on_figure_change(figure)
+        super()._on_figure_change(figure)
         if isinstance(figure, QtWidgets.QMdiSubWindow):
             figure = win2fig(figure)
 

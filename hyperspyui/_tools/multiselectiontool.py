@@ -50,7 +50,7 @@ class MultiSelectionTool(SignalFigureTool):
     cancelled = QtCore.Signal([BaseSignal])
 
     def __init__(self, windows=None):
-        super(MultiSelectionTool, self).__init__(windows)
+        super().__init__(windows)
         self.widgets = {}
         self.axes = {}
         self.valid_dimensions = [1, 2]
@@ -276,5 +276,5 @@ class MultiSelectionTool(SignalFigureTool):
                 self.cancelled[BaseSignal].emit(s)
 
     def disconnect_windows(self, windows):
-        super(MultiSelectionTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         self.cancel()

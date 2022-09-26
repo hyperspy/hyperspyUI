@@ -34,7 +34,7 @@ class AlignPlugin(Plugin):
     name = "Align"
 
     def __init__(self, main_window):
-        super(AlignPlugin, self).__init__(main_window)
+        super().__init__(main_window)
         self.settings.set_default('sub_pixel_factor', 20)
         self.settings.set_default('1d_smooth_amount', 50)
         self.settings.set_default('2d_smooth_amount', 0.0)
@@ -257,7 +257,7 @@ class AlignPlugin(Plugin):
 class ManualAlignDialog(ExToolWindow):
 
     def __init__(self, signal, parent=None):
-        super(ExToolWindow, self).__init__(parent)
+        super().__init__(parent)
         self.ui = parent
         self.signal = signal
         self._orig_data = None

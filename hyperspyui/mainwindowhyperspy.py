@@ -112,7 +112,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self._plotting_signal = None
 
         # Call super init, which creates main controls etc.
-        super(MainWindowHyperspy, self).__init__(parent)
+        super().__init__(parent)
 
         self.create_statusbar()
 
@@ -152,11 +152,11 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self.add_widget(self.tree)
 
         # Put other widgets at end (plugin widgets)
-        super(MainWindowHyperspy, self).create_widgetbar()
+        super().create_widgetbar()
 
     def create_menu(self):
         # Super creates Windows menu
-        super(MainWindowHyperspy, self).create_menu()
+        super().create_menu()
 
         # Add custom action to signals' BindingList, so appropriate menu items
         # are removed if a signal is removed from the list
@@ -700,26 +700,26 @@ class MainWindowHyperspy(MainWindowActionRecorder):
     # --------- Console functions ----------
 
     def on_console_executing(self, source):
-        super(MainWindowHyperspy, self).on_console_executing(source)
+        super().on_console_executing(source)
         #self.setUpdatesEnabled(False)
         for s in self.signals:
             s.keep_on_close = True
 
     def on_console_executed(self, response):
-        super(MainWindowHyperspy, self).on_console_executed(response)
+        super().on_console_executed(response)
         for s in self.signals:
             s.update_figures()
             s.keep_on_close = False
         #self.setUpdatesEnabled(True)
 
     def _get_console_exec(self):
-        ex = super(MainWindowHyperspy, self)._get_console_exec()
+        ex = super()._get_console_exec()
         ex += '\nimport hyperspy.api as hs'
         ex += '\nimport numpy as np'
         return ex
 
     def _get_console_exports(self):
-        push = super(MainWindowHyperspy, self)._get_console_exports()
+        push = super()._get_console_exports()
         push['siglist'] = self.hspy_signals
         return push
 

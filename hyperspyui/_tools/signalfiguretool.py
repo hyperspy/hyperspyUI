@@ -27,7 +27,7 @@ from hyperspyui.tools import FigureTool
 class SignalFigureTool(FigureTool):
 
     def __init__(self, windows=None):
-        super(SignalFigureTool, self).__init__(windows)
+        super().__init__(windows)
 
     def _get_wrapper(self, figure):
         # We need to map figure to a hyperspy Signal:

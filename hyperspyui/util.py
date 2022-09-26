@@ -211,14 +211,13 @@ class AttributeDict(dict):
     """
 
     def __init__(self, obj={}):
-        super(AttributeDict, self).__init__(obj)
+        super().__init__(obj)
 
     def __dir__(self):
         return [slugify(k, True) for k in self]
 
     def __repr__(self):
-        return "%s(%s)" % (
-            type(self).__name__, super(Namespace, self).__repr__())
+        return f"{type(self).__name__}({Namespace.__repr__()})"
 
     def __getattr__(self, name):
         if name in self:
@@ -302,11 +301,10 @@ class Namespace(AttributeDict):
     """
 
     def __init__(self, obj={}):
-        super(Namespace, self).__init__(obj)
+        super().__init__(obj)
 
     def __repr__(self):
-        return "%s(%s)" % (
-            type(self).__name__, dict.__repr__())
+        return f"{type(self).__name__}({dict.__repr__()})"
 
     def __getattribute__(self, name):
         try:

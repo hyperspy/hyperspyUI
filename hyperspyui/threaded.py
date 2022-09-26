@@ -39,7 +39,7 @@ class Worker(QtCore.QObject):
     error = QtCore.Signal(str)
 
     def __init__(self, run):
-        super(Worker, self).__init__()
+        super().__init__()
         self.run_function = run
 
     def process(self):
@@ -78,7 +78,7 @@ class Threaded(QtCore.QObject):
         Threaded.pool.remove(instance)
 
     def __init__(self, parent, run, finished=None):
-        super(Threaded, self).__init__(parent)
+        super().__init__(parent)
 
         # Create thread/objects
         self.thread = QtCore.QThread()
@@ -150,9 +150,9 @@ class ProgressThreaded(Threaded):
                     if self.progressbar.wasCanceled():
                         raise ProcessCanceled(tr("User cancelled operation"))
 
-            super(ProgressThreaded, self).__init__(parent, run_gen, finished)
+            super().__init__(parent, run_gen, finished)
         else:
-            super(ProgressThreaded, self).__init__(parent, run, finished)
+            super().__init__(parent, run, finished)
 
         self.thread.started.connect(self.display)
         self.worker.finished.connect(self.close)

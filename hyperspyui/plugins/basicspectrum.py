@@ -23,7 +23,7 @@ Created on Sun Mar 01 15:20:55 2015
 
 from hyperspyui.plugins.plugin import Plugin
 
-from qtpy import QtCore, QtWidgets
+from qtpy import QtCore, QtWidgets, QtGui
 
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
 from hyperspyui.util import SignalTypeFilter
@@ -150,19 +150,14 @@ class BasicSpectrumPlugin(Plugin):
         self.add_toolbar_button("EELS", self.ui.actions['estimate_thickness'])
 
     def create_tools(self):
-        try:
-            # Import for functionality test
-            from hyperspy.misc.eds.utils import get_xray_lines_near_energy as _
-            self.picker_tool = ElementPickerTool()
-            self.picker_tool.picked[str].connect(self.pick_element)
-            self.add_tool(self.picker_tool,
-                          SignalTypeFilter(
-                              (  # hyperspy.signals.EELSSpectrum,
-                               hyperspy.signals.EDSSEMSpectrum,
-                               hyperspy.signals.EDSTEMSpectrum),
-                              self.ui))
-        except ImportError:
-            pass
+        self.picker_tool = ElementPickerTool()
+        self.picker_tool.picked[str].connect(self.pick_element)
+        self.add_tool(self.picker_tool,
+                      SignalTypeFilter(
+                          (  # hyperspy.signals.EELSSpectrum,
+                           hyperspy.signals.EDSSEMSpectrum,
+                           hyperspy.signals.EDSTEMSpectrum),
+                          self.ui))
 
     def _toggle_fixed_height(self, floating):
         w = self.picker_widget
@@ -311,7 +306,7 @@ class ElementPickerTool(SignalFigureTool):
     picked = QtCore.Signal(str)
 
     def __init__(self, windows=None):
-        super(ElementPickerTool, self).__init__(windows)
+        super().__init__(windows)
         self.ranged = False
         self.valid_dimensions = [1]
 
@@ -347,4 +342,4 @@ class ElementPickerTool(SignalFigureTool):
             m = QtWidgets.QMenu()
             for line in lines:
                 m.addAction(line, partial(self.on_pick_line, line))
-            m.exec_(QCursor.pos())
+            m.exec_(QtGui.QCursor.pos())

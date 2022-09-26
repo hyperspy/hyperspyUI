@@ -30,7 +30,7 @@ from hyperspyui.util import load_cursor
 class ZoomPanTool(FigureTool):
 
     def __init__(self, windows=None):
-        super(ZoomPanTool, self).__init__(windows)
+        super().__init__(windows)
         self.panning = False
         self.pan_data = None
         self.base_scale = 1.5     # Mouse wheel zoom factor
@@ -94,7 +94,7 @@ class ZoomPanTool(FigureTool):
             canvas.draw()
 
     def connect_windows(self, windows):
-        super(ZoomPanTool, self).connect_windows(windows)
+        super().connect_windows(windows)
         windows = self._iter_windows(windows)
         canvases = set()
         for w in windows:
@@ -103,7 +103,7 @@ class ZoomPanTool(FigureTool):
             c.widgetlock(self)
 
     def disconnect_windows(self, windows):
-        super(ZoomPanTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         windows = self._iter_windows(windows)
         canvases = set()
         for w in windows:

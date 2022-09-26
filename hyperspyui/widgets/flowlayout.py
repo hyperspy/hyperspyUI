@@ -39,7 +39,7 @@ from qtpy import QtCore, QtWidgets
 
 class FlowLayout(QtWidgets.QLayout):
     def __init__(self, margin=-1, hSpacing=-1, vSpacing=-1, parent=None):
-        super(FlowLayout, self).__init__(parent)
+        super().__init__(parent)
         self._hSpace = hSpacing
         self._vSpace = vSpacing
 
@@ -92,7 +92,7 @@ class FlowLayout(QtWidgets.QLayout):
         return size
 
     def setGeometry(self, rect):
-        super(FlowLayout, self).setGeometry(rect)
+        super().setGeometry(rect)
         self._doLayout(rect, False)
 
     def sizeHint(self):

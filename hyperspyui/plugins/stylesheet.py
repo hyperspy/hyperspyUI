@@ -46,7 +46,7 @@ class StylePlugin(Plugin):
     name = "Style"
 
     def __init__(self, *args, **kwargs):
-        super(StylePlugin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.editor = None
         self.settings.set_default('_style', '')
         self.apply_styles()
@@ -124,7 +124,7 @@ class StyleDialog(ExToolWindow):
     ]
 
     def __init__(self, plugin, ui, parent):
-        super(StyleDialog, self).__init__(parent)
+        super().__init__(parent)
         self.ui = ui
         self.setWindowTitle(tr("Edit application styles"))
         self.plugin = plugin
@@ -314,7 +314,7 @@ class AutoIndentMode(modes.AutoIndentMode):
     """
     def _get_indent(self, cursor):
         text = cursor.block().text().strip()
-        pre, post = super(AutoIndentMode, self)._get_indent(cursor)
+        pre, post = super()._get_indent(cursor)
         print(repr(text), repr(pre), repr(post))
         if text.endswith('{'):
             post += self.editor.tab_length * ' '

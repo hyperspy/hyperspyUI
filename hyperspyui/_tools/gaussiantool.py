@@ -37,7 +37,7 @@ GaussTypes = (Gaussian, GaussianHF)
 class GaussianTool(FigureTool):
 
     def __init__(self, windows=None):
-        super(GaussianTool, self).__init__(windows)
+        super().__init__(windows)
         self.dragging = False
         self.drag_data = None
         self.span = None
@@ -95,14 +95,14 @@ class GaussianTool(FigureTool):
                         mw.remove_component(c)
 
     def connect_windows(self, windows):
-        super(GaussianTool, self).connect_windows(windows)
+        super().connect_windows(windows)
         windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')
             self._wire_wrapper(mw)
 
     def disconnect_windows(self, windows):
-        super(GaussianTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         windows = self._iter_windows(windows)
         for w in windows:
             mw = w.property('hyperspyUI.ModelWrapper')

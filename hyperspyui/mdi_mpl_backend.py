@@ -151,14 +151,14 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
     activeFigureActionGroup.setExclusive(True)
 
     def __init__(self, *args, **kwargs):
-        super(FigureWindow, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._activate_action = None
         if API != 'pyside':
             self.windowStateChanged.connect(self._windowStateChanged)
 
     def closeEvent(self, event):
         self.closing.emit()
-        super(FigureWindow, self).closeEvent(event)
+        super().closeEvent(event)
 
     def activateAction(self):
         """
@@ -176,7 +176,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
 
     def setWindowTitle(self, title):
         # Overridden to keep action text updated
-        super(FigureWindow, self).setWindowTitle(title)
+        super().setWindowTitle(title)
         if self._activate_action is not None:
             self._activate_action.setText(title)
 

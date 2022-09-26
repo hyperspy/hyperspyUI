@@ -111,7 +111,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     """
 
     def __init__(self, parent=None):
-        super(MainWindowBase, self).__init__(parent)
+        super().__init__(parent)
 
         # Do the import here to update the splash
 
@@ -214,7 +214,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         self.settings['_geometry'] = self.saveGeometry()
         self.settings['_windowState'] = self.saveState()
-        return super(MainWindowBase, self).closeEvent(event)
+        return super().closeEvent(event)
 
     def reset_geometry(self):
         self.settings.restore_key_default('_geometry')

@@ -60,7 +60,7 @@ def _init_asyncio_patch():
 class ConsoleWidget(RichJupyterWidget):
 
     def __init__(self, *args, **kwargs):
-        super(ConsoleWidget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         _init_asyncio_patch()
         # Create an in-process kernel

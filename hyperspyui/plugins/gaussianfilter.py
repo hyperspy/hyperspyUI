@@ -33,7 +33,7 @@ class GaussianFilter(Plugin):
     name = "Gaussian Filter"
 
     def __init__(self, ui):
-        super(GaussianFilter, self).__init__(ui)
+        super().__init__(ui)
         self.settings.set_default('sigma', 1.0)
 
     def create_actions(self):
@@ -85,7 +85,7 @@ class GaussianFilter(Plugin):
         record : {bool}
             Whether the operation should be recorded or not.
         **kwargs : dict
-            Other keyword arguments are passed to 
+            Other keyword arguments are passed to
             py:func:`skimage.filters.gaussian`.
         """
         if signal is None:
@@ -146,7 +146,7 @@ class GaussianFilter(Plugin):
 class GaussianFilterDialog(ExToolWindow):
 
     def __init__(self, signal, parent, plugin):
-        super(GaussianFilterDialog, self).__init__(parent)
+        super().__init__(parent)
         self.ui = parent
         self.create_controls()
         self.accepted.connect(self.ok)

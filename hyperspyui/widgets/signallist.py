@@ -31,7 +31,7 @@ from hyperspyui.bindinglist import BindingList
 class SignalList(QtWidgets.QListWidget):
 
     def __init__(self, items=None, parent=None, multiselect=True):
-        super(SignalList, self).__init__(parent)
+        super().__init__(parent)
         self.multiselect = multiselect
         self._bound_blists = []
 
@@ -68,7 +68,7 @@ class SignalList(QtWidgets.QListWidget):
     def addItem(self, object):
         item = QtWidgets.QListWidgetItem(object.name, self)
         item.setData(Qt.UserRole, object)
-        super(SignalList, self).addItem(item)
+        super().addItem(item)
 
     def addItems(self, items):
         for i in items:
@@ -77,7 +77,7 @@ class SignalList(QtWidgets.QListWidget):
     def insertItem(self, index, object):
         item = QtWidgets.QListWidgetItem(object.name, self)
         item.setData(Qt.UserRole, object)
-        super(SignalList, self).insertItem(index, item)
+        super().insertItem(index, item)
 
     def signal(self, index):
         if isinstance(index, int):

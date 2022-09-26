@@ -29,7 +29,7 @@ class Plugin(object):
     name = None
 
     def __init__(self, main_window):
-        super(Plugin, self).__init__()
+        super().__init__()
         self.ui = main_window
         if self.name is None:
             set_group = 'plugins/' + str.lower(self.__class__.__name__)

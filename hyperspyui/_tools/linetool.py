@@ -48,7 +48,7 @@ class LineTool(SignalFigureTool):
     cancelled = QtCore.Signal()
 
     def __init__(self, windows=None):
-        super(LineTool, self).__init__(windows)
+        super().__init__(windows)
         self.widget2d = Line2DWidget(None)
         self.widget2d.set_on(False)
         self.widget1d = RangeWidget(None)
@@ -181,5 +181,5 @@ class LineTool(SignalFigureTool):
         self.cancelled.emit()
 
     def disconnect_windows(self, windows):
-        super(LineTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         self.cancel()

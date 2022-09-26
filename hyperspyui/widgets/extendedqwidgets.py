@@ -37,14 +37,14 @@ class ExToolWindow(QtWidgets.QDialog):
     """
 
     def __init__(self, parent=None):
-        super(ExToolWindow, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowFlags(QtCore.Qt.Tool)
 
 
 class FigureWidget(QtWidgets.QDockWidget):
 
     def __init__(self, main_window, parent=None):
-        super(FigureWidget, self).__init__(parent)
+        super().__init__(parent)
         self.ui = main_window
         self._last_window = None
 
@@ -91,7 +91,7 @@ class ExClickLabel(QtWidgets.QLabel):
     def mouseReleaseEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.clicked.emit()
-        super(ExClickLabel, self).mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)
 
 
 class ExMessageBox(QtWidgets.QMessageBox):
@@ -103,7 +103,7 @@ class ExMessageBox(QtWidgets.QMessageBox):
 
     def setCheckBox(self, cb):
         try:
-            super(ExMessageBox, self).setCheckBox(cb)
+            super().setCheckBox(cb)
         except AttributeError:
             oldcb = self.checkBox()
             if oldcb is not None:
@@ -115,7 +115,7 @@ class ExMessageBox(QtWidgets.QMessageBox):
 
     def checkBox(self):
         try:
-            return super(ExMessageBox, self).checkBox()
+            return super().checkBox()
         except AttributeError:
             pass
         try:
@@ -127,7 +127,7 @@ class ExMessageBox(QtWidgets.QMessageBox):
 class ExRememberPrompt(ExMessageBox):
 
     def __init__(self, *args, **kwargs):
-        super(ExRememberPrompt, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.cb = QtWidgets.QCheckBox(tr("Remember this choice"), self)
         self.setCheckBox(self.cb)
 
@@ -141,9 +141,9 @@ class ExDoubleSlider(QtWidgets.QSlider):
 
     def __init__(self, parent=None, orientation=None):
         if orientation is None:
-            super(ExDoubleSlider, self).__init__(parent)
+            super().__init__(parent)
         else:
-            super(ExDoubleSlider, self).__init__(orientation, parent)
+            super().__init__(orientation, parent)
         self.steps = 1000
         self._range = (0.0, 1.0)
         self.valueChanged.connect(self._on_change)
@@ -154,7 +154,7 @@ class ExDoubleSlider(QtWidgets.QSlider):
         if isinstance(vmax, (np.complex64, np.complex128)):
             vmax = abs(vmax)
         self._range = (vmin, vmax)
-        return super(ExDoubleSlider, self).setRange(0, self.steps)
+        return super().setRange(0, self.steps)
 
     def setValue(self, value):
         vmin, vmax = self._range
@@ -166,10 +166,10 @@ class ExDoubleSlider(QtWidgets.QSlider):
         except (ZeroDivisionError, OverflowError, ValueError):
             v = 0
             self.setEnabled(False)
-        return super(ExDoubleSlider, self).setValue(v)
+        return super().setValue(v)
 
     def value(self):
-        v = super(ExDoubleSlider, self).value()
+        v = super().value()
         return self._int2dbl(v)
 
     def _int2dbl(self, intval):
