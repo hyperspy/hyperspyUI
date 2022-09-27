@@ -35,8 +35,8 @@ class Example(QtWidgets.QMainWindow):
         Generate and return a temp svg filename with oldColor replaced
         by newColor (color names are in HTML format '#XXXXXX')
         '''
-        svg_file = open(filename, 'r')
-        svg_cnt = svg_file.read()
+        with open(filename, 'r') as svg_file:
+            svg_cnt = svg_file.read()
         temp = tempfile.NamedTemporaryFile(delete=False)
         temp.write(svg_cnt.replace(oldColor, newColor).encode('utf-8'))
         temp.close()

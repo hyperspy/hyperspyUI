@@ -27,6 +27,11 @@ from setuptools import setup, find_namespace_packages
 
 from hyperspyui.version import __version__
 
+
+with open('README.rst') as file:
+    long_description=file.read()
+
+
 setup(
     name='hyperspyUI',
     version=__version__,
@@ -105,5 +110,5 @@ setup(
         "Topic :: Scientific/Engineering :: Physics",
     ],
     long_description_content_type="text/x-rst",
-    long_description=open('README.rst').read(),
+    long_description=long_description,
     )
