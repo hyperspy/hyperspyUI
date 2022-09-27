@@ -186,7 +186,7 @@ class SelectionTool(SignalFigureTool):
                     roi = Point2DROI(0, 0)
             else:
                 raise RuntimeWarning("No figure could be found.")
-                return
+
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)

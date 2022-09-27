@@ -217,8 +217,8 @@ class FigureManagerMdi(FigureManagerBase):
 
     def __init__(self, canvas, num):
         self.window = FigureWindow()
-        FigureManagerBase.__init__(self, canvas, num)
-        self.canvas = canvas
+        with plt.rc_context({'toolbar':'None'}):
+            FigureManagerBase.__init__(self, canvas, num)
         self.window.closing.connect(self._widgetclosed)
 
         self.window.setWindowTitle("Figure %d" % num)

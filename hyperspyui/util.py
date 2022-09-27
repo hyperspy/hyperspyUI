@@ -219,23 +219,21 @@ class AttributeDict(dict):
     def __repr__(self):
         return f"{type(self).__name__}({Namespace.__repr__()})"
 
-    def __getattr__(self, name):
-        if name in self:
-            return self[name]
+    def __getattr__(self, key):
+        if key in self:
+            return self[key]
         else:
             for k in self:
-                if name == slugify(k, True):
+                if key == slugify(k, True):
                     return self[k]
 
-    def __setattr__(self, name, value):
-        if name in self:
-            self[name] = value
+    def __setattr__(self, key, value):
+        if key in self:
+            self[key] = value
         else:
             for k in self:
-                if name == slugify(k, True):
+                if key == slugify(k, True):
                     self[k] = value
-            else:
-                self[name] = value
 
     def __delattr__(self, name):
         if name in self:
