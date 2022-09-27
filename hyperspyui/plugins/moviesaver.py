@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
-from hyperspyui.plugins.plugin import Plugin
 import matplotlib as mpl
 import matplotlib.animation as animation
 import os
@@ -24,6 +23,8 @@ import sys
 
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import QLineEdit, QCheckBox
+
+from hyperspyui.plugins.plugin import Plugin
 
 
 def tr(text):
@@ -128,7 +129,7 @@ class MovieSaver(Plugin):
 
             try:
                 with writer.saving(fig, fname, dpi):
-                    for idx in signal.axes_manager:
+                    for _ in signal.axes_manager:
                         QtWidgets.QApplication.processEvents()
                         writer.grab_frame()
             finally:
