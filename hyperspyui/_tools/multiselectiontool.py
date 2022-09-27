@@ -28,7 +28,7 @@ from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
                                       SquareWidget, VerticalLineWidget)
 from hyperspy.roi import RectangularROI, SpanROI, Point1DROI, Point2DROI
 
-from hyperspyui.tools import SignalFigureTool
+from hyperspyui._tools.signalfiguretool import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
 import copy
 

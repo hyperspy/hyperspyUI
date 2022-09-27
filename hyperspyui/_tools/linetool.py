@@ -28,7 +28,7 @@ from hyperspy.drawing.widgets import Line2DWidget, RangeWidget
 from hyperspy.roi import BaseInteractiveROI, SpanROI, Line2DROI
 
 from hyperspyui.log import logger
-from hyperspyui.tools import SignalFigureTool
+from hyperspyui._tools.signalfiguretool import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
 
 

@@ -27,7 +27,7 @@ from qtpy import QtCore, QtWidgets, QtGui
 
 from hyperspyui.widgets.elementpicker import ElementPickerWidget
 from hyperspyui.util import SignalTypeFilter
-from hyperspyui.tools import SignalFigureTool
+from hyperspyui._tools.signalfiguretool import SignalFigureTool
 
 import hyperspy.signals
 from hyperspy.misc.eds.utils import _get_element_and_line

@@ -24,7 +24,7 @@ Created on Sun Dec 07 01:48:00 2014
 import collections
 from qtpy import QtCore
 
-from .tool import Tool
+from hyperspyui._tools.tool import Tool
 
 
 class FigureTool(Tool):

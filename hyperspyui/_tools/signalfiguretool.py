@@ -21,7 +21,7 @@ Created on Fri May 22 12:10:20 2015
 @author: Vidar Tonaas Fauske
 """
 
-from hyperspyui.tools import FigureTool
+from hyperspyui._tools.figuretool import FigureTool
 
 
 class SignalFigureTool(FigureTool):
