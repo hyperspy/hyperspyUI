@@ -25,7 +25,7 @@ from hyperspyui.settings import Settings
 from functools import partial
 
 
-class Plugin(object):
+class Plugin:
     name = None
 
     def __init__(self, main_window):

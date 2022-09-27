@@ -60,7 +60,7 @@ class ReadOnlyDict(dict):
         return dict.update(*args, **kwargs)
 
 
-class PluginManager(object):
+class PluginManager:
 
     def __init__(self, main_window):
         """

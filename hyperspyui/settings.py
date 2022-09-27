@@ -27,7 +27,7 @@ from qtpy.QtWidgets import QMessageBox
 from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 
-class Settings(object):
+class Settings:
 
     def __init__(self, parent=None, group=None):
         self._sep = '/'

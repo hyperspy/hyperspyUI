@@ -4,7 +4,7 @@ import numpy as np
 from hyperspyui.util import win2sig
 
 
-class EnsureLt2D(object):
+class EnsureLt2D:
 
     def __init__(self, ui):
         self.ui = ui
