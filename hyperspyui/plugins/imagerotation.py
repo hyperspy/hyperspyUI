@@ -113,7 +113,7 @@ class ImageRotation_Plugin(Plugin):
                     s = (slice(None),)* axisA + (slice(None, None, -1),) + \
                         (slice(None),)* adiff + (slice(None, None, -1),) + \
                         (Ellipsis,)
-                elif k == 3:  # 270 deg
+                else:  # 270 deg
                     # Invert axes[1]
                     s = (slice(None),)* axes[1] + (slice(None, None, -1),) + \
                         (Ellipsis,)

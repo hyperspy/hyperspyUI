@@ -91,17 +91,15 @@ class Segmentation(Plugin):
             histogram = signal
             source, s_out = self.map[signal]
         else:
-            found = False
-            for h, (s, s_out) in self.map.items():
-                if signal in (s, s_out):
-                    found = True
+            histogram = None
+            s_out = None
+            source = signal
+            for h, (s, s_out_) in self.map.items():
+                if signal in (s, s_out_):
                     histogram = h
                     source = s
                     break
-            if not found:
-                histogram = None
-                s_out = None
-                source = signal
+
         if histogram is not None:
             self.ui.lut_signalwrapper[histogram].close()
         if s_out is not None:
