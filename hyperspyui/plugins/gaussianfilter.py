@@ -135,7 +135,7 @@ class GaussianFilter(Plugin):
     def show_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
         if space != "signal":
-            return
+            return None
         dialog = GaussianFilterDialog(signal, self.ui, self)
         if 'sigma' in self.settings:
             dialog.num_sigma.setValue(float(self.settings['sigma']))

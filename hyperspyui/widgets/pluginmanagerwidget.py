@@ -134,7 +134,7 @@ class PluginManagerWidget(ExToolWindow):
     def edit_plugin(self):
         i = self.table.currentIndex()
         if not i.isValid():
-            return
+            return None
         if i.column() != PluginsModel.PathColumn:
             i = i.sibling(i.row(), PluginsModel.PathColumn)
         path = self.model.data(i)

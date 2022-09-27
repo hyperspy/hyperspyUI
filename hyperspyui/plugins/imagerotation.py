@@ -198,7 +198,7 @@ class ImageRotation_Plugin(Plugin):
     def show_rotate_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
         if space not in ("navigation", "signal"):
-            return
+            return None
         self.dialog = ImageRotationDialog(signal, space, self.ui, self)
         if 'angle' in self.settings:
             self.dialog.num_angle.setValue(self.settings['angle', float])

@@ -28,6 +28,7 @@ Utility to make it easier to create plugins directly through the UI.
 
 import os
 import string
+
 import hyperspyui.plugins.plugin
 
 header = """from hyperspyui.plugins.plugin import Plugin
@@ -108,6 +109,7 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
                                         options=autopep8.parse_args(
                                          ['--aggressive', '--aggressive', '']))
     except ImportError:
+        # in case autopep8 is not installed
         pass
     return plugin_code
 

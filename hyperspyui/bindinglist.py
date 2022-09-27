@@ -41,6 +41,11 @@ class BindingList(list):
         super().__init__(*args, **kwargs)
         self.set_target(target)
 
+    def __eq__(self, other):
+        if not isinstance(other, BindingList):
+            return False
+        return list.__eq__(self, other) and self.targets == other.targets
+
     def set_target(self, target):
         self.targets = {}
         self.add_target(target)

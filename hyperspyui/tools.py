@@ -34,3 +34,21 @@ from hyperspyui._tools.zoompan import ZoomPanTool
 from hyperspyui._tools.gaussiantool import GaussianTool
 
 default_tools = [PointerTool, HomeTool, ZoomPanTool, GaussianTool]
+
+
+__all__ = [
+    "Tool",
+    "FigureTool",
+    "SignalFigureTool",
+    "SelectionTool",
+    "MultiSelectionTool",
+    "LineTool",
+    "PointerTool",
+    "HomeTool",
+    "ZoomPanTool",
+    "GaussianTool",
+    ]
+
+
+def __dir__():
+    return sorted(__all__)

@@ -155,8 +155,12 @@ class LineTool(SignalFigureTool):
         if self.is_on():
             if self.ndim == 1:
                 roi = SpanROI(0, 1)
-            elif self.ndim > 1:
+            elif self.ndim == 1:
                 roi = Line2DROI(0, 0, 1, 1, 1)
+            else:
+                raise RuntimeError(
+                    f"Line tool doesn't support dimension dimension {self.ndim}."
+                    )
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.updated[BaseInteractiveROI].emit(roi)
             self.updated[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
@@ -167,6 +171,10 @@ class LineTool(SignalFigureTool):
                 roi = SpanROI(0, 1)
             elif self.ndim > 1:
                 roi = Line2DROI(0, 0, 1, 1, 1)
+            else:
+                raise RuntimeError(
+                    f"Line tool doesn't support dimension dimension {self.ndim}."
+                    )
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)

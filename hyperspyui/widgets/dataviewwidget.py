@@ -51,6 +51,7 @@ class ComponentEditorHandler(tu.Handler):
                 # Make sure the value is actually stored in array
                 object.store_current_value_in_array()
             except AttributeError:
+                # in case some attribute are missing
                 pass
 
 
@@ -283,6 +284,7 @@ class DataViewWidget(QtWidgets.QWidget):
                            resizable=True)
             comp.edit_traits(view=view)
         except AttributeError:
+            # in case some attribute are missing
             pass
 
     def onCustomContextMenu(self, point):

@@ -52,6 +52,7 @@ def lstrip(string, prefix):
     if string is not None:
         if string.startswith(prefix):
             return string[len(prefix):]
+    return None
 
 
 def debug_trace():
@@ -120,7 +121,7 @@ def win2sig(window, signals=None, plotting_signal=None):
     return r
 
 
-class SignalTypeFilter(object):
+class SignalTypeFilter:
 
     def __init__(self, signal_type, ui, space=None):
         self.signal_type = signal_type
@@ -220,12 +221,16 @@ class AttributeDict(dict):
         return f"{type(self).__name__}({Namespace.__repr__()})"
 
     def __getattr__(self, key):
+        value = None
         if key in self:
-            return self[key]
+            value = self[key]
         else:
             for k in self:
                 if key == slugify(k, True):
-                    return self[k]
+                    value = self[k]
+                    break
+
+        return value
 
     def __setattr__(self, key, value):
         if key in self:

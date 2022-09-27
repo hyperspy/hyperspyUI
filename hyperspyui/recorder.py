@@ -57,9 +57,12 @@ class Recorder(QtCore.QObject):
     @staticmethod
     def step_to_code(step):
         if step[0] == 'code':
-            return step[1] + '\n'
+            value = step[1] + '\n'
         elif step[0] == 'action':
-            return "ui.actions['{0}'].trigger()\n".format(step[1])
+            value = "ui.actions['{0}'].trigger()\n".format(step[1])
+        else:
+            value = None
+        return value
 
     def to_code(self):
         code = ""

@@ -81,9 +81,12 @@ class SignalList(QtWidgets.QListWidget):
 
     def signal(self, index):
         if isinstance(index, int):
-            return self.item(index).data(Qt.UserRole)
+            value = self.item(index).data(Qt.UserRole)
         elif isinstance(index, QtWidgets.QListWidgetItem):
-            return index.data(Qt.UserRole)
+            value = index.data(Qt.UserRole)
+        else:
+            value = None
+        return value
 
     def get_selected(self):
         selections = self.selectedItems()
@@ -99,3 +102,4 @@ class SignalList(QtWidgets.QListWidget):
     def __getitem__(self, key):
         if isinstance(key, QtWidgets.QListWidgetItem):
             return key.data(Qt.UserRole)
+        return None

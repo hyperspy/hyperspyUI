@@ -142,5 +142,6 @@ class EELSDBPlugin(Plugin):
             # TODO: downloading spectra is currently broken
             self.view.linkClicked.connect(self._on_link)
         except AttributeError:
+            # unknown
             pass
         self.window.show()

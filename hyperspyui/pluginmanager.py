@@ -217,7 +217,7 @@ class PluginManager:
 
     def _load_if_enabled(self, p_type):
         if p_type is None or p_type.name is None:
-            return
+            return None
         if self.enabled_store[p_type.name] is None:
             # Init setting to True on first encounter
             self.enabled_store[p_type.name] = True

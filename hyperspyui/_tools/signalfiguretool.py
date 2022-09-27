@@ -61,12 +61,12 @@ class SignalFigureTool(FigureTool):
         sw = self._get_wrapper(event.inaxes.figure)
         # Find out which axes of Signal are plotted in figure
         if not sw or not sw.signal:
-            return
+            return None
         am = sw.signal.axes_manager
         if self._is_sig(event):
             axes = am.signal_axes
         elif self._is_nav(event):
             axes = am.navigation_axes
         else:
-            return
+            return None
         return axes

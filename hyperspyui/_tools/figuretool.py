@@ -120,4 +120,5 @@ class FigureTool(Tool):
                         try:
                             canvas.mpl_disconnect(cid)
                         except Exception:
+                            # in case the event is not already disconnect
                             pass
