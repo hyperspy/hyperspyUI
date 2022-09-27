@@ -20,19 +20,18 @@ Created on Tue Apr 28 11:00:55 2015
 
 @author: Vidar Tonaas Fauske
 """
-
-from hyperspyui.plugins.plugin import Plugin
+import collections
 
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import (QLabel, QPushButton, QToolButton, QVBoxLayout,
                             QHBoxLayout, QWidget)
 
-import collections
+from hyperspy.axes import DataAxis
+import hyperspy.api as hs
 
+from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
-from hyperspy.axes import DataAxis
-from hyperspy.signal import BaseSignal
 
 
 def tr(text):
@@ -71,7 +70,7 @@ class AxesOrderPlugin(Plugin):
         # Get signal
         if signal is None:
             signal = self.ui.get_selected_wrapper()
-        elif isinstance(signal, BaseSignal):
+        elif isinstance(signal, hs.signals.BaseSignal):
             signal = self.ui.lut_signalwrapper[signal]
         am = signal.signal.axes_manager
         # Get DataAxis
