@@ -66,6 +66,9 @@ class BindingList(list):
             cb = {'ap': target.addItem, 'in': target.insertItem,
                   'ex': target.addItems, 're': qlr,
                   'po': target.takeItem}
+        else:
+            raise TypeError("The argument `target` must be a of `list` or "
+                            "`QListWidget` type.")
         self.targets[target] = cb
 
     def remove_target(self, target):

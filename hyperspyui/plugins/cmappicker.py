@@ -100,15 +100,15 @@ class CMapDelegate(QtWidgets.QItemDelegate):
         kind = index.data(Qt.AccessibleDescriptionRole)
         if kind == "parent":
             option.state |= QtWidgets.QStyle.State_Enabled
+            super().paint(painter, option, index)
         else:
             option.textElideMode = Qt.ElideNone
             rect = option.rect
             rect = QtCore.QRect(rect.x()+self.cmap_shift, rect.y(),
                                 rect.width()-self.cmap_shift, rect.height())
             option.rect.setLeft(option.rect.x() + 10)
-        super().paint(painter, option, index)
+            super().paint(painter, option, index)
 
-        if kind != "parent":
             cmap = plt.get_cmap(index.data().strip())
             width = self.width_ - self.cmap_shift
             line = cmap(np.linspace(0, 1, width, endpoint=True))
