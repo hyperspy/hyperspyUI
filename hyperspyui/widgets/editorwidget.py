@@ -149,7 +149,7 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
             self.editor.backend.send_request(
                 self._worker, request_data, on_receive=self._on_work_finished)
             self._finished = False
-        except:
+        except Exception:
             # retry later
             QtCore.QTimer.singleShot(100, self._request)
 

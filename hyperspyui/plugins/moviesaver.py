@@ -177,7 +177,7 @@ class MovieArgsPrompt(QtWidgets.QWidget):
         self.chk_verbose = QCheckBox("Verbose")
         try:
             sys.stdout.fileno()
-        except:
+        except Exception:
             self.chk_verbose.setEnabled(False)
             self.chk_verbose.setToolTip("Verbose output does not work with " +
                                         "internal console.")

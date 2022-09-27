@@ -119,5 +119,5 @@ class FigureTool(Tool):
                     if canv == canvas:
                         try:
                             canvas.mpl_disconnect(cid)
-                        except:
+                        except Exception:
                             pass

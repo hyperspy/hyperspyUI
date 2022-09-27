@@ -22,7 +22,7 @@ import numpy as np
 try:
     # HyperSpy >=2.0
     from rsciio.utils.rgb_tools import regular_array2rgbx
-except:
+except Exception:
     # HyperSpy <2.0
     from hyperspy.misc.rgb_tools import regular_array2rgbx
 

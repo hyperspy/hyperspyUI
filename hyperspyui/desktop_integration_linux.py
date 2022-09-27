@@ -5,7 +5,7 @@ import subprocess
 try:
     # HyperSpy >=2.0
     from rsciio import IO_PLUGINS
-except:
+except Exception:
     # HyperSpy <2.0
     from hyperspy.io_plugins import io_plugins as IO_PLUGINS
 
