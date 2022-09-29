@@ -40,6 +40,7 @@ class Tool(QtCore.QObject):
             return "Select the " + name + "."
         elif self.single_action():
             return "Run the " + name + "."
+        return None
 
     def get_icon(self):
         return None

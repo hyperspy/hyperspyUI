@@ -59,7 +59,7 @@ def make_advanced_dialog(ui, algorithms=None):
     vbox = QtWidgets.QVBoxLayout()
     if algorithms:
         lbl_algo = QLabel(tr("Choose algorithm:"))
-        cbo_algo = QLineEdit.QComboBox()
+        cbo_algo = QtWidgets.QComboBox()
         cbo_algo.addItems(algorithms)
 
         vbox.addWidget(lbl_algo)

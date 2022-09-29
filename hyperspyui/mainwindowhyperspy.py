@@ -397,11 +397,13 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         except AttributeError:
             # in case there is no signal
             logger.info("No signal available.")
+        return None
 
     def get_selected_signal(self):
         sw = self.get_selected_wrapper()
         if sw is None:
             logger.info("No signal available.")
+            return None
         else:
             return sw.signal
 
@@ -495,8 +497,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 s.plot()
         else:
             sig.plot()
-        self.record_code('ui.load_stack({0}, {1})'.format(filenames,
-                                                          stack_axis))
+        self.record_code(f'ui.load_stack({filenames}, {stack_axis})')
+        return None
 
     def load(self, filenames=None):
         """

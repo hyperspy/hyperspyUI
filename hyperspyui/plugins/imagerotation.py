@@ -173,14 +173,13 @@ class ImageRotation_Plugin(Plugin):
                     for i, ax in enumerate(out.axes_manager._axes):
                         dx = diff[i] * 0.5 * ax.scale
                         ax.offset -= dx
-                # TODO: TAG: Functionality check
                 if hasattr(out.axes_manager, 'events') and hasattr(
                         out.axes_manager.events, 'any_axis_changed'):
                     out.axes_manager.events.any_axis_changed.trigger(
                         out.axes_manager)
-            # TODO: TAG: Functionality check
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger(out)
+            return None
 
     def on_dialog_accept(self):
         self.settings['angle'] = self.dialog.num_angle.value()

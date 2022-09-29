@@ -128,6 +128,7 @@ class GaussianFilter(Plugin):
                         sigma, out, args, kwargs))
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger(out)
+            return None
 
     def on_dialog_accept(self, dialog):
         self.settings['sigma'] = dialog.num_sigma.value()

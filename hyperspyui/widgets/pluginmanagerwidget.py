@@ -64,6 +64,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
         elif index.column() == self.EnabledColumn:
             return (Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
                     Qt.ItemIsEnabled)
+        return None
 
     def parent(self, index):
         return QModelIndex()
