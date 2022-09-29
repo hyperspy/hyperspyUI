@@ -71,9 +71,11 @@ class Threaded(QtCore.QObject):
 
     pool = []
 
+    @staticmethod
     def add_to_pool(instance):
         Threaded.pool.append(instance)
 
+    @staticmethod
     def remove_from_pool(instance):
         Threaded.pool.remove(instance)
 

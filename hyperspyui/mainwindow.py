@@ -62,6 +62,12 @@ class MainWindow(MainWindowHyperspy):
     """
 
     load_complete = QtCore.Signal()
+    _default_tools = [
+        hyperspyui.tools.PointerTool,
+        hyperspyui.tools.HomeTool,
+        hyperspyui.tools.ZoomPanTool,
+        hyperspyui.tools.GaussianTool,
+        ]
 
     def __init__(self, splash=None, parent=None, argv=None):
         self.splash = splash
@@ -227,7 +233,6 @@ class MainWindow(MainWindowHyperspy):
         # --- Add signal data type selection actions ---
         signal_datatype_ag = QtWidgets.QActionGroup(self)
         signal_datatype_ag.setExclusive(True)
-        import numpy as np
         for t in [bool, np.bool8, np.byte, complex, np.complex64,
                   np.complex128, float, np.float16, np.float32, np.float64,
                   int, np.int8, np.int16, np.int32, np.int64, np.compat.long,
@@ -311,7 +316,7 @@ class MainWindow(MainWindowHyperspy):
 
     def create_tools(self):
         super().create_tools()
-        for tool_type in hyperspyui.tools.default_tools:
+        for tool_type in self._default_tools:
             self.add_tool(tool_type)
 
     def create_toolbars(self):

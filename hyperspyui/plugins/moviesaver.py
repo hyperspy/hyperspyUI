@@ -16,11 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
-import matplotlib as mpl
-import matplotlib.animation as animation
 import os
 import sys
+import warnings
 
+import matplotlib as mpl
+import matplotlib.animation as animation
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import QLineEdit, QCheckBox
 
@@ -38,8 +39,7 @@ writers = animation.writers
 if writers.is_available(writer):
     writer = writers[writer]()
 else:
-    import warnings
-    warnings.warn("MovieWriter %s unavailable" % writer)
+    warnings.warn(f"MovieWriter {writer} unavailable")
 
     try:
         writer = writers[writers.list()[0]]()
@@ -105,8 +105,7 @@ class MovieSaver(Plugin):
                 writer = writers[writer](fps=fps, metadata=metadata,
                                          codec=codec, extra_args=extra)
             else:
-                import warnings
-                warnings.warn("MovieWriter %s unavailable" % writer)
+                warnings.warn(f"MovieWriter {writer} unavailable")
 
                 try:
                     writer = writers[writers.list()[0]](fps=fps,
