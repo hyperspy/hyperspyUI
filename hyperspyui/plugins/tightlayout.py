@@ -40,7 +40,6 @@ class Tightlayout(Plugin):
                 '.default'])
 
     def default(self):
-        ui = self.ui
         f = plt.gcf()
         if f:
             f.tight_layout()

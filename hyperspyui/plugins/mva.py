@@ -219,7 +219,7 @@ class MVA_Plugin(Plugin):
         if ns is None:
             ns = Namespace()
             ns.autosig = signal is None
-            ns.s, signal = self._get_signal(signal)
+            ns.s, _ = self._get_signal(signal)
 
         def do_threaded():
             ns.s = self._do_decomposition(ns.s, algorithm=algorithm)

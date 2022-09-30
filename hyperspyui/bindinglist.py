@@ -61,10 +61,6 @@ class BindingList(list):
         elif isinstance(target, list):
             cb = {'ap': target.append, 'in': target.insert,
                   'ex': target.extend, 're': target.remove, 'po': target.pop}
-#        elif isinstance(target, QList):
-#            cb = {'ap': target.append, 'in': target.insert,
-#                  'ex': target.append, 're': target.removeOne,
-#                  'po': target.removeAt}
         elif isinstance(target, QtWidgets.QListWidget):
             def qlr(value):
                 target.takeItem(self.index(value))

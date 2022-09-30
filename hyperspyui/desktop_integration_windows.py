@@ -169,5 +169,5 @@ def run_desktop_integration_windows(args):
                     d + r'\__main__.py" \"%1\" %*" /f')
 
             for cmd in cmds:
-                r = subprocess.call(cmd, shell=True)
+                subprocess.call(cmd, shell=True)
             print("File types registered: ", filetypes)

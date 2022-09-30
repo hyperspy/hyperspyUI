@@ -639,12 +639,6 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             if 0 < len(data_ext.intersection(extensions)):
                 event.acceptProposedAction()
 
-#    def dragMoveEvent(event):
-#        pass
-#
-#    def dragLeaveEvent(event):
-#        pass
-
     def dropEvent(self, event):
         # Something has been dropped. Try to load all file urls
         mimeData = event.mimeData()

@@ -81,8 +81,7 @@ class ZoomPanTool(FigureTool):
         if not self.panning or self.pan_data is None:
             return
 
-        x0, y0 = self.pan_data[0:2]
-        x1, y1 = self.pan_data[0:2] = (event.x, event.y)
+        self.pan_data[0:2] = (event.x, event.y)
 
         cs = set()
         for a in self.pan_data[3]:
