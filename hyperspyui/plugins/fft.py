@@ -160,6 +160,7 @@ class FFT_Plugin(Plugin):
                              tr("Only Signal2D and Signal1D are supported."),
                              QMessageBox.Ok)
             mb.exec_()
+            return
 
         roi.add_widget(s)
         roi_signal = roi.interactive(s, recompute_out_event=False)

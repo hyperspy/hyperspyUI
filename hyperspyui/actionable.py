@@ -33,7 +33,7 @@ class Actionable(QtCore.QObject):
     """
 
     def __init__(self):
-        super(Actionable, self).__init__()
+        super().__init__()
         self.actions = OrderedDict()
         self.sep_counter = 0
 

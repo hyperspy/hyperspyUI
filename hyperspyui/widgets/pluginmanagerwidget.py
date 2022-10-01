@@ -44,7 +44,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
     PathColumn = 2
 
     def __init__(self, plugin_manager, parent=None):
-        super(PluginsModel, self).__init__(parent)
+        super().__init__(parent)
         self.plugin_manager = plugin_manager
         self._update_data()
 
@@ -64,6 +64,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
         elif index.column() == self.EnabledColumn:
             return (Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
                     Qt.ItemIsEnabled)
+        return None
 
     def parent(self, index):
         return QModelIndex()
@@ -125,7 +126,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
 class PluginManagerWidget(ExToolWindow):
 
     def __init__(self, plugin_manager, parent=None):
-        super(PluginManagerWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.setWindowTitle(tr("Plugin manager"))
         self.plugin_manager = plugin_manager
@@ -134,7 +135,7 @@ class PluginManagerWidget(ExToolWindow):
     def edit_plugin(self):
         i = self.table.currentIndex()
         if not i.isValid():
-            return
+            return None
         if i.column() != PluginsModel.PathColumn:
             i = i.sibling(i.row(), PluginsModel.PathColumn)
         path = self.model.data(i)

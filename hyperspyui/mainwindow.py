@@ -62,6 +62,12 @@ class MainWindow(MainWindowHyperspy):
     """
 
     load_complete = QtCore.Signal()
+    _default_tools = [
+        hyperspyui.tools.PointerTool,
+        hyperspyui.tools.HomeTool,
+        hyperspyui.tools.ZoomPanTool,
+        hyperspyui.tools.GaussianTool,
+        ]
 
     def __init__(self, splash=None, parent=None, argv=None):
         self.splash = splash
@@ -73,7 +79,7 @@ class MainWindow(MainWindowHyperspy):
 
         self._load_signal_types()
 
-        super(MainWindow, self).__init__(parent)
+        super().__init__(parent)
 
         # Set window icon
         self.setWindowIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__),
@@ -134,7 +140,7 @@ class MainWindow(MainWindowHyperspy):
         A second instance was launched and suppressed. Process the arguments
         that were passed to the new instance.
         """
-        super(MainWindow, self).handleSecondInstance(argv)
+        super().handleSecondInstance(argv)
         argv = json.loads(argv)
         self.parse_args(argv)
 
@@ -158,7 +164,7 @@ class MainWindow(MainWindowHyperspy):
             self.load(files)
 
     def create_default_actions(self):
-        super(MainWindow, self).create_default_actions()
+        super().create_default_actions()
 
         # Files:
         self.add_action('open', "&Open", self.load,
@@ -227,7 +233,6 @@ class MainWindow(MainWindowHyperspy):
         # --- Add signal data type selection actions ---
         signal_datatype_ag = QtWidgets.QActionGroup(self)
         signal_datatype_ag.setExclusive(True)
-        import numpy as np
         for t in [bool, np.bool8, np.byte, complex, np.complex64,
                   np.complex128, float, np.float16, np.float32, np.float64,
                   int, np.int8, np.int16, np.int32, np.int64, np.compat.long,
@@ -288,7 +293,7 @@ class MainWindow(MainWindowHyperspy):
             componentmenu.addAction(self.actions[acname])
 
         # Create Windows menu
-        super(MainWindow, self).create_menu()
+        super().create_menu()
 
         self.menus['File'].addSeparator()
         self.add_menuitem('File', self.actions['close_all'])
@@ -310,8 +315,8 @@ class MainWindow(MainWindowHyperspy):
         self.add_menuitem('Help', self.actions['documentation'])
 
     def create_tools(self):
-        super(MainWindow, self).create_tools()
-        for tool_type in hyperspyui.tools.default_tools:
+        super().create_tools()
+        for tool_type in self._default_tools:
             self.add_tool(tool_type)
 
     def create_toolbars(self):
@@ -319,10 +324,10 @@ class MainWindow(MainWindowHyperspy):
         self.add_toolbar_button("Files", self.actions['close'])
         self.add_toolbar_button("Files", self.actions['save'])
 
-        super(MainWindow, self).create_toolbars()
+        super().create_toolbars()
 
     def create_widgetbar(self):
-        super(MainWindow, self).create_widgetbar()
+        super().create_widgetbar()
 
     # ---------------------------------------
     # Events
@@ -336,7 +341,7 @@ class MainWindow(MainWindowHyperspy):
             action.setEnabled(True)
 
     def on_subwin_activated(self, mdi_figure):
-        super(MainWindow, self).on_subwin_activated(mdi_figure)
+        super().on_subwin_activated(mdi_figure)
         s = win2sig(mdi_figure, self.signals, self._plotting_signal)
         if s is None:
             for ac in self.signal_type_ag.actions():
@@ -359,7 +364,7 @@ class MainWindow(MainWindowHyperspy):
 
     def on_settings_changed(self):
         # Redirect streams (wait until the end to not affect during load)
-        super(MainWindow, self).on_settings_changed()
+        super().on_settings_changed()
         if self.settings['output_to_console', bool]:
             if self._old_stdout is None:
                 self._old_stdout = sys.stdout
@@ -461,18 +466,24 @@ class MainWindow(MainWindowHyperspy):
             return    # TODO: Show dialog and prompt
         if not clip:
             old_type = signal.data.dtype
+
             if np.issubdtype(data_type, int):
-                info = np.iinfo(data_type)
+                type_info = np.iinfo(data_type)
             elif np.issubdtype(data_type, float):
-                info = np.finfo(data_type)
+                type_info = np.finfo(data_type)
+            else:
+                type_info = None
+
             if np.issubdtype(old_type, int):
-                old_info = np.iinfo(old_type)
+                old_type_info = np.iinfo(old_type)
             elif np.issubdtype(old_type, float):
-                old_info = np.finfo(old_type)
-            if old_info.max > info.max:
-                signal.data *= float(info.max) / np.nanmax(signal.data)
+                old_type_info = np.finfo(old_type)
+            else:
+                old_type_info = None
+            if type_info and old_type_info and type_info.max < old_type_info.max:
+                signal.data *= float(type_info.max) / np.nanmax(signal.data)
                 self.record_code("signal.data *= %f / np.nanmax(signal.data)" %
-                                 float(info.max))
+                                 float(type_info.max))
         signal.change_dtype(data_type)
         dts = data_type.__name__
         if data_type.__module__ == 'numpy':

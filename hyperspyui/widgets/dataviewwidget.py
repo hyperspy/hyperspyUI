@@ -51,6 +51,7 @@ class ComponentEditorHandler(tu.Handler):
                 # Make sure the value is actually stored in array
                 object.store_current_value_in_array()
             except AttributeError:
+                # in case some attribute are missing
                 pass
 
 
@@ -75,14 +76,14 @@ class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
             icons = tuple(icons)
         self.icons = icons
         self.margin = 2
-        super(VisbilityDelegate, self).__init__(parent)
+        super().__init__(parent)
 
     def iconPos(self, icon, option):
         return QtCore.QPoint(int(option.rect.right() - icon.width() - self.margin),
                              int(option.rect.center().y() - icon.height()/2))
 
     def sizeHint(self, option, index):
-        size = super(VisbilityDelegate, self).sizeHint(option, index)
+        size = super().sizeHint(option, index)
 
         # Make sure we have room for the icon
         if Qt.Checked == index.data(Qt.CheckStateRole):
@@ -108,7 +109,7 @@ class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
 class HyperspyItem(QtWidgets.QTreeWidgetItem):
 
     def __init__(self, parent, itemtype, hspy_item):
-        super(HyperspyItem, self).__init__(parent, itemtype)
+        super().__init__(parent, itemtype)
         self.hspy_item = hspy_item
         self.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable |
                 Qt.ItemIsEnabled)
@@ -134,14 +135,14 @@ class HyperspyItem(QtWidgets.QTreeWidgetItem):
                         return Qt.Unchecked
                 else:
                     return None
-        return super(HyperspyItem, self).data(column, role)
+        return super().data(column, role)
 
     def setData(self, column, role, value):
         if column == VisibilityCol and role == Qt.CheckStateRole \
                 and self.type() == DataViewWidget.SignalType:
             self._on_toggle_visibility()
         else:
-            super(HyperspyItem, self).setData(column, role, value)
+            super().setData(column, role, value)
 
     def _on_toggle_visibility(self):
         checked = Qt.Checked == self.data(VisibilityCol, Qt.CheckStateRole)
@@ -175,7 +176,7 @@ class DataViewWidget(QtWidgets.QWidget):
     ComponentType = QtWidgets.QTreeWidgetItem.UserType + 2
 
     def __init__(self, main_window, parent=None):
-        super(DataViewWidget, self).__init__(parent)
+        super().__init__(parent)
         self.main_window = main_window
         self.tree = QtWidgets.QTreeWidget(self)
         self.tree.header().close()
@@ -283,6 +284,7 @@ class DataViewWidget(QtWidgets.QWidget):
                            resizable=True)
             comp.edit_traits(view=view)
         except AttributeError:
+            # in case some attribute are missing
             pass
 
     def onCustomContextMenu(self, point):
@@ -351,7 +353,7 @@ class DataViewWidget(QtWidgets.QWidget):
                 model = citem.parent().data(NameCol, Qt.UserRole)
                 model.remove_component(data)
         else:
-            super(DataViewWidget, self).keyPressEvent(event)
+            super().keyPressEvent(event)
 
     def _remove(self, key):
         if key in self.lut:

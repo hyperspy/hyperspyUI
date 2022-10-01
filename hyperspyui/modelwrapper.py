@@ -42,7 +42,7 @@ class ModelWrapper(Actionable):
     removed = QtCore.Signal((object, object), (object,))
 
     def __init__(self, model, signal_wrapper, name):
-        super(ModelWrapper, self).__init__()
+        super().__init__()
         self.model = model
         self.signal = signal_wrapper
         self.name = name
@@ -94,16 +94,18 @@ class ModelWrapper(Actionable):
         self.model.fit(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
-        self.record_code("model.fit(%s)" %
-                         self._args_for_record(args, kwargs))
+        self.record_code(
+            "model.fit(%s)" % self._args_for_record(args, kwargs)
+            )
 
     def multifit(self, *args, **kwargs):
         self.signal.keep_on_close = True
         self.model.multifit(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
-        self.record_code("model.multifit(%s)" %
-                         self._args_for_record(args, kwargs))
+        self.record_code(
+            "model.multifit(%s)" % self._args_for_record(args, kwargs)
+            )
 
     def smartfit(self, *args, **kwargs):
         if hasattr(self.model, 'smartfit'):
@@ -111,8 +113,9 @@ class ModelWrapper(Actionable):
             self.model.smartfit(*args, **kwargs)
             self.signal.keep_on_close = False
             self.signal.update_figures()
-            self.record_code("model.smartfit(%)" %
-                             self._args_for_record(args, kwargs))
+            self.record_code(
+                "model.smartfit(%s)" % self._args_for_record(args, kwargs)
+                )
 
     def fit_component(self, component):
         # This is a non-blocking call, which means the normal keep_on_close +
@@ -128,8 +131,9 @@ class ModelWrapper(Actionable):
         self.model.set_signal_range(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
-        self.record_code("model.set_signal_range(%s)" %
-                         self._args_for_record(args, kwargs))
+        self.record_code(
+            "model.set_signal_range(%s)" % self._args_for_record(args, kwargs)
+            )
 
     def set_lowloss(self, signal=None):
         if signal is None:

@@ -103,17 +103,15 @@ class UIProgressBar(tqdm):
         file.write(s)
         file.write(end)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, mininterval=0.5, **kwargs):
         self.id = self.uid
         self.uid += 1
         kwargs['gui'] = True
         self.cancelled = False
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, mininterval=mininterval, **kwargs)
         # Initialize the GUI display
         if self.disable or not kwargs['gui']:
             return
-
-        self.mininterval = max(self.mininterval, 0.5)
 
         # assert maxval >= 0
         # self.maxval = maxval

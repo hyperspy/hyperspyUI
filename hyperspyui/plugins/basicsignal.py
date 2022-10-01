@@ -39,7 +39,7 @@ class BasicSignalPlugin(Plugin):
     name = "Basic signal tools"
 
     def __init__(self, *args, **kwargs):
-        super(BasicSignalPlugin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.settings.set_default('histogram_bins_method', 'freedman')
         self.settings.set_enum_hint(
             'histogram_bins_method',

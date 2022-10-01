@@ -28,7 +28,7 @@ from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
 from hyperspy.roi import (BaseInteractiveROI, RectangularROI, SpanROI,
     Point1DROI, Point2DROI)
 
-from hyperspyui.tools import SignalFigureTool
+from hyperspyui._tools.signalfiguretool import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
 
 
@@ -49,7 +49,7 @@ class SelectionTool(SignalFigureTool):
 
     def __init__(self, windows=None, name=None, category=None, icon=None,
                  description=None):
-        super(SelectionTool, self).__init__(windows)
+        super().__init__(windows)
         self.widget2d_r = RectangleWidget(None)
         self.widget2d_r.set_on(False)
         self.widget1d_r = RangeWidget(None)
@@ -186,7 +186,7 @@ class SelectionTool(SignalFigureTool):
                     roi = Point2DROI(0, 0)
             else:
                 raise RuntimeWarning("No figure could be found.")
-                return
+
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
@@ -201,5 +201,5 @@ class SelectionTool(SignalFigureTool):
         self.cancelled.emit()
 
     def disconnect_windows(self, windows):
-        super(SelectionTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         self.cancel()

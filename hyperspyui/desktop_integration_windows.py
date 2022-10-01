@@ -28,55 +28,50 @@ import subprocess
 try:
     # HyperSpy >=2.0
     from rsciio import IO_PLUGINS
-except:
+except Exception:
     # HyperSpy <2.0
     from hyperspy.io_plugins import io_plugins as IO_PLUGINS
 
 
 def run_desktop_integration_windows(args):
-    try:
-        create_shortcut
-    except NameError:
-        # Create a function with the same signature as create_shortcut provided
-        # by bdist_wininst
-        def create_shortcut(path, description, filename,
-                            arguments="", workdir="", iconpath="",
-                            iconindex=0):
-            with open(filename, 'a'):
-                pass    # Touch
-            import pythoncom
-            from win32com.shell import shell
 
-            ilink = pythoncom.CoCreateInstance(
-                shell.CLSID_ShellLink, None,
-                pythoncom.CLSCTX_INPROC_SERVER, shell.IID_IShellLink)
-            ilink.SetPath(path)
-            ilink.SetDescription(description)
-            if arguments:
-                ilink.SetArguments(arguments)
-            if workdir:
-                ilink.SetWorkingDirectory(workdir)
-            if iconpath or iconindex:
-                ilink.SetIconLocation(iconpath, iconindex)
-            # now save it.
-            ipf = ilink.QueryInterface(pythoncom.IID_IPersistFile)
-            ipf.Save(filename, 0)
+    def create_shortcut(path, description, filename,
+                        arguments="", workdir="", iconpath="",
+                        iconindex=0):
+        with open(filename, 'a'):
+            pass    # Touch
+        import pythoncom
+        from win32com.shell import shell
 
-        # Support the same list of "path names" as bdist_wininst.
-        def get_special_folder_path(path_name):
-            from win32com.shell import shell, shellcon
+        ilink = pythoncom.CoCreateInstance(
+            shell.CLSID_ShellLink, None,
+            pythoncom.CLSCTX_INPROC_SERVER, shell.IID_IShellLink)
+        ilink.SetPath(path)
+        ilink.SetDescription(description)
+        if arguments:
+            ilink.SetArguments(arguments)
+        if workdir:
+            ilink.SetWorkingDirectory(workdir)
+        if iconpath or iconindex:
+            ilink.SetIconLocation(iconpath, iconindex)
+        # now save it.
+        ipf = ilink.QueryInterface(pythoncom.IID_IPersistFile)
+        ipf.Save(filename, 0)
 
-            for maybe in """
-                    CSIDL_COMMON_STARTMENU CSIDL_STARTMENU CSIDL_COMMON_APPDATA
-                    CSIDL_LOCAL_APPDATA CSIDL_APPDATA CSIDL_PROGRAM_FILES
-                    CSIDL_COMMON_DESKTOPDIRECTORY CSIDL_DESKTOPDIRECTORY
-                    CSIDL_COMMON_STARTUP CSIDL_STARTUP CSIDL_COMMON_PROGRAMS
-                    CSIDL_PROGRAMS CSIDL_PROGRAM_FILES_COMMON CSIDL_FONTS
-                    """.split():
-                if maybe == path_name:
-                    csidl = getattr(shellcon, maybe)
-                    return shell.SHGetSpecialFolderPath(0, csidl, False)
-            raise ValueError("%s is an unknown path ID" % (path_name,))
+    def get_special_folder_path(path_name):
+        from win32com.shell import shell, shellcon
+
+        for maybe in """
+                CSIDL_COMMON_STARTMENU CSIDL_STARTMENU CSIDL_COMMON_APPDATA
+                CSIDL_LOCAL_APPDATA CSIDL_APPDATA CSIDL_PROGRAM_FILES
+                CSIDL_COMMON_DESKTOPDIRECTORY CSIDL_DESKTOPDIRECTORY
+                CSIDL_COMMON_STARTUP CSIDL_STARTUP CSIDL_COMMON_PROGRAMS
+                CSIDL_PROGRAMS CSIDL_PROGRAM_FILES_COMMON CSIDL_FONTS
+                """.split():
+            if maybe == path_name:
+                csidl = getattr(shellcon, maybe)
+                return shell.SHGetSpecialFolderPath(0, csidl, False)
+        raise ValueError("%s is an unknown path ID" % (path_name,))
 
     pyw_executable = os.path.join(sys.prefix, "pythonw.exe")
 
@@ -174,5 +169,5 @@ def run_desktop_integration_windows(args):
                     d + r'\__main__.py" \"%1\" %*" /f')
 
             for cmd in cmds:
-                r = subprocess.call(cmd, shell=True)
+                subprocess.call(cmd, shell=True)
             print("File types registered: ", filetypes)

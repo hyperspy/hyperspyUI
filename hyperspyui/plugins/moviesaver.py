@@ -16,14 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
-from hyperspyui.plugins.plugin import Plugin
-import matplotlib as mpl
-import matplotlib.animation as animation
 import os
 import sys
+import warnings
 
+import matplotlib as mpl
+import matplotlib.animation as animation
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import QLineEdit, QCheckBox
+
+from hyperspyui.plugins.plugin import Plugin
 
 
 def tr(text):
@@ -37,8 +39,7 @@ writers = animation.writers
 if writers.is_available(writer):
     writer = writers[writer]()
 else:
-    import warnings
-    warnings.warn("MovieWriter %s unavailable" % writer)
+    warnings.warn(f"MovieWriter {writer} unavailable")
 
     try:
         writer = writers[writers.list()[0]]()
@@ -104,8 +105,7 @@ class MovieSaver(Plugin):
                 writer = writers[writer](fps=fps, metadata=metadata,
                                          codec=codec, extra_args=extra)
             else:
-                import warnings
-                warnings.warn("MovieWriter %s unavailable" % writer)
+                warnings.warn(f"MovieWriter {writer} unavailable")
 
                 try:
                     writer = writers[writers.list()[0]](fps=fps,
@@ -128,7 +128,7 @@ class MovieSaver(Plugin):
 
             try:
                 with writer.saving(fig, fname, dpi):
-                    for idx in signal.axes_manager:
+                    for _ in signal.axes_manager:
                         QtWidgets.QApplication.processEvents()
                         writer.grab_frame()
             finally:
@@ -145,7 +145,7 @@ class MovieSaver(Plugin):
 class MovieArgsPrompt(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
-        super(MovieArgsPrompt, self).__init__(parent)
+        super().__init__(parent)
         self.create_controls()
 
     def create_controls(self):
@@ -176,7 +176,7 @@ class MovieArgsPrompt(QtWidgets.QWidget):
         self.chk_verbose = QCheckBox("Verbose")
         try:
             sys.stdout.fileno()
-        except:
+        except Exception:
             self.chk_verbose.setEnabled(False)
             self.chk_verbose.setToolTip("Verbose output does not work with " +
                                         "internal console.")

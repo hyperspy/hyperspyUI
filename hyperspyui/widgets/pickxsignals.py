@@ -25,7 +25,7 @@ class PickXSignalsWidget(QtWidgets.QWidget):
 
     def __init__(self, signal_wrappers, x, parent=None, titles=None,
                  wrap_col=4):
-        super(PickXSignalsWidget, self).__init__(parent)
+        super().__init__(parent)
         grid = QtWidgets.QGridLayout()
         self.pickers = []
         self._x = x

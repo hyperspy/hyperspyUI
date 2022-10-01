@@ -28,6 +28,7 @@ def test_single_application(request):
         try:
             primary.kill()
         except OSError:
+            # unknown
             pass
     request.addfinalizer(_term)
 

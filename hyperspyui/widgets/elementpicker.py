@@ -48,7 +48,7 @@ class ElementPickerWidget(FigureWidget):
     element_toggled = QtCore.Signal(str)
 
     def __init__(self, main_window, parent):
-        super(ElementPickerWidget, self).__init__(main_window, parent)
+        super().__init__(main_window, parent)
         self.signal = None
         self.create_controls()
         self.table.element_toggled.connect(self._toggle_element)
@@ -57,7 +57,7 @@ class ElementPickerWidget(FigureWidget):
                             'Kb', 'Lb1', 'Mb']
 
     def _on_figure_change(self, figure):
-        super(ElementPickerWidget, self)._on_figure_change(figure)
+        super()._on_figure_change(figure)
         signal = win2sig(figure, plotting_signal=self.ui._plotting_signal)
         self.set_signal(signal)
 

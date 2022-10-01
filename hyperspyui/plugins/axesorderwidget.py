@@ -20,19 +20,18 @@ Created on Tue Apr 28 11:00:55 2015
 
 @author: Vidar Tonaas Fauske
 """
-
-from hyperspyui.plugins.plugin import Plugin
+import collections
 
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import (QLabel, QPushButton, QToolButton, QVBoxLayout,
                             QHBoxLayout, QWidget)
 
-import collections
+from hyperspy.axes import DataAxis
+import hyperspy.api as hs
 
+from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
-from hyperspy.axes import DataAxis
-from hyperspy.signal import BaseSignal
 
 
 def tr(text):
@@ -71,7 +70,7 @@ class AxesOrderPlugin(Plugin):
         # Get signal
         if signal is None:
             signal = self.ui.get_selected_wrapper()
-        elif isinstance(signal, BaseSignal):
+        elif isinstance(signal, hs.signals.BaseSignal):
             signal = self.ui.lut_signalwrapper[signal]
         am = signal.signal.axes_manager
         # Get DataAxis
@@ -88,14 +87,14 @@ class AxesOrderPlugin(Plugin):
 class AxesOrderWidget(FigureWidget):
 
     def __init__(self, ui, parent=None):
-        super(AxesOrderWidget, self).__init__(ui, parent)
+        super().__init__(ui, parent)
         self.setWindowTitle(tr("Axes order"))
         self.signal = None
         self.create_controls()
         self._resize_controls()
 
     def _on_figure_change(self, win):
-        super(AxesOrderWidget, self)._on_figure_change(win)
+        super()._on_figure_change(win)
         self.signal = win2sig(win)
         self._update_controls_from_signal(self.signal)
 
@@ -249,7 +248,7 @@ class AxesListWidget(QtWidgets.QListWidget):
     last_drop = None
 
     def __init__(self, type, parent=None):
-        super(AxesListWidget, self).__init__(parent)
+        super().__init__(parent)
         self.setIconSize(QtCore.QSize(124, 124))
         self.setDragDropMode(QtWidgets.QAbstractItemView.DragDrop)
         self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
@@ -265,12 +264,12 @@ class AxesListWidget(QtWidgets.QListWidget):
             shfr = 12
         h = shfr * self.count() + 2 * self.frameWidth()
         s.setHeight(h)
-        s.setWidth(super(AxesListWidget, self).minimumSizeHint().width())
+        s.setWidth(super().minimumSizeHint().width())
         return s
 
     def sizeHint(self):
         s = self.minimumSizeHint()
-        s.setWidth(super(AxesListWidget, self).sizeHint().width())
+        s.setWidth(super().sizeHint().width())
         return s
 
     def _on_rows_inserted(self, parent, begin, end):
@@ -310,4 +309,4 @@ class AxesListWidget(QtWidgets.QListWidget):
             AxesListWidget.last_drop = []
             for k in r.keys():
                 AxesListWidget.last_drop.append(k)
-        super(AxesListWidget, self).dropEvent(event)
+        super().dropEvent(event)

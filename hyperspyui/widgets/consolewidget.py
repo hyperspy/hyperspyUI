@@ -41,26 +41,27 @@ def _init_asyncio_patch():
     remove and bump tornado requirement for py38
     """
     if sys.platform.startswith("win") and sys.version_info >= (3, 8):
-        import asyncio
         try:
             from asyncio import (
                 WindowsProactorEventLoopPolicy,
                 WindowsSelectorEventLoopPolicy,
+                get_event_loop_policy,
+                set_event_loop_policy,
             )
         except ImportError:
             pass
             # not affected
         else:
-            if type(asyncio.get_event_loop_policy()) is WindowsProactorEventLoopPolicy:
+            if type(get_event_loop_policy()) is WindowsProactorEventLoopPolicy:
                 # WindowsProactorEventLoopPolicy is not compatible with tornado 6
                 # fallback to the pre-3.8 default of Selector
-                asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())
+                set_event_loop_policy(WindowsSelectorEventLoopPolicy())
 
 
 class ConsoleWidget(RichJupyterWidget):
 
     def __init__(self, *args, **kwargs):
-        super(ConsoleWidget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         _init_asyncio_patch()
         # Create an in-process kernel

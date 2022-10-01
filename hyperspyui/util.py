@@ -52,6 +52,7 @@ def lstrip(string, prefix):
     if string is not None:
         if string.startswith(prefix):
             return string[len(prefix):]
+    return None
 
 
 def debug_trace():
@@ -120,7 +121,7 @@ def win2sig(window, signals=None, plotting_signal=None):
     return r
 
 
-class SignalTypeFilter(object):
+class SignalTypeFilter:
 
     def __init__(self, signal_type, ui, space=None):
         self.signal_type = signal_type
@@ -207,26 +208,29 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
 class AttributeDict(dict):
 
     """A dict subclass that exposes its items as attributes.
-
     """
 
-    def __init__(self, obj={}):
-        super(AttributeDict, self).__init__(obj)
+    def __init__(self, obj=None):
+        if obj is None:
+            obj = {}
+        super().__init__(obj)
 
     def __dir__(self):
         return [slugify(k, True) for k in self]
 
     def __repr__(self):
-        return "%s(%s)" % (
-            type(self).__name__, super(Namespace, self).__repr__())
+        return f"{type(self).__name__}({dict.__repr__(self)})"
 
-    def __getattr__(self, name):
-        if name in self:
-            return self[name]
+    def __getattr__(self, key):
+        value = None
+        if key in self:
+            value = self[key]
         else:
             for k in self:
-                if name == slugify(k, True):
-                    return self[k]
+                if key == slugify(k, True):
+                    value = self[k]
+                    break
+        return value
 
     def __setattr__(self, name, value):
         if name in self:
@@ -235,6 +239,7 @@ class AttributeDict(dict):
             for k in self:
                 if name == slugify(k, True):
                     self[k] = value
+                    break
             else:
                 self[name] = value
 
@@ -294,19 +299,12 @@ class AttributeDict(dict):
 
 class Namespace(AttributeDict):
 
-    """A dict subclass that exposes its items as attributes.
+    """
+    A dict subclass that exposes its items as attributes.
 
     Warning: Namespace instances do not have direct access to the
     dict methods.
-
     """
-
-    def __init__(self, obj={}):
-        super(Namespace, self).__init__(obj)
-
-    def __repr__(self):
-        return "%s(%s)" % (
-            type(self).__name__, dict.__repr__())
 
     def __getattribute__(self, name):
         try:

@@ -34,7 +34,7 @@ class AlignPlugin(Plugin):
     name = "Align"
 
     def __init__(self, main_window):
-        super(AlignPlugin, self).__init__(main_window)
+        super().__init__(main_window)
         self.settings.set_default('sub_pixel_factor', 20)
         self.settings.set_default('1d_smooth_amount', 50)
         self.settings.set_default('2d_smooth_amount', 0.0)
@@ -99,7 +99,7 @@ class AlignPlugin(Plugin):
     def manual_align(self, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
-            return
+            return None
         diag = ManualAlignDialog(signal, self.ui)
         diag.show()
 
@@ -117,9 +117,9 @@ class AlignPlugin(Plugin):
     def align_XD(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
-            return
+            return None
         if signal.axes_manager.signal_dimension != roi.ndim:
-            return
+            return None
         if roi.ndim == 1:
             return self.align_1D(roi, signal)
         elif roi.ndim == 2:
@@ -131,7 +131,7 @@ class AlignPlugin(Plugin):
     def align_1D(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
-            return
+            return None
         shifts = signal.estimate_shift1D(
             reference='current',
             roi=(roi.left, roi.right),
@@ -149,7 +149,7 @@ class AlignPlugin(Plugin):
     def align_2D(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
-            return
+            return None
         s = signal
         sobel = self.settings['sobel_2D', bool]
         hanning = self.settings['hanning_2D', bool]
@@ -203,14 +203,14 @@ class AlignPlugin(Plugin):
     def align_vertical(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
-            return
+            return None
         self.record_code("<p>.align_vertical(roi=%s)" % repr(roi))
         return self._align_along_axis(roi, signal, axis=1)
 
     def align_horizontal(self, roi, signal=None):
         signal = self._get_signal(signal)
         if signal is None:
-            return
+            return None
         self.record_code("<p>.align_vertical(roi=%s)" % repr(roi))
         return self._align_along_axis(roi, signal, axis=0)
 
@@ -257,7 +257,7 @@ class AlignPlugin(Plugin):
 class ManualAlignDialog(ExToolWindow):
 
     def __init__(self, signal, parent=None):
-        super(ExToolWindow, self).__init__(parent)
+        super().__init__(parent)
         self.ui = parent
         self.signal = signal
         self._orig_data = None

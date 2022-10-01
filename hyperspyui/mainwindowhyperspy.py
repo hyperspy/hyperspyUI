@@ -112,7 +112,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self._plotting_signal = None
 
         # Call super init, which creates main controls etc.
-        super(MainWindowHyperspy, self).__init__(parent)
+        super().__init__(parent)
 
         self.create_statusbar()
 
@@ -152,11 +152,11 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self.add_widget(self.tree)
 
         # Put other widgets at end (plugin widgets)
-        super(MainWindowHyperspy, self).create_widgetbar()
+        super().create_widgetbar()
 
     def create_menu(self):
         # Super creates Windows menu
-        super(MainWindowHyperspy, self).create_menu()
+        super().create_menu()
 
         # Add custom action to signals' BindingList, so appropriate menu items
         # are removed if a signal is removed from the list
@@ -191,7 +191,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         bar, and connects _on_active_navigate to the signal's AxesManager.
         """
         if mdi_window is self.prev_mdi:
-            return
+            return None
         s = hyperspyui.util.win2sig(mdi_window)
         if self.prev_mdi is not None:
             ps = hyperspyui.util.win2sig(self.prev_mdi, self.signals)
@@ -204,12 +204,14 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                     ps.signal.axes_manager.events.indices_changed.disconnect(
                         self._on_active_navigate)
                 except ValueError:
+                    # in case the function is not connected
                     pass
             if s and s.signal and s.signal.axes_manager:
                 try:
                     s.signal.axes_manager.events.indices_changed.connect(
                         self._on_active_navigate, {'obj': 'axes_manager'})
                 except ValueError:
+                    # in case the function is not connected
                     pass
                 self._on_active_navigate(s.signal.axes_manager)
             self.prev_mdi = mdi_window
@@ -237,11 +239,11 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             s, p = hyperspyui.util.fig2sig(fig, self.signals)
             # Currently we only know how to deal with standard plots
             if p is None:
-                return
+                return None
         else:
-            return
+            return None
         if p.ax is None:
-            return
+            return None
         # Map position to canvas frame of reference
         cpos = canvas.mapFromGlobal(gpos)
         # Mapping copied from MPL backend code:
@@ -266,7 +268,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             elif p is s.signal._plot.signal_plot:
                 axis = p.axes_manager.signal_axes[0]
             else:
-                return
+                return None
             vals = (xd,)
             ind = (v2i(axis, xd),)
             units = [axis.units]
@@ -328,7 +330,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         if m is None:
             sw = self.get_selected_wrapper()
             if sw is None:
-                return
+                return None
             m = self.add_model(signal=sw)
         m.add_component(comp_type)
 
@@ -393,12 +395,15 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         try:
             return [s.signal for s in self.get_selected_wrappers()]
         except AttributeError:
+            # in case there is no signal
             logger.info("No signal available.")
+        return None
 
     def get_selected_signal(self):
         sw = self.get_selected_wrapper()
         if sw is None:
             logger.info("No signal available.")
+            return None
         else:
             return sw.signal
 
@@ -430,7 +435,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         s = self.get_selected_wrapper()
         if s is None:
             logger.info("No plot available.")
-            return
+            return None
         w = self.main_frame.activeSubWindow()
         if w is s.navigator_plot:
             selected = "navigation"
@@ -464,7 +469,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         try:
             # HyperSpy >=2.0
             from rsciio import IO_PLUGINS
-        except:
+        except Exception:
             # HyperSpy <2.0
             from hyperspy.io_plugins import io_plugins as IO_PLUGINS
 
@@ -492,8 +497,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 s.plot()
         else:
             sig.plot()
-        self.record_code('ui.load_stack({0}, {1})'.format(filenames,
-                                                          stack_axis))
+        self.record_code(f'ui.load_stack({filenames}, {stack_axis})')
+        return None
 
     def load(self, filenames=None):
         """
@@ -534,6 +539,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                     sig.plot()
                 files_loaded.append(filename)
             except (IOError, ValueError) as e:
+                # in case there is an error when loading the file: filename
+                # not existing or file error
                 self.set_status("Failed to load \"" + filename + "\"")
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 tb = traceback.extract_tb(exc_traceback)[-1]
@@ -590,14 +597,6 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             s.signal.save(filename, overwrite)
 
     def get_signal_filepath_suggestion(self, signal, default_ext=None):
-        if default_ext is None:
-            try:
-                # hspy < 1.3
-                default_ext = hyperspy.defaults_parser.preferences.General.\
-                             default_file_format
-            except AttributeError:
-                # hspy >= 1.3
-                default_ext = 'hspy'
         # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, or self.cur_dir if not
         if signal.signal.metadata.has_item('General.original_filename'):
@@ -615,7 +614,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         # If extension is not valid, use the defualt
         extensions = self.get_accepted_extensions()
         if ext not in extensions:
-            ext = default_ext
+            # use default extension
+            ext = 'hspy'
         # Filename itself is signal's name
         fn = signal.name
         if os.name == 'nt':
@@ -638,12 +638,6 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             # Accept as long as we can read some of the files being dropped
             if 0 < len(data_ext.intersection(extensions)):
                 event.acceptProposedAction()
-
-#    def dragMoveEvent(event):
-#        pass
-#
-#    def dragLeaveEvent(event):
-#        pass
 
     def dropEvent(self, event):
         # Something has been dropped. Try to load all file urls
@@ -700,44 +694,38 @@ class MainWindowHyperspy(MainWindowActionRecorder):
     # --------- Console functions ----------
 
     def on_console_executing(self, source):
-        super(MainWindowHyperspy, self).on_console_executing(source)
+        super().on_console_executing(source)
         #self.setUpdatesEnabled(False)
         for s in self.signals:
             s.keep_on_close = True
 
     def on_console_executed(self, response):
-        super(MainWindowHyperspy, self).on_console_executed(response)
+        super().on_console_executed(response)
         for s in self.signals:
             s.update_figures()
             s.keep_on_close = False
         #self.setUpdatesEnabled(True)
 
     def _get_console_exec(self):
-        ex = super(MainWindowHyperspy, self)._get_console_exec()
+        ex = super()._get_console_exec()
         ex += '\nimport hyperspy.api as hs'
         ex += '\nimport numpy as np'
         return ex
 
     def _get_console_exports(self):
-        push = super(MainWindowHyperspy, self)._get_console_exports()
+        push = super()._get_console_exports()
         push['siglist'] = self.hspy_signals
         return push
 
     def _get_console_config(self):
         # ===== THIS ======
-        try:
-            from traitlets.config.loader import PyFileConfigLoader
-        except ImportError:
-            from IPython.config.loader import PyFileConfigLoader
+        from traitlets.config.loader import PyFileConfigLoader
         ipcp = os.path.sep.join((os.path.dirname(__file__), "ipython_profile",
                                  "ipython_embedded_config.py"))
         c = PyFileConfigLoader(ipcp).load_config()
         # ===== OR THIS =====
 #        import hyperspy.Release
-#        try:
-#            from traitlets.config import Config
-#        except ImportError:
-#            from IPython.config import Config
+#        from traitlets.config import Config
 #        c = Config()
 #        c.FrontendWidget.banner = hyperspy.Release.info
         # ===== END =====

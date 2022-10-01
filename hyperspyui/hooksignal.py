@@ -30,7 +30,7 @@ class HookedSignal(orig_signal):
 
     def plot(self, *args, **kwargs):
         _on_plotting(self)
-        r = super(HookedSignal, self).plot(*args, **kwargs)
+        r = super().plot(*args, **kwargs)
         _on_plotted(self)
         return r
 

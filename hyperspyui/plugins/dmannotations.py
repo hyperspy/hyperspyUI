@@ -1,7 +1,7 @@
-from hyperspyui.plugins.plugin import Plugin
-import numpy as np
 import hyperspy.api as hs
 from hyperspy.drawing.widgets import LabelWidget
+
+from hyperspyui.plugins.plugin import Plugin
 
 
 class DmAnnotations(Plugin):
@@ -61,14 +61,10 @@ class DmAnnotations(Plugin):
         }
 
         for i in range(len(annotation_list)):
-            try:
-                label = annotation_list['TagGroup' + str(i)]['Label']
-                loc = annotation_list['TagGroup' + str(i)]['Rectangle']
-                scaled_loc = [scale * i for i in loc]
-                mapping[label](signal, scaled_loc, add_text)
-
-            except AttributeError:
-                pass
+            label = annotation_list['TagGroup' + str(i)]['Label']
+            loc = annotation_list['TagGroup' + str(i)]['Rectangle']
+            scaled_loc = [scale * i for i in loc]
+            mapping[label](signal, scaled_loc, add_text)
 
     def _dummy(self, *args, **kwargs):
         pass

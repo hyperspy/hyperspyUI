@@ -36,7 +36,7 @@ class MetadataEditor(Plugin):
     name = "Metadata Editor"
 
     def __init__(self, *args, **kwargs):
-        super(MetadataEditor, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.editors = {}
 
     def create_actions(self):
@@ -76,7 +76,7 @@ class MetadataEditor(Plugin):
 class MetadataTreeWidget(QtWidgets.QTreeView):
 
     def __init__(self, signal, parent=None):
-        super(MetadataTreeWidget, self).__init__(parent)
+        super().__init__(parent)
         self.signal = signal
         self._model = MetadataModel(signal)
         self.setModel(self._model)
@@ -91,7 +91,7 @@ class MetadataTreeWidget(QtWidgets.QTreeView):
         self.expand(self._model.index(0, 0))
 
     def sizeHint(self):
-        hint = super(MetadataTreeWidget, self).sizeHint()
+        hint = super().sizeHint()
         hint.setWidth(600)
         return hint
 
@@ -147,7 +147,7 @@ class MetadataNode:
 class MetadataModel(QtCore.QAbstractItemModel):
 
     def __init__(self, signal, parent=None):
-        super(MetadataModel, self).__init__(parent=parent)
+        super().__init__(parent=parent)
         self.nodes = [
             MetadataNode(self, None, 'metadata', signal.metadata, 0),
             MetadataNode(self, None, 'original_metadata',
@@ -232,7 +232,7 @@ class MetadataModel(QtCore.QAbstractItemModel):
                         node.edit_value(value)
                         value_changed = True
         else:
-            return super(MetadataModel, self).setData(index, value, role)
+            return super().setData(index, value, role)
         if value_changed:
             self.dataChanged.emit(index, index)
         return input_ok

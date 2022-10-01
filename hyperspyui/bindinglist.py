@@ -38,8 +38,13 @@ class BindingList(list):
     """
 
     def __init__(self, target=None, *args, **kwargs):
-        super(BindingList, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.set_target(target)
+
+    def __eq__(self, other):
+        if not isinstance(other, BindingList):
+            return False
+        return list.__eq__(self, other) and self.targets == other.targets
 
     def set_target(self, target):
         self.targets = {}
@@ -56,29 +61,28 @@ class BindingList(list):
         elif isinstance(target, list):
             cb = {'ap': target.append, 'in': target.insert,
                   'ex': target.extend, 're': target.remove, 'po': target.pop}
-#        elif isinstance(target, QList):
-#            cb = {'ap': target.append, 'in': target.insert,
-#                  'ex': target.append, 're': target.removeOne,
-#                  'po': target.removeAt}
         elif isinstance(target, QtWidgets.QListWidget):
             def qlr(value):
                 target.takeItem(self.index(value))
             cb = {'ap': target.addItem, 'in': target.insertItem,
                   'ex': target.addItems, 're': qlr,
                   'po': target.takeItem}
+        else:
+            raise TypeError("The argument `target` must be a of `list` or "
+                            "`QListWidget` type.")
         self.targets[target] = cb
 
     def remove_target(self, target):
         self.targets.pop(target, 0)
 
     def append(self, object):
-        super(BindingList, self).append(object)
+        super().append(object)
         for t in list(self.targets.values()):
             if t['ap'] is not None:
                 t['ap'](object)
 
     def insert(self, index, object):
-        super(BindingList, self).insert(index, object)
+        super().insert(index, object)
         for t in list(self.targets.values()):
             if t['in'] is not None:
                 t['in'](index, object)
@@ -86,7 +90,7 @@ class BindingList(list):
                 t['ap'](object)
 
     def extend(self, iterable):
-        super(BindingList, self).extend(iterable)
+        super().extend(iterable)
         for t in list(self.targets.values()):
             if t['ex'] is not None:
                 t['ex'](iterable)
@@ -101,7 +105,7 @@ class BindingList(list):
         for t in list(self.targets.values()):
             if t['re'] is not None:
                 t['re'](value)
-        super(BindingList, self).remove(value)
+        super().remove(value)
 
     def pop(self, index=-1):
         if index < 0:
@@ -112,4 +116,4 @@ class BindingList(list):
             elif t['re'] is not None:
                 v = self[index]
                 t['re'](v)
-        return super(BindingList, self).pop(index)
+        return super().pop(index)

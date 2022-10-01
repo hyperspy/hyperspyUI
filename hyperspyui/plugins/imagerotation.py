@@ -23,7 +23,7 @@ Created on Wed Jan 21 14:49:08 2015
 
 
 from qtpy import QtCore
-from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, 
+from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout,
                             QFormLayout, QDoubleSpinBox, QGroupBox, QSpinBox,
                             QRadioButton)
 
@@ -113,7 +113,7 @@ class ImageRotation_Plugin(Plugin):
                     s = (slice(None),)* axisA + (slice(None, None, -1),) + \
                         (slice(None),)* adiff + (slice(None, None, -1),) + \
                         (Ellipsis,)
-                elif k == 3:  # 270 deg
+                else:  # 270 deg
                     # Invert axes[1]
                     s = (slice(None),)* axes[1] + (slice(None, None, -1),) + \
                         (Ellipsis,)
@@ -173,14 +173,13 @@ class ImageRotation_Plugin(Plugin):
                     for i, ax in enumerate(out.axes_manager._axes):
                         dx = diff[i] * 0.5 * ax.scale
                         ax.offset -= dx
-                # TODO: TAG: Functionality check
                 if hasattr(out.axes_manager, 'events') and hasattr(
                         out.axes_manager.events, 'any_axis_changed'):
                     out.axes_manager.events.any_axis_changed.trigger(
                         out.axes_manager)
-            # TODO: TAG: Functionality check
             if hasattr(out, 'events') and hasattr(out.events, 'data_changed'):
                 out.events.data_changed.trigger(out)
+            return None
 
     def on_dialog_accept(self):
         self.settings['angle'] = self.dialog.num_angle.value()
@@ -198,7 +197,7 @@ class ImageRotation_Plugin(Plugin):
     def show_rotate_dialog(self):
         signal, space, _ = self.ui.get_selected_plot()
         if space not in ("navigation", "signal"):
-            return
+            return None
         self.dialog = ImageRotationDialog(signal, space, self.ui, self)
         if 'angle' in self.settings:
             self.dialog.num_angle.setValue(self.settings['angle', float])
@@ -223,7 +222,7 @@ class ImageRotation_Plugin(Plugin):
 class ImageRotationDialog(ExToolWindow):
 
     def __init__(self, signal, axes, parent, plugin):
-        super(ImageRotationDialog, self).__init__(parent)
+        super().__init__(parent)
         self.ui = parent
         self.create_controls()
         self.accepted.connect(self.ok)

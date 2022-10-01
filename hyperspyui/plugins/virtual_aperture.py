@@ -27,7 +27,7 @@ class VirtualBfDf(Plugin):
     name = "Virtual BF/DF"
 
     def __init__(self, *args, **kwargs):
-        super(VirtualBfDf, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._rois = []
 
     def create_actions(self):

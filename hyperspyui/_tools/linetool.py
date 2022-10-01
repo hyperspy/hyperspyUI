@@ -28,7 +28,7 @@ from hyperspy.drawing.widgets import Line2DWidget, RangeWidget
 from hyperspy.roi import BaseInteractiveROI, SpanROI, Line2DROI
 
 from hyperspyui.log import logger
-from hyperspyui.tools import SignalFigureTool
+from hyperspyui._tools.signalfiguretool import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
 
 
@@ -48,7 +48,7 @@ class LineTool(SignalFigureTool):
     cancelled = QtCore.Signal()
 
     def __init__(self, windows=None):
-        super(LineTool, self).__init__(windows)
+        super().__init__(windows)
         self.widget2d = Line2DWidget(None)
         self.widget2d.set_on(False)
         self.widget1d = RangeWidget(None)
@@ -155,8 +155,12 @@ class LineTool(SignalFigureTool):
         if self.is_on():
             if self.ndim == 1:
                 roi = SpanROI(0, 1)
-            elif self.ndim > 1:
+            elif self.ndim == 1:
                 roi = Line2DROI(0, 0, 1, 1, 1)
+            else:
+                raise RuntimeError(
+                    f"Line tool doesn't support dimension dimension {self.ndim}."
+                    )
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.updated[BaseInteractiveROI].emit(roi)
             self.updated[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
@@ -167,6 +171,10 @@ class LineTool(SignalFigureTool):
                 roi = SpanROI(0, 1)
             elif self.ndim > 1:
                 roi = Line2DROI(0, 0, 1, 1, 1)
+            else:
+                raise RuntimeError(
+                    f"Line tool doesn't support dimension dimension {self.ndim}."
+                    )
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
@@ -181,5 +189,5 @@ class LineTool(SignalFigureTool):
         self.cancelled.emit()
 
     def disconnect_windows(self, windows):
-        super(LineTool, self).disconnect_windows(windows)
+        super().disconnect_windows(windows)
         self.cancel()

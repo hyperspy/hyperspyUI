@@ -47,7 +47,7 @@ class EELSDBPlugin(Plugin):
     name = "EELSDB Plugin"
 
     def __init__(self, main_window):
-        super(EELSDBPlugin, self).__init__(main_window)
+        super().__init__(main_window)
         self.window = None
         self.view = None
 
@@ -142,5 +142,6 @@ class EELSDBPlugin(Plugin):
             # TODO: downloading spectra is currently broken
             self.view.linkClicked.connect(self._on_link)
         except AttributeError:
+            # unknown
             pass
         self.window.show()

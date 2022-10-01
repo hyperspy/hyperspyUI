@@ -45,7 +45,7 @@ class TraitsWidget(FigureWidget):
         """
         self.cb_check = cb_check
         self.cb_make_dialog = cb_make_dialog
-        super(TraitsWidget, self).__init__(main_window, parent)
+        super().__init__(main_window, parent)
 
     def clear_editor(self):
         """
@@ -70,7 +70,7 @@ class TraitsWidget(FigureWidget):
         sets up the traitsui dialog capture, and calls cb_make_dialog.  If the
         window is invalid, it clears the widget.
         """
-        super(TraitsWidget, self)._on_figure_change(window)
+        super()._on_figure_change(window)
 
         if self._check(window):
             self.ui.capture_traits_dialog(self.set_traits_editor)

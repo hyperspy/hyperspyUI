@@ -27,7 +27,7 @@ from qtpy.QtWidgets import QMessageBox
 from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 
-class Settings(object):
+class Settings:
 
     def __init__(self, parent=None, group=None):
         self._sep = '/'
@@ -58,7 +58,7 @@ class Settings(object):
                 ret = ("true" == ret.lower())
             else:
                 ret = t(ret)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
         return ret
 
@@ -69,7 +69,7 @@ class Settings(object):
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
 
     def __contains__(self, key):
@@ -79,7 +79,7 @@ class Settings(object):
         for g in groupings:
             settings.beginGroup(g)
         r = settings.contains(key)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
         return r
 
@@ -129,7 +129,7 @@ class Settings(object):
         for g in groupings:
             settings.beginGroup(g)
         default_value = settings.value(inner_key)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
         self[key] = default_value
 
@@ -149,7 +149,7 @@ class Settings(object):
         for g in groupings:
             settings.beginGroup(g)
         settings.setValue(key, value)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
 
     def set_enum_hint(self, key, options):
@@ -170,7 +170,7 @@ class Settings(object):
         if not isinstance(options, list):
             options = list(options)
         settings.setValue(key, options)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
 
     def get_enum_hint(self, key):
@@ -185,7 +185,7 @@ class Settings(object):
         for g in groupings:
             settings.beginGroup(g)
         value = settings.value(key)
-        for g in groupings:
+        for _ in groupings:
             settings.endGroup()
         return value
 

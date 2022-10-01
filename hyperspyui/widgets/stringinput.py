@@ -28,7 +28,7 @@ from qtpy.QtWidgets import QDialogButtonBox
 class StringInputDialog(QtWidgets.QDialog):
 
     def __init__(self, prompt="", default="", parent=None):
-        super(StringInputDialog, self).__init__(parent=parent)
+        super().__init__(parent=parent)
         self.setWindowTitle("Input prompt")
         self.setWindowFlags(QtCore.Qt.Tool)
 

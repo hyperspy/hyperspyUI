@@ -87,7 +87,7 @@ class RebinPlugin(Plugin):
 class RebinDialog(ExToolWindow):
 
     def __init__(self, signal, plugin, ui, parent):
-        super(RebinDialog, self).__init__(parent)
+        super().__init__(parent)
         self.signal = signal
         self.ui = ui
         self.setWindowTitle(tr("Rebin ") + signal.name)

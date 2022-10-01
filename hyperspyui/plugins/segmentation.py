@@ -16,21 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with HyperSpyUI.  If not, see <http://www.gnu.org/licenses/>.
 
-from hyperspyui.plugins.plugin import Plugin
-from hyperspy.signal import BaseSignal
+import hyperspy.api as hs
+import matplotlib.cm as plt_cm
 import numpy as np
-from hyperspy.signals import Signal1D, Signal2D
-from hyperspyui.tools import MultiSelectionTool
-from hyperspyui.util import win2sig
 try:
     # HyperSpy >=2.0
     from rsciio.utils.rgb_tools import regular_array2rgbx
-except:
+except Exception:
     # HyperSpy <2.0
     from hyperspy.misc.rgb_tools import regular_array2rgbx
 
-import matplotlib.cm as plt_cm
-
+from hyperspyui.plugins.plugin import Plugin
+from hyperspyui.tools import MultiSelectionTool
+from hyperspyui.util import win2sig
 # TODO: Add dialog for manual editing of ROIs + Preview checkbox.
 
 
@@ -42,8 +40,8 @@ class Segmentation(Plugin):
         self.tool.name = 'Segmentation tool'
         self.tool.icon = 'segmentation.svg'
         self.tool.category = 'Image'
-        self.tool.updated[BaseSignal, list].connect(self._on_update)
-        self.tool.accepted[BaseSignal, list].connect(self.segment)
+        self.tool.updated[hs.signals.BaseSignal, list].connect(self._on_update)
+        self.tool.accepted[hs.signals.BaseSignal, list].connect(self.segment)
         self.tool.validator = self._tool_signal_validator
         self.add_tool(self.tool, self._select_image)
         self.map = {}
@@ -72,7 +70,7 @@ class Segmentation(Plugin):
         hist = signal._get_signal_signal(data).get_histogram(1000)
         hist.plot()
 
-        s_out = Signal1D(self._make_gray(data))
+        s_out = hs.signals.Signal1D(self._make_gray(data))
         s_out.change_dtype('rgb8')
         s_out.plot()
 
@@ -91,17 +89,15 @@ class Segmentation(Plugin):
             histogram = signal
             source, s_out = self.map[signal]
         else:
-            found = False
-            for h, (s, s_out) in self.map.items():
-                if signal in (s, s_out):
-                    found = True
+            histogram = None
+            s_out = None
+            source = signal
+            for h, (s, s_out_) in self.map.items():
+                if signal in (s, s_out_):
                     histogram = h
                     source = s
                     break
-            if not found:
-                histogram = None
-                s_out = None
-                source = signal
+
         if histogram is not None:
             self.ui.lut_signalwrapper[histogram].close()
         if s_out is not None:
@@ -122,7 +118,7 @@ class Segmentation(Plugin):
             mask = (src_data <= r.right) & (src_data >= r.left)
             data[mask] = i + 1
 
-        s_seg = Signal2D(data)
+        s_seg = hs.signals.Signal2D(data)
         s_seg.plot(cmap=plt_cm.jet)
 
         roi_str = '[' + ',\n'.join(['hs.roi.' + str(r) for r in rois]) + ']'

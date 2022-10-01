@@ -24,13 +24,13 @@ Created on Sun Dec 07 01:48:00 2014
 import collections
 from qtpy import QtCore
 
-from .tool import Tool
+from hyperspyui._tools.tool import Tool
 
 
 class FigureTool(Tool):
 
     def __init__(self, windows=None):
-        super(FigureTool, self).__init__()
+        super().__init__()
         self.cids = {}
         self.cursor = self.make_cursor()
         if self.single_action() is not None:
@@ -119,5 +119,6 @@ class FigureTool(Tool):
                     if canv == canvas:
                         try:
                             canvas.mpl_disconnect(cid)
-                        except:
+                        except Exception:
+                            # in case the event is not already disconnect
                             pass

@@ -21,13 +21,13 @@ Created on Fri May 22 12:10:20 2015
 @author: Vidar Tonaas Fauske
 """
 
-from hyperspyui.tools import FigureTool
+from hyperspyui._tools.figuretool import FigureTool
 
 
 class SignalFigureTool(FigureTool):
 
     def __init__(self, windows=None):
-        super(SignalFigureTool, self).__init__(windows)
+        super().__init__(windows)
 
     def _get_wrapper(self, figure):
         # We need to map figure to a hyperspy Signal:
@@ -61,12 +61,12 @@ class SignalFigureTool(FigureTool):
         sw = self._get_wrapper(event.inaxes.figure)
         # Find out which axes of Signal are plotted in figure
         if not sw or not sw.signal:
-            return
+            return None
         am = sw.signal.axes_manager
         if self._is_sig(event):
             axes = am.signal_axes
         elif self._is_nav(event):
             axes = am.navigation_axes
         else:
-            return
+            return None
         return axes

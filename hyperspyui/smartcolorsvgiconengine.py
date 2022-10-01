@@ -41,7 +41,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
 
     def __init__(self, use_qt_disabled=False, other=None):
         if other:
-            super(SmartColorSVGIconEngine, self).__init__(other)
+            super().__init__(other)
             if isinstance(other, SmartColorSVGIconEngine):
                 self._svgFiles = other._svgFiles
                 if other._svgBuffers:
@@ -49,7 +49,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
                 if other._addedPixmaps:
                     self._addedPixmaps = other._addedPixmaps.copy()
         else:
-            super(SmartColorSVGIconEngine, self).__init__()
+            super().__init__()
         self._addedPixmaps = {}
         self._svgFiles = {}
         self._svgBuffers = {}

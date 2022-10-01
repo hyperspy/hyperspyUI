@@ -30,7 +30,7 @@ from .figuretool import FigureTool
 class HomeTool(FigureTool):
 
     def __init__(self, windows=None):
-        super(HomeTool, self).__init__(windows)
+        super().__init__(windows)
 
     def get_name(self):
         return "Home tool"

@@ -37,7 +37,7 @@ class AxesConf(Plugin):
     name = "Axes Configuration"
 
     def __init__(self, main_window):
-        super(AxesConf, self).__init__(main_window)  # Sets self.ui
+        super().__init__(main_window)  # Sets self.ui
         self.widget = None
 
     def create_widgets(self):

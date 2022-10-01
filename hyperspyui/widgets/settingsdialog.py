@@ -48,7 +48,7 @@ class SettingsDialog(ExToolWindow):
         Create a dialog for editing the application settings, including the
         settings for plugins.
         """
-        super(SettingsDialog, self).__init__(parent)
+        super().__init__(parent)
 
         self.setWindowTitle(tr("Settings"))
         self.ui = main_window

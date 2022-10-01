@@ -72,10 +72,11 @@ def lowpriority():
         import os
 
         os.nice(1)
+    logger.info("Priority of the process set to below-normal.")
 
 
 def normalpriority():
-    """ Set the priority of the process to below-normal."""
+    """ Set the priority of the process to normal."""
 
     if sys.platform == 'win32':
         # Based on:
@@ -98,6 +99,7 @@ def normalpriority():
 
         # Reset nice to 0
         os.nice(-os.nice(0))
+    logger.info("Priority of the process set to normal.")
 
 
 class MainWindowBase(QtWidgets.QMainWindow):
@@ -111,10 +113,9 @@ class MainWindowBase(QtWidgets.QMainWindow):
     """
 
     def __init__(self, parent=None):
-        super(MainWindowBase, self).__init__(parent)
+        super().__init__(parent)
 
         # Do the import here to update the splash
-
         import hyperspyui.mdi_mpl_backend
         from hyperspyui.settings import Settings
 
@@ -178,6 +179,9 @@ class MainWindowBase(QtWidgets.QMainWindow):
     @toolbar_button_size.setter
     def toolbar_button_size(self, value):
         self.settings['toolbar_button_size'] = value
+        self._update_icon_size()
+
+    def _update_icon_size(self):
         self.setIconSize(
             QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
 
@@ -196,6 +200,10 @@ class MainWindowBase(QtWidgets.QMainWindow):
     @low_process_priority.setter
     def low_process_priority(self, value):
         self.settings['low_process_priority'] = value
+        self._set_low_process_priority(value)
+
+    @staticmethod
+    def _set_low_process_priority(value):
         if value:
             lowpriority()
         else:
@@ -214,7 +222,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         self.settings['_geometry'] = self.saveGeometry()
         self.settings['_windowState'] = self.saveState()
-        return super(MainWindowBase, self).closeEvent(event)
+        return super().closeEvent(event)
 
     def reset_geometry(self):
         self.settings.restore_key_default('_geometry')
@@ -359,9 +367,8 @@ class MainWindowBase(QtWidgets.QMainWindow):
         Callback for SettingsDialog, or anything else that updates settings
         and need to apply the change.
         """
-        # Due to the way the property is defined, this updates the UI:
-        self.toolbar_button_size = self.toolbar_button_size
-        self.low_process_priority = self.low_process_priority
+        self._update_icon_size()
+        self._set_low_process_priority(self.low_process_priority)
 
     def select_tool(self, tool):
         if self.active_tool is not None:
