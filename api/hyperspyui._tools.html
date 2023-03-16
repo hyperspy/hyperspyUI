@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui._tools package &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui._tools package &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,9 +94,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui._tools package</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui._tools package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui._tools.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,26 +107,187 @@
            <div itemprop="articleBody">
              
   <section id="hyperspyui-tools-package">
-<h1>hyperspyui._tools package<a class="headerlink" href="#hyperspyui-tools-package" title="Permalink to this headline"></a></h1>
+<h1>hyperspyui._tools package<a class="headerlink" href="#hyperspyui-tools-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.figuretool.html">hyperspyui._tools.figuretool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html">hyperspyui._tools.gaussiantool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.hometool.html">hyperspyui._tools.hometool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.linetool.html">hyperspyui._tools.linetool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html">hyperspyui._tools.multiselectiontool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.pointertool.html">hyperspyui._tools.pointertool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.selectiontool.html">hyperspyui._tools.selectiontool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html">hyperspyui._tools.signalfiguretool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.tool.html">hyperspyui._tools.tool module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.zoompan.html">hyperspyui._tools.zoompan module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.figuretool.html">hyperspyui._tools.figuretool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool"><code class="docutils literal notranslate"><span class="pre">FigureTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool._iter_windows"><code class="docutils literal notranslate"><span class="pre">FigureTool._iter_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool._wire"><code class="docutils literal notranslate"><span class="pre">FigureTool._wire()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool.connect_windows"><code class="docutils literal notranslate"><span class="pre">FigureTool.connect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool.disconnect_windows"><code class="docutils literal notranslate"><span class="pre">FigureTool.disconnect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool.get_cursor"><code class="docutils literal notranslate"><span class="pre">FigureTool.get_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool.get_pixel_size"><code class="docutils literal notranslate"><span class="pre">FigureTool.get_pixel_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool.get_window"><code class="docutils literal notranslate"><span class="pre">FigureTool.get_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.figuretool.html#hyperspyui._tools.figuretool.FigureTool.make_cursor"><code class="docutils literal notranslate"><span class="pre">FigureTool.make_cursor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html">hyperspyui._tools.gaussiantool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool"><code class="docutils literal notranslate"><span class="pre">GaussianTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool._unwire_wrapper"><code class="docutils literal notranslate"><span class="pre">GaussianTool._unwire_wrapper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool._wire_wrapper"><code class="docutils literal notranslate"><span class="pre">GaussianTool._wire_wrapper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.connect_windows"><code class="docutils literal notranslate"><span class="pre">GaussianTool.connect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.disconnect_windows"><code class="docutils literal notranslate"><span class="pre">GaussianTool.disconnect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.get_category"><code class="docutils literal notranslate"><span class="pre">GaussianTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.get_icon"><code class="docutils literal notranslate"><span class="pre">GaussianTool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.get_name"><code class="docutils literal notranslate"><span class="pre">GaussianTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.is_selectable"><code class="docutils literal notranslate"><span class="pre">GaussianTool.is_selectable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.make_cursor"><code class="docutils literal notranslate"><span class="pre">GaussianTool.make_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.on_mousedown"><code class="docutils literal notranslate"><span class="pre">GaussianTool.on_mousedown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.on_mousemove"><code class="docutils literal notranslate"><span class="pre">GaussianTool.on_mousemove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.on_pick"><code class="docutils literal notranslate"><span class="pre">GaussianTool.on_pick()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.gaussiantool.html#hyperspyui._tools.gaussiantool.GaussianTool.on_spanselect"><code class="docutils literal notranslate"><span class="pre">GaussianTool.on_spanselect()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.hometool.html">hyperspyui._tools.hometool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool"><code class="docutils literal notranslate"><span class="pre">HomeTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool.get_category"><code class="docutils literal notranslate"><span class="pre">HomeTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool.get_icon"><code class="docutils literal notranslate"><span class="pre">HomeTool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool.get_name"><code class="docutils literal notranslate"><span class="pre">HomeTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool.home"><code class="docutils literal notranslate"><span class="pre">HomeTool.home()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool.on_keyup"><code class="docutils literal notranslate"><span class="pre">HomeTool.on_keyup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.hometool.html#hyperspyui._tools.hometool.HomeTool.single_action"><code class="docutils literal notranslate"><span class="pre">HomeTool.single_action()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.linetool.html">hyperspyui._tools.linetool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool"><code class="docutils literal notranslate"><span class="pre">LineTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool._on_change"><code class="docutils literal notranslate"><span class="pre">LineTool._on_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.accept"><code class="docutils literal notranslate"><span class="pre">LineTool.accept()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.accepted"><code class="docutils literal notranslate"><span class="pre">LineTool.accepted</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.cancel"><code class="docutils literal notranslate"><span class="pre">LineTool.cancel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.cancelled"><code class="docutils literal notranslate"><span class="pre">LineTool.cancelled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.disconnect_windows"><code class="docutils literal notranslate"><span class="pre">LineTool.disconnect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.get_category"><code class="docutils literal notranslate"><span class="pre">LineTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.get_name"><code class="docutils literal notranslate"><span class="pre">LineTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.in_ax"><code class="docutils literal notranslate"><span class="pre">LineTool.in_ax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.is_on"><code class="docutils literal notranslate"><span class="pre">LineTool.is_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.is_selectable"><code class="docutils literal notranslate"><span class="pre">LineTool.is_selectable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.make_cursor"><code class="docutils literal notranslate"><span class="pre">LineTool.make_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.ndim"><code class="docutils literal notranslate"><span class="pre">LineTool.ndim</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.on_keyup"><code class="docutils literal notranslate"><span class="pre">LineTool.on_keyup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.on_mousedown"><code class="docutils literal notranslate"><span class="pre">LineTool.on_mousedown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.updated"><code class="docutils literal notranslate"><span class="pre">LineTool.updated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.linetool.html#hyperspyui._tools.linetool.LineTool.widget"><code class="docutils literal notranslate"><span class="pre">LineTool.widget</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html">hyperspyui._tools.multiselectiontool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool._add_widget"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool._add_widget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool._cancel"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool._cancel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool._default_validator"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool._default_validator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool._get_rois"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool._get_rois()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool._on_change"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool._on_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool._remove_widget"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool._remove_widget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.accept"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.accept()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.accepted"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.accepted</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.cancel"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.cancel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.cancelled"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.cancelled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.disconnect_windows"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.disconnect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.get_category"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.get_icon"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.get_name"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.have_selection"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.have_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.is_selectable"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.is_selectable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.make_cursor"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.make_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.ndim"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.ndim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.on_keyup"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.on_keyup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.on_mousedown"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.on_mousedown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.on_mouseup"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.on_mouseup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.multiselectiontool.html#hyperspyui._tools.multiselectiontool.MultiSelectionTool.updated"><code class="docutils literal notranslate"><span class="pre">MultiSelectionTool.updated</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.pointertool.html">hyperspyui._tools.pointertool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.pointertool.html#hyperspyui._tools.pointertool.PointerTool"><code class="docutils literal notranslate"><span class="pre">PointerTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.pointertool.html#hyperspyui._tools.pointertool.PointerTool.get_category"><code class="docutils literal notranslate"><span class="pre">PointerTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.pointertool.html#hyperspyui._tools.pointertool.PointerTool.get_icon"><code class="docutils literal notranslate"><span class="pre">PointerTool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.pointertool.html#hyperspyui._tools.pointertool.PointerTool.get_name"><code class="docutils literal notranslate"><span class="pre">PointerTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.pointertool.html#hyperspyui._tools.pointertool.PointerTool.is_selectable"><code class="docutils literal notranslate"><span class="pre">PointerTool.is_selectable()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.selectiontool.html">hyperspyui._tools.selectiontool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool"><code class="docutils literal notranslate"><span class="pre">SelectionTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.accept"><code class="docutils literal notranslate"><span class="pre">SelectionTool.accept()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.accepted"><code class="docutils literal notranslate"><span class="pre">SelectionTool.accepted</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.cancel"><code class="docutils literal notranslate"><span class="pre">SelectionTool.cancel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.cancelled"><code class="docutils literal notranslate"><span class="pre">SelectionTool.cancelled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.disconnect_windows"><code class="docutils literal notranslate"><span class="pre">SelectionTool.disconnect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.get_category"><code class="docutils literal notranslate"><span class="pre">SelectionTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.get_icon"><code class="docutils literal notranslate"><span class="pre">SelectionTool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.get_name"><code class="docutils literal notranslate"><span class="pre">SelectionTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.in_ax"><code class="docutils literal notranslate"><span class="pre">SelectionTool.in_ax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.is_on"><code class="docutils literal notranslate"><span class="pre">SelectionTool.is_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.is_selectable"><code class="docutils literal notranslate"><span class="pre">SelectionTool.is_selectable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.make_cursor"><code class="docutils literal notranslate"><span class="pre">SelectionTool.make_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.ndim"><code class="docutils literal notranslate"><span class="pre">SelectionTool.ndim</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.on_keyup"><code class="docutils literal notranslate"><span class="pre">SelectionTool.on_keyup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.on_mousedown"><code class="docutils literal notranslate"><span class="pre">SelectionTool.on_mousedown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.updated"><code class="docutils literal notranslate"><span class="pre">SelectionTool.updated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.selectiontool.html#hyperspyui._tools.selectiontool.SelectionTool.widget"><code class="docutils literal notranslate"><span class="pre">SelectionTool.widget</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html">hyperspyui._tools.signalfiguretool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool"><code class="docutils literal notranslate"><span class="pre">SignalFigureTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool._get_axes"><code class="docutils literal notranslate"><span class="pre">SignalFigureTool._get_axes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool._get_signal"><code class="docutils literal notranslate"><span class="pre">SignalFigureTool._get_signal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool._get_wrapper"><code class="docutils literal notranslate"><span class="pre">SignalFigureTool._get_wrapper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool._is_nav"><code class="docutils literal notranslate"><span class="pre">SignalFigureTool._is_nav()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.signalfiguretool.html#hyperspyui._tools.signalfiguretool.SignalFigureTool._is_sig"><code class="docutils literal notranslate"><span class="pre">SignalFigureTool._is_sig()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.tool.html">hyperspyui._tools.tool module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool"><code class="docutils literal notranslate"><span class="pre">Tool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.connect"><code class="docutils literal notranslate"><span class="pre">Tool.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.disconnect"><code class="docutils literal notranslate"><span class="pre">Tool.disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.get_category"><code class="docutils literal notranslate"><span class="pre">Tool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.get_description"><code class="docutils literal notranslate"><span class="pre">Tool.get_description()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.get_icon"><code class="docutils literal notranslate"><span class="pre">Tool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.get_name"><code class="docutils literal notranslate"><span class="pre">Tool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.is_selectable"><code class="docutils literal notranslate"><span class="pre">Tool.is_selectable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.tool.html#hyperspyui._tools.tool.Tool.single_action"><code class="docutils literal notranslate"><span class="pre">Tool.single_action()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui._tools.zoompan.html">hyperspyui._tools.zoompan module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.connect_windows"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.connect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.disconnect_windows"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.disconnect_windows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.get_category"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.get_category()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.get_icon"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.get_name"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.is_selectable"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.is_selectable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.make_cursor"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.make_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.on_mousedown"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.on_mousedown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.on_mousemove"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.on_mousemove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.on_mouseup"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.on_mouseup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui._tools.zoompan.html#hyperspyui._tools.zoompan.ZoomPanTool.on_scroll"><code class="docutils literal notranslate"><span class="pre">ZoomPanTool.on_scroll()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="module-hyperspyui._tools">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperspyui._tools" title="Permalink to this headline"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperspyui._tools" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

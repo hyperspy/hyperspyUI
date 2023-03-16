@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.widgets package &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.widgets package &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,9 +94,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.widgets package</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.widgets package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.widgets.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,33 +107,313 @@
            <div itemprop="articleBody">
              
   <section id="hyperspyui-widgets-package">
-<h1>hyperspyui.widgets package<a class="headerlink" href="#hyperspyui-widgets-package" title="Permalink to this headline"></a></h1>
+<h1>hyperspyui.widgets package<a class="headerlink" href="#hyperspyui-widgets-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets._editor_server.html">hyperspyui.widgets._editor_server module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.axespicker.html">hyperspyui.widgets.axespicker module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html">hyperspyui.widgets.colorpicker module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html">hyperspyui.widgets.consolewidget module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.contrastwidget.html">hyperspyui.widgets.contrastwidget module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html">hyperspyui.widgets.dataviewwidget module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html">hyperspyui.widgets.editorwidget module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html">hyperspyui.widgets.elementpicker module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html">hyperspyui.widgets.extendedqwidgets module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html">hyperspyui.widgets.flowlayout module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.periodictable.html">hyperspyui.widgets.periodictable module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.pickxsignals.html">hyperspyui.widgets.pickxsignals module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html">hyperspyui.widgets.pluginmanagerwidget module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html">hyperspyui.widgets.settingsdialog module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.signallist.html">hyperspyui.widgets.signallist module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.stringinput.html">hyperspyui.widgets.stringinput module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html">hyperspyui.widgets.traitswidget module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.axespicker.html">hyperspyui.widgets.axespicker module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.axespicker.html#hyperspyui.widgets.axespicker.AxesPickerDialog"><code class="docutils literal notranslate"><span class="pre">AxesPickerDialog</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.axespicker.html#hyperspyui.widgets.axespicker.AxesPickerDialog.create_controls"><code class="docutils literal notranslate"><span class="pre">AxesPickerDialog.create_controls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.axespicker.html#hyperspyui.widgets.axespicker.AxesPickerDialog.selected_axes"><code class="docutils literal notranslate"><span class="pre">AxesPickerDialog.selected_axes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html">hyperspyui.widgets.colorpicker module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html#hyperspyui.widgets.colorpicker.ColorButton"><code class="docutils literal notranslate"><span class="pre">ColorButton</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html#hyperspyui.widgets.colorpicker.ColorButton.choose_color"><code class="docutils literal notranslate"><span class="pre">ColorButton.choose_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html#hyperspyui.widgets.colorpicker.ColorButton.color"><code class="docutils literal notranslate"><span class="pre">ColorButton.color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html#hyperspyui.widgets.colorpicker.ColorButton.colorChanged"><code class="docutils literal notranslate"><span class="pre">ColorButton.colorChanged</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.colorpicker.html#hyperspyui.widgets.colorpicker.ColorButton.paintEvent"><code class="docutils literal notranslate"><span class="pre">ColorButton.paintEvent()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html">hyperspyui.widgets.consolewidget module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._all_trait_default_generators"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._all_trait_default_generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._cross_validation_lock"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._cross_validation_lock</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._descriptors"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._descriptors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._execute"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._execute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._instance_inits"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._instance_inits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._static_immutable_initial_values"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._static_immutable_initial_values</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._trait_default_generators"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._trait_default_generators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._trait_notifiers"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._trait_notifiers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._trait_validators"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._trait_validators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._trait_values"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._trait_values</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget._traits"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget._traits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget.ex"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.ex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget.ConsoleWidget.push"><code class="docutils literal notranslate"><span class="pre">ConsoleWidget.push()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.consolewidget.html#hyperspyui.widgets.consolewidget._init_asyncio_patch"><code class="docutils literal notranslate"><span class="pre">_init_asyncio_patch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html">hyperspyui.widgets.dataviewwidget module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler"><code class="docutils literal notranslate"><span class="pre">ComponentEditorHandler</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler.setattr"><code class="docutils literal notranslate"><span class="pre">ComponentEditorHandler.setattr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget"><code class="docutils literal notranslate"><span class="pre">DataViewWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.ComponentType"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.ComponentType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.ModelType"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.ModelType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.SignalType"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.SignalType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget._add"><code class="docutils literal notranslate"><span class="pre">DataViewWidget._add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget._remove"><code class="docutils literal notranslate"><span class="pre">DataViewWidget._remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.add"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_component"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.add_component()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_model"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.add_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.add_signal"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.add_signal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.clear_editor"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.clear_editor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.currentItemChanged"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.currentItemChanged()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.edit_traits"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.edit_traits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_component"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.get_selected_component()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_model"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.get_selected_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrapper"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.get_selected_wrapper()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.get_selected_wrappers"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.get_selected_wrappers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.itemDoubleClicked"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.itemDoubleClicked()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.keyPressEvent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.onCustomContextMenu"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.onCustomContextMenu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.on_mdiwin_activated"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.on_mdiwin_activated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.remove"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.DataViewWidget.set_traits_editor"><code class="docutils literal notranslate"><span class="pre">DataViewWidget.set_traits_editor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.HyperspyItem"><code class="docutils literal notranslate"><span class="pre">HyperspyItem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.HyperspyItem._on_toggle_visibility"><code class="docutils literal notranslate"><span class="pre">HyperspyItem._on_toggle_visibility()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.HyperspyItem.data"><code class="docutils literal notranslate"><span class="pre">HyperspyItem.data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.HyperspyItem.setData"><code class="docutils literal notranslate"><span class="pre">HyperspyItem.setData()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.VisbilityDelegate"><code class="docutils literal notranslate"><span class="pre">VisbilityDelegate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.iconPos"><code class="docutils literal notranslate"><span class="pre">VisbilityDelegate.iconPos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint"><code class="docutils literal notranslate"><span class="pre">VisbilityDelegate.paint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint"><code class="docutils literal notranslate"><span class="pre">VisbilityDelegate.sizeHint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.dataviewwidget.html#hyperspyui.widgets.dataviewwidget.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html">hyperspyui.widgets.editorwidget module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode"><code class="docutils literal notranslate"><span class="pre">ConsoleCodeCalltipsMode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.ConsoleCodeCalltipsMode._request_calltip"><code class="docutils literal notranslate"><span class="pre">ConsoleCodeCalltipsMode._request_calltip()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode"><code class="docutils literal notranslate"><span class="pre">ConsoleCodeCheckerMode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._on_work_finished"><code class="docutils literal notranslate"><span class="pre">ConsoleCodeCheckerMode._on_work_finished()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.ConsoleCodeCheckerMode._request"><code class="docutils literal notranslate"><span class="pre">ConsoleCodeCheckerMode._request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget"><code class="docutils literal notranslate"><span class="pre">EditorWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.append_code"><code class="docutils literal notranslate"><span class="pre">EditorWidget.append_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.code_title"><code class="docutils literal notranslate"><span class="pre">EditorWidget.code_title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.create_controls"><code class="docutils literal notranslate"><span class="pre">EditorWidget.create_controls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.is_plugin"><code class="docutils literal notranslate"><span class="pre">EditorWidget.is_plugin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.load"><code class="docutils literal notranslate"><span class="pre">EditorWidget.load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.make_plugin"><code class="docutils literal notranslate"><span class="pre">EditorWidget.make_plugin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.plugin_title"><code class="docutils literal notranslate"><span class="pre">EditorWidget.plugin_title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.register_plugin"><code class="docutils literal notranslate"><span class="pre">EditorWidget.register_plugin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.run"><code class="docutils literal notranslate"><span class="pre">EditorWidget.run()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.save"><code class="docutils literal notranslate"><span class="pre">EditorWidget.save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.EditorWidget.sizeHint"><code class="docutils literal notranslate"><span class="pre">EditorWidget.sizeHint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.NameCategoryPrompt"><code class="docutils literal notranslate"><span class="pre">NameCategoryPrompt</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.NameCategoryPrompt.browse_icon"><code class="docutils literal notranslate"><span class="pre">NameCategoryPrompt.browse_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.NameCategoryPrompt.checks_changed"><code class="docutils literal notranslate"><span class="pre">NameCategoryPrompt.checks_changed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.NameCategoryPrompt.create_controls"><code class="docutils literal notranslate"><span class="pre">NameCategoryPrompt.create_controls()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.editorwidget.html#hyperspyui.widgets.editorwidget.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html">hyperspyui.widgets.elementpicker module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._get_element_subshells"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._get_element_subshells()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._on_figure_change"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._on_figure_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._on_toggle_markers"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._on_toggle_markers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._set_elements"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._set_elements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._toggle_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eds"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._toggle_element_eds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_element_eels"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._toggle_element_eels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget._toggle_subshell"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget._toggle_subshell()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.create_controls"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.create_controls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_context"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.element_context()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.element_toggled"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.element_toggled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEDS"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.isEDS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.isEELS"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.isEELS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.make_map"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.make_map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.markers"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.markers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_element"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.set_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_enabled"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.set_enabled()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.ElementPickerWidget.set_signal"><code class="docutils literal notranslate"><span class="pre">ElementPickerWidget.set_signal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.elementpicker.html#hyperspyui.widgets.elementpicker.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html">hyperspyui.widgets.extendedqwidgets module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExClickLabel"><code class="docutils literal notranslate"><span class="pre">ExClickLabel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked"><code class="docutils literal notranslate"><span class="pre">ExClickLabel.clicked</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent"><code class="docutils literal notranslate"><span class="pre">ExClickLabel.mouseReleaseEvent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._int2dbl"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider._int2dbl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._on_change"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider._on_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.double_valueChanged"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider.double_valueChanged</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setRange"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider.setRange()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider.setValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value"><code class="docutils literal notranslate"><span class="pre">ExDoubleSlider.value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExMessageBox"><code class="docutils literal notranslate"><span class="pre">ExMessageBox</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox"><code class="docutils literal notranslate"><span class="pre">ExMessageBox.checkBox()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExMessageBox.isChecked"><code class="docutils literal notranslate"><span class="pre">ExMessageBox.isChecked()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox"><code class="docutils literal notranslate"><span class="pre">ExMessageBox.setCheckBox()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExRememberPrompt"><code class="docutils literal notranslate"><span class="pre">ExRememberPrompt</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="docutils literal notranslate"><span class="pre">ExToolWindow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget"><code class="docutils literal notranslate"><span class="pre">FigureWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget._on_figure_change"><code class="docutils literal notranslate"><span class="pre">FigureWidget._on_figure_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget.connect_"><code class="docutils literal notranslate"><span class="pre">FigureWidget.connect_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget.disconnect"><code class="docutils literal notranslate"><span class="pre">FigureWidget.disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.FigureWidget.on_visibility"><code class="docutils literal notranslate"><span class="pre">FigureWidget.on_visibility()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html">hyperspyui.widgets.flowlayout module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout"><code class="docutils literal notranslate"><span class="pre">FlowLayout</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout._doLayout"><code class="docutils literal notranslate"><span class="pre">FlowLayout._doLayout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout._smartSpacing"><code class="docutils literal notranslate"><span class="pre">FlowLayout._smartSpacing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.addItem"><code class="docutils literal notranslate"><span class="pre">FlowLayout.addItem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.count"><code class="docutils literal notranslate"><span class="pre">FlowLayout.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.expandingDirections"><code class="docutils literal notranslate"><span class="pre">FlowLayout.expandingDirections()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.hasHeightForWidth"><code class="docutils literal notranslate"><span class="pre">FlowLayout.hasHeightForWidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.heightForWidth"><code class="docutils literal notranslate"><span class="pre">FlowLayout.heightForWidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.horizontalSpacing"><code class="docutils literal notranslate"><span class="pre">FlowLayout.horizontalSpacing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.itemAt"><code class="docutils literal notranslate"><span class="pre">FlowLayout.itemAt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.minimumSize"><code class="docutils literal notranslate"><span class="pre">FlowLayout.minimumSize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.setGeometry"><code class="docutils literal notranslate"><span class="pre">FlowLayout.setGeometry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.sizeHint"><code class="docutils literal notranslate"><span class="pre">FlowLayout.sizeHint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.takeAt"><code class="docutils literal notranslate"><span class="pre">FlowLayout.takeAt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.flowlayout.html#hyperspyui.widgets.flowlayout.FlowLayout.verticalSpacing"><code class="docutils literal notranslate"><span class="pre">FlowLayout.verticalSpacing()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.periodictable.html">hyperspyui.widgets.periodictable module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.create_controls"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.create_controls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_element"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.disable_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.disable_elements"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.disable_elements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.element_toggled"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.element_toggled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_element"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.enable_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.enable_elements"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.enable_elements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.on_element_click"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.on_element_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.parse_elements"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.parse_elements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.set_element"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.set_element()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.set_elements"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.set_elements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.sizeHint"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.sizeHint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.PeriodicTableWidget.toggle_element"><code class="docutils literal notranslate"><span class="pre">PeriodicTableWidget.toggle_element()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.periodictable.html#hyperspyui.widgets.periodictable.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.pickxsignals.html">hyperspyui.widgets.pickxsignals module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.pickxsignals.html#hyperspyui.widgets.pickxsignals.PickXSignalsWidget"><code class="docutils literal notranslate"><span class="pre">PickXSignalsWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pickxsignals.html#hyperspyui.widgets.pickxsignals.PickXSignalsWidget.get_selected"><code class="docutils literal notranslate"><span class="pre">PickXSignalsWidget.get_selected()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pickxsignals.html#hyperspyui.widgets.pickxsignals.PickXSignalsWidget.unbind"><code class="docutils literal notranslate"><span class="pre">PickXSignalsWidget.unbind()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html">hyperspyui.widgets.pluginmanagerwidget module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget"><code class="docutils literal notranslate"><span class="pre">PluginManagerWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.create_controls"><code class="docutils literal notranslate"><span class="pre">PluginManagerWidget.create_controls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginManagerWidget.edit_plugin"><code class="docutils literal notranslate"><span class="pre">PluginManagerWidget.edit_plugin()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel"><code class="docutils literal notranslate"><span class="pre">PluginsModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.EnabledColumn"><code class="docutils literal notranslate"><span class="pre">PluginsModel.EnabledColumn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.NameColumn"><code class="docutils literal notranslate"><span class="pre">PluginsModel.NameColumn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.PathColumn"><code class="docutils literal notranslate"><span class="pre">PluginsModel.PathColumn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel._update_data"><code class="docutils literal notranslate"><span class="pre">PluginsModel._update_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.columnCount"><code class="docutils literal notranslate"><span class="pre">PluginsModel.columnCount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.data"><code class="docutils literal notranslate"><span class="pre">PluginsModel.data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.flags"><code class="docutils literal notranslate"><span class="pre">PluginsModel.flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.headerData"><code class="docutils literal notranslate"><span class="pre">PluginsModel.headerData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.index"><code class="docutils literal notranslate"><span class="pre">PluginsModel.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.parent"><code class="docutils literal notranslate"><span class="pre">PluginsModel.parent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.rowCount"><code class="docutils literal notranslate"><span class="pre">PluginsModel.rowCount()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.PluginsModel.setData"><code class="docutils literal notranslate"><span class="pre">PluginsModel.setData()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.pluginmanagerwidget.html#hyperspyui.widgets.pluginmanagerwidget.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html">hyperspyui.widgets.settingsdialog module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog"><code class="docutils literal notranslate"><span class="pre">SettingsDialog</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog._add_groups"><code class="docutils literal notranslate"><span class="pre">SettingsDialog._add_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog._create_settings_widgets"><code class="docutils literal notranslate"><span class="pre">SettingsDialog._create_settings_widgets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog._on_accept"><code class="docutils literal notranslate"><span class="pre">SettingsDialog._on_accept()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog._on_click"><code class="docutils literal notranslate"><span class="pre">SettingsDialog._on_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog._on_reset"><code class="docutils literal notranslate"><span class="pre">SettingsDialog._on_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog._on_setting_changed"><code class="docutils literal notranslate"><span class="pre">SettingsDialog._on_setting_changed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog.apply_btn"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.apply_btn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog.apply_changes"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.apply_changes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog.create_controls"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.create_controls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.SettingsDialog.settings_changed"><code class="docutils literal notranslate"><span class="pre">SettingsDialog.settings_changed</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.settingsdialog.html#hyperspyui.widgets.settingsdialog.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.signallist.html">hyperspyui.widgets.signallist module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList"><code class="docutils literal notranslate"><span class="pre">SignalList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList._on_destroy"><code class="docutils literal notranslate"><span class="pre">SignalList._on_destroy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.addItem"><code class="docutils literal notranslate"><span class="pre">SignalList.addItem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.addItems"><code class="docutils literal notranslate"><span class="pre">SignalList.addItems()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.bind"><code class="docutils literal notranslate"><span class="pre">SignalList.bind()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.get_selected"><code class="docutils literal notranslate"><span class="pre">SignalList.get_selected()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.insertItem"><code class="docutils literal notranslate"><span class="pre">SignalList.insertItem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.multiselect"><code class="docutils literal notranslate"><span class="pre">SignalList.multiselect</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.signal"><code class="docutils literal notranslate"><span class="pre">SignalList.signal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.signallist.html#hyperspyui.widgets.signallist.SignalList.unbind"><code class="docutils literal notranslate"><span class="pre">SignalList.unbind()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.stringinput.html">hyperspyui.widgets.stringinput module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.stringinput.html#hyperspyui.widgets.stringinput.StringInputDialog"><code class="docutils literal notranslate"><span class="pre">StringInputDialog</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.stringinput.html#hyperspyui.widgets.stringinput.StringInputDialog._on_completed"><code class="docutils literal notranslate"><span class="pre">StringInputDialog._on_completed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.stringinput.html#hyperspyui.widgets.stringinput.StringInputDialog.prompt_modal"><code class="docutils literal notranslate"><span class="pre">StringInputDialog.prompt_modal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.stringinput.html#hyperspyui.widgets.stringinput.StringInputDialog.prompt_modeless"><code class="docutils literal notranslate"><span class="pre">StringInputDialog.prompt_modeless()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html">hyperspyui.widgets.traitswidget module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html#hyperspyui.widgets.traitswidget.TraitsWidget"><code class="docutils literal notranslate"><span class="pre">TraitsWidget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html#hyperspyui.widgets.traitswidget.TraitsWidget._check"><code class="docutils literal notranslate"><span class="pre">TraitsWidget._check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html#hyperspyui.widgets.traitswidget.TraitsWidget._on_figure_change"><code class="docutils literal notranslate"><span class="pre">TraitsWidget._on_figure_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html#hyperspyui.widgets.traitswidget.TraitsWidget.clear_editor"><code class="docutils literal notranslate"><span class="pre">TraitsWidget.clear_editor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.widgets.traitswidget.html#hyperspyui.widgets.traitswidget.TraitsWidget.set_traits_editor"><code class="docutils literal notranslate"><span class="pre">TraitsWidget.set_traits_editor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="module-hyperspyui.widgets">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperspyui.widgets" title="Permalink to this headline"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperspyui.widgets" title="Permalink to this heading"></a></h2>
 <p>Created on Sat Dec 27 15:29:57 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 </section>

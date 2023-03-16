@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.widgets.extendedqwidgets module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.widgets.extendedqwidgets module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,10 +94,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-          <li><a href="hyperspyui.widgets.html">hyperspyui.widgets package</a> &raquo;</li>
-      <li>hyperspyui.widgets.extendedqwidgets module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.widgets.html">hyperspyui.widgets package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.widgets.extendedqwidgets module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.widgets.extendedqwidgets.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -102,13 +108,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.widgets.extendedqwidgets">
-<span id="hyperspyui-widgets-extendedqwidgets-module"></span><h1>hyperspyui.widgets.extendedqwidgets module<a class="headerlink" href="#module-hyperspyui.widgets.extendedqwidgets" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-widgets-extendedqwidgets-module"></span><h1>hyperspyui.widgets.extendedqwidgets module<a class="headerlink" href="#module-hyperspyui.widgets.extendedqwidgets" title="Permalink to this heading"></a></h1>
 <p>Created on Fri Nov 21 22:11:04 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExClickLabel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.extendedqwidgets.</span></span><span class="sig-name descname"><span class="pre">ExClickLabel</span></span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QLabel</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QLabel</span></code></p>
 <p>QLabel with ‘clicked()’ signal.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExClickLabel.clicked">
@@ -117,7 +123,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent">
-<span class="sig-name descname"><span class="pre">mouseReleaseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QMouseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mouseReleaseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QMouseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExClickLabel.mouseReleaseEvent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -125,7 +131,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.extendedqwidgets.</span></span><span class="sig-name descname"><span class="pre">ExDoubleSlider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QSlider</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QSlider</span></code></p>
 <p>QSlider with double values instead of int values.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider._int2dbl">
@@ -143,18 +149,18 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ExDoubleSlider.setRange(self,</span> <span class="pre">int,</span> <span class="pre">int)</span></span></dt>
+<dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setRange">
+<span class="sig-name descname"><span class="pre">setRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setRange" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue">
-<span class="sig-name descname"><span class="pre">setValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.setValue" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value">
-<span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExDoubleSlider.value" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -162,7 +168,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExMessageBox">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.extendedqwidgets.</span></span><span class="sig-name descname"><span class="pre">ExMessageBox</span></span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMessageBox</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMessageBox</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox">
 <span class="sig-name descname"><span class="pre">checkBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QCheckBox</span></span></span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.checkBox" title="Permalink to this definition"></a></dt>
@@ -175,7 +181,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox">
-<span class="sig-name descname"><span class="pre">setCheckBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QCheckBox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setCheckBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCheckBox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox.setCheckBox" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -183,20 +189,20 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExRememberPrompt">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.extendedqwidgets.</span></span><span class="sig-name descname"><span class="pre">ExRememberPrompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExRememberPrompt" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="hyperspyui.widgets.extendedqwidgets.ExMessageBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExMessageBox</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.widgets.extendedqwidgets.ExMessageBox" title="hyperspyui.widgets.extendedqwidgets.ExMessageBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExMessageBox</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.ExToolWindow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.extendedqwidgets.</span></span><span class="sig-name descname"><span class="pre">ExToolWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDialog</span></code></p>
 <p>QDialog with Qt.Tool window flags.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.FigureWidget">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.extendedqwidgets.</span></span><span class="sig-name descname"><span class="pre">FigureWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDockWidget</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QDockWidget</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.extendedqwidgets.FigureWidget._on_figure_change">
 <span class="sig-name descname"><span class="pre">_on_figure_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.extendedqwidgets.FigureWidget._on_figure_change" title="Permalink to this definition"></a></dt>

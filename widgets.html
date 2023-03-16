@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Widgets &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>Widgets &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/toggleprompt.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> HyperSpyUI
-            <img src="_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -84,8 +90,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Widgets</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Widgets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/widgets.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,9 +102,9 @@
            <div itemprop="articleBody">
              
   <section id="widgets">
-<span id="widgets-section"></span><h1>Widgets<a class="headerlink" href="#widgets" title="Permalink to this headline"></a></h1>
+<span id="widgets-section"></span><h1>Widgets<a class="headerlink" href="#widgets" title="Permalink to this heading"></a></h1>
 <section id="data-view">
-<span id="data-widget"></span><h2>Data view<a class="headerlink" href="#data-view" title="Permalink to this headline"></a></h2>
+<span id="data-widget"></span><h2>Data view<a class="headerlink" href="#data-view" title="Permalink to this heading"></a></h2>
 <p>The data tree widget is a core component of the UI, as it lists all the
 currently loaded signals and models. It can also be used to achieve some
 common tasks such as replotting the signal/model, closing a signal, deleting
@@ -137,7 +143,7 @@ details on what this does.</p>
 </div></blockquote>
 </section>
 <section id="element-picker">
-<h2>Element picker<a class="headerlink" href="#element-picker" title="Permalink to this headline"></a></h2>
+<h2>Element picker<a class="headerlink" href="#element-picker" title="Permalink to this heading"></a></h2>
 <p>The element picker is a miniature periodic table. If an
 <code class="xref py py-class docutils literal notranslate"><span class="pre">EDSSpectrum</span></code> or
 <code class="xref py py-class docutils literal notranslate"><span class="pre">EELSSpectrum</span></code> is selected it can be used to add
@@ -150,18 +156,11 @@ for details).</p>
 <img alt="_images/element_picker.png" src="_images/element_picker.png" />
 </section>
 <section id="contrast-control">
-<h2>Contrast control<a class="headerlink" href="#contrast-control" title="Permalink to this headline"></a></h2>
-<p>A <a class="reference internal" href="api/hyperspyui.widgets.contrastwidget.html#hyperspyui.widgets.contrastwidget.ContrastWidget" title="hyperspyui.widgets.contrastwidget.ContrastWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContrastWidget</span></code></a>
-type widget for adjusting the contrast response of image plots. The ‘Level’
-slider specifies the lower cut-off intensity, and the ‘Window’ slider controls
-the width of the intensity window starting at <code class="docutils literal notranslate"><span class="pre">level</span></code>. The ‘Auto’ option
-uses the automatic settings of <code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspy.drawing.image.ImagePlot</span></code>.</p>
-<p>By selecting ‘Log’ a logarithmic transform is applied to the image cotrast.
-This only affects the plot, and leaves the data untouched.</p>
-<img alt="_images/contrast_control.png" src="_images/contrast_control.png" />
+<h2>Contrast control<a class="headerlink" href="#contrast-control" title="Permalink to this heading"></a></h2>
+<p>Use HyperSpy contrast adjustment tool by pressing the <code class="docutils literal notranslate"><span class="pre">h</span></code> key.</p>
 </section>
 <section id="colormap-picker">
-<h2>Colormap picker<a class="headerlink" href="#colormap-picker" title="Permalink to this headline"></a></h2>
+<h2>Colormap picker<a class="headerlink" href="#colormap-picker" title="Permalink to this heading"></a></h2>
 <p>A <a class="reference internal" href="api/hyperspyui.plugins.cmappicker.html#hyperspyui.plugins.cmappicker.CMapPickerWidget" title="hyperspyui.plugins.cmappicker.CMapPickerWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">CMapPickerWidget</span></code></a> type widget for
 changing the colormap of image plots. The dropdown shows all the colormaps
 available in matplotlib, grouped by category. It also shows a preview of
@@ -169,20 +168,20 @@ the colorscale alongside the name.</p>
 <img alt="_images/colormap_picker.png" src="_images/colormap_picker.png" />
 </section>
 <section id="axes-configuration">
-<h2>Axes configuration<a class="headerlink" href="#axes-configuration" title="Permalink to this headline"></a></h2>
+<h2>Axes configuration<a class="headerlink" href="#axes-configuration" title="Permalink to this heading"></a></h2>
 </section>
 <section id="axes-order">
-<h2>Axes order<a class="headerlink" href="#axes-order" title="Permalink to this headline"></a></h2>
+<h2>Axes order<a class="headerlink" href="#axes-order" title="Permalink to this heading"></a></h2>
 </section>
 <section id="recorder-widget">
-<span id="id1"></span><h2>Recorder widget<a class="headerlink" href="#recorder-widget" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2>Recorder widget<a class="headerlink" href="#recorder-widget" title="Permalink to this heading"></a></h2>
 <p>The record widget offers controls to turn on or off recording to a dedicated
 <a class="reference internal" href="devguide.html#code-editor"><span class="std std-ref">Code editor widget</span></a>. Two checkboxes allow for selecting what should be recorded.
 See <a class="reference internal" href="devguide.html#recording"><span class="std std-ref">Recording code</span></a> for details on what is recorded, and how it can be used.</p>
 <img alt="_images/recorder_widget.png" src="_images/recorder_widget.png" />
 </section>
 <section id="console-widget">
-<span id="id2"></span><h2>Console widget<a class="headerlink" href="#console-widget" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2>Console widget<a class="headerlink" href="#console-widget" title="Permalink to this heading"></a></h2>
 <p>The console widget is a <a class="reference external" href="https://qtconsole.readthedocs.io/en/stable/">qtconsole</a> console widget running <a class="reference external" href="http://ipython.org/">IPython</a>, and can
 run any code that IPython can. For details on how to successfully use it, see
 the <a class="reference internal" href="devguide.html#console"><span class="std std-ref">Internal Console</span></a> section.</p>

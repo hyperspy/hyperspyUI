@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.plugins.axesconf module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.plugins.axesconf module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +68,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="hyperspyui.plugins.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.align.html">hyperspyui.plugins.align module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.alignzlp.html">hyperspyui.plugins.alignzlp module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.plugins.axesconf module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.plugins.axesconf module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.axesconf.AxesConf"><code class="docutils literal notranslate"><span class="pre">AxesConf</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.axesorderwidget.html">hyperspyui.plugins.axesorderwidget module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicsignal.html">hyperspyui.plugins.basicsignal module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.basicspectrum.html">hyperspyui.plugins.basicspectrum module</a></li>
@@ -110,10 +119,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-          <li><a href="hyperspyui.plugins.html">hyperspyui.plugins package</a> &raquo;</li>
-      <li>hyperspyui.plugins.axesconf module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.plugins.axesconf module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.plugins.axesconf.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,13 +133,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.plugins.axesconf">
-<span id="hyperspyui-plugins-axesconf-module"></span><h1>hyperspyui.plugins.axesconf module<a class="headerlink" href="#module-hyperspyui.plugins.axesconf" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-plugins-axesconf-module"></span><h1>hyperspyui.plugins.axesconf module<a class="headerlink" href="#module-hyperspyui.plugins.axesconf" title="Permalink to this heading"></a></h1>
 <p>Created on Wed Jan 07 19:56:18 2015</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.plugins.axesconf.AxesConf">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.axesconf.</span></span><span class="sig-name descname"><span class="pre">AxesConf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.axesconf.AxesConf" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <p>Makes a widget that allows the configuration of the signal axes. The widget
 captures and displays the traitsui dialog shown by
 signal.axes_manager.show().</p>

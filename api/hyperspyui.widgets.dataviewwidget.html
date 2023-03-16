@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.widgets.dataviewwidget module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.widgets.dataviewwidget module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,13 +14,15 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="hyperspyui.widgets.editorwidget module" href="hyperspyui.widgets.editorwidget.html" />
-    <link rel="prev" title="hyperspyui.widgets.contrastwidget module" href="hyperspyui.widgets.contrastwidget.html" /> 
+    <link rel="prev" title="hyperspyui.widgets.consolewidget module" href="hyperspyui.widgets.consolewidget.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,10 +94,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-          <li><a href="hyperspyui.widgets.html">hyperspyui.widgets package</a> &raquo;</li>
-      <li>hyperspyui.widgets.dataviewwidget module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.widgets.html">hyperspyui.widgets package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.widgets.dataviewwidget module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.widgets.dataviewwidget.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -102,13 +108,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.widgets.dataviewwidget">
-<span id="hyperspyui-widgets-dataviewwidget-module"></span><h1>hyperspyui.widgets.dataviewwidget module<a class="headerlink" href="#module-hyperspyui.widgets.dataviewwidget" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-widgets-dataviewwidget-module"></span><h1>hyperspyui.widgets.dataviewwidget module<a class="headerlink" href="#module-hyperspyui.widgets.dataviewwidget" title="Permalink to this heading"></a></h1>
 <p>Created on Tue Nov 04 16:32:55 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.ComponentEditorHandler">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.dataviewwidget.</span></span><span class="sig-name descname"><span class="pre">ComponentEditorHandler</span></span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">traitsui.handler.Handler</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.ComponentEditorHandler.setattr">
 <span class="sig-name descname"><span class="pre">setattr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.ComponentEditorHandler.setattr" title="Permalink to this definition"></a></dt>
@@ -123,10 +129,10 @@ If you override this method, make sure that it actually sets the
 attribute, either by calling the parent method or by setting the
 attribute directly</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>info</strong> (<em>UIInfo instance</em>) – The UIInfo for the current UI</p></li>
-<li><p><strong>object</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – The object whose attribute is being set</p></li>
+<li><p><strong>object</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The object whose attribute is being set</p></li>
 <li><p><strong>name</strong> (<em>string</em>) – The name of the attribute being set</p></li>
 <li><p><strong>value</strong> – The value to which the attribute is being set</p></li>
 </ul>
@@ -139,7 +145,7 @@ attribute directly</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.DataViewWidget">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.dataviewwidget.</span></span><span class="sig-name descname"><span class="pre">DataViewWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
 <p>A custom QTreeWidget, that handles the Signal-Model-Component hierarchy.
 The relationships are displayed in a tree structure, and helps keep track
 of the relationships between them. Also makes handeling several Models per
@@ -239,7 +245,7 @@ Components will select their Signal parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent">
-<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QKeyEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">keyPressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QKeyEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.DataViewWidget.keyPressEvent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -270,20 +276,20 @@ the selected signal.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.HyperspyItem">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.dataviewwidget.</span></span><span class="sig-name descname"><span class="pre">HyperspyItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itemtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspy_item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QTreeWidgetItem</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QTreeWidgetItem</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.HyperspyItem._on_toggle_visibility">
 <span class="sig-name descname"><span class="pre">_on_toggle_visibility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem._on_toggle_visibility" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">HyperspyItem.data(self,</span> <span class="pre">int,</span> <span class="pre">int)</span> <span class="pre">-&gt;</span> <span class="pre">Any</span></span></dt>
+<dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.HyperspyItem.data">
+<span class="sig-name descname"><span class="pre">data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem.data" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">HyperspyItem.setData(self,</span> <span class="pre">int,</span> <span class="pre">int,</span> <span class="pre">Any)</span></span></dt>
+<dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.HyperspyItem.setData">
+<span class="sig-name descname"><span class="pre">setData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.HyperspyItem.setData" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -291,7 +297,7 @@ the selected signal.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.widgets.dataviewwidget.</span></span><span class="sig-name descname"><span class="pre">VisbilityDelegate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QStyledItemDelegate</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QStyledItemDelegate</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate.iconPos">
 <span class="sig-name descname"><span class="pre">iconPos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.iconPos" title="Permalink to this definition"></a></dt>
@@ -299,12 +305,12 @@ the selected signal.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint">
-<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QPainter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">painter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QPainter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.paint" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint">
-<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QSize</span></span></span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sizeHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QStyleOptionViewItem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QModelIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QSize</span></span></span><a class="headerlink" href="#hyperspyui.widgets.dataviewwidget.VisbilityDelegate.sizeHint" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -320,7 +326,7 @@ the selected signal.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="hyperspyui.widgets.contrastwidget.html" class="btn btn-neutral float-left" title="hyperspyui.widgets.contrastwidget module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hyperspyui.widgets.consolewidget.html" class="btn btn-neutral float-left" title="hyperspyui.widgets.consolewidget module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="hyperspyui.widgets.editorwidget.html" class="btn btn-neutral float-right" title="hyperspyui.widgets.editorwidget module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

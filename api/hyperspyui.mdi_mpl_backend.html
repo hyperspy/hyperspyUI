@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.mdi_mpl_backend module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.mdi_mpl_backend module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -75,7 +81,20 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowbase.html">hyperspyui.mainwindowbase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html">hyperspyui.mainwindowhyperspy module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowutillayer.html">hyperspyui.mainwindowutillayer module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.mdi_mpl_backend module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.mdi_mpl_backend module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.FigureManager"><code class="docutils literal notranslate"><span class="pre">FigureManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi"><code class="docutils literal notranslate"><span class="pre">FigureManagerMdi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.FigureWindow"><code class="docutils literal notranslate"><span class="pre">FigureWindow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend._on_destroy"><code class="docutils literal notranslate"><span class="pre">_on_destroy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend._on_new_figure"><code class="docutils literal notranslate"><span class="pre">_on_new_figure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.connect_on_destroy"><code class="docutils literal notranslate"><span class="pre">connect_on_destroy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.connect_on_new_figure"><code class="docutils literal notranslate"><span class="pre">connect_on_new_figure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.disconnect_on_destroy"><code class="docutils literal notranslate"><span class="pre">disconnect_on_destroy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.disconnect_on_new_figure"><code class="docutils literal notranslate"><span class="pre">disconnect_on_new_figure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.new_figure_manager"><code class="docutils literal notranslate"><span class="pre">new_figure_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mdi_mpl_backend.new_figure_manager_given_figure"><code class="docutils literal notranslate"><span class="pre">new_figure_manager_given_figure()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.modelwrapper.html">hyperspyui.modelwrapper module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.overrides.html">hyperspyui.overrides module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugincreator.html">hyperspyui.plugincreator module</a></li>
@@ -112,9 +131,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.mdi_mpl_backend module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.mdi_mpl_backend module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.mdi_mpl_backend.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,19 +144,19 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.mdi_mpl_backend">
-<span id="hyperspyui-mdi-mpl-backend-module"></span><h1>hyperspyui.mdi_mpl_backend module<a class="headerlink" href="#module-hyperspyui.mdi_mpl_backend" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-mdi-mpl-backend-module"></span><h1>hyperspyui.mdi_mpl_backend module<a class="headerlink" href="#module-hyperspyui.mdi_mpl_backend" title="Permalink to this heading"></a></h1>
 <p>Created on Fri Oct 31 14:22:53 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManager">
 <span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureManager</span></span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManager" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference internal" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="hyperspyui.mdi_mpl_backend.FigureManagerMdi"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.mdi_mpl_backend.FigureManagerMdi</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="hyperspyui.mdi_mpl_backend.FigureManagerMdi"><code class="xref py py-class docutils literal notranslate"><span class="pre">FigureManagerMdi</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureManagerMdi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://matplotlib.org/stable/api/backend_bases_api.html#matplotlib.backend_bases.FigureManagerBase" title="(in Matplotlib v3.5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.backend_bases.FigureManagerBase</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://matplotlib.org/stable/api/backend_bases_api.html#matplotlib.backend_bases.FigureManagerBase" title="(in Matplotlib v3.7.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FigureManagerBase</span></code></a></p>
 <p>Public attributes</p>
 <p>canvas      : The FigureCanvas instance
 num         : The Figure number
@@ -199,7 +218,7 @@ warning in <cite>.Figure.show</cite>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMdiSubWindow</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMdiSubWindow</span></code></p>
 <p>A basic MDI sub-window, but with a closing signal, and an activate QAction,
 which allows for switching between all FigureWindows (e.g. by a
 Windows-menu). An exclusive, static action group makes sure only one
@@ -231,7 +250,7 @@ try to make it the active window.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.closeEvent">
-<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QCloseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.closeEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closeEvent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCloseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.closeEvent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -241,7 +260,7 @@ try to make it the active window.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.setWindowTitle">
-<span class="sig-name descname"><span class="pre">setWindowTitle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.setWindowTitle" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setWindowTitle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.setWindowTitle" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

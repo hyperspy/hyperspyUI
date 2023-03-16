@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.plugins.gaussianfilter module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.plugins.gaussianfilter module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -73,7 +79,12 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.eelsdb.html">hyperspyui.plugins.eelsdb module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fft.html">hyperspyui.plugins.fft module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fitting.html">hyperspyui.plugins.fitting module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.plugins.gaussianfilter module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.plugins.gaussianfilter module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter"><code class="docutils literal notranslate"><span class="pre">GaussianFilter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog"><code class="docutils literal notranslate"><span class="pre">GaussianFilterDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.gaussianfilter.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.gitgetter.html">hyperspyui.plugins.gitgetter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.imagerotation.html">hyperspyui.plugins.imagerotation module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.linemeasure.html">hyperspyui.plugins.linemeasure module</a></li>
@@ -110,10 +121,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-          <li><a href="hyperspyui.plugins.html">hyperspyui.plugins package</a> &raquo;</li>
-      <li>hyperspyui.plugins.gaussianfilter module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.plugins.html">hyperspyui.plugins package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.plugins.gaussianfilter module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.plugins.gaussianfilter.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,11 +135,11 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.plugins.gaussianfilter">
-<span id="hyperspyui-plugins-gaussianfilter-module"></span><h1>hyperspyui.plugins.gaussianfilter module<a class="headerlink" href="#module-hyperspyui.plugins.gaussianfilter" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-plugins-gaussianfilter-module"></span><h1>hyperspyui.plugins.gaussianfilter module<a class="headerlink" href="#module-hyperspyui.plugins.gaussianfilter" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.plugins.gaussianfilter.GaussianFilter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.gaussianfilter.</span></span><span class="sig-name descname"><span class="pre">GaussianFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.plugins.plugin.Plugin</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin" title="hyperspyui.plugins.plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.plugins.gaussianfilter.GaussianFilter.create_actions">
 <span class="sig-name descname"><span class="pre">create_actions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilter.create_actions" title="Permalink to this definition"></a></dt>
@@ -150,7 +161,7 @@
 <dd><p>Apply a gaussian smoothing filter to an image signal.
 Uses py:func:<cite>skimage.filters.gaussian</cite> for the actual processing.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sigma</strong> (<em>{float}</em>) – Smoothing factor in units of pixels, i.e a value around 1 is
 a slight smoothing.</p></li>
@@ -158,7 +169,7 @@ a slight smoothing.</p></li>
 selected one</p></li>
 <li><p><strong>out</strong> (<em>{Signal</em><em> | </em><em>None}</em>) – Output signal</p></li>
 <li><p><strong>record</strong> (<em>{bool}</em>) – Whether the operation should be recorded or not.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Other keyword arguments are passed to
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Other keyword arguments are passed to
 py:func:<cite>skimage.filters.gaussian</cite>.</p></li>
 </ul>
 </dd>
@@ -191,7 +202,7 @@ py:func:<cite>skimage.filters.gaussian</cite>.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.gaussianfilter.</span></span><span class="sig-name descname"><span class="pre">GaussianFilterDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.widgets.extendedqwidgets.ExToolWindow</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.widgets.extendedqwidgets.html#hyperspyui.widgets.extendedqwidgets.ExToolWindow" title="hyperspyui.widgets.extendedqwidgets.ExToolWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExToolWindow</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.close_new">
 <span class="sig-name descname"><span class="pre">close_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.close_new" title="Permalink to this definition"></a></dt>
@@ -210,9 +221,9 @@ py:func:<cite>skimage.filters.gaussian</cite>.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.disconnect">
-<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">QMetaObject.Connection</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.disconnect" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QMetaObject.Connection</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.disconnect" title="Permalink to this definition"></a></dt>
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span></dt>
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -234,11 +245,11 @@ py:func:<cite>skimage.filters.gaussian</cite>.</p></li>
 <dt class="sig sig-object py" id="hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.gaussianfilter.GaussianFilterDialog.update" title="Permalink to this definition"></a></dt>
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QRect</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QRect</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span></dt>
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QRegion</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QRegion</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span></dt>
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">GaussianFilterDialog.update(self,</span> <span class="pre">int,</span> <span class="pre">int,</span> <span class="pre">int,</span> <span class="pre">int)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">aw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ah</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span></dt>
 <dd></dd></dl>
 
 </dd></dl>

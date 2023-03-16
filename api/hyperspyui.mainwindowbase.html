@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.mainwindowbase module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.mainwindowbase module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -72,7 +78,14 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooktraitsui.html">hyperspyui.hooktraitsui module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.log.html">hyperspyui.log module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindow.html">hyperspyui.mainwindow module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.mainwindowbase module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.mainwindowbase module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mainwindowbase.MainWindowBase"><code class="docutils literal notranslate"><span class="pre">MainWindowBase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mainwindowbase.lowpriority"><code class="docutils literal notranslate"><span class="pre">lowpriority()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mainwindowbase.myexcepthook"><code class="docutils literal notranslate"><span class="pre">myexcepthook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mainwindowbase.normalpriority"><code class="docutils literal notranslate"><span class="pre">normalpriority()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mainwindowbase.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html">hyperspyui.mainwindowhyperspy module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowutillayer.html">hyperspyui.mainwindowutillayer module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mdi_mpl_backend.html">hyperspyui.mdi_mpl_backend module</a></li>
@@ -112,9 +125,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.mainwindowbase module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.mainwindowbase module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.mainwindowbase.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,13 +138,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.mainwindowbase">
-<span id="hyperspyui-mainwindowbase-module"></span><h1>hyperspyui.mainwindowbase module<a class="headerlink" href="#module-hyperspyui.mainwindowbase" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-mainwindowbase-module"></span><h1>hyperspyui.mainwindowbase module<a class="headerlink" href="#module-hyperspyui.mainwindowbase" title="Permalink to this heading"></a></h1>
 <p>Created on Mon Oct 27 21:17:42 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowbase.MainWindowBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindowbase.</span></span><span class="sig-name descname"><span class="pre">MainWindowBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.MainWindowBase" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
 <p>Base layer in application stack. Should handle the connection to our custom
 matplotlib backend, and manage the Figures. As such, it does not know
 anything about hyperspy, and can readily be reused for other projects.
@@ -153,13 +166,23 @@ inhereting classes to override.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindowbase.MainWindowBase._set_low_process_priority">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_set_low_process_priority</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.MainWindowBase._set_low_process_priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindowbase.MainWindowBase._update_icon_size">
+<span class="sig-name descname"><span class="pre">_update_icon_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.MainWindowBase._update_icon_size" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowbase.MainWindowBase.check_action_selections">
 <span class="sig-name descname"><span class="pre">check_action_selections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mdi_figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.MainWindowBase.check_action_selections" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowbase.MainWindowBase.closeEvent">
-<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QCloseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.MainWindowBase.closeEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCloseEvent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.MainWindowBase.closeEvent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -304,7 +327,7 @@ and need to apply the change.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowbase.normalpriority">
 <span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindowbase.</span></span><span class="sig-name descname"><span class="pre">normalpriority</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowbase.normalpriority" title="Permalink to this definition"></a></dt>
-<dd><p>Set the priority of the process to below-normal.</p>
+<dd><p>Set the priority of the process to normal.</p>
 </dd></dl>
 
 <dl class="py function">

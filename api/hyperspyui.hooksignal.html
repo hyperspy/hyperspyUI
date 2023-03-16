@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.hooksignal module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.hooksignal module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -68,7 +74,18 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.desktop_integration_linux.html">hyperspyui.desktop_integration_linux module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.desktop_integration_windows.html">hyperspyui.desktop_integration_windows module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.exceptions.html">hyperspyui.exceptions module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.hooksignal module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.hooksignal module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.HookedSignal"><code class="docutils literal notranslate"><span class="pre">HookedSignal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal._on_plotted"><code class="docutils literal notranslate"><span class="pre">_on_plotted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal._on_plotting"><code class="docutils literal notranslate"><span class="pre">_on_plotting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.connect_plotted"><code class="docutils literal notranslate"><span class="pre">connect_plotted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.connect_plotting"><code class="docutils literal notranslate"><span class="pre">connect_plotting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.dehook_signal"><code class="docutils literal notranslate"><span class="pre">dehook_signal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.disconnect_plotted"><code class="docutils literal notranslate"><span class="pre">disconnect_plotted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.disconnect_plotting"><code class="docutils literal notranslate"><span class="pre">disconnect_plotting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooksignal.hook_signal"><code class="docutils literal notranslate"><span class="pre">hook_signal()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooktraitsui.html">hyperspyui.hooktraitsui module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.log.html">hyperspyui.log module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindow.html">hyperspyui.mainwindow module</a></li>
@@ -112,9 +129,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.hooksignal module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.hooksignal module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.hooksignal.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,13 +142,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.hooksignal">
-<span id="hyperspyui-hooksignal-module"></span><h1>hyperspyui.hooksignal module<a class="headerlink" href="#module-hyperspyui.hooksignal" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-hooksignal-module"></span><h1>hyperspyui.hooksignal module<a class="headerlink" href="#module-hyperspyui.hooksignal" title="Permalink to this heading"></a></h1>
 <p>Created on Sat Feb 28 17:52:42 2015</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.hooksignal.HookedSignal">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.hooksignal.</span></span><span class="sig-name descname"><span class="pre">HookedSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.7.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspy.signal.BaseSignal</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.7.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSignal</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.hooksignal.HookedSignal.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooksignal.HookedSignal.plot" title="Permalink to this definition"></a></dt>
@@ -142,9 +159,9 @@ raised. In any case it is possible to navigate the data using
 the sliders. Currently only signals with signal_dimension equal to
 0, 1 and 2 can be plotted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>navigator</strong> (str, None, or <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.7.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSignal</span></code></a> (or subclass).        Allowed string values are <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, <code class="docutils literal notranslate"><span class="pre">'slider'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'spectrum'</span></code>.) – <p>If <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>:</p>
+<li><p><strong>navigator</strong> (str, None, or <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.7.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSignal</span></code></a> (or subclass).        Allowed string values are <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, <code class="docutils literal notranslate"><span class="pre">'slider'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'spectrum'</span></code>.) – <p>If <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>:</p>
 <blockquote>
 <div><ul>
 <li><p>If <cite>navigation_dimension</cite> &gt; 0, a navigator is
@@ -187,7 +204,7 @@ be used instead.</p></li>
 </ul>
 </div></blockquote>
 <p>If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no navigator will be provided.</p>
-<p>Alternatively a <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.7.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSignal</span></code></a> (or subclass)
+<p>Alternatively a <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.signal.html#hyperspy.signal.BaseSignal" title="(in HyperSpy v1.7.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSignal</span></code></a> (or subclass)
 instance can be provided. The navigation or signal shape must
 match the navigation shape of the signal to plot or the
 <cite>navigation_shape</cite> + <cite>signal_shape</cite> must be equal to the
@@ -195,23 +212,23 @@ match the navigation shape of the signal to plot or the
 If the signal <cite>dtype</cite> is RGB or RGBA this parameter has no effect and
 the value is always set to <code class="docutils literal notranslate"><span class="pre">'slider'</span></code>.</p>
 </p></li>
-<li><p><strong>axes_manager</strong> (None or <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.axes.html#hyperspy.axes.AxesManager" title="(in HyperSpy v1.7.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesManager</span></code></a>) – If None, the signal’s <cite>axes_manager</cite> attribute is used.</p></li>
-<li><p><strong>plot_markers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>default True</em>) – Plot markers added using s.add_marker(marker, permanent=True).
+<li><p><strong>axes_manager</strong> (None or <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/api/hyperspy.axes.html#hyperspy.axes.AxesManager" title="(in HyperSpy v1.7.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesManager</span></code></a>) – If None, the signal’s <cite>axes_manager</cite> attribute is used.</p></li>
+<li><p><strong>plot_markers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><em>default True</em>) – Plot markers added using s.add_marker(marker, permanent=True).
 Note, a large number of markers might lead to very slow plotting.</p></li>
-<li><p><strong>navigator_kwds</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Only for image navigator, additional keyword arguments for
-<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.5.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
-<li><p><strong>norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The function used to normalize the data prior to plotting.
+<li><p><strong>navigator_kwds</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Only for image navigator, additional keyword arguments for
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.7.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
+<li><p><strong>norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The function used to normalize the data prior to plotting.
 Allowable strings are: <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>, <code class="docutils literal notranslate"><span class="pre">'log'</span></code>.
 (default value is <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>).
 If <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, intensity is plotted on a linear scale except when
 <code class="docutils literal notranslate"><span class="pre">power_spectrum=True</span></code> (only for complex signals).</p></li>
-<li><p><strong>autoscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string must contain any combination of the ‘x’ and ‘v’
+<li><p><strong>autoscale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The string must contain any combination of the ‘x’ and ‘v’
 characters. If ‘x’ or ‘v’ (for values) are in the string, the
 corresponding horizontal or vertical axis limits are set to their
 maxima and the axis limits will reset when the data or the
 navigation indices are changed. Default is ‘v’.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Only when plotting an image: additional (optional) keyword
-arguments for <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.5.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Only when plotting an image: additional (optional) keyword
+arguments for <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html#matplotlib.pyplot.imshow" title="(in Matplotlib v3.7.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>

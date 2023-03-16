@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.hooktraitsui module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.hooktraitsui module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -69,7 +75,28 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.desktop_integration_windows.html">hyperspyui.desktop_integration_windows module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.exceptions.html">hyperspyui.exceptions module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooksignal.html">hyperspyui.hooksignal module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.hooktraitsui module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.hooktraitsui module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.HookedDialog"><code class="docutils literal notranslate"><span class="pre">HookedDialog</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui._cb"><code class="docutils literal notranslate"><span class="pre">_cb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui._on_closed"><code class="docutils literal notranslate"><span class="pre">_on_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui._on_closing"><code class="docutils literal notranslate"><span class="pre">_on_closing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui._on_created"><code class="docutils literal notranslate"><span class="pre">_on_created()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui._on_creating"><code class="docutils literal notranslate"><span class="pre">_on_creating()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui._on_destroyed"><code class="docutils literal notranslate"><span class="pre">_on_destroyed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.connect_closed"><code class="docutils literal notranslate"><span class="pre">connect_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.connect_closing"><code class="docutils literal notranslate"><span class="pre">connect_closing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.connect_created"><code class="docutils literal notranslate"><span class="pre">connect_created()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.connect_creating"><code class="docutils literal notranslate"><span class="pre">connect_creating()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.connect_destroyed"><code class="docutils literal notranslate"><span class="pre">connect_destroyed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.dehook_traitsui"><code class="docutils literal notranslate"><span class="pre">dehook_traitsui()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.disconnect_closed"><code class="docutils literal notranslate"><span class="pre">disconnect_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.disconnect_closing"><code class="docutils literal notranslate"><span class="pre">disconnect_closing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.disconnect_created"><code class="docutils literal notranslate"><span class="pre">disconnect_created()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.disconnect_creating"><code class="docutils literal notranslate"><span class="pre">disconnect_creating()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.disconnect_destroyed"><code class="docutils literal notranslate"><span class="pre">disconnect_destroyed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.hooktraitsui.hook_traitsui"><code class="docutils literal notranslate"><span class="pre">hook_traitsui()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.log.html">hyperspyui.log module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindow.html">hyperspyui.mainwindow module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowbase.html">hyperspyui.mainwindowbase module</a></li>
@@ -112,9 +139,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.hooktraitsui module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.hooktraitsui module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.hooktraitsui.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,13 +152,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.hooktraitsui">
-<span id="hyperspyui-hooktraitsui-module"></span><h1>hyperspyui.hooktraitsui module<a class="headerlink" href="#module-hyperspyui.hooktraitsui" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-hooktraitsui-module"></span><h1>hyperspyui.hooktraitsui module<a class="headerlink" href="#module-hyperspyui.hooktraitsui" title="Permalink to this heading"></a></h1>
 <p>Created on Sun Nov 23 17:10:41 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.hooktraitsui.HookedDialog">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.hooktraitsui.</span></span><span class="sig-name descname"><span class="pre">HookedDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">traitsui.qt4.ui_base._StickyDialog</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_StickyDialog</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.hooktraitsui.HookedDialog.closeEvent">
 <span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.hooktraitsui.HookedDialog.closeEvent" title="Permalink to this definition"></a></dt>

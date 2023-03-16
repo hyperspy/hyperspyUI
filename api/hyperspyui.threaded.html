@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.threaded module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.threaded module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -85,7 +91,13 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.signalwrapper.html">hyperspyui.signalwrapper module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.singleapplication.html">hyperspyui.singleapplication module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.smartcolorsvgiconengine.html">hyperspyui.smartcolorsvgiconengine module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.threaded module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.threaded module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.threaded.ProgressThreaded"><code class="docutils literal notranslate"><span class="pre">ProgressThreaded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.threaded.Threaded"><code class="docutils literal notranslate"><span class="pre">Threaded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.threaded.Worker"><code class="docutils literal notranslate"><span class="pre">Worker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.threaded.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.tools.html">hyperspyui.tools module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.uiprogressbar.html">hyperspyui.uiprogressbar module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.util.html">hyperspyui.util module</a></li>
@@ -112,9 +124,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.threaded module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.threaded module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.threaded.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,13 +137,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.threaded">
-<span id="hyperspyui-threaded-module"></span><h1>hyperspyui.threaded module<a class="headerlink" href="#module-hyperspyui.threaded" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-threaded-module"></span><h1>hyperspyui.threaded module<a class="headerlink" href="#module-hyperspyui.threaded" title="Permalink to this heading"></a></h1>
 <p>Created on Mon Nov 17 14:16:41 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.threaded.ProgressThreaded">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.threaded.</span></span><span class="sig-name descname"><span class="pre">ProgressThreaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cancellable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Processing'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator_N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.ProgressThreaded" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.threaded.Threaded" title="hyperspyui.threaded.Threaded"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.threaded.Threaded</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.threaded.Threaded" title="hyperspyui.threaded.Threaded"><code class="xref py py-class docutils literal notranslate"><span class="pre">Threaded</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.threaded.ProgressThreaded.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.ProgressThreaded.close" title="Permalink to this definition"></a></dt>
@@ -147,14 +159,14 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.threaded.Threaded">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.threaded.</span></span><span class="sig-name descname"><span class="pre">Threaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.Threaded" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QObject</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Executes a user provided function in a new thread, and pops up a
 QProgressBar until it finishes. To have an updating progress bar,
 have the provided function be a generator, and yield completion rate
 in percent (int from 0 to 100).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.threaded.Threaded.add_to_pool">
-<span class="sig-name descname"><span class="pre">add_to_pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.Threaded.add_to_pool" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_to_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.Threaded.add_to_pool" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -169,7 +181,7 @@ in percent (int from 0 to 100).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.threaded.Threaded.remove_from_pool">
-<span class="sig-name descname"><span class="pre">remove_from_pool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.Threaded.remove_from_pool" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_from_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.Threaded.remove_from_pool" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -182,7 +194,7 @@ in percent (int from 0 to 100).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.threaded.Worker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.threaded.</span></span><span class="sig-name descname"><span class="pre">Worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.threaded.Worker" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QObject</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.threaded.Worker.error">
 <span class="sig-name descname"><span class="pre">error</span></span><a class="headerlink" href="#hyperspyui.threaded.Worker.error" title="Permalink to this definition"></a></dt>

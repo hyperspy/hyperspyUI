@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.util module &mdash; HyperSpyUI 1.1.5 documentation</title>
+  <title>hyperspyui.util module &mdash; HyperSpyUI 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -28,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> HyperSpyUI
-            <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HyperSpyUI
+              <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.1.5
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,7 +94,26 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.threaded.html">hyperspyui.threaded module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.tools.html">hyperspyui.tools module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.uiprogressbar.html">hyperspyui.uiprogressbar module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.util module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.AttributeDict"><code class="docutils literal notranslate"><span class="pre">AttributeDict</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.Namespace"><code class="docutils literal notranslate"><span class="pre">Namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.SignalTypeFilter"><code class="docutils literal notranslate"><span class="pre">SignalTypeFilter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.block_signals"><code class="docutils literal notranslate"><span class="pre">block_signals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.create_add_component_actions"><code class="docutils literal notranslate"><span class="pre">create_add_component_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.crosshair_cursor"><code class="docutils literal notranslate"><span class="pre">crosshair_cursor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.debug_trace"><code class="docutils literal notranslate"><span class="pre">debug_trace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.dict_rlu"><code class="docutils literal notranslate"><span class="pre">dict_rlu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.dummy_context_manager"><code class="docutils literal notranslate"><span class="pre">dummy_context_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.fig2image_plot"><code class="docutils literal notranslate"><span class="pre">fig2image_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.fig2sig"><code class="docutils literal notranslate"><span class="pre">fig2sig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.fig2win"><code class="docutils literal notranslate"><span class="pre">fig2win()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.load_cursor"><code class="docutils literal notranslate"><span class="pre">load_cursor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.lstrip"><code class="docutils literal notranslate"><span class="pre">lstrip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.win2fig"><code class="docutils literal notranslate"><span class="pre">win2fig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.util.win2sig"><code class="docutils literal notranslate"><span class="pre">win2sig()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.version.html">hyperspyui.version module</a></li>
 </ul>
 </li>
@@ -112,9 +137,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="hyperspyui.html">hyperspyui package</a> &raquo;</li>
-      <li>hyperspyui.util module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="hyperspyui.html">hyperspyui package</a></li>
+      <li class="breadcrumb-item active">hyperspyui.util module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/hyperspyui.util.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,13 +150,13 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.util">
-<span id="hyperspyui-util-module"></span><h1>hyperspyui.util module<a class="headerlink" href="#module-hyperspyui.util" title="Permalink to this headline"></a></h1>
+<span id="hyperspyui-util-module"></span><h1>hyperspyui.util module<a class="headerlink" href="#module-hyperspyui.util" title="Permalink to this heading"></a></h1>
 <p>Created on Mon Oct 27 18:47:05 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.util.AttributeDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">AttributeDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">AttributeDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.AttributeDict" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <p>A dict subclass that exposes its items as attributes.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.util.AttributeDict.delattr">
@@ -172,8 +197,8 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.util.Namespace">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">Namespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.Namespace" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hyperspyui.util.AttributeDict" title="hyperspyui.util.AttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">hyperspyui.util.AttributeDict</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">Namespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.Namespace" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hyperspyui.util.AttributeDict" title="hyperspyui.util.AttributeDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">AttributeDict</span></code></a></p>
 <p>A dict subclass that exposes its items as attributes.</p>
 <p>Warning: Namespace instances do not have direct access to the
 dict methods.</p>
@@ -182,7 +207,7 @@ dict methods.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.util.SignalTypeFilter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">SignalTypeFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.SignalTypeFilter" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
@@ -234,7 +259,7 @@ dict methods.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.util.load_cursor">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">load_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.load_cursor" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.util.</span></span><span class="sig-name descname"><span class="pre">load_cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hotY</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.util.load_cursor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
