@@ -2,7 +2,7 @@
 Changelog
 *********
 
-v1.2.0 (UNRELEASED)
+v1.2.0 (2023-03-16)
 +++++++++++++++++++
 - Pin third party action and fix tests and documentation GitHub workflow (`#206 <https://github.com/hyperspy/hyperspyUI/pull/206>`_)
 - Pin pyflakes to 2.4 to keep pyqode.python working (`#206 <https://github.com/hyperspy/hyperspyUI/pull/206>`_)
