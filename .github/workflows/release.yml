@@ -21,7 +21,7 @@ jobs:
       VERSION: ${{ env.VERSION }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
@@ -39,10 +39,10 @@ jobs:
     needs: create_release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -72,7 +72,7 @@ jobs:
         run: |
           pip install --find-links dist hyperspyui[tests]
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           path: |
             ./dist/*.whl
