@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 30
     env:
       HYPERSPY_DEV: false
-      DISPLAY: :0
+      DISPLAY: ':0'
     strategy:
       fail-fast: false
       matrix:
@@ -34,7 +34,7 @@ jobs:
           python --version
           pip --version
 
-      - name: 'Install Ubuntu packages for Qt'
+      - name: Install Ubuntu packages for Qt
         shell: bash
         run: |
           sudo apt-get update
