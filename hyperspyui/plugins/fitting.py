@@ -29,7 +29,11 @@ import numpy as np
 
 from hyperspyui.tools import SelectionTool
 from hyperspy.roi import BaseInteractiveROI
-from hyperspy.utils.markers import line_segment, text
+try: 
+    from hyperspy.utils.markers import LineSegment, Text
+except ImportError:
+    from hyperspy.utils.markers import line_segment as LineSegment
+    from hyperspy.utils.markers import text as Text
 
 
 class FittingPlugin(Plugin):
@@ -68,9 +72,9 @@ class FittingPlugin(Plugin):
         reg = stats.linregress(x, y)
         x1, x2 = np.min(x), np.max(x)
         y1, y2 = np.array([x1, x2]) * reg[0] + reg[1]
-        m_l = line_segment(x1, y1, x2, y2)
+        m_l = LineSegment(x1, y1, x2, y2)
         signal.add_marker(m_l)
-        m_t = text((x2+x1)*0.5, (y2+y1)*0.5,
+        m_t = Text((x2+x1)*0.5, (y2+y1)*0.5,
                    "y = %.4gx + %.4g, R=%.4g" % reg[0:3])
         signal.add_marker(m_t)
 
