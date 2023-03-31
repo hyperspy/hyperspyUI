@@ -6,6 +6,7 @@ v1.3.0 (UNRELEASED)
 +++++++++++++++++++
 - Update release workflow to remove deprecated github actions and use pypi API token instead of user/password (`#211 <https://github.com/hyperspy/hyperspyUI/pull/211>`_)
 - Fix dependabot error when parsing github workflow  (`#212 <https://github.com/hyperspy/hyperspyUI/pull/212>`_)
+- Fix import marker hyperspy 2.0  (`#216 <https://github.com/hyperspy/hyperspyUI/pull/216>`_)
 
 
 v1.2.0 (2023-03-16)
