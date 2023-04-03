@@ -49,7 +49,7 @@ jobs:
         with:
           path: ./doc/build/*
 
-      - uses: peaceiris/actions-gh-pages@bd8c6b06eba6b3d25d72b7a1767993c0aeee42e7
+      - uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847
         if: startsWith(github.ref, 'refs/tags/')
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
