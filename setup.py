@@ -49,9 +49,10 @@ setup(
         'hyperspy-gui-traitsui >= 1.3.1',
         'matplotlib >= 3.0.3',
         'packaging',
-        'pyqode.python >= 2.6.0',
+        'pyqode.python >= 4.0.2',
+        'pyqode.core >= 4.0.10',
         'pyface >=6.0.0',
-        'pyflakes <2.5', # for pyqode.python
+        'pyflakes',
         'autopep8',
         'traits',
         'traitsui >=5.2.0',
