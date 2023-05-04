@@ -2,6 +2,9 @@
 Changelog
 *********
 
+v1.4.0 (UNRELEASED)
++++++++++++++++++++
+
 v1.3.0 (2023-05-04)
 +++++++++++++++++++
 - Update release workflow to remove deprecated github actions and use pypi API token instead of user/password (`#211 <https://github.com/hyperspy/hyperspyUI/pull/211>`_)
