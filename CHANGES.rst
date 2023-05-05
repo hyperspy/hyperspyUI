@@ -4,6 +4,7 @@ Changelog
 
 v1.4.0 (UNRELEASED)
 +++++++++++++++++++
+- Fix parsing extensions when rosettasciio is not installed (`#220 <https://github.com/hyperspy/hyperspyUI/pull/220>`_)
 
 v1.3.0 (2023-05-04)
 +++++++++++++++++++

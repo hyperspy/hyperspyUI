@@ -36,12 +36,12 @@ if __name__ == '__main__':
 
     class ConsoleJediCompletionProvider():
         @staticmethod
-        def complete(code, line, column, path, encoding, prefix):
+        def complete(code, line, column, path, encoding, prefix, triggered_by_symbol):
             code = _console_mode_header + code
             return JediCompletionProvider.complete(code,
                                                    line + _header_num_lines,
                                                    column, path, encoding,
-                                                   prefix)
+                                                   prefix, triggered_by_symbol)
 
     """
     Server process' entry point

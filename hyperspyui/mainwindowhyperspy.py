@@ -469,13 +469,14 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         try:
             # HyperSpy >=2.0
             from rsciio import IO_PLUGINS
+            extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS]
         except Exception:
             # HyperSpy <2.0
             from hyperspy.io_plugins import io_plugins as IO_PLUGINS
+            extensions_plugin_list = [plugin.file_extensions for plugin in IO_PLUGINS]
 
-        extensions = set([extensions.lower() for plugin in IO_PLUGINS
-                          # Try first with attribute (HyperSpy <2.0), fallback with dictionary (RosettaSciIO)
-                          for extensions in getattr(plugin, 'file_extensions', plugin['file_extensions'])])
+        extensions = set([ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin])
+
         return extensions
 
     def load_stack(self, filenames=None, stack_axis=None):
