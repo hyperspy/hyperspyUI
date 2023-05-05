@@ -233,7 +233,7 @@ class MainWindow(MainWindowHyperspy):
         # --- Add signal data type selection actions ---
         signal_datatype_ag = QtWidgets.QActionGroup(self)
         signal_datatype_ag.setExclusive(True)
-        for t in [bool, np.bool8, np.byte, complex, np.complex64,
+        for t in [bool, np.bool_, np.byte, complex, np.complex64,
                   np.complex128, float, np.float16, np.float32, np.float64,
                   int, np.int8, np.int16, np.int32, np.int64, np.compat.long,
                   np.uint, np.uint8, np.uint16, np.uint32, np.uint64, 'Custom'
