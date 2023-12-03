@@ -115,7 +115,7 @@ class ElementPickerWidget(FigureWidget):
     def isEELS(self):
         if self.signal is None or self.signal.signal is None:
             return False
-        return isinstance(self.signal.signal, hs.api.signals.EELSSpectrum)
+        return isinstance(self.signal.signal, exspy.signals.EELSSpectrum)
 
     def _toggle_element(self, element):
         """

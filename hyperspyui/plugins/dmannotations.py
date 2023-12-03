@@ -79,9 +79,9 @@ class DmAnnotations(Plugin):
         print(label.axes, label.position)
 
     def _add_beam(self, image, location, add_text):
-        beam_m = hs.plot.markers.point(x=location[1],
-                                       y=location[0],
-                                       color='red')
+        beam_m = hs.plot.markers.Points(
+            offsets=([location[1], location[0]], ), sizes=5, color='red'
+            )
         image.add_marker(beam_m)
         if add_text:
             self._add_label(image, 'Beam', 'red',
@@ -90,22 +90,24 @@ class DmAnnotations(Plugin):
     def _add_si(self, image, location, add_text):
         # adds a green rectangle (or line, if the coordinates are such) to
         # image
-        si_m = hs.plot.markers.rectangle(x1=location[1],
-                                         y1=location[0],
-                                         x2=location[3],
-                                         y2=location[2],
-                                         color='#13FF00')
+        si_m = hs.plot.markers.Rectangles(
+            offsets=([location[1], location[0]], ),
+            widths=(location[3] - location[1], ),
+            heights=(location[2] - location[0], ),
+            color='#13FF00',
+            )
         image.add_marker(si_m)
         if add_text:
             self._add_label(image, 'Spectrum Image', '#13FF00',
                             location[1], location[0] - 0.5)
 
     def _add_drift(self, image, location, add_text):
-        drift_m = hs.plot.markers.rectangle(x1=location[1],
-                                            y1=location[0],
-                                            x2=location[3],
-                                            y2=location[2],
-                                            color='yellow')
+        drift_m = hs.plot.markers.Rectangles(
+            offsets=([location[1], location[0]], ),
+            widths=(location[3] - location[1], ),
+            heights=(location[2] - location[0], ),
+            color='yellow',
+            )
         image.add_marker(drift_m)
         if add_text:
             self._add_label(image, 'Spatial Drift', 'yellow',
