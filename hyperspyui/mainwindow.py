@@ -129,6 +129,7 @@ class MainWindow(MainWindowHyperspy):
             value['signal_type'] for value in ALL_EXTENSIONS['signals'].values()
             if not (value["lazy"] or value["signal_type"] == "")
         ])
+        self.signal_types.add("")
 
     def handleSecondInstance(self, argv):
         """
@@ -220,7 +221,8 @@ class MainWindow(MainWindowHyperspy):
         signal_type_ag.setExclusive(True)
         for st in self.signal_types:
             f = partial(self.set_signal_type, st)
-            st_ac = self.add_action('signal_type_' + st, st, f)
+            label = "None" if st == "" else st 
+            st_ac = self.add_action('signal_type_' + st, label, f)
             st_ac.setCheckable(True)
             signal_type_ag.addAction(st_ac)
         self.signal_type_ag = signal_type_ag
