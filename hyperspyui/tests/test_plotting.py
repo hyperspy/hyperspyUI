@@ -5,7 +5,7 @@ import numpy as np
 
 @pytest.mark.timeout(30)
 def test_plotting_signal1D(mainwindow):
-    s = hs.datasets.artificial_data.get_core_loss_eels_line_scan_signal()
+    s = hs.signals.Signal1D(np.arange(100).reshape((10, 10)))
 
     s.plot()
 
