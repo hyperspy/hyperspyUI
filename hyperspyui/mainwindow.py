@@ -43,7 +43,7 @@ from qtpy import QtGui, QtCore, QtWidgets
 from qtpy.QtCore import Qt
 
 from hyperspyui.mainwindowhyperspy import MainWindowHyperspy, tr
-from hyperspyui.util import create_add_component_actions, win2sig, dict_rlu
+from hyperspyui.util import create_add_component_actions, win2sig
 from hyperspyui.widgets.editorwidget import EditorWidget
 from hyperspyui.widgets.pluginmanagerwidget import PluginManagerWidget
 from hyperspyui.widgets.pickxsignals import PickXSignalsWidget
@@ -121,19 +121,14 @@ class MainWindow(MainWindowHyperspy):
         QtWidgets.QApplication.processEvents()
 
     def _load_signal_types(self):
-        self.set_splash('Loading HyperSpy signals...')
-        import hyperspy.signals
-        self.signal_types = OrderedDict(
-            [('Signal', hyperspy.signal.BaseSignal),
-             ('1D Signal', hyperspy.signals.Signal1D),
-             ('2D Signal', hyperspy.signals.Signal2D),
-             ('EELS', hyperspy.signals.EELSSpectrum),
-             ('EDS SEM', hyperspy.signals.EDSSEMSpectrum),
-             ('EDS TEM', hyperspy.signals.EDSTEMSpectrum),
-             ('Complex Signal 1D', hyperspy.signals.ComplexSignal1D),
-             ('Complex Signal 2D', hyperspy.signals.ComplexSignal2D),
-             ('Dielectric Function', hyperspy.signals.DielectricFunction),
-             ])
+        self.set_splash('Getting available hyperspy signals...')
+        from hyperspy.ui_registry import ALL_EXTENSIONS
+
+        # self.signal_types is a set of all available signal types
+        self.signal_types = set([
+            value['signal_type'] for value in ALL_EXTENSIONS['signals'].values()
+            if not (value["lazy"] or value["signal_type"] == "")
+        ])
 
     def handleSecondInstance(self, argv):
         """
@@ -223,7 +218,7 @@ class MainWindow(MainWindowHyperspy):
         # --- Add signal type selection actions ---
         signal_type_ag = QtWidgets.QActionGroup(self)
         signal_type_ag.setExclusive(True)
-        for st in self.signal_types.keys():
+        for st in self.signal_types:
             f = partial(self.set_signal_type, st)
             st_ac = self.add_action('signal_type_' + st, st, f)
             st_ac.setCheckable(True)
@@ -352,7 +347,7 @@ class MainWindow(MainWindowHyperspy):
             self.signal_datatype_ag.setEnabled(False)
         else:
             t = type(s.signal)
-            key = 'signal_type_' + dict_rlu(self.signal_types, t)
+            key = 'signal_type_' + t._signal_type
             self.actions[key].setChecked(True)
             key2 = 'signal_data_type_' + s.signal.data.dtype.type.__name__
             if key2 in self.actions:
@@ -430,29 +425,13 @@ class MainWindow(MainWindowHyperspy):
         self.record_code("signal = ui.get_selected_signal()")
 
         # Sanity check
-        if signal_type not in list(self.signal_types.keys()):
+        if signal_type not in self.signal_types:
             raise ValueError()
 
         self.setUpdatesEnabled(False)
         try:
-            import hyperspy.signals
-            if signal_type in ['2D Signal', 'Complex Signal 2D']:
-                if not isinstance(signal.signal,
-                                  (hyperspy.signals.Signal2D,
-                                   hyperspy.signals.ComplexSignal2D)):
-                    signal.as_signal2D((0, 1))
-                    self.record_code("signal = signal.as_signal2D((0, 1))")
-            else:
-                if isinstance(signal.signal,
-                              (hyperspy.signals.Signal2D,
-                               hyperspy.signals.ComplexSignal2D)):
-                    signal.as_signal1D(0)
-                    self.record_code("signal = signal.as_signal1D(0)")
-
-            if signal_type in ['EELS', 'EDS SEM', 'EDS TEM']:
-                underscored = signal_type.replace(" ", "_")
-                signal.signal.set_signal_type(underscored)
-                self.record_code("signal.set_signal_type('%s')" % underscored)
+            signal.signal.set_signal_type(signal_type)
+            self.record_code(f"signal.set_signal_type('{signal_type}')")
 
             signal.plot()
         finally:
