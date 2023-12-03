@@ -25,8 +25,8 @@ from functools import partial
 
 from qtpy import QtCore, QtWidgets
 
-import hyperspy.signals
-from hyperspy.misc.elements import elements as elements_db
+import exspy
+from exspy.misc.elements import elements as elements_db
 
 from hyperspyui.widgets.extendedqwidgets import FigureWidget, ExClickLabel
 from hyperspyui.widgets.periodictable import PeriodicTableWidget
@@ -36,7 +36,7 @@ from hyperspyui.util import win2sig, block_signals
 def tr(text):
     return QtCore.QCoreApplication.translate("ElementPickerWidget", text)
 
-edstypes = (hyperspy.signals.EDSSEMSpectrum, hyperspy.signals.EDSTEMSpectrum)
+edstypes = (exspy.signals.EDSSEMSpectrum, exspy.signals.EDSTEMSpectrum)
 
 
 class ElementPickerWidget(FigureWidget):
@@ -115,7 +115,7 @@ class ElementPickerWidget(FigureWidget):
     def isEELS(self):
         if self.signal is None or self.signal.signal is None:
             return False
-        return isinstance(self.signal.signal, hyperspy.signals.EELSSpectrum)
+        return isinstance(self.signal.signal, hs.api.signals.EELSSpectrum)
 
     def _toggle_element(self, element):
         """
