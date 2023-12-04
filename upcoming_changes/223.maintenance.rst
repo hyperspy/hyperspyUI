@@ -1,0 +1,1 @@
+Migrate to HyperSpy 2.0, drop python 2.7 and add python 3.12

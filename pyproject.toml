@@ -63,6 +63,8 @@ file = "COPYING.txt"
   "sphinx > 5.2",
   "sphinx_rtd_theme",
   "sphinx-toggleprompt",
+  "sphinxcontrib-towncrier",
+  "towncrier",
 ]
 "tests" = [
   "pytest-qt",
@@ -106,3 +108,45 @@ exclude = ["*user_plugins*"]
 [tool.setuptools_scm]
 # Presence enables setuptools_scm, the version will be determine at build time from git
 fallback_version = "1.4.dev0"
+
+[tool.towncrier]
+package_dir = "hyperspyui"
+filename = "CHANGES.rst"
+directory = "upcoming_changes/"
+title_format = "{version} ({project_date})"
+issue_format = "`#{issue} <https://github.com/hyperspy/hyperspyui/issues/{issue}>`_"
+
+  [[tool.towncrier.type]]
+  directory = "new"
+  name = "New features"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "bugfix"
+  name = "Bug Fixes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "doc"
+  name = "Improved Documentation"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "deprecation"
+  name = "Deprecations"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "enhancements"
+  name = "Enhancements"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "api"
+  name = "API changes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "maintenance"
+  name = "Maintenance"
+  showcontent = true
