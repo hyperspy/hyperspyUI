@@ -1,0 +1,108 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hyperspyUI"
+description = "Hyperspy Graphical User Interface"
+requires-python = ">=3.8"
+readme = "README.rst"
+keywords=[
+    "data analysis",
+    "microscopy",
+    "electron microscopy",
+    "electron energy loss spectroscopy",
+    "X-ray energy-dispersive spectroscopy"
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Physics",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX",
+  "Operating System :: Unix",
+  "Operating System :: MacOS",
+]
+dependencies = [
+  "exspy",
+  "hyperspy >= 2.0rc0",
+  "hyperspy-gui-traitsui >= 2.0",
+  "matplotlib >= 3.0.3",
+  "packaging",
+  "pyqode.python >= 4.0.2",
+  "pyqode.core >= 4.0.10",
+  "pyface >=6.0.0",
+  "pyflakes",
+  "pywin32 >= 1.0; platform_system=='Windows'",
+  "autopep8",
+  "traits",
+  "traitsui >=5.2.0",
+  "qtconsole >=5.2.0",
+  "ipykernel >=5.2.0",
+  "qtpy",
+]
+dynamic = ["version"]
+
+[project.gui-scripts]
+hyperspyui = "hyperspyui.__main__:main"
+
+[project.license]
+file = "COPYING.txt"
+
+[project.optional-dependencies]
+"doc" = [
+  "sphinx > 5.2",
+  "sphinx_rtd_theme",
+  "sphinx-toggleprompt",
+]
+"tests" = [
+  "pytest-qt",
+  "pytest-cov",
+  "pytest-timeout",
+  "setuptools-scm",
+]
+"all" = [
+  "exspy[gui-jupyter]",
+  "exspy[gui-traitsui]"
+]
+
+[project.urls]
+"Homepage" = "https://hyperspy.org/hyperspyui"
+"Bug Reports" = "https://github.com/hyperspy/hyperspyui/issues"
+"Source" = "https://github.com/hyperspy/hyperspyui"
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["hyperspyui/tests", ]
+qt_api = "pyqt5"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["hyperspyui*"]
+exclude = ["*user_plugins*"]
+
+[tool.setuptools.package-data]
+"*" = [
+  "images/*.svg",
+  "images/*.png",
+  "images/*.ico",
+  "images/icon/*.png",
+  "images/icon/*.ico",
+  "images/attributions.txt",
+  "ipython_profile/*",
+  ]
+
+[tool.setuptools_scm]
+# Presence enables setuptools_scm, the version will be determine at build time from git
+fallback_version = "1.4.dev0"
