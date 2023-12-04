@@ -37,7 +37,7 @@ jobs:
 
       - name: Install
         run: |
-          pip install -e .[build-doc]
+          pip install -e .[doc]
 
       - name: Build doc
         run: |
