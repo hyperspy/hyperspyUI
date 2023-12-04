@@ -44,9 +44,9 @@ setup(
             'doc', 'bin', 'doc.*', 'hyperspyui.plugins.user_plugins']),
     python_requires='~=3.7',
     install_requires=[
-        # Add rosettasciio when it is released
-        'hyperspy >= 1.7.2',
-        'hyperspy-gui-traitsui >= 1.3.1',
+        'exspy',
+        'hyperspy >= 2.0rc0',
+        'hyperspy-gui-traitsui >= 2.0',
         'matplotlib >= 3.0.3',
         'packaging',
         'pyqode.python >= 4.0.2',

@@ -140,16 +140,6 @@ class SignalTypeFilter:
         action.setEnabled(valid)
 
 
-def dict_rlu(dictionary, value):
-    """
-    Reverse dictionary lookup.
-    """
-    for k, v in dictionary.items():
-        if v == value or v is value:
-            return k
-    raise KeyError()
-
-
 def crosshair_cursor():
     if os.name == 'nt':
         # On windows, cursors support "inversion" mode, where they invert the

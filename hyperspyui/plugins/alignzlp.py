@@ -1,4 +1,4 @@
-import hyperspy.signals
+import exspy
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.util import SignalTypeFilter
 from hyperspyui.widgets.signallist import SignalList
@@ -18,7 +18,7 @@ class Alignzlp(Plugin):
             icon="align_zero_loss.svg",
             tip="Align the zero loss peak of an EELS spectrum image",
             selection_callback=SignalTypeFilter(
-                hyperspy.signals.EELSSpectrum, self.ui))
+                exspy.signals.EELSSpectrum, self.ui))
 
     def create_menu(self):
         self.add_menuitem('EELS', self.ui.actions[self.name + '.default'])
@@ -37,7 +37,7 @@ class Alignzlp(Plugin):
         signal_list = [
             sig for sig in ui.signals if (
                 sig.signal is not s and
-                isinstance(sig.signal, hyperspy.signals.EELSSpectrum))]
+                isinstance(sig.signal, exspy.signals.EELSSpectrum))]
         also_align = []
         if len(signal_list) > 0:
             picker = SignalList(items=signal_list, parent=ui, multiselect=True)

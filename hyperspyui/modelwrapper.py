@@ -23,8 +23,7 @@ Created on Tue Nov 04 16:25:54 2014
 
 
 from qtpy import QtCore
-#from hyperspy.model import Model
-import hyperspy.models.eelsmodel
+from exspy.models import EELSModel
 from .actionable import Actionable
 from functools import partial
 
@@ -59,7 +58,7 @@ class ModelWrapper(Actionable):
         self.add_action('multifit', tr("&Multifit"), self.multifit)
         self.add_action('set_signal_range', tr("Set signal &range"),
                         self.set_signal_range)
-        if isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
+        if isinstance(self.model, EELSModel):
             self.add_action('lowloss', tr("Set low-loss"), self.set_lowloss)
             self.add_action('fine_structure', tr("Enable fine &structure"),
                             self.toggle_fine_structure)
@@ -145,7 +144,7 @@ class ModelWrapper(Actionable):
         self.record_code("model.set_lowloss(low_loss_signal)")
 
     def toggle_fine_structure(self):
-        if not isinstance(self.model, hyperspy.models.eelsmodel.EELSModel):
+        if not isinstance(self.model, EELSModel):
             raise TypeError(
                 tr("Model is not EELS model. Can not toggle fine structure"))
         if self.fine_structure_enabled:

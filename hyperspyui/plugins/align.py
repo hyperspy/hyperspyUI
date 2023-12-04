@@ -27,7 +27,7 @@ from hyperspyui.util import SignalTypeFilter
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
 from hyperspy.roi import BaseInteractiveROI
-import hyperspy.signals
+import hyperspy.api as hs
 
 
 class AlignPlugin(Plugin):
@@ -52,7 +52,7 @@ class AlignPlugin(Plugin):
                         icon='align_manual.svg',
                         tip="Interactively align the signal",
                         selection_callback=SignalTypeFilter(
-                            hyperspy.signals.Signal2D, self.ui))
+                            hs.signals.Signal2D, self.ui))
 
     def create_menu(self):
         self.add_menuitem("Signal", self.ui.actions['manual_align'])

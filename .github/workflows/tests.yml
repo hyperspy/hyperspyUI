@@ -13,13 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        PYTHON_VERSION: ['3.7', '3.9', '3.10', '3.11']
+        PYTHON_VERSION: ['3.8', '3.9', '3.10', '3.11', '3.12']
         HYPERSPY_VERSION: ['release']
         include:
           - PYTHON_VERSION: '3.8'
-            HYPERSPY_VERSION: 'RnMinor'
-          - PYTHON_VERSION: '3.8'
-            HYPERSPY_VERSION: 'RnMajor'
+            HYPERSPY_VERSION: 'dev'
 
     steps:
       - uses: actions/checkout@v4
@@ -51,20 +49,11 @@ jobs:
         run: |
           pip install pyqt5 PyQtWebEngine
 
-      - name: Install HyperSpy (RELEASE_next_minor)
+      - name: Install HyperSpy (dev)
         shell: bash
-        if: "contains( matrix.HYPERSPY_VERSION, 'RnMinor')"
+        if: ${{ contains(matrix.HYPERSPY_VERSION, 'dev') }}
         run: |
-          pip install https://github.com/hyperspy/hyperspy/archive/RELEASE_next_minor.zip
-
-      - name: Install HyperSpy (RELEASE_next_major)
-        shell: bash
-        if: "contains( matrix.HYPERSPY_VERSION, 'RnMajor')"
-        run: |
-          # We currently need to install these development until hyperspy 2.0 is released
-          pip install https://github.com/hyperspy/rosettasciio/archive/main.zip
-          pip install https://github.com/hyperspy/hyperspy_gui_traitsui/archive/main.zip
-          pip install https://github.com/hyperspy/hyperspy/archive/RELEASE_next_major.zip
+          pip install git+https://github.com/hyperspy/hyperspy.git@RELEASE_next_major
 
       - name: Install
         shell: bash

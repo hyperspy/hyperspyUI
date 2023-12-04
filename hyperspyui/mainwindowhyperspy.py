@@ -492,7 +492,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         for i, f in enumerate(filenames):
             filenames[i] = glob_escape.sub(r'[\1]', f)    # glob escapes
 
-        sig = hyperspy.io.load(filenames, stack=True, stack_axis=stack_axis)
+        sig = hyperspy.api.load(filenames, stack=True, stack_axis=stack_axis)
         if isinstance(sig, list):
             for s in sig:
                 s.plot()
@@ -505,7 +505,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         """
         Load 'filenames', or if 'filenames' is None, open a dialog to let the
         user interactively browse for files. It then load these files using
-        hyperspy.io.load and wraps them and adds them to self.signals.
+        hyperspy.api.load and wraps them and adds them to self.signals.
         """
 
         import hyperspy.io
@@ -532,7 +532,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             self.setUpdatesEnabled(False)   # Prevent flickering during load
             try:
                 escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
-                sig = hyperspy.io.load(escaped)
+                sig = hyperspy.api.load(escaped)
                 if isinstance(sig, list):
                     for s in sig:
                         s.plot()
