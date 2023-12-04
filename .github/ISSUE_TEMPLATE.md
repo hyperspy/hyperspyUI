@@ -8,7 +8,7 @@ A short description.
 < what do you need to do in order to trigger this problem >
 
 
-### Excpected behavior
+### Expected behavior
 
 < what did you expect/hope would happen when doing the steps outlined above >
 

@@ -39,6 +39,7 @@ extensions = [
     'sphinx_toggleprompt',
     'sphinx.ext.napoleon',
     'IPython.sphinxext.ipython_console_highlighting',
+    'sphinxcontrib.towncrier',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -317,3 +318,11 @@ def run_apidoc(_):
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
+
+
+# -- Options for towncrier_draft extension -----------------------------------
+
+# Options: draft/sphinx-version/sphinx-release
+towncrier_draft_autoversion_mode = "draft"
+towncrier_draft_include_empty = False
+towncrier_draft_working_directory = ".."
