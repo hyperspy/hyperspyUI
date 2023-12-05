@@ -11,12 +11,12 @@ To publish a new exSpy release do the following steps:
 
 **Tag and release**
 
-- Create a tag e.g. `git tag -a v0.1.1 -m "HoloSpy version 0.1.1"`. The holospy version will
+- Create a tag e.g. `git tag -a v2.0 -m "HyperSpyUI version 2.0"`. The HyperSpyUI version will
   be set at build time from the tag by `setuptools_scm`.
-- Push tag to user fork for a test run `git push origin v0.1.1`. Will run the release
+- Push tag to user fork for a test run `git push origin v2.0`. Will run the release
   workflow without uploading to PyPi
-- :warning: this is a point of no return :warning: Push tag to HoloSpy repository to
-  trigger release `git push upstream v0.1.1`:
+- :warning: this is a point of no return :warning: Push tag to HyperSpyUI repository to
+  trigger release `git push upstream v2.0`:
   - The `release` workflow will run and upload the sdist and wheel to `pypi.org`
   - A Github release will be created
   - build the doc and push it to the `gh-pages` branch which will in turn publish
