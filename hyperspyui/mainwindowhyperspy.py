@@ -466,14 +466,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     @staticmethod
     def get_accepted_extensions():
-        try:
-            # HyperSpy >=2.0
-            from rsciio import IO_PLUGINS
-            extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS]
-        except Exception:
-            # HyperSpy <2.0
-            from hyperspy.io_plugins import io_plugins as IO_PLUGINS
-            extensions_plugin_list = [plugin.file_extensions for plugin in IO_PLUGINS]
+        from rsciio import IO_PLUGINS
+        extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS]
 
         extensions = set([ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin])
 
