@@ -713,15 +713,9 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         return push
 
     def _get_console_config(self):
-        # ===== THIS ======
         from traitlets.config.loader import PyFileConfigLoader
         ipcp = os.path.sep.join((os.path.dirname(__file__), "ipython_profile",
                                  "ipython_embedded_config.py"))
         c = PyFileConfigLoader(ipcp).load_config()
-        # ===== OR THIS =====
-#        import hyperspy.Release
-#        from traitlets.config import Config
-#        c = Config()
-#        c.FrontendWidget.banner = hyperspy.Release.info
-        # ===== END =====
+
         return c
