@@ -71,29 +71,43 @@ class VirtualBfDf(Plugin):
             signal = ui.get_selected_signal()
         dd = np.array([a.high_value + a.low_value for a in
                        signal.axes_manager.signal_axes]) / 2.0
-        r = hs.roi.CircleROI(dd[0], dd[1],
-                             signal.axes_manager.signal_axes[0].scale*3)
+        size_px = max(signal.axes_manager.signal_axes[0].size / 20, 3)
+        r = hs.roi.CircleROI(
+            dd[0], dd[1], size_px * signal.axes_manager.signal_axes[0].scale
+            )
         if annulus:
-            r.r_inner = signal.axes_manager.signal_axes[0].scale*2
-        s_virtual = r.interactive(signal, None,
-                                  axes=signal.axes_manager.signal_axes)
-        s_nav = hs.interactive(
-            s_virtual.mean,
-            s_virtual.events.data_changed,
-            axis=s_virtual.axes_manager.signal_axes)
-        s_nav.axes_manager.set_signal_dimension(2)
+            r.r_inner = signal.axes_manager.signal_axes[0].scale * 2
+        sliced_signal = r.interactive(
+            signal, axes=signal.axes_manager.signal_axes
+            )
+        
+        # Create an output signal for the virtual dark-field calculation.
+        out = sliced_signal.mean(sliced_signal.axes_manager.signal_axes)
+        out.set_signal_type("")
+        out = out.transpose(list(
+                np.arange(min(sliced_signal.axes_manager.navigation_dimension, 2))
+            ))
+
+        hs.interactive(
+            sliced_signal.nansum,
+            axis=sliced_signal.axes_manager.signal_axes,
+            event=r.events.changed,
+            recompute_out_event=None,
+            out=out,
+        )
+
         if navigate:
-            signal.plot(navigator=s_nav)
+            signal.plot(navigator=out)
             signal._plot.navigator_plot.update()
-            s_nav.events.data_changed.connect(
+            out.events.data_changed.connect(
                 signal._plot.navigator_plot.update, [])
             utils.on_figure_window_close(
                 signal._plot.navigator_plot.figure,
                 partial(self._on_close, r))
         else:
-            s_nav.plot()
+            out.plot()
             utils.on_figure_window_close(
-                s_nav._plot.signal_plot.figure,
+                out._plot.signal_plot.figure,
                 partial(self._on_close, r))
 
         if navigate:
