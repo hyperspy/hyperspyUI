@@ -34,6 +34,19 @@ def tr(text):
     return QtCore.QCoreApplication.translate("FFT", text)
 
 
+def _is_complex_signals(signal, title):
+    if not isinstance(signal, hs.signals.ComplexSignal):
+        mb = QMessageBox(
+            QMessageBox.Information,
+            tr(title),
+            tr("A complex signal is required."),
+            QMessageBox.Ok
+            )
+        mb.exec_()
+        return False
+    return True
+
+
 class FFT_Plugin(Plugin):
     name = 'FFT'
 
@@ -95,6 +108,8 @@ class FFT_Plugin(Plugin):
         def do_ffts():
             for i, signal in enumerate(signals):
                 if inverse:
+                    if not _is_complex_signals(signal, title="Inverse FFT"):
+                        return
                     fft = signal.ifft(shift=shift)
                 else:
                     fft = signal.fft(shift=shift)
@@ -102,8 +117,11 @@ class FFT_Plugin(Plugin):
                 yield i + 1
 
         def on_ffts_complete():
+            kwargs = {}
+            if not inverse:
+                kwargs["power_spectrum"] = power_spectrum
             for fs in fftsignals:
-                fs.plot(power_spectrum=power_spectrum)
+                fs.plot(**kwargs)
                 sw = self.ui.lut_signalwrapper[fs]
                 if on_complete is not None:
                     on_complete(sw)
@@ -143,17 +161,9 @@ class FFT_Plugin(Plugin):
         s = signals[0]
 
         if isinstance(s, hs.signals.Signal2D):
-            extent = s.axes_manager.signal_extent
-            left = (extent[1] - extent[0]) / 4 + extent[0]
-            right = 3 * (extent[1] - extent[0]) / 4 + extent[0]
-            top = (extent[3] - extent[2]) / 4 + extent[2]
-            bottom = 3 * (extent[3] - extent[2]) / 4 + extent[2]
-            roi = hs.roi.RectangularROI(left, top, right, bottom)
+            roi = hs.roi.RectangularROI()
         elif isinstance(s, hs.signals.Signal1D):
-            extent = s.axes_manager.signal_extent
-            half_range = (extent[1] - extent[0]) / 4
-            roi = hs.roi.SpanROI(half_range + extent[0],
-                                 3 * half_range + extent[0])
+            roi = hs.roi.SpanROI()
         else:
             mb = QMessageBox(QMessageBox.Information,
                              tr("Live FFT"),
@@ -177,25 +187,17 @@ class FFT_Plugin(Plugin):
     def get_real_image(self, signal=None):
         if signal is None:
             signal = self.ui.get_selected_signal()
-        if not isinstance(signal,
-                          hs.signals.ComplexSignal):
-            mb = QMessageBox(QMessageBox.Information,
-                             tr("Real and imaginary"),
-                             tr("A complex signal is required."),
-                             QMessageBox.Ok)
-            mb.exec_()
+        if not _is_complex_signals(signal, title="Inverse FFT"):
+            return
+
         signal.real.plot()
         signal.imag.plot()
 
     def get_amplitude_phase(self, signal=None):
         if signal is None:
             signal = self.ui.get_selected_signal()
-        if not isinstance(signal,
-                          hs.signals.ComplexSignal):
-            mb = QMessageBox(QMessageBox.Information,
-                             tr("Amplitude and phase"),
-                             tr("A complex signal is required."),
-                             QMessageBox.Ok)
-            mb.exec_()
+        if not _is_complex_signals(signal, title="Inverse FFT"):
+            return
+            
         signal.amplitude.plot()
         signal.phase.plot()
