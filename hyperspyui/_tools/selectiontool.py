@@ -89,7 +89,7 @@ class SelectionTool(SignalFigureTool):
         return len(self.axes)
 
     def is_on(self):
-        return self.widget.is_on()
+        return self.widget.is_on
 
     def in_ax(self, ax):
         return ax == self.widget.ax

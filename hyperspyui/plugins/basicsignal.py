@@ -40,10 +40,11 @@ class BasicSignalPlugin(Plugin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.settings.set_default('histogram_bins_method', 'freedman')
+        self.settings.set_default('histogram_bins_method', 'auto')
         self.settings.set_enum_hint(
             'histogram_bins_method',
-            ('knuth', 'scotts', 'freedman', 'blocks', '<integer>'))
+            ('auto', 'fd', 'doane', 'scott', 'stone', 'rice',
+             'sturges', 'sqrt', 'knuth', 'blocks',))
 
     def create_actions(self):
         self.add_action(self.name + '.stack', "Stack", self.stack,

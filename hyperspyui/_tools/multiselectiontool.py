@@ -105,7 +105,7 @@ class MultiSelectionTool(SignalFigureTool):
         return w
 
     def _remove_widget(self, widget, signal=None):
-        if widget.is_on():
+        if widget.is_on:
             widget.set_on(False)
         if signal is None:
             for widgets in self.widgets.values():
