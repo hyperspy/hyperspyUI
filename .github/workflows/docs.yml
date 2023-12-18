@@ -45,7 +45,7 @@ jobs:
           cd doc
           xvfb-run make html
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: ./doc/build/*
 
