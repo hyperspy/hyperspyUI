@@ -603,8 +603,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
     def get_signal_filepath_suggestion(self, signal, default_ext=None):
         # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, signal.name otherwise
-        fname = signal.signal.metadata.get_item(
-            'General.original_filename', signal.name
+        fname = signal.signal.tmp_parameters.get_item(
+            'original_filename', signal.name
         )
         fname, ext = os.path.splitext(fname)
         ext = ext.replace('.', '')
