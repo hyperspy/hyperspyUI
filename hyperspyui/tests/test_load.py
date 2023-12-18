@@ -16,6 +16,11 @@ def test_load(mainwindow, tmp_path):
     assert mainwindow.get_selected_signal() is not None
 
 
-def test_get_accepted_extensions(mainwindow):
-    extensions = mainwindow.get_accepted_extensions()
+def test_get_accepted_extensions_load(mainwindow):
+    extensions = mainwindow.get_accepted_extensions_load()
     assert 'dm3' in extensions
+
+
+def test_get_accepted_extensions_save(mainwindow):
+    extensions = mainwindow.get_accepted_extensions_save()
+    assert 'dm3' not in extensions

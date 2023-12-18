@@ -25,6 +25,7 @@ import os
 import gc
 import re
 import numpy as np
+from pathlib import Path
 import warnings
 import traceback
 import sys
@@ -48,7 +49,8 @@ from hyperspyui.widgets.editorwidget import EditorWidget
 import hyperspyui.util
 from hyperspyui.mdi_mpl_backend import FigureCanvas
 
-import hyperspy.defaults_parser
+import hyperspy.api as hs
+from rsciio import IO_PLUGINS
 
 from . import overrides
 overrides.override_hyperspy()           # Enable hyperspy overrides
@@ -335,7 +337,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         m.add_component(comp_type)
 
     def edit_hspy_settings(self):
-        hyperspy.api.preferences.gui()
+        hs.preferences.gui()
 
     # -------- Signal plotting callbacks -------
     def on_signal_plotting(self, signal, *args, **kwargs):
@@ -465,9 +467,16 @@ class MainWindowHyperspy(MainWindowActionRecorder):
     # --------- File I/O ----------
 
     @staticmethod
-    def get_accepted_extensions():
-        from rsciio import IO_PLUGINS
+    def get_accepted_extensions_load():
         extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS]
+
+        extensions = set([ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin])
+
+        return extensions
+
+    @staticmethod
+    def get_accepted_extensions_save():
+        extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS if plugin['writes']]
 
         extensions = set([ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin])
 
@@ -475,7 +484,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def load_stack(self, filenames=None, stack_axis=None):
         if filenames is None:
-            extensions = self.get_accepted_extensions()
+            extensions = self.get_accepted_extensions_load()
             type_choices = ';;'.join(["*." + e for e in extensions])
             type_choices = ';;'.join(("Python code (*.py)", type_choices))
             type_choices = ';;'.join(("All types (*.*)", type_choices))
@@ -486,7 +495,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         for i, f in enumerate(filenames):
             filenames[i] = glob_escape.sub(r'[\1]', f)    # glob escapes
 
-        sig = hyperspy.api.load(filenames, stack=True, stack_axis=stack_axis)
+        sig = hs.load(filenames, stack=True, stack_axis=stack_axis)
         if isinstance(sig, list):
             for s in sig:
                 s.plot()
@@ -502,9 +511,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         hyperspy.api.load and wraps them and adds them to self.signals.
         """
 
-        import hyperspy.io
         if filenames is None:
-            extensions = self.get_accepted_extensions()
+            extensions = self.get_accepted_extensions_load()
             type_choices = ';;'.join(["*." + e for e in extensions])
             type_choices = ';;'.join(("Python code (*.py)", type_choices))
             type_choices = ';;'.join(("All types (*.*)", type_choices))
@@ -526,7 +534,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             self.setUpdatesEnabled(False)   # Prevent flickering during load
             try:
                 escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
-                sig = hyperspy.api.load(escaped)
+                sig = hs.load(escaped)
                 if isinstance(sig, list):
                     for s in sig:
                         s.plot()
@@ -562,7 +570,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             logger.debug("No signals passed, saving selection: %s",
                          str(signals))
 
-        extensions = self.get_accepted_extensions()
+        extensions = self.get_accepted_extensions_save()
         type_choices = ';;'.join(["*." + e for e in extensions])
         type_choices = ';;'.join(("All types (*.*)", type_choices))
         logger.debug("Save type choices: %s", type_choices)
@@ -573,13 +581,14 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             # Match signal to filename. If filenames has not been specified,
             # or there are no valid filename for curren signal index i, we
             # have to prompt the user.
-            if filenames is None or len(
-                    filenames) <= i or filenames[i] is None:
+            if filenames is None or len(filenames) <= i or filenames[i] is None:
                 path_suggestion = self.get_signal_filepath_suggestion(s)
-                logger.debug("No filenames passed. Auto-suggestion: %s",
-                             path_suggestion)
-                filename = self.prompt_files(type_choices, path_suggestion,
-                                             False)
+                logger.debug(
+                    "No filenames passed. Auto-suggestion: %s", path_suggestion
+                    )
+                filename = self.prompt_files(
+                    type_choices, path_suggestion, False
+                    )
                 # Dialog should have prompted about overwrite
                 overwrite = True
                 if not filename:
@@ -593,39 +602,33 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def get_signal_filepath_suggestion(self, signal, default_ext=None):
         # Get initial suggestion for save dialog.  Use
-        # original_filename metadata if present, or self.cur_dir if not
-        if signal.signal.metadata.has_item('General.original_filename'):
-            f = signal.signal.metadata.General.original_filename
-        else:
-            f = self.cur_dir
+        # original_filename metadata if present, signal.name otherwise
+        fname = signal.signal.metadata.get_item(
+            'General.original_filename', signal.name
+        )
+        fname, ext = os.path.splitext(fname)
+        ext = ext.replace('.', '')
+        dname = Path(self.cur_dir).parent
 
-        # Analyze suggested filename
-        base, tail = os.path.split(f)
-        fn, ext = os.path.splitext(tail)
-
-        # If no directory in filename, use self.cur_dir's dirname
-        if base is None or base == "":
-            base = os.path.dirname(self.cur_dir)
         # If extension is not valid, use the defualt
-        extensions = self.get_accepted_extensions()
-        if ext not in extensions:
+        if ext not in self.get_accepted_extensions_save():
             # use default extension
             ext = 'hspy'
-        # Filename itself is signal's name
-        fn = signal.name
+
         if os.name == 'nt':
-            fn = fn.replace("<", "[").replace(">", "]")
-            fn = re.sub(r"[:\"|\?\*]", '', fn)
+            fname = fname.replace("<", "[").replace(">", "]")
+            fname = re.sub(r"[:\"|\?\*]", '', fname)
+
         # Build suggestion and return
-        path_suggestion = os.path.sep.join((base, fn))
-        path_suggestion = os.path.extsep.join((path_suggestion, ext))
-        return path_suggestion
+        path_suggestion = dname / f"{fname}.{ext}"
+
+        return str(path_suggestion)
 
     # ---------- Drag and drop overloads ----------
 
     def dragEnterEvent(self, event):
         # Check file name extensions to see if we should accept
-        extensions = set(self.get_accepted_extensions().union(('py',)))
+        extensions = set(self.get_accepted_extensions_load().union(('py',)))
         mimeData = event.mimeData()
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]
