@@ -96,7 +96,7 @@ class RecorderWidget(QtWidgets.QDockWidget):
         self.chk_actions = QCheckBox(tr("Actions"))
         self.chk_code = QCheckBox(tr("Code"))
         for c in [self.chk_actions, self.chk_code]:
-            c.setChecked(True)
+            c.setChecked(1)
             c.toggled.connect(self.update_filter)
 
         hbox = QHBoxLayout()

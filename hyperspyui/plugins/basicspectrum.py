@@ -180,13 +180,13 @@ class BasicSpectrumPlugin(Plugin):
             wp.set_signal(signal)
         wp.set_element(element, True)
         if not wp.chk_markers.isChecked():
-            wp.chk_markers.setChecked(True)
+            wp.chk_markers.setChecked(1)
 
     def _plot_components_state_update(self, win, action):
         model = self.ui.get_selected_model()
         action.setEnabled(model is not None)
         if model is not None:
-            action.setChecked(model._plot_components)
+            action.setChecked(int(model._plot_components))
 
     def plot_components(self, model=None):
         """
@@ -208,7 +208,7 @@ class BasicSpectrumPlugin(Plugin):
         model = self.ui.get_selected_model()
         action.setEnabled(model is not None)
         if model is not None:
-            action.setChecked(bool(model._position_widgets))
+            action.setChecked(int(bool(model._position_widgets)))
 
     def adjust_component_position(self, model=None):
         """

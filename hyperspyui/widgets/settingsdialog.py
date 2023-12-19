@@ -140,7 +140,7 @@ class SettingsDialog(ExToolWindow):
             elif isinstance(v, str):
                 if v.lower() in ('true', 'false'):
                     w = QCheckBox()
-                    w.setChecked(v.lower() == 'true')
+                    w.setChecked(int(v.lower() == 'true'))
                     w.toggled.connect(partial(self._on_setting_changed,
                                               abs_key, w))
                 else:
@@ -231,7 +231,7 @@ class SettingsDialog(ExToolWindow):
                     if isinstance(w, QLineEdit):
                         w.setText(v)
                     elif isinstance(w, QCheckBox):
-                        w.setChecked(v.lower() == "true")
+                        w.setChecked(int(v.lower() == "true"))
                     elif isinstance(w, (QSpinBox, QDoubleSpinBox)):
                         w.setValue(v)
                 else:

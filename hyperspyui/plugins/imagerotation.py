@@ -204,15 +204,15 @@ class ImageRotation_Plugin(Plugin):
         if 'new_or_replace' in self.settings:
             v = self.settings['new_or_replace']
             if v == 'new':
-                self.dialog.opt_new.setChecked(True)
+                self.dialog.opt_new.setChecked(int(True))
             elif v == 'replace':
-                self.dialog.opt_replace.setChecked(True)
+                self.dialog.opt_replace.setChecked(int(True))
         if 'reshape' in self.settings:
-            self.dialog.chk_reshape.setChecked(self.settings['reshape', bool])
+            self.dialog.chk_reshape.setChecked(int(self.settings['reshape', bool]))
         if 'preview' in self.settings:
-            self.dialog.gbo_preview.setChecked(self.settings['preview', bool])
+            self.dialog.gbo_preview.setChecked(int(self.settings['preview', bool]))
         if 'grid' in self.settings:
-            self.dialog.chk_grid.setChecked(self.settings['grid', bool])
+            self.dialog.chk_grid.setChecked(int(self.settings['grid', bool]))
         if 'grid_spacing' in self.settings:
             self.dialog.num_grid.setValue(self.settings['grid_spacing', int])
         self.dialog.accepted.connect(self.on_dialog_accept)
@@ -367,10 +367,10 @@ class ImageRotationDialog(ExToolWindow):
 
         self.gbo_preview = QGroupBox(tr("Preview"))
         self.gbo_preview.setCheckable(True)
-        self.gbo_preview.setChecked(False)
+        self.gbo_preview.setChecked(0)
         gbo_vbox = QVBoxLayout()
         self.chk_grid = QCheckBox(tr("Grid"))
-        self.chk_grid.setChecked(False)
+        self.chk_grid.setChecked(0)
         self.num_grid = QSpinBox()
         self.num_grid.setValue(4)
         self.num_grid.setMinimum(1)
@@ -386,7 +386,7 @@ class ImageRotationDialog(ExToolWindow):
         self.gbo_output = QGroupBox(tr("Output"))
         self.opt_new = QRadioButton(tr("New signal"))
         self.opt_replace = QRadioButton(tr("In place"))
-        self.opt_new.setChecked(True)
+        self.opt_new.setChecked(1)
         gbo_vbox2 = QVBoxLayout()
         gbo_vbox2.addWidget(self.opt_new)
         gbo_vbox2.addWidget(self.opt_replace)
@@ -394,7 +394,7 @@ class ImageRotationDialog(ExToolWindow):
         vbox.addWidget(self.gbo_output)
 
         self.chk_reshape = QCheckBox(tr("Resize to fit"))
-        self.chk_reshape.setChecked(False)
+        self.chk_reshape.setChecked(1)
         vbox.addWidget(self.chk_reshape)
 
         self.btn_ok = QPushButton(tr("&OK"))

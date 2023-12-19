@@ -343,20 +343,20 @@ class MainWindow(MainWindowHyperspy):
         s = win2sig(mdi_figure, self.signals, self._plotting_signal)
         if s is None:
             for ac in self.signal_type_ag.actions():
-                ac.setChecked(False)
+                ac.setChecked(0)
             for ac in self.signal_datatype_ag.actions():
-                ac.setChecked(False)
+                ac.setChecked(0)
             self.signal_type_ag.setEnabled(False)
             self.signal_datatype_ag.setEnabled(False)
         else:
             t = type(s.signal)
             key = 'signal_type_' + t._signal_type
-            self.actions[key].setChecked(True)
+            self.actions[key].setChecked(1)
             key2 = 'signal_data_type_' + s.signal.data.dtype.type.__name__
             if key2 in self.actions:
-                self.actions[key2].setChecked(True)
+                self.actions[key2].setChecked(1)
             else:
-                self.actions['signal_data_type_custom'].setChecked(True)
+                self.actions['signal_data_type_custom'].setChecked(1)
             self.signal_type_ag.setEnabled(True)
             self.signal_datatype_ag.setEnabled(True)
 

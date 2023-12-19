@@ -242,7 +242,7 @@ class GaussianFilterDialog(ExToolWindow):
 
         self.chk_preview = QtGui.QCheckBox(tr("Preview"))
         self.chk_preview.setCheckable(True)
-        self.chk_preview.setChecked(False)
+        self.chk_preview.setChecked(int(False))
         vbox.addWidget(self.chk_preview)
 
         self.chk_preview.toggled[bool].connect(self.set_preview)
@@ -250,7 +250,7 @@ class GaussianFilterDialog(ExToolWindow):
         self.gbo_output = QtGui.QGroupBox(tr("Output"))
         self.opt_new = QtGui.QRadioButton(tr("New signal"))
         self.opt_replace = QtGui.QRadioButton(tr("In place"))
-        self.opt_new.setChecked(True)
+        self.opt_new.setChecked(int(True))
         gbo_vbox2 = QtGui.QVBoxLayout()
         gbo_vbox2.addWidget(self.opt_new)
         gbo_vbox2.addWidget(self.opt_replace)
