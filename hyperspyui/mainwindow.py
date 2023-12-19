@@ -178,8 +178,9 @@ class MainWindow(MainWindowHyperspy):
                         shortcut=QtGui.QKeySequence.New,
                         tip="Opens a new code editor")
 
-        close_all_key = QtGui.QKeySequence(Qt.CTRL + Qt.ALT + Qt.Key_F4,
-                                           Qt.CTRL + Qt.ALT + Qt.Key_W)
+        # TODO: check these shortcuts are working
+        close_all_key = QtGui.QKeySequence(Qt.CTRL | Qt.ALT | Qt.Key_F4,
+                                           Qt.CTRL | Qt.ALT | Qt.Key_W)
         self.add_action('close_all', "&Close All", self.close_all_signals,
                         shortcut=close_all_key,
                         icon='close_windows.svg',
