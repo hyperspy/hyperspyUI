@@ -155,7 +155,7 @@ class LineTool(SignalFigureTool):
         if self.is_on():
             if self.ndim == 1:
                 roi = SpanROI(0, 1)
-            elif self.ndim == 1:
+            elif self.ndim == 2:
                 roi = Line2DROI(0, 0, 1, 1, 1)
             else:
                 raise RuntimeError(
