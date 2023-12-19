@@ -120,7 +120,7 @@ class MultiSelectionTool(SignalFigureTool):
         if signal not in self.widgets:
             return False
         for w in self.widgets[signal]:
-            if w.is_on():
+            if w.is_on:
                 return True
         return False
 
@@ -255,7 +255,7 @@ class MultiSelectionTool(SignalFigureTool):
 
     def _cancel(self, signal):
         for w in self.widgets[signal]:
-            if w.is_on():
+            if w.is_on:
                 w.set_on(False)
         self.widgets.pop(signal)
         self.axes.pop(signal)

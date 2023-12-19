@@ -187,8 +187,7 @@ class CMapPickerWidget(FigureWidget):
             self.cbo.model().appendRow(self.make_parent_item(group))
             for cm in maps:
                 self.cbo.addItem(cm)
-        self.cbo.currentIndexChanged[str].connect(
-            self._on_select)
+        self.cbo.currentTextChanged[str].connect(self._on_select)
         vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(self.cbo)
 

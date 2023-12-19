@@ -284,7 +284,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         ac_nested = QtWidgets.QAction(tr("Nested docking"), self)
         ac_nested.setStatusTip(tr("Allow nested widget docking"))
         ac_nested.setCheckable(True)
-        ac_nested.setChecked(self.isDockNestingEnabled())
+        ac_nested.setChecked(int(self.isDockNestingEnabled()))
         ac_nested.triggered[bool].connect(self.setDockNestingEnabled)
         self.actions['nested_docking'] = ac_nested
 
@@ -415,7 +415,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def on_subwin_activated(self, mdi_figure):
         if mdi_figure and API == 'pyside':
-            mdi_figure.activateAction().setChecked(True)
+            mdi_figure.activateAction().setChecked(1)
         self.check_action_selections(mdi_figure)
 
     def check_action_selections(self, mdi_figure=None):

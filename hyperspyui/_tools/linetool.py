@@ -70,7 +70,7 @@ class LineTool(SignalFigureTool):
         return len(self.axes)
 
     def is_on(self):
-        return self.widget.is_on()
+        return self.widget.is_on
 
     def in_ax(self, ax):
         return ax == self.widget.ax
@@ -155,7 +155,7 @@ class LineTool(SignalFigureTool):
         if self.is_on():
             if self.ndim == 1:
                 roi = SpanROI(0, 1)
-            elif self.ndim == 1:
+            elif self.ndim == 2:
                 roi = Line2DROI(0, 0, 1, 1, 1)
             else:
                 raise RuntimeError(
@@ -180,7 +180,7 @@ class LineTool(SignalFigureTool):
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
 
     def cancel(self):
-        if self.widget.is_on():
+        if self.widget.is_on:
             self.widget.set_on(False)
             self.widget.size = np.array([0])    # Prevents flickering
         if self._on_change in self.widget.events.changed.connected:

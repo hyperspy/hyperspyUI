@@ -186,6 +186,7 @@ class StyleDialog(ExToolWindow):
 
         editor.modes.append(AutoIndentMode())
         editor.modes.append(modes.CaretLineHighlighterMode())
+        editor.modes.append(modes.PygmentsSyntaxHighlighter(editor.document()))
         editor.modes.append(modes.CodeCompletionMode())
         editor.modes.append(modes.ExtendedSelectionMode())
         editor.modes.append(modes.SmartBackSpaceMode())
@@ -231,7 +232,7 @@ class StyleDialog(ExToolWindow):
         # Create combobox simple/extended/full
         cbo = QComboBox()
         cbo.addItems(list(self.palette_entries.keys()))
-        cbo.currentIndexChanged[str].connect(self._on_cbo_change)
+        cbo.currentTextChanged[str].connect(self._on_cbo_change)
         layout.addWidget(cbo, 0, 0)
         self.cbo_mode = cbo
 

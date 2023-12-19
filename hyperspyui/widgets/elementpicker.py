@@ -80,7 +80,7 @@ class ElementPickerWidget(FigureWidget):
         with block_signals(self.chk_markers):
             markers = (hasattr(signal.signal, '_xray_markers') and
                        bool(signal.signal._xray_markers))
-            self.chk_markers.setChecked(markers)
+            self.chk_markers.setChecked(int(markers))
 
         # Make sure we have the Sample node, and Sample.elements
         if not hasattr(signal.signal.metadata, 'Sample'):
@@ -342,7 +342,7 @@ class ElementPickerWidget(FigureWidget):
             key = element + '_' + ss
             ac = cm.addAction(ss)
             ac.setCheckable(True)
-            ac.setChecked(ss in active)
+            ac.setChecked(int(ss in active))
             f = partial(self._toggle_subshell, key)
             ac.toggled[bool].connect(f)
         if possible:

@@ -195,7 +195,7 @@ class SelectionTool(SignalFigureTool):
 
     def cancel(self):
         for w in self._widgets:
-            if w.is_on():
+            if w.is_on:
                 w.set_on(False)
         self.axes = None
         self.cancelled.emit()

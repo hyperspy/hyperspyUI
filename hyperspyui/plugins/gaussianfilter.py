@@ -22,7 +22,7 @@ from skimage.filters import gaussian
 from hyperspyui.util import win2sig
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 
-from qtpy import QtGui, QtCore
+from qtpy import QtCore, QtWidgets
 
 
 def tr(text):
@@ -228,10 +228,10 @@ class GaussianFilterDialog(ExToolWindow):
         """
         Create UI controls.
         """
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
 
-        form = QtGui.QFormLayout()
-        self.num_sigma = QtGui.QDoubleSpinBox()
+        form = QtWidgets.QFormLayout()
+        self.num_sigma = QtWidgets.QDoubleSpinBox()
         self.num_sigma.setValue(1.0)
         self.num_sigma.setMinimum(0.0)
         self.num_sigma.setSingleStep(0.1)
@@ -240,29 +240,29 @@ class GaussianFilterDialog(ExToolWindow):
         form.addRow(tr("Sigma:"), self.num_sigma)
         vbox.addLayout(form)
 
-        self.chk_preview = QtGui.QCheckBox(tr("Preview"))
+        self.chk_preview = QtWidgets.QCheckBox(tr("Preview"))
         self.chk_preview.setCheckable(True)
-        self.chk_preview.setChecked(False)
+        self.chk_preview.setChecked(int(False))
         vbox.addWidget(self.chk_preview)
 
         self.chk_preview.toggled[bool].connect(self.set_preview)
 
-        self.gbo_output = QtGui.QGroupBox(tr("Output"))
-        self.opt_new = QtGui.QRadioButton(tr("New signal"))
-        self.opt_replace = QtGui.QRadioButton(tr("In place"))
-        self.opt_new.setChecked(True)
-        gbo_vbox2 = QtGui.QVBoxLayout()
+        self.gbo_output = QtWidgets.QGroupBox(tr("Output"))
+        self.opt_new = QtWidgets.QRadioButton(tr("New signal"))
+        self.opt_replace = QtWidgets.QRadioButton(tr("In place"))
+        self.opt_new.setChecked(int(True))
+        gbo_vbox2 = QtWidgets.QVBoxLayout()
         gbo_vbox2.addWidget(self.opt_new)
         gbo_vbox2.addWidget(self.opt_replace)
         self.gbo_output.setLayout(gbo_vbox2)
         vbox.addWidget(self.gbo_output)
 
-        self.btn_ok = QtGui.QPushButton(tr("&OK"))
+        self.btn_ok = QtWidgets.QPushButton(tr("&OK"))
         self.btn_ok.setDefault(True)
         self.btn_ok.clicked.connect(self.accept)
-        self.btn_cancel = QtGui.QPushButton(tr("&Cancel"))
+        self.btn_cancel = QtWidgets.QPushButton(tr("&Cancel"))
         self.btn_cancel.clicked.connect(self.reject)
-        hbox = QtGui.QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.btn_ok)
         hbox.addWidget(self.btn_cancel)
         vbox.addLayout(hbox)

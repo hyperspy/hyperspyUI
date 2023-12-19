@@ -185,7 +185,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
         isactive = newState & QtCore.Qt.WindowActive
         if isactive == oldState & QtCore.Qt.WindowActive:
             return  # Another window state changed, e.g. activation
-        self._activate_action.setChecked(isactive)
+        self._activate_action.setChecked(int(bool(isactive)))
 
     def _activate_triggered(self, checked=True):
         # Activate action triggered, make window active
@@ -198,7 +198,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
             self.showNormal()   # Restore minimized window
         if not checked:
             # User unchecked, which makes no sense, recheck
-            self._activate_action.setChecked(True)
+            self._activate_action.setChecked(1)
 
 
 class FigureManagerMdi(FigureManagerBase):
