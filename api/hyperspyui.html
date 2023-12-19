@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui package &mdash; HyperSpyUI 1.3.1 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <title>hyperspyui package &mdash; HyperSpyUI 1.4.0.dev0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
@@ -35,7 +39,7 @@
               <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.3.1
+                1.4.0.dev0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -252,6 +256,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.plugins.fft.html">hyperspyui.plugins.fft module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="hyperspyui.plugins.fft.html#hyperspyui.plugins.fft.FFT_Plugin"><code class="docutils literal notranslate"><span class="pre">FFT_Plugin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hyperspyui.plugins.fft.html#hyperspyui.plugins.fft._is_complex_signals"><code class="docutils literal notranslate"><span class="pre">_is_complex_signals()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="hyperspyui.plugins.fft.html#hyperspyui.plugins.fft.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
 </ul>
 </li>
@@ -642,7 +647,8 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dragEnterEvent"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.dragEnterEvent()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dropEvent"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.dropEvent()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.edit_hspy_settings"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.edit_hspy_settings()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.get_accepted_extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_load"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.get_accepted_extensions_load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_save"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.get_accepted_extensions_save()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_component"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.get_selected_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.get_selected_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model_wrapper"><code class="docutils literal notranslate"><span class="pre">MainWindowHyperspy.get_selected_model_wrapper()</span></code></a></li>
@@ -1109,7 +1115,6 @@
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.create_add_component_actions"><code class="docutils literal notranslate"><span class="pre">create_add_component_actions()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.crosshair_cursor"><code class="docutils literal notranslate"><span class="pre">crosshair_cursor()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.debug_trace"><code class="docutils literal notranslate"><span class="pre">debug_trace()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.dict_rlu"><code class="docutils literal notranslate"><span class="pre">dict_rlu()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.dummy_context_manager"><code class="docutils literal notranslate"><span class="pre">dummy_context_manager()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.fig2image_plot"><code class="docutils literal notranslate"><span class="pre">fig2image_plot()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hyperspyui.util.html#hyperspyui.util.fig2sig"><code class="docutils literal notranslate"><span class="pre">fig2sig()</span></code></a></li>
@@ -1127,8 +1132,6 @@
 </section>
 <section id="module-hyperspyui">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperspyui" title="Permalink to this heading"></a></h2>
-<p>Created on Mon Nov 17 12:30:07 2014</p>
-<p>&#64;author: Vidar Tonaas Fauske</p>
 </section>
 </section>
 

@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog &mdash; HyperSpyUI 1.3.1 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>Changelog &mdash; HyperSpyUI 1.4.0.dev0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -35,7 +39,7 @@
               <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                1.3.1
+                1.4.0.dev0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -48,15 +52,21 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#v1-3-1-2023-05-05">v1.3.1 (2023-05-05)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-3-0-2023-05-04">v1.3.0 (2023-05-04)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-2-0-2023-03-16">v1.2.0 (2023-03-16)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-5-2022-04-27">v1.1.5 (2022-04-27)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-4">v1.1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-3">v1.1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-2">v1.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-1">v1.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-1-0">v1.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2.0 (2023-12-19)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#maintenance">Maintenance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">1.3.1 (2023-05-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">1.3.0 (2023-05-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">1.2.0 (2023-03-16)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">1.1.5 (2022-04-27)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">1.1.4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">1.1.3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31">1.1.2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id32">1.1.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id33">1.1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
@@ -101,14 +111,29 @@
              
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading"></a></h1>
-<section id="v1-3-1-2023-05-05">
-<h2>v1.3.1 (2023-05-05)<a class="headerlink" href="#v1-3-1-2023-05-05" title="Permalink to this heading"></a></h2>
+<p>Changelog entries for the development version are available at
+<a class="reference external" href="https://hyperspyui.readthedocs.io/en/latest/changes.html">https://hyperspyui.readthedocs.io/en/latest/changes.html</a></p>
+<section id="id1">
+<h2>2.0 (2023-12-19)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<section id="maintenance">
+<h3>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Migrate to HyperSpy 2.0, drop python 2.7 and add python 3.12 (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/223">#223</a>)</p></li>
+<li><p>Consolidate packaging in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/224">#224</a>)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">towncrier</span></code> to manage release notes (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/225">#225</a>)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code> to handle version (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/226">#226</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">release.yml</span></code> workflow (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/227">#227</a>)</p></li>
+<li><p>Various fixes for hyperspy 2.0 (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/229">#229</a>)</p></li>
+<li><p>Add support for pyqt6 and more fixes for hyperspy 2.0. (<a class="reference external" href="https://github.com/hyperspy/hyperspyui/issues/234">#234</a>)</p></li>
+</ul>
+<section id="id9">
+<h4>1.3.1 (2023-05-05)<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>Fix parsing extensions when rosettasciio is not installed (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/220">#220</a>)</p></li>
 </ul>
 </section>
-<section id="v1-3-0-2023-05-04">
-<h2>v1.3.0 (2023-05-04)<a class="headerlink" href="#v1-3-0-2023-05-04" title="Permalink to this heading"></a></h2>
+<section id="id11">
+<h4>1.3.0 (2023-05-04)<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>Update release workflow to remove deprecated github actions and use pypi API token instead of user/password (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/211">#211</a>)</p></li>
 <li><p>Fix dependabot error when parsing github workflow  (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/212">#212</a>)</p></li>
@@ -117,8 +142,8 @@
 <li><p>Bump version of pyqode dependencies to support pyflakes &gt;=2.5 (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/218">#218</a>)</p></li>
 </ul>
 </section>
-<section id="v1-2-0-2023-03-16">
-<h2>v1.2.0 (2023-03-16)<a class="headerlink" href="#v1-2-0-2023-03-16" title="Permalink to this heading"></a></h2>
+<section id="id17">
+<h4>1.2.0 (2023-03-16)<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>Pin third party action and fix tests and documentation GitHub workflow (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/206">#206</a>)</p></li>
 <li><p>Pin pyflakes to 2.4 to keep pyqode.python working (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/206">#206</a>)</p></li>
@@ -126,15 +151,15 @@
 <li><p>Improve code quality using GitHub CodeQL and fix bugs (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/208">#208</a>)</p></li>
 </ul>
 </section>
-<section id="v1-1-5-2022-04-27">
-<h2>v1.1.5 (2022-04-27)<a class="headerlink" href="#v1-1-5-2022-04-27" title="Permalink to this heading"></a></h2>
+<section id="id22">
+<h4>1.1.5 (2022-04-27)<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>Fix numpy deprecation warning (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/203">#203</a>)</p></li>
 <li><p>Add support for python 3.10 (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/204">#204</a>)</p></li>
 </ul>
 </section>
-<section id="v1-1-4">
-<h2>v1.1.4<a class="headerlink" href="#v1-1-4" title="Permalink to this heading"></a></h2>
+<section id="id25">
+<h4>1.1.4<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p>Fix doc warning add workflow to publish the code on tag (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/198">#198</a>)</p></li>
 <li><p>Add support for matplotlib 3.4.0 and increase hyperspy, matplotlib minimum requirement (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/199">#199</a>)</p></li>
@@ -142,8 +167,8 @@
 <li><p>Drop support for python 3.6 (<a class="reference external" href="https://github.com/hyperspy/hyperspyUI/pull/202">#202</a>)</p></li>
 </ul>
 </section>
-<section id="v1-1-3">
-<h2>v1.1.3<a class="headerlink" href="#v1-1-3" title="Permalink to this heading"></a></h2>
+<section id="id30">
+<h4>1.1.3<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h4>
 <p>This is a maintenance release and the main highlights are:</p>
 <ul class="simple">
 <li><p>Fix issue with qt 5.12 on MacOS Big Sur</p></li>
@@ -153,8 +178,8 @@
 <p>For a detailed list of all the changes
 see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/milestone/8?closed=1">the commits in the GITHUB milestones 1.1.3</a>.</p>
 </section>
-<section id="v1-1-2">
-<h2>v1.1.2<a class="headerlink" href="#v1-1-2" title="Permalink to this heading"></a></h2>
+<section id="id31">
+<h4>1.1.2<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h4>
 <p>This is a maintenance release and the main highlights are:</p>
 <ul class="simple">
 <li><p>Fix issue with embedded console on windows and python 3.8.</p></li>
@@ -164,8 +189,8 @@ see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/m
 <p>For a detailed list of all the changes
 see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/milestone/7?closed=1">the commits in the GITHUB milestones 1.1.2</a>.</p>
 </section>
-<section id="v1-1-1">
-<h2>v1.1.1<a class="headerlink" href="#v1-1-1" title="Permalink to this heading"></a></h2>
+<section id="id32">
+<h4>1.1.1<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h4>
 <p>This is a maintenance release and the main highlights are:</p>
 <ul class="simple">
 <li><p>Fix issue with recent matplotlib release (&gt;=3.1).</p></li>
@@ -175,8 +200,8 @@ see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/m
 <p>For a detailed list of all the changes
 see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/milestone/6?closed=1">the commits in the GITHUB milestones 1.1.1</a>.</p>
 </section>
-<section id="v1-1-0">
-<h2>v1.1.0<a class="headerlink" href="#v1-1-0" title="Permalink to this heading"></a></h2>
+<section id="id33">
+<h4>1.1.0<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h4>
 <p>This is a maintenance release and the main highlights are:</p>
 <ul class="simple">
 <li><p>Add HyperSpyUI on conda-forge</p></li>
@@ -191,6 +216,8 @@ see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/m
 </ul>
 <p>For a detailed list of all the changes
 see <a class="reference external" href="https://github.com/hyperspy/hyperspyUI/milestone/2?closed=1">the commits in the GITHUB milestones 1.1.0</a>.</p>
+</section>
+</section>
 </section>
 </section>
 
