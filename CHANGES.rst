@@ -9,6 +9,20 @@ https://hyperspyui.readthedocs.io/en/latest/changes.html
 
 .. towncrier release notes start
 
+2.0 (2023-12-19)
+================
+
+Maintenance
+-----------
+
+- Migrate to HyperSpy 2.0, drop python 2.7 and add python 3.12 (`#223 <https://github.com/hyperspy/hyperspyui/issues/223>`_)
+- Consolidate packaging in ``pyproject.toml`` (`#224 <https://github.com/hyperspy/hyperspyui/issues/224>`_)
+- Use ``towncrier`` to manage release notes (`#225 <https://github.com/hyperspy/hyperspyui/issues/225>`_)
+- Use ``setuptools_scm`` to handle version (`#226 <https://github.com/hyperspy/hyperspyui/issues/226>`_)
+- Update ``release.yml`` workflow (`#227 <https://github.com/hyperspy/hyperspyui/issues/227>`_)
+- Various fixes for hyperspy 2.0 (`#229 <https://github.com/hyperspy/hyperspyui/issues/229>`_)
+- Add support for pyqt6 and more fixes for hyperspy 2.0. (`#234 <https://github.com/hyperspy/hyperspyui/issues/234>`_)
+
 
 1.3.1 (2023-05-05)
 ++++++++++++++++++

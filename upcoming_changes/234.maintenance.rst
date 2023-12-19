@@ -1,1 +1,0 @@
-Add support for pyqt6 and more fixes for hyperspy 2.0.
