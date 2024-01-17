@@ -97,7 +97,8 @@ try:
         `package_name`. Ensure that the package has a local repo by calling
         `check_git_repo` first.
         """
-        pkg_path = imp.find_module(package_name)[1]
+        pkg_spec = importlib.util.find_spec(package_name)
+        pkg_path = os.path.split(pkg_spec.origin)[0]
         r = git.Repo(pkg_path, search_parent_directories=True)
         # Start with active branch:
         try:
@@ -132,7 +133,7 @@ def get_branches(package_name, url):
     """
     Either get git branches, or fetch branches from github.com
     """
-    if use_git and check_git_repo(package_name):
+    if use_git and check_git_repo(package_name):    
         return get_git_branches(package_name)
     else:
         return get_github_branches(url)

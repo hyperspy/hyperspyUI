@@ -145,7 +145,7 @@ class MultiSelectionTool(SignalFigureTool):
 
         s = self._get_signal(event.inaxes.figure)
         for w in self.widgets[s]:
-            if any([p.contains(event)[0] == True for p in w.patch]):
+            if any([p.contains(event)[0] is True for p in w.patch]):
                 self._remove_widget(w, s)
                 self._on_change(w, s)
 
@@ -177,14 +177,14 @@ class MultiSelectionTool(SignalFigureTool):
         # If we already have widgets, make sure editing is passed through
         if self.have_selection(s):
             for w in self.widgets[s]:
-                if any([p.contains(event)[0] == True for p in w.patch]):
+                if any([p.contains(event)[0] is True for p in w.patch]):
                     return              # Moving, handle in widget
             # Clicked outside existing widget, check for resize handles
             if self.ndim(s) > 1:
                 for w in self.widgets[s]:
                     if w.resizers:
                         for r in w._resizer_handles:
-                            if r.contains(event)[0] == True:
+                            if r.contains(event)[0] is True:
                                 return      # Leave the event to widget
         am = s.axes_manager
 

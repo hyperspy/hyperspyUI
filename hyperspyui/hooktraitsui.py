@@ -27,7 +27,8 @@ except RuntimeError:
     import sys
 
     if 'sphinx' in sys.modules:
-        class Dummy: pass
+        class Dummy:
+            pass
         ui_base = Dummy()
         ui_base._StickyDialog = Dummy
     else:

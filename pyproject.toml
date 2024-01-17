@@ -87,6 +87,15 @@ addopts = "-ra"
 testpaths = ["hyperspyui/tests", ]
 qt_api = "pyqt5"
 
+[tool.ruff]
+exclude = [
+    "hyperspyui/tests/*",
+    ]
+
+[tool.ruff.lint]
+ignore = ["E402"]
+
+
 [tool.setuptools]
 include-package-data = false
 

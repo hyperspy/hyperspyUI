@@ -107,7 +107,7 @@ def main():
     # QtWebEngineWidgets must be imported before a QCoreApplication instance
     # is created (used in eelsdb plugin)
     # Avoid a bug in Qt: https://bugreports.qt.io/browse/QTBUG-46720
-    from qtpy import QtWebEngineWidgets
+    from qtpy import QtWebEngineWidgets # noqa: F401
 
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
