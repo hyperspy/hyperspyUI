@@ -21,7 +21,6 @@ Created on Fri Oct 24 16:46:35 2014
 @author: Vidar Tonaas Fauske
 """
 
-from collections import OrderedDict
 from functools import partial
 import argparse
 import os

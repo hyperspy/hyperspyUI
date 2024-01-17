@@ -1,7 +1,7 @@
 HyperSpyUI
 ==========
 
-|pypi_version|_ |anaconda_cloud|_ |tests|_ |python_version|_
+|pypi_version|_ |anaconda_cloud|_ |tests|_ |pre-commit|_ |python_version|_
 
 .. |pypi_version| image:: https://img.shields.io/pypi/v/hyperspyui.svg
 .. _pypi_version: https://pypi.python.org/pypi/hyperspyui
@@ -12,8 +12,12 @@ HyperSpyUI
 .. |tests| image:: https://github.com/hyperspy/hyperspyUI/workflows/Tests/badge.svg
 .. _tests: https://github.com/hyperspy/hyperspyUI/actions
 
+.. |pre-commit| image:: https://results.pre-commit.ci/badge/github/hyperspy/hyperspyUI/main.svg
+.. _pre-commit: https://results.pre-commit.ci/latest/github/hyperspy/hyperspyUI/main
+
 .. |python_version| image:: https://img.shields.io/pypi/pyversions/hyperspyui.svg?style=flat
 .. _python_version: https://pypi.python.org/pypi/hyperspyui
+
 
 HyperSpyUI tries to bring a streamlined user interface to the powerful
 multi-dimensional analysis capabilities of HyperSpy_. HyperSpy is an open

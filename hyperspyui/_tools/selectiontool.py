@@ -121,12 +121,12 @@ class SelectionTool(SignalFigureTool):
         self.axes = axes
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
-            if any([p.contains(event)[0] == True for p in self.widget.patch]):
+            if any([p.contains(event)[0] is True for p in self.widget.patch]):
                 return              # Moving, handle in widget
             # Clicked outside existing widget, check for resize handles
             if self.ndim > 1 and self.widget.resizers:
                 for r in self.widget._resizer_handles:
-                    if r.contains(event)[0] == True:
+                    if r.contains(event)[0] is True:
                         return      # Leave the event to widget
             # Cancel previous and start new
             self.cancel()

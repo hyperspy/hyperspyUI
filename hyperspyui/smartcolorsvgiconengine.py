@@ -265,15 +265,15 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
                 if ds_in.atEnd():
                     return False
                 ds_in >> pixmap
-                mode = ds_in.readUInt32()
-                state = ds_in.readUInt32()
+                mode = ds_in.readUInt32() # noqa: F841
+                state = ds_in.readUInt32() # noqa: F841
                 # The pm list written by 4.3 is buggy and/or useless, so ignore
                 # self._addPixmap(pixmap, QIcon.Mode(mode), QIcon.State(state))
 
         return True
 
     def write(self, ds_out):
-        if out.version() >= QtCore.QDataStream.Qt_4_4:
+        if ds_out.version() >= QtCore.QDataStream.Qt_4_4:
             isCompressed = 1
             if self._svgBuffers:
                 svgBuffers = self._svgBuffers
@@ -286,11 +286,11 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
                     buf = f.readAll()
                 buf = QtCore.qCompress(buf)
                 svgBuffers[key] = buf
-            out << self._svgFiles << isCompressed << svgBuffers
+            ds_out << self._svgFiles << isCompressed << svgBuffers
             if self._addedPixmaps:
-                out << 1 << self._addedPixmaps
+                ds_out << 1 << self._addedPixmaps
             else:
-                out << 0
+                ds_out << 0
         else:
             buf = QtCore.QByteArray()
             if self._svgBuffers:
@@ -302,7 +302,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
                     if f.open(QtCore.QIODevice.ReadOnly):
                         buf = f.readAll()
             buf = QtCore.qCompress(buf)
-            out << buf
+            ds_out << buf
             # 4.3 has buggy handling of added pixmaps, so don't write any
-            out << 0
+            ds_out << 0
         return True

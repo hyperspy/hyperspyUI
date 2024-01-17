@@ -36,7 +36,7 @@ except NameError:
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 import os
 import re
-import urllib.request, urllib.error, urllib.parse
+import urllib
 import tempfile
 
 re_dl_url = re.compile(
