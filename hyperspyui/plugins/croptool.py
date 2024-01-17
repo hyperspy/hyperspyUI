@@ -42,7 +42,7 @@ class CropToolPlugin(Plugin):
         if signal is None:
             f = self.tool.widget.ax.figure
             window = f.canvas.parent()
-            sw = window.property('hyperspyUI.SignalWrapper')
+            sw = window.property("hyperspyUI.SignalWrapper")
             if sw is None:
                 return
             signal = sw.signal
@@ -66,11 +66,10 @@ class CropToolPlugin(Plugin):
         signal.events.data_changed.trigger(signal)
 
         self.record_code("s_crop = ui.get_selected_signal()")
-        self.record_code("axes = " +
-                         str(tuple([sig_axes.index(a) for a in axes])))
+        self.record_code("axes = " + str(tuple([sig_axes.index(a) for a in axes])))
         self.record_code("roi = hs.roi." + str(roi))
         self.record_code("<p>.crop(roi, s_crop, axes)")
-        self.tool.cancel()   # Turn off functionality as we are finished
+        self.tool.cancel()  # Turn off functionality as we are finished
 
 
 class CropTool(SelectionTool):
@@ -86,8 +85,7 @@ class CropTool(SelectionTool):
         return "Crop tool"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/crop.svg'
+        return os.path.dirname(__file__) + "/../images/crop.svg"
 
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) +
-                           '/../images/crop.svg', 8, 8)
+        return load_cursor(os.path.dirname(__file__) + "/../images/crop.svg", 8, 8)

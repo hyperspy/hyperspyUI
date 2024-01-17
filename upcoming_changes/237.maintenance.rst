@@ -1,0 +1,1 @@
+Use ruff for formatting code.

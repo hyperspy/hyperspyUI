@@ -27,7 +27,6 @@ from .figuretool import FigureTool
 
 
 class PointerTool(FigureTool):
-
     def __init__(self, windows=None):
         super().__init__()
 
@@ -35,10 +34,10 @@ class PointerTool(FigureTool):
         return "Pointer tool"
 
     def get_category(self):
-        return 'Plot'
+        return "Plot"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/pointer.svg'
+        return os.path.dirname(__file__) + "/../images/pointer.svg"
 
     def is_selectable(self):
         return True

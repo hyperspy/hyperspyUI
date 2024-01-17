@@ -48,16 +48,15 @@ class AxesPickerDialog(ExToolWindow):
     def create_controls(self):
         self.list = QtWidgets.QListWidget()
         for ax in self.signal.axes_manager._get_axes_in_natural_order():
-            rep = '%s axis, size: %i' % (ax._get_name(), ax.size)
+            rep = "%s axis, size: %i" % (ax._get_name(), ax.size)
             item = QtWidgets.QListWidgetItem(rep, self.list)
             item.setData(QtCore.Qt.UserRole, ax)
             self.list.addItem(item)
         if not self.single:
-            self.list.setSelectionMode(
-                QtGui.QAbstractItemView.ExtendedSelection)
+            self.list.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         btns = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-            QtCore.Qt.Horizontal)
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, QtCore.Qt.Horizontal
+        )
 
         btns.accepted.connect(self.accept)
         btns.rejected.connect(self.reject)

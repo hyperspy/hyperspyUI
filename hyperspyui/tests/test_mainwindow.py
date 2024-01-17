@@ -1,4 +1,3 @@
-
 import pytest
 
 
@@ -8,4 +7,4 @@ def test_main_window(mainwindow):
     mainwindow.load_complete.emit()
 
     assert mainwindow.isVisible()
-    assert mainwindow.windowTitle() == 'HyperSpy'
+    assert mainwindow.windowTitle() == "HyperSpy"

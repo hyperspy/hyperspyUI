@@ -26,46 +26,48 @@ ui = MainWindow()
 siglist = [hs.signals.Signal(None), hs.signals.Signal(None)]
 
 """
-_header_num_lines = _console_mode_header.count('\n')
+_header_num_lines = _console_mode_header.count("\n")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pyqode.python.backend.workers import JediCompletionProvider
     import jedi.api
-    jedi.api.preload_module(["hyperspyui.mainwindow", "numpy",
-                             "hyperspy.api"])
 
-    class ConsoleJediCompletionProvider():
+    jedi.api.preload_module(["hyperspyui.mainwindow", "numpy", "hyperspy.api"])
+
+    class ConsoleJediCompletionProvider:
         @staticmethod
         def complete(code, line, column, path, encoding, prefix, triggered_by_symbol):
             code = _console_mode_header + code
-            return JediCompletionProvider.complete(code,
-                                                   line + _header_num_lines,
-                                                   column, path, encoding,
-                                                   prefix, triggered_by_symbol)
+            return JediCompletionProvider.complete(
+                code,
+                line + _header_num_lines,
+                column,
+                path,
+                encoding,
+                prefix,
+                triggered_by_symbol,
+            )
 
     """
     Server process' entry point
     """
     # setup argument parser and parse command line args
     parser = argparse.ArgumentParser()
-    parser.add_argument("port", help="the local tcp port to use to run "
-                        "the server")
-    parser.add_argument('-s', '--syspath', nargs='*')
+    parser.add_argument("port", help="the local tcp port to use to run " "the server")
+    parser.add_argument("-s", "--syspath", nargs="*")
     args = parser.parse_args()
 
     # add user paths to sys.path
     if args.syspath:
         for path in args.syspath:
-            print('append path %s to sys.path' % path)
+            print("append path %s to sys.path" % path)
             sys.path.append(path)
 
     from pyqode.core import backend
 
     # setup completion providers
-    backend.CodeCompletionWorker.providers.append(
-            ConsoleJediCompletionProvider())
-    backend.CodeCompletionWorker.providers.append(
-        backend.DocumentWordsProvider())
+    backend.CodeCompletionWorker.providers.append(ConsoleJediCompletionProvider())
+    backend.CodeCompletionWorker.providers.append(backend.DocumentWordsProvider())
 
     # starts the server
     backend.serve_forever(args)

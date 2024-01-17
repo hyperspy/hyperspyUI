@@ -33,8 +33,10 @@ import sys
 from .mainwindowutillayer import MainWindowActionRecorder, tr
 
 from . import uiprogressbar
-uiprogressbar.takeover_progressbar()    # Enable hooks
+
+uiprogressbar.takeover_progressbar()  # Enable hooks
 from . import hooksignal
+
 hooksignal.hook_signal()
 
 from qtpy import QtCore, QtWidgets
@@ -53,20 +55,20 @@ import hyperspy.api as hs
 from rsciio import IO_PLUGINS
 
 from . import overrides
-overrides.override_hyperspy()           # Enable hyperspy overrides
+
+overrides.override_hyperspy()  # Enable hyperspy overrides
 
 
-glob_escape = re.compile(r'([\[\]])')
+glob_escape = re.compile(r"([\[\]])")
 
 
 class TrackEventFilter(QtCore.QObject):
-    """Qt Event filter for tracking the mouse position in the application.
-    """
+    """Qt Event filter for tracking the mouse position in the application."""
 
     track = Signal(QtCore.QPoint)
 
     def eventFilter(self, receiver, event):
-        if(event.type() == QtCore.QEvent.MouseMove):
+        if event.type() == QtCore.QEvent.MouseMove:
             self.track.emit(event.globalPos())
         # Call Base Class Method to Continue Normal Event Processing
         return False
@@ -84,8 +86,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         # Setup signals list. This is a BindingList, and all components of the
         # code that needs to keep track of the signals loaded bind into this.
         self.signals = BindingList()
-        self.signals.add_custom(self._sweeper, None, None, None, self._sweeper,
-                                None)
+        self.signals.add_custom(self._sweeper, None, None, None, self._sweeper, None)
         self.hspy_signals = []
 
         def rem(x):
@@ -93,20 +94,24 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             for i, s in enumerate(self.hspy_signals):
                 if s is x.signal:
                     self.hspy_signals.pop(i)
+
         self.signals.add_custom(
-            'hspy_signals',
+            "hspy_signals",
             lambda x: self.hspy_signals.append(x.signal),
             lambda x, y: self.hspy_signals.insert(x, y.signal),
             None,
             rem,
-            lambda x: self.hspy_signals.pop(x))
+            lambda x: self.hspy_signals.pop(x),
+        )
         self.lut_signalwrapper = dict()
 
         def lut_add(sw):
             self.lut_signalwrapper[sw.signal] = sw
+
         lut = self.lut_signalwrapper
-        self.signals.add_custom('lut', lut_add, None, None,
-                                lambda sw: lut.pop(sw.signal), None)
+        self.signals.add_custom(
+            "lut", lut_add, None, None, lambda sw: lut.pop(sw.signal), None
+        )
 
         # Setup variables
         self.progressbars = {}
@@ -147,10 +152,10 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self.tree = DataViewWidget(self, self)
         self.tree.setWindowTitle(tr("Data View"))
         # Sync tree with signals list:
-        self.signals.add_custom(self.tree, self.tree.add_signal, None,
-                                None, self.tree.remove, None)
-        self.main_frame.subWindowActivated.connect(
-            self.tree.on_mdiwin_activated)
+        self.signals.add_custom(
+            self.tree, self.tree.add_signal, None, None, self.tree.remove, None
+        )
+        self.main_frame.subWindowActivated.connect(self.tree.on_mdiwin_activated)
         self.add_widget(self.tree)
 
         # Put other widgets at end (plugin widgets)
@@ -165,8 +170,10 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         def rem_s(value):
             for f in value.figures:
                 self.windowmenu.removeAction(f.activateAction())
-        self.signals.add_custom(self.windowmenu, None, None, None,
-                                rem_s, lambda i: rem_s(self.signals[i]))
+
+        self.signals.add_custom(
+            self.windowmenu, None, None, None, rem_s, lambda i: rem_s(self.signals[i])
+        )
 
     def create_statusbar(self):
         """
@@ -180,8 +187,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         # To be able to update coordinates, we need to track the mouse
         # position with an event filter
-        self.main_frame.subWindowActivated.connect(
-            self._connect_figure_2_statusbar)
+        self.main_frame.subWindowActivated.connect(self._connect_figure_2_statusbar)
         app = QtWidgets.QApplication.instance()
         self.tracker = TrackEventFilter()
         self.tracker.track.connect(self._on_track)
@@ -204,14 +210,16 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             if ps and ps.signal and ps.signal.axes_manager:
                 try:
                     ps.signal.axes_manager.events.indices_changed.disconnect(
-                        self._on_active_navigate)
+                        self._on_active_navigate
+                    )
                 except ValueError:
                     # in case the function is not connected
                     pass
             if s and s.signal and s.signal.axes_manager:
                 try:
                     s.signal.axes_manager.events.indices_changed.connect(
-                        self._on_active_navigate, {'obj': 'axes_manager'})
+                        self._on_active_navigate, {"obj": "axes_manager"}
+                    )
                 except ValueError:
                     # in case the function is not connected
                     pass
@@ -251,11 +259,11 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         # Mapping copied from MPL backend code:
         cpos = np.array([(cpos.x(), canvas.figure.bbox.height - cpos.y())])
         # Check that we are within plot axes
-        (xa, ya), = p.ax.transAxes.inverted().transform(cpos)
+        ((xa, ya),) = p.ax.transAxes.inverted().transform(cpos)
         if not (0 <= xa <= 1 and 0 <= ya <= 1):
             return
         # Find coordinate values:
-        (xd, yd), = p.ax.transData.inverted().transform(cpos)
+        ((xd, yd),) = p.ax.transData.inverted().transform(cpos)
 
         def v2i(a, v):
             if v < a.low_value:
@@ -264,7 +272,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 return a.high_index
             return a.value2index(v)
 
-        if hasattr(p, 'axis'):                              # SpectrumFigure
+        if hasattr(p, "axis"):  # SpectrumFigure
             if p is s.signal._plot.navigator_plot:
                 axis = p.axes_manager.navigation_axes[0]
             elif p is s.signal._plot.signal_plot:
@@ -275,10 +283,9 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             ind = (v2i(axis, xd),)
             units = [axis.units]
             intensity = yd
-        elif hasattr(p, 'xaxis') and hasattr(p, 'yaxis'):   # ImagePlot
+        elif hasattr(p, "xaxis") and hasattr(p, "yaxis"):  # ImagePlot
             vals = (xd, yd)
-            ind = (v2i(p.xaxis, xd),
-                   v2i(p.yaxis, yd))
+            ind = (v2i(p.xaxis, xd), v2i(p.yaxis, yd))
             units = [p.xaxis.units, p.yaxis.units]
             intensity = p.ax.images[0].get_array()[ind[1], ind[0]]
 
@@ -358,8 +365,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         if sw.keep_on_close:
             sw.keep_on_close = False
         self._plotting_signal = None
-        self.main_frame.subWindowActivated.emit(
-            self.main_frame.activeSubWindow())
+        self.main_frame.subWindowActivated.emit(self.main_frame.activeSubWindow())
 
     # -------- Selection management -------
 
@@ -371,12 +377,16 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             return signals[0]
         else:
             if error_on_multiple:
-                mb = QMessageBox(QMessageBox.Information,
-                                 tr("Select one signal only"),
-                                 tr("You can only select one signal at the " +
-                                     "time for this function. Currently, " +
-                                     "several are selected"),
-                                 QMessageBox.Ok)
+                mb = QMessageBox(
+                    QMessageBox.Information,
+                    tr("Select one signal only"),
+                    tr(
+                        "You can only select one signal at the "
+                        + "time for this function. Currently, "
+                        + "several are selected"
+                    ),
+                    QMessageBox.Ok,
+                )
                 mb.exec_()
                 raise RuntimeError()
             w = self.main_frame.activeSubWindow()
@@ -468,32 +478,38 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     @staticmethod
     def get_accepted_extensions_load():
-        extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS]
+        extensions_plugin_list = [plugin["file_extensions"] for plugin in IO_PLUGINS]
 
-        extensions = set([ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin])
+        extensions = set(
+            [ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin]
+        )
 
         return extensions
 
     @staticmethod
     def get_accepted_extensions_save():
-        extensions_plugin_list = [plugin['file_extensions'] for plugin in IO_PLUGINS if plugin['writes']]
+        extensions_plugin_list = [
+            plugin["file_extensions"] for plugin in IO_PLUGINS if plugin["writes"]
+        ]
 
-        extensions = set([ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin])
+        extensions = set(
+            [ext.lower() for ext_plugin in extensions_plugin_list for ext in ext_plugin]
+        )
 
         return extensions
 
     def load_stack(self, filenames=None, stack_axis=None):
         if filenames is None:
             extensions = self.get_accepted_extensions_load()
-            type_choices = ';;'.join(["*." + e for e in extensions])
-            type_choices = ';;'.join(("Python code (*.py)", type_choices))
-            type_choices = ';;'.join(("All types (*.*)", type_choices))
+            type_choices = ";;".join(["*." + e for e in extensions])
+            type_choices = ";;".join(("Python code (*.py)", type_choices))
+            type_choices = ";;".join(("All types (*.*)", type_choices))
             filenames = self.prompt_files(type_choices)
             if not filenames:
                 return False
             self.cur_dir = filenames[0]
         for i, f in enumerate(filenames):
-            filenames[i] = glob_escape.sub(r'[\1]', f)    # glob escapes
+            filenames[i] = glob_escape.sub(r"[\1]", f)  # glob escapes
 
         sig = hs.load(filenames, stack=True, stack_axis=stack_axis)
         if isinstance(sig, list):
@@ -501,7 +517,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 s.plot()
         else:
             sig.plot()
-        self.record_code(f'ui.load_stack({filenames}, {stack_axis})')
+        self.record_code(f"ui.load_stack({filenames}, {stack_axis})")
         return None
 
     def load(self, filenames=None):
@@ -513,9 +529,9 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         if filenames is None:
             extensions = self.get_accepted_extensions_load()
-            type_choices = ';;'.join(["*." + e for e in extensions])
-            type_choices = ';;'.join(("Python code (*.py)", type_choices))
-            type_choices = ';;'.join(("All types (*.*)", type_choices))
+            type_choices = ";;".join(["*." + e for e in extensions])
+            type_choices = ";;".join(("Python code (*.py)", type_choices))
+            type_choices = ";;".join(("All types (*.*)", type_choices))
             filenames = self.prompt_files(type_choices)
             if not filenames:
                 return False
@@ -523,17 +539,17 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
         files_loaded = []
         for filename in filenames:
-            self.set_status("Loading \"" + filename + "\"...")
+            self.set_status('Loading "' + filename + '"...')
             ext = os.path.splitext(filename)[1]
-            if ext == '.py':
+            if ext == ".py":
                 e = EditorWidget(self, self, filename)
                 self.editors.append(e)
                 e.show()
                 files_loaded.append(filename)
                 continue
-            self.setUpdatesEnabled(False)   # Prevent flickering during load
+            self.setUpdatesEnabled(False)  # Prevent flickering during load
             try:
-                escaped = glob_escape.sub(r'[\1]', filename)    # glob escapes
+                escaped = glob_escape.sub(r"[\1]", filename)  # glob escapes
                 sig = hs.load(escaped)
                 if isinstance(sig, list):
                     for s in sig:
@@ -544,35 +560,38 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             except (IOError, ValueError) as e:
                 # in case there is an error when loading the file: filename
                 # not existing or file error
-                self.set_status("Failed to load \"" + filename + "\"")
+                self.set_status('Failed to load "' + filename + '"')
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 tb = traceback.extract_tb(exc_traceback)[-1]
                 warnings.warn_explicit(
-                    ("Failed to load file '%s'. Internal exception:\n %s: %s"
-                     % (filename, exc_type.__name__, str(e))),
-                    RuntimeWarning, tb[0], tb[1])
+                    (
+                        "Failed to load file '%s'. Internal exception:\n %s: %s"
+                        % (filename, exc_type.__name__, str(e))
+                    ),
+                    RuntimeWarning,
+                    tb[0],
+                    tb[1],
+                )
             finally:
-                self.setUpdatesEnabled(True)    # Always resume updates!
+                self.setUpdatesEnabled(True)  # Always resume updates!
 
         if len(files_loaded) == 1:
-            self.set_status("Loaded \"" + files_loaded[0] + "\"")
+            self.set_status('Loaded "' + files_loaded[0] + '"')
         elif len(files_loaded) > 1:
             self.set_status("Loaded %d files" % len(files_loaded))
-        self.record_code('ui.load({0})'.format(files_loaded))
+        self.record_code("ui.load({0})".format(files_loaded))
 
         return files_loaded
 
     def save(self, signals=None, filenames=None):
-        logger.debug("entering save(), with args: %s, %s",
-                     str(signals), str(filenames))
+        logger.debug("entering save(), with args: %s, %s", str(signals), str(filenames))
         if signals is None:
             signals = self.get_selected_wrappers()
-            logger.debug("No signals passed, saving selection: %s",
-                         str(signals))
+            logger.debug("No signals passed, saving selection: %s", str(signals))
 
         extensions = self.get_accepted_extensions_save()
-        type_choices = ';;'.join(["*." + e for e in extensions])
-        type_choices = ';;'.join(("All types (*.*)", type_choices))
+        type_choices = ";;".join(["*." + e for e in extensions])
+        type_choices = ";;".join(("All types (*.*)", type_choices))
         logger.debug("Save type choices: %s", type_choices)
 
         i = 0
@@ -585,10 +604,8 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                 path_suggestion = self.get_signal_filepath_suggestion(s)
                 logger.debug(
                     "No filenames passed. Auto-suggestion: %s", path_suggestion
-                    )
-                filename = self.prompt_files(
-                    type_choices, path_suggestion, False
-                    )
+                )
+                filename = self.prompt_files(type_choices, path_suggestion, False)
                 # Dialog should have prompted about overwrite
                 overwrite = True
                 if not filename:
@@ -596,28 +613,26 @@ class MainWindowHyperspy(MainWindowActionRecorder):
                     continue
             else:
                 filename = filenames[i]
-                overwrite = None    # We need to confirm overwrites
+                overwrite = None  # We need to confirm overwrites
             i += 1
             s.signal.save(filename, overwrite)
 
     def get_signal_filepath_suggestion(self, signal, default_ext=None):
         # Get initial suggestion for save dialog.  Use
         # original_filename metadata if present, signal.name otherwise
-        fname = signal.signal.tmp_parameters.get_item(
-            'original_filename', signal.name
-        )
+        fname = signal.signal.tmp_parameters.get_item("original_filename", signal.name)
         fname, ext = os.path.splitext(fname)
-        ext = ext.replace('.', '')
+        ext = ext.replace(".", "")
         dname = Path(self.cur_dir).parent
 
         # If extension is not valid, use the defualt
         if ext not in self.get_accepted_extensions_save():
             # use default extension
-            ext = 'hspy'
+            ext = "hspy"
 
-        if os.name == 'nt':
+        if os.name == "nt":
             fname = fname.replace("<", "[").replace(">", "]")
-            fname = re.sub(r"[:\"|\?\*]", '', fname)
+            fname = re.sub(r"[:\"|\?\*]", "", fname)
 
         # Build suggestion and return
         path_suggestion = dname / f"{fname}.{ext}"
@@ -628,7 +643,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def dragEnterEvent(self, event):
         # Check file name extensions to see if we should accept
-        extensions = set(self.get_accepted_extensions_load().union(('py',)))
+        extensions = set(self.get_accepted_extensions_load().union(("py",)))
         mimeData = event.mimeData()
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]
@@ -663,6 +678,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         progressbar.setLabelText(label)
 
         if pid not in self.progressbars:
+
             def cancel():
                 # If pid not in collection, it is finished, and cancel
                 # triggered when dialog closed.
@@ -693,7 +709,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def on_console_executing(self, source):
         super().on_console_executing(source)
-        #self.setUpdatesEnabled(False)
+        # self.setUpdatesEnabled(False)
         for s in self.signals:
             s.keep_on_close = True
 
@@ -702,23 +718,25 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         for s in self.signals:
             s.update_figures()
             s.keep_on_close = False
-        #self.setUpdatesEnabled(True)
+        # self.setUpdatesEnabled(True)
 
     def _get_console_exec(self):
         ex = super()._get_console_exec()
-        ex += '\nimport hyperspy.api as hs'
-        ex += '\nimport numpy as np'
+        ex += "\nimport hyperspy.api as hs"
+        ex += "\nimport numpy as np"
         return ex
 
     def _get_console_exports(self):
         push = super()._get_console_exports()
-        push['siglist'] = self.hspy_signals
+        push["siglist"] = self.hspy_signals
         return push
 
     def _get_console_config(self):
         from traitlets.config.loader import PyFileConfigLoader
-        ipcp = os.path.sep.join((os.path.dirname(__file__), "ipython_profile",
-                                 "ipython_embedded_config.py"))
+
+        ipcp = os.path.sep.join(
+            (os.path.dirname(__file__), "ipython_profile", "ipython_embedded_config.py")
+        )
         c = PyFileConfigLoader(ipcp).load_config()
 
         return c

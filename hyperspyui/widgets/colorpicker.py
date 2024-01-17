@@ -21,14 +21,13 @@ from qtpy import QtGui, QtCore, QtWidgets
 
 
 class ColorButton(QtWidgets.QPushButton):
-
     colorChanged = QtCore.Signal([QtGui.QColor])
 
     def __init__(self, color=None, parent=None):
         super().__init__(parent)
         self.setMinimumWidth(50)
         if color is None:
-            color = QtGui.QColor('gray')
+            color = QtGui.QColor("gray")
         self.color = color
         self.clicked.connect(self.choose_color)
 
@@ -55,7 +54,5 @@ class ColorButton(QtWidgets.QPushButton):
         painter = QtGui.QPainter(self)
         painter.setBrush(QtGui.QBrush(self.color))
         painter.setPen(QtGui.QColor("#CECECE"))
-        rect.adjust(
-            padding, padding,
-            -1-padding, -1-padding)
+        rect.adjust(padding, padding, -1 - padding, -1 - padding)
         painter.drawRect(rect)

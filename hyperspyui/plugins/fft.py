@@ -40,64 +40,88 @@ def _is_complex_signals(signal, title):
             QMessageBox.Information,
             tr(title),
             tr("A complex signal is required."),
-            QMessageBox.Ok
-            )
+            QMessageBox.Ok,
+        )
         mb.exec_()
         return False
     return True
 
 
 class FFT_Plugin(Plugin):
-    name = 'FFT'
+    name = "FFT"
 
     def create_actions(self):
-        self.add_action('fft', "FFT", self.fft,
-                        icon='fft.svg',
-                        tip="Perform a fast fourier transform on the " +
-                        "active part of the signal",
-                        selection_callback=self.ui.select_signal)
+        self.add_action(
+            "fft",
+            "FFT",
+            self.fft,
+            icon="fft.svg",
+            tip="Perform a fast fourier transform on the "
+            + "active part of the signal",
+            selection_callback=self.ui.select_signal,
+        )
 
-        self.add_action('live_fft', "Live FFT", self.live_fft,
-                        icon='live_fft.svg',
-                        tip="Perform a fast fourier transform on the " +
-                        "active part of the signal, and link it to the " +
-                        "navigator",
-                        selection_callback=self.ui.select_signal)
+        self.add_action(
+            "live_fft",
+            "Live FFT",
+            self.live_fft,
+            icon="live_fft.svg",
+            tip="Perform a fast fourier transform on the "
+            + "active part of the signal, and link it to the "
+            + "navigator",
+            selection_callback=self.ui.select_signal,
+        )
 
-        self.add_action('ifft', "Inverse FFT", self.ifft,
-                        icon='ifft.svg',
-                        tip="Perform an inverse fast fourier transform on " +
-                            "the active part of the signal",
-                        selection_callback=self.ui.select_signal)
+        self.add_action(
+            "ifft",
+            "Inverse FFT",
+            self.ifft,
+            icon="ifft.svg",
+            tip="Perform an inverse fast fourier transform on "
+            + "the active part of the signal",
+            selection_callback=self.ui.select_signal,
+        )
 
-        self.add_action('get_real_image', "Real and imaginary",
-                        self.get_real_image,
-                        icon=None,
-                        tip="Decompose a fast fourier transformation result " +
-                        "into its real and imaginary part.",
-                        selection_callback=self.ui.select_signal)
+        self.add_action(
+            "get_real_image",
+            "Real and imaginary",
+            self.get_real_image,
+            icon=None,
+            tip="Decompose a fast fourier transformation result "
+            + "into its real and imaginary part.",
+            selection_callback=self.ui.select_signal,
+        )
 
-        self.add_action('get_amplitude_phase', "Amplitude and phase",
-                        self.get_amplitude_phase,
-                        icon=None,
-                        tip="Decompose a fast fourier transformation result " +
-                        "into its amplitude and phase.",
-                        selection_callback=self.ui.select_signal)
+        self.add_action(
+            "get_amplitude_phase",
+            "Amplitude and phase",
+            self.get_amplitude_phase,
+            icon=None,
+            tip="Decompose a fast fourier transformation result "
+            + "into its amplitude and phase.",
+            selection_callback=self.ui.select_signal,
+        )
 
     def create_menu(self):
-        self.add_menuitem("Math", self.ui.actions['fft'])
-        self.add_menuitem("Math", self.ui.actions['live_fft'])
-        self.add_menuitem("Math", self.ui.actions['ifft'])
-        self.add_menuitem("Math", self.ui.actions['get_real_image'])
-        self.add_menuitem("Math", self.ui.actions['get_amplitude_phase'])
+        self.add_menuitem("Math", self.ui.actions["fft"])
+        self.add_menuitem("Math", self.ui.actions["live_fft"])
+        self.add_menuitem("Math", self.ui.actions["ifft"])
+        self.add_menuitem("Math", self.ui.actions["get_real_image"])
+        self.add_menuitem("Math", self.ui.actions["get_amplitude_phase"])
 
     def create_toolbars(self):
-        self.add_toolbar_button("Math", self.ui.actions['fft'])
-        self.add_toolbar_button("Math", self.ui.actions['live_fft'])
-        self.add_toolbar_button("Math", self.ui.actions['ifft'])
+        self.add_toolbar_button("Math", self.ui.actions["fft"])
+        self.add_toolbar_button("Math", self.ui.actions["live_fft"])
+        self.add_toolbar_button("Math", self.ui.actions["ifft"])
 
-    def fft(self, signals=None, shift=True, power_spectrum=True, inverse=False,
-            on_complete=None):
+    def fft(
+        self,
+        signals=None,
+        shift=True,
+        power_spectrum=True,
+        inverse=False,
+        on_complete=None,
+    ):
         if signals is None:
             signals = self.ui.get_selected_signals()
         if isinstance(signals, hs.signals.BaseSignal):
@@ -128,15 +152,17 @@ class FFT_Plugin(Plugin):
 
         if len(signals) > 1:
             if inverse:
-                label = tr('Performing inverse FFT')
+                label = tr("Performing inverse FFT")
             else:
-                label = tr('Performing FFT')
-            t = ProgressThreaded(self.ui,
-                                 do_ffts(),
-                                 on_ffts_complete,
-                                 label=label,)
-                                 # This breaks the progress bar...
-                                 # generator_N=len(signals))
+                label = tr("Performing FFT")
+            t = ProgressThreaded(
+                self.ui,
+                do_ffts(),
+                on_ffts_complete,
+                label=label,
+            )
+            # This breaks the progress bar...
+            # generator_N=len(signals))
             t.run()
         else:
             for i in do_ffts():
@@ -165,19 +191,23 @@ class FFT_Plugin(Plugin):
         elif isinstance(s, hs.signals.Signal1D):
             roi = hs.roi.SpanROI()
         else:
-            mb = QMessageBox(QMessageBox.Information,
-                             tr("Live FFT"),
-                             tr("Only Signal2D and Signal1D are supported."),
-                             QMessageBox.Ok)
+            mb = QMessageBox(
+                QMessageBox.Information,
+                tr("Live FFT"),
+                tr("Only Signal2D and Signal1D are supported."),
+                QMessageBox.Ok,
+            )
             mb.exec_()
             return
 
         roi.add_widget(s)
         roi_signal = roi.interactive(s, recompute_out_event=False)
-        s_roi_fft = hs.interactive(roi_signal.fft,
-                                   event=roi.events.changed,
-                                   recompute_out_event=False,
-                                   shift=shift)
+        s_roi_fft = hs.interactive(
+            roi_signal.fft,
+            event=roi.events.changed,
+            recompute_out_event=False,
+            shift=shift,
+        )
 
         s_roi_fft.plot(power_spectrum=power_spectrum)
 
@@ -198,6 +228,6 @@ class FFT_Plugin(Plugin):
             signal = self.ui.get_selected_signal()
         if not _is_complex_signals(signal, title="Inverse FFT"):
             return
-            
+
         signal.amplitude.plot()
         signal.phase.plot()

@@ -23,11 +23,11 @@ Created on Sat Feb 28 17:52:42 2015
 
 import hyperspy.signal
 import hyperspy.events
+
 orig_signal = hyperspy.signal.BaseSignal
 
 
 class HookedSignal(orig_signal):
-
     def plot(self, *args, **kwargs):
         _on_plotting(self)
         r = super().plot(*args, **kwargs)
@@ -48,14 +48,17 @@ def dehook_signal():
     """
     hyperspy.signal.BaseSignal = orig_signal
 
+
 _plotting_cbs = hyperspy.events.Event(
     """Event that triggers right before BaseSignal.plot()
     """,
-    ('signal',))
+    ("signal",),
+)
 _plotted_cbs = hyperspy.events.Event(
     """Event that triggers right after BaseSignal.plot()
     """,
-    ('signal',))
+    ("signal",),
+)
 
 
 def _on_plotting(signal):

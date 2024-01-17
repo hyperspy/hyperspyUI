@@ -64,4 +64,4 @@ class LineMeasureTool(LineTool):
         return "Line measure"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/ruler.svg'
+        return os.path.dirname(__file__) + "/../images/ruler.svg"

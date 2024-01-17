@@ -45,7 +45,7 @@ __all__ = [
     "HomeTool",
     "ZoomPanTool",
     "GaussianTool",
-    ]
+]
 
 
 def __dir__():

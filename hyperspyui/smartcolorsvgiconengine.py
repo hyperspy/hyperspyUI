@@ -67,24 +67,22 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
         palette = QtWidgets.QApplication.palette()
         foreground = palette.color(QPalette.Active, QPalette.WindowText)
         background = palette.color(QPalette.Active, QPalette.Window)
-        disabled_foreground = palette.color(QPalette.Disabled,
-                                            QPalette.WindowText)
-        disabled_background = palette.color(QPalette.Disabled,
-                                            QPalette.Window)
+        disabled_foreground = palette.color(QPalette.Disabled, QPalette.WindowText)
+        disabled_background = palette.color(QPalette.Disabled, QPalette.Window)
         self._automatic_color_replacements = {
-            'default': {
-                b'#000000': foreground.name().encode('ascii'),
-                b'black': foreground.name().encode('ascii'),
-                b'#ffffff': background.name().encode('ascii'),
-                b'white': background.name().encode('ascii'),
-                },
-            'disabled': {
-                b'#000000': disabled_foreground.name().encode('ascii'),
-                b'black': disabled_foreground.name().encode('ascii'),
-                b'#ffffff': disabled_background.name().encode('ascii'),
-                b'white': disabled_background.name().encode('ascii'),
-                }
-            }
+            "default": {
+                b"#000000": foreground.name().encode("ascii"),
+                b"black": foreground.name().encode("ascii"),
+                b"#ffffff": background.name().encode("ascii"),
+                b"white": background.name().encode("ascii"),
+            },
+            "disabled": {
+                b"#000000": disabled_foreground.name().encode("ascii"),
+                b"black": disabled_foreground.name().encode("ascii"),
+                b"#ffffff": disabled_background.name().encode("ascii"),
+                b"white": disabled_background.name().encode("ascii"),
+            },
+        }
         self._palette_key = palette.cacheKey()
 
     def _make_cache_key(self, size, mode, state):
@@ -93,25 +91,26 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
         """
         return str(self) + str((size, mode, state))
 
-    def _replace_in_stream(self, filename, color_key='default'):
+    def _replace_in_stream(self, filename, color_key="default"):
         """Opens supplied SVG file, parses the file replacing colors according
         to the dictionary `color_replacements`. Returns a QByteArray of the
         processed content.
         """
         f_low = filename.lower()
-        if f_low.endswith('.svgz') or f_low.endswith('.svg.gz'):
+        if f_low.endswith(".svgz") or f_low.endswith(".svg.gz"):
             import gzip
-            with gzip.open(filename, 'rb') as svg_file:
+
+            with gzip.open(filename, "rb") as svg_file:
                 svg_cnt = svg_file.read()
         else:
-            with open(filename, 'rb') as svg_file:
+            with open(filename, "rb") as svg_file:
                 svg_cnt = svg_file.read()
 
         # Merge automatic and custom LUTs
         color_table = self._automatic_color_replacements.copy()
         color_table.update(self.custom_color_replacements)
         if color_key not in color_table:
-            color_key = 'default'
+            color_key = "default"
 
         # Perform replacement according to correct table
         for old, new in color_table[color_key].items():
@@ -121,8 +120,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
         return out
 
     def _loadDataForModeAndState(self, renderer, mode, state):
-        """Load SVG data to renderer.
-        """
+        """Load SVG data to renderer."""
         # First, try to load from a buffer if available.
         if (mode, state) in self._svgBuffers:
             buf = self._svgBuffers[(mode, state)]
@@ -142,7 +140,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
             elif self.default_key in self._svgFiles:
                 svgFile = self._svgFiles[self.default_key]
                 if mode == QtGui.QIcon.Disabled:
-                    renderer.load(self._replace_in_stream(svgFile, 'disabled'))
+                    renderer.load(self._replace_in_stream(svgFile, "disabled"))
                 else:
                     renderer.load(self._replace_in_stream(svgFile))
 
@@ -193,7 +191,9 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
         opt = QtWidgets.QStyleOption()
         opt.palette = QtWidgets.QApplication.palette()
         if self.use_qt_disabled or mode != QtGui.QIcon.Disabled:
-            generated = QtWidgets.QApplication.style().generatedIconPixmap(mode, pm, opt)
+            generated = QtWidgets.QApplication.style().generatedIconPixmap(
+                mode, pm, opt
+            )
             if generated is not None:
                 pm = generated
 
@@ -208,11 +208,10 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
     def addFile(self, fileName, size, mode, state):
         if fileName:
             abs = fileName
-            if fileName[0] != ':':
+            if fileName[0] != ":":
                 abs = QtCore.QFileInfo(fileName).absoluteFilePath()
             al = abs.lower()
-            if (al.endswith(".svg") or al.endswith(".svgz") or
-                    al.endswith(".svg.gz")):
+            if al.endswith(".svg") or al.endswith(".svgz") or al.endswith(".svg.gz"):
                 renderer = QtSvg.QSvgRenderer(abs)
                 if renderer.isValid():
                     self._svgFiles[(mode, state)] = abs
@@ -228,8 +227,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
         return SmartColorSVGIconEngine(other=self)
 
     def read(self, ds_in):
-
-        self._svgBuffers = {}    # QHash<int, QByteArray>
+        self._svgBuffers = {}  # QHash<int, QByteArray>
 
         if ds_in.version() >= QtCore.QDataStream.Qt_4_4:
             nfiles = ds_in.readInt()
@@ -265,8 +263,8 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
                 if ds_in.atEnd():
                     return False
                 ds_in >> pixmap
-                mode = ds_in.readUInt32() # noqa: F841
-                state = ds_in.readUInt32() # noqa: F841
+                mode = ds_in.readUInt32()  # noqa: F841
+                state = ds_in.readUInt32()  # noqa: F841
                 # The pm list written by 4.3 is buggy and/or useless, so ignore
                 # self._addPixmap(pixmap, QIcon.Mode(mode), QIcon.State(state))
 
@@ -278,7 +276,7 @@ class SmartColorSVGIconEngine(QtGui.QIconEngine):
             if self._svgBuffers:
                 svgBuffers = self._svgBuffers
             else:
-                svgBuffers = {}     # QHash<int, QByteArray>
+                svgBuffers = {}  # QHash<int, QByteArray>
             for key, v in self._svgFiles.items():
                 buf = QtCore.QByteArray()
                 f = QtCore.QFile(v)

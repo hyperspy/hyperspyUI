@@ -54,4 +54,5 @@ class AdvancedAction(QtWidgets.QAction):
         self._icon = icon
         super().setIcon(icon)
 
+
 AdvancedAction.__init__.__doc__ = QtWidgets.QAction.__init__.__doc__

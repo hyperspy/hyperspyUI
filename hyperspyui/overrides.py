@@ -33,7 +33,7 @@ def _on_figure_window_close(figure, function):
 
     """
     window = figure.canvas.manager.window
-    if not hasattr(figure, '_on_window_close'):
+    if not hasattr(figure, "_on_window_close"):
         figure._on_window_close = list()
     if function not in figure._on_window_close:
         figure._on_window_close.append(function)
@@ -43,8 +43,10 @@ def _on_figure_window_close(figure, function):
 
 def override_hyperspy():
     import hyperspy.drawing.utils
+
     hyperspy.drawing.utils.on_figure_window_close = _on_figure_window_close
-    
+
     from hyperspy.defaults_parser import preferences
+
     preferences.GUIs.enable_ipywidgets_gui = False
     preferences.GUIs.enable_traitsui_gui = True

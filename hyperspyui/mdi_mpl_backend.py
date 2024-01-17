@@ -119,8 +119,7 @@ def new_figure_manager(num, *args, **kwargs):
     """
     Create a new figure manager instance. MPL backend function.
     """
-    FigureClass = kwargs.pop(
-        'FigureClass', matplotlib.figure.Figure)
+    FigureClass = kwargs.pop("FigureClass", matplotlib.figure.Figure)
     thisFig = FigureClass(*args, **kwargs)
     return new_figure_manager_given_figure(num, thisFig)
 
@@ -145,6 +144,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
     different groups that can be treated separately, you will need to create
     your own QtWidgets.QActionGroups.
     """
+
     closing = QtCore.Signal()
 
     activeFigureActionGroup = QtWidgets.QActionGroup(None)
@@ -153,7 +153,7 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._activate_action = None
-        if API != 'pyside':
+        if API != "pyside":
             self.windowStateChanged.connect(self._windowStateChanged)
 
     def closeEvent(self, event):
@@ -192,10 +192,10 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
         if self.mdiArea():
             self.mdiArea().setActiveSubWindow(self)
         else:
-            self.activateWindow()   # If not subwindow
+            self.activateWindow()  # If not subwindow
 
         if self.isMinimized():
-            self.showNormal()   # Restore minimized window
+            self.showNormal()  # Restore minimized window
         if not checked:
             # User unchecked, which makes no sense, recheck
             self._activate_action.setChecked(1)
@@ -217,7 +217,7 @@ class FigureManagerMdi(FigureManagerBase):
 
     def __init__(self, canvas, num):
         self.window = FigureWindow()
-        with plt.rc_context({'toolbar':'None'}):
+        with plt.rc_context({"toolbar": "None"}):
             FigureManagerBase.__init__(self, canvas, num)
         self.window.closing.connect(self._widgetclosed)
 
@@ -228,9 +228,9 @@ class FigureManagerMdi(FigureManagerBase):
             # get_data_path was added in matplotlib 3.2.1
             # Remove this try, except block once we drop support for
             # matplotlib <3.2.1
-            datapath = matplotlib.rcParams['datapath']
+            datapath = matplotlib.rcParams["datapath"]
 
-        image = os.path.join(datapath, 'images', 'matplotlib.png')
+        image = os.path.join(datapath, "images", "matplotlib.png")
         self.window.setWindowIcon(QtGui.QIcon(image))
 
         # Give the keyboard focus to the figure instead of the
@@ -267,13 +267,15 @@ class FigureManagerMdi(FigureManagerBase):
             # This will be called whenever the current axes is changed
             if self.toolbar is not None:
                 self.toolbar.update()
+
         self.canvas.figure.add_axobserver(notify_axes_change)
 
     @QtCore.Slot()
     def _show_message(self, s):
         # Fixes a PySide segfault.
         print("Trying to show: " + s)
-#        self.window.statusBar().showMessage(s)
+
+    #        self.window.statusBar().showMessage(s)
 
     def full_screen_toggle(self):
         if self.window.isFullScreen():
@@ -287,7 +289,7 @@ class FigureManagerMdi(FigureManagerBase):
         plt.close(self.canvas.figure)
 
     def resize(self, width, height):
-        'set the canvas size in pixels'
+        "set the canvas size in pixels"
         self.window.resize(width, height + self._status_and_tool_height)
 
     def show(self):

@@ -36,13 +36,17 @@ class RebinPlugin(Plugin):
     name = "Rebin"
 
     def create_actions(self):
-        self.add_action('rebin', tr("Rebin"), self.rebin_dialog,
-                        icon='rebin.svg',
-                        selection_callback=self.ui.select_signal,
-                        tip=tr("Rebin the signal"))
+        self.add_action(
+            "rebin",
+            tr("Rebin"),
+            self.rebin_dialog,
+            icon="rebin.svg",
+            selection_callback=self.ui.select_signal,
+            tip=tr("Rebin the signal"),
+        )
 
     def create_menu(self):
-        self.add_menuitem('Signal', self.ui.actions['rebin'])
+        self.add_menuitem("Signal", self.ui.actions["rebin"])
 
     def rebin(self, factors, signal=None):
         if signal is None:
@@ -58,7 +62,7 @@ class RebinPlugin(Plugin):
             if ax.size % factor == 0:
                 mods[ax.index_in_array] = slice(None)
             else:
-                mods[ax.index_in_array] = slice(None, - (ax.size % factor))
+                mods[ax.index_in_array] = slice(None, -(ax.size % factor))
             shape.append(ax.size // factor)
         # Crop to multiple of factors
         s.data = s.data[tuple(mods)]
@@ -72,7 +76,7 @@ class RebinPlugin(Plugin):
         try:
             signal.replot()
         finally:
-            self.ui.setUpdatesEnabled(True)    # Always resume updates!
+            self.ui.setUpdatesEnabled(True)  # Always resume updates!
         self.record_code("<p>.rebin({0})".format(factors))
 
     def rebin_dialog(self, signal=None):
@@ -85,7 +89,6 @@ class RebinPlugin(Plugin):
 
 
 class RebinDialog(ExToolWindow):
-
     def __init__(self, signal, plugin, ui, parent):
         super().__init__(parent)
         self.signal = signal
@@ -116,8 +119,12 @@ class RebinDialog(ExToolWindow):
                     pm = tmpIcon.pixmap(iconSize, iconSize)
                     lbl = QtWidgets.QLabel()
                     lbl.setPixmap(pm)
-                    lbl.setToolTip(tr("Not a factor of shape. Input data " +
-                                      "will be trimmed before binning."))
+                    lbl.setToolTip(
+                        tr(
+                            "Not a factor of shape. Input data "
+                            + "will be trimmed before binning."
+                        )
+                    )
                     sp = lbl.sizePolicy()
                     sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Maximum)
                     lbl.setSizePolicy(sp)

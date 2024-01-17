@@ -22,9 +22,7 @@ from hyperspyui.widgets.signallist import SignalList
 
 
 class PickXSignalsWidget(QtWidgets.QWidget):
-
-    def __init__(self, signal_wrappers, x, parent=None, titles=None,
-                 wrap_col=4):
+    def __init__(self, signal_wrappers, x, parent=None, titles=None, wrap_col=4):
         super().__init__(parent)
         grid = QtWidgets.QGridLayout()
         self.pickers = []
@@ -36,13 +34,14 @@ class PickXSignalsWidget(QtWidgets.QWidget):
         elif isinstance(titles, str):
             titles = list((titles,) * x)
         elif len(titles) < x:
-            titles.extend(list(("",) * (x-len(titles))))
+            titles.extend(list(("",) * (x - len(titles))))
 
         for i in range(x):
             picker = SignalList(signal_wrappers, self, False)
-            grid.addWidget(QtWidgets.QLabel(titles[i]), 2*(i // wrap_col),
-                           i % wrap_col)
-            grid.addWidget(picker, 1 + 2*(i // wrap_col), i % wrap_col)
+            grid.addWidget(
+                QtWidgets.QLabel(titles[i]), 2 * (i // wrap_col), i % wrap_col
+            )
+            grid.addWidget(picker, 1 + 2 * (i // wrap_col), i % wrap_col)
             self.pickers.append(picker)
         self.setLayout(grid)
 

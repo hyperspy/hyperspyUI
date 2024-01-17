@@ -25,14 +25,13 @@ from hyperspyui._tools.figuretool import FigureTool
 
 
 class SignalFigureTool(FigureTool):
-
     def __init__(self, windows=None):
         super().__init__(windows)
 
     def _get_wrapper(self, figure):
         # We need to map figure to a hyperspy Signal:
         window = figure.canvas.parent()
-        sw = window.property('hyperspyUI.SignalWrapper')
+        sw = window.property("hyperspyUI.SignalWrapper")
         return sw
 
     def _get_signal(self, figure):
@@ -43,16 +42,14 @@ class SignalFigureTool(FigureTool):
 
     def _is_nav(self, event):
         sw = self._get_wrapper(event.inaxes.figure)
-        if (sw.signal._plot is not None and
-                sw.signal._plot.navigator_plot is not None):
+        if sw.signal._plot is not None and sw.signal._plot.navigator_plot is not None:
             nav_ax = sw.signal._plot.navigator_plot.ax
             return nav_ax == event.inaxes
         return False
 
     def _is_sig(self, event):
         sw = self._get_wrapper(event.inaxes.figure)
-        if (sw.signal._plot is not None and
-                sw.signal._plot.signal_plot is not None):
+        if sw.signal._plot is not None and sw.signal._plot.signal_plot is not None:
             sig_ax = sw.signal._plot.signal_plot.ax
             return sig_ax == event.inaxes
         return False

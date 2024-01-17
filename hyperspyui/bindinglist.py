@@ -51,25 +51,36 @@ class BindingList(list):
         self.add_target(target)
 
     def add_custom(self, target, append, insert, extend, remove, pop):
-        cb = {'ap': append, 'in': insert,
-              'ex': extend, 're': remove, 'po': pop}
+        cb = {"ap": append, "in": insert, "ex": extend, "re": remove, "po": pop}
         self.targets[target] = cb
 
     def add_target(self, target):
         if target is None:
             return
         elif isinstance(target, list):
-            cb = {'ap': target.append, 'in': target.insert,
-                  'ex': target.extend, 're': target.remove, 'po': target.pop}
+            cb = {
+                "ap": target.append,
+                "in": target.insert,
+                "ex": target.extend,
+                "re": target.remove,
+                "po": target.pop,
+            }
         elif isinstance(target, QtWidgets.QListWidget):
+
             def qlr(value):
                 target.takeItem(self.index(value))
-            cb = {'ap': target.addItem, 'in': target.insertItem,
-                  'ex': target.addItems, 're': qlr,
-                  'po': target.takeItem}
+
+            cb = {
+                "ap": target.addItem,
+                "in": target.insertItem,
+                "ex": target.addItems,
+                "re": qlr,
+                "po": target.takeItem,
+            }
         else:
-            raise TypeError("The argument `target` must be a of `list` or "
-                            "`QListWidget` type.")
+            raise TypeError(
+                "The argument `target` must be a of `list` or " "`QListWidget` type."
+            )
         self.targets[target] = cb
 
     def remove_target(self, target):
@@ -78,42 +89,42 @@ class BindingList(list):
     def append(self, object):
         super().append(object)
         for t in list(self.targets.values()):
-            if t['ap'] is not None:
-                t['ap'](object)
+            if t["ap"] is not None:
+                t["ap"](object)
 
     def insert(self, index, object):
         super().insert(index, object)
         for t in list(self.targets.values()):
-            if t['in'] is not None:
-                t['in'](index, object)
-            elif t['ap'] is not None:
-                t['ap'](object)
+            if t["in"] is not None:
+                t["in"](index, object)
+            elif t["ap"] is not None:
+                t["ap"](object)
 
     def extend(self, iterable):
         super().extend(iterable)
         for t in list(self.targets.values()):
-            if t['ex'] is not None:
-                t['ex'](iterable)
-            if t['ap'] is not None:
+            if t["ex"] is not None:
+                t["ex"](iterable)
+            if t["ap"] is not None:
                 for v in iterable:
-                    t['ap'](v)
+                    t["ap"](v)
 
     def remove(self, value):
         if value not in self:
             return
 
         for t in list(self.targets.values()):
-            if t['re'] is not None:
-                t['re'](value)
+            if t["re"] is not None:
+                t["re"](value)
         super().remove(value)
 
     def pop(self, index=-1):
         if index < 0:
             index = len(self) + index
         for t in list(self.targets.values()):
-            if t['po'] is not None:
-                t['po'](index)
-            elif t['re'] is not None:
+            if t["po"] is not None:
+                t["po"](index)
+            elif t["re"] is not None:
                 v = self[index]
-                t['re'](v)
+                t["re"](v)
         return super().pop(index)

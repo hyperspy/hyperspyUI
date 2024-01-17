@@ -51,24 +51,92 @@ class CMapPickerPlugin(Plugin):
 
 # Have colormaps separated into categories:
 # http://matplotlib.org/examples/color/colormaps_reference.html
-cmaps = [('Uniform',        ['viridis', 'inferno', 'plasma', 'magma']),
-         ('Sequential',     ['Blues', 'BuGn', 'BuPu',
-                             'GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd',
-                             'PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu',
-                             'Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd']),
-         ('Sequential (2)', ['afmhot', 'autumn', 'bone', 'cool',
-                             'copper', 'gist_heat', 'gray', 'hot',
-                             'pink', 'spring', 'summer', 'winter']),
-         ('Diverging',      ['BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr',
-                             'RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral',
-                             'seismic']),
-         ('Qualitative',    ['Accent', 'Dark2', 'Paired', 'Pastel1',
-                             'Pastel2', 'Set1', 'Set2', 'Set3']),
-         ('Miscellaneous',  ['gist_earth', 'terrain', 'ocean', 'gist_stern',
-                             'brg', 'CMRmap', 'cubehelix',
-                             'gnuplot', 'gnuplot2', 'gist_ncar',
-                             'nipy_spectral', 'jet', 'rainbow',
-                             'gist_rainbow', 'hsv', 'flag', 'prism'])]
+cmaps = [
+    ("Uniform", ["viridis", "inferno", "plasma", "magma"]),
+    (
+        "Sequential",
+        [
+            "Blues",
+            "BuGn",
+            "BuPu",
+            "GnBu",
+            "Greens",
+            "Greys",
+            "Oranges",
+            "OrRd",
+            "PuBu",
+            "PuBuGn",
+            "PuRd",
+            "Purples",
+            "RdPu",
+            "Reds",
+            "YlGn",
+            "YlGnBu",
+            "YlOrBr",
+            "YlOrRd",
+        ],
+    ),
+    (
+        "Sequential (2)",
+        [
+            "afmhot",
+            "autumn",
+            "bone",
+            "cool",
+            "copper",
+            "gist_heat",
+            "gray",
+            "hot",
+            "pink",
+            "spring",
+            "summer",
+            "winter",
+        ],
+    ),
+    (
+        "Diverging",
+        [
+            "BrBG",
+            "bwr",
+            "coolwarm",
+            "PiYG",
+            "PRGn",
+            "PuOr",
+            "RdBu",
+            "RdGy",
+            "RdYlBu",
+            "RdYlGn",
+            "Spectral",
+            "seismic",
+        ],
+    ),
+    (
+        "Qualitative",
+        ["Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3"],
+    ),
+    (
+        "Miscellaneous",
+        [
+            "gist_earth",
+            "terrain",
+            "ocean",
+            "gist_stern",
+            "brg",
+            "CMRmap",
+            "cubehelix",
+            "gnuplot",
+            "gnuplot2",
+            "gist_ncar",
+            "nipy_spectral",
+            "jet",
+            "rainbow",
+            "gist_rainbow",
+            "hsv",
+            "flag",
+            "prism",
+        ],
+    ),
+]
 
 
 class CMapDelegate(QtWidgets.QItemDelegate):
@@ -96,7 +164,6 @@ class CMapDelegate(QtWidgets.QItemDelegate):
         return QtGui.QPixmap.fromImage(im)
 
     def paint(self, painter, option, index):
-
         kind = index.data(Qt.AccessibleDescriptionRole)
         if kind == "parent":
             option.state |= QtWidgets.QStyle.State_Enabled
@@ -104,8 +171,12 @@ class CMapDelegate(QtWidgets.QItemDelegate):
         else:
             option.textElideMode = Qt.ElideNone
             rect = option.rect
-            rect = QtCore.QRect(rect.x()+self.cmap_shift, rect.y(),
-                                rect.width()-self.cmap_shift, rect.height())
+            rect = QtCore.QRect(
+                rect.x() + self.cmap_shift,
+                rect.y(),
+                rect.width() - self.cmap_shift,
+                rect.height(),
+            )
             option.rect.setLeft(option.rect.x() + 10)
             super().paint(painter, option, index)
 
@@ -124,7 +195,6 @@ class CMapDelegate(QtWidgets.QItemDelegate):
 
 
 class CMapPickerWidget(FigureWidget):
-
     def __init__(self, main_window, parent, figure=None):
         super().__init__(main_window, parent)
         self.setWindowTitle(tr("Colormap Picker"))

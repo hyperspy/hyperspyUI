@@ -40,14 +40,15 @@ class MetadataEditor(Plugin):
         self.editors = {}
 
     def create_actions(self):
-        self.add_action(self.name + '.view_metadata',
-                        tr("View metadata"),
-                        self.edit_metadata,
-                        tip=tr("View/edit signal meatadata"))
+        self.add_action(
+            self.name + ".view_metadata",
+            tr("View metadata"),
+            self.edit_metadata,
+            tip=tr("View/edit signal meatadata"),
+        )
 
     def create_menu(self):
-        self.add_menuitem(
-            'Signal', self.ui.actions[self.name + '.view_metadata'])
+        self.add_menuitem("Signal", self.ui.actions[self.name + ".view_metadata"])
 
     def _on_close(self, signal):
         self.editors.pop(signal)
@@ -74,7 +75,6 @@ class MetadataEditor(Plugin):
 
 
 class MetadataTreeWidget(QtWidgets.QTreeView):
-
     def __init__(self, signal, parent=None):
         super().__init__(parent)
         self.signal = signal
@@ -83,10 +83,10 @@ class MetadataTreeWidget(QtWidgets.QTreeView):
         self.setAlternatingRowColors(True)
         self.setColumnWidth(0, 300)
         self.setColumnWidth(0, 300)
-#        self.setEditTriggers(
-#            QAbstractItemView.DoubleClicked |
-#            QAbstractItemView.SelectedClicked |
-#            QAbstractItemView.EditKeyPressed)
+        #        self.setEditTriggers(
+        #            QAbstractItemView.DoubleClicked |
+        #            QAbstractItemView.SelectedClicked |
+        #            QAbstractItemView.EditKeyPressed)
         # Expand 'metadata' by default
         self.expand(self._model.index(0, 0))
 
@@ -102,6 +102,7 @@ class MetadataTreeWidget(QtWidgets.QTreeView):
 # This software is licensed under the "GPLv3" License as described in the
 # "LICENSE" file, which should be included with this package. The terms are
 # also available at http://www.gnu.org/licenses/gpl-3.0.html
+
 
 class MetadataNode:
     def __init__(self, model, parent, name, ref, row):
@@ -145,13 +146,12 @@ class MetadataNode:
 
 
 class MetadataModel(QtCore.QAbstractItemModel):
-
     def __init__(self, signal, parent=None):
         super().__init__(parent=parent)
         self.nodes = [
-            MetadataNode(self, None, 'metadata', signal.metadata, 0),
-            MetadataNode(self, None, 'original_metadata',
-                         signal.original_metadata, 1)]
+            MetadataNode(self, None, "metadata", signal.metadata, 0),
+            MetadataNode(self, None, "original_metadata", signal.original_metadata, 1),
+        ]
 
     def index(self, row, column, parent=None):
         if parent and parent.isValid():
@@ -197,8 +197,7 @@ class MetadataModel(QtCore.QAbstractItemModel):
         if role in (Qt.DisplayRole, Qt.EditRole):
             if index.column() == 0:
                 return node.name
-            if (index.column() == 1 and
-                    not isinstance(node.ref, DictionaryTreeBrowser)):
+            if index.column() == 1 and not isinstance(node.ref, DictionaryTreeBrowser):
                 return str(node.ref)
         elif role == Qt.CheckStateRole:
             if index.column() == 1 and isinstance(node.ref, bool):
@@ -240,9 +239,9 @@ class MetadataModel(QtCore.QAbstractItemModel):
     def headerData(self, column, orientation, role):
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
             if column == 0:
-                return 'Key'
+                return "Key"
             elif column == 1:
-                return 'Value'
+                return "Value"
         return None
 
     def reset(self):

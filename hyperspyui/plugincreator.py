@@ -67,20 +67,19 @@ default = """
 """
 
 
-def indent(lines, amount, ch=' '):
+def indent(lines, amount, ch=" "):
     padding = amount * ch
-    return padding + ('\n' + padding).join(lines.split('\n'))
+    return padding + ("\n" + padding).join(lines.split("\n"))
 
 
 def suggest_plugin_filename(name):
-    filename = name.lower() + '.py'
+    filename = name.lower() + ".py"
     dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
     path = dirname + os.path.sep + filename
     return path
 
 
-def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
-                       icon=None):
+def create_plugin_code(code, name, category=None, menu=False, toolbar=False, icon=None):
     """Create a plugin with an action that will execute 'code' when triggered.
     If 'menu' and/or 'toolbar' is True, the corresponding items will be added
     for the action.
@@ -105,17 +104,20 @@ def create_plugin_code(code, name, category=None, menu=False, toolbar=False,
     plugin_code += default.format(code)
     try:
         import autopep8
-        plugin_code = autopep8.fix_code(plugin_code,
-                                        options=autopep8.parse_args(
-                                         ['--aggressive', '--aggressive', '']))
+
+        plugin_code = autopep8.fix_code(
+            plugin_code,
+            options=autopep8.parse_args(["--aggressive", "--aggressive", ""]),
+        )
     except ImportError:
         # in case autopep8 is not installed
         pass
     return plugin_code
 
 
-def create_plugin_file(code, name, category=None, menu=False, toolbar=False,
-                       filename=None):
+def create_plugin_file(
+    code, name, category=None, menu=False, toolbar=False, filename=None
+):
     """Create a plugin with an action that will execute 'code' when triggered.
     If 'menu' and/or 'toolbar' is True, the corresponding items will be added
     for the action.
@@ -128,6 +130,6 @@ def create_plugin_file(code, name, category=None, menu=False, toolbar=False,
         dirname = os.path.dirname(hyperspyui.plugins.plugin.__file__)
         path = dirname + os.path.sep + filename
 
-    with open(path, 'w') as f:
+    with open(path, "w") as f:
         f.write(create_plugin_code(code, name, category, menu, toolbar))
     return path

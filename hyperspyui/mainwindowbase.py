@@ -23,7 +23,8 @@ Created on Mon Oct 27 21:17:42 2014
 
 # Set proper backend for matplotlib
 import matplotlib
-matplotlib.use('module://hyperspyui.mdi_mpl_backend')
+
+matplotlib.use("module://hyperspyui.mdi_mpl_backend")
 matplotlib.interactive(True)
 
 import warnings
@@ -42,6 +43,8 @@ def myexcepthook(exctype, value, traceback):
         logger.info("User cancelled operation")
     else:
         sys.__excepthook__(exctype, value, traceback)
+
+
 sys.excepthook = myexcepthook
 
 
@@ -50,9 +53,9 @@ def tr(text):
 
 
 def lowpriority():
-    """ Set the priority of the process to below-normal."""
+    """Set the priority of the process to below-normal."""
 
-    if sys.platform == 'win32':
+    if sys.platform == "win32":
         # Based on:
         #   "Recipe 496767: Set Process Priority In Windows" on ActiveState
         #   http://code.activestate.com/recipes/496767/
@@ -66,8 +69,7 @@ def lowpriority():
 
         pid = win32api.GetCurrentProcessId()
         handle = win32api.OpenProcess(win32con.PROCESS_ALL_ACCESS, True, pid)
-        win32process.SetPriorityClass(
-            handle, win32process.BELOW_NORMAL_PRIORITY_CLASS)
+        win32process.SetPriorityClass(handle, win32process.BELOW_NORMAL_PRIORITY_CLASS)
     else:
         import os
 
@@ -76,9 +78,9 @@ def lowpriority():
 
 
 def normalpriority():
-    """ Set the priority of the process to normal."""
+    """Set the priority of the process to normal."""
 
-    if sys.platform == 'win32':
+    if sys.platform == "win32":
         # Based on:
         #   "Recipe 496767: Set Process Priority In Windows" on ActiveState
         #   http://code.activestate.com/recipes/496767/
@@ -92,8 +94,7 @@ def normalpriority():
 
         pid = win32api.GetCurrentProcessId()
         handle = win32api.OpenProcess(win32con.PROCESS_ALL_ACCESS, True, pid)
-        win32process.SetPriorityClass(
-            handle, win32process.NORMAL_PRIORITY_CLASS)
+        win32process.SetPriorityClass(handle, win32process.NORMAL_PRIORITY_CLASS)
     else:
         import os
 
@@ -120,16 +121,17 @@ class MainWindowBase(QtWidgets.QMainWindow):
         from hyperspyui.settings import Settings
 
         # Setup settings:
-        self.settings = Settings(self, 'General')
+        self.settings = Settings(self, "General")
         # Default setting values:
-        self.settings.set_default('toolbar_button_size', 24)
-        self.settings.set_default('default_widget_floating', False)
-        self.settings.set_default('working_directory', "")
-        self.settings.set_default('low_process_priority', False)
+        self.settings.set_default("toolbar_button_size", 24)
+        self.settings.set_default("default_widget_floating", False)
+        self.settings.set_default("working_directory", "")
+        self.settings.set_default("low_process_priority", False)
         # Override any possible invalid stored values, which could prevent load
-        if 'toolbar_button_size' not in self.settings or \
-                not isinstance(self.settings['toolbar_button_size'], int):
-            self.settings['toolbar_button_size'] = 24
+        if "toolbar_button_size" not in self.settings or not isinstance(
+            self.settings["toolbar_button_size"], int
+        ):
+            self.settings["toolbar_button_size"] = 24
         if self.low_process_priority:
             lowpriority()
 
@@ -138,9 +140,9 @@ class MainWindowBase(QtWidgets.QMainWindow):
         self.active_tool = None
 
         # Collections
-        self.widgets = []   # Widgets in widget bar
-        self.figures = []   # Matplotlib figures
-        self.editors = []   # EditorWidgets
+        self.widgets = []  # Widgets in widget bar
+        self.figures = []  # Matplotlib figures
+        self.editors = []  # EditorWidgets
         self.traits_dialogs = []
         self.actions = {}
         self._action_selection_cbs = {}
@@ -161,12 +163,12 @@ class MainWindowBase(QtWidgets.QMainWindow):
         self.main_frame.subWindowActivated.connect(self.on_subwin_activated)
 
         # Save standard layout/state
-        self.settings.set_default('_geometry', self.saveGeometry())
-        self.settings.set_default('_windowState', self.saveState())
+        self.settings.set_default("_geometry", self.saveGeometry())
+        self.settings.set_default("_windowState", self.saveState())
 
         # Restore layout/state if saved
-        geometry = self.settings['_geometry']
-        state = self.settings['_windowState']
+        geometry = self.settings["_geometry"]
+        state = self.settings["_windowState"]
         if geometry:
             self.restoreGeometry(geometry)
         if state:
@@ -174,32 +176,33 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     @property
     def toolbar_button_size(self):
-        return self.settings['toolbar_button_size', int]
+        return self.settings["toolbar_button_size", int]
 
     @toolbar_button_size.setter
     def toolbar_button_size(self, value):
-        self.settings['toolbar_button_size'] = value
+        self.settings["toolbar_button_size"] = value
         self._update_icon_size()
 
     def _update_icon_size(self):
         self.setIconSize(
-            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
+            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size)
+        )
 
     @property
     def cur_dir(self):
-        return self.settings['working_directory'] or ''
+        return self.settings["working_directory"] or ""
 
     @cur_dir.setter
     def cur_dir(self, value):
-        self.settings['working_directory'] = value
+        self.settings["working_directory"] = value
 
     @property
     def low_process_priority(self):
-        return self.settings['low_process_priority', bool]
+        return self.settings["low_process_priority", bool]
 
     @low_process_priority.setter
     def low_process_priority(self, value):
-        self.settings['low_process_priority'] = value
+        self.settings["low_process_priority"] = value
         self._set_low_process_priority(value)
 
     @staticmethod
@@ -215,20 +218,19 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def handleSecondInstance(self, argv):
         # overload if needed
-        self.setWindowState(self.windowState() & ~Qt.WindowMinimized |
-                            Qt.WindowActive)
+        self.setWindowState(self.windowState() & ~Qt.WindowMinimized | Qt.WindowActive)
         self.activateWindow()
 
     def closeEvent(self, event):
-        self.settings['_geometry'] = self.saveGeometry()
-        self.settings['_windowState'] = self.saveState()
+        self.settings["_geometry"] = self.saveGeometry()
+        self.settings["_windowState"] = self.saveState()
         return super().closeEvent(event)
 
     def reset_geometry(self):
-        self.settings.restore_key_default('_geometry')
-        self.settings.restore_key_default('_windowState')
-        geometry = self.settings['_geometry']
-        state = self.settings['_windowState']
+        self.settings.restore_key_default("_geometry")
+        self.settings.restore_key_default("_windowState")
+        geometry = self.settings["_geometry"]
+        state = self.settings["_windowState"]
         if geometry:
             self.restoreGeometry(geometry)
         if state:
@@ -237,7 +239,8 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def create_ui(self):
         self.setIconSize(
-            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size))
+            QtCore.QSize(self.toolbar_button_size, self.toolbar_button_size)
+        )
         self.main_frame = QtWidgets.QMdiArea()
 
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
@@ -247,7 +250,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         self.init_plugins()
 
         self.set_splash("Creating default actions")
-        self.create_default_actions()   # Goes before menu/toolbar/widgetbar
+        self.create_default_actions()  # Goes before menu/toolbar/widgetbar
 
         # Needs to go before menu, so console can be in menu
         self.set_splash("Creating console")
@@ -264,9 +267,10 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     def init_plugins(self):
         from .pluginmanager import PluginManager
+
         self.plugin_manager = PluginManager(self)
         # Disable Version selector plugin until it is fixed
-        self.plugin_manager.enabled_store['Version selector'] = False
+        self.plugin_manager.enabled_store["Version selector"] = False
         self.plugin_manager.init_plugins()
 
     def create_default_actions(self):
@@ -286,54 +290,51 @@ class MainWindowBase(QtWidgets.QMainWindow):
         ac_nested.setCheckable(True)
         ac_nested.setChecked(int(self.isDockNestingEnabled()))
         ac_nested.triggered[bool].connect(self.setDockNestingEnabled)
-        self.actions['nested_docking'] = ac_nested
+        self.actions["nested_docking"] = ac_nested
 
         # Tile windows action
         ac_tile = QtWidgets.QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
         ac_tile.triggered.connect(self.main_frame.tileSubWindows)
-        self.actions['tile_windows'] = ac_tile
+        self.actions["tile_windows"] = ac_tile
 
         # Cascade windows action
         ac_cascade = QtWidgets.QAction(tr("Cascade"), self)
-        ac_cascade.setStatusTip(
-            tr("Arranges all figures in a cascade pattern"))
+        ac_cascade.setStatusTip(tr("Arranges all figures in a cascade pattern"))
         ac_cascade.triggered.connect(self.main_frame.cascadeSubWindows)
-        self.actions['cascade_windows'] = ac_cascade
+        self.actions["cascade_windows"] = ac_cascade
 
         # Close all figures action
         ac_close_figs = QtWidgets.QAction(tr("Close all"), self)
         ac_close_figs.setStatusTip(tr("Closes all matplotlib figures"))
         ac_close_figs.triggered.connect(lambda: matplotlib.pyplot.close("all"))
-        self.actions['close_all_windows'] = ac_close_figs
+        self.actions["close_all_windows"] = ac_close_figs
 
         # Reset geometry action
         ac_reset_layout = QtWidgets.QAction(tr("Reset layout"), self)
-        ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and "
-                                        "widgets"))
+        ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and " "widgets"))
         ac_reset_layout.triggered.connect(self.reset_geometry)
-        self.actions['reset_layout'] = ac_reset_layout
+        self.actions["reset_layout"] = ac_reset_layout
 
     def create_menu(self):
         mb = self.menuBar()
         # Window menu is filled in add_widget and add_figure
         self.windowmenu = mb.addMenu(tr("&Windows"))
         self.windowmenu.addAction(self._console_dock.toggleViewAction())
-        self.windowmenu.addAction(self.actions['nested_docking'])
+        self.windowmenu.addAction(self.actions["nested_docking"])
         # Figure windows go below this separator. Other windows can be added
         # above it with insertAction(self.windowmenu_sep, QAction)
         self.windowmenu_sep = self.windowmenu.addSeparator()
-        self.windowmenu.addAction(self.actions['tile_windows'])
-        self.windowmenu.addAction(self.actions['cascade_windows'])
+        self.windowmenu.addAction(self.actions["tile_windows"])
+        self.windowmenu.addAction(self.actions["cascade_windows"])
         self.windowmenu.addSeparator()
-        self.windowmenu.addAction(self.actions['close_all_windows'])
+        self.windowmenu.addAction(self.actions["close_all_windows"])
         self.windowmenu_actions_sep = self.windowmenu.addSeparator()
 
         self.plugin_manager.create_menu()
 
     def create_tools(self):
-        """Override to create tools on UI construction.
-        """
+        """Override to create tools on UI construction."""
         self.plugin_manager.create_tools()
 
     def create_toolbars(self):
@@ -358,6 +359,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         Shows a dialog for editing the application and plugins settings.
         """
         from hyperspyui.widgets.settingsdialog import SettingsDialog
+
         d = SettingsDialog(self, self)
         d.settings_changed.connect(self.on_settings_changed)
         d.exec_()
@@ -375,8 +377,9 @@ class MainWindowBase(QtWidgets.QMainWindow):
             try:
                 self.active_tool.disconnect_windows(self.figures)
             except Exception as e:
-                warnings.warn("Exception disabling tool %s: %s" % (
-                    self.active_tool.get_name(), e))
+                warnings.warn(
+                    "Exception disabling tool %s: %s" % (self.active_tool.get_name(), e)
+                )
         self.active_tool = tool
         tool.connect_windows(self.figures)
 
@@ -414,7 +417,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
     # --------- End MPL Events ---------
 
     def on_subwin_activated(self, mdi_figure):
-        if mdi_figure and API == 'pyside':
+        if mdi_figure and API == "pyside":
             mdi_figure.activateAction().setChecked(1)
         self.check_action_selections(mdi_figure)
 
@@ -426,14 +429,13 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
     # --------- End figure management ---------
 
-
     # --------- Console functions ---------
 
     def _get_console_exec(self):
         return ""
 
     def _get_console_exports(self):
-        return {'ui': self}
+        return {"ui": self}
 
     def _get_console_config(self):
         return None
@@ -456,13 +458,12 @@ class MainWindowBase(QtWidgets.QMainWindow):
         # and then drop route when it finishes, however this will not catch
         # interactive dialogs and such.
         c = self._get_console_config()
-        self.settings.set_default('console_completion_type', 'droplist')
+        self.settings.set_default("console_completion_type", "droplist")
         valid_completions = ConsoleWidget.gui_completion.values
-        self.settings.set_enum_hint('console_completion_type',
-                                    valid_completions)
-        gui_completion = self.settings['console_completion_type']
+        self.settings.set_enum_hint("console_completion_type", valid_completions)
+        gui_completion = self.settings["console_completion_type"]
         if gui_completion not in valid_completions:
-            gui_completion = 'droplist'
+            gui_completion = "droplist"
         control = ConsoleWidget(config=c, gui_completion=gui_completion)
         control.executing.connect(self.on_console_executing)
         control.executed.connect(self.on_console_executed)
@@ -476,6 +477,6 @@ class MainWindowBase(QtWidgets.QMainWindow):
         self.console = control
 
         self._console_dock = QtWidgets.QDockWidget("Console")
-        self._console_dock.setObjectName('console_widget')
+        self._console_dock.setObjectName("console_widget")
         self._console_dock.setWidget(control)
         self.addDockWidget(Qt.BottomDockWidgetArea, self._console_dock)

@@ -1,11 +1,14 @@
-
 import matplotlib
-matplotlib.use('module://hyperspyui.mdi_mpl_backend')
+
+matplotlib.use("module://hyperspyui.mdi_mpl_backend")
 matplotlib.interactive(True)
 
 from hyperspyui.mdi_mpl_backend import (
-    connect_on_new_figure, disconnect_on_new_figure,
-    connect_on_destroy, disconnect_on_destroy)
+    connect_on_new_figure,
+    disconnect_on_new_figure,
+    connect_on_destroy,
+    disconnect_on_destroy,
+)
 
 import matplotlib.pyplot as plt
 

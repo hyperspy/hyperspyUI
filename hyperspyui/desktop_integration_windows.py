@@ -34,18 +34,20 @@ except Exception:
 
 
 def run_desktop_integration_windows(args):
-
-    def create_shortcut(path, description, filename,
-                        arguments="", workdir="", iconpath="",
-                        iconindex=0):
-        with open(filename, 'a'):
-            pass    # Touch
+    def create_shortcut(
+        path, description, filename, arguments="", workdir="", iconpath="", iconindex=0
+    ):
+        with open(filename, "a"):
+            pass  # Touch
         import pythoncom
         from win32com.shell import shell
 
         ilink = pythoncom.CoCreateInstance(
-            shell.CLSID_ShellLink, None,
-            pythoncom.CLSCTX_INPROC_SERVER, shell.IID_IShellLink)
+            shell.CLSID_ShellLink,
+            None,
+            pythoncom.CLSCTX_INPROC_SERVER,
+            shell.IID_IShellLink,
+        )
         ilink.SetPath(path)
         ilink.SetDescription(description)
         if arguments:
@@ -77,56 +79,62 @@ def run_desktop_integration_windows(args):
 
     shortcut_filename = "HyperSpyUI.lnk"
     import hyperspyui
+
     dirname = os.path.dirname(hyperspyui.__file__)
     script_path = os.path.join(dirname, "__main__.py")
-    icon_path = os.path.join(dirname, 'images', 'icon', 'hyperspy.ico')
+    icon_path = os.path.join(dirname, "images", "icon", "hyperspy.ico")
 
     if args.remove:
-        pass    # Should we delete registry entries? Maybe if not edited?
+        pass  # Should we delete registry entries? Maybe if not edited?
     else:
         if not args.no_shortcuts:
             # Get paths to the desktop and start menu
-            print('Creating Shortcuts')
+            print("Creating Shortcuts")
             try:
-                desktop_path = get_special_folder_path(
-                    "CSIDL_COMMON_DESKTOPDIRECTORY")
-                startmenu_path = get_special_folder_path(
-                    "CSIDL_COMMON_STARTMENU")
+                desktop_path = get_special_folder_path("CSIDL_COMMON_DESKTOPDIRECTORY")
+                startmenu_path = get_special_folder_path("CSIDL_COMMON_STARTMENU")
 
                 # Create shortcuts.
                 for path in [desktop_path, startmenu_path]:
-                    create_shortcut(pyw_executable,
-                                    "A Graphical interface for HyperSpy",
-                                    os.path.join(path, shortcut_filename),
-                                    '"%s"' % script_path,
-                                    sys.prefix,
-                                    icon_path)
+                    create_shortcut(
+                        pyw_executable,
+                        "A Graphical interface for HyperSpy",
+                        os.path.join(path, shortcut_filename),
+                        '"%s"' % script_path,
+                        sys.prefix,
+                        icon_path,
+                    )
             except IOError:
                 # Try again with user folders
-                desktop_path = get_special_folder_path(
-                    "CSIDL_DESKTOPDIRECTORY")
+                desktop_path = get_special_folder_path("CSIDL_DESKTOPDIRECTORY")
                 startmenu_path = get_special_folder_path("CSIDL_STARTMENU")
 
                 # Create shortcuts.
                 for path in [desktop_path, startmenu_path]:
-                    create_shortcut(pyw_executable,
-                                    "A Graphical interface for HyperSpy",
-                                    os.path.join(path, shortcut_filename),
-                                    '"%s"' % script_path,
-                                    sys.prefix,
-                                    icon_path)
+                    create_shortcut(
+                        pyw_executable,
+                        "A Graphical interface for HyperSpy",
+                        os.path.join(path, shortcut_filename),
+                        '"%s"' % script_path,
+                        sys.prefix,
+                        icon_path,
+                    )
 
         exclude_formats = [
-            "netCDF", # old HyperSpy format.
-            "Signal2D", # don't register it to open standard images
-            "Protochips", # extension is csv
-            ]
+            "netCDF",  # old HyperSpy format.
+            "Signal2D",  # don't register it to open standard images
+            "Protochips",  # extension is csv
+        ]
         filetypes = []
         for plugin in IO_PLUGINS:
             # Try first with attribute (HyperSpy <2.0), fallback with dictionary (RosettaSciIO)
-            format_name = getattr(plugin, 'format_name', plugin['name'])
-            file_extensions = getattr(plugin, 'file_extensions', plugin['file_extensions'])
-            default_extension = getattr(plugin, 'default_extension', plugin['default_extension'])
+            format_name = getattr(plugin, "format_name", plugin["name"])
+            file_extensions = getattr(
+                plugin, "file_extensions", plugin["file_extensions"]
+            )
+            default_extension = getattr(
+                plugin, "default_extension", plugin["default_extension"]
+            )
             if format_name not in exclude_formats:
                 defext = file_extensions[default_extension]
                 filetypes.append("." + defext)
@@ -144,29 +152,34 @@ def run_desktop_integration_windows(args):
             cmds = []
             if r == 0:  # Everything OK, we're admin. Use ASSOC and FTYPE
                 for ft in filetypes:
-                    cmds.append(r'1>nul 2>nul ASSOC %s=%s' % (ft, docname))
-                cmds.append(r'1>nul 2>nul FTYPE ' +
-                            r'{0}="{1}" "'.format(docname, pyw_executable) +
-                            d + r'\__main__.py" "%1" %*')
+                    cmds.append(r"1>nul 2>nul ASSOC %s=%s" % (ft, docname))
+                cmds.append(
+                    r"1>nul 2>nul FTYPE "
+                    + r'{0}="{1}" "'.format(docname, pyw_executable)
+                    + d
+                    + r'\__main__.py" "%1" %*'
+                )
             else:
                 # Not admin. We have to add everything to HKCU manually
-                cmd = (r'1>nul 2>nul REG ADD ' +
-                       r'"HKCU\Software\Classes\%s\DefaultIcon"' % docname) + \
-                       r' /t REG_SZ /f /d "'
+                cmd = (
+                    r"1>nul 2>nul REG ADD "
+                    + r'"HKCU\Software\Classes\%s\DefaultIcon"' % docname
+                ) + r' /t REG_SZ /f /d "'
                 cmd += d + r'\images\icon\hyperspy.ico"'
                 cmds.append(cmd)
                 for ft in filetypes:
                     cmds.append(
-                        (r'1>nul 2>nul REG ADD "HKCU\Software\Classes\%s" ' %
-                         ft) +
-                        (r'/v "" /t REG_SZ /d "%s" /f' % docname))
+                        (r'1>nul 2>nul REG ADD "HKCU\Software\Classes\%s" ' % ft)
+                        + (r'/v "" /t REG_SZ /d "%s" /f' % docname)
+                    )
                 cmds.append(
-                    r'1>nul 2>nul REG ADD ' +
-                    (r'"HKCU\Software\Classes\%s\shell\open\command"' %
-                     docname) +
-                    r' /v "" /t REG_EXPAND_SZ /d ' +
-                    (r'"\"%s\" "' % pyw_executable) +
-                    d + r'\__main__.py" \"%1\" %*" /f')
+                    r"1>nul 2>nul REG ADD "
+                    + (r'"HKCU\Software\Classes\%s\shell\open\command"' % docname)
+                    + r' /v "" /t REG_EXPAND_SZ /d '
+                    + (r'"\"%s\" "' % pyw_executable)
+                    + d
+                    + r'\__main__.py" \"%1\" %*" /f'
+                )
 
             for cmd in cmds:
                 subprocess.call(cmd, shell=True)

@@ -34,7 +34,7 @@ def tr(text):
 
 # =============================================================================
 # Check that we have a valid writer
-writer = mpl.rcParams['animation.writer']
+writer = mpl.rcParams["animation.writer"]
 writers = animation.writers
 if writers.is_available(writer):
     writer = writers[writer]()
@@ -44,9 +44,11 @@ else:
     try:
         writer = writers[writers.list()[0]]()
     except IndexError:
-        raise ValueError("Cannot save animation: no writers are "
-                         "available. Please install mencoder or "
-                         "ffmpeg to save animations.")
+        raise ValueError(
+            "Cannot save animation: no writers are "
+            "available. Please install mencoder or "
+            "ffmpeg to save animations."
+        )
 del writer
 # =============================================================================
 
@@ -55,19 +57,19 @@ class MovieSaver(Plugin):
     name = "Movie Saver"
 
     def create_actions(self):
-        self.add_action(self.name + '.save', self.name, self.save,
-                        icon="../images/video.svg",
-                        tip="")
+        self.add_action(
+            self.name + ".save",
+            self.name,
+            self.save,
+            icon="../images/video.svg",
+            tip="",
+        )
 
     def create_menu(self):
-        self.add_menuitem('File', self.ui.actions[self.name + '.save'])
+        self.add_menuitem("File", self.ui.actions[self.name + ".save"])
 
     def create_toolbars(self):
-        self.add_toolbar_button(
-            'File',
-            self.ui.actions[
-                self.name +
-                '.save'])
+        self.add_toolbar_button("File", self.ui.actions[self.name + ".save"])
 
     def save(self, wrapper=None, fps=None, fname=None, dpi=None):
         if wrapper is None:
@@ -93,27 +95,29 @@ class MovieSaver(Plugin):
                 extra = None
             if dlg.chk_verbose.isChecked():
                 old_verbose = mpl.verbose.level
-                mpl.verbose.level = 'debug'
+                mpl.verbose.level = "debug"
                 if extra:
-                    extra.extend(['-v', 'debug'])
+                    extra.extend(["-v", "debug"])
                 else:
-                    extra = ['-v', 'debug']
+                    extra = ["-v", "debug"]
             metadata = signal.metadata.as_dictionary()
-            writer = mpl.rcParams['animation.writer']
+            writer = mpl.rcParams["animation.writer"]
             writers = animation.writers
             if writer in writers.avail:
-                writer = writers[writer](fps=fps, metadata=metadata,
-                                         codec=codec, extra_args=extra)
+                writer = writers[writer](
+                    fps=fps, metadata=metadata, codec=codec, extra_args=extra
+                )
             else:
                 warnings.warn(f"MovieWriter {writer} unavailable")
 
                 try:
-                    writer = writers[writers.list()[0]](fps=fps,
-                                                        metadata=metadata)
+                    writer = writers[writers.list()[0]](fps=fps, metadata=metadata)
                 except IndexError:
-                    raise ValueError("Cannot save animation: no writers are "
-                                     "available. Please install mencoder or "
-                                     "ffmpeg to save animations.")
+                    raise ValueError(
+                        "Cannot save animation: no writers are "
+                        "available. Please install mencoder or "
+                        "ffmpeg to save animations."
+                    )
 
             fname = dlg.edt_fname.text()
             dpi = dlg.num_dpi.value()
@@ -143,7 +147,6 @@ class MovieSaver(Plugin):
 
 
 class MovieArgsPrompt(QtWidgets.QWidget):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.create_controls()
@@ -165,7 +168,7 @@ class MovieArgsPrompt(QtWidgets.QWidget):
         self.chk_colorbar = QCheckBox("Colorbar")
 
         # codec = mpl.rcParams['animation.codec']
-        codec = 'h264'
+        codec = "h264"
         self.edt_codec = QLineEdit(codec)
         self.edt_extra = QLineEdit("-preset veryslow -crf 0")
 
@@ -178,8 +181,9 @@ class MovieArgsPrompt(QtWidgets.QWidget):
             sys.stdout.fileno()
         except Exception:
             self.chk_verbose.setEnabled(False)
-            self.chk_verbose.setToolTip("Verbose output does not work with " +
-                                        "internal console.")
+            self.chk_verbose.setToolTip(
+                "Verbose output does not work with " + "internal console."
+            )
 
         frm = QtWidgets.QFormLayout()
         frm.addRow(tr("FPS:"), self.num_fps)

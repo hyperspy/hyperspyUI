@@ -29,7 +29,6 @@ from hyperspyui.bindinglist import BindingList
 
 
 class SignalList(QtWidgets.QListWidget):
-
     def __init__(self, items=None, parent=None, multiselect=True):
         super().__init__(parent)
         self.multiselect = multiselect

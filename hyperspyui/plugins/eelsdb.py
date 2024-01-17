@@ -28,10 +28,11 @@ from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, WEBENGINE
 
 
 try:
-    assert(QtNetwork.QSslSocket.supportsSsl())
+    assert QtNetwork.QSslSocket.supportsSsl()
 except NameError:
-    raise ImportError("Current platform doesn't support SSL. EELSDB plugin"
-                      " disabled.")
+    raise ImportError(
+        "Current platform doesn't support SSL. EELSDB plugin" " disabled."
+    )
 
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 import os
@@ -39,8 +40,7 @@ import re
 import urllib
 import tempfile
 
-re_dl_url = re.compile(
-    br'https?://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa')
+re_dl_url = re.compile(rb"https?://eelsdb\.eu/wp-content/uploads/\d{4}/\d{2}/.+\.msa")
 
 
 class EELSDBPlugin(Plugin):
@@ -52,12 +52,15 @@ class EELSDBPlugin(Plugin):
         self.view = None
 
     def create_actions(self):
-        self.add_action(self.name + '.browse', "Browse EELSDB", self.default,
-                        tip="Browse the EELSDB online database of standard"
-                        "EEL spectra")
+        self.add_action(
+            self.name + ".browse",
+            "Browse EELSDB",
+            self.default,
+            tip="Browse the EELSDB online database of standard" "EEL spectra",
+        )
 
     def create_menu(self):
-        self.add_menuitem('EELS', self.ui.actions[self.name + '.browse'])
+        self.add_menuitem("EELS", self.ui.actions[self.name + ".browse"])
 
     def _make_request(self, url):
         request = QtNetwork.QNetworkRequest()
@@ -91,21 +94,23 @@ class EELSDBPlugin(Plugin):
                 html = response.readAll()
                 matches = re_dl_url.findall(html)
                 if matches:
-                    self.download(matches[0].decode('ascii'))
+                    self.download(matches[0].decode("ascii"))
                 response.deleteLater()
+
             response.finished.connect(resp_finished)
         else:
             self.view.load(url)
 
     def download(self, url):
-        header = {'Accept': r'text/html,application/xhtml+xml,'
-                  'application/xml;q=0.9,*/*;q=0.8',
-                  'Accept-Encoding': r'gzip, deflate',
-                  'User-Agent': r'Mozilla/5.0 (Windows NT 10.0; WOW64;'
-                  ' rv:43.0)Gecko/20100101 Firefox/43.0',
-                  }
+        header = {
+            "Accept": r"text/html,application/xhtml+xml,"
+            "application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Encoding": r"gzip, deflate",
+            "User-Agent": r"Mozilla/5.0 (Windows NT 10.0; WOW64;"
+            " rv:43.0)Gecko/20100101 Firefox/43.0",
+        }
 
-        suffix = '.msa'
+        suffix = ".msa"
 
         req = urllib.request.Request(url, headers=header)
         page = urllib.request.urlopen(req)
@@ -136,8 +141,7 @@ class EELSDBPlugin(Plugin):
         browse_url = QtCore.QUrl("https://eelsdb.eu/spectra")
         self.load_blocking(self.view, browse_url)
         if not WEBENGINE:
-            self.view.page().setLinkDelegationPolicy(
-                    QWebEnginePage.DelegateAllLinks)
+            self.view.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
         try:
             # TODO: downloading spectra is currently broken
             self.view.linkClicked.connect(self._on_link)

@@ -8,20 +8,19 @@ class DmAnnotations(Plugin):
     name = "DM Annotations"
 
     def create_actions(self):
-        self.add_action(self.name + '.default',
-                        "Add DM Annotations",
-                        self.add_annotations,
-                        tip="Add annotations from DM metadata as markers")
+        self.add_action(
+            self.name + ".default",
+            "Add DM Annotations",
+            self.add_annotations,
+            tip="Add annotations from DM metadata as markers",
+        )
 
     def create_menu(self):
-        self.add_menuitem('Signal', self.ui.actions[self.name + '.default'])
+        self.add_menuitem("Signal", self.ui.actions[self.name + ".default"])
 
-    def add_annotations(self,
-                        signal=None,
-                        add_text=False,
-                        plot_beam=True,
-                        plot_si=True,
-                        plot_drift=True):
+    def add_annotations(
+        self, signal=None, add_text=False, plot_beam=True, plot_si=True, plot_drift=True
+    ):
         """
         Plot a hyperspy signal with the markers from digital micrograph enabled
 
@@ -48,21 +47,22 @@ class DmAnnotations(Plugin):
         if signal is None:
             signal = self.ui.get_selected_signal()
 
-        annotation_list = (signal.original_metadata.DocumentObjectList.
-                           TagGroup0.AnnotationGroupList)
+        annotation_list = (
+            signal.original_metadata.DocumentObjectList.TagGroup0.AnnotationGroupList
+        )
 
         scale = signal.axes_manager[0].scale
 
         mapping = {
-            'Beam': self._add_beam if plot_beam else self._dummy,
-            'Beam (parked)': self._add_beam if plot_beam else self._dummy,
-            'Spectrum Image': self._add_si if plot_si else self._dummy,
-            'Spatial Drift': self._add_drift if plot_drift else self._dummy
+            "Beam": self._add_beam if plot_beam else self._dummy,
+            "Beam (parked)": self._add_beam if plot_beam else self._dummy,
+            "Spectrum Image": self._add_si if plot_si else self._dummy,
+            "Spatial Drift": self._add_drift if plot_drift else self._dummy,
         }
 
         for i in range(len(annotation_list)):
-            label = annotation_list['TagGroup' + str(i)]['Label']
-            loc = annotation_list['TagGroup' + str(i)]['Rectangle']
+            label = annotation_list["TagGroup" + str(i)]["Label"]
+            loc = annotation_list["TagGroup" + str(i)]["Rectangle"]
             scaled_loc = [scale * i for i in loc]
             mapping[label](signal, scaled_loc, add_text)
 
@@ -80,35 +80,36 @@ class DmAnnotations(Plugin):
 
     def _add_beam(self, image, location, add_text):
         beam_m = hs.plot.markers.Points(
-            offsets=([location[1], location[0]], ), sizes=5, color='red'
-            )
+            offsets=([location[1], location[0]],), sizes=5, color="red"
+        )
         image.add_marker(beam_m)
         if add_text:
-            self._add_label(image, 'Beam', 'red',
-                            location[1] - 0.5, location[0] - 1.5)
+            self._add_label(image, "Beam", "red", location[1] - 0.5, location[0] - 1.5)
 
     def _add_si(self, image, location, add_text):
         # adds a green rectangle (or line, if the coordinates are such) to
         # image
         si_m = hs.plot.markers.Rectangles(
-            offsets=([location[1], location[0]], ),
-            widths=(location[3] - location[1], ),
-            heights=(location[2] - location[0], ),
-            color='#13FF00',
-            )
+            offsets=([location[1], location[0]],),
+            widths=(location[3] - location[1],),
+            heights=(location[2] - location[0],),
+            color="#13FF00",
+        )
         image.add_marker(si_m)
         if add_text:
-            self._add_label(image, 'Spectrum Image', '#13FF00',
-                            location[1], location[0] - 0.5)
+            self._add_label(
+                image, "Spectrum Image", "#13FF00", location[1], location[0] - 0.5
+            )
 
     def _add_drift(self, image, location, add_text):
         drift_m = hs.plot.markers.Rectangles(
-            offsets=([location[1], location[0]], ),
-            widths=(location[3] - location[1], ),
-            heights=(location[2] - location[0], ),
-            color='yellow',
-            )
+            offsets=([location[1], location[0]],),
+            widths=(location[3] - location[1],),
+            heights=(location[2] - location[0],),
+            color="yellow",
+        )
         image.add_marker(drift_m)
         if add_text:
-            self._add_label(image, 'Spatial Drift', 'yellow',
-                            location[1], location[0] - 0.5)
+            self._add_label(
+                image, "Spatial Drift", "yellow", location[1], location[0] - 0.5
+            )

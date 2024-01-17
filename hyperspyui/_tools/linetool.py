@@ -41,10 +41,12 @@ class LineTool(SignalFigureTool):
     by simply selecting a different tool.
     """
 
-    accepted = QtCore.Signal([BaseInteractiveROI],
-                             [BaseInteractiveROI, SignalFigureTool])
-    updated = QtCore.Signal([BaseInteractiveROI],
-                            [BaseInteractiveROI, SignalFigureTool])
+    accepted = QtCore.Signal(
+        [BaseInteractiveROI], [BaseInteractiveROI, SignalFigureTool]
+    )
+    updated = QtCore.Signal(
+        [BaseInteractiveROI], [BaseInteractiveROI, SignalFigureTool]
+    )
     cancelled = QtCore.Signal()
 
     def __init__(self, windows=None):
@@ -79,7 +81,7 @@ class LineTool(SignalFigureTool):
         return "Line tool"
 
     def get_category(self):
-        return 'Signal'
+        return "Signal"
 
     def make_cursor(self):
         return crosshair_cursor()
@@ -94,7 +96,7 @@ class LineTool(SignalFigureTool):
 
         axes = self._get_axes(event)
         if not axes:
-            logger.warning('Line tool only works on HyperSpy signal plots!')
+            logger.warning("Line tool only works on HyperSpy signal plots!")
             return
         # Make sure we have a figure with valid dimensions
         if len(axes) not in self.valid_dimensions:
@@ -103,7 +105,7 @@ class LineTool(SignalFigureTool):
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
             if any([p.contains(event)[0] is True for p in self.widget.patch]):
-                return              # Interacting, handle in widget
+                return  # Interacting, handle in widget
             # Cancel previous and start new
             self.cancel()
             # Cancel reset axes, so set again
@@ -112,7 +114,7 @@ class LineTool(SignalFigureTool):
         # Find out which axes of Signal are plotted in figure
         s = self._get_signal(event.inaxes.figure)
         if s is None:
-            logger.warning('Line tool only works on HyperSpy signal plots!')
+            logger.warning("Line tool only works on HyperSpy signal plots!")
             return
         am = s.axes_manager
 
@@ -130,9 +132,9 @@ class LineTool(SignalFigureTool):
             self.widget.set_on(True)
             span = self.widget.span
             span.buttonDown = True
-            span.on_move_cid = \
-                span.canvas.mpl_connect('motion_notify_event',
-                                        span.move_right)
+            span.on_move_cid = span.canvas.mpl_connect(
+                "motion_notify_event", span.move_right
+            )
         else:
             self.widget.position = np.array(((x, y), (x, y)))
             self.widget.size = np.array([0])
@@ -142,13 +144,12 @@ class LineTool(SignalFigureTool):
             self.widget._drag_store = (self.widget.position, self.widget.size)
             self.widget.set_on(True)
         if new_widget:
-            self.widget.events.changed.connect(self._on_change,
-                                               {'obj': 'widget'})
+            self.widget.events.changed.connect(self._on_change, {"obj": "widget"})
 
     def on_keyup(self, event):
-        if event.key == 'enter':
+        if event.key == "enter":
             self.accept()
-        elif event.key == 'escape':
+        elif event.key == "escape":
             self.cancel()
 
     def _on_change(self, widget):
@@ -160,7 +161,7 @@ class LineTool(SignalFigureTool):
             else:
                 raise RuntimeError(
                     f"Line tool doesn't support dimension dimension {self.ndim}."
-                    )
+                )
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.updated[BaseInteractiveROI].emit(roi)
             self.updated[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
@@ -174,7 +175,7 @@ class LineTool(SignalFigureTool):
             else:
                 raise RuntimeError(
                     f"Line tool doesn't support dimension dimension {self.ndim}."
-                    )
+                )
             roi._on_widget_change(self.widget)  # ROI gets coords from widget
             self.accepted[BaseInteractiveROI].emit(roi)
             self.accepted[BaseInteractiveROI, SignalFigureTool].emit(roi, self)
@@ -182,7 +183,7 @@ class LineTool(SignalFigureTool):
     def cancel(self):
         if self.widget.is_on:
             self.widget.set_on(False)
-            self.widget.size = np.array([0])    # Prevents flickering
+            self.widget.size = np.array([0])  # Prevents flickering
         if self._on_change in self.widget.events.changed.connected:
             self.widget.events.changed.disconnect(self._on_change)
         self.axes = None

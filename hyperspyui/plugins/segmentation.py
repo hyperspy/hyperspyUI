@@ -19,6 +19,7 @@
 import hyperspy.api as hs
 import matplotlib.cm as plt_cm
 import numpy as np
+
 try:
     # HyperSpy >=2.0
     from rsciio.utils.rgb_tools import regular_array2rgbx
@@ -37,16 +38,15 @@ class Segmentation(Plugin):
 
     def create_tools(self):
         self.tool = MultiSelectionTool()
-        self.tool.name = 'Segmentation tool'
-        self.tool.icon = 'segmentation.svg'
-        self.tool.category = 'Image'
+        self.tool.name = "Segmentation tool"
+        self.tool.icon = "segmentation.svg"
+        self.tool.category = "Image"
         self.tool.updated[hs.signals.BaseSignal, list].connect(self._on_update)
         self.tool.accepted[hs.signals.BaseSignal, list].connect(self.segment)
         self.tool.validator = self._tool_signal_validator
         self.add_tool(self.tool, self._select_image)
         self.map = {}
-        self.ui.actions[self.tool.name].triggered.connect(
-            lambda c=None: self.start())
+        self.ui.actions[self.tool.name].triggered.connect(lambda c=None: self.start())
 
     def _select_image(self, win, action):
         """Signal selection callback for actions that are only valid for
@@ -71,7 +71,7 @@ class Segmentation(Plugin):
         hist.plot()
 
         s_out = hs.signals.Signal1D(self._make_gray(data))
-        s_out.change_dtype('rgb8')
+        s_out.change_dtype("rgb8")
         s_out.plot()
 
         self.map[hist] = (signal, s_out)
@@ -79,7 +79,7 @@ class Segmentation(Plugin):
     def _make_gray(self, data):
         data = data.astype(float) - np.nanmin(data)
         data /= np.nanmax(data)
-        return (255 * plt_cm.gray(data)).astype('uint8')
+        return (255 * plt_cm.gray(data)).astype("uint8")
 
     def segment(self, signal, rois):
         if signal is None:
@@ -121,9 +121,9 @@ class Segmentation(Plugin):
         s_seg = hs.signals.Signal2D(data)
         s_seg.plot(cmap=plt_cm.jet)
 
-        roi_str = '[' + ',\n'.join(['hs.roi.' + str(r) for r in rois]) + ']'
-        self.record_code('segment_rois = ' + roi_str)
-        self.record_code('<p>.segment(None, segment_rois)')
+        roi_str = "[" + ",\n".join(["hs.roi." + str(r) for r in rois]) + "]"
+        self.record_code("segment_rois = " + roi_str)
+        self.record_code("<p>.segment(None, segment_rois)")
 
     def _on_update(self, histogram, rois):
         if histogram not in self.map:
@@ -135,7 +135,7 @@ class Segmentation(Plugin):
         gray = self._make_gray(data)
         s_out.data = regular_array2rgbx(gray)
         for i in range(N):
-            color = (255 * plt_cm.hsv([float(i) / max(N, 10)])).astype('uint8')
+            color = (255 * plt_cm.hsv([float(i) / max(N, 10)])).astype("uint8")
             color = regular_array2rgbx(color)
             r = rois[i]
             mask = (data < r.right) & (data >= r.left)

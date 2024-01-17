@@ -50,25 +50,26 @@ from contextlib import contextmanager
 
 
 import logging
+
 logging.basicConfig()
 # Note that this might be overriden during hyperspy import
 LOGLEVEL = logging.INFO
-logging.getLogger('hyperspy').setLevel(LOGLEVEL)
-logging.getLogger('hyperspyui').setLevel(LOGLEVEL)
+logging.getLogger("hyperspy").setLevel(LOGLEVEL)
+logging.getLogger("hyperspyui").setLevel(LOGLEVEL)
 
 
 def _get_logfile():
     _, exe_name = os.path.split(sys.executable)
-    if exe_name.startswith('pythonw'):
-        log_path = os.path.dirname(__file__) + '/hyperspyui.log'
+    if exe_name.startswith("pythonw"):
+        log_path = os.path.dirname(__file__) + "/hyperspyui.log"
         try:
-            log_file = open(log_path, 'w')
+            log_file = open(log_path, "w")
         except IOError:
-            log_path = os.path.expanduser('~/hyperspyui.log')
+            log_path = os.path.expanduser("~/hyperspyui.log")
             try:
-                log_file = open(log_path, 'w')
+                log_file = open(log_path, "w")
             except IOError:
-                log_file = None     # No log file for us!
+                log_file = None  # No log file for us!
     else:
         log_file = None
     return log_file
@@ -78,12 +79,17 @@ def get_splash():
     from qtpy.QtCore import Qt
     from qtpy.QtWidgets import QApplication, QSplashScreen
     from qtpy.QtGui import QColor, QPixmap
-    splash_pix = QPixmap(os.path.join(
-        os.path.dirname(__file__), 'images', 'splash.png'))
+
+    splash_pix = QPixmap(
+        os.path.join(os.path.dirname(__file__), "images", "splash.png")
+    )
     splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
     splash.show()
-    splash.showMessage("Initializing...", Qt.AlignBottom | Qt.AlignCenter |
-                       Qt.AlignAbsolute, QColor(Qt.white))
+    splash.showMessage(
+        "Initializing...",
+        Qt.AlignBottom | Qt.AlignCenter | Qt.AlignAbsolute,
+        QColor(Qt.white),
+    )
     QApplication.processEvents()
     return splash
 
@@ -95,10 +101,12 @@ def main():
 
     # Fixes issues with Big Sur
     # https://bugreports.qt.io/browse/QTBUG-87014, fixed in qt 5.15.2
-    if (sys.platform == 'darwin' and
-            Version(platform.mac_ver()[0]) >= Version("10.16") and
-            Version(qVersion()) < Version("5.15.2") and
-            "QT_MAC_WANTS_LAYER" not in os.environ):
+    if (
+        sys.platform == "darwin"
+        and Version(platform.mac_ver()[0]) >= Version("10.16")
+        and Version(qVersion()) < Version("5.15.2")
+        and "QT_MAC_WANTS_LAYER" not in os.environ
+    ):
         os.environ["QT_MAC_WANTS_LAYER"] = "1"
 
     from hyperspyui.version import __version__
@@ -107,7 +115,7 @@ def main():
     # QtWebEngineWidgets must be imported before a QCoreApplication instance
     # is created (used in eelsdb plugin)
     # Avoid a bug in Qt: https://bugreports.qt.io/browse/QTBUG-46720
-    from qtpy import QtWebEngineWidgets # noqa: F401
+    from qtpy import QtWebEngineWidgets  # noqa: F401
 
     # Need to set early to make QSettings accessible
     QCoreApplication.setApplicationName("HyperSpyUI")
@@ -126,14 +134,15 @@ def main():
     Settings.clear_defaults()
     # Setup default for single/multi-instance
     settings = Settings(group="General")
-    settings.set_default('allow_multiple_instances', False)
-    if settings['allow_multiple_instances', bool]:
+    settings.set_default("allow_multiple_instances", False)
+    if settings["allow_multiple_instances", bool]:
         # Using multiple instances, get a new application
         app = QApplication(sys.argv)
     else:
         # Make sure we only have a single instance
         from hyperspyui.singleapplication import get_app
-        app = get_app('hyperspyui')
+
+        app = get_app("hyperspyui")
 
     splash = get_splash()
 
@@ -141,9 +150,11 @@ def main():
     if log_file:
         sys.stdout = sys.stderr = log_file
     else:
+
         @contextmanager
         def dummy_context_manager(*args, **kwargs):
             yield
+
         log_file = dummy_context_manager()
 
     with log_file:
@@ -151,10 +162,10 @@ def main():
         from hyperspyui.mainwindow import MainWindow
 
         form = MainWindow(splash=splash)
-        if not settings['allow_multiple_instances', bool]:
+        if not settings["allow_multiple_instances", bool]:
             if "pyqt" in API:
                 app.messageAvailable.connect(form.handleSecondInstance)
-            elif API == 'pyside':
+            elif API == "pyside":
                 app.messageReceived.connect(form.handleSecondInstance)
         form.showMaximized()
 
@@ -162,12 +173,13 @@ def main():
         form.load_complete.emit()
         # Ensure logging is OK
         import hyperspy.api as hs
+
         hs.set_log_level(LOGLEVEL)
 
         app.exec_()
 
 
 if __name__ == "__main__":
-    locale.setlocale(locale.LC_ALL, '')
+    locale.setlocale(locale.LC_ALL, "")
     sys.path.append(os.path.dirname(__file__))
     main()

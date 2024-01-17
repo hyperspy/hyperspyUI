@@ -26,8 +26,13 @@ import os
 
 from qtpy import QtCore
 from qtpy.QtCore import Qt, QModelIndex
-from qtpy.QtWidgets import (QDialogButtonBox, QTableView, QHeaderView,
-                            QPushButton, QVBoxLayout)
+from qtpy.QtWidgets import (
+    QDialogButtonBox,
+    QTableView,
+    QHeaderView,
+    QPushButton,
+    QVBoxLayout,
+)
 
 from .extendedqwidgets import ExToolWindow
 from .editorwidget import EditorWidget
@@ -38,7 +43,6 @@ def tr(text):
 
 
 class PluginsModel(QtCore.QAbstractItemModel):
-
     EnabledColumn = 0
     NameColumn = 1
     PathColumn = 2
@@ -51,10 +55,11 @@ class PluginsModel(QtCore.QAbstractItemModel):
     def _update_data(self):
         self._plugin_data = []
         for i, (name, (enabled, ptype)) in enumerate(
-                self.plugin_manager._enabled.items()):
+            self.plugin_manager._enabled.items()
+        ):
             path = sys.modules[ptype.__module__].__file__
             path = os.path.normpath(path)
-            if path.endswith('.pyc') or path.endswith('.pyo'):
+            if path.endswith(".pyc") or path.endswith(".pyo"):
                 path = path[:-1]
             self._plugin_data.append([enabled, name, path])
 
@@ -62,8 +67,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
         if index.column() in [self.NameColumn, self.PathColumn]:
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
         elif index.column() == self.EnabledColumn:
-            return (Qt.ItemIsEditable | Qt.ItemIsUserCheckable |
-                    Qt.ItemIsEnabled)
+            return Qt.ItemIsEditable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled
         return None
 
     def parent(self, index):
@@ -99,7 +103,7 @@ class PluginsModel(QtCore.QAbstractItemModel):
         if role == Qt.CheckStateRole:
             if c == self.EnabledColumn:
                 name = self._plugin_data[r][self.NameColumn]
-                enabled = (value != Qt.Unchecked)
+                enabled = value != Qt.Unchecked
                 self._plugin_data[r][c] = enabled
                 self.plugin_manager.enable_plugin(name, enabled)
                 return True
@@ -124,7 +128,6 @@ class PluginsModel(QtCore.QAbstractItemModel):
 
 
 class PluginManagerWidget(ExToolWindow):
-
     def __init__(self, plugin_manager, parent=None):
         super().__init__(parent)
 
@@ -161,8 +164,9 @@ class PluginManagerWidget(ExToolWindow):
         for i in range(3):
             width += table.columnWidth(i)
 
-        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                Qt.Horizontal)
+        btns = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, Qt.Horizontal
+        )
         self.edit_btn = QPushButton("Edit")
         btns.addButton(self.edit_btn, QDialogButtonBox.ActionRole)
         self.edit_btn.clicked.connect(self.edit_plugin)

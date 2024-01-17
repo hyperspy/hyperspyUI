@@ -26,7 +26,6 @@ from qtpy.QtWidgets import QDialogButtonBox
 
 
 class StringInputDialog(QtWidgets.QDialog):
-
     def __init__(self, prompt="", default="", parent=None):
         super().__init__(parent=parent)
         self.setWindowTitle("Input prompt")
@@ -37,8 +36,8 @@ class StringInputDialog(QtWidgets.QDialog):
         frm.addRow(prompt, self.edit)
 
         btns = QDialogButtonBox(
-                QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                QtCore.Qt.Horizontal, self)
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, QtCore.Qt.Horizontal, self
+        )
         btns.accepted.connect(self.accept)
         btns.rejected.connect(self.reject)
 

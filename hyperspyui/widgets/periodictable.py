@@ -55,16 +55,16 @@ class PeriodicTableWidget(QtWidgets.QWidget):
                     grid.addWidget(w, i, j, 1, e[0], Qt.AlignRight)
                     j += e[0]
                 elif isinstance(e, dict):
-                    w = ExClickLabel(e['id'], self)
-                    w.setToolTip(tr(e['name'].capitalize()))
+                    w = ExClickLabel(e["id"], self)
+                    w.setToolTip(tr(e["name"].capitalize()))
                     w.setAlignment(Qt.AlignCenter)
                     w.setMinimumSize(10, 10)
 
                     f = partial(self.on_element_click, e)
                     w.clicked.connect(f)
 
-                    self.elements[e['id']] = w
-                    self.toggled[e['id']] = False
+                    self.elements[e["id"]] = w
+                    self.toggled[e["id"]] = False
                     w.setStyleSheet(self.style_off)
 
                     grid.addWidget(w, i, j)
@@ -112,9 +112,9 @@ class PeriodicTableWidget(QtWidgets.QWidget):
         btn.setStyleSheet(style)
 
     def on_element_click(self, value):
-        elid = value['id']
+        elid = value["id"]
         self.set_element(elid, not self.toggled[elid])
-        self.element_toggled.emit(value['id'])
+        self.element_toggled.emit(value["id"])
 
     def sizeHint(self):
         return QtCore.QSize(310, 140)

@@ -22,6 +22,7 @@ Created on Wed Nov 26 19:11:19 2014
 """
 
 from __future__ import division, absolute_import
+
 # future division is important to divide integers and get as
 # a result precise floating numbers (instead of truncated int)
 # import compatibility functions and utilities
@@ -47,6 +48,7 @@ class Signaler(QObject):
 
     def _on_cancel(self, pid):
         signaler.cancel.emit(pid)
+
     on_cancel = _on_cancel
 
 
@@ -106,11 +108,11 @@ class UIProgressBar(tqdm):
     def __init__(self, *args, mininterval=0.5, **kwargs):
         self.id = self.uid
         self.uid += 1
-        kwargs['gui'] = True
+        kwargs["gui"] = True
         self.cancelled = False
         super().__init__(*args, mininterval=mininterval, **kwargs)
         # Initialize the GUI display
-        if self.disable or not kwargs['gui']:
+        if self.disable or not kwargs["gui"]:
             return
 
         # assert maxval >= 0
@@ -136,8 +138,7 @@ class UIProgressBar(tqdm):
 
     @staticmethod
     def format_string(n, total, elapsed, rate=None):
-        return "ETA: " + (tqdm.format_interval((total - n) / rate)
-                          if rate else '?')
+        return "ETA: " + (tqdm.format_interval((total - n) / rate) if rate else "?")
 
     def __iter__(self):
         iterable = self.iterable
@@ -177,14 +178,16 @@ class UIProgressBar(tqdm):
                     elapsed = cur_t - start_t
                     # EMA (not just overall average)
                     if smoothing and delta_t:
-                        avg_time = delta_t / delta_it \
-                            if avg_time is None \
-                            else smoothing * delta_t / delta_it + \
-                            (1 - smoothing) * avg_time
+                        avg_time = (
+                            delta_t / delta_it
+                            if avg_time is None
+                            else smoothing * delta_t / delta_it
+                            + (1 - smoothing) * avg_time
+                        )
 
                     txt = self.format_string(
-                        n, self.total, elapsed,
-                        1 / avg_time if avg_time else None)
+                        n, self.total, elapsed, 1 / avg_time if avg_time else None
+                    )
 
                     global signaler
                     signaler.progress[int, int, str].emit(self.id, n, txt)
@@ -198,11 +201,12 @@ class UIProgressBar(tqdm):
                         elif mininterval and delta_t:
                             # EMA-weight miniters to converge
                             # towards the timeframe of mininterval
-                            miniters = smoothing * delta_it * mininterval \
-                                / delta_t + (1 - smoothing) * miniters
+                            miniters = (
+                                smoothing * delta_it * mininterval / delta_t
+                                + (1 - smoothing) * miniters
+                            )
                         else:
-                            miniters = smoothing * delta_it + \
-                                (1 - smoothing) * miniters
+                            miniters = smoothing * delta_it + (1 - smoothing) * miniters
 
                     # Store old values for next call
                     last_print_n = n
@@ -237,14 +241,19 @@ class UIProgressBar(tqdm):
                 elapsed = cur_t - self.start_t
                 # EMA (not just overall average)
                 if self.smoothing and delta_t:
-                    self.avg_time = delta_t / delta_it \
-                        if self.avg_time is None \
-                        else self.smoothing * delta_t / delta_it + \
-                        (1 - self.smoothing) * self.avg_time
+                    self.avg_time = (
+                        delta_t / delta_it
+                        if self.avg_time is None
+                        else self.smoothing * delta_t / delta_it
+                        + (1 - self.smoothing) * self.avg_time
+                    )
 
                 txt = self.format_string(
-                    self.n, self.total, elapsed,
-                    1 / self.avg_time if self.avg_time else None)
+                    self.n,
+                    self.total,
+                    elapsed,
+                    1 / self.avg_time if self.avg_time else None,
+                )
 
                 global signaler
                 signaler.progress[int, int, str].emit(self.id, self.n, txt)
@@ -256,15 +265,17 @@ class UIProgressBar(tqdm):
                 # at least 5 more iterations.
                 if self.dynamic_miniters:
                     if self.maxinterval and delta_t > self.maxinterval:
-                        self.miniters = self.miniters * self.maxinterval \
-                            / delta_t
+                        self.miniters = self.miniters * self.maxinterval / delta_t
                     elif self.mininterval and delta_t:
-                        self.miniters = self.smoothing * delta_it \
-                            * self.mininterval / delta_t + \
-                            (1 - self.smoothing) * self.miniters
+                        self.miniters = (
+                            self.smoothing * delta_it * self.mininterval / delta_t
+                            + (1 - self.smoothing) * self.miniters
+                        )
                     else:
-                        self.miniters = self.smoothing * delta_it + \
-                            (1 - self.smoothing) * self.miniters
+                        self.miniters = (
+                            self.smoothing * delta_it
+                            + (1 - self.smoothing) * self.miniters
+                        )
 
                 # Store old values for next call
                 self.last_print_n = self.n

@@ -42,7 +42,6 @@ class ExToolWindow(QtWidgets.QDialog):
 
 
 class FigureWidget(QtWidgets.QDockWidget):
-
     def __init__(self, main_window, parent=None):
         super().__init__(parent)
         self.ui = main_window
@@ -86,6 +85,7 @@ class ExClickLabel(QtWidgets.QLabel):
     """
     QLabel with 'clicked()' signal.
     """
+
     clicked = QtCore.Signal()
 
     def mouseReleaseEvent(self, event):
@@ -95,7 +95,6 @@ class ExClickLabel(QtWidgets.QLabel):
 
 
 class ExMessageBox(QtWidgets.QMessageBox):
-
     def isChecked(self):
         if self.cb is None:
             raise AttributeError
@@ -125,7 +124,6 @@ class ExMessageBox(QtWidgets.QMessageBox):
 
 
 class ExRememberPrompt(ExMessageBox):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.cb = QtWidgets.QCheckBox(tr("Remember this choice"), self)
@@ -137,6 +135,7 @@ class ExDoubleSlider(QtWidgets.QSlider):
     """
     QSlider with double values instead of int values.
     """
+
     double_valueChanged = QtCore.Signal(float)
 
     def __init__(self, parent=None, orientation=None):

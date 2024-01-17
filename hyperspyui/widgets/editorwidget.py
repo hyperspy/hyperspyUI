@@ -22,9 +22,15 @@ Created on Sat Feb 21 17:55:01 2015
 """
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtWidgets import (QDialogButtonBox, QCheckBox, QLineEdit,
-                            QPushButton, QHBoxLayout, QVBoxLayout, QFormLayout,
-                            )
+from qtpy.QtWidgets import (
+    QDialogButtonBox,
+    QCheckBox,
+    QLineEdit,
+    QPushButton,
+    QHBoxLayout,
+    QVBoxLayout,
+    QFormLayout,
+)
 
 import os
 
@@ -45,7 +51,6 @@ def tr(text):
 
 
 class NameCategoryPrompt(ExToolWindow):
-
     def __init__(self, main_window, parent=None):
         super().__init__(parent)
         self.setWindowTitle(tr("Plugin properties"))
@@ -67,18 +72,16 @@ class NameCategoryPrompt(ExToolWindow):
 
     def browse_icon(self):
         formats = QtGui.QImageReader.supportedImageFormats()
-        formats = [str(f, encoding='ascii') for f in formats]
+        formats = [str(f, encoding="ascii") for f in formats]
         # Add one filter that takes all supported:
         type_filter = tr("Supported formats")
-        type_filter += ' (*.{0})'.format(' *.'.join(formats))
+        type_filter += " (*.{0})".format(" *.".join(formats))
         # Add all as individual options
-        type_filter += ';;' + tr("All files") + \
-            ' (*.*) ;;*.' + ';;*.'.join(formats)
-        path = QtWidgets.QFileDialog.getOpenFileName(self,
-            tr("Pick icon"),
-            os.path.dirname(self.ui.cur_dir),
-            type_filter)
-        if isinstance(path, tuple):    # Pyside returns tuple, PyQt not
+        type_filter += ";;" + tr("All files") + " (*.*) ;;*." + ";;*.".join(formats)
+        path = QtWidgets.QFileDialog.getOpenFileName(
+            self, tr("Pick icon"), os.path.dirname(self.ui.cur_dir), type_filter
+        )
+        if isinstance(path, tuple):  # Pyside returns tuple, PyQt not
             path = path[0]
         if path is None:
             return
@@ -97,8 +100,9 @@ class NameCategoryPrompt(ExToolWindow):
         self.btn_browse_icon = QPushButton("...")
         self.txt_iconpath.setEnabled(False)
         self.btn_browse_icon.setEnabled(False)
-        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                QtCore.Qt.Horizontal)
+        btns = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, QtCore.Qt.Horizontal
+        )
 
         self.chk_menu.toggled.connect(self.checks_changed)
         self.chk_toolbar.toggled.connect(self.checks_changed)
@@ -125,7 +129,7 @@ class NameCategoryPrompt(ExToolWindow):
 
 
 class ConsoleCodeCheckerMode(modes.CheckerMode):
-    """ Runs pyflakes on you code while you're typing
+    """Runs pyflakes on you code while you're typing
 
     This checker mode runs pyflakes on the fly to check your python syntax.
 
@@ -134,20 +138,21 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
     """
 
     def _request(self):
-        """ Requests a checking of the editor content. """
+        """Requests a checking of the editor content."""
         if not self.editor:
             return
         code = self.editor.toPlainText()
         if not self.myeditor.is_plugin:
             code = server._console_mode_header + code
         request_data = {
-            'code': code,
-            'path': self.editor.file.path,
-            'encoding': self.editor.file.encoding
+            "code": code,
+            "path": self.editor.file.path,
+            "encoding": self.editor.file.encoding,
         }
         try:
             self.editor.backend.send_request(
-                self._worker, request_data, on_receive=self._on_work_finished)
+                self._worker, request_data, on_receive=self._on_work_finished
+            )
             self._finished = False
         except Exception:
             # retry later
@@ -177,7 +182,6 @@ class ConsoleCodeCheckerMode(modes.CheckerMode):
 
 
 class ConsoleCodeCalltipsMode(pymodes.CalltipsMode):
-
     def __init__(self, editor, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.myeditor = editor
@@ -190,8 +194,15 @@ class ConsoleCodeCalltipsMode(pymodes.CalltipsMode):
                 line += server._header_num_lines
             self.editor.backend.send_request(
                 calltips,
-                {'code': source, 'line': line, 'column': col, 'path': None,
-                 'encoding': encoding}, on_receive=self._on_results_available)
+                {
+                    "code": source,
+                    "line": line,
+                    "column": col,
+                    "path": None,
+                    "encoding": encoding,
+                },
+                on_receive=self._on_results_available,
+            )
 
 
 class EditorWidget(ExToolWindow):
@@ -240,7 +251,7 @@ class EditorWidget(ExToolWindow):
         if self._suppress_append:
             return
         text = self.editor.toPlainText()
-        if len(text) > 0 and text[-1] == '\n':
+        if len(text) > 0 and text[-1] == "\n":
             prev_cursor = self.editor.textCursor()
             self.editor.moveCursor(QtGui.QTextCursor.End)
             self.editor.insertPlainText(code)
@@ -261,22 +272,25 @@ class EditorWidget(ExToolWindow):
             code += self.editor.toPlainText().rstrip()
 
             name = diag.txt_name.text()
-            code = pc.create_plugin_code(code,
-                                         name,
-                                         diag.txt_category.text(),
-                                         diag.chk_menu.isChecked(),
-                                         diag.chk_toolbar.isChecked(),
-                                         icon)
-            path = os.path.normpath(os.path.dirname(__file__) +
-                                    '/../plugins/' +
-                                    name.lower().replace(' ', '').replace(
-                                        '_', '') +
-                                    '.py')
+            code = pc.create_plugin_code(
+                code,
+                name,
+                diag.txt_category.text(),
+                diag.chk_menu.isChecked(),
+                diag.chk_toolbar.isChecked(),
+                icon,
+            )
+            path = os.path.normpath(
+                os.path.dirname(__file__)
+                + "/../plugins/"
+                + name.lower().replace(" ", "").replace("_", "")
+                + ".py"
+            )
             e = EditorWidget(self.ui, self.ui, path)
             e.append_code(code)
             e.editor.moveCursor(QtGui.QTextCursor.Start)
             e.editor.ensureCursorVisible()
-            self.ui.editors.append(e)   # We have to keep an instance!
+            self.ui.editors.append(e)  # We have to keep an instance!
             e.finished.connect(lambda: self.ui.editors.remove(e))
             e.is_plugin = True
             e.show()
@@ -289,13 +303,13 @@ class EditorWidget(ExToolWindow):
 
     def save(self):
         if not os.path.isfile(self.editor.file.path):
-            path = QtWidgets.QFileDialog.getSaveFileName(self,
-                tr("Choose destination path"),
-                self.editor.file.path)[0]
+            path = QtWidgets.QFileDialog.getSaveFileName(
+                self, tr("Choose destination path"), self.editor.file.path
+            )[0]
             if not path:
                 return False
             self.editor.file._path = path
-            open(path, 'w').close()  # Touch file so save_current works
+            open(path, "w").close()  # Touch file so save_current works
         return self.tab.save_current()
 
     def load(self, filename):
@@ -312,17 +326,22 @@ class EditorWidget(ExToolWindow):
     def sizeHint(self):
         # Default size to fit right margin
         def_sz = super().sizeHint()
-        if hasattr(self, 'editor'):
-            font = QtGui.QFont(self.editor.font_name, self.editor.font_size +
-                               self.editor.zoom_level)
+        if hasattr(self, "editor"):
+            font = QtGui.QFont(
+                self.editor.font_name, self.editor.font_size + self.editor.zoom_level
+            )
             metrics = QtGui.QFontMetricsF(font)
             pos = 80
             cm = self.layout().contentsMargins()
             # TODO: Currently uses manual, magic number. Do properly!
-            offset = self.editor.contentOffset().x() + \
-                2 * self.editor.document().documentMargin() + \
-                cm.left() + cm.right() + 60
-            x80 = round(metrics.width(' ') * pos) + offset
+            offset = (
+                self.editor.contentOffset().x()
+                + 2 * self.editor.document().documentMargin()
+                + cm.left()
+                + cm.right()
+                + 60
+            )
+            x80 = round(metrics.width(" ") * pos) + offset
             def_sz.setWidth(x80)
         return def_sz
 
@@ -330,7 +349,7 @@ class EditorWidget(ExToolWindow):
         editor = api.CodeEdit()
         editor.backend.start(server.__file__)
 
-#        editor.panels.append(panels.FoldingPanel())
+        #        editor.panels.append(panels.FoldingPanel())
         editor.panels.append(panels.LineNumberPanel())
         editor.panels.append(panels.CheckerPanel())
 
@@ -342,7 +361,7 @@ class EditorWidget(ExToolWindow):
         editor.modes.append(modes.SmartBackSpaceMode())
         editor.modes.append(modes.OccurrencesHighlighterMode())
         editor.modes.append(modes.SymbolMatcherMode())
-#        editor.modes.append(modes.WordClickMode())
+        #        editor.modes.append(modes.WordClickMode())
         editor.modes.append(modes.ZoomMode())
 
         editor.modes.append(pymodes.PythonSH(editor.document()))
@@ -375,8 +394,12 @@ class EditorWidget(ExToolWindow):
         self.btn_reg_plugin.clicked.connect(self.register_plugin)
 
         self.hbox = QHBoxLayout()
-        for w in [self.btn_save, self.btn_run,
-                  self.btn_make_plugin, self.btn_reg_plugin]:
+        for w in [
+            self.btn_save,
+            self.btn_run,
+            self.btn_make_plugin,
+            self.btn_reg_plugin,
+        ]:
             self.hbox.addWidget(w)
 
         vbox = QVBoxLayout(self)

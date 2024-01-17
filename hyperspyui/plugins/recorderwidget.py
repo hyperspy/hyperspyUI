@@ -24,8 +24,7 @@ Created on Sun Feb 22 18:46:40 2015
 from hyperspyui.plugins.plugin import Plugin
 
 from qtpy import QtCore, QtWidgets
-from qtpy.QtWidgets import (QPushButton, QVBoxLayout, QWidget, QHBoxLayout,
-                            QCheckBox)
+from qtpy.QtWidgets import QPushButton, QVBoxLayout, QWidget, QHBoxLayout, QCheckBox
 
 from hyperspyui.recorder import Recorder
 from hyperspyui.widgets.editorwidget import EditorWidget
@@ -36,7 +35,6 @@ def tr(text):
 
 
 class RecorderWidget(QtWidgets.QDockWidget):
-
     def __init__(self, main_window, parent=None):
         super().__init__(parent)
         self.setWindowTitle(tr("Recorder"))
@@ -72,8 +70,8 @@ class RecorderWidget(QtWidgets.QDockWidget):
     def update_filter(self):
         if self.recorder is None:
             return
-        self.recorder.filter['actions'] = self.chk_actions.isChecked()
-        self.recorder.filter['code'] = self.chk_code.isChecked()
+        self.recorder.filter["actions"] = self.chk_actions.isChecked()
+        self.recorder.filter["code"] = self.chk_code.isChecked()
 
     def disconnect_editor(self, editor=None):
         if editor is None:

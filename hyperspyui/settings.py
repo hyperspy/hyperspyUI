@@ -28,9 +28,8 @@ from hyperspyui.widgets.extendedqwidgets import ExRememberPrompt
 
 
 class Settings:
-
     def __init__(self, parent=None, group=None):
-        self._sep = '/'
+        self._sep = "/"
         self.group = group
         self.parent = parent
 
@@ -47,7 +46,7 @@ class Settings:
             t = None
         groupings = self._get_groups(key)
         if key not in self:
-            groupings.insert(0, 'defaults')
+            groupings.insert(0, "defaults")
         key = groupings.pop()
         settings = QSettings(parent=self.parent)
         for g in groupings:
@@ -55,7 +54,7 @@ class Settings:
         ret = settings.value(key)
         if t and isinstance(t, type) and not isinstance(ret, t):
             if t is bool:
-                ret = ("true" == ret.lower())
+                ret = "true" == ret.lower()
             else:
                 ret = t(ret)
         for _ in groupings:
@@ -97,7 +96,7 @@ class Settings:
         application start, as it will undo any defaults that have been set.
         """
         settings = QSettings()
-        settings.beginGroup('defaults')
+        settings.beginGroup("defaults")
         settings.remove("")
         settings.endGroup()
 
@@ -123,7 +122,7 @@ class Settings:
         Restore a given setting to its default value.
         """
         groupings = self._get_groups(key)
-        groupings.insert(0, 'defaults')
+        groupings.insert(0, "defaults")
         inner_key = groupings.pop()
         settings = QSettings(parent=self.parent)
         for g in groupings:
@@ -143,7 +142,7 @@ class Settings:
 
         # Either way, write to defaults group
         groupings = self._get_groups(key)
-        groupings.insert(0, 'defaults')
+        groupings.insert(0, "defaults")
         key = groupings.pop()
         settings = QSettings(parent=self.parent)
         for g in groupings:
@@ -161,9 +160,9 @@ class Settings:
         combobox in a dialog to pick a value.
         """
         groupings = self._get_groups(key)
-        groupings.insert(0, 'defaults')
+        groupings.insert(0, "defaults")
         key = groupings.pop()
-        key = '_' + key + '_options'    # Change key to avoid conflicts
+        key = "_" + key + "_options"  # Change key to avoid conflicts
         settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)
@@ -178,9 +177,9 @@ class Settings:
         Returns the possible enum hint values if set, otherwise None.
         """
         groupings = self._get_groups(key)
-        groupings.insert(0, 'defaults')
+        groupings.insert(0, "defaults")
         key = groupings.pop()
-        key = '_' + key + '_options'    # Change key to avoid conflicts
+        key = "_" + key + "_options"  # Change key to avoid conflicts
         settings = QSettings(parent=self.parent)
         for g in groupings:
             settings.beginGroup(g)

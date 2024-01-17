@@ -35,8 +35,7 @@ class TraitsWidget(FigureWidget):
     the traitsui dialog as it is created (see code in mainwindowbase).
     """
 
-    def __init__(
-            self, main_window, cb_make_dialog, cb_check=None, parent=None):
+    def __init__(self, main_window, cb_make_dialog, cb_check=None, parent=None):
         """
         Create a TraitsWidget. 'main_window' is the application main window,
         cb_make_dialog a callback that will raise the dialog (which will then
@@ -87,8 +86,7 @@ class TraitsWidget(FigureWidget):
         sp = traits_dialog.sizePolicy()
         sp.setVerticalPolicy(QtWidgets.QSizePolicy.Fixed)
         sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Expanding)
-        traits_dialog.layout().setSizeConstraint(
-                QtWidgets.QLayout.SetDefaultConstraint)
+        traits_dialog.layout().setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
         traits_dialog.setSizePolicy(sp)
 
         # Set widget

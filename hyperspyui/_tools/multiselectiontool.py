@@ -29,8 +29,8 @@ from hyperspy.drawing.widgets import (
     RectangleWidget,
     RangeWidget,
     SquareWidget,
-    VerticalLineWidget
-    )
+    VerticalLineWidget,
+)
 from hyperspy.roi import RectangularROI, SpanROI, Point1DROI, Point2DROI
 
 from hyperspyui._tools.signalfiguretool import SignalFigureTool
@@ -47,10 +47,12 @@ class MultiSelectionTool(SignalFigureTool):
     selecting a different tool.
     """
 
-    accepted = QtCore.Signal([hs.signals.BaseSignal, list],
-                             [hs.signals.BaseSignal, list, SignalFigureTool])
-    updated = QtCore.Signal([hs.signals.BaseSignal, list],
-                            [hs.signals.BaseSignal, list, SignalFigureTool])
+    accepted = QtCore.Signal(
+        [hs.signals.BaseSignal, list], [hs.signals.BaseSignal, list, SignalFigureTool]
+    )
+    updated = QtCore.Signal(
+        [hs.signals.BaseSignal, list], [hs.signals.BaseSignal, list, SignalFigureTool]
+    )
     cancelled = QtCore.Signal([hs.signals.BaseSignal])
 
     def __init__(self, windows=None):
@@ -60,7 +62,7 @@ class MultiSelectionTool(SignalFigureTool):
         self.valid_dimensions = [1, 2]
         self.ranged = True
         self.name = "Multi-selection tool"
-        self.category = 'Signal'
+        self.category = "Signal"
         self.icon = None
         self.validator = self._default_validator
 
@@ -129,9 +131,9 @@ class MultiSelectionTool(SignalFigureTool):
             s = None
         else:
             s = self._get_signal(event.inaxes.figure)
-        if event.key == 'enter':
+        if event.key == "enter":
             self.accept(s)
-        elif event.key == 'escape':
+        elif event.key == "escape":
             self.cancel(s)
 
     def on_mouseup(self, event):
@@ -178,14 +180,14 @@ class MultiSelectionTool(SignalFigureTool):
         if self.have_selection(s):
             for w in self.widgets[s]:
                 if any([p.contains(event)[0] is True for p in w.patch]):
-                    return              # Moving, handle in widget
+                    return  # Moving, handle in widget
             # Clicked outside existing widget, check for resize handles
             if self.ndim(s) > 1:
                 for w in self.widgets[s]:
                     if w.resizers:
                         for r in w._resizer_handles:
                             if r.contains(event)[0] is True:
-                                return      # Leave the event to widget
+                                return  # Leave the event to widget
         am = s.axes_manager
 
         # Start a new widget
@@ -205,9 +207,9 @@ class MultiSelectionTool(SignalFigureTool):
             if self.ranged:
                 span = widget.span
                 span.buttonDown = True
-                span.on_move_cid = \
-                    span.canvas.mpl_connect('motion_notify_event',
-                                            span.move_right)
+                span.on_move_cid = span.canvas.mpl_connect(
+                    "motion_notify_event", span.move_right
+                )
             else:
                 widget.picked = True
         else:
@@ -217,7 +219,7 @@ class MultiSelectionTool(SignalFigureTool):
             if self.ranged:
                 widget.resizer_picked = 3
             widget.picked = True
-        widget.events.changed.connect(self._on_change, {'obj': 'widget'})
+        widget.events.changed.connect(self._on_change, {"obj": "widget"})
 
     def _get_rois(self, signal):
         rois = []
@@ -251,7 +253,8 @@ class MultiSelectionTool(SignalFigureTool):
         rois = self._get_rois(signal)
         self.updated[hs.signals.BaseSignal, list].emit(signal, rois)
         self.updated[hs.signals.BaseSignal, list, SignalFigureTool].emit(
-            signal, rois, self)
+            signal, rois, self
+        )
 
     def _cancel(self, signal):
         for w in self.widgets[signal]:
@@ -265,7 +268,8 @@ class MultiSelectionTool(SignalFigureTool):
             rois = self._get_rois(signal)
             self.accepted[hs.signals.BaseSignal, list].emit(signal, rois)
             self.accepted[hs.signals.BaseSignal, list, SignalFigureTool].emit(
-                signal, rois, self)
+                signal, rois, self
+            )
         if signal is not None:
             self.cancel(signal)
 

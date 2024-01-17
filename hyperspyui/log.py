@@ -24,7 +24,7 @@ def set_hyperspyui_log_level(level, set_main=True):
         _baseLogger.setLevel(level)
 
 
-logger = logging.getLogger('hyperspyui')
+logger = logging.getLogger("hyperspyui")
 
 debug = logger.debug
 info = logger.info

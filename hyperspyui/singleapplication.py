@@ -47,7 +47,7 @@ class SingleApplication(QtWidgets.QApplication):
 
         # Set correct logo
         base_path = os.path.abspath(os.path.dirname(__file__))
-        icon_path = os.path.join(base_path, 'images', 'hyperspy.svg')
+        icon_path = os.path.join(base_path, "images", "hyperspy.svg")
         QtWidgets.QApplication.setWindowIcon(QtGui.QIcon(icon_path))
         self.aboutToQuit.connect(self.detach_shared_memory)
 
@@ -55,13 +55,12 @@ class SingleApplication(QtWidgets.QApplication):
         return self._running
 
     def detach_shared_memory(self):
-        _logger.debug('Detaching shared memory.')
+        _logger.debug("Detaching shared memory.")
         if not self._memory.detach():
-            _logger.debug('Shared memory could not be detached properly.')
+            _logger.debug("Shared memory could not be detached properly.")
 
 
 class SingleApplicationWithMessaging(SingleApplication):
-
     def __init__(self, argv, key):
         SingleApplication.__init__(self, argv, key)
         self._key = key
@@ -74,8 +73,7 @@ class SingleApplicationWithMessaging(SingleApplication):
     def handleMessage(self):
         socket = self._server.nextPendingConnection()
         if socket.waitForReadyRead(self._timeout):
-            self.messageAvailable.emit(
-                socket.readAll().data().decode('utf-8'))
+            self.messageAvailable.emit(socket.readAll().data().decode("utf-8"))
             socket.disconnectFromServer()
         else:
             QtCore.qDebug(socket.errorString())
@@ -88,7 +86,7 @@ class SingleApplicationWithMessaging(SingleApplication):
                 _logger.error(socket.errorString())
                 return False
             if not isinstance(message, bytes):
-                message = message.encode('utf-8')
+                message = message.encode("utf-8")
             socket.write(message)
             if not socket.waitForBytesWritten(self._timeout):
                 _logger.error(socket.errorString())
@@ -106,17 +104,22 @@ def get_app(key):
             if app.isRunning():
                 msg = json.dumps(sys.argv[1:])
                 app.sendMessage(msg)
-                _logger.debug('An existing instance of HyperSpyUI is running, '
-                              'sending arguments to it.')
-                sys.exit(1)     # An instance is already running
+                _logger.debug(
+                    "An existing instance of HyperSpyUI is running, "
+                    "sending arguments to it."
+                )
+                sys.exit(1)  # An instance is already running
         else:
             app = SingleApplicationWithMessaging(sys.argv, key)
             if app.isRunning():
-                _logger.debug('An existing instance of HyperSpyUI is running, '
-                              'bringing it to the front.')
-                sys.exit(1)     # An instance is already running
-    elif API == 'pyside':
+                _logger.debug(
+                    "An existing instance of HyperSpyUI is running, "
+                    "bringing it to the front."
+                )
+                sys.exit(1)  # An instance is already running
+    elif API == "pyside":
         from siding.singleinstance import QSingleApplication
+
         app = QSingleApplication(sys.argv)
         msg = json.dumps(sys.argv[1:])
         app.ensure_single(message=msg)
