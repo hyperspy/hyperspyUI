@@ -90,18 +90,18 @@ class GaussianFilter(Plugin):
         if signal is None:
             signal, axes, _ = self.ui.get_selected_plot()
             signal = signal.signal
-            if isinstance(axes, str):
-                axm = signal.axes_manager
-                if axes.startswith("nav"):
-                    axes = (
-                        axm._axes.index(axm.navigation_axes[0]),
-                        axm._axes.index(axm.navigation_axes[1]),
-                    )
-                elif axes.startswith("sig"):
-                    axes = (
-                        axm._axes.index(axm.signal_axes[0]),
-                        axm._axes.index(axm.signal_axes[1]),
-                    )
+            # if isinstance(axes, str):
+            #     axm = signal.axes_manager
+            #     if axes.startswith("nav"):
+            #         axes = (
+            #             axm._axes.index(axm.navigation_axes[0]),
+            #             axm._axes.index(axm.navigation_axes[1]),
+            #         )
+            #     elif axes.startswith("sig"):
+            #         axes = (
+            #             axm._axes.index(axm.signal_axes[0]),
+            #             axm._axes.index(axm.signal_axes[1]),
+            #         )
 
         s_out = out or signal.deepcopy()
         if out is None and not np.issubdtype(s_out.data.dtype, float):
