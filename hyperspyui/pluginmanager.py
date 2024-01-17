@@ -38,13 +38,11 @@ class ReadOnlyDict(dict):
     _readonly = False
 
     def __setitem__(self, key, value):
-
         if self._readonly:
             raise TypeError("This dictionary is read only")
         return dict.__setitem__(self, key, value)
 
     def __delitem__(self, key):
-
         if self._readonly:
             raise TypeError("This dictionary is read only")
         return dict.__delitem__(self, key)
@@ -61,7 +59,6 @@ class ReadOnlyDict(dict):
 
 
 class PluginManager:
-
     def __init__(self, main_window):
         """
         Initializates the manager, and performs discovery of plugins
@@ -99,8 +96,7 @@ class PluginManager:
             self.load(ptype)
 
     def disable_plugin(self, name):
-        """Disable plugin functionality. Also unloads plugin.
-        """
+        """Disable plugin functionality. Also unloads plugin."""
         self.enable_plugin(name, False)
 
     def _import_plugin_from_path(self, name, path):
@@ -108,29 +104,31 @@ class PluginManager:
             mname = "hyperspyui.plugins." + name
             if sys.version_info >= (3, 5):
                 import importlib.util
+
                 spec = importlib.util.spec_from_file_location(mname, path)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
             else:
                 from importlib.machinery import SourceFileLoader
+
                 loader = SourceFileLoader(mname, path)
                 loader.load_module()
         except Exception:
             self.warn("import", path)
 
     def discover(self):
-        """Auto-discover all plugins defined in plugin directory.
-        """
+        """Auto-discover all plugins defined in plugin directory."""
         import hyperspyui.plugins as plugins
+
         for plug in plugins.__all__:
             try:
-                __import__('hyperspyui.plugins.' + plug, globals())
+                __import__("hyperspyui.plugins." + plug, globals())
 
             except Exception:
                 self.warn("import", plug)
 
         # Import any plugins in extra dirs.
-        extra_paths = self.settings['extra_plugin_directories']
+        extra_paths = self.settings["extra_plugin_directories"]
         if extra_paths:
             extra_paths = extra_paths.split(os.path.pathsep)
             for path in extra_paths:
@@ -141,8 +139,9 @@ class PluginManager:
                 # compiled plugins in pyc/pyo format
                 # modules.extend(glob.glob(os.path.dirname(__file__)+"/*.py?"))
                 # If so, ensure that duplicates are removed (picks py over pyc)
-                modules = [m for m in modules
-                           if not os.path.basename(m).startswith('_')]
+                modules = [
+                    m for m in modules if not os.path.basename(m).startswith("_")
+                ]
 
                 for m in modules:
                     name = os.path.splitext(os.path.basename(m))[0]
@@ -154,8 +153,7 @@ class PluginManager:
 
     @staticmethod
     def _inheritors(klass):
-        """Return all defined classes that inherit from 'klass'.
-        """
+        """Return all defined classes that inherit from 'klass'."""
         subclasses = set()
         work = [klass]
         while work:
@@ -167,10 +165,14 @@ class PluginManager:
         return subclasses
 
     def warn(self, f_name, p_name, category=RuntimeWarning):
-        tbf = ''.join(traceback.format_exception(*sys.exc_info())[2:])
-        warnings.warn(("Exception in {0} of hyperspyui plugin " +
-                       "\"{1}\" error:\n{2}").format(f_name, p_name, tbf),
-                      RuntimeWarning, 2)
+        tbf = "".join(traceback.format_exception(*sys.exc_info())[2:])
+        warnings.warn(
+            ("Exception in {0} of hyperspyui plugin " + '"{1}" error:\n{2}').format(
+                f_name, p_name, tbf
+            ),
+            RuntimeWarning,
+            2,
+        )
 
     def init_plugins(self):
         self.plugins.clear()
@@ -250,17 +252,15 @@ class PluginManager:
         master = Plugin
         prev = self._inheritors(master)
         name = os.path.splitext(os.path.basename(path))[0]
-        mod_name = 'hyperspyui.plugins.' + name
+        mod_name = "hyperspyui.plugins." + name
         reload_plugins = mod_name in sys.modules
         try:
             if sys.version_info >= (3, 5):
-                spec = importlib.util.spec_from_file_location(
-                    mod_name, path)
+                spec = importlib.util.spec_from_file_location(mod_name, path)
                 mod = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(mod)
             else:
-                importlib.machinery.SourceFileLoader(
-                    mod_name, path).load_module()
+                importlib.machinery.SourceFileLoader(mod_name, path).load_module()
         except Exception:
             self.warn("import", name)
         loaded = self._inheritors(master).difference(prev)
@@ -273,34 +273,34 @@ class PluginManager:
             try:
                 p = self._load_if_enabled(plug_type)
             except Exception:
-                self.warn('load', plug_type.name)
+                self.warn("load", plug_type.name)
             if p is not None:
                 new_ps.append(p)
         for p in new_ps:
             try:
                 p.create_actions()
             except Exception:
-                self.warn('create_actions', p.name)
+                self.warn("create_actions", p.name)
         for p in new_ps:
             try:
                 p.create_menu()
             except Exception:
-                self.warn('create_menu', p.name)
+                self.warn("create_menu", p.name)
         for p in new_ps:
             try:
                 p.create_tools()
             except Exception:
-                self.warn('create_tools', p.name)
+                self.warn("create_tools", p.name)
         for p in new_ps:
             try:
                 p.create_toolbars()
             except Exception:
-                self.warn('create_toolbars', p.name)
+                self.warn("create_toolbars", p.name)
         for p in new_ps:
             try:
                 p.create_widgets()
             except Exception:
-                self.warn('create_widgets', p.name)
+                self.warn("create_widgets", p.name)
         return new_ps
 
     def unload(self, plugin):

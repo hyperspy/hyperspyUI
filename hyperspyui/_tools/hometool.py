@@ -28,7 +28,6 @@ from .figuretool import FigureTool
 
 
 class HomeTool(FigureTool):
-
     def __init__(self, windows=None):
         super().__init__(windows)
 
@@ -36,10 +35,10 @@ class HomeTool(FigureTool):
         return "Home tool"
 
     def get_category(self):
-        return 'Plot'
+        return "Plot"
 
     def get_icon(self):
-        return os.path.join(os.path.dirname(__file__), '..', 'images', 'home.svg')
+        return os.path.join(os.path.dirname(__file__), "..", "images", "home.svg")
 
     def single_action(self):
         return self.home
@@ -60,5 +59,5 @@ class HomeTool(FigureTool):
         axes.set_ylim(auto=oldy)
 
     def on_keyup(self, event):
-        if event.key == '5':
+        if event.key == "5":
             self.home()

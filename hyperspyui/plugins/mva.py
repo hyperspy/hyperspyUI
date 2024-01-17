@@ -65,15 +65,19 @@ def make_advanced_dialog(ui, algorithms=None):
         vbox.addWidget(lbl_algo)
         vbox.addWidget(cbo_algo)
     else:
-        lbl_comp = QLabel(tr(
-            "Enter a comma-separated list of component numbers to use for "
-            "the model:"))
+        lbl_comp = QLabel(
+            tr(
+                "Enter a comma-separated list of component numbers to use for "
+                "the model:"
+            )
+        )
         txt_comp = QLineEdit()
         vbox.addWidget(lbl_comp)
         vbox.addWidget(txt_comp)
 
-    btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                            QtCore.Qt.Horizontal)
+    btns = QDialogButtonBox(
+        QDialogButtonBox.Ok | QDialogButtonBox.Cancel, QtCore.Qt.Horizontal
+    )
     btns.accepted.connect(diag.accept)
     btns.rejected.connect(diag.reject)
     vbox.addWidget(btns)
@@ -81,7 +85,7 @@ def make_advanced_dialog(ui, algorithms=None):
     diag.setLayout(vbox)
 
     diag.algorithm = lambda: cbo_algo.currentText()
-    diag.components = lambda: [int(s) for s in txt_comp.text().split(',')]
+    diag.components = lambda: [int(s) for s in txt_comp.text().split(",")]
     return diag
 
 
@@ -90,52 +94,67 @@ class MVA_Plugin(Plugin):
     """
     Implements MVA decomposition utilities.
     """
-    name = 'MVA'    # Used for settings groups etc
 
-    coc_values = {'convert': tr("Convert"),
-                  'copy': tr("Copy")}
+    name = "MVA"  # Used for settings groups etc
+
+    coc_values = {"convert": tr("Convert"), "copy": tr("Copy")}
 
     # ----------- Plugin interface -----------
     def create_actions(self):
-        self.settings.set_default('convert_or_copy', None)
-        self.settings.set_enum_hint('convert_or_copy',
-                                    self.coc_values.keys())
-        self.add_action('plot_decomposition_results',
-                        tr("Decompose"),
-                        self.plot_decomposition_results,
-                        icon='pca.svg',
-                        tip=tr("Decompose signal using Principle Component "
-                               "analysis"),
-                        selection_callback=self.selection_rules)
-        self.add_action('pca', tr("Decomposition model"), self.pca,
-                        icon='pca.svg',
-                        tip=tr("Create a Principal Component Analysis "
-                               "decomposition model"),
-                        selection_callback=self.selection_rules)
-        self.add_action('bss', tr("BSS"), self.bss,
-                        icon='bss.svg',
-                        tip=tr("Run Blind Source Separation"),
-                        selection_callback=self.selection_rules)
-        self.add_action('bss_model', tr("BSS model"), self.bss_model,
-                        icon='bss.svg',
-                        tip=tr("Create a Blind Source Separation "
-                               "decomposition model"),
-                        selection_callback=self.selection_rules)
-        self.add_action('clear', tr("Clear"), self.clear,
-                        tip=tr("Clear decomposition cache"),
-                        selection_callback=self.selection_rules)
+        self.settings.set_default("convert_or_copy", None)
+        self.settings.set_enum_hint("convert_or_copy", self.coc_values.keys())
+        self.add_action(
+            "plot_decomposition_results",
+            tr("Decompose"),
+            self.plot_decomposition_results,
+            icon="pca.svg",
+            tip=tr("Decompose signal using Principle Component " "analysis"),
+            selection_callback=self.selection_rules,
+        )
+        self.add_action(
+            "pca",
+            tr("Decomposition model"),
+            self.pca,
+            icon="pca.svg",
+            tip=tr("Create a Principal Component Analysis " "decomposition model"),
+            selection_callback=self.selection_rules,
+        )
+        self.add_action(
+            "bss",
+            tr("BSS"),
+            self.bss,
+            icon="bss.svg",
+            tip=tr("Run Blind Source Separation"),
+            selection_callback=self.selection_rules,
+        )
+        self.add_action(
+            "bss_model",
+            tr("BSS model"),
+            self.bss_model,
+            icon="bss.svg",
+            tip=tr("Create a Blind Source Separation " "decomposition model"),
+            selection_callback=self.selection_rules,
+        )
+        self.add_action(
+            "clear",
+            tr("Clear"),
+            self.clear,
+            tip=tr("Clear decomposition cache"),
+            selection_callback=self.selection_rules,
+        )
 
     def create_menu(self):
-        self.add_menuitem('Decomposition',
-                          self.ui.actions['plot_decomposition_results'])
-        self.add_menuitem('Decomposition', self.ui.actions['pca'])
-        self.add_menuitem('Decomposition', self.ui.actions['bss'])
-        self.add_menuitem('Decomposition', self.ui.actions['bss_model'])
-        self.add_menuitem('Decomposition', self.ui.actions['clear'])
+        self.add_menuitem(
+            "Decomposition", self.ui.actions["plot_decomposition_results"]
+        )
+        self.add_menuitem("Decomposition", self.ui.actions["pca"])
+        self.add_menuitem("Decomposition", self.ui.actions["bss"])
+        self.add_menuitem("Decomposition", self.ui.actions["bss_model"])
+        self.add_menuitem("Decomposition", self.ui.actions["clear"])
 
     def create_toolbars(self):
-        self.add_toolbar_button("Decomposition", self.ui.actions['pca'])
-        self.add_toolbar_button("Decomposition", self.ui.actions['bss'])
+        self.add_toolbar_button("Decomposition", self.ui.actions["pca"])
+        self.add_toolbar_button("Decomposition", self.ui.actions["bss"])
 
     def selection_rules(self, win, action):
         """
@@ -160,19 +179,21 @@ class MVA_Plugin(Plugin):
             signal = self.ui.get_selected_wrapper()
         s = signal.signal
 
-        if s.data.dtype.char not in ['e', 'f', 'd']:  # If not float
+        if s.data.dtype.char not in ["e", "f", "d"]:  # If not float
             cc = self.settings.get_or_prompt(
-                'convert_or_copy',
+                "convert_or_copy",
                 [kv for kv in self.coc_values.items()],
                 title=tr("Convert or copy"),
                 descr=tr(
-                    "Signal data has the wrong data type (float needed)." +
-                    "Would you like to convert the current signal, or " +
-                    "perform the decomposition on a copy?"))
+                    "Signal data has the wrong data type (float needed)."
+                    + "Would you like to convert the current signal, or "
+                    + "perform the decomposition on a copy?"
+                ),
+            )
             if cc is None:
                 # User canceled
                 raise ProcessCanceled()
-            if cc == 'copy':
+            if cc == "copy":
                 s = s.deepcopy()
                 s.metadata.General.title = signal.name + "[float]"
                 s.plot()
@@ -208,14 +229,15 @@ class MVA_Plugin(Plugin):
 
     def _record(self, autosig, model, signal, n_components):
         if autosig:
-            self.record_code(r"<p>.{0}(n_components={1})".format(
-                             model, n_components))
+            self.record_code(r"<p>.{0}(n_components={1})".format(model, n_components))
         else:
-            self.record_code(r"<p>.{0}({1}, n_components={2})".format(
-                             model, signal, n_components))
+            self.record_code(
+                r"<p>.{0}({1}, n_components={2})".format(model, signal, n_components)
+            )
 
-    def _decompose_threaded(self, callback, label, signal=None,
-                            algorithm=None, ns=None):
+    def _decompose_threaded(
+        self, callback, label, signal=None, algorithm=None, ns=None
+    ):
         if ns is None:
             ns = Namespace()
             ns.autosig = signal is None
@@ -232,20 +254,19 @@ class MVA_Plugin(Plugin):
             em.setWindowTitle(tr("Decomposition error"))
             em.showMessage(msg)
 
-        t = ProgressThreaded(self.ui, do_threaded, lambda: callback(ns),
-                             label=label)
+        t = ProgressThreaded(self.ui, do_threaded, lambda: callback(ns), label=label)
         t.worker.error[str].connect(on_error)
         t.run()
 
     def _perform_model(self, ns, n_components):
         # Num comp. picked, get model, wrap new signal and plot
-        if ns.model == 'pca':
+        if ns.model == "pca":
             sc = ns.s.get_decomposition_model(n_components)
             sc.metadata.General.title = ns.signal.name + "[PCA-model]"
             sc.plot()
-        elif ns.model == 'bss' or ns.model.startswith('bss.'):
-            if ns.model.startswith('bss.'):
-                algorithm = ns.model[len('bss.'):]
+        elif ns.model == "bss" or ns.model.startswith("bss."):
+            if ns.model.startswith("bss."):
+                algorithm = ns.model[len("bss.") :]
                 self._do_bss(ns.s, n_components, algorithm=algorithm)
             else:
                 self._do_bss(ns.s, n_components)
@@ -255,7 +276,7 @@ class MVA_Plugin(Plugin):
             o.metadata.General.title = ns.signal.name + "[BSS-Loadings]"
             f.plot()
             o.plot()
-        elif ns.model == 'bss_model':
+        elif ns.model == "bss_model":
             # Here we have to assume the user has actually performed the BSS
             # decomposition first!
             sc = ns.s.get_bss_model(n_components)
@@ -280,7 +301,8 @@ class MVA_Plugin(Plugin):
             w = fig2win(scree.figure, self.ui.figures)
             w.close()
             callback(ns, n_components)
-        scree.mpl_connect('button_press_event', clicked)
+
+        scree.mpl_connect("button_press_event", clicked)
 
     def do_after_scree(self, model, signal=None, n_components=None):
         """
@@ -305,14 +327,16 @@ class MVA_Plugin(Plugin):
             else:
                 self._perform_model(ns, n_components)
 
-        self._decompose_threaded(on_complete, "Performing %s" % model.upper(),
-                                 n_components, ns=ns)
+        self._decompose_threaded(
+            on_complete, "Performing %s" % model.upper(), n_components, ns=ns
+        )
 
     def plot_decomposition_results(self, signal=None, advanced=False):
         """
         Performs decomposition if necessary, then plots the decomposition
         results according to the hyperspy implementation.
         """
+
         def on_complete(ns):
             ns.s.plot_decomposition_results()
             # Somewhat speculative workaround to HSPY not adding metadata
@@ -321,13 +345,22 @@ class MVA_Plugin(Plugin):
 
         if advanced:
             diag = make_advanced_dialog(
-                self.ui, ['svd', 'fast_svd', 'mlpca', 'fast_mlpca', 'nmf',
-                          'sparse_pca', 'mini_batch_sparse_pca'])
+                self.ui,
+                [
+                    "svd",
+                    "fast_svd",
+                    "mlpca",
+                    "fast_mlpca",
+                    "nmf",
+                    "sparse_pca",
+                    "mini_batch_sparse_pca",
+                ],
+            )
             dr = diag.exec_()
             if dr == QDialog.Accepted:
                 self._decompose_threaded(
-                    on_complete, "Decomposing signal",
-                    algorithm=diag.algorithm())
+                    on_complete, "Decomposing signal", algorithm=diag.algorithm()
+                )
         else:
             self._decompose_threaded(on_complete, "Decomposing signal")
 
@@ -342,10 +375,9 @@ class MVA_Plugin(Plugin):
             diag = make_advanced_dialog(self.ui)
             dr = diag.exec_()
             if dr == QDialog.Accepted:
-                self.do_after_scree(
-                    'pca', signal, n_components=diag.components())
+                self.do_after_scree("pca", signal, n_components=diag.components())
         else:
-            self.do_after_scree('pca', signal, n_components)
+            self.do_after_scree("pca", signal, n_components)
 
     def bss(self, signal=None, n_components=None, advanced=False):
         """
@@ -356,14 +388,15 @@ class MVA_Plugin(Plugin):
         """
         if advanced:
             diag = make_advanced_dialog(
-                self.ui, ['orthomax', 'sklearn_fastica', 'FastICA', 'JADE',
-                          'CuBICA', 'TDSEP'])
+                self.ui,
+                ["orthomax", "sklearn_fastica", "FastICA", "JADE", "CuBICA", "TDSEP"],
+            )
             dr = diag.exec_()
             if dr == QDialog.Accepted:
-                model = 'bss.' + diag.algorithm()
+                model = "bss." + diag.algorithm()
                 self.do_after_scree(model, signal, n_components)
         else:
-            self.do_after_scree('bss', signal, n_components)
+            self.do_after_scree("bss", signal, n_components)
 
     def bss_model(self, signal=None, n_components=None, advanced=False):
         """
@@ -376,10 +409,9 @@ class MVA_Plugin(Plugin):
             diag = make_advanced_dialog(self.ui)
             dr = diag.exec_()
             if dr == QDialog.Accepted:
-                self.do_after_scree(
-                    'bss_model', signal, n_components=diag.components())
+                self.do_after_scree("bss_model", signal, n_components=diag.components())
         else:
-            self.do_after_scree('bss_model', signal, n_components)
+            self.do_after_scree("bss_model", signal, n_components)
 
     def clear(self, signal=None):
         """

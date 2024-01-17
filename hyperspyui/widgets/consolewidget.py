@@ -59,7 +59,6 @@ def _init_asyncio_patch():
 
 
 class ConsoleWidget(RichJupyterWidget):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -71,7 +70,7 @@ class ConsoleWidget(RichJupyterWidget):
 
         # Set the kernel data
         self.kernel = kernel_manager.kernel
-        self.kernel.gui = 'qt'
+        self.kernel.gui = "qt"
 
         kernel_client = kernel_manager.client()
         kernel_client.start_channels()
@@ -92,7 +91,7 @@ class ConsoleWidget(RichJupyterWidget):
         self.kernel.shell.push(variables)
 
     def _execute(self, source, hidden):
-        """ Execute 'source'. If 'hidden', do not show any output.
+        """Execute 'source'. If 'hidden', do not show any output.
 
         See parent class :meth:`execute` docstring for full details.
 
@@ -101,6 +100,7 @@ class ConsoleWidget(RichJupyterWidget):
         if not hidden:
             self.executing.emit(source)
         msg_id = self.kernel_client.execute(source, hidden)
-        self._request_info['execute'][msg_id] = self._ExecutionRequest(
-            msg_id, 'user', hidden)
+        self._request_info["execute"][msg_id] = self._ExecutionRequest(
+            msg_id, "user", hidden
+        )
         self._hidden = hidden

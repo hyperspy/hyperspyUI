@@ -106,6 +106,7 @@ class Threaded(QtCore.QObject):
 
         def remove_ref():
             Threaded.remove_from_pool(self)
+
         self.thread.finished.connect(remove_ref)
 
         # Need to keep ref so they stay in mem
@@ -119,9 +120,17 @@ class Threaded(QtCore.QObject):
 
 
 class ProgressThreaded(Threaded):
-
-    def __init__(self, parent, run, finished=None, label=None, cancellable=False,
-                 title=tr("Processing"), modal=True, generator_N=None):
+    def __init__(
+        self,
+        parent,
+        run,
+        finished=None,
+        label=None,
+        cancellable=False,
+        title=tr("Processing"),
+        modal=True,
+        generator_N=None,
+    ):
         self.modal = modal
         self.generator_N = generator_N
 
@@ -139,13 +148,14 @@ class ProgressThreaded(Threaded):
             progressbar.setMinimum(0)
             progressbar.setMaximum(0)
 
-#        progressbar.hide()
+        #        progressbar.hide()
         progressbar.setWindowTitle(title)
         progressbar.setLabelText(label)
         if not cancellable:
             progressbar.setCancelButtonText(None)
 
         if isinstance(run, types.GeneratorType):
+
             def run_gen():
                 for p in run:
                     self.worker.progress[int].emit(p)

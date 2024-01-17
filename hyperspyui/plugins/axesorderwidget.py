@@ -23,8 +23,14 @@ Created on Tue Apr 28 11:00:55 2015
 import collections
 
 from qtpy import QtCore, QtWidgets
-from qtpy.QtWidgets import (QLabel, QPushButton, QToolButton, QVBoxLayout,
-                            QHBoxLayout, QWidget)
+from qtpy.QtWidgets import (
+    QLabel,
+    QPushButton,
+    QToolButton,
+    QVBoxLayout,
+    QHBoxLayout,
+    QWidget,
+)
 
 from hyperspy.axes import DataAxis
 import hyperspy.api as hs
@@ -85,7 +91,6 @@ class AxesOrderPlugin(Plugin):
 
 
 class AxesOrderWidget(FigureWidget):
-
     def __init__(self, ui, parent=None):
         super().__init__(ui, parent)
         self.setWindowTitle(tr("Axes order"))
@@ -111,7 +116,7 @@ class AxesOrderWidget(FigureWidget):
         self.lst_sig.clear()
 
         for ax in signal.signal.axes_manager._get_axes_in_natural_order():
-            rep = '%s axis, size: %i' % (ax._get_name(), ax.size)
+            rep = "%s axis, size: %i" % (ax._get_name(), ax.size)
             p = self.lst_nav if ax.navigate else self.lst_sig
             i = QtWidgets.QListWidgetItem(rep)
             i.setData(QtCore.Qt.UserRole, ax)
@@ -136,15 +141,18 @@ class AxesOrderWidget(FigureWidget):
     def _move_item(self, item):
         ax = item.data(QtCore.Qt.UserRole)
         ax.navigate = not ax.navigate
-        self.ui.record_code((
-            "ax = ui.get_selected_signal().axes_manager[%s]\n"
-            "ax.navigate = not ax.navigate\n"
-            "ui.get_selected_wrapper().replot()") % (ax.index_in_array + 3j))
+        self.ui.record_code(
+            (
+                "ax = ui.get_selected_signal().axes_manager[%s]\n"
+                "ax.navigate = not ax.navigate\n"
+                "ui.get_selected_wrapper().replot()"
+            )
+            % (ax.index_in_array + 3j)
+        )
         self.signal.replot()
 
     def _list_move(self, item, dst_row, dst):
-        """Called when drag and drop moved interal in list.
-        """
+        """Called when drag and drop moved interal in list."""
         if self._updating:
             return
         ax = item.data(QtCore.Qt.UserRole)
@@ -153,8 +161,7 @@ class AxesOrderWidget(FigureWidget):
         self.plugin.rollaxis(ax, new_idx)
 
     def _list_insert(self, src_row, dst_row, dst):
-        """Called when drag and drop moved between lists.
-        """
+        """Called when drag and drop moved between lists."""
         if self._updating:
             return
         # Switch space
@@ -164,9 +171,13 @@ class AxesOrderWidget(FigureWidget):
         ax = am[old_idx]
         dst.item(dst_row).setData(QtCore.Qt.UserRole, ax)
         ax.navigate = not ax.navigate
-        self.ui.record_code((
-            "ax = ui.get_selected_signal().axes_manager[%s]\n"
-            "ax.navigate = not ax.navigate\n") % (ax.index_in_array + 3j))
+        self.ui.record_code(
+            (
+                "ax = ui.get_selected_signal().axes_manager[%s]\n"
+                "ax.navigate = not ax.navigate\n"
+            )
+            % (ax.index_in_array + 3j)
+        )
         space = 1j if ax.navigate else 2j
         new_idx = dst_row + space
         self.plugin.rollaxis(ax, new_idx)
@@ -273,13 +284,14 @@ class AxesListWidget(QtWidgets.QListWidget):
         return s
 
     def _on_rows_inserted(self, parent, begin, end):
-        for new_idx in range(begin, end+1):
+        for new_idx in range(begin, end + 1):
             if AxesListWidget.last_drop:
                 old_idx = AxesListWidget.last_drop.pop(0)
                 self.inserted.emit(old_idx, new_idx, self)
 
-    def _on_rows_moved(self, sourceParent, sourceStart, sourceEnd,
-                       destinationParent, destinationRow):
+    def _on_rows_moved(
+        self, sourceParent, sourceStart, sourceEnd, destinationParent, destinationRow
+    ):
         N = sourceEnd - sourceStart + 1
         for i in range(N):
             idx = destinationRow + i
@@ -293,7 +305,7 @@ class AxesListWidget(QtWidgets.QListWidget):
         stream = QtCore.QDataStream(data)
         while not stream.atEnd():
             row = stream.readInt32()
-            stream.readInt32()                      # Column; not used
+            stream.readInt32()  # Column; not used
             item = result.setdefault(row, {})
             for role in range(stream.readInt32()):
                 key = QtCore.Qt.ItemDataRole(stream.readInt32())

@@ -35,7 +35,6 @@ GaussTypes = (Gaussian, GaussianHF)
 
 
 class GaussianTool(FigureTool):
-
     def __init__(self, windows=None):
         super().__init__(windows)
         self.dragging = False
@@ -47,10 +46,10 @@ class GaussianTool(FigureTool):
         return "Gaussian tool"
 
     def get_category(self):
-        return 'Spectrum'
+        return "Spectrum"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/gaussian.svg'
+        return os.path.dirname(__file__) + "/../images/gaussian.svg"
 
     def is_selectable(self):
         return True
@@ -86,26 +85,25 @@ class GaussianTool(FigureTool):
         ax = event.mouseevent.inaxes
         if event.mouseevent.button == 3:
             window = ax.figure.canvas.parent()
-            mw = window.property('hyperspyUI.ModelWrapper')
+            mw = window.property("hyperspyUI.ModelWrapper")
             if mw is not None:
                 for c in mw.model:
                     line = c._model_plot_line.line
-                    if event.artist == line and \
-                            isinstance(c, GaussTypes):
+                    if event.artist == line and isinstance(c, GaussTypes):
                         mw.remove_component(c)
 
     def connect_windows(self, windows):
         super().connect_windows(windows)
         windows = self._iter_windows(windows)
         for w in windows:
-            mw = w.property('hyperspyUI.ModelWrapper')
+            mw = w.property("hyperspyUI.ModelWrapper")
             self._wire_wrapper(mw)
 
     def disconnect_windows(self, windows):
         super().disconnect_windows(windows)
         windows = self._iter_windows(windows)
         for w in windows:
-            mw = w.property('hyperspyUI.ModelWrapper')
+            mw = w.property("hyperspyUI.ModelWrapper")
             self._unwire_wrapper(mw)
 
     def on_mousedown(self, event):
@@ -118,9 +116,9 @@ class GaussianTool(FigureTool):
         if event.button == 1 and event.dblclick:
             # Add Gaussian here!
             window = f.canvas.parent()
-            mw = window.property('hyperspyUI.ModelWrapper')
+            mw = window.property("hyperspyUI.ModelWrapper")
             if mw is None:
-                sw = window.property('hyperspyUI.SignalWrapper')
+                sw = window.property("hyperspyUI.SignalWrapper")
                 mw = sw.make_model()
                 self._wire_wrapper(mw)
             m = mw.model
@@ -145,9 +143,9 @@ class GaussianTool(FigureTool):
         self.span = None
         ax = self.drag_data[3]
         window = ax.figure.canvas.parent()
-        mw = window.property('hyperspyUI.ModelWrapper')
+        mw = window.property("hyperspyUI.ModelWrapper")
         if mw is None:
-            sw = window.property('hyperspyUI.SignalWrapper')
+            sw = window.property("hyperspyUI.SignalWrapper")
             mw = sw.make_model()
             self._wire_wrapper(mw)
         m = mw.model
@@ -181,10 +179,12 @@ class GaussianTool(FigureTool):
         if self.span is None:
             self.dragging = False
             invtrans = ax.transData.inverted()
-            minspan = 3 * abs(invtrans.transform((1, 0)) -
-                              invtrans.transform((0, 0)))[0]
-            self.span = SpanSelector(ax, self.on_spanselect, 'horizontal',
-                                     minspan=minspan)
+            minspan = (
+                3 * abs(invtrans.transform((1, 0)) - invtrans.transform((0, 0)))[0]
+            )
+            self.span = SpanSelector(
+                ax, self.on_spanselect, "horizontal", minspan=minspan
+            )
             event2 = self.drag_data[4]
             self.span.press(event2)
             self.span.onmove(event)

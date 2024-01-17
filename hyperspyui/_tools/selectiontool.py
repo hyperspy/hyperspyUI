@@ -23,10 +23,19 @@ Created on Fri Apr 17 00:03:50 2015
 
 from qtpy import QtCore
 
-from hyperspy.drawing.widgets import (RectangleWidget, RangeWidget,
-                                      SquareWidget, VerticalLineWidget)
-from hyperspy.roi import (BaseInteractiveROI, RectangularROI, SpanROI,
-    Point1DROI, Point2DROI)
+from hyperspy.drawing.widgets import (
+    RectangleWidget,
+    RangeWidget,
+    SquareWidget,
+    VerticalLineWidget,
+)
+from hyperspy.roi import (
+    BaseInteractiveROI,
+    RectangularROI,
+    SpanROI,
+    Point1DROI,
+    Point2DROI,
+)
 
 from hyperspyui._tools.signalfiguretool import SignalFigureTool
 from hyperspyui.util import crosshair_cursor
@@ -41,14 +50,17 @@ class SelectionTool(SignalFigureTool):
     by simply selecting a different tool.
     """
 
-    accepted = QtCore.Signal([BaseInteractiveROI],
-                             [BaseInteractiveROI, SignalFigureTool])
-    updated = QtCore.Signal([BaseInteractiveROI],
-                            [BaseInteractiveROI, SignalFigureTool]) # TODO: Use
+    accepted = QtCore.Signal(
+        [BaseInteractiveROI], [BaseInteractiveROI, SignalFigureTool]
+    )
+    updated = QtCore.Signal(
+        [BaseInteractiveROI], [BaseInteractiveROI, SignalFigureTool]
+    )  # TODO: Use
     cancelled = QtCore.Signal()
 
-    def __init__(self, windows=None, name=None, category=None, icon=None,
-                 description=None):
+    def __init__(
+        self, windows=None, name=None, category=None, icon=None, description=None
+    ):
         super().__init__(windows)
         self.widget2d_r = RectangleWidget(None)
         self.widget2d_r.set_on(False)
@@ -58,13 +70,12 @@ class SelectionTool(SignalFigureTool):
         self.widget2d.set_on(False)
         self.widget1d = VerticalLineWidget(None)
         self.widget1d.set_on(False)
-        self._widgets = [self.widget2d_r, self.widget1d_r, self.widget2d,
-                         self.widget1d]
+        self._widgets = [self.widget2d_r, self.widget1d_r, self.widget2d, self.widget1d]
         self.valid_dimensions = [1, 2]
         self.ranged = True
 
         self.name = name or "Selection tool"
-        self.category = category or 'Signal'
+        self.category = category or "Signal"
         self.description = description
         self.icon = icon
         self.cancel_on_accept = False
@@ -122,12 +133,12 @@ class SelectionTool(SignalFigureTool):
         # If we already have a widget, make sure dragging is passed through
         if self.is_on():
             if any([p.contains(event)[0] is True for p in self.widget.patch]):
-                return              # Moving, handle in widget
+                return  # Moving, handle in widget
             # Clicked outside existing widget, check for resize handles
             if self.ndim > 1 and self.widget.resizers:
                 for r in self.widget._resizer_handles:
                     if r.contains(event)[0] is True:
-                        return      # Leave the event to widget
+                        return  # Leave the event to widget
             # Cancel previous and start new
             self.cancel()
             # Cancel reset axes, so set again
@@ -153,9 +164,9 @@ class SelectionTool(SignalFigureTool):
             if self.ranged:
                 span = self.widget.span
                 span.buttonDown = True
-                span.on_move_cid = \
-                    span.canvas.mpl_connect('motion_notify_event',
-                                            span.move_right)
+                span.on_move_cid = span.canvas.mpl_connect(
+                    "motion_notify_event", span.move_right
+                )
             else:
                 self.widget.picked = True
         else:
@@ -167,9 +178,9 @@ class SelectionTool(SignalFigureTool):
             self.widget.set_on(True)
 
     def on_keyup(self, event):
-        if event.key == 'enter':
+        if event.key == "enter":
             self.accept()
-        elif event.key == 'escape':
+        elif event.key == "escape":
             self.cancel()
 
     def accept(self):

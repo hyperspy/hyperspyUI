@@ -31,26 +31,35 @@ class VirtualBfDf(Plugin):
         self._rois = []
 
     def create_actions(self):
-        self.add_action(self.name + '.virtual_navigator',
-                        "Virtual navigator",
-                        self.virtual_navigator,
-                        tip="Set the navigator inesity by a virtual aperture")
-        self.add_action(self.name + '.virtual_aperture',
-                        "Virtual aperture",
-                        self.virtual_aperture,
-                        tip="Add a virtual aperture to the diffraction image")
-        self.add_action(self.name + '.virtual_annulus',
-                        "Virtual annulus",
-                        self.virtual_annulus,
-                        tip="Add a virtual annulus to the diffraction image")
+        self.add_action(
+            self.name + ".virtual_navigator",
+            "Virtual navigator",
+            self.virtual_navigator,
+            tip="Set the navigator inesity by a virtual aperture",
+        )
+        self.add_action(
+            self.name + ".virtual_aperture",
+            "Virtual aperture",
+            self.virtual_aperture,
+            tip="Add a virtual aperture to the diffraction image",
+        )
+        self.add_action(
+            self.name + ".virtual_annulus",
+            "Virtual annulus",
+            self.virtual_annulus,
+            tip="Add a virtual annulus to the diffraction image",
+        )
 
     def create_menu(self):
         self.add_menuitem(
-            'Diffraction', self.ui.actions[self.name + '.virtual_navigator'])
+            "Diffraction", self.ui.actions[self.name + ".virtual_navigator"]
+        )
         self.add_menuitem(
-            'Diffraction', self.ui.actions[self.name + '.virtual_aperture'])
+            "Diffraction", self.ui.actions[self.name + ".virtual_aperture"]
+        )
         self.add_menuitem(
-            'Diffraction', self.ui.actions[self.name + '.virtual_annulus'])
+            "Diffraction", self.ui.actions[self.name + ".virtual_annulus"]
+        )
 
     def _on_close(self, roi):
         for w in roi.widgets:
@@ -69,24 +78,26 @@ class VirtualBfDf(Plugin):
         ui = self.ui
         if signal is None:
             signal = ui.get_selected_signal()
-        dd = np.array([a.high_value + a.low_value for a in
-                       signal.axes_manager.signal_axes]) / 2.0
+        dd = (
+            np.array(
+                [a.high_value + a.low_value for a in signal.axes_manager.signal_axes]
+            )
+            / 2.0
+        )
         size_px = max(signal.axes_manager.signal_axes[0].size / 20, 3)
         r = hs.roi.CircleROI(
             dd[0], dd[1], size_px * signal.axes_manager.signal_axes[0].scale
-            )
+        )
         if annulus:
             r.r_inner = signal.axes_manager.signal_axes[0].scale * 2
-        sliced_signal = r.interactive(
-            signal, axes=signal.axes_manager.signal_axes
-            )
-        
+        sliced_signal = r.interactive(signal, axes=signal.axes_manager.signal_axes)
+
         # Create an output signal for the virtual dark-field calculation.
         out = sliced_signal.mean(sliced_signal.axes_manager.signal_axes)
         out.set_signal_type("")
-        out = out.transpose(list(
-                np.arange(min(sliced_signal.axes_manager.navigation_dimension, 2))
-            ))
+        out = out.transpose(
+            list(np.arange(min(sliced_signal.axes_manager.navigation_dimension, 2)))
+        )
 
         hs.interactive(
             sliced_signal.nansum,
@@ -99,20 +110,20 @@ class VirtualBfDf(Plugin):
         if navigate:
             signal.plot(navigator=out)
             signal._plot.navigator_plot.update()
-            out.events.data_changed.connect(
-                signal._plot.navigator_plot.update, [])
+            out.events.data_changed.connect(signal._plot.navigator_plot.update, [])
             utils.on_figure_window_close(
-                signal._plot.navigator_plot.figure,
-                partial(self._on_close, r))
+                signal._plot.navigator_plot.figure, partial(self._on_close, r)
+            )
         else:
             out.plot()
             utils.on_figure_window_close(
-                out._plot.signal_plot.figure,
-                partial(self._on_close, r))
+                out._plot.signal_plot.figure, partial(self._on_close, r)
+            )
 
         if navigate:
-            r.add_widget(signal, axes=signal.axes_manager.signal_axes,
-                         color='darkorange')
+            r.add_widget(
+                signal, axes=signal.axes_manager.signal_axes, color="darkorange"
+            )
         else:
             r.add_widget(signal, axes=signal.axes_manager.signal_axes)
         self._rois.append(r)

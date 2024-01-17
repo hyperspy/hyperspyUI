@@ -42,11 +42,10 @@ VisibilityCol = 0
 
 
 class ComponentEditorHandler(tu.Handler):
-
     def setattr(self, info, object, name, value):
         # Set the value etc.
         tu.Handler.setattr(self, info, object, name, value)
-        if name in ('value', 'std'):
+        if name in ("value", "std"):
             try:
                 # Make sure the value is actually stored in array
                 object.store_current_value_in_array()
@@ -56,13 +55,14 @@ class ComponentEditorHandler(tu.Handler):
 
 
 class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
-
     def __init__(self, parent=None, icons=None):
         if icons is None or len(icons) < 1:
             icons = []
             path = os.path.dirname(__file__)
-            for fn in [path + "/../images/visibility_on.svg",
-                       path + "/../images/visibility_off.svg"]:
+            for fn in [
+                path + "/../images/visibility_on.svg",
+                path + "/../images/visibility_off.svg",
+            ]:
                 renderer = QtSvg.QSvgRenderer(fn)
                 pm = QtGui.QPixmap(12, 12)
                 pm.fill(Qt.transparent)
@@ -79,8 +79,10 @@ class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
         super().__init__(parent)
 
     def iconPos(self, icon, option):
-        return QtCore.QPoint(int(option.rect.right() - icon.width() - self.margin),
-                             int(option.rect.center().y() - icon.height()/2))
+        return QtCore.QPoint(
+            int(option.rect.right() - icon.width() - self.margin),
+            int(option.rect.center().y() - icon.height() / 2),
+        )
 
     def sizeHint(self, option, index):
         size = super().sizeHint(option, index)
@@ -90,7 +92,7 @@ class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
             icon = self.icons[0]
         else:
             icon = self.icons[1]
-        size.setWidth(max(size.width(), + icon.width() + self.margin * 2))
+        size.setWidth(max(size.width(), +icon.width() + self.margin * 2))
         size.setHeight(max(size.height(), icon.height() + self.margin * 2))
         return size
 
@@ -107,12 +109,10 @@ class VisbilityDelegate(QtWidgets.QStyledItemDelegate):
 
 
 class HyperspyItem(QtWidgets.QTreeWidgetItem):
-
     def __init__(self, parent, itemtype, hspy_item):
         super().__init__(parent, itemtype)
         self.hspy_item = hspy_item
-        self.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable |
-                Qt.ItemIsEnabled)
+        self.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
         self.setText(NameCol, hspy_item.name)
 
     def data(self, column, role):
@@ -138,8 +138,11 @@ class HyperspyItem(QtWidgets.QTreeWidgetItem):
         return super().data(column, role)
 
     def setData(self, column, role, value):
-        if column == VisibilityCol and role == Qt.CheckStateRole \
-                and self.type() == DataViewWidget.SignalType:
+        if (
+            column == VisibilityCol
+            and role == Qt.CheckStateRole
+            and self.type() == DataViewWidget.SignalType
+        ):
             self._on_toggle_visibility()
         else:
             super().setData(column, role, value)
@@ -157,8 +160,7 @@ class HyperspyItem(QtWidgets.QTreeWidgetItem):
                 if p.isMinimized():
                     p.showNormal()
                 else:
-                    self.treeWidget().main_window.main_frame.\
-                        setActiveSubWindow(p)
+                    self.treeWidget().main_window.main_frame.setActiveSubWindow(p)
 
 
 class DataViewWidget(QtWidgets.QWidget):
@@ -199,12 +201,13 @@ class DataViewWidget(QtWidgets.QWidget):
         self.tree.setSizePolicy(sp)
 
         self.tree.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.tree.customContextMenuRequested[QtCore.QPoint].connect(self.onCustomContextMenu)
+        self.tree.customContextMenuRequested[QtCore.QPoint].connect(
+            self.onCustomContextMenu
+        )
         self.tree.currentItemChanged.connect(self.currentItemChanged)
         self.tree.itemDoubleClicked.connect(self.itemDoubleClicked)
 
-        self.tree.setItemDelegateForColumn(VisibilityCol,
-                                           VisbilityDelegate(self.tree))
+        self.tree.setItemDelegateForColumn(VisibilityCol, VisbilityDelegate(self.tree))
         self.tree.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
     def _add(self, item, itemtype, parent=None):
@@ -249,15 +252,14 @@ class DataViewWidget(QtWidgets.QWidget):
             if current and current.type() == self.ComponentType:
                 comp = current.data(NameCol, Qt.UserRole)
                 if isinstance(comp, t.HasTraits):
-                    self.main_window.capture_traits_dialog(
-                        self.set_traits_editor)
+                    self.main_window.capture_traits_dialog(self.set_traits_editor)
                     self.edit_traits(comp, False)
             else:
                 self.clear_editor()
 
     def itemDoubleClicked(self, item, column):
         if column == VisibilityCol:
-            return      # Don't count double clicks on check
+            return  # Don't count double clicks on check
         if item.type() == self.ComponentType:
             item = item.parent().parent()
         elif item.type() == self.ModelType:
@@ -268,20 +270,26 @@ class DataViewWidget(QtWidgets.QWidget):
 
     def edit_traits(self, comp, buttons=True):
         try:
-            items = [tu.Item('name'), tu.Item('active')]
+            items = [tu.Item("name"), tu.Item("active")]
             for p in comp.parameters:
-                name = '.'.join(('object', p.name))
-                p_label = p.name.replace('_', ' ').capitalize()
-                vi = tu.Item(name + '.value', label=p_label,
-                             editor=tu.RangeEditor(low_name=name + '.bmin',
-                                                   high_name=name + '.bmax'))
-                items.extend((vi, tu.Item(name + '.free')))
-            view = tu.View(*items,
-                           handler=ComponentEditorHandler(),
-                           buttons=tu.OKCancelButtons if buttons else [],
-                           default_button=tu.OKButton,
-                           kind='live',
-                           resizable=True)
+                name = ".".join(("object", p.name))
+                p_label = p.name.replace("_", " ").capitalize()
+                vi = tu.Item(
+                    name + ".value",
+                    label=p_label,
+                    editor=tu.RangeEditor(
+                        low_name=name + ".bmin", high_name=name + ".bmax"
+                    ),
+                )
+                items.extend((vi, tu.Item(name + ".free")))
+            view = tu.View(
+                *items,
+                handler=ComponentEditorHandler(),
+                buttons=tu.OKCancelButtons if buttons else [],
+                default_button=tu.OKButton,
+                kind="live",
+                resizable=True,
+            )
             comp.edit_traits(view=view)
         except AttributeError:
             # in case some attribute are missing
@@ -311,9 +319,9 @@ class DataViewWidget(QtWidgets.QWidget):
 
             # Add "add component" actions
             cm.addSeparator()
-            comp_actions = create_add_component_actions(self.tree,
-                                                        model.add_component,
-                                                        prefix="Add ")
+            comp_actions = create_add_component_actions(
+                self.tree, model.add_component, prefix="Add "
+            )
             for ac in comp_actions.values():
                 cm.addAction(ac)
         elif item.type() == self.ComponentType:
@@ -348,7 +356,7 @@ class DataViewWidget(QtWidgets.QWidget):
             if citem.type() == self.SignalType:
                 data.close()
             elif citem.type() == self.ModelType:
-                data.actions['delete'].trigger()
+                data.actions["delete"].trigger()
             elif citem.type() == self.ComponentType:
                 model = citem.parent().data(NameCol, Qt.UserRole)
                 model.remove_component(data)
@@ -383,12 +391,13 @@ class DataViewWidget(QtWidgets.QWidget):
             self.add_component(c, model)
 
     def add_component(self, component, model):
-        ci = self._add(component, self.ComponentType,
-                       parent=model)
+        ci = self._add(component, self.ComponentType, parent=model)
         if isinstance(component, t.HasTraits):
+
             def update_name(new_name):
                 ci.setText(NameCol, new_name)
-            component.on_trait_change(update_name, 'name')
+
+            component.on_trait_change(update_name, "name")
 
     def add(self, object, type, parent=None):
         self._add(object, type, parent)

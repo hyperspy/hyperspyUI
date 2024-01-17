@@ -38,7 +38,7 @@ class FittingPlugin(Plugin):
 
     def create_tools(self):
         self.reg_tool = RegressionTool()
-        self.reg_tool.category = 'Spectrum'
+        self.reg_tool.category = "Spectrum"
         self.reg_tool.accepted[BaseInteractiveROI].connect(self.regression)
         self.add_tool(self.reg_tool, self.ui.select_signal)
 
@@ -46,7 +46,7 @@ class FittingPlugin(Plugin):
         if signal is None:
             f = self.reg_tool.widget.ax.figure
             window = f.canvas.parent()
-            sw = window.property('hyperspyUI.SignalWrapper')
+            sw = window.property("hyperspyUI.SignalWrapper")
             if sw is None:
                 return
             signal = sw.signal
@@ -69,36 +69,32 @@ class FittingPlugin(Plugin):
         reg = stats.linregress(x, y)
         x1, x2 = np.min(x), np.max(x)
         y1, y2 = np.array([x1, x2]) * reg[0] + reg[1]
-        m_l = hs.plot.markers.Lines(
-            segments=np.array([[[x1, y1], [x2, y2]]])
-            )
+        m_l = hs.plot.markers.Lines(segments=np.array([[[x1, y1], [x2, y2]]]))
         signal.add_marker(m_l)
         m_t = hs.plot.markers.Texts(
             offsets=[(x2 + x1) * 0.5, (y2 + y1) * 0.5],
             texts=["y = {0:.4g} + {1:.4g}, R={2:.4g}".format(*reg[0:3])],
             sizes=3,
-            )
+        )
         signal.add_marker(m_t)
 
         self.record_code("signal = ui.get_selected_signal()")
-        self.record_code("axes = " +
-                         str(tuple([sig_axes.index(a) for a in axes])))
+        self.record_code("axes = " + str(tuple([sig_axes.index(a) for a in axes])))
         self.record_code("roi = utils.roi." + str(roi))
         self.record_code("<p>.regression(roi, signal, axes)")
-        self.reg_tool.cancel()   # Turn off functionality as we are finished
+        self.reg_tool.cancel()  # Turn off functionality as we are finished
 
 
 class RegressionTool(SelectionTool):
 
-    """
-    """
+    """ """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.valid_dimensions = [1]
 
     def on_keyup(self, event):
-        if event.key == 'delete':   # TODO: OR escape + inactive
+        if event.key == "delete":  # TODO: OR escape + inactive
             # TODO: Delete regression
             pass
         else:
@@ -108,4 +104,4 @@ class RegressionTool(SelectionTool):
         return "Regression tool"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/regression.svg'
+        return os.path.dirname(__file__) + "/../images/regression.svg"

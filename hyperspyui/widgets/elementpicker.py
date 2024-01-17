@@ -36,6 +36,7 @@ from hyperspyui.util import win2sig, block_signals
 def tr(text):
     return QtCore.QCoreApplication.translate("ElementPickerWidget", text)
 
+
 edstypes = (exspy.signals.EDSSEMSpectrum, exspy.signals.EDSTEMSpectrum)
 
 
@@ -45,6 +46,7 @@ class ElementPickerWidget(FigureWidget):
     Tool window for picking elements of an interactive periodic table.
     Takes a signal in the constructor, and a parent control.
     """
+
     element_toggled = QtCore.Signal(str)
 
     def __init__(self, main_window, parent):
@@ -53,8 +55,7 @@ class ElementPickerWidget(FigureWidget):
         self.create_controls()
         self.table.element_toggled.connect(self._toggle_element)
         self.set_signal(self.signal)
-        self._only_lines = ['Ka', 'La', 'Ma',
-                            'Kb', 'Lb1', 'Mb']
+        self._only_lines = ["Ka", "La", "Ma", "Kb", "Lb1", "Mb"]
 
     def _on_figure_change(self, figure):
         super()._on_figure_change(figure)
@@ -78,14 +79,15 @@ class ElementPickerWidget(FigureWidget):
 
         # Enable markers if plot has any
         with block_signals(self.chk_markers):
-            markers = (hasattr(signal.signal, '_xray_markers') and
-                       bool(signal.signal._xray_markers))
+            markers = hasattr(signal.signal, "_xray_markers") and bool(
+                signal.signal._xray_markers
+            )
             self.chk_markers.setChecked(int(markers))
 
         # Make sure we have the Sample node, and Sample.elements
-        if not hasattr(signal.signal.metadata, 'Sample'):
-            signal.signal.metadata.add_node('Sample')
-        if not hasattr(signal.signal.metadata.Sample, 'elements'):
+        if not hasattr(signal.signal.metadata, "Sample"):
+            signal.signal.metadata.add_node("Sample")
+        if not hasattr(signal.signal.metadata.Sample, "elements"):
             signal.signal.metadata.Sample.elements = []
 
         self._set_elements(signal.signal.metadata.Sample.elements)
@@ -137,8 +139,9 @@ class ElementPickerWidget(FigureWidget):
             # Element present, we're removing it
             s.metadata.Sample.elements.remove(element)
             self.ui.record_code(
-                "signal.metadata.Sample.elements.remove('%s')" % element)
-            if 'Sample.xray_lines' in s.metadata:
+                "signal.metadata.Sample.elements.remove('%s')" % element
+            )
+            if "Sample.xray_lines" in s.metadata:
                 for line in reversed(s.metadata.Sample.xray_lines):
                     if line.startswith(element):
                         s.metadata.Sample.xray_lines.remove(line)
@@ -146,20 +149,21 @@ class ElementPickerWidget(FigureWidget):
                 if len(s.metadata.Sample.xray_lines) < 1:
                     del s.metadata.Sample.xray_lines
             else:
-                lines_removed.extend(s._get_lines_from_elements(
-                                     [element], only_one=False,
-                                     only_lines=self._only_lines))
+                lines_removed.extend(
+                    s._get_lines_from_elements(
+                        [element], only_one=False, only_lines=self._only_lines
+                    )
+                )
         else:
             lines_added = s._get_lines_from_elements(
-                [element], only_one=False, only_lines=self._only_lines)
-            if 'Sample.xray_lines' in s.metadata:
+                [element], only_one=False, only_lines=self._only_lines
+            )
+            if "Sample.xray_lines" in s.metadata:
                 s.add_lines(lines_added)  # Will also add element
-                self.ui.record_code(
-                    "signal.add_lines(%s)" % str(lines_added))
+                self.ui.record_code("signal.add_lines(%s)" % str(lines_added))
             else:
                 s.add_elements((element,))
-                self.ui.record_code(
-                    "signal.add_elements(%s)" % str([element]))
+                self.ui.record_code("signal.add_elements(%s)" % str([element]))
         if self.markers:
             if lines_added:
                 s.add_xray_lines_markers(lines_added)
@@ -173,22 +177,18 @@ class ElementPickerWidget(FigureWidget):
             s.elements.remove(element)
             s.subshells = set()
             s.add_elements([])  # Will set metadata.Sample.elements
-            self.ui.record_code(
-                "signal.elements.remove('%s')" % str(element))
-            self.ui.record_code(
-                "signal.subshells = set()")
-            self.ui.record_code(
-                "signal.add_elements([])")
+            self.ui.record_code("signal.elements.remove('%s')" % str(element))
+            self.ui.record_code("signal.subshells = set()")
+            self.ui.record_code("signal.add_elements([])")
         else:
             s.add_elements((element,))
-            self.ui.record_code(
-                "signal.add_elements(%s)" % str([element]))
+            self.ui.record_code("signal.add_elements(%s)" % str([element]))
 
     def _toggle_subshell(self, subshell, checked):
         if not self.isEDS():
             return
         s = self.signal.signal
-        element, ss = subshell.split('_')
+        element, ss = subshell.split("_")
 
         # Figure out whether element should be toggled
         active, _ = self._get_element_subshells(element)
@@ -209,11 +209,10 @@ class ElementPickerWidget(FigureWidget):
                 self._toggle_element(element)
 
         self.ui.record_code("signal = ui.get_selected_signal()")
-        if 'Sample.xray_lines' not in s.metadata and len(active) > 0:
-            lines = [element + '_' + a for a in active]
+        if "Sample.xray_lines" not in s.metadata and len(active) > 0:
+            lines = [element + "_" + a for a in active]
             s.add_lines(lines)
-            self.ui.record_code(
-                "signal.add_lines(%s)" % str(lines))
+            self.ui.record_code("signal.add_lines(%s)" % str(lines))
             if self.markers:
                 if checked:
                     s.add_xray_lines_markers(lines)
@@ -222,24 +221,22 @@ class ElementPickerWidget(FigureWidget):
         else:
             if checked:
                 s.add_lines([subshell])
-                self.ui.record_code(
-                    "signal.add_lines(%s)" % str([subshell]))
+                self.ui.record_code("signal.add_lines(%s)" % str([subshell]))
                 if self.markers:
                     s.add_xray_lines_markers([subshell])
-            elif 'Sample.xray_lines' in s.metadata:
+            elif "Sample.xray_lines" in s.metadata:
                 if subshell in s.metadata.Sample.xray_lines:
                     s.metadata.Sample.xray_lines.remove(subshell)
                     self.ui.record_code(
-                        "signal.metadata.Sample.xray_lines.remove('%s')" %
-                        str(subshell))
+                        "signal.metadata.Sample.xray_lines.remove('%s')" % str(subshell)
+                    )
                     if self.markers:
                         s.remove_xray_lines_markers([subshell])
                 # If all lines are disabled, fall back to element defined
                 # (Not strictly needed)
                 if len(s.metadata.Sample.xray_lines) < 1:
                     del s.metadata.Sample.xray_lines
-                    self.ui.record_code(
-                        "del signal.metadata.Sample.xray_lines")
+                    self.ui.record_code("del signal.metadata.Sample.xray_lines")
 
     def _set_elements(self, elements):
         """
@@ -273,7 +270,7 @@ class ElementPickerWidget(FigureWidget):
             if self.isEDS():
                 for m in reversed(s._plot.signal_plot.ax_markers):
                     m.close(render_figure=False)
-                if hasattr(s, '_xray_markers'):
+                if hasattr(s, "_xray_markers"):
                     s._xray_markers.clear()
 
     def make_map(self):
@@ -282,7 +279,7 @@ class ElementPickerWidget(FigureWidget):
         only implemented for EDS signals.
         """
         if self.isEELS():
-            pass    # TODO: EELS maps
+            pass  # TODO: EELS maps
         elif self.isEDS():
             imgs = self.signal.signal.get_lines_intensity(only_one=False)
             for im in imgs:
@@ -293,39 +290,44 @@ class ElementPickerWidget(FigureWidget):
         subshells = []
         possible_subshells = []
         if self.isEELS():
-            subshells[:] = [ss.split('_')[0] for ss in s.subshells]
+            subshells[:] = [ss.split("_")[0] for ss in s.subshells]
 
             Eaxis = s.axes_manager.signal_axes[0].axis
             if not include_pre_edges:
                 start_energy = Eaxis[0]
             else:
-                start_energy = 0.
+                start_energy = 0.0
             end_energy = Eaxis[-1]
-            for shell in elements_db[element][
-                    'Atomic_properties']['Binding_energies']:
-                if shell[-1] != 'a':
-                    if start_energy <= \
-                            elements_db[element]['Atomic_properties'][
-                            'Binding_energies'][shell]['onset_energy (eV)'] \
-                            <= end_energy:
+            for shell in elements_db[element]["Atomic_properties"]["Binding_energies"]:
+                if shell[-1] != "a":
+                    if (
+                        start_energy
+                        <= elements_db[element]["Atomic_properties"][
+                            "Binding_energies"
+                        ][shell]["onset_energy (eV)"]
+                        <= end_energy
+                    ):
                         possible_subshells.add(shell)
         elif self.isEDS():
-            if 'Sample.xray_lines' in s.metadata:
+            if "Sample.xray_lines" in s.metadata:
                 xray_lines = s.metadata.Sample.xray_lines
                 for line in xray_lines:
                     c_element, subshell = line.split("_")
                     if c_element == element:
                         subshells.append(subshell)
-            elif ('Sample.elements' in s.metadata and
-                  element in s.metadata.Sample.elements):
+            elif (
+                "Sample.elements" in s.metadata
+                and element in s.metadata.Sample.elements
+            ):
                 xray_lines = s._get_lines_from_elements(
-                    [element], only_one=False, only_lines=self._only_lines)
+                    [element], only_one=False, only_lines=self._only_lines
+                )
                 for line in xray_lines:
                     _, subshell = line.split("_")
                     subshells.append(subshell)
-            possible_xray_lines = \
-                s._get_lines_from_elements([element], only_one=False,
-                                           only_lines=self._only_lines)
+            possible_xray_lines = s._get_lines_from_elements(
+                [element], only_one=False, only_lines=self._only_lines
+            )
             for line in possible_xray_lines:
                 _, subshell = line.split("_")
                 possible_subshells.append(subshell)
@@ -339,7 +341,7 @@ class ElementPickerWidget(FigureWidget):
         element = widget.text()
         active, possible = self._get_element_subshells(element)
         for ss in possible:
-            key = element + '_' + ss
+            key = element + "_" + ss
             ac = cm.addAction(ss)
             ac.setCheckable(True)
             ac.setChecked(int(ss in active))
@@ -353,7 +355,7 @@ class ElementPickerWidget(FigureWidget):
         Create UI controls.
         """
         self.table = PeriodicTableWidget(self)
-        self.table.element_toggled.connect(self.element_toggled)    # Forward
+        self.table.element_toggled.connect(self.element_toggled)  # Forward
         for w in self.table.children():
             if not isinstance(w, ExClickLabel):
                 continue

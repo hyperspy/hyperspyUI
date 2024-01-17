@@ -34,18 +34,18 @@ class Recorder(QtCore.QObject):
 
         self.steps = list()
         self.pause_recording = False
-        self.filter = {'actions': True, 'code': True}
+        self.filter = {"actions": True, "code": True}
 
     # ------ Recording API ------
     def add_code(self, code):
-        if self.filter['code'] and not self.pause_recording:
-            step = ('code', code.rstrip('\n'))
+        if self.filter["code"] and not self.pause_recording:
+            step = ("code", code.rstrip("\n"))
             self.steps.append(step)
             self._on_record(step)
 
     def add_action(self, action_key):
-        if self.filter['actions'] and not self.pause_recording:
-            step = ('action', action_key)
+        if self.filter["actions"] and not self.pause_recording:
+            step = ("action", action_key)
             self.steps.append(step)
             self._on_record(step)
 
@@ -56,9 +56,9 @@ class Recorder(QtCore.QObject):
     # ------ Output API ------
     @staticmethod
     def step_to_code(step):
-        if step[0] == 'code':
-            value = step[1] + '\n'
-        elif step[0] == 'action':
+        if step[0] == "code":
+            value = step[1] + "\n"
+        elif step[0] == "action":
             value = "ui.actions['{0}'].trigger()\n".format(step[1])
         else:
             value = None
@@ -70,8 +70,7 @@ class Recorder(QtCore.QObject):
             code += self.step_to_code(step)
         return code
 
-    def to_plugin(self, name, category=None, menu=False, toolbar=False,
-                  icon=None):
+    def to_plugin(self, name, category=None, menu=False, toolbar=False, icon=None):
         code = "ui = self.ui\n"
         code += "siglist = ui.hspy_signals\n"
         code += self.to_code()

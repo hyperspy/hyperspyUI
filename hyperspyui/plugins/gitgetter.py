@@ -20,9 +20,19 @@ from hyperspyui.plugins.plugin import Plugin
 
 from qtpy import QtCore, QtWidgets
 from qtpy.QtWidgets import QDialogButtonBox
-from qtpy.QtWidgets import (QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout,
-                            QFormLayout, QDialog, QMessageBox, QLabel, QWidget,
-                            QComboBox, QTextEdit)
+from qtpy.QtWidgets import (
+    QCheckBox,
+    QPushButton,
+    QHBoxLayout,
+    QVBoxLayout,
+    QFormLayout,
+    QDialog,
+    QMessageBox,
+    QLabel,
+    QWidget,
+    QComboBox,
+    QTextEdit,
+)
 from qtpy.QtCore import Qt
 
 import os
@@ -42,7 +52,7 @@ def check_git_repo(package_name):
     """
     pkg_path = os.path.dname(importlib.util.find_spec(package_name).origin)
     while pkg_path:
-        if os.path.exists(os.path.join(pkg_path, '.git')):
+        if os.path.exists(os.path.join(pkg_path, ".git")):
             return True
         pkg_path, dummy = os.path.split(pkg_path)
         if not dummy:
@@ -58,13 +68,15 @@ def get_github_branches(repo_url):
     names as keys, and source zip URL as value.
     """
     import urllib.request
-    branch_url = repo_url + '/branches/all'
+
+    branch_url = repo_url + "/branches/all"
     res = urllib.request.urlopen(branch_url)
     html = res.read().decode(res.headers.get_content_charset())
     names = re.findall(
-        '<a href=".*?" class="branch-name css-truncate-target">(.*?)</a>',
-        html)
-    return OrderedDict(((n, repo_url + '/archive/%s.zip' % n) for n in names))
+        '<a href=".*?" class="branch-name css-truncate-target">(.*?)</a>', html
+    )
+    return OrderedDict(((n, repo_url + "/archive/%s.zip" % n) for n in names))
+
 
 try:
     import git
@@ -79,10 +91,13 @@ try:
             return True
         except git.cmd.GitCommandNotFound:
             if prompt:
-                ext_filt = '*.exe' if os.name == 'NT' else None
+                ext_filt = "*.exe" if os.name == "NT" else None
                 path = QtWidgets.QFileDialog.getOpenFileName(
-                    parent, tr('Specify git executable'),
-                    git.Git.GIT_PYTHON_GIT_EXECUTABLE, ext_filt)
+                    parent,
+                    tr("Specify git executable"),
+                    git.Git.GIT_PYTHON_GIT_EXECUTABLE,
+                    ext_filt,
+                )
                 # Pyside returns tuple, PyQt not
                 if isinstance(path, (tuple, list)):
                     path = path[0]
@@ -117,8 +132,7 @@ try:
             except git.GitCommandError:
                 continue
             # Don't include PRs in list
-            branches.update(((b.name, b) for b in remote.refs if
-                             '/pr/' not in b.name))
+            branches.update(((b.name, b) for b in remote.refs if "/pr/" not in b.name))
         return branches
 
     got_git = True
@@ -133,7 +147,7 @@ def get_branches(package_name, url):
     """
     Either get git branches, or fetch branches from github.com
     """
-    if use_git and check_git_repo(package_name):    
+    if use_git and check_git_repo(package_name):
         return get_git_branches(package_name)
     else:
         return get_github_branches(url)
@@ -156,15 +170,17 @@ def checkout_branch(branch, stream=None):
                 super().__init__(*args, **kwargs)
                 self.file = stream
 
-        class WrapDownloadProgressBarSpinner(
-                pip.download.DownloadProgressSpinner):
+        class WrapDownloadProgressBarSpinner(pip.download.DownloadProgressSpinner):
             def __init__(self, *args, **kwargs):
                 super().__init__(*args, **kwargs)
                 self.file = stream
+
         ic = pip.commands.InstallCommand()
         ic.log_streams = (stream, stream)
-        old_classes = (pip.download.DownloadProgressBar,
-                       pip.download.DownloadProgressSpinner)
+        old_classes = (
+            pip.download.DownloadProgressBar,
+            pip.download.DownloadProgressSpinner,
+        )
         pip.download.DownloadProgressBar = WrapDownloadProgressBar
         pip.download.DownloadProgressSpinner = WrapDownloadProgressBarSpinner
         stdout_set = False
@@ -172,19 +188,20 @@ def checkout_branch(branch, stream=None):
             sys.__stdout__ = sys.stdout
             stdout_set = True
         try:
-            ic.main(['--no-deps', '-I', branch])
+            ic.main(["--no-deps", "-I", branch])
             ic.main([branch])
         finally:
             if stdout_set:
                 sys.__stdout__ = None  # Let's leave things as we found them.
-            (pip.download.DownloadProgressBar,
-             pip.download.DownloadProgressSpinner) = old_classes
+            (
+                pip.download.DownloadProgressBar,
+                pip.download.DownloadProgressSpinner,
+            ) = old_classes
     else:
         try:
             branch.checkout()
         except git.GitCommandError as e:
-            mb = QMessageBox(QMessageBox.Critical, tr("Git checkout failed"),
-                             e.stderr)
+            mb = QMessageBox(QMessageBox.Critical, tr("Git checkout failed"), e.stderr)
             mb.exec_()
             raise ValueError()
 
@@ -198,25 +215,29 @@ class GitSelector(Plugin):
 
     def __init__(self, main_window):
         super().__init__(main_window)
-        self.settings.set_default('check_for_updates_on_start', True)
-        self.settings.set_default('check_for_git_updates', False)
+        self.settings.set_default("check_for_updates_on_start", True)
+        self.settings.set_default("check_for_git_updates", False)
         self.packages = {
-            'HyperSpy': [True, 'https://github.com/hyperspy/hyperspy'],
-            'HyperSpyUI': [True, 'https://github.com/hyperspy/hyperspyui'],
-            }
+            "HyperSpy": [True, "https://github.com/hyperspy/hyperspy"],
+            "HyperSpyUI": [True, "https://github.com/hyperspy/hyperspyui"],
+        }
         self.ui.load_complete.connect(self._on_load_complete)
         if got_git:
-            git.Git.GIT_PYTHON_GIT_EXECUTABLE = \
-                    self.settings['git_executable'] or ''
+            git.Git.GIT_PYTHON_GIT_EXECUTABLE = self.settings["git_executable"] or ""
 
     def create_actions(self):
         self.add_action(
-            self.name + '.show_dialog', self.name, self.show_dialog,
-            tip="Open dialog to select branch/version of HyperSpy/HyperSpyUI",)
+            self.name + ".show_dialog",
+            self.name,
+            self.show_dialog,
+            tip="Open dialog to select branch/version of HyperSpy/HyperSpyUI",
+        )
         self.add_action(
-            self.name + '.update_check', "Check for updates",
+            self.name + ".update_check",
+            "Check for updates",
             self.update_check,
-            tip="Check for new versions of HyperSpy/HyperSpyUI",)
+            tip="Check for new versions of HyperSpy/HyperSpyUI",
+        )
 
     def _check_git(self):
         for package_name in self.packages.keys():
@@ -224,18 +245,15 @@ class GitSelector(Plugin):
                 git_ok = use_git
                 if git_ok:
                     git_ok = check_git_cmd(True, self.ui)
-                    self.settings['git_executable'] = \
-                        git.Git.GIT_PYTHON_GIT_EXECUTABLE
+                    self.settings["git_executable"] = git.Git.GIT_PYTHON_GIT_EXECUTABLE
                 self.packages[package_name][0] = git_ok
 
     def create_menu(self):
-        self.add_menuitem('Settings',
-                          self.ui.actions[self.name + '.show_dialog'])
-        self.add_menuitem('Settings',
-                          self.ui.actions[self.name + '.update_check'])
+        self.add_menuitem("Settings", self.ui.actions[self.name + ".show_dialog"])
+        self.add_menuitem("Settings", self.ui.actions[self.name + ".update_check"])
 
     def _on_load_complete(self):
-        if self.settings['check_for_updates_on_start', bool]:
+        if self.settings["check_for_updates_on_start", bool]:
             self.update_check(silent=True)
 
     def _perform_update(self, package):
@@ -243,7 +261,7 @@ class GitSelector(Plugin):
         try:
             checkout_branch(package, stream)
         finally:
-            diag = getattr(stream, 'dialog', None)
+            diag = getattr(stream, "dialog", None)
             if diag is not None:
                 diag.btn_close.setEnabled(True)
 
@@ -270,25 +288,31 @@ class GitSelector(Plugin):
         for Name, (enabled, url) in self.packages.items():
             name = Name.lower()
             if enabled:
-                if (check_git_repo(name) and
-                        self.settings['check_for_git_updates', bool]):
+                if (
+                    check_git_repo(name)
+                    and self.settings["check_for_git_updates", bool]
+                ):
                     # TODO: Check for commits to pull
                     pass
                 else:
                     import xmlrpc.client
-                    pypi = xmlrpc.client.ServerProxy(
-                        'https://pypi.python.org/pypi')
+
+                    pypi = xmlrpc.client.ServerProxy("https://pypi.python.org/pypi")
                     found = pypi.package_releases(name)
                     if not found:
                         # Try to capitalize pkg name
-                        if name == 'hyperspyui':
-                            found = pypi.package_releases('hyperspyUI', True)
+                        if name == "hyperspyui":
+                            found = pypi.package_releases("hyperspyUI", True)
                         else:
                             found = pypi.package_releases(Name, True)
                     if found:
                         import pip
-                        dist = [d for d in pip.get_installed_distributions()
-                                if d.project_name.lower() == name]
+
+                        dist = [
+                            d
+                            for d in pip.get_installed_distributions()
+                            if d.project_name.lower() == name
+                        ]
                         if dist[0].version < found[0]:
                             available[name] = found[0]
 
@@ -300,19 +324,28 @@ class GitSelector(Plugin):
                     if isinstance(chk, QtWidgets.QCheckBox):
                         name = chk.text()
                         if available[name]:
-                            name += '==' + available[name]
+                            name += "==" + available[name]
                         self._perform_update(name)
         elif not silent:
-            mb = QMessageBox(QMessageBox.Information, tr("No updates"),
-                             tr("No new updates were found."),
-                             parent=self.ui)
+            mb = QMessageBox(
+                QMessageBox.Information,
+                tr("No updates"),
+                tr("No new updates were found."),
+                parent=self.ui,
+            )
             mb.exec_()
 
     def _get_update_list(self, names):
         w = QWidget()
         vbox = QVBoxLayout()
-        vbox.addWidget(QLabel(tr("The following updates are available. Do you "
-                                 "want to update them?")))
+        vbox.addWidget(
+            QLabel(
+                tr(
+                    "The following updates are available. Do you "
+                    "want to update them?"
+                )
+            )
+        )
         for n in names:
             vbox.addWidget(QCheckBox(n))
         w.setLayout(vbox)
@@ -328,7 +361,6 @@ class GitSelector(Plugin):
 
 
 class VersionSelectionDialog(QDialog):
-
     def __init__(self, plugin, parent=None):
         super().__init__(parent)
         self.plugin = plugin
@@ -345,7 +377,7 @@ class VersionSelectionDialog(QDialog):
             with block_signals(cbo):
                 cbo.setCurrentIndex(self._prev_indices[cbo])
         finally:
-            diag = getattr(stream, 'dialog', None)
+            diag = getattr(stream, "dialog", None)
             if diag is not None:
                 diag.btn_close.setEnabled(True)
         self._prev_indices[cbo] = index
@@ -366,19 +398,22 @@ class VersionSelectionDialog(QDialog):
                     cbo.insertItem(0, "<Select to change>", None)
                 cbo.setCurrentIndex(0)
                 self._prev_indices[cbo] = 0
-                cbo.currentIndexChanged.connect(
-                    partial(self._cbo_changed, cbo))
+                cbo.currentIndexChanged.connect(partial(self._cbo_changed, cbo))
             else:
                 cbo.setEditText("<git repository>")
-                cbo.setToolTip(tr(
-                    "This is installed in a git repository but we're set to "
-                    "not use git."))
+                cbo.setToolTip(
+                    tr(
+                        "This is installed in a git repository but we're set to "
+                        "not use git."
+                    )
+                )
             cbo.setEnabled(enabled)
-            form.addRow(Name + ':', cbo)
+            form.addRow(Name + ":", cbo)
 
         vbox.addLayout(form)
-        vbox.addWidget(QLabel(tr(
-            "You should restart the application if you make any changes!")))
+        vbox.addWidget(
+            QLabel(tr("You should restart the application if you make any changes!"))
+        )
 
         btns = QDialogButtonBox(QDialogButtonBox.Ok, Qt.Horizontal, self)
         btns.accepted.connect(self.accept)
@@ -387,12 +422,12 @@ class VersionSelectionDialog(QDialog):
 
 
 class VisualLogStream(StringIO):
-    def __init__(self, parent=None, buf=''):
+    def __init__(self, parent=None, buf=""):
         super().__init__(self, buf)
         self.parent = parent
         self.dialog = None
-        self.ignore = ['\x1b[?25l', '\x1b[?25h', '']
-        self.clearln = '\r\x1b[K'
+        self.ignore = ["\x1b[?25l", "\x1b[?25h", ""]
+        self.clearln = "\r\x1b[K"
 
     def _ensure_dialog(self):
         if self.dialog is None:
@@ -410,10 +445,10 @@ class VisualLogStream(StringIO):
             return
         if s == self.clearln:
             v = self.getvalue()
-            pos = v.rfind('\n', 0, len(v)-1)
+            pos = v.rfind("\n", 0, len(v) - 1)
             if pos > 0:
-                self.truncate(pos+1)
-                self.seek(pos+1)
+                self.truncate(pos + 1)
+                self.seek(pos + 1)
         else:
             super().write(self, s)
             self._ensure_dialog()
@@ -422,7 +457,6 @@ class VisualLogStream(StringIO):
 
 
 class PipOutput(QDialog):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.create_controls()
@@ -441,7 +475,7 @@ class PipOutput(QDialog):
             self.setWindowFlags(wFlags)
         vbox = QVBoxLayout()
         self.output = QTextEdit()
-        if self.parent() and hasattr(self.parent(), 'console'):
+        if self.parent() and hasattr(self.parent(), "console"):
             self.output.setFont(self.parent().console.font)
         vbox.addWidget(self.output)
         hbox = QHBoxLayout()

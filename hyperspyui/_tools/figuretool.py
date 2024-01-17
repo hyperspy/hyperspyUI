@@ -28,7 +28,6 @@ from hyperspyui._tools.tool import Tool
 
 
 class FigureTool(Tool):
-
     def __init__(self, windows=None):
         super().__init__()
         self.cids = {}
@@ -67,8 +66,7 @@ class FigureTool(Tool):
         if ax is None:
             return (0, 0)
         invtrans = self.ax.transData.inverted()
-        return abs(invtrans.transform((1, 1)) -
-                   invtrans.transform((0, 0)))
+        return abs(invtrans.transform((1, 1)) - invtrans.transform((0, 0)))
 
     def _wire(self, canvas, local_key, mpl_key):
         """Connect an MPL event to an instance method, if the method is defined
@@ -78,7 +76,8 @@ class FigureTool(Tool):
             if local_key not in self.cids:
                 self.cids[local_key] = {}
             self.cids[local_key][canvas] = canvas.mpl_connect(
-                mpl_key, getattr(self, local_key))
+                mpl_key, getattr(self, local_key)
+            )
 
     @staticmethod
     def _iter_windows(windows):
@@ -96,19 +95,19 @@ class FigureTool(Tool):
         for w in windows:
             canvas = w.widget()
             canvas.setCursor(self.get_cursor(canvas))
-            self._wire(canvas, 'on_mousemove', 'motion_notify_event')
-            self._wire(canvas, 'on_mousedown', 'button_press_event')
-            self._wire(canvas, 'on_mouseup', 'button_release_event')
-            self._wire(canvas, 'on_keydown', 'key_press_event')
-            self._wire(canvas, 'on_keyup', 'key_release_event')
-            self._wire(canvas, 'on_pick', 'pick_event')
-            self._wire(canvas, 'on_scroll', 'scroll_event')
-            self._wire(canvas, 'on_draw', 'draw_event')
-            self._wire(canvas, 'on_resize', 'resize_event')
-            self._wire(canvas, 'on_figure_enter', 'figure_enter_event')
-            self._wire(canvas, 'on_figure_leave', 'figure_leave_event')
-            self._wire(canvas, 'on_axes_enter', 'axes_enter_event')
-            self._wire(canvas, 'on_axes_leave', 'axes_leave_event')
+            self._wire(canvas, "on_mousemove", "motion_notify_event")
+            self._wire(canvas, "on_mousedown", "button_press_event")
+            self._wire(canvas, "on_mouseup", "button_release_event")
+            self._wire(canvas, "on_keydown", "key_press_event")
+            self._wire(canvas, "on_keyup", "key_release_event")
+            self._wire(canvas, "on_pick", "pick_event")
+            self._wire(canvas, "on_scroll", "scroll_event")
+            self._wire(canvas, "on_draw", "draw_event")
+            self._wire(canvas, "on_resize", "resize_event")
+            self._wire(canvas, "on_figure_enter", "figure_enter_event")
+            self._wire(canvas, "on_figure_leave", "figure_leave_event")
+            self._wire(canvas, "on_axes_enter", "axes_enter_event")
+            self._wire(canvas, "on_axes_leave", "axes_leave_event")
 
     def disconnect_windows(self, windows):
         windows = self._iter_windows(windows)

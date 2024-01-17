@@ -54,111 +54,136 @@ class BasicSpectrumPlugin(Plugin):
 
     def create_actions(self):
         self.add_action(
-            'plot_components', tr("Plot components"),
+            "plot_components",
+            tr("Plot components"),
             self.plot_components,
             icon=None,
             tip=tr("Plot the individual components of the model"),
-            selection_callback=self._plot_components_state_update)
-        self.actions['plot_components'].setCheckable(True)
+            selection_callback=self._plot_components_state_update,
+        )
+        self.actions["plot_components"].setCheckable(True)
 
         self.add_action(
-            'adjust_component_position', tr("Adjust component positions"),
+            "adjust_component_position",
+            tr("Adjust component positions"),
             self.adjust_component_position,
             icon=None,
             tip=tr("Adjust the position of the components interactively"),
-            selection_callback=self._adjust_components_state_update)
-        self.actions['adjust_component_position'].setCheckable(True)
+            selection_callback=self._adjust_components_state_update,
+        )
+        self.actions["adjust_component_position"].setCheckable(True)
 
         self.add_action(
-            'remove_background', tr("Remove Background"),
+            "remove_background",
+            tr("Remove Background"),
             self.remove_background,
-            icon='power_law.svg',
+            icon="power_law.svg",
             tip=tr("Interactively define the background, and remove it"),
-            selection_callback=SignalTypeFilter(
-                hs.signals.Signal1D, self.ui))
+            selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
+        )
 
-        self.add_action('fourier_ratio', tr("Fourier Ratio Deconvoloution"),
-                        self.fourier_ratio,
-                        icon='fourier_ratio.svg',
-                        tip=tr("Use the Fourier-Ratio method to deconvolve "
-                               "one signal from another"),
-                        selection_callback=SignalTypeFilter(
-                            exspy.signals.EELSSpectrum, self.ui))
+        self.add_action(
+            "fourier_ratio",
+            tr("Fourier Ratio Deconvoloution"),
+            self.fourier_ratio,
+            icon="fourier_ratio.svg",
+            tip=tr(
+                "Use the Fourier-Ratio method to deconvolve " "one signal from another"
+            ),
+            selection_callback=SignalTypeFilter(exspy.signals.EELSSpectrum, self.ui),
+        )
 
-        self.add_action('estimate_thickness', tr("Estimate thickness"),
-                        self.estimate_thickness,
-                        icon="t_over_lambda.svg",
-                        tip=tr("Estimates the thickness (relative to the "
-                               "mean free path) of a sample using the "
-                               "log-ratio method."),
-                        selection_callback=SignalTypeFilter(
-                            exspy.signals.EELSSpectrum, self.ui))
+        self.add_action(
+            "estimate_thickness",
+            tr("Estimate thickness"),
+            self.estimate_thickness,
+            icon="t_over_lambda.svg",
+            tip=tr(
+                "Estimates the thickness (relative to the "
+                "mean free path) of a sample using the "
+                "log-ratio method."
+            ),
+            selection_callback=SignalTypeFilter(exspy.signals.EELSSpectrum, self.ui),
+        )
 
         # -------------- Filter actions -----------------
 
-        self.add_action('smooth_savitzky_golay', tr("Smooth Savitzky-Golay"),
-                        self.smooth_savitzky_golay,
-                        icon=None,
-                        tip=tr("Apply a Savitzky-Golay filter"),
-                        selection_callback=SignalTypeFilter(
-                            hs.signals.Signal1D, self.ui))
+        self.add_action(
+            "smooth_savitzky_golay",
+            tr("Smooth Savitzky-Golay"),
+            self.smooth_savitzky_golay,
+            icon=None,
+            tip=tr("Apply a Savitzky-Golay filter"),
+            selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
+        )
 
-        self.add_action('smooth_lowess', tr("Smooth Lowess"),
-                        self.smooth_lowess,
-                        icon=None,
-                        tip=tr("Apply a Lowess smoothing filter"),
-                        selection_callback=SignalTypeFilter(
-                            hs.signals.Signal1D, self.ui))
+        self.add_action(
+            "smooth_lowess",
+            tr("Smooth Lowess"),
+            self.smooth_lowess,
+            icon=None,
+            tip=tr("Apply a Lowess smoothing filter"),
+            selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
+        )
 
-        self.add_action('smooth_tv', tr("Smooth Total variation"),
-                        self.smooth_tv,
-                        icon=None,
-                        tip=tr("Total variation data smoothing"),
-                        selection_callback=SignalTypeFilter(
-                            hs.signals.Signal1D, self.ui))
+        self.add_action(
+            "smooth_tv",
+            tr("Smooth Total variation"),
+            self.smooth_tv,
+            icon=None,
+            tip=tr("Total variation data smoothing"),
+            selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
+        )
 
-        self.add_action('filter_butterworth', tr("Butterworth filter"),
-                        self.filter_butterworth,
-                        icon=None,
-                        tip=tr("Apply a Butterworth filter"),
-                        selection_callback=SignalTypeFilter(
-                            hs.signals.Signal1D, self.ui))
+        self.add_action(
+            "filter_butterworth",
+            tr("Butterworth filter"),
+            self.filter_butterworth,
+            icon=None,
+            tip=tr("Apply a Butterworth filter"),
+            selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
+        )
 
-        self.add_action('hanning_taper', tr("Hanning taper"),
-                        self.hanning_taper,
-                        icon=None,
-                        tip=tr("Apply a Hanning taper to both ends of the "
-                               "data."),
-                        selection_callback=SignalTypeFilter(
-                            hs.signals.Signal1D, self.ui))
+        self.add_action(
+            "hanning_taper",
+            tr("Hanning taper"),
+            self.hanning_taper,
+            icon=None,
+            tip=tr("Apply a Hanning taper to both ends of the " "data."),
+            selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
+        )
 
     def create_menu(self):
-        self.add_menuitem("Model", self.ui.actions['plot_components'])
-        self.add_menuitem("Model",
-                          self.ui.actions['adjust_component_position'])
-        self.add_menuitem("EELS", self.ui.actions['remove_background'])
-        self.add_menuitem('EELS', self.ui.actions['fourier_ratio'])
-        self.add_menuitem('EELS', self.ui.actions['estimate_thickness'])
-        self.add_menuitem("Spectrum", self.ui.actions['smooth_savitzky_golay'])
-        self.add_menuitem("Spectrum", self.ui.actions['smooth_lowess'])
-        self.add_menuitem("Spectrum", self.ui.actions['smooth_tv'])
-        self.add_menuitem("Spectrum", self.ui.actions['filter_butterworth'])
-        self.add_menuitem("Spectrum", self.ui.actions['hanning_taper'])
+        self.add_menuitem("Model", self.ui.actions["plot_components"])
+        self.add_menuitem("Model", self.ui.actions["adjust_component_position"])
+        self.add_menuitem("EELS", self.ui.actions["remove_background"])
+        self.add_menuitem("EELS", self.ui.actions["fourier_ratio"])
+        self.add_menuitem("EELS", self.ui.actions["estimate_thickness"])
+        self.add_menuitem("Spectrum", self.ui.actions["smooth_savitzky_golay"])
+        self.add_menuitem("Spectrum", self.ui.actions["smooth_lowess"])
+        self.add_menuitem("Spectrum", self.ui.actions["smooth_tv"])
+        self.add_menuitem("Spectrum", self.ui.actions["filter_butterworth"])
+        self.add_menuitem("Spectrum", self.ui.actions["hanning_taper"])
 
     def create_toolbars(self):
-        self.add_toolbar_button("EELS", self.ui.actions['remove_background'])
-        self.add_toolbar_button("EELS", self.ui.actions['fourier_ratio'])
-        self.add_toolbar_button("EELS", self.ui.actions['estimate_thickness'])
+        self.add_toolbar_button("EELS", self.ui.actions["remove_background"])
+        self.add_toolbar_button("EELS", self.ui.actions["fourier_ratio"])
+        self.add_toolbar_button("EELS", self.ui.actions["estimate_thickness"])
 
     def create_tools(self):
         self.picker_tool = ElementPickerTool()
         self.picker_tool.picked[str].connect(self.pick_element)
-        self.add_tool(self.picker_tool,
-                      SignalTypeFilter(
-                          (exspy.signals.EELSSpectrum,
-                           exspy.signals.EDSSEMSpectrum,
-                           exspy.signals.EDSTEMSpectrum),
-                          self.ui))
+        self.add_tool(
+            self.picker_tool,
+            SignalTypeFilter(
+                (
+                    exspy.signals.EELSSpectrum,
+                    exspy.signals.EDSSEMSpectrum,
+                    exspy.signals.EDSTEMSpectrum,
+                ),
+                self.ui,
+            ),
+        )
 
     def _toggle_fixed_height(self, floating):
         w = self.picker_widget
@@ -169,8 +194,7 @@ class BasicSpectrumPlugin(Plugin):
 
     def create_widgets(self):
         self.picker_widget = ElementPickerWidget(self.ui, self.ui)
-        self.picker_widget.topLevelChanged[bool].connect(
-            self._toggle_fixed_height)
+        self.picker_widget.topLevelChanged[bool].connect(self._toggle_fixed_height)
         self.add_widget(self.picker_widget)
         self._toggle_fixed_height(False)
 
@@ -227,8 +251,7 @@ class BasicSpectrumPlugin(Plugin):
             self.record_code("model.enable_adjust_position()")
 
     def fourier_ratio(self):
-        signals = self.ui.select_x_signals(2, [tr("Core loss"),
-                                               tr("Low loss")])
+        signals = self.ui.select_x_signals(2, [tr("Core loss"), tr("Low loss")])
         self.record_code("<p>.fourier_ratio()")
         if signals is None:
             return
@@ -239,11 +262,10 @@ class BasicSpectrumPlugin(Plugin):
         threshold = s_lowloss.estimate_elastic_scattering_threshold().data
         threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()
 
-        sdcnv = s_core.fourier_ratio_deconvolution(s_lowloss,
-                                                   threshold=threshold)
+        sdcnv = s_core.fourier_ratio_deconvolution(s_lowloss, threshold=threshold)
         sdcnv.data = np.ma.masked_array(
-            sdcnv.data,
-            mask=(np.isnan(sdcnv.data) | np.isinf(sdcnv.data)))
+            sdcnv.data, mask=(np.isnan(sdcnv.data) | np.isinf(sdcnv.data))
+        )
         sdcnv.metadata.General.title = title
         sdcnv.plot()
 
@@ -259,10 +281,11 @@ class BasicSpectrumPlugin(Plugin):
         s_t.plot()
         self.record_code("signal = ui.get_selected_signal()")
         self.record_code(
-            "threshold = signal.estimate_elastic_scattering_threshold().data")
+            "threshold = signal.estimate_elastic_scattering_threshold().data"
+        )
         self.record_code(
-            "threshold = np.ma.masked_array(threshold, "
-            "np.isnan(threshold)).mean()")
+            "threshold = np.ma.masked_array(threshold, " "np.isnan(threshold)).mean()"
+        )
         self.record_code("thickness = signal.estimate_thickness(threshold)")
 
     # ----------- Filter callbacks --------------
@@ -315,10 +338,10 @@ class ElementPickerTool(SignalFigureTool):
         return "Element picker tool"
 
     def get_category(self):
-        return 'EDS'
+        return "EDS"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/periodic_table.svg'
+        return os.path.dirname(__file__) + "/../images/periodic_table.svg"
 
     def on_pick_line(self, line):
         el, _ = _get_element_and_line(line)
@@ -335,9 +358,10 @@ class ElementPickerTool(SignalFigureTool):
         if len(axes) not in self.valid_dimensions:
             return
         a = axes[0]
-        if a.units.lower() == 'ev':
+        if a.units.lower() == "ev":
             energy /= 1000.0
         from hyperspy.misc.eds.utils import get_xray_lines_near_energy
+
         lines = get_xray_lines_near_energy(energy)
         if lines:
             m = QtWidgets.QMenu()

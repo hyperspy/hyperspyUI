@@ -25,7 +25,6 @@ from qtpy import QtCore
 
 
 class Tool(QtCore.QObject):
-
     def get_name(self):
         raise NotImplementedError()
 

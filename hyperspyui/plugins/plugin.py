@@ -32,11 +32,10 @@ class Plugin:
         super().__init__()
         self.ui = main_window
         if self.name is None:
-            set_group = 'plugins/' + str.lower(self.__class__.__name__)
-            set_group = set_group.replace('.', '')
+            set_group = "plugins/" + str.lower(self.__class__.__name__)
+            set_group = set_group.replace(".", "")
         else:
-            set_group = 'plugins/' + self.name.replace('/', '-').replace(
-                '\\', '-')
+            set_group = "plugins/" + self.name.replace("/", "-").replace("\\", "-")
         self.settings = Settings(self.ui, group=set_group)
 
         self.actions = {}
@@ -73,7 +72,7 @@ class Plugin:
         self.widgets.add(dock)
 
     def record_code(self, code):
-        code = code.replace('<p>', "ui.plugins['{0}']".format(self.name))
+        code = code.replace("<p>", "ui.plugins['{0}']".format(self.name))
         self.ui.record_code(code)
 
     def create_actions(self):

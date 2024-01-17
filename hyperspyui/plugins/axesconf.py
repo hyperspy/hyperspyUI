@@ -34,6 +34,7 @@ class AxesConf(Plugin):
     captures and displays the traitsui dialog shown by
     signal.axes_manager.show().
     """
+
     name = "Axes Configuration"
 
     def __init__(self, main_window):
@@ -45,8 +46,9 @@ class AxesConf(Plugin):
         Creates the TraitsWidget (inherits QDockWidget), and adds it to
         self.ui.
         """
-        self.widget = TraitsWidget(self.ui, self.make_traits_dialog,
-                                   self.valid_window, self.ui)
+        self.widget = TraitsWidget(
+            self.ui, self.make_traits_dialog, self.valid_window, self.ui
+        )
         self.widget.setWindowTitle("Axes configuration")
         self.widget.hide()  # Initial state hidden
         self.add_widget(self.widget)

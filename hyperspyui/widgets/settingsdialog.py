@@ -25,10 +25,20 @@ from functools import partial
 
 from qtpy import QtCore
 from qtpy.QtCore import QSettings
-from qtpy.QtWidgets import (QDialogButtonBox, QVBoxLayout, QLineEdit, QWidget,
-                            QCheckBox, QDoubleSpinBox, QSpinBox, QComboBox,
-                            QMessageBox, QAbstractButton,
-                            QTabWidget, QFormLayout)
+from qtpy.QtWidgets import (
+    QDialogButtonBox,
+    QVBoxLayout,
+    QLineEdit,
+    QWidget,
+    QCheckBox,
+    QDoubleSpinBox,
+    QSpinBox,
+    QComboBox,
+    QMessageBox,
+    QAbstractButton,
+    QTabWidget,
+    QFormLayout,
+)
 
 from .extendedqwidgets import ExToolWindow
 from hyperspyui.settings import Settings
@@ -72,8 +82,10 @@ class SettingsDialog(ExToolWindow):
         if isinstance(widget, QLineEdit):
             v = widget.text()
         elif isinstance(widget, QCheckBox):
-            if widget.isTristate() and \
-                    widget.checkState() == QtCore.Qt.PartiallyChecked:
+            if (
+                widget.isTristate()
+                and widget.checkState() == QtCore.Qt.PartiallyChecked
+            ):
                 v = None
             else:
                 v = "true" if widget.isChecked() else "false"
@@ -104,7 +116,7 @@ class SettingsDialog(ExToolWindow):
             return
         s = QSettings(self.ui)
         for k, v in self._changes.items():
-            if k in self._initial_values:   # Avoid readding removed settings
+            if k in self._initial_values:  # Avoid readding removed settings
                 s.setValue(k, v)
                 self._initial_values[k] = v
         self.settings_changed.emit(self._changes)
@@ -123,11 +135,11 @@ class SettingsDialog(ExToolWindow):
         hint_lookup = Settings()
         for k in settings.allKeys():
             if k.startswith("_"):
-                continue                                # Ignore hidden keys
-            v = settings.value(k)                       # Read value
-            label = k.capitalize().replace('_', ' ')
-            abs_key = settings.group() + '/' + k
-            self._initial_values[abs_key] = v           # Store initial value
+                continue  # Ignore hidden keys
+            v = settings.value(k)  # Read value
+            label = k.capitalize().replace("_", " ")
+            abs_key = settings.group() + "/" + k
+            self._initial_values[abs_key] = v  # Store initial value
             hints = hint_lookup.get_enum_hint(abs_key)  # Check for enum hints
             # Create a fitting editor widget based on value type:
             if hints is not None:
@@ -135,34 +147,28 @@ class SettingsDialog(ExToolWindow):
                 w.addItems(hints)
                 w.setEditable(True)
                 w.setEditText(v)
-                w.editTextChanged.connect(partial(self._on_setting_changed,
-                                                  abs_key, w))
+                w.editTextChanged.connect(partial(self._on_setting_changed, abs_key, w))
             elif isinstance(v, str):
-                if v.lower() in ('true', 'false'):
+                if v.lower() in ("true", "false"):
                     w = QCheckBox()
-                    w.setChecked(int(v.lower() == 'true'))
-                    w.toggled.connect(partial(self._on_setting_changed,
-                                              abs_key, w))
+                    w.setChecked(int(v.lower() == "true"))
+                    w.toggled.connect(partial(self._on_setting_changed, abs_key, w))
                 else:
                     w = QLineEdit(v)
-                    w.textChanged.connect(partial(self._on_setting_changed,
-                                                  abs_key, w))
+                    w.textChanged.connect(partial(self._on_setting_changed, abs_key, w))
             elif isinstance(v, int):
                 w = QSpinBox()
                 w.setRange(np.iinfo(np.int32).min, np.iinfo(np.int32).max)
                 w.setValue(v)
-                w.valueChanged.connect(partial(self._on_setting_changed,
-                                               abs_key, w))
+                w.valueChanged.connect(partial(self._on_setting_changed, abs_key, w))
             elif isinstance(v, float):
                 w = QDoubleSpinBox()
                 w.setRange(np.finfo(np.float32).min, np.finfo(np.float32).max)
                 w.setValue(v)
-                w.valueChanged.connect(partial(self._on_setting_changed,
-                                               abs_key, w))
+                w.valueChanged.connect(partial(self._on_setting_changed, abs_key, w))
             else:
                 w = QLineEdit(str(v))
-                w.textChanged.connect(partial(self._on_setting_changed,
-                                              abs_key, w))
+                w.textChanged.connect(partial(self._on_setting_changed, abs_key, w))
             self._lut[abs_key] = w
             form.addRow(label, w)
         wrap.setLayout(form)
@@ -178,9 +184,9 @@ class SettingsDialog(ExToolWindow):
         each plugin gets its own tab.
         """
         for group in settings.childGroups():
-            if group in ('defaults', 'PluginManager'):
+            if group in ("defaults", "PluginManager"):
                 continue
-            elif group == 'plugins':
+            elif group == "plugins":
                 settings.beginGroup(group)
                 self._add_groups(settings)
                 settings.endGroup()
@@ -188,7 +194,7 @@ class SettingsDialog(ExToolWindow):
             settings.beginGroup(group)
             tab = self._create_settings_widgets(settings)
             settings.endGroup()
-            if group.lower() == 'general':
+            if group.lower() == "general":
                 self.general_tab = tab
                 self.tabs.insertTab(0, tab, tr("General"))
             else:
@@ -207,11 +213,15 @@ class SettingsDialog(ExToolWindow):
         to reset settings to default values if confirmed, before updating
         controls and applying any changes (emits change signal if any changes).
         """
-        mb = QMessageBox(QMessageBox.Warning,
-                         tr("Reset all settings"),
-                         tr("This will reset all settings to their default " +
-                            "values. Are you sure you want to continue?"),
-                         QMessageBox.Yes | QMessageBox.No)
+        mb = QMessageBox(
+            QMessageBox.Warning,
+            tr("Reset all settings"),
+            tr(
+                "This will reset all settings to their default "
+                + "values. Are you sure you want to continue?"
+            ),
+            QMessageBox.Yes | QMessageBox.No,
+        )
         mb.setDefaultButton(QMessageBox.No)
         dr = mb.exec_()
         if dr == QMessageBox.Yes:
@@ -274,10 +284,14 @@ class SettingsDialog(ExToolWindow):
         self._add_groups(s)
 
         # Add button bar at end
-        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Apply |
-                                QDialogButtonBox.Cancel |
-                                QDialogButtonBox.Reset,
-                                QtCore.Qt.Horizontal, self)
+        btns = QDialogButtonBox(
+            QDialogButtonBox.Ok
+            | QDialogButtonBox.Apply
+            | QDialogButtonBox.Cancel
+            | QDialogButtonBox.Reset,
+            QtCore.Qt.Horizontal,
+            self,
+        )
         btns.accepted.connect(self._on_accept)
         btns.rejected.connect(self.reject)
         btns.clicked[QAbstractButton].connect(self._on_click)

@@ -44,7 +44,7 @@ class SignalWrapper(Actionable):
         if name is None:
             if signal.metadata.General.title:
                 name = signal.metadata.General.title
-            elif signal.tmp_parameters.has_item('filename'):
+            elif signal.tmp_parameters.has_item("filename"):
                 name = signal.tmp_parameters.filename
             else:
                 name = "Untitled %d" % SignalWrapper._untitled_counter
@@ -66,10 +66,10 @@ class SignalWrapper(Actionable):
 
         self._model_id = 1
 
-        self.add_action('plot', "&Plot", self.replot)
-        self.add_action('add_model', "Add &model", self.make_model)
+        self.add_action("plot", "&Plot", self.replot)
+        self.add_action("add_model", "Add &model", self.make_model)
         self.add_separator()
-        self.add_action('close', "&Close", self.close)
+        self.add_action("close", "&Close", self.close)
 
     @property
     def keep_on_close(self):
@@ -90,7 +90,8 @@ class SignalWrapper(Actionable):
         self.update_figures()
         self._replotargs = (args, kwargs)
         self.mainwindow.main_frame.subWindowActivated.emit(
-            self.mainwindow.main_frame.activeSubWindow())
+            self.mainwindow.main_frame.activeSubWindow()
+        )
         # Redraw plot needed for pyqt5
         if self.signal._plot and self.signal._plot.signal_plot:
             self.signal._plot.signal_plot.figure.canvas.draw_idle()
@@ -155,8 +156,7 @@ class SignalWrapper(Actionable):
                 # Wire closing event
                 self.navigator_plot.closing.connect(self.nav_closing)
                 # Set a reference on window to self
-                self.navigator_plot.setProperty('hyperspyUI.SignalWrapper',
-                                                self)
+                self.navigator_plot.setProperty("hyperspyUI.SignalWrapper", self)
                 # Add to figures list
                 self.add_figure(self.navigator_plot)
 
@@ -180,7 +180,7 @@ class SignalWrapper(Actionable):
                 title = sigp.axes[0].set_title("")
                 title.set_visible(False)
                 self.signal_plot.closing.connect(self.sig_closing)
-                self.signal_plot.setProperty('hyperspyUI.SignalWrapper', self)
+                self.signal_plot.setProperty("hyperspyUI.SignalWrapper", self)
                 self.add_figure(self.signal_plot)
                 if old_sig is not None:
                     sigp.tight_layout()
@@ -224,7 +224,7 @@ class SignalWrapper(Actionable):
         m = self.signal.create_model(*args, **kwargs)
         self.mainwindow.record_code("signal = ui.get_selected_signal()")
         self.mainwindow.record_code("model = signal.create_model()")
-#        modelname = self.signal.metadata.General.title
+        #        modelname = self.signal.metadata.General.title
         modelname = "Model %d" % self._model_id
         self._model_id += 1
         mw = ModelWrapper(m, self, modelname)
@@ -244,8 +244,9 @@ class SignalWrapper(Actionable):
     def nav_closing(self):
         if self.navigator_plot:
             p = self.navigator_plot.pos()
-            self.navigator_plot.move(p.x() + self._magic_jump[0],
-                                     p.y() + self._magic_jump[1])
+            self.navigator_plot.move(
+                p.x() + self._magic_jump[0], p.y() + self._magic_jump[1]
+            )
             self._nav_geom = self.navigator_plot.saveGeometry()
             self.navigator_plot = None
         if self.signal_plot is None:
@@ -256,8 +257,9 @@ class SignalWrapper(Actionable):
             p = self.signal_plot.pos()
             # For some reason the position changes -8,-30 on closing, at least
             # it does on windows 7, Qt4.
-            self.signal_plot.move(p.x() + self._magic_jump[0],
-                                  p.y() + self._magic_jump[1])
+            self.signal_plot.move(
+                p.x() + self._magic_jump[0], p.y() + self._magic_jump[1]
+            )
             self._sig_geom = self.signal_plot.saveGeometry()
         if self.navigator_plot is not None:
             self.navigator_plot.close()

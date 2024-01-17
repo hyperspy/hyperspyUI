@@ -54,15 +54,13 @@ class FlowLayout(QtWidgets.QLayout):
         if self._hSpace >= 0:
             return self._hSpace
         else:
-            return self._smartSpacing(
-                QtWidgets.QStyle.PM_LayoutHorizontalSpacing)
+            return self._smartSpacing(QtWidgets.QStyle.PM_LayoutHorizontalSpacing)
 
     def verticalSpacing(self):
         if self._vSpace >= 0:
             return self._vSpace
         else:
-            return self._smartSpacing(
-                QtWidgets.QStyle.PM_LayoutVerticalSpacing)
+            return self._smartSpacing(QtWidgets.QStyle.PM_LayoutVerticalSpacing)
 
     def expandingDirections(self):
         return QtCore.Qt.Orientation(0)
@@ -71,8 +69,7 @@ class FlowLayout(QtWidgets.QLayout):
         return True
 
     def heightForWidth(self, width):
-        return self._doLayout(
-            QtCore.QRect(0, 0, width, 0), True)
+        return self._doLayout(QtCore.QRect(0, 0, width, 0), True)
 
     def count(self):
         return len(self._items)
@@ -105,7 +102,6 @@ class FlowLayout(QtWidgets.QLayout):
             return 0
 
     def _doLayout(self, rect, testOnly):
-
         left, top, right, bottom = self.getContentsMargins()
         effectiveRect = rect.adjusted(+left, +top, -right, -bottom)
         x = effectiveRect.x()
@@ -119,24 +115,24 @@ class FlowLayout(QtWidgets.QLayout):
                 spaceX = w.style().layoutSpacing(
                     QtWidgets.QSizePolicy.PushButton,
                     QtWidgets.QSizePolicy.PushButton,
-                    QtCore.Qt.Horizontal)
+                    QtCore.Qt.Horizontal,
+                )
             spaceY = self.verticalSpacing()
             if spaceY == -1:
                 spaceY = w.style().layoutSpacing(
                     QtWidgets.QSizePolicy.PushButton,
                     QtWidgets.QSizePolicy.PushButton,
-                    QtCore.Qt.Vertical)
+                    QtCore.Qt.Vertical,
+                )
             nextX = x + item.sizeHint().width() + spaceX
-            if (nextX - spaceX > effectiveRect.right() and
-                    lineHeight > 0):
+            if nextX - spaceX > effectiveRect.right() and lineHeight > 0:
                 x = effectiveRect.x()
                 y = y + lineHeight + spaceY
                 nextX = x + item.sizeHint().width() + spaceX
                 lineHeight = 0
 
             if not testOnly:
-                item.setGeometry(QtCore.QRect(
-                    QtCore.QPoint(x, y), item.sizeHint()))
+                item.setGeometry(QtCore.QRect(QtCore.QPoint(x, y), item.sizeHint()))
 
             x = nextX
             lineHeight = max(lineHeight, item.sizeHint().height())

@@ -28,28 +28,26 @@ from hyperspyui.util import load_cursor
 
 
 class ZoomPanTool(FigureTool):
-
     def __init__(self, windows=None):
         super().__init__(windows)
         self.panning = False
         self.pan_data = None
-        self.base_scale = 1.5     # Mouse wheel zoom factor
+        self.base_scale = 1.5  # Mouse wheel zoom factor
 
     def get_name(self):
         return "Pan/Zoom tool"
 
     def get_category(self):
-        return 'Plot'
+        return "Plot"
 
     def get_icon(self):
-        return os.path.dirname(__file__) + '/../images/panzoom2.svg'
+        return os.path.dirname(__file__) + "/../images/panzoom2.svg"
 
     def is_selectable(self):
         return True
 
     def make_cursor(self):
-        return load_cursor(os.path.dirname(__file__) +
-                           '/../images/panzoom2.svg', 8, 8)
+        return load_cursor(os.path.dirname(__file__) + "/../images/panzoom2.svg", 8, 8)
 
     def on_mousedown(self, event):
         if event.inaxes is None:
@@ -58,8 +56,7 @@ class ZoomPanTool(FigureTool):
         x, y = event.x, event.y
         axes = []
         for a in f.get_axes():
-            if (x is not None and y is not None and a.in_axes(event) and
-                    a.can_pan()):
+            if x is not None and y is not None and a.in_axes(event) and a.can_pan():
                 a.start_pan(x, y, event.button)
                 axes.append(a)
         if len(axes) > 0:
@@ -117,32 +114,27 @@ class ZoomPanTool(FigureTool):
         # get the current x and y limits
         cxlim = ax.get_xlim()
         cylim = ax.get_ylim()
-        cx = (cxlim[1] - cxlim[0]) * .5
-        cy = (cylim[1] - cylim[0]) * .5
+        cx = (cxlim[1] - cxlim[0]) * 0.5
+        cy = (cylim[1] - cylim[0]) * 0.5
         x = event.xdata  # get event x location
         y = event.ydata  # get event y location
-        center = ((cxlim[1] + cxlim[0]) * .5, (cylim[1] + cylim[0]) * .5)
+        center = ((cxlim[1] + cxlim[0]) * 0.5, (cylim[1] + cylim[0]) * 0.5)
         zoom_vector = (
             (x - center[0]) / self.base_scale,
-            (y - center[1]) / self.base_scale)
-        if event.button == 'up':
+            (y - center[1]) / self.base_scale,
+        )
+        if event.button == "up":
             # deal with zoom in
             scale = 1.0 / self.base_scale
-            new_centre = (
-                center[0] + zoom_vector[0], center[1] + zoom_vector[1])
-            new_xlim = [new_centre[0] - cx * scale,
-                        new_centre[0] + cx * scale]
-            new_ylim = [new_centre[1] - cy * scale,
-                        new_centre[1] + cy * scale]
-        elif event.button == 'down':
+            new_centre = (center[0] + zoom_vector[0], center[1] + zoom_vector[1])
+            new_xlim = [new_centre[0] - cx * scale, new_centre[0] + cx * scale]
+            new_ylim = [new_centre[1] - cy * scale, new_centre[1] + cy * scale]
+        elif event.button == "down":
             # deal with zoom out
             scale = self.base_scale
-            new_centre = (
-                center[0] - zoom_vector[0], center[1] - zoom_vector[1])
-            new_xlim = [new_centre[0] - cx * scale,
-                        new_centre[0] + cx * scale]
-            new_ylim = [new_centre[1] - cy * scale,
-                        new_centre[1] + cy * scale]
+            new_centre = (center[0] - zoom_vector[0], center[1] - zoom_vector[1])
+            new_xlim = [new_centre[0] - cx * scale, new_centre[0] + cx * scale]
+            new_ylim = [new_centre[1] - cy * scale, new_centre[1] + cy * scale]
         else:
             return
         # set new limits

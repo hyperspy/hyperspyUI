@@ -54,7 +54,6 @@ class MainWindowUtils(MainWindowBase):
 
         super().__init__(parent)
 
-
     # --------- traitsui Events ---------
 
     def capture_traits_dialog(self, callback):
@@ -100,11 +99,12 @@ class MainWindowUtils(MainWindowBase):
             keywords = inspect.getfullargspec(callback).args
         except TypeError:
             keywords = None
-        if keywords and 'advanced' in keywords:
+        if keywords and "advanced" in keywords:
             orig_callback = callback
 
             def wrap(checked, advanced):
                 orig_callback(advanced=advanced)
+
             callback = wrap
             ac.triggered[bool, bool].connect(callback)
         else:
@@ -112,7 +112,7 @@ class MainWindowUtils(MainWindowBase):
         # Use docstring for action
         if callback.__doc__:
             d = callback.__doc__
-            if d.startswith('partial('):
+            if d.startswith("partial("):
                 # Fix docstring of partial functions:
                 d = callback.func.__doc__
             ac.__doc__ = d
@@ -120,9 +120,16 @@ class MainWindowUtils(MainWindowBase):
             self._action_selection_cbs[key] = selection_callback
             ac.setEnabled(False)
 
-
-    def add_action(self, key, label, callback, tip=None, icon=None,
-                   shortcut=None, selection_callback=None):
+    def add_action(
+        self,
+        key,
+        label,
+        callback,
+        tip=None,
+        icon=None,
+        shortcut=None,
+        selection_callback=None,
+    ):
         """
         Create and add a QAction to self.actions[key]. 'label' is used as the
         short description of the action, and 'tip' as the long description.
@@ -202,15 +209,25 @@ class MainWindowUtils(MainWindowBase):
                 key = tool.__class__.__name__
         self.tools.append(t)
         if t.single_action() is not None:
-            self.add_action(key, t.get_name(), t.single_action(),
-                            selection_callback=selection_callback,
-                            icon=t.get_icon(), tip=t.get_description())
+            self.add_action(
+                key,
+                t.get_name(),
+                t.single_action(),
+                selection_callback=selection_callback,
+                icon=t.get_icon(),
+                tip=t.get_description(),
+            )
             self.add_toolbar_button(t.get_category(), self.actions[key])
         elif t.is_selectable():
             f = partial(self.select_tool, t)
-            self.add_action(key, t.get_name(), f, icon=t.get_icon(),
-                            selection_callback=selection_callback,
-                            tip=t.get_description())
+            self.add_action(
+                key,
+                t.get_name(),
+                f,
+                icon=t.get_icon(),
+                selection_callback=selection_callback,
+                tip=t.get_description(),
+            )
             self.selectable_tools.addAction(self.actions[key])
             self.actions[key].setCheckable(True)
             self.add_toolbar_button(t.get_category(), self.actions[key])
@@ -247,7 +264,7 @@ class MainWindowUtils(MainWindowBase):
         is used.
         """
         if floating is None:
-            floating = self.settings['default_widget_floating', bool]
+            floating = self.settings["default_widget_floating", bool]
         if isinstance(widget, QtWidgets.QDockWidget):
             d = widget
         else:
@@ -283,13 +300,12 @@ class MainWindowUtils(MainWindowBase):
         """
         if not isinstance(icon, QtGui.QIcon):
             if isinstance(icon, str) and not os.path.isfile(icon):
-                sugg = os.path.dirname(__file__) + '/images/' + icon
+                sugg = os.path.dirname(__file__) + "/images/" + icon
                 if os.path.isfile(sugg):
                     icon = sugg
             if isinstance(icon, str) and (
-                    icon.endswith('svg') or
-                    icon.endswith('svgz') or
-                    icon.endswith('svg.gz')):
+                icon.endswith("svg") or icon.endswith("svgz") or icon.endswith("svg.gz")
+            ):
                 ie = SmartColorSVGIconEngine()
                 path = icon
                 icon = QtGui.QIcon(ie)
@@ -300,21 +316,23 @@ class MainWindowUtils(MainWindowBase):
             icon = QtGui.QIcon(SmartColorSVGIconEngine(icon))
         return icon
 
-    def prompt_files(self, extension_filter=None, path=None, exists=True,
-                     title=None, def_filter=None):
+    def prompt_files(
+        self, extension_filter=None, path=None, exists=True, title=None, def_filter=None
+    ):
         if title is None:
-            title = tr('Load file') if exists else tr('Save file')
-        path = path or self.cur_dir or ''
+            title = tr("Load file") if exists else tr("Save file")
+        path = path or self.cur_dir or ""
         if def_filter is None and extension_filter:
-            def_filter = extension_filter.split(';;', maxsplit=1)[0]
+            def_filter = extension_filter.split(";;", maxsplit=1)[0]
 
         if exists:
             filenames = QtWidgets.QFileDialog.getOpenFileNames(
-                self, title, path, extension_filter)
+                self, title, path, extension_filter
+            )
         else:
-
             filenames = QtWidgets.QFileDialog.getSaveFileName(
-                self, title, path, extension_filter, def_filter)
+                self, title, path, extension_filter, def_filter
+            )
         # Pyside returns tuple, PyQt not
         if isinstance(filenames, tuple):
             filenames = filenames[0]
@@ -335,15 +353,15 @@ class MainWindowUtils(MainWindowBase):
         # Analyze suggested filename
         base, tail = os.path.split(f)
         fn, ext = os.path.splitext(tail)
-        _logger.debug('fn before cleaning is: {}'.format(fn))
+        _logger.debug("fn before cleaning is: {}".format(fn))
 
         # Remove illegal characters and newlines from filename:
         reserved_characters = r'<>:"/\|?*'
         for c in reserved_characters:
-            fn = fn.replace(c, '')
-        fn = fn.replace('\n', ' ')
+            fn = fn.replace(c, "")
+        fn = fn.replace("\n", " ")
 
-        _logger.debug('fn after cleaning is: {}'.format(fn))
+        _logger.debug("fn after cleaning is: {}".format(fn))
 
         # If no directory in filename, use self.cur_dir's dirname
         if base is None or base == "":
@@ -374,16 +392,20 @@ class MainWindowUtils(MainWindowBase):
         extensions = canvas.get_supported_filetypes_grouped()
         type_choices = "All types (*.*)"
         for group, exts in extensions.items():
-            fmt = group + \
-                ' (' + \
-                '; '.join(["*" + os.path.extsep + sube for sube in exts]) + ')'
-            type_choices = ';;'.join((type_choices, fmt))
+            fmt = (
+                group
+                + " ("
+                + "; ".join(["*" + os.path.extsep + sube for sube in exts])
+                + ")"
+            )
+            type_choices = ";;".join((type_choices, fmt))
             if def_type[1:] in exts:
                 def_type = fmt
 
         # Present filename prompt
-        filename = self.prompt_files(type_choices, path_suggestion,
-                                     exists=False, def_filter=def_type)
+        filename = self.prompt_files(
+            type_choices, path_suggestion, exists=False, def_filter=def_type
+        )
         if filename:
             canvas.figure.savefig(filename)
 
@@ -395,8 +417,9 @@ class MainWindowUtils(MainWindowBase):
         diag.setWindowTitle(title)
         diag.setWindowFlags(Qt.Tool)
 
-        btns = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-                                Qt.Horizontal, diag)
+        btns = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel, Qt.Horizontal, diag
+        )
         btns.accepted.connect(diag.accept)
         btns.rejected.connect(diag.reject)
 
@@ -428,8 +451,7 @@ class MainWindowActionRecorder(MainWindowUtils):
         # Connect monitor
         ac.triggered.connect(partial(self.record_action, key))
         # Wire as normal
-        super()._wire_action(
-            ac, key, callback, selection_callback)
+        super()._wire_action(ac, key, callback, selection_callback)
 
     def record_action(self, key):
         for r in self.recorders:

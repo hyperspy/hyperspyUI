@@ -22,8 +22,15 @@ from functools import partial
 from collections import OrderedDict
 
 from qtpy import QtGui, QtCore, QtWidgets
-from qtpy.QtWidgets import (QApplication, QPushButton, QLabel, QGroupBox,
-                            QHBoxLayout, QVBoxLayout, QComboBox)
+from qtpy.QtWidgets import (
+    QApplication,
+    QPushButton,
+    QLabel,
+    QGroupBox,
+    QHBoxLayout,
+    QVBoxLayout,
+    QComboBox,
+)
 
 from qtpy.QtGui import QPalette
 
@@ -48,23 +55,26 @@ class StylePlugin(Plugin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.editor = None
-        self.settings.set_default('_style', '')
+        self.settings.set_default("_style", "")
         self.apply_styles()
 
     def create_actions(self):
-        self.add_action('edit_style', tr("Edit styles"),
-                        self.edit_dialog,
-                        # icon='.svg',
-                        tip=tr("Edit the application styles"))
+        self.add_action(
+            "edit_style",
+            tr("Edit styles"),
+            self.edit_dialog,
+            # icon='.svg',
+            tip=tr("Edit the application styles"),
+        )
 
     def create_menu(self):
-        self.add_menuitem('Settings', self.ui.actions['edit_style'])
+        self.add_menuitem("Settings", self.ui.actions["edit_style"])
 
     def apply_styles(self):
-        palette = self.settings['_palette']
+        palette = self.settings["_palette"]
         if palette is not None:
             QApplication.setPalette(QPalette(palette))
-        QApplication.instance().setStyleSheet(self.settings['_style'] or '')
+        QApplication.instance().setStyleSheet(self.settings["_style"] or "")
 
     def edit_dialog(self):
         if self.editor is not None:
@@ -84,43 +94,54 @@ class StyleDialog(ExToolWindow):
     the style sheet syntax.
     """
 
-    palette_entries = OrderedDict((
-        ('basic', (
-            'Window',
-            'WindowText',
-        )),
-        ('extended', (
-            'Base',
-            'Text',
-            'ToolTipBase',
-            'ToolTipText',
-            'Button',
-            'ButtonText',
-        )),
-        ('full', (
-            'Highlight',
-            'HighlightedText',
-            'BrightText',
-            'Light',
-            'Midlight',
-            'Mid',
-            'Dark',
-            'Shadow',
-            'Link',
-            'LinkVisited',
-            'NoRole',
-        )),
-    ))
+    palette_entries = OrderedDict(
+        (
+            (
+                "basic",
+                (
+                    "Window",
+                    "WindowText",
+                ),
+            ),
+            (
+                "extended",
+                (
+                    "Base",
+                    "Text",
+                    "ToolTipBase",
+                    "ToolTipText",
+                    "Button",
+                    "ButtonText",
+                ),
+            ),
+            (
+                "full",
+                (
+                    "Highlight",
+                    "HighlightedText",
+                    "BrightText",
+                    "Light",
+                    "Midlight",
+                    "Mid",
+                    "Dark",
+                    "Shadow",
+                    "Link",
+                    "LinkVisited",
+                    "NoRole",
+                ),
+            ),
+        )
+    )
 
     pairs = [
-        ('Window', 'WindowText'),
-        ('Base', 'Text'),
-        ('Button', 'ButtonText'),
-        ('ToolTipBase', 'ToolTipText'),
-        ('Highlight', 'HighlightedText'),
-        ('Light', 'Midlight'),
-        ('Mid', 'Dark'),
-        ('Link', 'LinkVisited'),
+        ("Window", "WindowText"),
+        ("Base", "Text"),
+        ("Button", "ButtonText"),
+        ("ToolTipBase", "ToolTipText"),
+        ("Highlight", "HighlightedText"),
+        ("Light", "Midlight"),
+        ("Mid", "Dark"),
+        ("Link", "LinkVisited"),
     ]
 
     def __init__(self, plugin, ui, parent):
@@ -150,8 +171,8 @@ class StyleDialog(ExToolWindow):
 
     def save(self):
         """Store the palette and stylesheet to the plugin's settings"""
-        self.plugin.settings['_style'] = self.editor.toPlainText()
-        self.plugin.settings['_palette'] = self._palette
+        self.plugin.settings["_style"] = self.editor.toPlainText()
+        self.plugin.settings["_palette"] = self._palette
 
     def apply(self):
         """Apply current palette and stylesheet application wide"""
@@ -161,10 +182,9 @@ class StyleDialog(ExToolWindow):
     def load(self):
         """Load palette and stylesheet from the plugin't settings"""
         self.editor.setPlainText(
-            self.plugin.settings['_style'] or '',
-            'text/plain', 'utf8'
+            self.plugin.settings["_style"] or "", "text/plain", "utf8"
         )
-        palette = self.plugin.settings['_palette']
+        palette = self.plugin.settings["_palette"]
         if palette is not None:
             self._palette = QPalette(palette)
         self.update_palette_controls()
@@ -210,8 +230,7 @@ class StyleDialog(ExToolWindow):
         self.btn_clear.clicked.connect(self._clear_styles)
 
         self.hbox = QHBoxLayout()
-        for w in [self.btn_apply, self.btn_save,
-                  self.btn_revert, self.btn_clear]:
+        for w in [self.btn_apply, self.btn_save, self.btn_revert, self.btn_clear]:
             self.hbox.addWidget(w)
 
         # Create the group-box with the palette editor
@@ -243,10 +262,9 @@ class StyleDialog(ExToolWindow):
             for subkey in entries:
                 btn = ColorButton()
                 self.pickers[key][subkey] = btn
-                btn.colorChanged.connect(
-                    partial(self._on_color_pick, subkey))
+                btn.colorChanged.connect(partial(self._on_color_pick, subkey))
                 label = QLabel(subkey)
-                if key != 'basic':
+                if key != "basic":
                     btn.hide()
                     label.hide()
                 row = 1 + self._rows[subkey]
@@ -262,7 +280,7 @@ class StyleDialog(ExToolWindow):
         # Initialize colors:
         self.update_palette_controls()
 
-        box = QGroupBox('Palette')
+        box = QGroupBox("Palette")
         box.setLayout(layout)
         return box
 
@@ -270,8 +288,7 @@ class StyleDialog(ExToolWindow):
         """Update palette controls from internal QPalette"""
         for key, entries in self.palette_entries.items():
             for subkey in entries:
-                color = self._palette.color(
-                    getattr(self._palette, subkey))
+                color = self._palette.color(getattr(self._palette, subkey))
                 btn = self.pickers[key][subkey]
                 with block_signals(btn):
                     btn.color = color
@@ -288,20 +305,17 @@ class StyleDialog(ExToolWindow):
 
     def _on_color_pick(self, key, color):
         """Callback when a palette color has been picked"""
-        if self.cbo_mode.currentText() == 'basic':
+        if self.cbo_mode.currentText() == "basic":
             # Other values should be auto-generated
-            self._palette = QPalette(self.pickers['basic']['Window'].color)
+            self._palette = QPalette(self.pickers["basic"]["Window"].color)
 
-        self._palette.setColor(
-            getattr(self._palette, key),
-            color
-        )
+        self._palette.setColor(getattr(self._palette, key), color)
 
     def _on_cbo_change(self, selection):
         """Callback for when palette-mode selection changes"""
         # Use all up-until selection (keys are ordered)
         included = list(self.palette_entries.keys())
-        included = included[:1 + included.index(selection)]
+        included = included[: 1 + included.index(selection)]
 
         for key, entries in self.palette_entries.items():
             visible = key in included
@@ -313,12 +327,13 @@ class AutoIndentMode(modes.AutoIndentMode):
     """
     Provides automatic stylesheet-specific auto indentation.
     """
+
     def _get_indent(self, cursor):
         text = cursor.block().text().strip()
         pre, post = super()._get_indent(cursor)
         print(repr(text), repr(pre), repr(post))
-        if text.endswith('{'):
-            post += self.editor.tab_length * ' '
-        elif text.startswith('}'):
-            pre = pre[self.editor.tab_length:]
+        if text.endswith("{"):
+            post += self.editor.tab_length * " "
+        elif text.startswith("}"):
+            pre = pre[self.editor.tab_length :]
         return pre, post

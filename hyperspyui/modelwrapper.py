@@ -53,24 +53,28 @@ class ModelWrapper(Actionable):
         self.fine_structure_enabled = False
 
         # Default actions
-        self.add_action('plot', tr("&Plot"), self.plot)
-        self.add_action('fit', tr("&Fit"), self.fit)
-        self.add_action('multifit', tr("&Multifit"), self.multifit)
-        self.add_action('set_signal_range', tr("Set signal &range"),
-                        self.set_signal_range)
+        self.add_action("plot", tr("&Plot"), self.plot)
+        self.add_action("fit", tr("&Fit"), self.fit)
+        self.add_action("multifit", tr("&Multifit"), self.multifit)
+        self.add_action(
+            "set_signal_range", tr("Set signal &range"), self.set_signal_range
+        )
         if isinstance(self.model, EELSModel):
-            self.add_action('lowloss', tr("Set low-loss"), self.set_lowloss)
-            self.add_action('fine_structure', tr("Enable fine &structure"),
-                            self.toggle_fine_structure)
+            self.add_action("lowloss", tr("Set low-loss"), self.set_lowloss)
+            self.add_action(
+                "fine_structure",
+                tr("Enable fine &structure"),
+                self.toggle_fine_structure,
+            )
         f = partial(self.signal.remove_model, self)
-        self.add_action('delete', tr("&Delete"), f)
+        self.add_action("delete", tr("&Delete"), f)
 
     def plot(self):
         self.signal.keep_on_close = True
         self.model.plot()
         self.signal.keep_on_close = False
         self.signal.update_figures()
-        self.signal.signal_plot.setProperty('hyperspyUI.ModelWrapper', self)
+        self.signal.signal_plot.setProperty("hyperspyUI.ModelWrapper", self)
 
     def update_plot(self):
         self.model.update_plot()
@@ -93,28 +97,22 @@ class ModelWrapper(Actionable):
         self.model.fit(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
-        self.record_code(
-            "model.fit(%s)" % self._args_for_record(args, kwargs)
-            )
+        self.record_code("model.fit(%s)" % self._args_for_record(args, kwargs))
 
     def multifit(self, *args, **kwargs):
         self.signal.keep_on_close = True
         self.model.multifit(*args, **kwargs)
         self.signal.keep_on_close = False
         self.signal.update_figures()
-        self.record_code(
-            "model.multifit(%s)" % self._args_for_record(args, kwargs)
-            )
+        self.record_code("model.multifit(%s)" % self._args_for_record(args, kwargs))
 
     def smartfit(self, *args, **kwargs):
-        if hasattr(self.model, 'smartfit'):
+        if hasattr(self.model, "smartfit"):
             self.signal.keep_on_close = True
             self.model.smartfit(*args, **kwargs)
             self.signal.keep_on_close = False
             self.signal.update_figures()
-            self.record_code(
-                "model.smartfit(%s)" % self._args_for_record(args, kwargs)
-                )
+            self.record_code("model.smartfit(%s)" % self._args_for_record(args, kwargs))
 
     def fit_component(self, component):
         # This is a non-blocking call, which means the normal keep_on_close +
@@ -132,12 +130,11 @@ class ModelWrapper(Actionable):
         self.signal.update_figures()
         self.record_code(
             "model.set_signal_range(%s)" % self._args_for_record(args, kwargs)
-            )
+        )
 
     def set_lowloss(self, signal=None):
         if signal is None:
-            signal = self.signal.mainwindow.select_x_signals(
-                1, ['Select low-loss'])
+            signal = self.signal.mainwindow.select_x_signals(1, ["Select low-loss"])
             if signal is None:
                 return
         self.model.lowloss = signal.signal
@@ -146,16 +143,15 @@ class ModelWrapper(Actionable):
     def toggle_fine_structure(self):
         if not isinstance(self.model, EELSModel):
             raise TypeError(
-                tr("Model is not EELS model. Can not toggle fine structure"))
+                tr("Model is not EELS model. Can not toggle fine structure")
+            )
         if self.fine_structure_enabled:
             self.model.disable_fine_structure()
-            self.actions['fine_structure'].setText(
-                tr("Enable fine &structure"))
+            self.actions["fine_structure"].setText(tr("Enable fine &structure"))
             self.record_code("model.disable_fine_structure()")
         else:
             self.model.enable_fine_structure()
-            self.actions['fine_structure'].setText(
-                tr("Disable fine &structure"))
+            self.actions["fine_structure"].setText(tr("Disable fine &structure"))
             self.record_code("model.enable_fine_structure()")
         self.fine_structure_enabled = not self.fine_structure_enabled
 
@@ -180,16 +176,16 @@ class ModelWrapper(Actionable):
 
     def add_component(self, component):
         if isinstance(component, type):
-            nec = ['EELSCLEdge', 'Spline', 'ScalableFixedPattern']
+            nec = ["EELSCLEdge", "Spline", "ScalableFixedPattern"]
             if component.__name__ in nec:
                 raise TypeError(
-                    tr("Component of type %s currently not supported")
-                    % component)
-            elif component.__name__ == 'Expression':
+                    tr("Component of type %s currently not supported") % component
+                )
+            elif component.__name__ == "Expression":
                 dlg = StringInputDialog(prompt="Enter expression:")
                 expression = dlg.prompt_modal(rejection=None)
                 if expression:
-                    component = component(expression, 'Expression')
+                    component = component(expression, "Expression")
                 else:
                     return
             else:

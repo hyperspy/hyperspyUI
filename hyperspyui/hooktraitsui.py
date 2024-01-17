@@ -26,9 +26,11 @@ try:
 except RuntimeError:
     import sys
 
-    if 'sphinx' in sys.modules:
+    if "sphinx" in sys.modules:
+
         class Dummy:
             pass
+
         ui_base = Dummy()
         ui_base._StickyDialog = Dummy
     else:
@@ -37,7 +39,6 @@ orig_type = ui_base._StickyDialog
 
 
 class HookedDialog(orig_type):
-
     def __init__(self, ui, parent, *args, **kwargs):
         _on_creating(self, ui, parent)
         super().__init__(ui, parent, *args, **kwargs)
@@ -66,6 +67,7 @@ def dehook_traitsui():
     Call this function to remove hooks from traitsui
     """
     ui_base._StickyDialog = orig_type
+
 
 # -----------------------------------------------------------
 # The rest of this file is simply event callback handling
