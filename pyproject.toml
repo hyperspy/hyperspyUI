@@ -90,7 +90,6 @@ qt_api = "pyqt5"
 [tool.ruff.lint]
 ignore = ["E402"]
 
-
 [tool.setuptools]
 include-package-data = false
 
