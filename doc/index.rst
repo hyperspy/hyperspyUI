@@ -47,14 +47,22 @@ User guide
 .. toctree::
     :maxdepth: 2
 
-    installation.rst
+    user_guide/installation.rst
+    user_guide/quickstart.rst
+    user_guide/actions.rst
+    user_guide/tools.rst
+    user_guide/widgets.rst
+    user_guide/settings.rst
+    user_guide/troubleshooting.rst
+
+
+Release Notes
+-------------
+
+.. toctree::
+    :maxdepth: 2
+
     what_is_new.rst
-    quickstart.rst
-    actions.rst
-    tools.rst
-    widgets.rst
-    settings.rst
-    troubleshooting.rst
 
 
 Developer guide
@@ -67,7 +75,7 @@ want to execute some code in the :ref:`console`.
 .. toctree::
     :maxdepth: 2
 
-    devguide.rst
+    dev_guide/index.rst
 
 .. toctree::
     :maxdepth: 1

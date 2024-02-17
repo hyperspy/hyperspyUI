@@ -5,8 +5,8 @@
 SPHINXOPTS    = -D exclude_patterns=['*user_plugins/*']
 SPHINXBUILD   = sphinx-build
 PAPER         =
-BUILDDIR      = build
-GH_PAGES_SOURCES = source code wiki Makefile make.bat
+SOURCEDIR     = .
+BUILDDIR      = _build
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -16,9 +16,9 @@ endif
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
+ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) $(SOURCEDIR)
 # the i18n builder cannot share the environment and doctrees with the others
-I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
+I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) $(SOURCEDIR)
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest coverage gettext
 
@@ -51,6 +51,7 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -rf api
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
@@ -191,14 +192,3 @@ pseudoxml:
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
-
-gh-pages:
-	git checkout gh-pages
-	rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
-	git checkout master -- $(GH_PAGES_SOURCES)
-	make html
-	mv -fv $(BUILDDIR)/html/* ./
-	rm -rf $(BUILDDIR) $(GH_PAGES_SOURCES)
-	git add -A
-	git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout master
-
