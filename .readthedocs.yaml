@@ -10,13 +10,18 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
+  apt_packages:
+    - qtbase5-dev
+    - libxkbcommon-x11-0
+    - libxcb-icccm4
+    - libxcb-image0
+    - libxcb-keysyms1
+    - libxcb-randr0
+    - libxcb-render-util0
+    - libxcb-xinerama0
+    - xvfb
   # Override the build to be able to use xvfb-run
   commands:
-    # Run default readthedocs steps manually
-    - apt-get install --assume-yes --quiet -- qtbase5-dev libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 xvfb
-    - python -mvirtualenv $READTHEDOCS_VIRTUALENV_PATH
-    - python -m pip install --upgrade --no-cache-dir pip setuptools
-    - python -m pip install --upgrade --no-cache-dir sphinx readthedocs-sphinx-ext
     - pip install .[all,doc]
     # default readthedocs sphinx command prefixed with xvfb-run
     - cd doc && xvfb-run python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
