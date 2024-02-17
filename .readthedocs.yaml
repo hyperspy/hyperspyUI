@@ -11,13 +11,20 @@ build:
   tools:
     python: "3.12"
   apt_packages:
+    - qtbase5-dev
+    - libxkbcommon-x11-0
+    - libxcb-icccm4
+    - libxcb-image0
+    - libxcb-keysyms1
+    - libxcb-randr0
+    - libxcb-render-util0
+    - libxcb-xinerama0
     - xvfb
   jobs:
     post_checkout:
       - git fetch --unshallow || true
     post_install:
-      - sudo /usr/bin/Xvfb :0 -screen 0 1280x1024x24 &
-
+      - /usr/bin/Xvfb :0 -screen 0 1280x1024x24 &
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
