@@ -27,10 +27,6 @@ build:
       # default readthedocs sphinx command prefixed with xvfb-run
       - cd doc && ls && xvfb-run python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
 
-# Optionally build your docs in additional formats such as PDF and ePub
-formats:
-  - htmlzip
-
 python:
   install:
     - method: pip
