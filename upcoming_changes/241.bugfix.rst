@@ -1,0 +1,1 @@
+Use ``matplotlib.colormaps.get_cmap`` instead of ``matplotlib.pyplot.get_cmap``, it will be removed in matplotlib 3.9.
