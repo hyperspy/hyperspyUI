@@ -24,10 +24,8 @@ build:
     post_checkout:
       - git fetch --unshallow || true
     post_install:
-      - cd doc
-      - ls
-      # default readthedocs commans prefixed with xvfb-run
-      - xvfb-run python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
+      # default readthedocs sphinx command prefixed with xvfb-run
+      - cd doc && ls && xvfb-run python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
 
 # Optionally build your docs in additional formats such as PDF and ePub
 formats:
