@@ -20,17 +20,10 @@ build:
     - libxcb-render-util0
     - libxcb-xinerama0
     - xvfb
-  jobs:
-    post_checkout:
-      - git fetch --unshallow || true
-    post_install:
-      # default readthedocs sphinx command prefixed with xvfb-run
-      - cd doc && ls && xvfb-run python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
-
-python:
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-          - all
-          - doc
+  # Override the build to be able to use xvfb-run
+  commands:
+    # needs history to get specific version
+    - git fetch --unshallow || true
+    - pip install .[all,doc]
+    # default readthedocs sphinx command prefixed with xvfb-run
+    - cd doc && xvfb-run python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
