@@ -66,6 +66,10 @@ file = "COPYING.txt"
   "sphinxcontrib-towncrier",
   "towncrier",
 ]
+"pyqt" = [
+  "PyQt5",
+  "PyQtWebEngine",
+]
 "tests" = [
   "pytest-qt",
   "pytest-cov",
@@ -74,7 +78,8 @@ file = "COPYING.txt"
 ]
 "all" = [
   "exspy[gui-jupyter]",
-  "exspy[gui-traitsui]"
+  "exspy[gui-traitsui]",
+  "hyperspyui[pyqt]",
 ]
 
 [project.urls]
