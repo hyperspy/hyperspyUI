@@ -36,7 +36,7 @@ dependencies = [
   "exspy",
   "hyperspy >= 2.0rc0",
   "hyperspy-gui-traitsui >= 2.0",
-  "matplotlib >= 3.0.3",
+  "matplotlib >= 3.6.1",
   "packaging",
   "pyqode.python >= 4.0.2",
   "pyqode.core >= 4.0.10",

@@ -22,7 +22,7 @@ Created on Wed Jan 20 22:32:58 2016
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib
 
 from hyperspyui.plugins.plugin import Plugin
 from hyperspyui.widgets.extendedqwidgets import FigureWidget
@@ -180,7 +180,7 @@ class CMapDelegate(QtWidgets.QItemDelegate):
             option.rect.setLeft(option.rect.x() + 10)
             super().paint(painter, option, index)
 
-            cmap = plt.get_cmap(index.data().strip())
+            cmap = matplotlib.colormaps.get_cmap(index.data().strip())
             width = self.width_ - self.cmap_shift
             line = cmap(np.linspace(0, 1, width, endpoint=True))
             line = (255 * line).astype(np.uint8)
