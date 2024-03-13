@@ -21,7 +21,6 @@ Created on Mon Oct 27 23:09:55 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 from qtpy import QtWidgets
 from qtpy.QtCore import Qt
 

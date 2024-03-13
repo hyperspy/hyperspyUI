@@ -75,7 +75,6 @@ class TrackEventFilter(QtCore.QObject):
 
 
 class MainWindowHyperspy(MainWindowActionRecorder):
-
     """
     Fifth layer in the application stack. Should integrate hyperspy basics,
     such as UI wrappings for hyperspy classes (Signal and Model), file I/O,

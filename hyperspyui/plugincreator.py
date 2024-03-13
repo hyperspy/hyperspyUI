@@ -21,7 +21,6 @@ Created on Sat Feb 21 12:04:06 2015
 @author: Vidar Tonaas Fauske
 """
 
-
 """
 Utility to make it easier to create plugins directly through the UI.
 """

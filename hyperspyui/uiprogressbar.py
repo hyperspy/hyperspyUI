@@ -88,7 +88,6 @@ def reset_progressbar():
 
 
 class UIProgressBar(tqdm):
-
     """
     Connector between hyperspy process with a progressbar, and the UI. See also
     the doc for wrap() for more details.

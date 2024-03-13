@@ -21,7 +21,6 @@ Created on Wed Jan 21 14:49:08 2015
 @author: Vidar Tonaas Fauske
 """
 
-
 from qtpy import QtCore
 from qtpy.QtWidgets import (
     QCheckBox,

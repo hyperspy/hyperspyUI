@@ -21,7 +21,6 @@ Created on Mon Nov 17 14:16:41 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 from qtpy import QtCore, QtWidgets
 
 import types
@@ -61,7 +60,6 @@ class Worker(QtCore.QObject):
 
 
 class Threaded(QtCore.QObject):
-
     """
     Executes a user provided function in a new thread, and pops up a
     QProgressBar until it finishes. To have an updating progress bar,

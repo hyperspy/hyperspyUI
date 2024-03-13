@@ -20,6 +20,7 @@ Created on Mon Aug 03 19:43:52 2015
 
 @author: Vidar Tonaas Fauske
 """
+
 import copy
 
 from qtpy import QtCore
@@ -38,7 +39,6 @@ from hyperspyui.util import crosshair_cursor
 
 
 class MultiSelectionTool(SignalFigureTool):
-
     """
     Tool to select multiple ROIs on a  signal interactively. Simply click and
     drag in a figure to create an ROI. This can be done multiple times. Right-

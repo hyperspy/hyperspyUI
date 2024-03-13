@@ -20,6 +20,7 @@ Created on Tue Nov 04 16:04:17 2014
 
 @author: Vidar Tonaas Fauske
 """
+
 import sys
 
 from qtconsole.rich_jupyter_widget import RichJupyterWidget
