@@ -20,6 +20,7 @@ Created on Tue Apr 28 11:00:55 2015
 
 @author: Vidar Tonaas Fauske
 """
+
 import collections
 
 from qtpy import QtCore, QtWidgets

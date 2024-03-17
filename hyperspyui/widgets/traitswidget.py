@@ -27,7 +27,6 @@ from qtpy import QtWidgets
 
 
 class TraitsWidget(FigureWidget):
-
     """
     DockWidget for TraitsUI dialogs. The default behavior is to update the
     dialog when the active subwindow changes or when the widget becomes visible

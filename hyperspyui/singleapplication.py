@@ -21,7 +21,6 @@ Created on Thu Nov 27 03:01:19 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 import sys
 import json
 import os

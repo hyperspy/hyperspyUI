@@ -21,7 +21,6 @@ Created on Tue Nov 04 16:25:54 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 from qtpy import QtCore
 from exspy.models import EELSModel
 from .actionable import Actionable

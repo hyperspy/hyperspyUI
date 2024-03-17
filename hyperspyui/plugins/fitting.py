@@ -86,7 +86,6 @@ class FittingPlugin(Plugin):
 
 
 class RegressionTool(SelectionTool):
-
     """ """
 
     def __init__(self, *args, **kwargs):

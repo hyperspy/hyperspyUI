@@ -41,7 +41,6 @@ edstypes = (exspy.signals.EDSSEMSpectrum, exspy.signals.EDSTEMSpectrum)
 
 
 class ElementPickerWidget(FigureWidget):
-
     """
     Tool window for picking elements of an interactive periodic table.
     Takes a signal in the constructor, and a parent control.

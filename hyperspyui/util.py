@@ -21,7 +21,6 @@ Created on Mon Oct 27 18:47:05 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 import hyperspy.components1d
 from hyperspy.misc.utils import slugify
 from functools import partial
@@ -216,7 +215,6 @@ def create_add_component_actions(parent, callback, prefix="", postfix=""):
 
 
 class AttributeDict(dict):
-
     """A dict subclass that exposes its items as attributes."""
 
     def __init__(self, obj=None):
@@ -307,7 +305,6 @@ class AttributeDict(dict):
 
 
 class Namespace(AttributeDict):
-
     """
     A dict subclass that exposes its items as attributes.
 

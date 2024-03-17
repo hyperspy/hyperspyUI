@@ -104,7 +104,6 @@ def normalpriority():
 
 
 class MainWindowBase(QtWidgets.QMainWindow):
-
     """
     Base layer in application stack. Should handle the connection to our custom
     matplotlib backend, and manage the Figures. As such, it does not know

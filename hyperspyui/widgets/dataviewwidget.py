@@ -164,7 +164,6 @@ class HyperspyItem(QtWidgets.QTreeWidgetItem):
 
 
 class DataViewWidget(QtWidgets.QWidget):
-
     """
     A custom QTreeWidget, that handles the Signal-Model-Component hierarchy.
     The relationships are displayed in a tree structure, and helps keep track

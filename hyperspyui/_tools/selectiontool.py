@@ -42,7 +42,6 @@ from hyperspyui.util import crosshair_cursor
 
 
 class SelectionTool(SignalFigureTool):
-
     """
     Tool to select a ROI on a  signal interactively. Simply click and drag in a
     figure to create an ROI, and then press enter to indicate that the

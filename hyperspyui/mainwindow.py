@@ -52,7 +52,6 @@ import hyperspyui.tools
 
 
 class MainWindow(MainWindowHyperspy):
-
     """
     Main window of the application. Top layer in application stack. Is
     responsible for adding default actions, and filling the menus and toolbars.

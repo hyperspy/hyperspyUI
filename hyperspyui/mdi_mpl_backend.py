@@ -135,7 +135,6 @@ def new_figure_manager_given_figure(num, figure):
 
 
 class FigureWindow(QtWidgets.QMdiSubWindow):
-
     """
     A basic MDI sub-window, but with a closing signal, and an activate QAction,
     which allows for switching between all FigureWindows (e.g. by a
@@ -202,7 +201,6 @@ class FigureWindow(QtWidgets.QMdiSubWindow):
 
 
 class FigureManagerMdi(FigureManagerBase):
-
     """
     Public attributes
 

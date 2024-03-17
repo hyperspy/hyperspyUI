@@ -31,7 +31,6 @@ def tr(text):
 
 
 class ExToolWindow(QtWidgets.QDialog):
-
     """
     QDialog with Qt.Tool window flags.
     """
@@ -81,7 +80,6 @@ class FigureWidget(QtWidgets.QDockWidget):
 
 
 class ExClickLabel(QtWidgets.QLabel):
-
     """
     QLabel with 'clicked()' signal.
     """
@@ -131,7 +129,6 @@ class ExRememberPrompt(ExMessageBox):
 
 
 class ExDoubleSlider(QtWidgets.QSlider):
-
     """
     QSlider with double values instead of int values.
     """

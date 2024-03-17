@@ -438,7 +438,6 @@ class MainWindowUtils(MainWindowBase):
 
 
 class MainWindowActionRecorder(MainWindowUtils):
-
     """
     Adds recorder functionality.
     """

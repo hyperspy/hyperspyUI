@@ -21,7 +21,6 @@ Created on Fri Dec 12 23:44:01 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 from hyperspyui.plugins.plugin import Plugin
 
 from qtpy import QtCore, QtWidgets
@@ -90,7 +89,6 @@ def make_advanced_dialog(ui, algorithms=None):
 
 
 class MVA_Plugin(Plugin):
-
     """
     Implements MVA decomposition utilities.
     """

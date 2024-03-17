@@ -21,12 +21,10 @@ Created on Mon Oct 27 23:17:25 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 from qtpy import QtWidgets
 
 
 class BindingList(list):
-
     """
     A list that has been extended to sync other lists or collections to changes
     in its contents. By custom targets, it can also be used to trigger events

@@ -26,7 +26,6 @@ from collections import OrderedDict
 
 
 class Actionable(QtCore.QObject):
-
     """
     Base class for simple action management utilities. Manages actions dict,
     and adds actions through add_action().

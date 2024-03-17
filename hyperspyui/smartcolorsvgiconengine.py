@@ -21,7 +21,6 @@ Created on Wed Jul 29 18:09:56 2015
 @author: vidarton
 """
 
-
 from qtpy import QtGui, QtCore, QtSvg, QtWidgets
 from qtpy.QtGui import QPalette
 

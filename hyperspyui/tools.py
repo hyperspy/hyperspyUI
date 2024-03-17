@@ -21,7 +21,6 @@ Created on Sun Dec 07 03:06:55 2014
 @author: Vidar Tonaas Fauske
 """
 
-
 from hyperspyui._tools.tool import Tool
 from hyperspyui._tools.figuretool import FigureTool
 from hyperspyui._tools.signalfiguretool import SignalFigureTool

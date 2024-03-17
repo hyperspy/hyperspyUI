@@ -73,7 +73,6 @@ class CropToolPlugin(Plugin):
 
 
 class CropTool(SelectionTool):
-
     """
     Tool to crop signal interactively. Simply click and drag in a figure to
     create an ROI, and then press enter to apply cropping operation, or ESC to
