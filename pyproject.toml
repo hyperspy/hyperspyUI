@@ -59,6 +59,10 @@ hyperspyui = "hyperspyui.__main__:main"
 file = "COPYING.txt"
 
 [project.optional-dependencies]
+"all" = [
+  "exspy",
+  "hyperspyui[pyqt]",
+]
 "doc" = [
   "sphinx > 5.2",
   "sphinx_rtd_theme",
@@ -66,15 +70,15 @@ file = "COPYING.txt"
   "sphinxcontrib-towncrier",
   "towncrier",
 ]
+"pyqt" = [
+  "PyQt5",
+  "PyQtWebEngine",
+]
 "tests" = [
   "pytest-qt",
   "pytest-cov",
   "pytest-timeout",
   "setuptools-scm",
-]
-"all" = [
-  "exspy[gui-jupyter]",
-  "exspy[gui-traitsui]"
 ]
 
 [project.urls]
