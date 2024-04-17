@@ -69,18 +69,18 @@ and run the following command in the anaconda prompt:
 Installation via pip
 --------------------
 
-HyperSpyUI can be intall from pip. Depending on your python distribution you may
-need to have C compiler on your system to install some of the dependencies.
+To install ``HyperSpyUI`` can be intalled from pypi.org including 
+optional dependencies (``exspy`` and ``pyqt5``)
+
+.. code-block:: bash
+
+    pip install hyperspyui[all]
+
+To install ``HyperSpyUI`` with the minimum dependencies:
 
 .. code-block:: bash
 
     pip install hyperspyui
-
-If pyqt is not installed, run:
-
-.. code-block:: bash
-
-    pip install PyQt5 PyQtWebEngine
 
 
 Run HyperSpyUI

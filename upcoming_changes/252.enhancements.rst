@@ -1,0 +1,1 @@
+Add ``pyqt`` pip extra to simplify installation.
