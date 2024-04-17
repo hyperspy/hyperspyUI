@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hyperspyui.mdi_mpl_backend module &mdash; HyperSpyUI 1.4.0.dev0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/toggleprompt.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=48c8187c"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -145,19 +145,19 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.mdi_mpl_backend">
-<span id="hyperspyui-mdi-mpl-backend-module"></span><h1>hyperspyui.mdi_mpl_backend module<a class="headerlink" href="#module-hyperspyui.mdi_mpl_backend" title="Permalink to this heading"></a></h1>
+<span id="hyperspyui-mdi-mpl-backend-module"></span><h1>hyperspyui.mdi_mpl_backend module<a class="headerlink" href="#module-hyperspyui.mdi_mpl_backend" title="Link to this heading"></a></h1>
 <p>Created on Fri Oct 31 14:22:53 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManager">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureManager</span></span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManager" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureManager</span></span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManager" title="Link to this definition"></a></dt>
 <dd><p>alias of <a class="reference internal" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="hyperspyui.mdi_mpl_backend.FigureManagerMdi"><code class="xref py py-class docutils literal notranslate"><span class="pre">FigureManagerMdi</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureManagerMdi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://matplotlib.org/stable/api/backend_bases_api.html#matplotlib.backend_bases.FigureManagerBase" title="(in Matplotlib v3.8.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FigureManagerBase</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureManagerMdi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://matplotlib.org/stable/api/backend_bases_api.html#matplotlib.backend_bases.FigureManagerBase" title="(in Matplotlib v3.8.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FigureManagerBase</span></code></a></p>
 <p>Public attributes</p>
 <p>canvas      : The FigureCanvas instance
 num         : The Figure number
@@ -167,47 +167,52 @@ window      : The FigureWindow</p>
 backend, but adapted for our needs.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi._show_message">
-<span class="sig-name descname"><span class="pre">_show_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi._show_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_show_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi._show_message" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi._widgetclosed">
-<span class="sig-name descname"><span class="pre">_widgetclosed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi._widgetclosed" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_widgetclosed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi._widgetclosed" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi.destroy">
-<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.destroy" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.destroy" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi.full_screen_toggle">
-<span class="sig-name descname"><span class="pre">full_screen_toggle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.full_screen_toggle" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">full_screen_toggle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.full_screen_toggle" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi.get_window_title">
-<span class="sig-name descname"><span class="pre">get_window_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.get_window_title" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_window_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.get_window_title" title="Link to this definition"></a></dt>
 <dd><p>Return the title text of the window containing the figure, or None
 if there is no window (e.g., a PS backend).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi.resize">
-<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.resize" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.resize" title="Link to this definition"></a></dt>
 <dd><p>set the canvas size in pixels</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi.set_window_title">
-<span class="sig-name descname"><span class="pre">set_window_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.set_window_title" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_window_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.set_window_title" title="Link to this definition"></a></dt>
 <dd><p>Set the title text of the window containing the figure.</p>
 <p>This has no effect for non-GUI (e.g., PS) backends.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">set_window_title</span><span class="p">(</span><span class="s1">&#39;My figure&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureManagerMdi.show">
-<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.show" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureManagerMdi.show" title="Link to this definition"></a></dt>
 <dd><p>For GUI backends, show the figure window and redraw.
 For non-GUI backends, raise an exception, unless running headless (i.e.
 on Linux with an unset DISPLAY); this exception is converted to a
@@ -218,7 +223,7 @@ warning in <cite>.Figure.show</cite>.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">FigureWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMdiSubWindow</span></code></p>
 <p>A basic MDI sub-window, but with a closing signal, and an activate QAction,
 which allows for switching between all FigureWindows (e.g. by a
@@ -228,17 +233,17 @@ different groups that can be treated separately, you will need to create
 your own QtWidgets.QActionGroups.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow._activate_triggered">
-<span class="sig-name descname"><span class="pre">_activate_triggered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow._activate_triggered" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_activate_triggered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow._activate_triggered" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow._windowStateChanged">
-<span class="sig-name descname"><span class="pre">_windowStateChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oldState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newState</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow._windowStateChanged" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_windowStateChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oldState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newState</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow._windowStateChanged" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.activateAction">
-<span class="sig-name descname"><span class="pre">activateAction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.activateAction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">activateAction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.activateAction" title="Link to this definition"></a></dt>
 <dd><p>Returns a QAction that will activate the window with setActiveSubWindow
 as long as it has an mdiArea set. If not, it will use activateWindow to
 try to make it the active window.</p>
@@ -246,17 +251,17 @@ try to make it the active window.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.activeFigureActionGroup">
-<span class="sig-name descname"><span class="pre">activeFigureActionGroup</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;PyQt5.QtWidgets.QActionGroup</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.activeFigureActionGroup" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">activeFigureActionGroup</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;PyQt5.QtWidgets.QActionGroup</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.activeFigureActionGroup" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.closeEvent">
-<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closeEvent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCloseEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.closeEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closeEvent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QCloseEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.closeEvent" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.closing">
-<span class="sig-name descname"><span class="pre">closing</span></span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.closing" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">closing</span></span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.closing" title="Link to this definition"></a></dt>
 <dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
 <p>types is normally a sequence of individual types.  Each type is either a
 type object or a string that is the name of a C++ type.  Alternatively
@@ -279,28 +284,28 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.FigureWindow.setWindowTitle">
-<span class="sig-name descname"><span class="pre">setWindowTitle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.setWindowTitle" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setWindowTitle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.FigureWindow.setWindowTitle" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend._on_destroy">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">_on_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend._on_destroy" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">_on_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend._on_destroy" title="Link to this definition"></a></dt>
 <dd><p>Destroying MPL figure event, calls subscribers.
 ‘figure’ parameter is of the type FigureWindow defined below</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend._on_new_figure">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">_on_new_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend._on_new_figure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">_on_new_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend._on_new_figure" title="Link to this definition"></a></dt>
 <dd><p>New MPL figure event, calls subscribers.
 ‘figure’ parameter is of the type FigureWindow defined below</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.connect_on_destroy">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">connect_on_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.connect_on_destroy" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">connect_on_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.connect_on_destroy" title="Link to this definition"></a></dt>
 <dd><p>Call to subscribe to destroying MPL figure events. ‘callback’ is called on
 the event, with the figure as it’s first parameter, and ‘userdata’ as it’s
 second parameter if it is not None. If it’s None, only one parameter is
@@ -309,7 +314,7 @@ passed.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.connect_on_new_figure">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">connect_on_new_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.connect_on_new_figure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">connect_on_new_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.connect_on_new_figure" title="Link to this definition"></a></dt>
 <dd><p>Call to subscribe to new MPL figure events. ‘callback’ is called on the
 event, with the figure as it’s first parameter, and ‘userdata’ as it’s
 second parameter if it is not None. If it’s None, only one parameter is
@@ -318,25 +323,25 @@ passed.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.disconnect_on_destroy">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">disconnect_on_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.disconnect_on_destroy" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">disconnect_on_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.disconnect_on_destroy" title="Link to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.disconnect_on_new_figure">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">disconnect_on_new_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.disconnect_on_new_figure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">disconnect_on_new_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.disconnect_on_new_figure" title="Link to this definition"></a></dt>
 <dd><p>Disconnect callback from subscription.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.new_figure_manager">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">new_figure_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.new_figure_manager" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">new_figure_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.new_figure_manager" title="Link to this definition"></a></dt>
 <dd><p>Create a new figure manager instance. MPL backend function.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hyperspyui.mdi_mpl_backend.new_figure_manager_given_figure">
-<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">new_figure_manager_given_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.new_figure_manager_given_figure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.mdi_mpl_backend.</span></span><span class="sig-name descname"><span class="pre">new_figure_manager_given_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mdi_mpl_backend.new_figure_manager_given_figure" title="Link to this definition"></a></dt>
 <dd><p>Create a new figure manager instance for the given figure. MPL backend
 function.</p>
 </dd></dl>

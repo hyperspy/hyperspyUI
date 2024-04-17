@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hyperspyui.bindinglist module &mdash; HyperSpyUI 1.4.0.dev0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/toggleprompt.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=48c8187c"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -135,12 +135,12 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.bindinglist">
-<span id="hyperspyui-bindinglist-module"></span><h1>hyperspyui.bindinglist module<a class="headerlink" href="#module-hyperspyui.bindinglist" title="Permalink to this heading"></a></h1>
+<span id="hyperspyui-bindinglist-module"></span><h1>hyperspyui.bindinglist module<a class="headerlink" href="#module-hyperspyui.bindinglist" title="Link to this heading"></a></h1>
 <p>Created on Mon Oct 27 23:17:25 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.bindinglist.</span></span><span class="sig-name descname"><span class="pre">BindingList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.bindinglist.</span></span><span class="sig-name descname"><span class="pre">BindingList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
 <p>A list that has been extended to sync other lists or collections to changes
 in its contents. By custom targets, it can also be used to trigger events
@@ -151,54 +151,54 @@ available. Supported targets for add_target are types ‘list’ and
 ‘QListWidget’.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.add_custom">
-<span class="sig-name descname"><span class="pre">add_custom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.add_custom" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_custom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insert</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.add_custom" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.add_target">
-<span class="sig-name descname"><span class="pre">add_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.add_target" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.add_target" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.append" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.append" title="Link to this definition"></a></dt>
 <dd><p>Append object to the end of the list.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.extend" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.extend" title="Link to this definition"></a></dt>
 <dd><p>Extend list by appending elements from the iterable.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.insert" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.insert" title="Link to this definition"></a></dt>
 <dd><p>Insert object before index.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.pop" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.pop" title="Link to this definition"></a></dt>
 <dd><p>Remove and return item at index (default last).</p>
 <p>Raises IndexError if list is empty or index is out of range.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.remove" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.remove" title="Link to this definition"></a></dt>
 <dd><p>Remove first occurrence of value.</p>
 <p>Raises ValueError if the value is not present.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.remove_target">
-<span class="sig-name descname"><span class="pre">remove_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.remove_target" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.remove_target" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.bindinglist.BindingList.set_target">
-<span class="sig-name descname"><span class="pre">set_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.set_target" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.bindinglist.BindingList.set_target" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

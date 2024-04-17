@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hyperspyui.mainwindowhyperspy module &mdash; HyperSpyUI 1.4.0.dev0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/toggleprompt.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=48c8187c"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -136,68 +136,68 @@
            <div itemprop="articleBody">
              
   <section id="module-hyperspyui.mainwindowhyperspy">
-<span id="hyperspyui-mainwindowhyperspy-module"></span><h1>hyperspyui.mainwindowhyperspy module<a class="headerlink" href="#module-hyperspyui.mainwindowhyperspy" title="Permalink to this heading"></a></h1>
+<span id="hyperspyui-mainwindowhyperspy-module"></span><h1>hyperspyui.mainwindowhyperspy module<a class="headerlink" href="#module-hyperspyui.mainwindowhyperspy" title="Link to this heading"></a></h1>
 <p>Created on Tue Nov 04 13:37:08 2014</p>
 <p>&#64;author: Vidar Tonaas Fauske</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindowhyperspy.</span></span><span class="sig-name descname"><span class="pre">MainWindowHyperspy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindowhyperspy.</span></span><span class="sig-name descname"><span class="pre">MainWindowHyperspy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="hyperspyui.mainwindowutillayer.html#hyperspyui.mainwindowutillayer.MainWindowActionRecorder" title="hyperspyui.mainwindowutillayer.MainWindowActionRecorder"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindowActionRecorder</span></code></a></p>
 <p>Fifth layer in the application stack. Should integrate hyperspy basics,
 such as UI wrappings for hyperspy classes (Signal and Model), file I/O,
 etc.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._connect_figure_2_statusbar">
-<span class="sig-name descname"><span class="pre">_connect_figure_2_statusbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mdi_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._connect_figure_2_statusbar" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_connect_figure_2_statusbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mdi_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._connect_figure_2_statusbar" title="Link to this definition"></a></dt>
 <dd><p>When a figure is activated, this callback sets the navigation status
 bar, and connects _on_active_navigate to the signal’s AxesManager.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_config">
-<span class="sig-name descname"><span class="pre">_get_console_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_config" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_get_console_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_config" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_exec">
-<span class="sig-name descname"><span class="pre">_get_console_exec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_exec" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_get_console_exec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_exec" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_exports">
-<span class="sig-name descname"><span class="pre">_get_console_exports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_exports" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_get_console_exports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._get_console_exports" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._on_active_navigate">
-<span class="sig-name descname"><span class="pre">_on_active_navigate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes_manager</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._on_active_navigate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_on_active_navigate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes_manager</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._on_active_navigate" title="Link to this definition"></a></dt>
 <dd><p>Callback triggered when the active signal navigates. Updates the
 status bar with the navigation indices.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._on_track">
-<span class="sig-name descname"><span class="pre">_on_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gpos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._on_track" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_on_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gpos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._on_track" title="Link to this definition"></a></dt>
 <dd><p>Tracks the mouse position for the entire application, and if the mouse
 is over a figure axes it updates the status bar mouse coordinates.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy._sweeper">
-<span class="sig-name descname"><span class="pre">_sweeper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">removed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._sweeper" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_sweeper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">removed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy._sweeper" title="Link to this definition"></a></dt>
 <dd><p>Trigger a GC one second after calling this.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.add_model">
-<span class="sig-name descname"><span class="pre">add_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.add_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.add_model" title="Link to this definition"></a></dt>
 <dd><p>Add a default model for the given/selected signal. Returns the
 newly created ModelWrapper.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.cancel_progressbar">
-<span class="sig-name descname"><span class="pre">cancel_progressbar</span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.cancel_progressbar" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cancel_progressbar</span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.cancel_progressbar" title="Link to this definition"></a></dt>
 <dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
 <p>types is normally a sequence of individual types.  Each type is either a
 type object or a string that is the name of a C++ type.  Alternatively
@@ -220,68 +220,68 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_menu">
-<span class="sig-name descname"><span class="pre">create_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_menu" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_menu" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_statusbar">
-<span class="sig-name descname"><span class="pre">create_statusbar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_statusbar" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_statusbar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_statusbar" title="Link to this definition"></a></dt>
 <dd><p>Creates extra status bar controls, e.g. coordinate tracking.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_widgetbar">
-<span class="sig-name descname"><span class="pre">create_widgetbar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_widgetbar" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_widgetbar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.create_widgetbar" title="Link to this definition"></a></dt>
 <dd><p>The widget bar itself is created and managed implicitly by Qt. Override
 this function to add widgets on UI construction.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dragEnterEvent">
-<span class="sig-name descname"><span class="pre">dragEnterEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QDragEnterEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dragEnterEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dragEnterEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QDragEnterEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dragEnterEvent" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dropEvent">
-<span class="sig-name descname"><span class="pre">dropEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QDropEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dropEvent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dropEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QDropEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.dropEvent" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.edit_hspy_settings">
-<span class="sig-name descname"><span class="pre">edit_hspy_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.edit_hspy_settings" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">edit_hspy_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.edit_hspy_settings" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_load">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_accepted_extensions_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_load" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_accepted_extensions_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_load" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_save">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_accepted_extensions_save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_save" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_accepted_extensions_save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_accepted_extensions_save" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_component">
-<span class="sig-name descname"><span class="pre">get_selected_component</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_component" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_component</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_component" title="Link to this definition"></a></dt>
 <dd><p>Returns the selected component</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model">
-<span class="sig-name descname"><span class="pre">get_selected_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model" title="Link to this definition"></a></dt>
 <dd><p>Returns the selected model</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model_wrapper">
-<span class="sig-name descname"><span class="pre">get_selected_model_wrapper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model_wrapper" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_model_wrapper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_model_wrapper" title="Link to this definition"></a></dt>
 <dd><p>Returns the selected model</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_plot">
-<span class="sig-name descname"><span class="pre">get_selected_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_plot" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_plot" title="Link to this definition"></a></dt>
 <dd><p>Returns the selected signal; a string specifying whether the active
 window is “navtigation” plot, “signal” plot or “other”; and finally the
 active window.</p>
@@ -289,32 +289,32 @@ active window.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_signal">
-<span class="sig-name descname"><span class="pre">get_selected_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_signal" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_signal" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_signals">
-<span class="sig-name descname"><span class="pre">get_selected_signals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_signals" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_signals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_signals" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_wrapper">
-<span class="sig-name descname"><span class="pre">get_selected_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_on_multiple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_wrapper" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_on_multiple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_wrapper" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_wrappers">
-<span class="sig-name descname"><span class="pre">get_selected_wrappers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_wrappers" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_wrappers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_selected_wrappers" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_signal_filepath_suggestion">
-<span class="sig-name descname"><span class="pre">get_signal_filepath_suggestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_signal_filepath_suggestion" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_signal_filepath_suggestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.get_signal_filepath_suggestion" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.load">
-<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.load" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.load" title="Link to this definition"></a></dt>
 <dd><p>Load ‘filenames’, or if ‘filenames’ is None, open a dialog to let the
 user interactively browse for files. It then load these files using
 hyperspy.api.load and wraps them and adds them to self.signals.</p>
@@ -322,81 +322,81 @@ hyperspy.api.load and wraps them and adds them to self.signals.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.load_stack">
-<span class="sig-name descname"><span class="pre">load_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.load_stack" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">load_stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.load_stack" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.make_component">
-<span class="sig-name descname"><span class="pre">make_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.make_component" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">make_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.make_component" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_console_executed">
-<span class="sig-name descname"><span class="pre">on_console_executed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_console_executed" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_console_executed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_console_executed" title="Link to this definition"></a></dt>
 <dd><p>Override when inherited to perform actions after executing, given the
 ‘response’ returned.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_console_executing">
-<span class="sig-name descname"><span class="pre">on_console_executing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_console_executing" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_console_executing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_console_executing" title="Link to this definition"></a></dt>
 <dd><p>Override when inherited to perform actions before exectuing ‘source’.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_finished">
-<span class="sig-name descname"><span class="pre">on_progressbar_finished</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_finished" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_progressbar_finished</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_finished" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_update">
-<span class="sig-name descname"><span class="pre">on_progressbar_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_update" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_progressbar_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_update" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_wanted">
-<span class="sig-name descname"><span class="pre">on_progressbar_wanted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_wanted" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_progressbar_wanted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_progressbar_wanted" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_signal_plotted">
-<span class="sig-name descname"><span class="pre">on_signal_plotted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_signal_plotted" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_signal_plotted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_signal_plotted" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_signal_plotting">
-<span class="sig-name descname"><span class="pre">on_signal_plotting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_signal_plotting" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_signal_plotting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.on_signal_plotting" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.save" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.select_model">
-<span class="sig-name descname"><span class="pre">select_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.select_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">select_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.select_model" title="Link to this definition"></a></dt>
 <dd><p>Model selection callback for actions that are only valid for
 selected Models.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.select_signal">
-<span class="sig-name descname"><span class="pre">select_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.select_signal" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">select_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.select_signal" title="Link to this definition"></a></dt>
 <dd><p>Signal selection callback for actions that are only valid for
 selected Signals.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.set_mouse_coords_status">
-<span class="sig-name descname"><span class="pre">set_mouse_coords_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.set_mouse_coords_status" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_mouse_coords_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.set_mouse_coords_status" title="Link to this definition"></a></dt>
 <dd><p>Display mouse coordinates both in indices and data space values.</p>
 <p>‘units’ must be the same size as ‘values’</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.MainWindowHyperspy.set_navigator_coords_status">
-<span class="sig-name descname"><span class="pre">set_navigator_coords_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.set_navigator_coords_status" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_navigator_coords_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.MainWindowHyperspy.set_navigator_coords_status" title="Link to this definition"></a></dt>
 <dd><p>Displays ‘coords’ as the navigator coordinates.</p>
 </dd></dl>
 
@@ -404,17 +404,17 @@ selected Signals.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.TrackEventFilter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindowhyperspy.</span></span><span class="sig-name descname"><span class="pre">TrackEventFilter</span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.TrackEventFilter" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindowhyperspy.</span></span><span class="sig-name descname"><span class="pre">TrackEventFilter</span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.TrackEventFilter" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QObject</span></code></p>
 <p>Qt Event filter for tracking the mouse position in the application.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.TrackEventFilter.eventFilter">
-<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QObject</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.TrackEventFilter.eventFilter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">eventFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QObject</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">a1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QEvent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.TrackEventFilter.eventFilter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hyperspyui.mainwindowhyperspy.TrackEventFilter.track">
-<span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.TrackEventFilter.track" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#hyperspyui.mainwindowhyperspy.TrackEventFilter.track" title="Link to this definition"></a></dt>
 <dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
 <p>types is normally a sequence of individual types.  Each type is either a
 type object or a string that is the name of a C++ type.  Alternatively
