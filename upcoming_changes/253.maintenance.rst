@@ -1,0 +1,1 @@
+Use reusable workflow from the HyperSpy organisation to build and push documentation.
