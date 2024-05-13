@@ -106,7 +106,7 @@ with the UI. This can be relevant for tasks from gaining access to the loaded
 signals in the console, to writing plugins that extended the functionality of
 the UI.</p>
 <p>One of the main components of the API is the
-<a class="reference internal" href="api/hyperspyui.mainwindow.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> class. This is the class of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code> class. This is the class of
 the main UI window, and can be considered the hub to reach all the loaded
 content, including signals and models, or <a class="reference internal" href="actions.html#actions"><span class="std std-ref">Available actions</span></a>,
 <a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a> and <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a>.</p>
@@ -114,8 +114,8 @@ content, including signals and models, or <a class="reference internal" href="ac
 <span id="console"></span><h2>Internal Console<a class="headerlink" href="#internal-console" title="Link to this heading"></a></h2>
 <p>The internal console is a <a class="reference external" href="https://qtconsole.readthedocs.io/en/stable/">qtconsole</a> widget running <a class="reference external" href="https://ipython.org/">IPython</a>, and can
 run any code that IPython can. To facilitate the typical use of the console,
-<a class="reference external" href="https://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal notranslate"><span class="pre">np</span></code>, and <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#module-hyperspy.api" title="(in HyperSpy v2.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal notranslate"><span class="pre">hs</span></code>. The current
-<a class="reference internal" href="api/hyperspyui.mainwindow.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> instance is also exported as
+<a class="reference external" href="https://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal notranslate"><span class="pre">np</span></code>, and <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#module-hyperspy.api" title="(in HyperSpy v2.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal notranslate"><span class="pre">hs</span></code>. The current
+<code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code> instance is also exported as
 <code class="docutils literal notranslate"><span class="pre">ui</span></code>, and the list of currently loaded hyperspy
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code> instances is exported as <code class="docutils literal notranslate"><span class="pre">siglist</span></code>.</p>
 <p>If we want to inspect the original metadata of the currently selected signal,
