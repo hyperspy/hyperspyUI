@@ -1,0 +1,1 @@
+Fix version and improve formatting release notes.
