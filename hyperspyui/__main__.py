@@ -109,7 +109,7 @@ def main():
     ):
         os.environ["QT_MAC_WANTS_LAYER"] = "1"
 
-    from hyperspyui.version import __version__
+    from hyperspyui import __version__
     from hyperspyui.settings import Settings
 
     # QtWebEngineWidgets must be imported before a QCoreApplication instance

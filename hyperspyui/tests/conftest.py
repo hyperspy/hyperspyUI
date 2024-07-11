@@ -2,7 +2,7 @@ import os
 import tempfile
 import shutil
 
-from hyperspyui.version import __version__
+from hyperspyui import __version__
 from hyperspyui.__main__ import get_splash
 
 import pytest
