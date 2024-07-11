@@ -305,7 +305,6 @@ class MainWindow(MainWindowHyperspy):
             np.int16,
             np.int32,
             np.int64,
-            np.compat.long,
             np.uint,
             np.uint8,
             np.uint16,

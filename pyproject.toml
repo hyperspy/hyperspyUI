@@ -93,6 +93,7 @@ qt_api = "pyqt5"
 
 [tool.ruff.lint]
 ignore = ["E402"]
+select = ["NPY201"]
 
 [tool.setuptools]
 include-package-data = false
