@@ -47,7 +47,6 @@ Submodules
    hyperspyui.tools
    hyperspyui.uiprogressbar
    hyperspyui.util
-   hyperspyui.version
 
 Module contents
 ---------------
