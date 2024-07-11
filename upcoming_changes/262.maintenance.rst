@@ -1,1 +1,0 @@
-Remove deprecated numpy alias to support numpy 2.0.

@@ -9,6 +9,31 @@ https://hyperspyui.readthedocs.io/en/latest/changes.html
 
 .. towncrier release notes start
 
+2.0.1 (2024-07-11)
+==================
+
+Bug Fixes
+---------
+
+- Use ``matplotlib.colormaps.get_cmap`` instead of ``matplotlib.pyplot.get_cmap``, it will be removed in matplotlib 3.9. (`#241 <https://github.com/hyperspy/hyperspyui/issues/241>`_)
+- Fix version and improve formatting release notes. (`#261 <https://github.com/hyperspy/hyperspyui/issues/261>`_)
+
+
+Enhancements
+------------
+
+- Add ``pyqt`` pip extra to simplify installation. (`#252 <https://github.com/hyperspy/hyperspyui/issues/252>`_)
+
+
+Maintenance
+-----------
+
+- Use ruff for linting code. (`#236 <https://github.com/hyperspy/hyperspyui/issues/236>`_)
+- Use ruff for formatting code. (`#237 <https://github.com/hyperspy/hyperspyui/issues/237>`_)
+- Use reusable workflow from the HyperSpy organisation to build and push documentation. (`#253 <https://github.com/hyperspy/hyperspyui/issues/253>`_)
+- Remove deprecated numpy alias to support numpy 2.0. (`#262 <https://github.com/hyperspy/hyperspyui/issues/262>`_)
+
+
 2.0 (2023-12-19)
 ================
 
