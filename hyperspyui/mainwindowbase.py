@@ -291,6 +291,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
         ac_nested.triggered[bool].connect(self.setDockNestingEnabled)
         self.actions["nested_docking"] = ac_nested
 
+
         # Tile windows action
         ac_tile = QtWidgets.QAction(tr("Tile"), self)
         ac_tile.setStatusTip(tr("Arranges all figures in a tile pattern"))
