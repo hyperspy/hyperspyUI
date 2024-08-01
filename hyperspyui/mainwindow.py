@@ -183,6 +183,12 @@ class MainWindow(MainWindowHyperspy):
             tip="Open existing file(s)",
         )
         self.add_action(
+            "open_zspy",
+            "&Open zspy",
+            self.load_zspy,
+            tip="Open a zspy file",
+        )
+        self.add_action(
             "open_stack",
             "Open S&tack",
             self.load_stack,
@@ -342,6 +348,8 @@ class MainWindow(MainWindowHyperspy):
         # File menu (I/O)
         self.menus["File"] = mb.addMenu(tr("&File"))
         self.add_menuitem("File", self.actions["open"])
+        self.add_menuitem("File", self.actions["open_zspy"])
+
         self.add_menuitem("File", self.actions["open_stack"])
         self.add_menuitem("File", self.actions["close"])
         self.add_menuitem("File", self.actions["save"])
