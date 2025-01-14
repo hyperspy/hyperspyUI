@@ -68,7 +68,8 @@ file = "COPYING.txt"
   "sphinx_rtd_theme",
   "sphinx-toggleprompt",
   "sphinxcontrib-towncrier",
-  "towncrier",
+  # Until sphinxcontrib-towncrier supports more recent version
+  "towncrier <24",
 ]
 "pyqt" = [
   "PyQt5",
