@@ -26,7 +26,7 @@ from functools import partial
 from qtpy import QtCore, QtWidgets
 
 import exspy
-from exspy.misc.elements import elements as elements_db
+from exspy.material import elements as elements_db
 
 from hyperspyui.widgets.extendedqwidgets import FigureWidget, ExClickLabel
 from hyperspyui.widgets.periodictable import PeriodicTableWidget
