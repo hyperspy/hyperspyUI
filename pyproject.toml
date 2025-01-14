@@ -33,7 +33,7 @@ classifiers = [
   "Operating System :: MacOS",
 ]
 dependencies = [
-  "exspy",
+  "exspy >=0.3.1",
   "hyperspy >= 2.0rc0",
   "hyperspy-gui-traitsui >= 2.0",
   "matplotlib >= 3.6.1",
