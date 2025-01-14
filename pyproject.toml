@@ -47,7 +47,8 @@ dependencies = [
   "traits",
   "traitsui >=5.2.0",
   "qtconsole >=5.2.0",
-  "ipykernel >=5.2.0",
+  # Currently `ConsoleWidget` doesn't support with ipykernel
+  "ipykernel >=5.2.0,<7",
   "qtpy",
 ]
 dynamic = ["version"]
