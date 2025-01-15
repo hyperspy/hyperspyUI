@@ -1,24 +1,22 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Developer guide &mdash; HyperSpyUI 2.0.2.dev4+g6f66fc6 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+  <title>Developer guide &mdash; HyperSpyUI 2.0.2.dev13+g92996eb documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=cb767d34"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/toggleprompt.js?v=5801b3bb"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c428a32f"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/toggleprompt.js?v=5801b3bb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -38,9 +36,6 @@
             HyperSpyUI
               <img src="_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                2.0.2.dev4+g6f66fc6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -106,7 +101,7 @@ with the UI. This can be relevant for tasks from gaining access to the loaded
 signals in the console, to writing plugins that extended the functionality of
 the UI.</p>
 <p>One of the main components of the API is the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code> class. This is the class of
+<a class="reference internal" href="api/hyperspyui.mainwindow.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> class. This is the class of
 the main UI window, and can be considered the hub to reach all the loaded
 content, including signals and models, or <a class="reference internal" href="actions.html#actions"><span class="std std-ref">Available actions</span></a>,
 <a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a> and <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a>.</p>
@@ -114,8 +109,8 @@ content, including signals and models, or <a class="reference internal" href="ac
 <span id="console"></span><h2>Internal Console<a class="headerlink" href="#internal-console" title="Link to this heading"></a></h2>
 <p>The internal console is a <a class="reference external" href="https://qtconsole.readthedocs.io/en/stable/">qtconsole</a> widget running <a class="reference external" href="https://ipython.org/">IPython</a>, and can
 run any code that IPython can. To facilitate the typical use of the console,
-<a class="reference external" href="https://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal notranslate"><span class="pre">np</span></code>, and <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#module-hyperspy.api" title="(in HyperSpy v2.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal notranslate"><span class="pre">hs</span></code>. The current
-<code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code> instance is also exported as
+<a class="reference external" href="https://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal notranslate"><span class="pre">np</span></code>, and <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#module-hyperspy.api" title="(in HyperSpy v2.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal notranslate"><span class="pre">hs</span></code>. The current
+<a class="reference internal" href="api/hyperspyui.mainwindow.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> instance is also exported as
 <code class="docutils literal notranslate"><span class="pre">ui</span></code>, and the list of currently loaded hyperspy
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code> instances is exported as <code class="docutils literal notranslate"><span class="pre">siglist</span></code>.</p>
 <p>If we want to inspect the original metadata of the currently selected signal,
@@ -198,28 +193,28 @@ toolbar buttons):</p>
 <p>After deciding what we want, we click ‘OK’, and a new editor appears with the
 following code:</p>
 <p>Raw code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hyperspyui.plugins.plugin</span> <span class="kn">import</span> <span class="n">Plugin</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">hyperspy.api</span> <span class="k">as</span> <span class="nn">hs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">hyperspyui.plugins.plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plugin</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hyperspy.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hs</span>
 
 
-<span class="k">class</span> <span class="nc">SimpleSubstraction</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleSubstraction</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Simple substraction&quot;</span>
 
-    <span class="k">def</span> <span class="nf">create_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
                         <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;substraction.svg&quot;</span><span class="p">,</span>
                         <span class="n">tip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">create_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_menuitem</span><span class="p">(</span><span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">create_toolbars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_toolbars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_toolbar_button</span><span class="p">(</span>
             <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ui</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span>
         <span class="n">siglist</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">hspy_signals</span>
         <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>

@@ -1,24 +1,22 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.mainwindow module &mdash; HyperSpyUI 2.0.2.dev4+g6f66fc6 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+  <title>hyperspyui.mainwindow module &mdash; HyperSpyUI 2.0.2.dev13+g92996eb documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=cb767d34"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=c428a32f"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -38,9 +36,6 @@
             HyperSpyUI
               <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                2.0.2.dev4+g6f66fc6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -78,7 +73,10 @@
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooksignal.html">hyperspyui.hooksignal module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.hooktraitsui.html">hyperspyui.hooktraitsui module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.log.html">hyperspyui.log module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.mainwindow module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">hyperspyui.mainwindow module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.mainwindow.MainWindow"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowbase.html">hyperspyui.mainwindowbase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowhyperspy.html">hyperspyui.mainwindowhyperspy module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperspyui.mainwindowutillayer.html">hyperspyui.mainwindowutillayer module</a></li>
@@ -130,8 +128,174 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="hyperspyui-mainwindow-module">
-<h1>hyperspyui.mainwindow module<a class="headerlink" href="#hyperspyui-mainwindow-module" title="Link to this heading"></a></h1>
+  <section id="module-hyperspyui.mainwindow">
+<span id="hyperspyui-mainwindow-module"></span><h1>hyperspyui.mainwindow module<a class="headerlink" href="#module-hyperspyui.mainwindow" title="Link to this heading"></a></h1>
+<p>Created on Fri Oct 24 16:46:35 2014</p>
+<p>&#64;author: Vidar Tonaas Fauske</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.mainwindow.</span></span><span class="sig-name descname"><span class="pre">MainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">splash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="hyperspyui.mainwindowhyperspy.html#hyperspyui.mainwindowhyperspy.MainWindowHyperspy" title="hyperspyui.mainwindowhyperspy.MainWindowHyperspy"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindowHyperspy</span></code></a></p>
+<p>Main window of the application. Top layer in application stack. Is
+responsible for adding default actions, and filling the menus and toolbars.
+Also creates the default widgets. Any button-actions should also be
+accessible as a slot, such that other things can connect into it, and so
+that it is accessible from the console’s ‘ui’ variable.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow._check_add_component_ok">
+<span class="sig-name descname"><span class="pre">_check_add_component_ok</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow._check_add_component_ok" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow._default_tools">
+<span class="sig-name descname"><span class="pre">_default_tools</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'hyperspyui._tools.pointertool.PointerTool'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'hyperspyui._tools.hometool.HomeTool'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'hyperspyui._tools.zoompan.ZoomPanTool'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'hyperspyui._tools.gaussiantool.GaussianTool'&gt;]</span></em><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow._default_tools" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow._load_signal_types">
+<span class="sig-name descname"><span class="pre">_load_signal_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow._load_signal_types" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.close_all_signals">
+<span class="sig-name descname"><span class="pre">close_all_signals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.close_all_signals" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.close_signal">
+<span class="sig-name descname"><span class="pre">close_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uisignals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.close_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.create_default_actions">
+<span class="sig-name descname"><span class="pre">create_default_actions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.create_default_actions" title="Link to this definition"></a></dt>
+<dd><p>Create default actions that can be used for e.g. toolbars and menus,
+or triggered manually.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.create_menu">
+<span class="sig-name descname"><span class="pre">create_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.create_menu" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.create_toolbars">
+<span class="sig-name descname"><span class="pre">create_toolbars</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.create_toolbars" title="Link to this definition"></a></dt>
+<dd><p>Override to create toolbars and toolbar buttons on UI construction.
+It is called after create_default_action(), so add_toolbar_button()
+can be used to add previously defined acctions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.create_tools">
+<span class="sig-name descname"><span class="pre">create_tools</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.create_tools" title="Link to this definition"></a></dt>
+<dd><p>Override to create tools on UI construction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.create_widgetbar">
+<span class="sig-name descname"><span class="pre">create_widgetbar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.create_widgetbar" title="Link to this definition"></a></dt>
+<dd><p>The widget bar itself is created and managed implicitly by Qt. Override
+this function to add widgets on UI construction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.handleSecondInstance">
+<span class="sig-name descname"><span class="pre">handleSecondInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.handleSecondInstance" title="Link to this definition"></a></dt>
+<dd><p>A second instance was launched and suppressed. Process the arguments
+that were passed to the new instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.load_complete">
+<span class="sig-name descname"><span class="pre">load_complete</span></span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.load_complete" title="Link to this definition"></a></dt>
+<dd><p>int = …, arguments: Sequence = …) -&gt; PYQT_SIGNAL</p>
+<p>types is normally a sequence of individual types.  Each type is either a
+type object or a string that is the name of a C++ type.  Alternatively
+each type could itself be a sequence of types each describing a different
+overloaded signal.
+name is the optional C++ name of the signal.  If it is not specified then
+the name of the class attribute that is bound to the signal is used.
+revision is the optional revision of the signal that is exported to QML.
+If it is not specified then 0 is used.
+arguments is the optional sequence of the names of the signal’s arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyqtSignal(<a href="#id1"><span class="problematic" id="id2">*</span></a>types, name</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str = …, revision</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.new_editor">
+<span class="sig-name descname"><span class="pre">new_editor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.new_editor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.on_settings_changed">
+<span class="sig-name descname"><span class="pre">on_settings_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.on_settings_changed" title="Link to this definition"></a></dt>
+<dd><p>Callback for SettingsDialog, or anything else that updates settings
+and need to apply the change.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.on_subwin_activated">
+<span class="sig-name descname"><span class="pre">on_subwin_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mdi_figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.on_subwin_activated" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.open_documentation">
+<span class="sig-name descname"><span class="pre">open_documentation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.open_documentation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.parse_args">
+<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.parse_args" title="Link to this definition"></a></dt>
+<dd><p>Parse command line arguments, either from sys.argv, or from parameter
+‘argv’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.select_x_signals">
+<span class="sig-name descname"><span class="pre">select_x_signals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.select_x_signals" title="Link to this definition"></a></dt>
+<dd><p>Displays a blocking dialog prompting the user to select ‘x’ signals.
+Over each selection box, the title as defined by ‘titles’ is displayed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.set_signal_dtype">
+<span class="sig-name descname"><span class="pre">set_signal_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.set_signal_dtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.set_signal_type">
+<span class="sig-name descname"><span class="pre">set_signal_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.set_signal_type" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Changes the signal type using a combination of hyperspy.Signal.:</dt><dd><ul class="simple">
+<li><p>set_signal_type()</p></li>
+<li><p>set_signal_origin()</p></li>
+<li><p>and by converting with as_signal1D() and as_signal2D()</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.set_splash">
+<span class="sig-name descname"><span class="pre">set_splash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.set_splash" title="Link to this definition"></a></dt>
+<dd><p>Set splash message</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hyperspyui.mainwindow.MainWindow.show_plugin_manager">
+<span class="sig-name descname"><span class="pre">show_plugin_manager</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.mainwindow.MainWindow.show_plugin_manager" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 

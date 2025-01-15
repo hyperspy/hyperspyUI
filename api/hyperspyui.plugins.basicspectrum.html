@@ -1,24 +1,22 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hyperspyui.plugins.basicspectrum module &mdash; HyperSpyUI 2.0.2.dev4+g6f66fc6 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+  <title>hyperspyui.plugins.basicspectrum module &mdash; HyperSpyUI 2.0.2.dev13+g92996eb documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=cb767d34"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=c428a32f"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/toggleprompt.js?v=5801b3bb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -38,9 +36,6 @@
             HyperSpyUI
               <img src="../_static/header_logo.png" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                2.0.2.dev4+g6f66fc6
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -76,6 +71,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.basicspectrum.BasicSpectrumPlugin"><code class="docutils literal notranslate"><span class="pre">BasicSpectrumPlugin</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.basicspectrum.ElementPickerTool"><code class="docutils literal notranslate"><span class="pre">ElementPickerTool</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.basicspectrum.Namespace"><code class="docutils literal notranslate"><span class="pre">Namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.basicspectrum._get_element_and_line"><code class="docutils literal notranslate"><span class="pre">_get_element_and_line()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hyperspyui.plugins.basicspectrum.tr"><code class="docutils literal notranslate"><span class="pre">tr()</span></code></a></li>
 </ul>
 </li>
@@ -310,7 +306,15 @@ arguments is the optional sequence of the names of the signal’s arguments.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="hyperspyui.plugins.basicspectrum.Namespace">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.basicspectrum.</span></span><span class="sig-name descname"><span class="pre">Namespace</span></span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum.Namespace" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hyperspyui.plugins.basicspectrum._get_element_and_line">
+<span class="sig-prename descclassname"><span class="pre">hyperspyui.plugins.basicspectrum.</span></span><span class="sig-name descname"><span class="pre">_get_element_and_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xray_line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hyperspyui.plugins.basicspectrum._get_element_and_line" title="Link to this definition"></a></dt>
+<dd><p>Returns the element name and line character for a particular X-ray line as
+a tuple.</p>
+<p>By example, if xray_line = ‘Mn_Ka’ this function returns (‘Mn’, ‘Ka’)</p>
 </dd></dl>
 
 <dl class="py function">
