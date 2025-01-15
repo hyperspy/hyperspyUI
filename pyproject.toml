@@ -33,7 +33,7 @@ classifiers = [
   "Operating System :: MacOS",
 ]
 dependencies = [
-  "exspy",
+  "exspy >=0.3.1",
   "hyperspy >= 2.0rc0",
   "hyperspy-gui-traitsui >= 2.0",
   "matplotlib >= 3.6.1",
@@ -47,7 +47,8 @@ dependencies = [
   "traits",
   "traitsui >=5.2.0",
   "qtconsole >=5.2.0",
-  "ipykernel >=5.2.0",
+  # Currently `ConsoleWidget` doesn't support with ipykernel
+  "ipykernel >=5.2.0,<7",
   "qtpy",
 ]
 dynamic = ["version"]
@@ -68,7 +69,8 @@ file = "COPYING.txt"
   "sphinx_rtd_theme",
   "sphinx-toggleprompt",
   "sphinxcontrib-towncrier",
-  "towncrier",
+  # Until sphinxcontrib-towncrier supports more recent version
+  "towncrier <24",
 ]
 "pyqt" = [
   "PyQt5",

@@ -31,7 +31,6 @@ from hyperspyui._tools.signalfiguretool import SignalFigureTool
 
 import exspy
 import hyperspy.api as hs
-from exspy.misc.eds.utils import _get_element_and_line
 import numpy as np
 
 import os
@@ -40,6 +39,19 @@ from functools import partial
 
 def tr(text):
     return QtCore.QCoreApplication.translate("BasicSpectrumPlugin", text)
+
+
+def _get_element_and_line(xray_line):
+    """
+    Returns the element name and line character for a particular X-ray line as
+    a tuple.
+
+    By example, if xray_line = 'Mn_Ka' this function returns ('Mn', 'Ka')
+    """
+    lim = xray_line.find("_")
+    if lim == -1:
+        raise ValueError(f"Invalid xray-line: {xray_line}")
+    return xray_line[:lim], xray_line[lim + 1 :]
 
 
 class Namespace:
@@ -360,7 +372,7 @@ class ElementPickerTool(SignalFigureTool):
         a = axes[0]
         if a.units.lower() == "ev":
             energy /= 1000.0
-        from hyperspy.misc.eds.utils import get_xray_lines_near_energy
+        from exspy.utils.eds import get_xray_lines_near_energy
 
         lines = get_xray_lines_near_energy(energy)
         if lines:

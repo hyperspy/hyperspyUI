@@ -217,7 +217,7 @@ class CMapPickerWidget(FigureWidget):
         signals = self.parent().signals
         p = fig2image_plot(figure, signals)
         img = None
-        if p is not None and len(p.ax.images) > 0:
+        if p is not None and p.ax is not None and len(p.ax.images) > 0:
             img = p.ax.images
 
         self._cur_img = img

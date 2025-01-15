@@ -22,7 +22,7 @@ Created on Sun Nov 23 17:10:41 2014
 """
 
 try:
-    import traitsui.qt4.ui_base as ui_base
+    import traitsui.qt.ui_base as ui_base
 except RuntimeError:
     import sys
 
