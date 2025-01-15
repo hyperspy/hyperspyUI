@@ -30,9 +30,7 @@ from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, WEBENGINE
 try:
     assert QtNetwork.QSslSocket.supportsSsl()
 except NameError:
-    raise ImportError(
-        "Current platform doesn't support SSL. EELSDB plugin" " disabled."
-    )
+    raise ImportError("Current platform doesn't support SSL. EELSDB plugin disabled.")
 
 from hyperspyui.widgets.extendedqwidgets import ExToolWindow
 import os
@@ -56,7 +54,7 @@ class EELSDBPlugin(Plugin):
             self.name + ".browse",
             "Browse EELSDB",
             self.default,
-            tip="Browse the EELSDB online database of standard" "EEL spectra",
+            tip="Browse the EELSDB online database of standardEEL spectra",
         )
 
     def create_menu(self):

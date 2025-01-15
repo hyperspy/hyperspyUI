@@ -62,7 +62,7 @@ class BasicSignalPlugin(Plugin):
             self.name + ".stack",
             "Stack",
             self.stack,
-            tip="Stack selected signals along a new navigation " "axis",
+            tip="Stack selected signals along a new navigation axis",
         )
 
         self.add_action(
@@ -181,7 +181,7 @@ class BasicSignalPlugin(Plugin):
             tr("Std.dev."),
             self.std,
             icon="stddev.svg",
-            tip=tr("Take the standard deviation of the current " "signal"),
+            tip=tr("Take the standard deviation of the current signal"),
             selection_callback=self.ui.select_signal,
         )
 
@@ -369,7 +369,7 @@ class BasicSignalPlugin(Plugin):
             signals = self.ui.select_x_signals(2, ["a", " - b"])
             signals = [s.signal for s in signals]
             self.record_code(
-                "signals = [s.signal for s in " 'ui.select_x_signals(2, ["a", " - b"])'
+                'signals = [s.signal for s in ui.select_x_signals(2, ["a", " - b"])'
             )
         elif len(signals != 2):
             raise ValueError("Subtraction can only be performed with two signals")
@@ -399,7 +399,7 @@ class BasicSignalPlugin(Plugin):
             signals = self.ui.select_x_signals(2, ["a", " - b"])
             signals = [s.signal for s in signals]
             self.record_code(
-                "signals = [s.signal for s in " 'ui.select_x_signals(2, ["a", " - b"])'
+                'signals = [s.signal for s in ui.select_x_signals(2, ["a", " - b"])'
             )
         elif len(signals != 2):
             raise ValueError("Division can only be performed with two signals")

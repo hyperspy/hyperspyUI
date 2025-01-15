@@ -77,7 +77,7 @@ class BindingList(list):
             }
         else:
             raise TypeError(
-                "The argument `target` must be a of `list` or " "`QListWidget` type."
+                "The argument `target` must be a of `list` or `QListWidget` type."
             )
         self.targets[target] = cb
 

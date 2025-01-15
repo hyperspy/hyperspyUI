@@ -340,10 +340,7 @@ class GitSelector(Plugin):
         vbox = QVBoxLayout()
         vbox.addWidget(
             QLabel(
-                tr(
-                    "The following updates are available. Do you "
-                    "want to update them?"
-                )
+                tr("The following updates are available. Do you want to update them?")
             )
         )
         for n in names:
