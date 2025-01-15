@@ -100,7 +100,7 @@ class BasicSpectrumPlugin(Plugin):
             self.fourier_ratio,
             icon="fourier_ratio.svg",
             tip=tr(
-                "Use the Fourier-Ratio method to deconvolve " "one signal from another"
+                "Use the Fourier-Ratio method to deconvolve one signal from another"
             ),
             selection_callback=SignalTypeFilter(exspy.signals.EELSSpectrum, self.ui),
         )
@@ -161,7 +161,7 @@ class BasicSpectrumPlugin(Plugin):
             tr("Hanning taper"),
             self.hanning_taper,
             icon=None,
-            tip=tr("Apply a Hanning taper to both ends of the " "data."),
+            tip=tr("Apply a Hanning taper to both ends of the data."),
             selection_callback=SignalTypeFilter(hs.signals.Signal1D, self.ui),
         )
 
@@ -296,7 +296,7 @@ class BasicSpectrumPlugin(Plugin):
             "threshold = signal.estimate_elastic_scattering_threshold().data"
         )
         self.record_code(
-            "threshold = np.ma.masked_array(threshold, " "np.isnan(threshold)).mean()"
+            "threshold = np.ma.masked_array(threshold, np.isnan(threshold)).mean()"
         )
         self.record_code("thickness = signal.estimate_thickness(threshold)")
 

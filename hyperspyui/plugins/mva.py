@@ -106,7 +106,7 @@ class MVA_Plugin(Plugin):
             tr("Decompose"),
             self.plot_decomposition_results,
             icon="pca.svg",
-            tip=tr("Decompose signal using Principle Component " "analysis"),
+            tip=tr("Decompose signal using Principle Component analysis"),
             selection_callback=self.selection_rules,
         )
         self.add_action(
@@ -114,7 +114,7 @@ class MVA_Plugin(Plugin):
             tr("Decomposition model"),
             self.pca,
             icon="pca.svg",
-            tip=tr("Create a Principal Component Analysis " "decomposition model"),
+            tip=tr("Create a Principal Component Analysis decomposition model"),
             selection_callback=self.selection_rules,
         )
         self.add_action(
@@ -130,7 +130,7 @@ class MVA_Plugin(Plugin):
             tr("BSS model"),
             self.bss_model,
             icon="bss.svg",
-            tip=tr("Create a Blind Source Separation " "decomposition model"),
+            tip=tr("Create a Blind Source Separation decomposition model"),
             selection_callback=self.selection_rules,
         )
         self.add_action(

@@ -311,7 +311,7 @@ class MainWindowBase(QtWidgets.QMainWindow):
 
         # Reset geometry action
         ac_reset_layout = QtWidgets.QAction(tr("Reset layout"), self)
-        ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and " "widgets"))
+        ac_reset_layout.setStatusTip(tr("Resets layout of toolbars and widgets"))
         ac_reset_layout.triggered.connect(self.reset_geometry)
         self.actions["reset_layout"] = ac_reset_layout
 

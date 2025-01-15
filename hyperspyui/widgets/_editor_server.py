@@ -53,7 +53,7 @@ if __name__ == "__main__":
     """
     # setup argument parser and parse command line args
     parser = argparse.ArgumentParser()
-    parser.add_argument("port", help="the local tcp port to use to run " "the server")
+    parser.add_argument("port", help="the local tcp port to use to run the server")
     parser.add_argument("-s", "--syspath", nargs="*")
     args = parser.parse_args()
 
