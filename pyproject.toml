@@ -67,6 +67,7 @@ file = "COPYING.txt"
   "sphinx > 5.2",
   "pydata_sphinx_theme",
   "sphinx-copybutton",
+  "sphinx-favicon",
   "sphinxcontrib-towncrier",
   # Until sphinxcontrib-towncrier supports more recent version
   "towncrier <24",

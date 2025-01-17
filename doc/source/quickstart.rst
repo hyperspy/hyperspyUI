@@ -32,22 +32,21 @@ Overview
 
 The user interface is based on top of Qt_, and have four main components:
 
+#)  Menus: Most of the :ref:`actions <actions>` you can do have a menu
+    entry.
+#)  Toolbars: Several :ref:`actions <actions>` have their own button on a
+    toolbar, and all interactive :ref:`tools-section` are here as well.
+#)  :ref:`widgets-section`: These are small panels or windows that can be
+    moved, and are always open unless explicitly closed. Their content
+    and behavior can vary widely, and includes the :ref:`data-widget`
+    and the :ref:`console-widget`.
+#)  Figures: The final component are the figures and plots that are
+    generated. These include all `matplotlib`_ figures, but the ones created
+    by HyperSpy are the most interesting ones.
+
 .. image:: ui_overview.png
 
 .. _Qt: https://www.qt.io/
-
-    #)  Menus: Most of the :ref:`actions <actions>` you can do have a menu
-        entry.
-    #)  Toolbars: Several :ref:`actions <actions>` have their own button on a
-        toolbar, and all interactive :ref:`tools-section` are here as well.
-    #)  :ref:`widgets-section`: These are small panels or windows that can be
-        moved, and are always open unless explicitly closed. Their content
-        and behavior can vary widely, and includes the :ref:`data-widget`
-        and the :ref:`console-widget`.
-    #)  Figures: The final component are the figures and plots that are
-        generated. These include all `matplotlib`_ figures, but the ones created
-        by HyperSpy are the most interesting ones.
-
 .. _matplotlib: http://matplotlib.org/
 
 
