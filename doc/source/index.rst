@@ -1,7 +1,10 @@
-.. HyperSpyUI documentation master file, created by
-   sphinx-quickstart on Mon Feb  1 21:17:07 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. toctree::
+  :hidden:
+
+  User Guide <user_guide>
+  Release Notes <changes>
+  Reference <api/modules.rst>
+  Contribute <dev_guide>
 
 
 HyperSpyUI - A Graphical interface for HyperSpy
@@ -38,47 +41,3 @@ HyperSpy itself is stated to be in a "perpetual beta". As such, the UI will
 never be more stable than the underlying drivetrain, however, that should only
 affect the analytical capabilities. The application itself is based on the
 mature Qt framework, and should therefore be robust.
-
-
-
-User guide
-----------
-
-.. toctree::
-    :maxdepth: 2
-
-    installation.rst
-    what_is_new.rst
-    quickstart.rst
-    actions.rst
-    tools.rst
-    widgets.rst
-    settings.rst
-    troubleshooting.rst
-
-
-Developer guide
----------------
-
-While the UI doesn't easily lend itself to being used as a library, understanding
-the UI API is of importance for anybody that want to add plugins, or simply
-want to execute some code in the :ref:`console`.
-
-.. toctree::
-    :maxdepth: 2
-
-    devguide.rst
-
-.. toctree::
-    :maxdepth: 1
-
-    api/hyperspyui.rst
-    api/hyperspyui.plugins.rst
-    api/modules.rst
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
