@@ -16,17 +16,56 @@ multi-dimensional analysis capabilities of `HyperSpy`_. HyperSpy is an
 open source Python library which provides tools to facilitate
 data analysis of multidimensional datasets.
 
-.. _HyperSpy: http://hyperspy.org
-
 HyperSpy aims at making it easy and natural to apply analytical procedures
 that operate on an individual signal to multidimensional arrays, as well as
 providing easy access to analytical tools that exploit the multidimensionality
 of the dataset.
 
 While the UI tries to create a simple and intuitive interface to HyperSpy,
-it still retains the raw power of HyperSpy via the UI's built in IPython
+it still retains the raw power of HyperSpy via the UI's built in `IPython`_
 console. As HyperSpyUI is made in Python, the same programming language
 as HyperSpy, the integration is seamless.
+
+.. _HyperSpy: https://hyperspy.org
+.. _IPython: https://ipython.org
+
+
+Learning resources
+------------------
+
+.. grid:: 1 3 3 3
+  :gutter: 2
+
+  .. grid-item-card::
+    :link: quickstart
+    :link-type: doc
+
+    :octicon:`rocket;2em;sd-text-info` Getting Started
+    ^^^
+
+    New to HyperSpy or Python? The getting started guide provides an
+    introduction on basic usage of HyperSpyUI and how to install it.
+
+  .. grid-item-card::
+    :link: user_guide
+    :link-type: doc
+
+    :octicon:`book;2em;sd-text-info` User Guide
+    ^^^
+
+    The user guide provides in-depth information on key concepts of HyperSpyUI
+    and how to use it along with background information and explanations.
+
+  .. grid-item-card::
+    :link: api/modules
+    :link-type: doc
+
+    :octicon:`code-square;2em;sd-text-info` Reference
+    ^^^
+
+    Documentationof the Application Progamming Interface (API), which describe
+    how HyperSpyUI functions work and which parameters can be used.
+
 
 
 Development status
