@@ -1,6 +1,5 @@
-
-Developer guide
-===============
+Contribute
+==========
 
 
 This guide is intended for anyone that wants to write code that interacts

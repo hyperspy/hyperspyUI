@@ -1,4 +1,5 @@
 Fix deprecation, import and dependencies requirement:
-  - Fix export import and set exspy minimum requirement
-  - Fix traitsui deprecation
-  - Pin towncrier and ipykernel
+
+- Fix export import and set exspy minimum requirement
+- Fix traitsui deprecation
+- Pin towncrier and ipykernel

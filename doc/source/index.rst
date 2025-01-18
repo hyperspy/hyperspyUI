@@ -1,7 +1,10 @@
-.. HyperSpyUI documentation master file, created by
-   sphinx-quickstart on Mon Feb  1 21:17:07 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. toctree::
+  :hidden:
+
+  User Guide <user_guide>
+  Release Notes <changes>
+  Reference <api/modules.rst>
+  Contribute <dev_guide>
 
 
 HyperSpyUI - A Graphical interface for HyperSpy
@@ -13,17 +16,63 @@ multi-dimensional analysis capabilities of `HyperSpy`_. HyperSpy is an
 open source Python library which provides tools to facilitate
 data analysis of multidimensional datasets.
 
-.. _HyperSpy: http://hyperspy.org
-
 HyperSpy aims at making it easy and natural to apply analytical procedures
 that operate on an individual signal to multidimensional arrays, as well as
 providing easy access to analytical tools that exploit the multidimensionality
 of the dataset.
 
 While the UI tries to create a simple and intuitive interface to HyperSpy,
-it still retains the raw power of HyperSpy via the UI's built in IPython
+it still retains the raw power of HyperSpy via the UI's built in `IPython`_
 console. As HyperSpyUI is made in Python, the same programming language
 as HyperSpy, the integration is seamless.
+
+.. figure:: EDS_analysis_overview.png
+   :width: 100 %
+
+   Screenshot of HyperSpyUI performing quantification by curve fitting of an
+   EDS dataset of FePt core-shell nanoparticles. The embedded IPython console
+   (bottom-left) enables interactive Python scripting.
+
+.. _HyperSpy: https://hyperspy.org
+.. _IPython: https://ipython.org
+
+
+Learning resources
+------------------
+
+.. grid:: 1 3 3 3
+  :gutter: 2
+
+  .. grid-item-card::
+    :link: quickstart
+    :link-type: doc
+
+    :octicon:`rocket;2em;sd-text-info` Getting Started
+    ^^^
+
+    New to HyperSpy or Python? The getting started guide provides an
+    introduction on basic usage of HyperSpyUI and how to install it.
+
+  .. grid-item-card::
+    :link: user_guide
+    :link-type: doc
+
+    :octicon:`book;2em;sd-text-info` User Guide
+    ^^^
+
+    The user guide provides in-depth information on key concepts of HyperSpyUI
+    and how to use it along with background information and explanations.
+
+  .. grid-item-card::
+    :link: api/modules
+    :link-type: doc
+
+    :octicon:`code-square;2em;sd-text-info` Reference
+    ^^^
+
+    Documentationof the Application Progamming Interface (API), which describe
+    how HyperSpyUI functions work and which parameters can be used.
+
 
 
 Development status
@@ -38,47 +87,3 @@ HyperSpy itself is stated to be in a "perpetual beta". As such, the UI will
 never be more stable than the underlying drivetrain, however, that should only
 affect the analytical capabilities. The application itself is based on the
 mature Qt framework, and should therefore be robust.
-
-
-
-User guide
-----------
-
-.. toctree::
-    :maxdepth: 2
-
-    installation.rst
-    what_is_new.rst
-    quickstart.rst
-    actions.rst
-    tools.rst
-    widgets.rst
-    settings.rst
-    troubleshooting.rst
-
-
-Developer guide
----------------
-
-While the UI doesn't easily lend itself to being used as a library, understanding
-the UI API is of importance for anybody that want to add plugins, or simply
-want to execute some code in the :ref:`console`.
-
-.. toctree::
-    :maxdepth: 2
-
-    devguide.rst
-
-.. toctree::
-    :maxdepth: 1
-
-    api/hyperspyui.rst
-    api/hyperspyui.plugins.rst
-    api/modules.rst
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

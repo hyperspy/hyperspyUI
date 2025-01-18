@@ -1,0 +1,5 @@
+Improve documentation:
+
+- Switch to ``pydata_sphinx_theme``
+- Simplify structure
+- Improve landing page

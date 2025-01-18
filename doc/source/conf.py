@@ -15,6 +15,8 @@
 
 import os
 
+from datetime import datetime
+
 from hyperspyui import __version__
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -33,13 +35,14 @@ from hyperspyui import __version__
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx_design",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.coverage",
     "sphinx.ext.mathjax",
-    "sphinx_toggleprompt",
+    "sphinx_copybutton",
     "sphinx.ext.napoleon",
     "IPython.sphinxext.ipython_console_highlighting",
     "sphinxcontrib.towncrier",
+    "sphinx_favicon",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -58,7 +61,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "HyperSpyUI"
-copyright = "2016, Vidar Tonaas Fauske"
+copyright = f"2016, Vidar Tonaas Fauske; 2017-{datetime.today().year}, The HyperSpy development team"
 author = "Vidar Tonaas Fauske"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -85,7 +88,7 @@ release = __version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = []
+exclude_patterns = ["desktop_integration*, user_plugins*, version*"]
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -119,12 +122,25 @@ todo_include_todos = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-# html_theme_options = {}
+html_theme_options = {
+    "logo": {
+        "text": "HyperSpyUI",
+    },
+    "icon_links": [
+        {
+            "name": "HyperSpy",
+            "url": "https://hyperspy.org",
+            "icon": "_static/hyperspy.ico",
+            "type": "local",
+        },
+    ],
+    "github_url": "https://github.com/hyperspy/hyperspyui",
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
@@ -138,7 +154,11 @@ html_theme = "sphinx_rtd_theme"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = "header_logo.png"
+html_logo = "_static/header_logo.png"
+
+favicons = [
+    "header_logo.png",
+]
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -148,7 +168,7 @@ html_logo = "header_logo.png"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
+html_static_path = ["_static"]
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -308,6 +328,7 @@ intersphinx_mapping = {
     "matplotlib": ("https://matplotlib.org/", None),
     "numpy": ("https://docs.scipy.org/doc/numpy/", None),
     "pyqt": ("https://www.riverbankcomputing.com/static/Docs/PyQt5/", None),
+    "rsciio": ("https://hyperspy.org/rosettasciio/", None),
 }
 
 

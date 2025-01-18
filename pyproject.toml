@@ -64,9 +64,11 @@ file = "COPYING.txt"
   "hyperspyui[pyqt]",
 ]
 "doc" = [
+  "pydata_sphinx_theme",
   "sphinx > 5.2",
-  "sphinx_rtd_theme",
-  "sphinx-toggleprompt",
+  "sphinx_design",
+  "sphinx-copybutton",
+  "sphinx-favicon",
   "sphinxcontrib-towncrier",
   # Until sphinxcontrib-towncrier supports more recent version
   "towncrier <24",
