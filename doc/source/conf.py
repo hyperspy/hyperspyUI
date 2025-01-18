@@ -328,6 +328,7 @@ intersphinx_mapping = {
     "matplotlib": ("https://matplotlib.org/", None),
     "numpy": ("https://docs.scipy.org/doc/numpy/", None),
     "pyqt": ("https://www.riverbankcomputing.com/static/Docs/PyQt5/", None),
+    "rsciio": ("https://hyperspy.org/rosettasciio/", None),
 }
 
 

@@ -26,6 +26,13 @@ it still retains the raw power of HyperSpy via the UI's built in `IPython`_
 console. As HyperSpyUI is made in Python, the same programming language
 as HyperSpy, the integration is seamless.
 
+.. figure:: EDS_analysis_overview.png
+   :width: 100 %
+
+   Screenshot of HyperSpyUI performing quantification by curve fitting of an
+   EDS dataset of FePt core-shell nanoparticles. The embedded IPython console
+   (bottom-left) enables interactive Python scripting.
+
 .. _HyperSpy: https://hyperspy.org
 .. _IPython: https://ipython.org
 

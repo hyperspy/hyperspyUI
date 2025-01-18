@@ -53,15 +53,14 @@ The user interface is based on top of Qt_, and have four main components:
 Loading data
 --------------
 
-The standard way of getting data into the application is to open a file of
-one of the `file types`_ that HyperSpy can read. This can either be achived
-by dragging and dropping the file in question onto the application window,
-or by the open file dialog accessible in the toolbar (|open button|), or
-from the File menu.
+The standard way of getting data into the application is to open a file 
+supported by HyperSpy (:external+rsciio:ref:`supported-formats`).
+This can either be achived by dragging and dropping the file in question onto
+the application window, or by the open file dialog accessible in the toolbar
+(|open button|), or from the File menu.
 
 .. |open button| image:: ../../hyperspyui/images/open.svg
     :width: 18 px
-.. _file types: http://hyperspy.org/hyperspy-doc/current/user_guide/io.html#supported-formats
 
 If you have registered the application with the operating system to handle some
 file types, files can also be opened in HyperSpyUI simply by opening them in
