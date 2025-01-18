@@ -1,1 +1,0 @@
-Add readthedocs.org build and enable build preview on pull requests.

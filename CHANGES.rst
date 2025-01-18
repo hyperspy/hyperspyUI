@@ -10,6 +10,31 @@ https://hyperspyui.readthedocs.io/en/latest/changes.html
 
 .. towncrier release notes start
 
+2.0.2 (2025-01-18)
+==================
+
+Enhancements
+------------
+
+- Improve documentation:
+
+  - Switch to ``pydata_sphinx_theme``
+  - Simplify structure
+  - Improve landing page (`#277 <https://github.com/hyperspy/hyperspyui/issues/277>`_)
+
+
+Maintenance
+-----------
+
+- Fix deprecation, import and dependencies requirement:
+
+  - Fix export import and set exspy minimum requirement
+  - Fix traitsui deprecation
+  - Pin towncrier and ipykernel (`#275 <https://github.com/hyperspy/hyperspyui/issues/275>`_)
+- Drop support for python 3.8. (`#276 <https://github.com/hyperspy/hyperspyui/issues/276>`_)
+- Add readthedocs.org build and enable build preview on pull requests. (`#278 <https://github.com/hyperspy/hyperspyui/issues/278>`_)
+
+
 2.0.1 (2024-07-11)
 ==================
 
