@@ -1,0 +1,693 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="_static/header_logo.png" sizes="150x134" rel="icon" type="image/png">
+    <title>Contribute &#8212; HyperSpyUI 2.0.2.dev28+g338522e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=f4e687ff"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev_guide';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="hyperspyui.util module" href="api/hyperspyui.util.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="2.0.2.dev28+g338522e" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/header_logo.png" class="logo__image only-light" alt=""/>
+    <img src="_static/header_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">HyperSpyUI</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="changes.html">
+    Release Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/modules.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/hyperspy/hyperspyui" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://hyperspy.org" title="HyperSpy" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><img src="_static/hyperspy.ico" class="icon-link-image" alt="HyperSpy"/></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="changes.html">
+    Release Notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/modules.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/hyperspy/hyperspyui" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://hyperspy.org" title="HyperSpy" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><img src="_static/hyperspy.ico" class="icon-link-image" alt="HyperSpy"/></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Contribute</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="contribute">
+<h1>Contribute<a class="headerlink" href="#contribute" title="Link to this heading">#</a></h1>
+<p>This guide is intended for anyone that wants to write code that interacts
+with the UI. This can be relevant for tasks from gaining access to the loaded
+signals in the console, to writing plugins that extended the functionality of
+the UI.</p>
+<p>One of the main components of the API is the
+<a class="reference internal" href="api/hyperspyui.mainwindow.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> class. This is the class of
+the main UI window, and can be considered the hub to reach all the loaded
+content, including signals and models, or <a class="reference internal" href="actions.html#actions"><span class="std std-ref">Available actions</span></a>,
+<a class="reference internal" href="widgets.html#widgets-section"><span class="std std-ref">Widgets</span></a> and <a class="reference internal" href="tools.html#tools-section"><span class="std std-ref">Tools</span></a>.</p>
+<section id="internal-console">
+<span id="console"></span><h2>Internal Console<a class="headerlink" href="#internal-console" title="Link to this heading">#</a></h2>
+<p>The internal console is a <a class="reference external" href="https://qtconsole.readthedocs.io/en/stable/">qtconsole</a> widget running <a class="reference external" href="https://ipython.org/">IPython</a>, and can
+run any code that IPython can. To facilitate the typical use of the console,
+<a class="reference external" href="https://www.numpy.org/">numpy</a> is pre-loaded as <code class="docutils literal notranslate"><span class="pre">np</span></code>, and <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#module-hyperspy.api" title="(in HyperSpy v2.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperspy.api</span></code></a> as <code class="docutils literal notranslate"><span class="pre">hs</span></code>. The current
+<a class="reference internal" href="api/hyperspyui.mainwindow.html#hyperspyui.mainwindow.MainWindow" title="hyperspyui.mainwindow.MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">MainWindow</span></code></a> instance is also exported as
+<code class="docutils literal notranslate"><span class="pre">ui</span></code>, and the list of currently loaded hyperspy
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Signal</span></code> instances is exported as <code class="docutils literal notranslate"><span class="pre">siglist</span></code>.</p>
+<p>If we want to inspect the original metadata of the currently selected signal,
+we can then run:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">s</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">get_selected_signal</span><span class="p">()</span>
+
+<span class="gp">In [2]: </span><span class="n">s</span><span class="o">.</span><span class="n">original_metadata</span>
+<span class="gh">Out[2]:</span>
+<span class="go">├── DATATYPE = Y</span>
+<span class="go">├── FORMAT = EMSA/MAS Spectral Data File</span>
+<span class="go">├── NCOLUMNS = 1.0</span>
+<span class="go">├── NPOINTS = 2048.0</span>
+<span class="go">├── OFFSET = 360.0</span>
+<span class="go">├── OWNER =</span>
+<span class="go">├── SIGNALTYPE = ELS</span>
+<span class="go">├── TITLE =</span>
+<span class="go">├── VERSION = 1.0</span>
+<span class="go">├── XPERCHAN = 0.2</span>
+<span class="go">├── XUNITS = eV</span>
+<span class="go">└── YUNITS = Counts</span>
+</pre></div>
+</div>
+</section>
+<section id="code-editor-widget">
+<span id="code-editor"></span><h2>Code editor widget<a class="headerlink" href="#code-editor-widget" title="Link to this heading">#</a></h2>
+<p>Code editor widgets allow you to edit Python code directly within the
+application. This can be useful for <a class="reference internal" href="#recording"><span class="std std-ref">Recording code</span></a>, or for creating
+and modifying <a class="reference internal" href="#plugins-section"><span class="std std-ref">Plugins</span></a> on the fly. An editor widget is opened
+by the <a class="reference internal" href="actions.html#new-editor"><span class="std std-ref">New editor</span></a> action, when a python script is opened,
+or when recording is started via the <a class="reference internal" href="widgets.html#recorder-widget"><span class="std std-ref">Recorder widget</span></a>.</p>
+</section>
+<section id="recording-code">
+<span id="recording"></span><h2>Recording code<a class="headerlink" href="#recording-code" title="Link to this heading">#</a></h2>
+<p>Most if not all actions that the UI perform can be recorded. To start
+recording, press the ‘Start’ button in the <a class="reference internal" href="widgets.html#recorder-widget"><span class="std std-ref">Recorder widget</span></a>. This will
+open up a new blank <a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a>, that will be populated with code
+as actions are performed. The code can be edited while recording; the new
+code is simply appended at the end. Closing the widget will automatically
+stop the recording, but stopping the recording will leave the editor open.</p>
+<p>One of the most useful ways to use the recorder, is to perform an action on
+one signal, and then select another signal and perform those same actions
+on it as well. This can be very useful if you <cite>e.g.</cite> need to crop both a
+core-loss and a low-loss spectrum, as they will be cropped to exactly the
+same region.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While most of the code that is recorded tries to infer as much about its
+context as possible, it is not magical, so some manual adaptation of
+the recorded code might be needed. Typically, signal names need to be
+adjusted so that the right signals are used for different steps in a
+multi-step process.</p>
+</div>
+</section>
+<section id="plugins">
+<span id="plugins-section"></span><h2>Plugins<a class="headerlink" href="#plugins" title="Link to this heading">#</a></h2>
+<p>Once a sequence of steps have been recorded and adjusted, it can be saved as
+a python script which can then be loaded later for future use. However, if
+this is something that is used often, and does not change from session to
+session, this might become rather cumbersome. The easiest step then is to turn
+the code into a UI action, either as a menu item, or toolbar button. This is
+done by creating a new plugin. To ease the creation of a plugin, the
+<a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a> has a button ‘Make Plugin’.</p>
+<p>For example, here we’ve created a rather simple exmple for code to
+substract one signal from another (a little naive, as it doesn’t take data
+type into account):</p>
+<p>Raw code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+<span class="n">s_sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">signal</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">signal</span>
+<span class="n">s_sub</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In editor:</p>
+<img alt="_images/plugin_code_in.png" src="_images/plugin_code_in.png" />
+<p>Clicking the ‘Make plugin’ button, we’re presented with a dialog, asking
+what the plugin should be called, whether we want to add it as a menu
+entry and/or toolbar button, which catgory it should go in (read: which menu
+and toolbar it goes into), and if it should have an icon (recommended for
+toolbar buttons):</p>
+<img alt="_images/plugin_wizard.png" src="_images/plugin_wizard.png" />
+<p>After deciding what we want, we click ‘OK’, and a new editor appears with the
+following code:</p>
+<p>Raw code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">hyperspyui.plugins.plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plugin</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hyperspy.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hs</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleSubstraction</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Simple substraction&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
+                        <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;substraction.svg&quot;</span><span class="p">,</span>
+                        <span class="n">tip</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_menuitem</span><span class="p">(</span><span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_toolbars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_toolbar_button</span><span class="p">(</span>
+            <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.default&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ui</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span>
+        <span class="n">siglist</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">hspy_signals</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">select_x_signals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span>
+        <span class="n">s_sub</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">signal</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">signal</span>
+        <span class="n">s_sub</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In editor:</p>
+<img alt="_images/plugin_code_out.png" src="_images/plugin_code_out.png" />
+<p>As can be seen, it has created a bare-bones plugin class, with a single action
+called <code class="docutils literal notranslate"><span class="pre">default</span></code>. It also imports hyperspy and numpy, and sets the
+variables <code class="docutils literal notranslate"><span class="pre">ui</span></code> and <code class="docutils literal notranslate"><span class="pre">siglist</span></code> such that the code works directly as in the
+console. Our action is crated in
+<a class="reference internal" href="api/hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin.create_actions" title="hyperspyui.plugins.plugin.Plugin.create_actions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_actions()</span></code></a>,
+added as a menu item in
+<a class="reference internal" href="api/hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin.create_menu" title="hyperspyui.plugins.plugin.Plugin.create_menu"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_menu()</span></code></a>,
+and as a toolbar button in
+<a class="reference internal" href="api/hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin.create_toolbars" title="hyperspyui.plugins.plugin.Plugin.create_toolbars"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_toolbars()</span></code></a>.</p>
+<p>So now that we have the code for a plugin, all that remains is to register it.
+This we do by clicking the button ‘Register Plugin’ which has now replaced the
+buttons ‘Run’ and ‘Make Plugin’ (since they don’t make sense for a plugin).
+Now, as we have yet to save our code, we will at this point be asked to save
+the plugin script, as only saved files can be loaded as plugins. If we only
+want this plugin for the current session, we can save it anywhere. The next
+time we start the application, it will then not be loaded unless we manually
+register it again. However, if we want it to be loaded automatically every
+time we start the application, we need to save it in the ‘plugins’ directory
+(default location when the ‘Register Plugin’ button is pressed).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are on the development version of HyperSpyUI, and don’t want to
+commit your plugin, you can also save it to the sub folder
+‘user_plugins’, which is added to the .gitignore file.</p>
+</div>
+<p>Once the plugin has been registered, it will automatically be loaded, and so
+we should directly be able to find our new menu entry like this:</p>
+<img alt="_images/plugin_menu.png" src="_images/plugin_menu.png" />
+</section>
+<section id="plugin-manager-widget">
+<span id="id1"></span><h2>Plugin manager widget<a class="headerlink" href="#plugin-manager-widget" title="Link to this heading">#</a></h2>
+<p>The plugin manager widget shows a list of all the discovered plugins
+(and any that have been added manually), their locations, and allows
+to set whether they should be loaded or not. There’s also an ‘Edit’ button
+which will open up the source code of the plugin in a new <a class="reference internal" href="#code-editor"><span class="std std-ref">Code editor widget</span></a>.</p>
+<p>Unchecking a plugin will attempt to unload it, but the success of this
+depends on the plugin correctly implementing its
+<a class="reference internal" href="api/hyperspyui.plugins.plugin.html#hyperspyui.plugins.plugin.Plugin.unload" title="hyperspyui.plugins.plugin.Plugin.unload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unload()</span></code></a> routine, which might not always
+be the case.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The unloading will only be partial if references to its content
+remain elsewhere in the program, so for this reason many core plugins will
+fail to unload fully.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api/hyperspyui.util.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">hyperspyui.util module</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#internal-console">Internal Console</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-editor-widget">Code editor widget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-code">Recording code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins">Plugins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugin-manager-widget">Plugin manager widget</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dev_guide.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2016, Vidar Tonaas Fauske; 2017-2025, The HyperSpy development team.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
