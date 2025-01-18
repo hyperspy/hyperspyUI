@@ -1,10 +1,10 @@
 .. toctree::
   :hidden:
 
-  User Guide <user_guide>
+  User Guide <user_guide/index.rst>
   Release Notes <changes>
   Reference <api/modules.rst>
-  Contribute <dev_guide>
+  Contribute <dev_guide/index.rst>
 
 
 HyperSpyUI - A Graphical interface for HyperSpy
@@ -44,7 +44,7 @@ Learning resources
   :gutter: 2
 
   .. grid-item-card::
-    :link: quickstart
+    :link: user_guide/quickstart
     :link-type: doc
 
     :octicon:`rocket;2em;sd-text-info` Getting Started
@@ -54,7 +54,7 @@ Learning resources
     introduction on basic usage of HyperSpyUI and how to install it.
 
   .. grid-item-card::
-    :link: user_guide
+    :link: user_guide/index
     :link-type: doc
 
     :octicon:`book;2em;sd-text-info` User Guide
