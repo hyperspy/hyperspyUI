@@ -3,6 +3,6 @@ hyperspyui.uiprogressbar module
 
 .. automodule:: hyperspyui.uiprogressbar
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

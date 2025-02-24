@@ -3,6 +3,6 @@ hyperspyui.\_tools.selectiontool module
 
 .. automodule:: hyperspyui._tools.selectiontool
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

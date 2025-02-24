@@ -3,6 +3,6 @@ hyperspyui.plugins.axesorderwidget module
 
 .. automodule:: hyperspyui.plugins.axesorderwidget
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

@@ -3,6 +3,6 @@ hyperspyui.plugins.metadataeditor module
 
 .. automodule:: hyperspyui.plugins.metadataeditor
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

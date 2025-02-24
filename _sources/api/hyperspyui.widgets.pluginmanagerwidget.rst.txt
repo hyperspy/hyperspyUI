@@ -3,6 +3,6 @@ hyperspyui.widgets.pluginmanagerwidget module
 
 .. automodule:: hyperspyui.widgets.pluginmanagerwidget
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

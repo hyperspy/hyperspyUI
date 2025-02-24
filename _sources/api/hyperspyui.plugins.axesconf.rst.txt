@@ -3,6 +3,6 @@ hyperspyui.plugins.axesconf module
 
 .. automodule:: hyperspyui.plugins.axesconf
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

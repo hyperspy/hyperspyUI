@@ -3,6 +3,6 @@ hyperspyui.plugins.tightlayout module
 
 .. automodule:: hyperspyui.plugins.tightlayout
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

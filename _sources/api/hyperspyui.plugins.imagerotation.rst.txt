@@ -3,6 +3,6 @@ hyperspyui.plugins.imagerotation module
 
 .. automodule:: hyperspyui.plugins.imagerotation
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

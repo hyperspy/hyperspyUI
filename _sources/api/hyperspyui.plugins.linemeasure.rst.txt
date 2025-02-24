@@ -3,6 +3,6 @@ hyperspyui.plugins.linemeasure module
 
 .. automodule:: hyperspyui.plugins.linemeasure
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

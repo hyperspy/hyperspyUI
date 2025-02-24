@@ -3,6 +3,6 @@ hyperspyui.plugins.align module
 
 .. automodule:: hyperspyui.plugins.align
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

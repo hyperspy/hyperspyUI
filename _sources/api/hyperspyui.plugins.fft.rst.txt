@@ -3,6 +3,6 @@ hyperspyui.plugins.fft module
 
 .. automodule:: hyperspyui.plugins.fft
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

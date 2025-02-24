@@ -29,6 +29,6 @@ Module contents
 
 .. automodule:: hyperspyui.widgets
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

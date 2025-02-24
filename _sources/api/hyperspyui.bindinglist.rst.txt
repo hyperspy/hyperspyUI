@@ -3,6 +3,6 @@ hyperspyui.bindinglist module
 
 .. automodule:: hyperspyui.bindinglist
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

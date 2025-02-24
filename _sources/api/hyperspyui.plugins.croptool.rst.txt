@@ -3,6 +3,6 @@ hyperspyui.plugins.croptool module
 
 .. automodule:: hyperspyui.plugins.croptool
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

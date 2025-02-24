@@ -3,6 +3,6 @@ hyperspyui.plugins.gitgetter module
 
 .. automodule:: hyperspyui.plugins.gitgetter
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

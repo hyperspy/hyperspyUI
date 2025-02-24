@@ -3,6 +3,6 @@ hyperspyui.widgets.flowlayout module
 
 .. automodule:: hyperspyui.widgets.flowlayout
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

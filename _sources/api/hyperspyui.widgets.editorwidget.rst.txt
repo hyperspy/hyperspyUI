@@ -3,6 +3,6 @@ hyperspyui.widgets.editorwidget module
 
 .. automodule:: hyperspyui.widgets.editorwidget
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

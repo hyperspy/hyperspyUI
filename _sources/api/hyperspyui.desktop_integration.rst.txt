@@ -3,6 +3,6 @@ hyperspyui.desktop\_integration module
 
 .. automodule:: hyperspyui.desktop_integration
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

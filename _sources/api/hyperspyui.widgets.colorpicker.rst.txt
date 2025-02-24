@@ -3,6 +3,6 @@ hyperspyui.widgets.colorpicker module
 
 .. automodule:: hyperspyui.widgets.colorpicker
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

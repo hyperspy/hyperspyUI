@@ -3,6 +3,6 @@ hyperspyui.plugins.plugin module
 
 .. automodule:: hyperspyui.plugins.plugin
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

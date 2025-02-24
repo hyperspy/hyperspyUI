@@ -3,6 +3,6 @@ hyperspyui.recorder module
 
 .. automodule:: hyperspyui.recorder
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

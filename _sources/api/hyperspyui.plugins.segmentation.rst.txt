@@ -3,6 +3,6 @@ hyperspyui.plugins.segmentation module
 
 .. automodule:: hyperspyui.plugins.segmentation
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

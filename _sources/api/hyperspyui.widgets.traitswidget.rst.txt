@@ -3,6 +3,6 @@ hyperspyui.widgets.traitswidget module
 
 .. automodule:: hyperspyui.widgets.traitswidget
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

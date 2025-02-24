@@ -3,6 +3,6 @@ hyperspyui.hooktraitsui module
 
 .. automodule:: hyperspyui.hooktraitsui
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

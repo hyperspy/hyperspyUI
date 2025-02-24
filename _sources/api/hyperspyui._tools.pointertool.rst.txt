@@ -3,6 +3,6 @@ hyperspyui.\_tools.pointertool module
 
 .. automodule:: hyperspyui._tools.pointertool
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

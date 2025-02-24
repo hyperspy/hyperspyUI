@@ -3,6 +3,6 @@ hyperspyui.\_tools.zoompan module
 
 .. automodule:: hyperspyui._tools.zoompan
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:
