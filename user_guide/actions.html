@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/header_logo.png" sizes="150x134" rel="icon" type="image/png">
-    <title>Available actions &#8212; HyperSpyUI 2.0.3.dev2+gec1ea65 documentation</title>
+    <title>Available actions &#8212; HyperSpyUI 2.0.3.dev2+gd3b1367 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=25d6f461"></script>
+    <script src="../_static/documentation_options.js?v=882a5fbd"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <link rel="prev" title="Quickstart Guide" href="quickstart.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2.0.3.dev2+gec1ea65" />
+  <meta name="docsearch:version" content="2.0.3.dev2+gd3b1367" />
   </head>
   
   
@@ -425,7 +425,7 @@ toolbar/menu in which they appear.</p>
 <section id="open">
 <h3>Open<a class="headerlink" href="#open" title="Link to this heading">#</a></h3>
 <p>Open a dialog to let the user interactively browse for files. It then loads
-these files using <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#hyperspy.api.load" title="(in HyperSpy v2.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">hyperspy.api.load()</span></code></a> before plotting the loaded
+these files using <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.html#hyperspy.api.load" title="(in HyperSpy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">hyperspy.api.load()</span></code></a> before plotting the loaded
 signals.</p>
 </section>
 <section id="open-stack">
@@ -443,7 +443,7 @@ signals.</p>
 <section id="save-figure">
 <h3>Save figure<a class="headerlink" href="#save-figure" title="Link to this heading">#</a></h3>
 <p>Save the currently active figure using matplotlib’s
-<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.savefig.html#matplotlib.figure.Figure.savefig" title="(in Matplotlib v3.10.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">savefig()</span></code></a>. Note that this does not care
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.savefig.html#matplotlib.figure.Figure.savefig" title="(in Matplotlib v3.10.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">savefig()</span></code></a>. Note that this does not care
 about how the figure was produced, or the underlying resolution of the data.</p>
 </section>
 <section id="new-editor">
@@ -464,13 +464,13 @@ in an invalid state.</p>
 <h2>Signal<a class="headerlink" href="#signal" title="Link to this heading">#</a></h2>
 <section id="signal-type">
 <span id="id2"></span><h3>Signal type<a class="headerlink" href="#signal-type" title="Link to this heading">#</a></h3>
-<p>Changes the signal type using <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.set_signal_type" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_signal_type()</span></code></a></p>
+<p>Changes the signal type using <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.set_signal_type" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_signal_type()</span></code></a></p>
 </section>
 <section id="signal-data-type">
 <h3>Signal data type<a class="headerlink" href="#signal-data-type" title="Link to this heading">#</a></h3>
 <p>Change the data type use to store the signal data internally. See
 the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html#data-type-objects-dtype">numpy docs</a> for details. The operation is performed by
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.change_dtype" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">change_dtype()</span></code></a>.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.change_dtype" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">change_dtype()</span></code></a>.</p>
 </section>
 <section id="manual-align">
 <span id="manual-alignment"></span><h3>Manual align<a class="headerlink" href="#manual-align" title="Link to this heading">#</a></h3>
@@ -483,12 +483,12 @@ signal.</p>
 <section id="statistics">
 <h3>Statistics<a class="headerlink" href="#statistics" title="Link to this heading">#</a></h3>
 <p>Print the signal statistics to the console. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.print_summary_statistics" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_summary_statistics()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.print_summary_statistics" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_summary_statistics()</span></code></a> for details.</p>
 </section>
 <section id="histogram">
 <h3>Histogram<a class="headerlink" href="#histogram" title="Link to this heading">#</a></h3>
 <p>Plot a histogram of the signal. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.get_histogram" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_histogram()</span></code></a> for details. The method
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.get_histogram" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_histogram()</span></code></a> for details. The method
 for determining the number of bins can be set in the <a class="reference internal" href="settings.html#settings-section"><span class="std std-ref">Settings</span></a>.</p>
 </section>
 <section id="mirror-navigation">
@@ -504,7 +504,7 @@ plot.</p>
 <section id="rebin">
 <h3>Rebin<a class="headerlink" href="#rebin" title="Link to this heading">#</a></h3>
 <p>Opens a dialog to rebin the signal. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.rebin" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rebin()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.rebin" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rebin()</span></code></a> for details.</p>
 </section>
 </section>
 <section id="model">
@@ -523,12 +523,12 @@ plot.</p>
 <section id="plot-components">
 <span id="id4"></span><h3>Plot components<a class="headerlink" href="#plot-components" title="Link to this heading">#</a></h3>
 <p>Toggle the plotting of each component together with the model, as performed
-by <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/base_classes/model/model1d.html#hyperspy.models.model1d.Model1D.enable_plot_components" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_plot_components()</span></code></a>.</p>
+by <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/base_classes/model/model1d.html#hyperspy.models.model1d.Model1D.enable_plot_components" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_plot_components()</span></code></a>.</p>
 </section>
 <section id="adjust-component-positions">
 <h3>Adjust component positions<a class="headerlink" href="#adjust-component-positions" title="Link to this heading">#</a></h3>
 <p>Add/remove widgets to adjust the position of the components in the model, as
-performed by <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/base_classes/model/model1d.html#hyperspy.models.model1d.Model1D.enable_adjust_position" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_adjust_position()</span></code></a>.</p>
+performed by <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/base_classes/model/model1d.html#hyperspy.models.model1d.Model1D.enable_adjust_position" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_adjust_position()</span></code></a>.</p>
 </section>
 </section>
 <section id="decomposition">
@@ -540,8 +540,8 @@ number of components to use for a decomposition model. The selection is made
 by clicking on the in the scree plot on the first component to
 <cite>not be included</cite> in the decomposition. The scree plot will then automatically
 close and the decomposition model plotted (see
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.decomposition" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decomposition()</span></code></a> and
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.get_decomposition_model" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_decomposition_model()</span></code></a>).</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.decomposition" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decomposition()</span></code></a> and
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.get_decomposition_model" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_decomposition_model()</span></code></a>).</p>
 </section>
 <section id="bss">
 <h3>BSS<a class="headerlink" href="#bss" title="Link to this heading">#</a></h3>
@@ -550,14 +550,14 @@ number of components to use for a blind source separation. The selection
 is made by clicking in the scree plot on the first component to
 <cite>not be included</cite> in the decomposition. The scree plot will then automatically
 close and the BSS algortihm run (see
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.blind_source_separation" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">blind_source_separation()</span></code></a> and
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.plot_bss_results" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_bss_results()</span></code></a>).</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.blind_source_separation" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">blind_source_separation()</span></code></a> and
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.plot_bss_results" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_bss_results()</span></code></a>).</p>
 </section>
 <section id="decomposition-results">
 <h3>Decomposition results<a class="headerlink" href="#decomposition-results" title="Link to this heading">#</a></h3>
 <p>Performs decomposition if necessary, then plots the decomposition results
 according to the hyperspy’s
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.plot_decomposition_results" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_decomposition_results()</span></code></a>.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.plot_decomposition_results" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_decomposition_results()</span></code></a>.</p>
 </section>
 </section>
 <section id="spectrum">
@@ -565,27 +565,27 @@ according to the hyperspy’s
 <section id="smooth-savitzky-golay">
 <h3>Smooth Savitzky-Golay<a class="headerlink" href="#smooth-savitzky-golay" title="Link to this heading">#</a></h3>
 <p>Apply a Savitzky-Golay filter. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.smooth_savitzky_golay" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth_savitzky_golay()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.smooth_savitzky_golay" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth_savitzky_golay()</span></code></a> for details.</p>
 </section>
 <section id="smooth-lowess">
 <h3>Smooth Lowess<a class="headerlink" href="#smooth-lowess" title="Link to this heading">#</a></h3>
 <p>Apply a Lowess smoothing filter. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.smooth_lowess" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth_lowess()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.smooth_lowess" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth_lowess()</span></code></a> for details.</p>
 </section>
 <section id="smooth-total-variation">
 <h3>Smooth Total variation<a class="headerlink" href="#smooth-total-variation" title="Link to this heading">#</a></h3>
 <p>Total variation data smoothing. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.smooth_tv" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth_tv()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.smooth_tv" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">smooth_tv()</span></code></a> for details.</p>
 </section>
 <section id="butterworth-filter">
 <h3>Butterworth filter<a class="headerlink" href="#butterworth-filter" title="Link to this heading">#</a></h3>
 <p>Apply a Butterworth filter. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.filter_butterworth" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">filter_butterworth()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.filter_butterworth" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">filter_butterworth()</span></code></a> for details.</p>
 </section>
 <section id="hanning-taper">
 <h3>Hanning taper<a class="headerlink" href="#hanning-taper" title="Link to this heading">#</a></h3>
 <p>Apply a Hanning taper to both ends of the data. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.hanning_taper" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hanning_taper()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.hanning_taper" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hanning_taper()</span></code></a> for details.</p>
 </section>
 </section>
 <section id="eels">
@@ -593,7 +593,7 @@ according to the hyperspy’s
 <section id="remove-background">
 <h3>Remove Background<a class="headerlink" href="#remove-background" title="Link to this heading">#</a></h3>
 <p>Interactively define the background, and remove it. See
-<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.remove_background" title="(in HyperSpy v2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_background()</span></code></a> for details.</p>
+<a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/Signal1D.html#hyperspy.api.signals.Signal1D.remove_background" title="(in HyperSpy v2.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_background()</span></code></a> for details.</p>
 </section>
 <section id="fourier-ratio-deconvoloution">
 <h3>Fourier Ratio Deconvoloution<a class="headerlink" href="#fourier-ratio-deconvoloution" title="Link to this heading">#</a></h3>
@@ -980,7 +980,7 @@ and <a class="reference external" href="https://doc.qt.io/qt-5/qpalette.html">ht
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.1.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>
