@@ -519,7 +519,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self.record_code(f"ui.load_stack({filenames}, {stack_axis})")
         return None
 
-    def load(self, filenames=None):
+    def load(self, filenames=None, zspy=False):
         """
         Load 'filenames', or if 'filenames' is None, open a dialog to let the
         user interactively browse for files. It then load these files using
@@ -531,13 +531,29 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             type_choices = ";;".join(["*." + e for e in extensions])
             type_choices = ";;".join(("Python code (*.py)", type_choices))
             type_choices = ";;".join(("All types (*.*)", type_choices))
-            filenames = self.prompt_files(type_choices)
+            filenames = self.prompt_files(type_choices, zspy=zspy)
             if not filenames:
                 return False
             self.cur_dir = filenames[0]
 
         files_loaded = []
         for filename in filenames:
+            logger.info(f"loading file {filename}")
+            try:
+                logger.info(f"Filesize {os.path.getsize(filename)}")
+                size = os.path.getsize(filename)
+            except FileNotFoundError:
+                size = 0
+            if size > 1e9:
+                msg = QMessageBox.question(self, "Lazy Loading",
+                                             "The file is larger than 1GB. Do you want to load it lazily?",
+                                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+                lazy = msg == QMessageBox.Yes
+            else:
+                lazy = False
+            if zspy:
+                lazy = True
+
             self.set_status('Loading "' + filename + '"...')
             ext = os.path.splitext(filename)[1]
             if ext == ".py":
@@ -549,7 +565,7 @@ class MainWindowHyperspy(MainWindowActionRecorder):
             self.setUpdatesEnabled(False)  # Prevent flickering during load
             try:
                 escaped = glob_escape.sub(r"[\1]", filename)  # glob escapes
-                sig = hs.load(escaped)
+                sig = hs.load(escaped, lazy=lazy)
                 if isinstance(sig, list):
                     for s in sig:
                         s.plot()
@@ -581,6 +597,9 @@ class MainWindowHyperspy(MainWindowActionRecorder):
         self.record_code("ui.load({0})".format(files_loaded))
 
         return files_loaded
+
+    def load_zspy(self, *args, **kwargs):
+        return self.load(*args, **kwargs, zspy=True)
 
     def save(self, signals=None, filenames=None):
         logger.debug("entering save(), with args: %s, %s", str(signals), str(filenames))
@@ -642,20 +661,27 @@ class MainWindowHyperspy(MainWindowActionRecorder):
 
     def dragEnterEvent(self, event):
         # Check file name extensions to see if we should accept
+        logger.info(f"Drag enter event {event}")
         extensions = set(self.get_accepted_extensions_load().union(("py",)))
         mimeData = event.mimeData()
+        logger.info(f"mimeData {mimeData.hasUrls()}")
+
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]
+            pathList = [url[:-1] if ".zspy/" in url else url for url in pathList]
             data_ext = set([os.path.splitext(p)[1][1:] for p in pathList])
             # Accept as long as we can read some of the files being dropped
             if 0 < len(data_ext.intersection(extensions)):
                 event.acceptProposedAction()
 
     def dropEvent(self, event):
+        logger.info(f"Drop event {event}")
         # Something has been dropped. Try to load all file urls
         mimeData = event.mimeData()
         if mimeData.hasUrls():
             pathList = [url.toLocalFile() for url in mimeData.urls()]
+            pathList = [url[:-1] if ".zspy/" in url else url for url in pathList]
+            logger.info(f"pathList {pathList}")
             if self.load(pathList):
                 event.acceptProposedAction()
 

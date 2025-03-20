@@ -317,7 +317,8 @@ class MainWindowUtils(MainWindowBase):
         return icon
 
     def prompt_files(
-        self, extension_filter=None, path=None, exists=True, title=None, def_filter=None
+        self, extension_filter=None, path=None, exists=True,
+            title=None, def_filter=None, zspy=False
     ):
         if title is None:
             title = tr("Load file") if exists else tr("Save file")
@@ -325,10 +326,15 @@ class MainWindowUtils(MainWindowBase):
         if def_filter is None and extension_filter:
             def_filter = extension_filter.split(";;", maxsplit=1)[0]
 
-        if exists:
+        if exists and not zspy:
             filenames = QtWidgets.QFileDialog.getOpenFileNames(
                 self, title, path, extension_filter
             )
+        elif exists and zspy:
+            filenames = QtWidgets.QFileDialog.getExistingDirectory(
+                self, title, path,)
+            _logger.info(f"filenames: {filenames}")
+            filenames = [filenames,]  # needs to be a list ...
         else:
             filenames = QtWidgets.QFileDialog.getSaveFileName(
                 self, title, path, extension_filter, def_filter
