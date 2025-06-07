@@ -12,7 +12,11 @@ from qtpy import QtCore
 # QtWebEngineWidgets must be imported before a QCoreApplication instance
 # is created (used in eelsdb plugin)
 # Avoid a bug in Qt: https://bugreports.qt.io/browse/QTBUG-46720
-from qtpy import QtWebEngineWidgets  # noqa: F401
+try:
+    from qtpy import QtWebEngineWidgets  # noqa: F401
+except ModuleNotFoundError:
+    # QtWebEngineWidgets is not available
+    pass
 
 QCoreApplication = QtCore.QCoreApplication
 QSettings = QtCore.QSettings

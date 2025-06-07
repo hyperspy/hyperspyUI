@@ -24,14 +24,14 @@ Created on Fri Oct 31 14:22:53 2014
 import os
 
 import matplotlib
-from matplotlib.backends import backend_qt5agg
+from matplotlib.backends import backend_qtagg
 from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from qtpy import API, QtCore, QtGui, QtWidgets
 
 
-FigureCanvas = backend_qt5agg.FigureCanvasQTAgg
+FigureCanvas = backend_qtagg.FigureCanvasQTAgg
 
 
 # Workaround issue with matplotlib interactive backend and ipython integration
