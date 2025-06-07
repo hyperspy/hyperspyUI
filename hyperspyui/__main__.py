@@ -48,6 +48,19 @@ from contextlib import contextmanager
 # TODO: Variable explorer (Signal/Model etc.). 3rd party library?
 # TODO: Disable tools when no figure
 
+try:
+    # Use pyqt6 if available
+    import PyQt6
+
+    QT_API = "pyqt6"
+except ImportError:
+    # fallback to pyqt5 if available
+    try:
+        import PyQt5
+
+        QT_API = "pyqt5"
+    except ImportError:
+        raise ImportError("PyQt5 or PyQt6 is required.")
 
 import logging
 
@@ -56,6 +69,9 @@ logging.basicConfig()
 LOGLEVEL = logging.INFO
 logging.getLogger("hyperspy").setLevel(LOGLEVEL)
 logging.getLogger("hyperspyui").setLevel(LOGLEVEL)
+
+
+os.environ["QT_API"] = QT_API
 
 
 def _get_logfile():
