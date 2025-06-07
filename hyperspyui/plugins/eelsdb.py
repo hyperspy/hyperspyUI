@@ -24,8 +24,12 @@ Created on Mon May 04 17:30:36 2015
 from hyperspyui.plugins.plugin import Plugin
 
 from qtpy import QtCore, QtNetwork, QtWidgets
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, WEBENGINE
 
+try:
+    from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, WEBENGINE
+except ModuleNotFoundError:
+    # QtWebEngineWidgets is not available
+    raise ImportError("QtWebEngineWidgets is not installed. EELSDB plugin disabled.")
 
 try:
     assert QtNetwork.QSslSocket.supportsSsl()
