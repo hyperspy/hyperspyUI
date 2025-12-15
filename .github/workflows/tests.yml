@@ -80,7 +80,7 @@ jobs:
 
       - name: Install
         run: |
-          pip install -e .[all,tests]
+          pip install -e .[pyqt,tests]
 
       - name: Pip list
         run: |
