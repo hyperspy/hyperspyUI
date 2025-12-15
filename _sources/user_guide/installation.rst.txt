@@ -5,43 +5,37 @@ Installation
 There are several ways to install HyperSpyUI. The application itself is rather
 simple to install, but its dependencies can be a bit more tricky.
 
-Bundle Installer
------------------
+Using HyperSpy bundle
+---------------------
 
 If you're on Windows, the quickest way to get set up is to download and install
 the `HyperSpy bundle`_ installer.
 
-.. _HyperSpy bundle: https://github.com/hyperspy/hyperspy-bundle
+.. _HyperSpy bundle: https://hyperspy.org/hyperspy-bundle
 
 
-Install via `conda`
--------------------
+Using ``pip``/``conda``
+-----------------------
 
-HyperSpyUI can also be installed in an Anaconda_ or Miniconda_ distribution
-using ``conda``:
+HyperSpyUI can be installed using either ``pip`` or ``conda``:
 
-.. code-block:: bash
+.. tab-set::
 
-   conda install -c conda-forge hyperspyui
+    .. tab-item:: pip
 
+        .. code-block:: bash
 
-.. _Anaconda: https://www.anaconda.com/distribution/
-.. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+          $ pip install hyperspyui[all]
 
+    .. tab-item:: conda
 
-Install via `pip`
------------------
+        .. code-block:: bash
 
-HyperSpyUI is on PyPI_, so simply run the command
-
-.. code-block:: bash
-
-   pip install hyperspyui[all]
+          $ conda install hyperspyui -c conda-forge
 
 
-which will download and install HyperSpyUI and its dependencies. The package defines
-a GUI script ``hyperspyui``, which can be called to start the application, or
-alternatively it can be started by running ``python -m hyperspyui``.
+The package defines a GUI script ``hyperspyui``, which can be called to start
+the application, or alternatively it can be started by running ``python -m hyperspyui``.
 
 To get HyperSpyUI to integrate with your operating system after installation,
 run:
@@ -64,9 +58,8 @@ Getting Qt
 Getting and installing Qt_ might or might not be easy, depending on which
 operating system you are on. For this reason, it is recommended to run
 HyperSpyUI on a distribution which offers ready-made Qt packages. Examples
-include WinPython_, Anaconda_ and Miniconda_.
+include WinPython_, Miniforge_.
 
-.. _WinPython: https://winpython.github.io/
 .. _Qt: https://www.qt.io/
-
-
+.. _WinPython: https://winpython.github.io/
+.. _Miniforge: https://conda-forge.org/download/

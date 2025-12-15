@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../_static/header_logo.png" sizes="150x134" rel="icon" type="image/png">
-    <title>Installation &#8212; HyperSpyUI 2.0.3.dev57+g24ba4ccd6 documentation</title>
+    <title>Installation &#8212; HyperSpyUI 2.0.3.dev61+g182b1ce5d documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=7c24ed5f"></script>
+    <script src="../_static/documentation_options.js?v=78238714"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -53,7 +53,7 @@
     <link rel="prev" title="User guide" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2.0.3.dev57+g24ba4ccd6" />
+  <meta name="docsearch:version" content="2.0.3.dev61+g182b1ce5d" />
   </head>
   
   
@@ -417,28 +417,32 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
 <p>There are several ways to install HyperSpyUI. The application itself is rather
 simple to install, but its dependencies can be a bit more tricky.</p>
-<section id="bundle-installer">
-<h2>Bundle Installer<a class="headerlink" href="#bundle-installer" title="Link to this heading">#</a></h2>
+<section id="using-hyperspy-bundle">
+<h2>Using HyperSpy bundle<a class="headerlink" href="#using-hyperspy-bundle" title="Link to this heading">#</a></h2>
 <p>If you’re on Windows, the quickest way to get set up is to download and install
-the <a class="reference external" href="https://github.com/hyperspy/hyperspy-bundle">HyperSpy bundle</a> installer.</p>
+the <a class="reference external" href="https://hyperspy.org/hyperspy-bundle">HyperSpy bundle</a> installer.</p>
 </section>
-<section id="install-via-conda">
-<h2>Install via <cite>conda</cite><a class="headerlink" href="#install-via-conda" title="Link to this heading">#</a></h2>
-<p>HyperSpyUI can also be installed in an <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda</a> or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> distribution
-using <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>hyperspyui
+<section id="using-pip-conda">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">pip</span></code>/<code class="docutils literal notranslate"><span class="pre">conda</span></code><a class="headerlink" href="#using-pip-conda" title="Link to this heading">#</a></h2>
+<p>HyperSpyUI can be installed using either <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+pip</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>hyperspyui<span class="o">[</span>all<span class="o">]</span>
 </pre></div>
 </div>
-</section>
-<section id="install-via-pip">
-<h2>Install via <cite>pip</cite><a class="headerlink" href="#install-via-pip" title="Link to this heading">#</a></h2>
-<p>HyperSpyUI is on <a class="reference external" href="https://pypi.python.org/pypi/hyperspyUI">PyPI</a>, so simply run the command</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>hyperspyui<span class="o">[</span>all<span class="o">]</span>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>install<span class="w"> </span>hyperspyui<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
-<p>which will download and install HyperSpyUI and its dependencies. The package defines
-a GUI script <code class="docutils literal notranslate"><span class="pre">hyperspyui</span></code>, which can be called to start the application, or
-alternatively it can be started by running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hyperspyui</span></code>.</p>
+</div>
+</div>
+<p>The package defines a GUI script <code class="docutils literal notranslate"><span class="pre">hyperspyui</span></code>, which can be called to start
+the application, or alternatively it can be started by running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hyperspyui</span></code>.</p>
 <p>To get HyperSpyUI to integrate with your operating system after installation,
 run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>hyperspyui.desktop_integration
@@ -452,7 +456,7 @@ be extend to MacOS systems in the future (please consider contributing).</p>
 <p>Getting and installing <a class="reference external" href="https://www.qt.io/">Qt</a> might or might not be easy, depending on which
 operating system you are on. For this reason, it is recommended to run
 HyperSpyUI on a distribution which offers ready-made Qt packages. Examples
-include <a class="reference external" href="https://winpython.github.io/">WinPython</a>, <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda</a> and <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>.</p>
+include <a class="reference external" href="https://winpython.github.io/">WinPython</a>, <a class="reference external" href="https://conda-forge.org/download/">Miniforge</a>.</p>
 </section>
 </section>
 </section>
@@ -504,9 +508,8 @@ include <a class="reference external" href="https://winpython.github.io/">WinPyt
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle-installer">Bundle Installer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-via-conda">Install via <cite>conda</cite></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-via-pip">Install via <cite>pip</cite></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-hyperspy-bundle">Using HyperSpy bundle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pip-conda">Using <code class="docutils literal notranslate"><span class="pre">pip</span></code>/<code class="docutils literal notranslate"><span class="pre">conda</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-qt">Getting Qt</a></li>
 </ul>
 </li>
