@@ -7,6 +7,10 @@ on:
       - 'pre-commit-ci-update-config'
   pull_request:
 
+defaults:
+  run:
+    shell: bash -el {0}
+
 jobs:
   run_test_site:
     name: py${{ matrix.PYTHON_VERSION }}-hs_${{ matrix.HYPERSPY_VERSION }}
@@ -32,7 +36,6 @@ jobs:
           fetch-depth: 0
 
       - name: get repository name
-        shell: bash
         run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
       - name: Fetch tags upstream
@@ -54,7 +57,6 @@ jobs:
           pip --version
 
       - name: Install Ubuntu packages for Qt
-        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install qtbase5-dev
@@ -66,14 +68,17 @@ jobs:
           sudo apt-get install libxcb-render-util0
           sudo apt-get install libxcb-xinerama0
 
+      - name: Install Scikit-image pre-release
+        if: ${{ contains(matrix.PYTHON_VERSION, '3.14') }}
+        run: |
+          pip install --pre scikit-image
+
       - name: Install HyperSpy (dev)
-        shell: bash
         if: ${{ contains(matrix.HYPERSPY_VERSION, 'dev') }}
         run: |
           pip install git+https://github.com/hyperspy/hyperspy.git@RELEASE_next_minor
 
       - name: Install
-        shell: bash
         run: |
           pip install -e .[all,tests]
 
