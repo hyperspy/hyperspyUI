@@ -61,8 +61,7 @@ file = "COPYING.txt"
 
 [project.optional-dependencies]
 "all" = [
-  "exspy",
-  "hyperspyui[pyqt]",
+  "hyperspyui[pyqt6]",
 ]
 "doc" = [
   "pydata_sphinx_theme",
@@ -76,6 +75,10 @@ file = "COPYING.txt"
 "pyqt" = [
   "PyQt5",
   "PyQtWebEngine",
+]
+"pyqt6" = [
+  "PyQt6",
+  "PyQt6-WebEngine",
 ]
 "tests" = [
   "pytest-qt",

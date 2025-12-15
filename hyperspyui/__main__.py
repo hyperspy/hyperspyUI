@@ -166,6 +166,14 @@ def main():
 
     splash = get_splash()
 
+    # Set light background style
+    app.setStyle("Fusion")
+    if API == "pyqt6":
+        from qtpy.QtGui import QGuiApplication
+
+        # Not all icon supports dark mode, so force light mode
+        QGuiApplication.styleHints().setColorScheme(Qt.ColorScheme.Light)
+
     log_file = _get_logfile()
     if log_file:
         sys.stdout = sys.stderr = log_file
