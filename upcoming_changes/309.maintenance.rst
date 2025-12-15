@@ -1,0 +1,1 @@
+Remove upper bound of ipkernel and towncrier dependencies.
