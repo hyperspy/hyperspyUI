@@ -46,8 +46,7 @@ dependencies = [
   "traits",
   "traitsui >=5.2.0",
   "qtconsole >=5.2.0",
-  # Currently `ConsoleWidget` doesn't support with ipykernel
-  "ipykernel >=5.2.0,<7",
+  "ipykernel >=5.2.0",
   "qtpy",
 ]
 dynamic = ["version"]
@@ -70,8 +69,7 @@ file = "COPYING.txt"
   "sphinx-copybutton",
   "sphinx-favicon",
   "sphinxcontrib-towncrier",
-  # Until sphinxcontrib-towncrier supports more recent version
-  "towncrier <24",
+  "towncrier",
 ]
 "pyqt" = [
   "PyQt5",
