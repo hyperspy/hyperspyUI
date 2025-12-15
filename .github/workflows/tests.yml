@@ -7,6 +7,10 @@ on:
       - 'pre-commit-ci-update-config'
   pull_request:
 
+defaults:
+  run:
+    shell: bash -el {0}
+
 jobs:
   run_test_site:
     name: py${{ matrix.PYTHON_VERSION }}-hs_${{ matrix.HYPERSPY_VERSION }}
@@ -18,10 +22,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        PYTHON_VERSION: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        PYTHON_VERSION: ['3.10', '3.11', '3.12', '3.13']
         HYPERSPY_VERSION: ['release']
         include:
-          - PYTHON_VERSION: '3.8'
+          - PYTHON_VERSION: '3.14'
+            HYPERSPY_VERSION: 'release'
+          - PYTHON_VERSION: '3.13'
             HYPERSPY_VERSION: 'dev'
 
     steps:
@@ -30,7 +36,6 @@ jobs:
           fetch-depth: 0
 
       - name: get repository name
-        shell: bash
         run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
       - name: Fetch tags upstream
@@ -52,7 +57,6 @@ jobs:
           pip --version
 
       - name: Install Ubuntu packages for Qt
-        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install qtbase5-dev
@@ -64,14 +68,17 @@ jobs:
           sudo apt-get install libxcb-render-util0
           sudo apt-get install libxcb-xinerama0
 
+      - name: Install Scikit-image pre-release
+        if: ${{ contains(matrix.PYTHON_VERSION, '3.14') }}
+        run: |
+          pip install --pre scikit-image
+
       - name: Install HyperSpy (dev)
-        shell: bash
         if: ${{ contains(matrix.HYPERSPY_VERSION, 'dev') }}
         run: |
-          pip install git+https://github.com/hyperspy/hyperspy.git@RELEASE_next_major
+          pip install git+https://github.com/hyperspy/hyperspy.git@RELEASE_next_minor
 
       - name: Install
-        shell: bash
         run: |
           pip install -e .[all,tests]
 
